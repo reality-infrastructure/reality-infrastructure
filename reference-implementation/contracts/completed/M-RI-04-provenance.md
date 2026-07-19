@@ -88,3 +88,37 @@ STOP CONDITIONS
 Halt and report — do not proceed — if: PROV-DM edge semantics conflict with the node kinds in
 (a); the polynomial canonical form cannot round-trip serialization.py without floats; any
 frozen golden file would change; or push fails.
+
+---
+
+## DONE REPORT — M-RI-04
+
+### 1. PLANNED
+Provenance DAG with ℕ[X] how-provenance semiring annotations per approved plan + amendments
+A1 (atomicity: validate-then-commit for record_generation), A2 (attribution cardinality:
+evidence_leaf gets exactly one wasAttributedTo), A3 (orphan derived: how_provenance on derived
+with zero generating activities raises ProvenanceError).
+
+### 2. IMPLEMENTED
+- `ri_core/provenance.py` (290 lines): `HowProvenance` (ℕ[X] polynomial with add/multiply/
+  canonical serialization), `ProvenanceGraph` (append-only PROV-DM graph with Entity/Activity/
+  Agent nodes and used/wasGeneratedBy/wasDerivedFrom/wasAttributedTo edges), iterative DFS
+  cycle detection at insertion, validate-then-commit atomicity.
+- `tests/test_provenance.py` (67 tests): polynomial basics (14), canonical form + serialization
+  (5), golden files (3), graph nodes (12), edges (9), cycle rejection (4), atomicity (2),
+  attribution cardinality (3), orphan derived (1), how-provenance computation (8), cross-process
+  determinism (1), hypothesis algebra (5).
+- `tests/golden/provenance/` (3 files): `variable_s.bin`, `gkt_2s2_plus_rs.bin`,
+  `product_sum_ac_bc.bin`.
+
+### 3. TESTED
+```
+199 passed in 5.57s
+```
+(132 prior + 67 new, all green)
+
+### 4. COMMITTED
+`2f3c32a` — M-RI-04: provenance DAG with semiring annotations
+
+### 5. PUSHED
+`origin/main` at `2f3c32a`, working tree clean.
