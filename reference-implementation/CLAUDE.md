@@ -24,6 +24,8 @@ If the contract conflicts with SPEC.md: STOP and report. Research Claude revises
 - Every function in ri-core that computes belief MUST be a pure function of its inputs.
 - NEVER touch /research (immutable artifacts, lives outside this folder). NEVER edit SPEC.md.
 - Tests are the acceptance instrument: pytest, deterministic, no network, no sleep-based timing.
+- Push is part of DONE. If `git push` fails for any reason, the contract is NOT done:
+  report the exact error and STOP. Never report a contract complete with unpushed commits.
 
 ## COMPLETION
 A contract is complete ONLY when:

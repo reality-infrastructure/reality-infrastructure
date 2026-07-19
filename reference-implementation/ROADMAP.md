@@ -8,8 +8,8 @@ largest gap and the Merkle log cannot hash an entry without canonical bytes.
 | # | Contract | Milestone | Status |
 |---|----------|-----------|--------|
 | M-RI-00 | (done in chat) | Repository + structure + constitution docs | DONE 2026-07-19 |
-| M-RI-01 | contracts/CURRENT.md | Canonical deterministic serialization (serialization.py) | ACTIVE |
-| M-RI-02 | queue | Append-only Merkle evidence log; inclusion + consistency proofs (log.py) | — |
+| M-RI-01 | contracts/completed/M-RI-01-serialization.md | Canonical deterministic serialization (serialization.py) | DONE 2026-07-19 |
+| M-RI-02 | contracts/CURRENT.md | Append-only Merkle evidence log; inclusion + consistency proofs (log.py) | ACTIVE |
 | M-RI-03 | queue | Logical clock + identity anchor interface (clock.py, identity.py) | — |
 | M-RI-04 | queue | Provenance recorder, PROV-DM-compatible + semiring annotations (provenance.py) | — |
 | M-RI-05 | queue | Versioned rule store as logged evidence (rules.py) | — |

@@ -67,3 +67,56 @@ STOP CONDITIONS
 Halt and report — do not proceed — if: any supported input type cannot be encoded without
 floats; the encoding choice would require a runtime dependency; a golden file's bytes would
 change after being frozen; or any constraint conflicts with the objective.
+
+---
+
+DONE REPORT — M-RI-01
+
+1. PLAN GATE OUTPUT (as approved, with amendments A1–A3)
+
+Encoding: Canonical JSON with version-byte envelope (0x01 + canonical JSON UTF-8).
+json.dumps with sort_keys=True, separators=(',',':'), ensure_ascii=True, allow_nan=False.
+Type envelopes ({"__t":..., "__v":...}) for bytes, Decimal, tuple. NFC used for dict-key
+collision detection (A2) only — keys and values encoded in original form to preserve exact
+round-trip per contract MUST constraint.
+
+Amendments incorporated:
+- A1: Decimal canonicalization — reject NaN/sNaN/Inf, normalize -0→0, normalize() then
+  fixed-point string for adjusted exponent in [-6,20], otherwise reject with TypeError.
+- A2: NFC collision detection on dict keys — raises SerializationError if two distinct keys
+  NFC-normalize to the same string. Never silently merges.
+- A3: bool tested before int in type dispatch — encode(True) != encode(1), type preserved
+  on round-trip.
+
+Float hazard: none found. All Observation tuple fields map to non-float types. Floats
+rejected at encode time with TypeError.
+
+2. pytest -q FULL-SUITE OUTPUT
+
+........................................................................ [ 97%]
+..                                                                       [100%]
+74 passed in 3.05s
+
+3. git status CLEAN
+
+On branch main
+nothing to commit, working tree clean
+
+4. COMMIT HASH(ES) PUSHED TO origin/main
+
+ab587cf M-RI-01: canonical deterministic serialization
+Pushed to https://github.com/P9428/reality-infrastructure-.git (confirmed):
+  branch 'main' set up to track 'origin/main'.
+  To https://github.com/P9428/reality-infrastructure-.git
+   * [new branch]      main -> main
+
+5. ACCEPTANCE CHECKLIST
+
+- [x] pytest -q tests/test_serialization.py passes — 74 passed (output above)
+- [x] Round-trip property test (hypothesis) — TestHypothesisRoundTrip::test_roundtrip_observation
+      (200 examples) and test_roundtrip_leaf_values (200 examples) both pass
+- [x] Golden test — 6 fixture records byte-match tests/golden/serialization/*.bin
+      (TestGolden::test_encode_matches_golden x6, test_decode_golden_roundtrip x6)
+- [x] Cross-run determinism — TestCrossRunDeterminism::test_cross_process_determinism encodes
+      same input in 3 subprocesses (PYTHONHASHSEED=0, 12345, 99999), asserts identical bytes
+- [x] python -c "from ri_core.serialization import encode, decode" imports cleanly — confirmed
