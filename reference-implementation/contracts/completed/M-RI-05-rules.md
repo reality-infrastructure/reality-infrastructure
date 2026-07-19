@@ -79,3 +79,56 @@ Halt and report — do not proceed — if: the declarative AST cannot express a 
 without exec/eval; spec §4's "function" wording appears to conflict with a declarative
 fn_spec (surface it — the research record supports declarative: rules must be DATA to be
 logged as evidence); any frozen golden file would change; or push fails.
+
+---
+
+## DONE REPORT — M-RI-05
+
+### 1. PLANNED
+Versioned verification-rule store with declarative predicate AST (12-operator closed set),
+per approved plan + amendments A1 (strict type-category equality: {bool}, {int}, {Decimal},
+{str}, {bytes}, {None}, {list/tuple}, {dict}; bool excluded from ordering), A2 (const
+validation via encode() — single source of truth for encodability), A3 (observation_id in
+VerificationResult for I1 justification).
+
+### 2. IMPLEMENTED
+- `ri_core/rules.py` (283 lines): `RuleStore` (append-only, dense-version discipline),
+  `evaluate()` (pure predicate evaluator), `rule_entity_id()` helper, `RuleError`.
+  12-operator closed AST validated at registration time. Strict type categories for eq/ne/in;
+  bool excluded from ordering; int<->Decimal cross-comparison for ordering.
+- `tests/test_rules.py` (56 tests): validation (12), version discipline (11), semantics
+  matrix (8), strict equality A1 (10), observation_id A3 (3), rule-version substitution (1),
+  boolean connectives (5), result shape (2), golden files (2), entity id (1), cross-process
+  determinism (1).
+- `tests/golden/rules/` (2 files): `rule_v1.bin`, `rule_v2.bin`.
+
+### 3. TESTED
+```
+255 passed in 5.79s
+```
+(199 prior + 56 new, all green)
+
+### 4. COMMITTED
+`9a47175` — M-RI-05: versioned verification-rule store as first-class evidence
+
+### 5. PUSHED
+`origin/main` at `9a47175`, working tree clean.
+
+**Acceptance checklist (pasted proof):**
+
+- [x] `pytest -q tests/test_rules.py` passes: `56 passed in 0.63s`
+- [x] Closed-world operator test: `TestValidation::test_unknown_operator_raises PASSED` —
+  `["multiply", ...]` raises `RuleError("Unknown operator: 'multiply'")`
+- [x] Version discipline: `test_register_v2_before_v1_raises PASSED`,
+  `test_reregister_v1_raises PASSED`, `test_latest_version PASSED`,
+  `test_golden_rule_v1 PASSED`, `test_golden_rule_v2 PASSED`
+- [x] Semantics matrix (8 observations): `test_pass PASSED`,
+  `test_fail_wrong_source PASSED`, `test_fail_low_ltime PASSED`,
+  `test_missing_field_raises PASSED`, `test_type_mismatch_raises PASSED`,
+  `test_bool_ordering_raises PASSED`, `test_not_operator PASSED`,
+  `test_or_operator PASSED`
+- [x] Rule-version substitution: `test_v1_rejects_v2_accepts PASSED` — same observation,
+  v1 verdict=False, v2 verdict=True
+- [x] Cross-process determinism: `test_different_hashseed_same_bytes PASSED` — seeds
+  12345 vs 99999 produce identical bytes
+- [x] Full suite green: `255 passed in 5.79s`

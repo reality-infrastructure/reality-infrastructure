@@ -12,8 +12,8 @@ largest gap and the Merkle log cannot hash an entry without canonical bytes.
 | M-RI-02 | contracts/completed/M-RI-02-merkle-log.md | Append-only Merkle evidence log; inclusion + consistency proofs (log.py) | DONE 2026-07-19 |
 | M-RI-03 | contracts/completed/M-RI-03-clock-identity.md | Logical clock + identity anchor interface (clock.py, identity.py) | DONE 2026-07-19 |
 | M-RI-04 | contracts/completed/M-RI-04-provenance.md | Provenance recorder, PROV-DM-compatible + semiring annotations (provenance.py) | DONE 2026-07-19 |
-| M-RI-05 | queue | Versioned rule store as logged evidence (rules.py) | ACTIVE |
-| M-RI-06 | queue | Reconciliation ⊕: cautious rule, CAI laws, contradiction first-class (reconcile.py) | — |
+| M-RI-05 | contracts/completed/M-RI-05-rules.md | Versioned rule store as logged evidence (rules.py) | DONE 2026-07-19 |
+| M-RI-06 | queue | Reconciliation ⊕: cautious rule, CAI laws, contradiction first-class (reconcile.py) | ACTIVE |
 | M-RI-07 | queue | Projection engine: deterministic fold + justification terms (project.py) | — |
 | M-RI-08 | queue | Replay + counterfactual (= replay over modified log) (replay.py) | — |
 | M-RI-09 | queue | Conformance test suite incl. Sybil-calibration ablation + byte-identical replay | — |
