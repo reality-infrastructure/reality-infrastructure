@@ -79,3 +79,60 @@ full-suite pytest, git status, pushed hash with push confirmation, acceptance ch
 STOP CONDITIONS
 Halt and report — do not proceed — if: HMAC-vs-public-key cannot be resolved without violating
 SPEC §4; any MUST conflicts with an acceptance test; a frozen golden file would change; or push fails.
+
+---
+
+DONE REPORT — M-RI-03
+
+1. PLAN GATE OUTPUT (as approved, with amendments A1–A3)
+
+Signature scheme: HMAC-SHA256 via stdlib hmac + hashlib. Honest trust-implications table
+carried into identity.py module docstring. Acceptable for LocalAuthority (sole trust root /
+sole verifier). Interface designed for drop-in Ed25519 replacement.
+
+Clock: Lamport rules — tick() increments, observe(remote) = max(local, remote) + 1.
+Pure integer, no wall-clock, no floats.
+
+Identity model: LocalAuthority issues frozen Identity objects, signs via HMAC-SHA256,
+verifies with hmac.compare_digest (timing-safe, A1). sign() raises IdentityError on
+unissued identity; verify() returns False (A1). Duplicate issue_identity() raises
+IdentityError (A2). Key derivation: HMAC-SHA256(seed, anchor_id || 0x00 || identity_id)
+(A3). kappa parameter is the explicit A1 Sybil-cost knob.
+
+shared_provenance: Union-find with path compression and union-by-rank. Reflexive,
+symmetric, transitive (equivalence relation). Links are monotone (no unlink).
+Property-tested with hypothesis.
+
+2. pytest -q FULL-SUITE OUTPUT
+
+........................................................................ [ 54%]
+............................................................             [100%]
+132 passed in 2.93s
+
+3. git status CLEAN
+
+On branch main
+nothing to commit, working tree clean
+
+4. COMMIT HASH(ES) PUSHED TO origin/main
+
+[main a5f122d] M-RI-03: logical clock + identity anchor + shared-provenance predicate
+To https://github.com/P9428/reality-infrastructure-.git
+   37ab16c..a5f122d  main -> main
+
+5. ACCEPTANCE CHECKLIST
+
+- [x] pytest -q tests/test_clock.py tests/test_identity.py passes — 39 passed
+      (13 clock + 26 identity)
+- [x] Clock: 3-process message diagram — TestThreeProcessMessageDiagram::test_message_ordering:
+      processes A, B, C exchange messages; all happened-before orderings verified with exact
+      values (a1=1 < a2=2 < b_recv=3 < b2=4 < c_recv=5 < c3=6)
+- [x] Identity: sign/verify round-trip — test_roundtrip passes; tampered bytes —
+      test_tampered_bytes_fails; wrong identity — test_wrong_identity_fails; unissued —
+      test_verify_unissued_returns_false (returns False), test_sign_unissued_raises (raises)
+- [x] shared_provenance: hypothesis equivalence-relation — test_equivalence_relation
+      (200 examples, reflexivity + symmetry + transitivity); chain test —
+      test_transitive_chain: link(a,b), link(b,c) => shared_provenance(a,c) is True
+- [x] Sybil-cost knob — test_monotone_increase: costs = [0, 10, 20, 30, 40, 50] with
+      kappa=10, strictly monotone
+- [x] Full suite still green — 132 passed (93 prior + 39 new)
