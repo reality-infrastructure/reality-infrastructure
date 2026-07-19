@@ -73,3 +73,59 @@ STOP CONDITIONS
 Halt and report — do not proceed — if: the RFC 6962 split rule conflicts with any SPEC.md
 statement; an acceptance test can't pass without violating a MUST; any frozen golden file's
 bytes would change; or push fails.
+
+---
+
+DONE REPORT — M-RI-02
+
+1. PLAN GATE OUTPUT (as approved, with amendments A1–A2)
+
+Hash construction: RFC 6962 §2.1 — leaf_hash = SHA-256(0x00 || entry_bytes),
+node_hash = SHA-256(0x01 || left || right), empty_root = SHA-256(""). entry_bytes
+includes the M-RI-01 serialization version byte.
+
+Split rule: k = 1 << ((n - 1).bit_length() - 1) — largest power of 2 strictly less than n.
+
+Verification algorithms (A1): verify_inclusion per RFC 9162 §2.1.3.2 and
+verify_consistency per RFC 9162 §2.1.4.2 — fn/sn index-walking form, not from-scratch
+reconstruction.
+
+Index-confusion test (A2): A valid proof for index i FAILS verification when presented
+with index j != i (exhaustive over all i,j pairs in an 8-leaf tree).
+
+No spec ambiguities found.
+
+2. pytest -q FULL-SUITE OUTPUT
+
+........................................................................ [ 77%]
+.....................                                                    [100%]
+93 passed in 4.53s
+
+3. git status CLEAN
+
+On branch main
+nothing to commit, working tree clean
+
+4. COMMIT HASH(ES) PUSHED TO origin/main
+
+[main f45585d] M-RI-02: Merkle evidence log with inclusion + consistency proofs
+To https://github.com/P9428/reality-infrastructure-.git
+   d3ca9e3..f45585d  main -> main
+
+5. ACCEPTANCE CHECKLIST
+
+- [x] pytest -q tests/test_log.py passes — 19 passed
+- [x] Inclusion proofs verify for EVERY index at every tree size 1..17 —
+      TestInclusionExhaustive::test_all_inclusion_proofs (153 index/size combinations)
+- [x] Consistency proofs verify for EVERY (old, new) pair with old <= new <= 17 —
+      TestConsistencyExhaustive::test_all_consistency_proofs (171 pairs)
+- [x] Tamper test — TestTamper::test_bit_flip_breaks_inclusion: flips high bit of every
+      byte of every leaf in an 8-leaf tree, confirms inclusion proof fails each time
+- [x] Golden test — 3 fixture logs (1, 4, 7 entries) byte-match tests/golden/log/*.bin
+      (TestGolden::test_root_matches_golden)
+- [x] Cross-process determinism — TestCrossProcessDeterminism::test_same_root_different_hashseed:
+      3 subprocesses (PYTHONHASHSEED=0, 42, 99999), identical root
+- [x] Property test (hypothesis) — TestHypothesis::test_inclusion_holds_for_all (100 examples)
+      and test_consistency_holds_for_random_prefix (100 examples) pass
+- [x] A2 index-confusion — TestIndexConfusion::test_wrong_index_fails: valid proof for each
+      index i fails for all j != i in 8-leaf tree (56 negative assertions)
