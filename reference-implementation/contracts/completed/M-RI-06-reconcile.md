@@ -109,3 +109,66 @@ Halt and report — do not proceed — if: any transform cannot be made determin
 pinned context; weights for valid non-dogmatic inputs can exceed 1 in a way that breaks the
 Prop.-7 witness test as written (surface, don't improvise); the tolerance rule cannot make
 contradiction verdicts stable; any frozen golden file would change; or push fails.
+
+---
+
+## DONE REPORT
+
+### 1. PLANNED
+Plan Gate delivered and approved with three amendments (A1 negative-mass guard, A2 strict
+input validation, A3 contradiction noise test). Critical finding surfaced: weights can
+exceed 1 for non-separable belief functions (including contradictions). Prop.-7 test split
+approved.
+
+### 2. IMPLEMENTED
+- `ri_core/reconcile.py`: 412 lines — `BeliefWeights` (frozen), `from_mass`, `from_weights`,
+  `vacuous`, `cautious_fuse` (pointwise Decimal min), mass/weight transforms under pinned
+  `decimal.Context(prec=50, ROUND_HALF_EVEN)`, quantization to 30 places, non-dogmatic
+  enforcement, negative-mass guard.
+- `tests/test_reconcile.py`: 59 tests covering all acceptance criteria.
+- `tests/golden/reconcile/`: 3 frozen fused-belief encodings.
+
+### 3. TESTED
+```
+pytest -q tests/test_reconcile.py
+59 passed in 4.47s
+```
+
+### 4. COMMITTED
+```
+e5f90ee M-RI-06: cautious-rule reconciliation over conjunctive weights
+```
+
+### 5. PUSHED
+```
+7caaa2d..e5f90ee  main -> main
+```
+
+### Acceptance criteria checklist:
+
+- [x] `pytest -q tests/test_reconcile.py` passes — 59 passed in 4.47s
+- [x] Round-trip: from_mass → weights → to_mass_dict recovers input masses within quantum —
+      7 fixtures tested (simple_support, two_focal, contradiction, vacuous, three_frame,
+      conflict_a, multi_focal)
+- [x] CAI property tests (hypothesis, ≥200 examples each) — commutativity, associativity,
+      idempotence on 2-frame; commutativity + idempotence on 3-frame, exact
+      canonical-encoding equality
+- [x] Sybil unit test: fuse(b×k) == b for k in 2..10, exact — 3 fixtures, all k
+- [x] Contradiction test: conflicting beliefs yield m(∅) > 0, is_contradictory() == True,
+      survives further fusion with third belief
+- [x] Non-dogmatic rejection: m(Ω)=0 raises at from_mass; weight ≤ 0 raises at from_weights
+- [x] Negative-mass guard (A1): positive weights producing negative derived mass rejected by
+      from_weights
+- [x] Fused masses non-negative (A1): hypothesis property test on both 2-frame and 3-frame
+- [x] Prop.-7 witness: separable fixtures — fuse(vacuous, b) == b; non-separable fixture —
+      fuse(vacuous, b) != b
+- [x] Contradiction noise (A3): non-separable non-contradictory belief round-trips with
+      is_contradictory() == False
+- [x] Golden: 3 fused-belief canonical encodings byte-match frozen files
+- [x] Cross-process determinism: same fusion in 2 subprocesses with different PYTHONHASHSEED →
+      identical bytes
+- [x] Full suite green: 314 passed in 15.90s (255 prior + 59 new)
+
+### KNOWN COVERAGE NOTE
+Associativity property-tested on 2-frame only (hypothesis perf); algebraically
+frame-size-independent for pointwise min.
