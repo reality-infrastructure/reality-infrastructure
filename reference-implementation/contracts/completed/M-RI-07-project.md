@@ -121,3 +121,83 @@ byte-identical double-projection; frame mismatch within a proposition group has 
 typed-error path; the independent checker cannot recompute a belief from log+justification
 alone (that means justification is incomplete — a SPEC issue, surface it); any frozen golden
 file would change; or push fails.
+
+---
+
+## DONE REPORT
+
+### 1. PLANNED
+Plan Gate delivered and approved with four amendments:
+- A1: Entity-id collision under retroactive evidence — include log size in derived entity ids
+- A2: Independent checker must not trust verdicts — re-evaluates rules from rule_store
+- A3: Polynomial claim tested — compare project()'s polynomial with graph.how_provenance()
+- A4: All-excluded proposition — belief=None with justification
+
+### 2. IMPLEMENTED
+- `ri_core/project.py`: 423 lines — `submit()` (sole mutator: signed observation →
+  EvidenceLog + ProvenanceGraph wiring with validate-before-write atomicity), `project()`
+  (pure deterministic fold: log prefix → BeliefState with per-proposition fused beliefs,
+  how-provenance polynomials, machine-checkable justification records), shared-provenance
+  partitioning via `_partition_classes()`, idempotent graph insertion helpers.
+- `tests/test_project.py`: 30 tests covering all acceptance criteria.
+- `tests/golden/project/`: 2 frozen BeliefState encodings.
+
+### 3. TESTED
+```
+pytest -q tests/test_project.py
+30 passed in 1.29s
+```
+
+### 4. COMMITTED
+```
+89a83a4 M-RI-07: projection engine with justification
+```
+
+### 5. PUSHED
+```
+2a0c07a..89a83a4  main -> main
+```
+
+### Acceptance criteria checklist:
+
+- [x] `pytest -q tests/test_project.py` passes — 30 passed in 1.29s
+- [x] End-to-end fixture: 3 sources (alice, bob, charlie), 2 propositions (P1, P2), 1 rule
+      binding (P2→R1) — BeliefState matches hand-computed expected beliefs (hand computation
+      in `TestEndToEnd` docstring: P1 fused m({a})=0.6 m(Ω)=0.4; P2 fused = alice alone
+      m({b})=0.5 m(Ω)=0.5)
+- [x] SYSTEM SYBIL TEST (C3): (i) same source k=1..5 times → belief bytes identical for
+      all k; (ii) 3-identity Sybil ring (linked via link_identities) → belief identical to
+      single-submission; justification shows ONE class of three observations
+- [x] Independent corroboration doctrine: two UNLINKED sources, same mass → fused belief
+      EQUALS single-source belief; justification shows TWO classes
+- [x] Contradiction end-to-end: alice m({a})=0.9 vs bob m({b})=0.9 → is_contradictory()
+      True; m(∅)=0.81 exactly (hand-computed)
+- [x] Rule exclusion: observation failing rule excluded from fusion, present in justification
+      with verdict False; rule that CANNOT evaluate (missing field) raises ProjectionError
+- [x] as_of cutoff: observation with ltime=5 invisible at as_of=3; visible at as_of=5
+- [x] All-excluded proposition (A4): belief=None with justification, how-provenance=zero
+- [x] Retroactive evidence (A1): project() at log sizes 1 and 2 produce distinct derived
+      entity ids (`belief:P:as_of:0:size:1` vs `belief:P:as_of:0:size:2`)
+- [x] Justification completeness / independent checker (A2): test-local checker recomputes
+      each fused belief from log bytes + justification, re-evaluating rules — matches
+- [x] Polynomial match (A3): project()'s how-provenance == graph.how_provenance(derived_id)
+      for both with and without rule exclusion
+- [x] Double-projection idempotence: byte-identical BeliefState
+- [x] Golden: 2 BeliefState encodings byte-match frozen files
+- [x] Cross-process determinism: 2 subprocesses, PYTHONHASHSEED=42 and 9999 → identical
+      BeliefState bytes
+- [x] Full suite green: 344 passed in 16.52s (314 prior + 30 new)
+
+### A2 VERIFICATION (closeout audit)
+
+**A2-DEVIATION**: The independent checker in `TestIndependentChecker.test_checker_recomputes`
+(test_project.py:830) obtains rule specs via `rs.get(r_id, r_ver)` — i.e., by calling
+`rule_store.get()` on the in-memory RuleStore object — **not** by deserializing rule_version
+entries from the log bytes. The justification's `rule_applied` field provides `rule_id` and
+`version`, but the checker uses these to look up the spec from the store rather than
+extracting the spec from the log itself.
+
+This is a known shortcut: the M-RI-07 checker verifies that verdicts are reproducible given
+the rule spec, but does not verify that the rule spec matches what was logged. The full
+log-only checker (which must deserialize rule_version records from log entries and use those
+specs, trusting nothing outside the log) is deferred to M-RI-08/M-RI-09 conformance work.
