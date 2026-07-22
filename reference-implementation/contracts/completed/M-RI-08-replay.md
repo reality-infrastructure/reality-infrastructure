@@ -104,3 +104,69 @@ byte-identity in the T1 test fails for any reason (that is a determinism bug som
 below — surface, do not patch around); rule_version entries in the log are insufficient to
 reconstruct the RuleStore (spec gap — surface); any frozen golden file would change; or
 push fails.
+
+---
+
+## DONE REPORT — M-RI-08
+
+### 1. PLANNED
+Plan Gate approved with three amendments:
+- A1: replay log preserves ALL entries in original order (observations via submit(),
+  rule_version via register() + log.append()); postcondition tested entry-for-entry.
+- A2: malformed entries (decode failure) → ReplayError("malformed_entry") with index,
+  before any replay state exists; tested with truncated bytes.
+- A3: delta add_entries containing rule_version that violates version discipline →
+  ReplayError wrapping RuleError, identifying the offending entry; tested with duplicate
+  (rule_id, version).
+
+### 2. IMPLEMENTED
+- `ri_core/replay.py` — `ReplayError`, `export_log()`, `replay()`, `counterfactual()`;
+  internal helpers `_decode_entry()`, `_verify_root()`, `_validate_export()`,
+  `_replay_entries()`.
+- `tests/test_replay.py` — 16 tests across 8 test classes.
+- `tests/golden/replay/counterfactual_belief_state.bin` — 1 frozen golden file.
+- `tests/test_project.py` — A2-DEVIATION fix: 13 lines added, 4 removed in
+  `TestIndependentChecker::test_checker_recomputes`.
+
+### 3. TESTED
+```
+tests/test_replay.py — 16 passed in 0.90s
+Full suite — 360 passed in 16.82s (344 prior + 16 new)
+```
+
+### 4. COMMITTED
+Commit `c9d9387` — "M-RI-08: replay + counterfactual over serialized logs"
+
+### 5. PUSHED
+`d6c3d8d..c9d9387  main -> main` — pushed to origin/main, working tree clean.
+
+### Acceptance Criteria
+
+- [x] `pytest -q tests/test_replay.py` passes: 16 passed in 0.90s
+- [x] T1 test: `test_replay_byte_identical` — byte-identical BeliefState;
+  `test_replay_root_identical` — identical Merkle root;
+  `test_replay_entry_for_entry` — element-for-element bytes match (A1 postcondition)
+- [x] Tamper test: `test_flipped_byte` — flipped byte ⇒ ReplayError;
+  `test_truncated_entry` — truncated bytes ⇒ ReplayError("malformed_entry") (A2);
+  `test_empty_bytes_entry` — empty bytes ⇒ malformed_entry
+- [x] Counterfactual REMOVE: `test_remove_contradicting` — removing bob's observation ⇒
+  is_contradictory() flips True→False; belief matches alice-only hand computation
+- [x] Counterfactual ADD: `test_add_retroactive` — retroactive observation (ltime=1 ≤
+  as_of=10) ⇒ belief reflects fused result; 2 provenance classes
+- [x] Counterfactual RULE SUBSTITUTION: `test_rule_substitution` — v1 excludes charlie,
+  v2 excludes bob; different beliefs; independent checker reads rule specs FROM LOG BYTES
+- [x] Empty delta ≡ replay: `test_empty_delta_byte_identical` — byte-identical
+- [x] S6 determinism: `test_cross_process_determinism` — PYTHONHASHSEED 42 vs 9999 ⇒
+  identical bytes; golden file `counterfactual_belief_state.bin` byte-match
+- [x] Full suite green: 360 passed (344 prior + 16 new); all 30 M-RI-07 tests pass
+
+### A2-DEVIATION
+
+**A2-DEVIATION existed.** Fix in `tests/test_project.py::TestIndependentChecker::test_checker_recomputes`:
+1. Added `log.append(record)` after `rs.register()` (SPEC §11: rules as first-class evidence).
+2. Added log-scanning block: extracts rule_version entries from log bytes into
+   `rule_specs: dict[(rule_id, version), dict]`.
+3. Changed line 830 from `r_spec = rs.get(r_id, r_ver)` to
+   `r_spec = rule_specs[(r_id, r_ver)]`.
+
+Diff: 13 lines added, 4 removed. All 30 M-RI-07 tests still pass.
