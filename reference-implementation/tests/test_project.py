@@ -782,10 +782,11 @@ class TestIndependentChecker:
         auth = _make_authority("alice", "bob", "charlie")
         log, graph = _fresh_state()
         rs = RuleStore()
-        rs.register(
+        record = rs.register(
             "R1", 1,
             ["in", ["field", "source_id"], ["const", ["alice", "bob"]]],
             ltime=0)
+        log.append(record)  # SPEC §11: rules logged as first-class evidence
 
         obs_a1 = _make_obs(
             "a1", "alice", "P1", ["a", "b"],
@@ -806,7 +807,15 @@ class TestIndependentChecker:
         rule_bindings = {"P2": ("R1", 1)}
         bs = project(log, graph, auth, rs, rule_bindings, as_of=10)
 
-        # --- Independent checker ---
+        # --- Independent checker (A2: rule specs from log bytes) ---
+
+        # Extract rule specs from log entries (not from RuleStore).
+        rule_specs: dict[tuple[str, int], dict] = {}
+        for idx in range(len(log)):
+            entry = _ser_decode(log.entry(idx))
+            if isinstance(entry, dict) and entry.get("kind") == "rule_version":
+                rule_specs[(entry["rule_id"], entry["version"])] = entry
+
         for prop_name, prop_data in bs["propositions"].items():
             just = prop_data["justification"]
             belief = prop_data["belief"]
@@ -823,11 +832,11 @@ class TestIndependentChecker:
                     entry = _ser_decode(log.entry(log_idx))
                     obs_entries.append(entry)
 
-            # Re-evaluate rules (A2: don't trust verdicts)
+            # Re-evaluate rules (A2: spec from log bytes, not store)
             if "rule_applied" in just:
                 r_id = just["rule_applied"]["rule_id"]
                 r_ver = just["rule_applied"]["version"]
-                r_spec = rs.get(r_id, r_ver)
+                r_spec = rule_specs[(r_id, r_ver)]
                 passing = []
                 for entry in obs_entries:
                     eval_obs = {

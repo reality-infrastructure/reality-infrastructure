@@ -1,0 +1,106 @@
+TASK — Replay + counterfactual over serialized logs (M-RI-08)
+
+OBJECTIVE
+Ship ri_core/replay.py: replay(log_bytes, ...) reconstructing a byte-identical BeliefState
+from serialized evidence alone, and counterfactual(log_bytes, delta) = replay over a
+modified log (evidence removal/addition, rule-binding substitution) — making T1/T6 executable
+and S4/S6 testable, and closing the A2 deviation if one was found.
+
+CONTEXT
+- SPEC.md §6 (replay MUST equal project byte-for-byte; counterfactual(Log, Δ) ≡
+  replay(Log ⊕ Δ)), §14 (retroactive/as-of semantics), §8 I7
+- ARCHITECTURE.md: replay.py may import everything; it is the top layer
+- M-RI-07 shipped: project(log, graph, authority, rule_store, rule_bindings, as_of);
+  submit() wiring; justification checker in tests
+- HMAC trust model (M-RI-03): verification requires the anchor's key store — this constrains
+  what replay can verify without the original authority; address honestly in Plan Gate
+
+SCOPE
+IN:
+- ri_core/replay.py
+- tests/test_replay.py
+- tests/golden/replay/ with 1 frozen counterfactual BeliefState encoding
+OUT (explicitly forbidden this contract):
+- No new fusion semantics, no persistence, no CLI, no new dependencies
+- Do not touch SPEC.md, /research, existing modules (EXCEPTION: if A2-DEVIATION was flagged,
+  amend the M-RI-07 test checker to read rule specs from log bytes — smallest possible diff,
+  reported separately in DONE), or frozen golden files
+
+PLAN GATE
+Before writing any code, state:
+(a) LOG TRANSPORT FORM: the serialized form replay consumes. Recommend: encodable dict
+    {kind: 'log_export', entries: [entry_bytes as bytes, ...]} produced by a new
+    export_log(log) helper — entries are the EXACT canonical bytes appended in M-RI-02, so
+    the Merkle root recomputed from imported entries MUST equal the original root (state
+    this as replay's integrity gate: import → rebuild EvidenceLog → assert root equality
+    against a caller-supplied expected_root; mismatch = typed ReplayError).
+(b) TRUST MODEL ON REPLAY — the honest answer: with HMAC, a replayer WITHOUT the original
+    authority cannot re-verify sigs. State the resolution: replay takes the authority as an
+    input (same trust root as projection — the LocalAuthority model's documented limit), and
+    the Merkle root check covers log integrity independent of sigs. Do NOT silently skip sig
+    verification; state exactly what replay re-verifies (recommend: re-verify every
+    observation sig via the provided authority, since replay re-submits through submit()).
+    Also state what identity LINKS mean here: shared_provenance lives in the authority, not
+    the log — replay with a different link-state yields a different justification structure
+    (same belief, per idempotence). Name this as a documented v0.1 limitation: link state is
+    an authority-side input to replay, not yet logged evidence — flag for SPEC v0.2.
+(c) REPLAY ALGORITHM: import entries → verify root → fresh EvidenceLog + fresh
+    ProvenanceGraph → for each entry in order: observations re-enter via submit()
+    (re-verifying sigs), rule_version entries re-register into a fresh RuleStore (state how
+    they're recognized: kind == 'rule_version') → project(as_of) → return BeliefState.
+    Assert byte-identity against original in tests.
+(d) COUNTERFACTUAL DELTA SHAPE: an encodable dict with exactly three optional keys:
+    remove_entry_indices (list[int] — indices into the ORIGINAL export),
+    add_entries (list[bytes] — canonical entry bytes to append),
+    rule_bindings_override (proposition → [rule_id, version]).
+    Semantics: removal happens before addition; the counterfactual log is a NEW log (its own
+    Merkle root — no consistency relation to the original claimed); rule overrides replace
+    bindings for named propositions only. State validation (out-of-range index, malformed
+    added entry → typed error before any construction).
+(e) API: export_log(log) -> dict; replay(export, authority, rule_bindings, as_of,
+    expected_root) -> BeliefState; counterfactual(export, delta, authority, rule_bindings,
+    as_of) -> BeliefState (no expected_root — the modified log is new by construction; state
+    what integrity IS claimed for it).
+
+CONSTRAINTS (MUST / NEVER)
+- MUST: replay of an unmodified export is byte-identical to the original projection's
+  BeliefState (the T1 test)
+- MUST: root mismatch, bad index, malformed entry → typed ReplayError before any state built
+- MUST: counterfactual with empty delta ≡ replay (tested byte-identical)
+- MUST: full suite stays green (344 prior)
+- NEVER: skip sig re-verification silently; never mutate the input export or the original
+  log/graph/store objects
+- NEVER: floats, wall-clock, unsorted iteration
+
+ACCEPTANCE CRITERIA (deterministic)
+- [ ] `pytest -q tests/test_replay.py` passes; paste output
+- [ ] T1 test: full M-RI-07 end-to-end fixture → export → replay ⇒ byte-identical
+      BeliefState AND identical Merkle root
+- [ ] Tamper test: flip one byte in one exported entry ⇒ ReplayError at root check
+- [ ] Counterfactual REMOVE: removing the sole contradicting observation ⇒
+      is_contradictory() flips True→False; belief matches hand-computed remainder
+- [ ] Counterfactual ADD: adding a retroactive observation (ltime ≤ as_of) ⇒ belief
+      reflects it; derived entity id shows the new size (M-RI-07 A1 behavior)
+- [ ] Counterfactual RULE SUBSTITUTION: same log, rule v1 vs v2 binding ⇒ different
+      exclusion sets, different beliefs; both justifications complete per the independent
+      checker (reading rule specs FROM LOG BYTES — this criterion enforces A2 correctness)
+- [ ] Empty delta ≡ replay: byte-identical
+- [ ] S6 determinism: same counterfactual in 2 subprocesses, different PYTHONHASHSEED ⇒
+      identical bytes; golden file byte-match
+- [ ] Full suite green (344 prior + new; if A2-DEVIATION fix touched the M-RI-07 checker,
+      all M-RI-07 tests still pass)
+
+VERIFY (fixed runbook — do not improvise)
+pytest -q (full suite) → git status clean → commit "M-RI-08: replay + counterfactual" →
+push origin/main. Push is part of DONE.
+
+DONE = planned-implemented-tested-committed-pushed. REPORT BACK ALL FIVE — item 5 as the
+checklist with per-box pasted proofs, PLUS a separate line stating whether A2-DEVIATION
+existed and what the fix diff touched.
+
+STOP CONDITIONS
+Halt and report — do not proceed — if: root-check-first ordering cannot be maintained;
+byte-identity in the T1 test fails for any reason (that is a determinism bug somewhere
+below — surface, do not patch around); rule_version entries in the log are insufficient to
+reconstruct the RuleStore (spec gap — surface); any frozen golden file would change; or
+push fails.
