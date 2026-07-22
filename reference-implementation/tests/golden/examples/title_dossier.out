@@ -1,0 +1,157 @@
+======================================================================
+TITLE-BELIEF DOSSIER
+Parcel: 99-00-000-000-0000 (Example County)
+======================================================================
+
+DISCLAIMER: All names, PINs, and records in this dossier are
+fictional. This is a demonstration of the Reality Infrastructure
+system. No real property, person, or transaction is depicted.
+
+----------------------------------------------------------------------
+SECTION 1: EVIDENCE INTAKE
+----------------------------------------------------------------------
+
+Source                    LTime  Proposition     Claim
+------------------------- -----  --------------- ------------------------------
+county_assessor               1  owner           owner_A (m=0.7)
+recorder_of_deeds             2  owner           owner_B (m=0.8)
+tax_sale_authority            3  owner           owner_B (m=0.6)
+data_broker_alpha             4  owner           owner_A (m=0.5)
+data_broker_beta              5  owner           owner_A (m=0.5)
+county_assessor               6  lien_status     lien_encumbered (m=0.6)
+data_broker_beta              0  lien_status     lien_clear (m=0.5)
+
+Total observations: 7
+
+----------------------------------------------------------------------
+SECTION 2: VERIFICATION RESULTS
+----------------------------------------------------------------------
+
+Rule applied: freshness_check v1
+Predicate: ltime >= 1
+
+  Proposition: lien_status
+    obs_ca_lien               PASS
+    obs_dbb_lien              EXCLUDED
+    >> obs:obs_dbb_lien excluded by freshness_check v1 (reason: rule_verdict_false)
+
+  Proposition: owner
+    obs_ca_owner              PASS
+    obs_dba_owner             PASS
+    obs_dbb_owner             PASS
+    obs_rod_owner             PASS
+    obs_ts_owner              PASS
+
+----------------------------------------------------------------------
+SECTION 3: PROVENANCE CLASSES
+----------------------------------------------------------------------
+
+  Proposition: lien_status
+  Number of independent evidence classes: 1
+
+    Class [county_assessor]:
+      Members: county_assessor
+
+  How-provenance polynomial: HowProvenance(county_assessor)
+
+  Reading: This belief was derived from 1 evidence
+  path(s). One source (data_broker_beta) was excluded by the
+  freshness rule, leaving only the county assessor's record.
+
+  Proposition: owner
+  Number of independent evidence classes: 4
+
+    Class [county_assessor]:
+      Members: county_assessor
+
+    Class [data_broker_alpha]:
+      Members: data_broker_alpha, data_broker_beta
+      NOTE: These sources share provenance (same upstream
+      data aggregator). The system treats them as a single
+      evidence class -- repetition does not increase
+      confidence.
+
+    Class [recorder_of_deeds]:
+      Members: recorder_of_deeds
+
+    Class [tax_sale_authority]:
+      Members: tax_sale_authority
+
+  How-provenance polynomial: HowProvenance(county_assessor + data_broker_alpha*data_broker_beta + recorder_of_deeds + tax_sale_authority)
+
+  Reading: This belief was derived from 4 independent
+  evidence paths. The two data brokers are jointly represented
+  as a single monomial (their product in the polynomial) because
+  they share a common upstream data source.
+
+----------------------------------------------------------------------
+SECTION 4: FUSED BELIEF
+----------------------------------------------------------------------
+
+  Proposition: lien_status
+    m(emptyset)                    = 0.0000
+    m({lien_clear})                = 0.0000
+    m({lien_encumbered})           = 0.6000
+    m({lien_clear,lien_encumbered}) = 0.4000
+
+  Proposition: owner
+    m(emptyset)                    = 0.5600 [CONFLICT]
+    m({owner_A})                   = 0.1400
+    m({owner_B})                   = 0.2400
+    m({owner_A,owner_B})           = 0.0600
+
+    Unresolved conflict: 56.00% of belief mass
+    represents contradictory evidence requiring curative
+    legal work (e.g., quiet title action) before the
+    parcel can be considered clear.
+
+----------------------------------------------------------------------
+SECTION 5: SYBIL DEMONSTRATION
+[ILLUSTRATION -- not a system capability]
+----------------------------------------------------------------------
+
+  Linked brokers (provenance-aware):   4 evidence classes
+  Unlinked brokers (no provenance):    5 evidence classes
+  Belief byte-identical:               YES
+
+  FOIL (count-based confidence in owner_A):
+    Treating brokers as independent:    60.00%
+    After deduplication:                50.00%
+    Inflation from double-counting:     10.00%
+
+  This system's belief in owner_A is 0.1400 regardless
+  of how sources are grouped -- provenance-class partitioning
+  ensures repetition does not increase confidence.
+
+----------------------------------------------------------------------
+SECTION 6: COUNTERFACTUAL
+----------------------------------------------------------------------
+
+  Scenario: Remove the 2019 quitclaim deed (recorder of deeds, ltime=2)
+
+  Before (all evidence):
+    m(emptyset)                    = 0.5600 [CONFLICT]
+    m({owner_A})                   = 0.1400
+    m({owner_B})                   = 0.2400
+    m({owner_A,owner_B})           = 0.0600
+
+  After (deed removed):
+    m(emptyset)                    = 0.4200 [CONFLICT]
+    m({owner_A})                   = 0.2800
+    m({owner_B})                   = 0.1800
+    m({owner_A,owner_B})           = 0.1200
+
+  The belief shifts: without the quitclaim deed, owner_A gains
+  relative support. Conflict decreases from 56.00% to
+  42.00%. This is what the dossier would say if the
+  deed were successfully challenged.
+
+----------------------------------------------------------------------
+SECTION 7: REPLAY ATTESTATION
+----------------------------------------------------------------------
+
+  Merkle root: 29a044652c0da9946cd20a95e8f65251b0fa6b10087c8b570703b8aba5fe412a
+  byte-identical replay: OK
+  This dossier is reproducible from the evidence log alone.
+
+======================================================================
