@@ -1,8 +1,9 @@
-# SPEC v0.2 Findings — Deferred from M-RI-08
+# SPEC v0.2 Findings
 
-Two limitations identified during M-RI-08 (replay + counterfactual) that
-require SPEC-level changes to resolve.  Neither blocks v0.1 conformance;
-both are documented in ri_core/replay.py's module docstring.
+Three limitations identified during M-RI-08 and M-RI-10 that require
+SPEC-level changes to resolve.  None blocks v0.1 conformance; findings
+1–2 are documented in ri_core/replay.py's module docstring, finding 3 in
+the M-RI-10 contract closeout.
 
 ---
 
@@ -66,3 +67,46 @@ party with the log to re-verify every observation without secret material.
 The `LocalAuthority` HMAC profile would remain valid for single-trust-root
 deployments; the spec would require that the signature scheme is declared
 in a log preamble entry so replayers know which verification path to use.
+
+---
+
+## 3. Open observation schema: signed bytes include unknown fields
+
+**Limitation.**  `_unsigned_bytes()` (`project.py:62-65`) constructs the
+signing input as `{k: v for k, v in obs.items() if k != "sig"}` — every
+top-level key except `sig` is included in the HMAC input.  `submit()`
+(`project.py:87-88`) checks only that the required fields are present
+(`_REQUIRED_OBS_FIELDS`); it does not reject unknown extra fields.
+Consequently, any caller-supplied extra top-level fields are silently
+signed, logged, and accessible to verification rules via
+`["field", "extra_key"]`.
+
+**Discovery.**  During M-RI-10 Plan Gate, a reviewer flagged the opposite
+assumption — that extra metadata fields would be *outside* the signed
+bytes (based on the M-RI-07 Plan Gate description, which implied a
+fixed-key schema).  Reading the implementation revealed the schema is
+open: extra fields are signed.  The Plan-Gate description and the
+implementation disagree on signing scope.
+
+**Consequence.**  The open schema is not inherently wrong — it provides
+extensibility (e.g., domain-specific metadata that rules can gate on).
+However, (a) the SPEC does not declare whether the observation schema is
+open or closed, so the signing scope is an implementation detail rather
+than spec text; (b) the M-RI-07 Plan Gate description created a false
+assumption that was only caught by reading the code; (c) a closed-schema
+implementation would silently produce different HMAC values for the same
+logical observation, breaking interoperability.
+
+**Proposed spec change.**  Explicitly specify the observation schema
+policy in SPEC §4.  Two options:
+
+- **Open schema (recommended):** Document that the signing input is all
+  non-sig fields, sorted canonically.  Extra fields are signed, logged,
+  and rule-accessible.  This preserves v0.1 behavior and enables
+  domain-specific metadata.
+- **Closed schema:** Enumerate the allowed top-level keys.  `submit()`
+  rejects observations with extra fields.  Simpler interoperability
+  guarantees but less extensible.
+
+Either way, the signing scope must be spec text, not implementation
+detail — this is a load-bearing interoperability property.

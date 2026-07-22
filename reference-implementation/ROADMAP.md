@@ -16,8 +16,10 @@ largest gap and the Merkle log cannot hash an entry without canonical bytes.
 | M-RI-06 | contracts/completed/M-RI-06-reconcile.md | Reconciliation ⊕: cautious rule, CAI laws, contradiction first-class (reconcile.py) | DONE 2026-07-19 |
 | M-RI-07 | contracts/completed/M-RI-07-project.md | Projection engine: deterministic fold + justification terms (project.py) | DONE 2026-07-21 |
 | M-RI-08 | contracts/completed/M-RI-08-replay.md | Replay + counterfactual (= replay over modified log) (replay.py) | DONE 2026-07-21 |
-| M-RI-09 | queue | Conformance test suite incl. Sybil-calibration ablation + byte-identical replay | ACTIVE |
-| M-RI-10 | queue | Examples: single-parcel title-belief dossier walk-through | — |
+| M-RI-09 | (005d365; contract not archived) | Conformance test suite incl. Sybil-calibration ablation + byte-identical replay | DONE 2026-07-19 |
+| M-RI-10 | contracts/completed/M-RI-10-title-dossier.md | Examples: single-parcel title-belief dossier walk-through | DONE 2026-07-19 |
+
+ROADMAP v0.1 COMPLETE — 401 tests, C1–C9 mapped, Stage-2 falsification NEGATIVE. Next contracts require an explicit post-v1.0 decision; none is ACTIVE.
 
 Post-v1.0 (not scheduled): credal-set representation profile; HLC; safe-query classifier;
 benchmark corpus (moves to /benchmarks); second clean-room implementation for the
