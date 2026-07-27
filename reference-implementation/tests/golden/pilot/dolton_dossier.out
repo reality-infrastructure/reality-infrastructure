@@ -1,0 +1,298 @@
+======================================================================
+TITLE-BELIEF DOSSIER -- REAL PUBLIC RECORDS
+Parcel: PIN 29-02-408-053-0000
+14347 Woodlawn Ave, Dolton, IL 60419 (Cook County)
+======================================================================
+
+Informational analysis of public records for demonstration
+purposes. NOT a title opinion, title insurance commitment, or
+legal advice. Records as retrieved on dates listed in MANIFEST.
+
+----------------------------------------------------------------------
+SECTION 1: EVIDENCE INTAKE
+----------------------------------------------------------------------
+
+Sources (one identity per source; operator-attested extracts):
+  ccao_parcel_sales   Assessor - Parcel Sales (wvhk-k5uv): 6 sale rows
+  cc_assessor         Assessor - Parcel Addresses (3723-97qp): 28 roll rows
+  tax_agency          Treasurer tax-sale datasets: 0 rows --
+                      no machine-readable tax record found in the
+                      queried datasets; contributes NO observation
+                      (I6). This does NOT imply the parcel is
+                      tax-clear.
+  sslbda_crm          SSLBDA CRM extract: 1 row (feature 258)
+
+Observations (every payload value traces to named snapshot fields):
+
+  obs_o1_ccao_owner  [ccao_parcel_sales, ltime 26]
+    current_owner <- CSMA BLT LLC (m=0.8, Omega=0.2)
+    from ccao_parcel_sales.json record 97219177, field(s): buyer_name
+    raw value: 'CSMA BLT, LLC'
+
+  obs_o2_assessor_owner  [cc_assessor, ltime 35]
+    current_owner <- FIRSTKEY HOMES (m=0.6, Omega=0.4)
+    from cc_assessor.json record 290240805300002026, field(s): owner_address_name
+    raw value: 'FIRST KEY HOMES'
+
+  obs_o3_crm_disposition  [sslbda_crm, ltime 25]
+    sslbda_disposition <- conveyed (m=0.5, Omega=0.5)
+    from crm_extract.json record 258, field(s): USER_disp_status, USER_date_disposed
+    raw value: 'Sold 2017-01-01'
+
+  obs_o4_ccao_disposition  [ccao_parcel_sales, ltime 26]
+    sslbda_disposition <- not_conveyed (m=0.8, Omega=0.2)
+    from ccao_parcel_sales.json record 97219177, field(s): seller_name, doc_no, sale_date
+    raw value: 'RICHARD  THORTON'
+    INFERENCE (printed per amendment A2): The recorded conveyance at the window the CRM claims SSLBDA disposed (doc 1717247010, 2017-06-16) names grantor RICHARD THORTON, not SSLBDA; this is read as evidence SSLBDA did not convey the parcel.
+
+Total observations: 4 (from 3 real sources with records)
+
+----------------------------------------------------------------------
+SECTION 2: FRAME CONSTRUCTION
+----------------------------------------------------------------------
+
+Normalization: uppercase; '&' -> ' AND '; strip punctuation;
+collapse whitespace.
+
+Attested alias table (operator: Registry Signal/Irvin, 2026-07-27,
+rulings R1/R6; full table in pilot/MANIFEST.md). Raw strings
+verbatim from snapshot bytes:
+
+  'BURTON LATANYA'                       -> LATANYA BURTON
+      [ccao_parcel_sales.seller_name x1]
+  'CELESTINE TRUSSELL'                   -> CELESTINE TRUSSELL
+      [cc_assessor.owner_address_name x2]
+  'CSMA BLT LLC'                         -> CSMA BLT LLC
+      [cc_assessor.owner_address_name x2]
+  'CSMA BLT, LLC'                        -> CSMA BLT LLC
+      [ccao_parcel_sales.buyer_name x1]
+  'FIRST KEY HOMES'                      -> FIRSTKEY HOMES
+      [cc_assessor.owner_address_name x17]
+  'FIRSTKEY HOMES'                       -> FIRSTKEY HOMES
+      [cc_assessor.mail_address_name x3]
+  'LAWANDA TRUSSELL'                     -> LAWANDA TRUSSELL
+      [cc_assessor.owner_address_name x16]
+  'REGINALD SMITH'                       -> REGINALD SMITH
+      [cc_assessor.owner_address_name x2]
+  'RICHARD  THORTON'                     -> RICHARD THORTON
+      [ccao_parcel_sales.seller_name x1]
+  'ROBERT STOKES'                        -> ROBERT STOKES
+      [cc_assessor.owner_address_name x12]
+  'SMITH REGINALD'                       -> REGINALD SMITH
+      [ccao_parcel_sales.buyer_name x1]
+  'STANDARD B&T CO TR 0000000015043'     -> STANDARD BANK AND TRUST TRUST 15043
+      [ccao_parcel_sales.seller_name x1]
+  'STANDARD B&T T'                       -> STANDARD BANK AND TRUST TRUST 15043
+      [ccao_parcel_sales.buyer_name x1]
+  'STD BK TR 15043'                      -> STANDARD BANK AND TRUST TRUST 15043
+      [cc_assessor.owner_address_name x2]
+  'TRUSSELL CELESTINE'                   -> CELESTINE TRUSSELL
+      [ccao_parcel_sales.buyer_name x1]
+  'UNKNOWN'                              -> (not owner-designating, R1 -- no observation)
+      [ccao_parcel_sales.seller_name x2]
+  'US BANK TR'                           -> US BANK TRUSTEE
+      [ccao_parcel_sales.seller_name x1]
+
+Alias-resolved entities (10):
+  - CELESTINE TRUSSELL
+  - CSMA BLT LLC
+  - FIRSTKEY HOMES
+  - LATANYA BURTON
+  - LAWANDA TRUSSELL
+  - REGINALD SMITH
+  - RICHARD THORTON
+  - ROBERT STOKES
+  - STANDARD BANK AND TRUST TRUST 15043
+  - US BANK TRUSTEE
+
+Deed chain (ccao_parcel_sales, chronological):
+  2000-09-01  doc 789431       $57500     (no name field in record) -> (no name field in record)
+  2001-10-01  doc 602718016    $120000    LATANYA BURTON -> REGINALD SMITH
+  2007-03-01  doc 710047063    $85600     US BANK TRUSTEE -> STANDARD BANK AND TRUST TRUST 15043
+  2008-03-01  doc 808747055    $137000    STANDARD BANK AND TRUST TRUST 15043 -> CELESTINE TRUSSELL
+  2014-12-16  doc 1502716048   $1         UNKNOWN (R1: no observation) -> UNKNOWN (R1: no observation)
+  2017-06-16  doc 1717247010   $65000.0   RICHARD THORTON -> CSMA BLT LLC
+
+Assessment roll (cc_assessor, owner_address_name by year):
+  1999-2004   ROBERT STOKES
+  2005        REGINALD SMITH
+  2006        STANDARD BANK AND TRUST TRUST 15043
+  2007        CELESTINE TRUSSELL
+  2008-2015   LAWANDA TRUSSELL
+  2016        CSMA BLT LLC
+  2017-2026   FIRSTKEY HOMES
+
+Frame rule (Plan Gate (e), governs per ruling R6): collect the
+owner-designating field per source (latest CCAO sale buyer_name;
+assessor taxpayer name; CRM grantee/owner if the extract asserts
+one), normalize, and the sorted set of distinct normalized names
+is the frame. The CRM asserts no owner (null purchaser).
+
+current_owner frame (2 entities): CSMA BLT LLC, FIRSTKEY HOMES
+sslbda_disposition frame (2 elements): conveyed, not_conveyed
+
+The chain above has 10 parties; the frame has 2 because only the
+latest per-source assertions claim CURRENT ownership. RICHARD
+THORTON is an attested alias-table entity and chain-of-title
+party, not a frame element: no source asserts him as current
+owner (ruling R6).
+
+----------------------------------------------------------------------
+SECTION 3: VERIFICATION RESULTS
+----------------------------------------------------------------------
+
+Rule applied: vintage_check v1
+Predicate: ltime >= 1 (record-vintage staleness; ltimes are the
+operator-attested MANIFEST mapping: document/record date order,
+ties by source_id then record id (A2); CRM record date is
+USER_date_disposed per ruling R2)
+
+  Proposition: current_owner
+    obs_o1_ccao_owner            PASS
+    obs_o2_assessor_owner        PASS
+
+  Proposition: sslbda_disposition
+    obs_o3_crm_disposition       PASS
+    obs_o4_ccao_disposition      PASS
+
+----------------------------------------------------------------------
+SECTION 4: PROVENANCE CLASSES
+----------------------------------------------------------------------
+
+  Proposition: current_owner
+  Independent evidence classes: 1
+    Class [cc_assessor]: ccao_parcel_sales, cc_assessor
+  How-provenance polynomial: HowProvenance(cc_assessor*ccao_parcel_sales)
+
+  Proposition: sslbda_disposition
+  Independent evidence classes: 2
+    Class [ccao_parcel_sales]: ccao_parcel_sales
+    Class [sslbda_crm]: sslbda_crm
+  How-provenance polynomial: HowProvenance(ccao_parcel_sales + sslbda_crm)
+
+  Linkage rationale (printed per amendment A3): sale rows
+  originate from recorded deeds published through the Assessor's
+  pipeline; taxpayer-of-record originates from the assessment
+  roll; linked CONSERVATIVELY because independence is not
+  established -- and by idempotence, linking cannot understate
+  evidence, only prevent overstatement.
+
+----------------------------------------------------------------------
+SECTION 5: FUSED BELIEF
+----------------------------------------------------------------------
+
+Pre-registered mass table applied verbatim
+(pilot/mass_assignments.md, frozen at Plan Gate):
+  Recorded deed / sale record   0.8 focal / 0.2 Omega
+  Assessor taxpayer-of-record   0.6 focal / 0.4 Omega
+  Tax status record             0.6 focal / 0.4 Omega (unused: no record)
+  CRM entry (SSLBDA)            0.5 focal / 0.5 Omega
+
+  Proposition: current_owner
+    m(emptyset)                              = 0.4800 [CONFLICT]
+    m({CSMA BLT LLC})                        = 0.3200
+    m({FIRSTKEY HOMES})                      = 0.1200
+    m({CSMA BLT LLC,FIRSTKEY HOMES})         = 0.0800
+
+    Unresolved conflict: 48.00% of belief mass. The deed
+    record (grantee CSMA BLT LLC, doc 1717247010) and the current
+    assessment roll (FIRSTKEY HOMES) disagree. Field semantics
+    (ruling R1, not evidence): the assessor mailing-name field can
+    reflect a property manager rather than the title holder --
+    this conflict reads as REQUIRES VERIFICATION, not as proof of
+    a competing claim.
+
+  Proposition: sslbda_disposition
+    m(emptyset)                              = 0.4000 [CONFLICT]
+    m({conveyed})                            = 0.1000
+    m({not_conveyed})                        = 0.4000
+    m({conveyed,not_conveyed})               = 0.1000
+
+    Unresolved conflict: 40.00% of belief mass --
+    contradictory records requiring curative work:
+    the SSLBDA CRM row (feature 258: disposition 'Sold',
+    date 2017-01-01) conflicts with recorded deed doc
+    1717247010 (2017-06-16, grantor RICHARD THORTON,
+    grantee CSMA BLT LLC -- SSLBDA is not a party).
+    Resolution requires correcting the CRM record or
+    locating a recorded SSLBDA conveyance; none exists
+    in the queried datasets.
+
+----------------------------------------------------------------------
+SECTION 6: SHARED-UPSTREAM DEMONSTRATION
+[ILLUSTRATION -- real linked pair: ccao_parcel_sales, cc_assessor]
+----------------------------------------------------------------------
+
+  current_owner, linked (provenance-aware):  1 evidence class
+  current_owner, unlinked:                   2 evidence classes
+  Fused belief byte-identical:               YES
+
+  FOIL (count-based confidence): a naive pipeline would report
+  'ownership confirmed by 2 sources' while both derive from
+  county systems -- and here they DISAGREE, which a count
+  presents as a 50/50 tie. Provenance-aware fusion keeps the
+  frozen per-source-type confidences, makes the conflict
+  explicit (48.00% m(emptyset)), and linking cannot
+  understate evidence -- only prevent overstatement (idempotence).
+
+----------------------------------------------------------------------
+SECTION 7: COUNTERFACTUAL
+----------------------------------------------------------------------
+
+  Scenario: remove the CRM observation -- this is what the
+  dossier would say if the CRM entry were corrected.
+
+  Before (all evidence), sslbda_disposition:
+    m(emptyset)                              = 0.4000 [CONFLICT]
+    m({conveyed})                            = 0.1000
+    m({not_conveyed})                        = 0.4000
+    m({conveyed,not_conveyed})               = 0.1000
+
+  After (CRM observation removed):
+    m(emptyset)                              = 0.0000
+    m({not_conveyed})                        = 0.8000
+    m({conveyed,not_conveyed})               = 0.2000
+
+  Conflict falls from 40.00% to 0.00%; belief rests on the recorded
+  deed alone (not_conveyed 0.8000, remainder uncommitted).
+
+----------------------------------------------------------------------
+SECTION 8: REPLAY ATTESTATION
+----------------------------------------------------------------------
+
+  Merkle root: 68b45d8b431f84a3fddf8a9ff0dbe0f9a20de75ce537d1161ea19a8fa22a39fa
+  byte-identical replay: OK
+  This dossier is reproducible from the evidence log alone.
+
+----------------------------------------------------------------------
+SECTION 9: METHODOLOGY NOTE
+----------------------------------------------------------------------
+
+  Attestation: LocalAuthority('pilot') issues one identity per
+  source (ccao_parcel_sales, cc_assessor, tax_agency,
+  sslbda_crm). The operator (Registry Signal) signs on each
+  source's behalf, attesting 'retrieved from this source,
+  unaltered' (public records) / 'extracted from operator's local
+  pilot export, unaltered' (CRM). No county office or SSLBDA
+  signed anything.
+
+  Masses: pre-registered per source TYPE in
+  pilot/mass_assignments.md, frozen at the Plan Gate BEFORE any
+  snapshot was fetched. Snapshots determined only WHICH frame
+  element received mass, never how much.
+
+  Retrieval: dates, dataset ids, exact queries, and snapshot
+  sha256 hashes are in pilot/MANIFEST.md. The tax source found
+  no machine-readable tax record in the queried datasets; this
+  statement must not be read as implying the parcel is
+  tax-clear (ruling R3: the queried Treasurer dataset is a dead
+  endpoint, content frozen circa 2009-2014).
+
+  Narrative (not an observation, per I6 and ruling R4): SSLBDA
+  appears in NO row of any queried public dataset for this
+  parcel -- no deed, no roll year, 1999-2026. The dossier's
+  not_conveyed evidence is the single field-traceable 2017 deed
+  row with its printed inference (Section 1), never
+  dataset-wide absence.
+
+======================================================================
