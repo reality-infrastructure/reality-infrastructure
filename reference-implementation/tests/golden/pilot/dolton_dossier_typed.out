@@ -1,0 +1,182 @@
+======================================================================
+EP-TYPED TITLE-BELIEF DOSSIER -- REAL PUBLIC RECORDS (M-RI-13)
+Parcel: PIN 29-02-408-053-0000
+14347 Woodlawn Ave, Dolton, IL 60419 (Cook County)
+======================================================================
+
+Informational analysis of public records for demonstration
+purposes. NOT a title opinion, title insurance commitment, or
+legal advice. Records as retrieved on dates listed in MANIFEST.
+
+M-RI-11 dossier re-run with EP set-valued uncertaintyType
+(capability-factory canon CF-020) attached to every claim.
+Type map frozen in pilot/ep_typing_preregistration.md BEFORE
+the typed pipeline existed. Closed five-term vocabulary:
+  measured - estimated - asserted-by-interested-party -
+  inferred-from-proxy - true-as-of-date-decaying
+Sets are 1+ terms; matching is membership, never string form.
+
+----------------------------------------------------------------------
+SECTION 1: TYPED EVIDENCE INTAKE
+----------------------------------------------------------------------
+
+  obs_o1_ccao_owner  [ccao_parcel_sales, ltime 26]
+    current_owner <- CSMA BLT LLC (m=0.8, Omega=0.2)
+    uncertaintyType: [measured]
+    from ccao_parcel_sales.json record 97219177, field(s): buyer_name
+    raw value: 'CSMA BLT, LLC'
+
+  obs_o2_assessor_owner  [cc_assessor, ltime 35]
+    current_owner <- FIRSTKEY HOMES (m=0.6, Omega=0.4)
+    uncertaintyType: [measured]
+    from cc_assessor.json record 290240805300002026, field(s): owner_address_name
+    raw value: 'FIRST KEY HOMES'
+
+  obs_o3_crm_disposition  [sslbda_crm, ltime 25]
+    sslbda_disposition <- conveyed (m=0.5, Omega=0.5)
+    uncertaintyType: [asserted-by-interested-party]
+    from crm_extract.json record 258, field(s): USER_disp_status, USER_date_disposed
+    raw value: 'Sold 2017-01-01'
+
+  obs_o4_ccao_disposition  [ccao_parcel_sales, ltime 26]
+    sslbda_disposition <- not_conveyed (m=0.8, Omega=0.2)
+    uncertaintyType: [inferred-from-proxy, measured]
+    from ccao_parcel_sales.json record 97219177, field(s): seller_name, doc_no, sale_date
+    raw value: 'RICHARD  THORTON'
+    PROXY EXPLANATION (A2 inference): The recorded conveyance at the window the CRM claims SSLBDA disposed (doc 1717247010, 2017-06-16) names grantor RICHARD THORTON, not SSLBDA; this is read as evidence SSLBDA did not convey the parcel.
+
+----------------------------------------------------------------------
+SECTION 2: TYPE ASSIGNMENT RATIONALE (PRE-REGISTERED)
+----------------------------------------------------------------------
+
+  O1 [measured]: recorded deed (doc 1717247010) -- the
+     buyer_name field is read off an instrument of record.
+  O2 [measured]: assessor roll row -- an administrative record
+     of what the roll states, not an estimate (GO ruling R1).
+  O3 [asserted-by-interested-party]: SSLBDA's CRM self-reports
+     SSLBDA's own inventory state; SSLBDA is the interested
+     party. Temporal term true-as-of-date-decaying DROPPED per
+     pre-registration 1a: CF-020's validUntil:null normatively
+     means DOES-NOT-DECAY, so 'asserted 2017-01-01, staleness
+     unbounded' is inexpressible without fabricating an expiry
+     (no-fab).
+  O4 [inferred-from-proxy, measured]: the deed row is measured
+     (recorded instrument); the not_conveyed claim is INFERRED
+     from grantor identity as proxy (grantor is RICHARD
+     THORTON, not SSLBDA). Dual-typed -- the set is the point.
+     First real inferred-from-proxy encode in the EP canon.
+
+----------------------------------------------------------------------
+SECTION 3: FUSED BELIEF (TYPED PIPELINE)
+----------------------------------------------------------------------
+
+Masses come solely from the M-RI-11 pre-registered source-type
+table (pilot/mass_assignments.md); the type NEVER changes the
+fusion math (Denoeux cautious rule, pointwise min, untouched).
+
+  Proposition: current_owner
+    m(emptyset)                              = 0.4800 [CONFLICT]
+    m({CSMA BLT LLC})                        = 0.3200
+    m({FIRSTKEY HOMES})                      = 0.1200
+    m({CSMA BLT LLC,FIRSTKEY HOMES})         = 0.0800
+
+  Proposition: sslbda_disposition
+    m(emptyset)                              = 0.4000 [CONFLICT]
+    m({conveyed})                            = 0.1000
+    m({not_conveyed})                        = 0.4000
+    m({conveyed,not_conveyed})               = 0.1000
+
+  Belief bytes, typed vs untyped pipeline: IDENTICAL per
+  proposition -- typing enriched the justification only, as
+  pre-registered.
+
+----------------------------------------------------------------------
+SECTION 4: EPISTEMIC JUSTIFICATION
+----------------------------------------------------------------------
+
+Types below are read back from the ri_core justification
+records (project() step 2g), not from this script's inputs --
+the type flows through the reconciliation layer.
+
+  Proposition: current_owner
+    obs_o1_ccao_owner    [measured]
+      Trusted as a MEASURED record: grantee read off recorded
+      deed doc 1717247010; carries the deed-tier weight (0.8).
+    obs_o2_assessor_owner [measured]
+      A MEASURED administrative record of the roll's stated
+      taxpayer name; carries the roll-tier weight (0.6).
+    The 48.00% conflict is
+    measured-vs-measured: two authentic records disagree, so
+    the conflict is a records problem (REQUIRES VERIFICATION),
+    not an artifact of a weak epistemic type on either side.
+
+  Proposition: sslbda_disposition
+    obs_o3_crm_disposition [asserted-by-interested-party]
+      DISCOUNTED as an interested-party assertion: SSLBDA
+      self-reports its own inventory state ('Sold',
+      2017-01-01) -- and the assertion also SELF-CONTRADICTS
+      the recorded deed record (doc 1717247010 names grantor
+      RICHARD THORTON, not SSLBDA). The 0.5 weight is now
+      EXPLAINED by the type, not merely assigned.
+    obs_o4_ccao_disposition [inferred-from-proxy, measured]
+      MEASURED deed row; the not_conveyed reading is INFERRED
+      from grantor identity as proxy (see Section 1 PROXY
+      EXPLANATION). The set carries both natures honestly.
+
+  Why the type does work the weight cannot (decoration check,
+  pre-registered discriminator):
+    O1 and O4 carry the SAME weight (0.8 focal / 0.2 Omega)
+    but DIFFERENT type sets -- [measured] vs
+    [inferred-from-proxy, measured]. The weight cannot
+    distinguish a direct reading from a proxy inference; the
+    type can, and a membership query for 'everything
+    inferred-from-proxy' returns exactly O4.
+
+----------------------------------------------------------------------
+SECTION 5: COUNTERFACTUAL (TYPED)
+----------------------------------------------------------------------
+
+  Scenario: remove the interested-party assertion (O3) -- what
+  the dossier would say if the CRM entry were corrected.
+
+  After (interested-party assertion removed):
+    m(emptyset)                              = 0.0000
+    m({not_conveyed})                        = 0.8000
+    m({conveyed,not_conveyed})               = 0.2000
+
+  Conflict falls from 40.00% to 0.00%; belief rests on the
+  measured+inferred-from-proxy deed evidence alone.
+
+----------------------------------------------------------------------
+SECTION 6: REPLAY ATTESTATION AND HASH CLASSIFICATION
+----------------------------------------------------------------------
+
+  Typed log Merkle root:   8b29f7a68af615be45b53f358a9182b611e4b42498a2d4c31d3cf3371c2c3836
+  byte-identical replay (typed log): OK
+
+  Untyped rebuild root:    68b45d8b431f84a3fddf8a9ff0dbe0f9a20de75ce537d1161ea19a8fa22a39fa
+  Frozen M-RI-11 root:     68b45d8b431f84a3fddf8a9ff0dbe0f9a20de75ce537d1161ea19a8fa22a39fa
+  Untyped rebuild == M-RI-11 root: MATCH
+
+  Classification (pre-registered, ep_typing_preregistration.md
+  3): the typed root differs from the M-RI-11 root because
+  typed payloads are new signed bytes -- a SCHEMA change, not
+  drift. The untyped path reproduces the M-RI-11 root and
+  belief bytes exactly; the M-RI-11 golden is untouched (R2).
+
+----------------------------------------------------------------------
+SECTION 7: VERDICT INPUTS (AGAINST PRE-REGISTRATION)
+----------------------------------------------------------------------
+
+  Belief-state check: typed masses equal the M-RI-11 baseline
+  exactly (asserted above) -- typing did NOT change belief, as
+  pre-registered.
+  Replay check: typed-log replay byte-identical; root change
+  classified as pre-registered schema change (untyped rebuild
+  reproduces the frozen M-RI-11 root).
+  Decoration check: type sets distinguish O1 from O4 at equal
+  weight, and O3's discount is explained as interested-party +
+  self-contradiction rather than a bare 0.5 -- the type does
+  work the weight alone cannot.
+
+======================================================================

@@ -48,6 +48,49 @@ _REQUIRED_OBS_FIELDS = frozenset(
     {"kind", "id", "source_id", "proposition", "payload", "ltime", "sig"}
 )
 
+# EP promoted set-valued uncertaintyType vocabulary (capability-factory
+# canon CF-020, provenance-assertion-schema-set.md).  Closed five-term
+# vocabulary; payload field is a SET (list, 1+ terms, no duplicates,
+# order not meaningful).  Matching is membership, never string
+# comparison of the set form.
+EP_UNCERTAINTY_VOCAB = frozenset({
+    "measured",
+    "estimated",
+    "asserted-by-interested-party",
+    "inferred-from-proxy",
+    "true-as-of-date-decaying",
+})
+
+
+def _validate_uncertainty_type(value, obs_id: str) -> None:
+    """Validate an optional payload uncertaintyType per EP CF-020.
+
+    Set-valued: list of 1+ distinct strings from EP_UNCERTAINTY_VOCAB.
+    Absence is valid (untyped observation); presence is validated.
+    """
+    if not isinstance(value, list):
+        raise ProjectionError(
+            f"uncertaintyType must be a list (set-valued, CF-020), got "
+            f"{type(value).__name__} for observation {obs_id!r}")
+    if len(value) == 0:
+        raise ProjectionError(
+            f"uncertaintyType must have 1+ terms for observation {obs_id!r}")
+    seen = set()
+    for term in value:
+        if not isinstance(term, str):
+            raise ProjectionError(
+                f"uncertaintyType terms must be str, got "
+                f"{type(term).__name__} for observation {obs_id!r}")
+        if term not in EP_UNCERTAINTY_VOCAB:
+            raise ProjectionError(
+                f"uncertaintyType term {term!r} not in the closed EP "
+                f"vocabulary for observation {obs_id!r}")
+        if term in seen:
+            raise ProjectionError(
+                f"uncertaintyType has duplicate term {term!r} for "
+                f"observation {obs_id!r}")
+        seen.add(term)
+
 
 def _parse_payload(payload: dict) -> tuple[frozenset[str], dict[frozenset[str], Decimal]]:
     """Convert payload mass dict (comma-key strings) to frozenset-key dict."""
@@ -113,6 +156,9 @@ def submit(
         BeliefWeights.from_mass(frame, mass_dict)
     except (ReconciliationError, KeyError, TypeError) as e:
         raise ProjectionError(f"Invalid payload: {e}") from e
+
+    if "uncertaintyType" in obs["payload"]:
+        _validate_uncertainty_type(obs["payload"]["uncertaintyType"], obs["id"])
 
     entity_id = f"obs:{obs['id']}"
     try:
@@ -350,16 +396,22 @@ def project(
         # 2g. Build justification
         classes_just: list[dict] = []
         for class_repr, class_items in classes:
+            obs_records = []
+            for li, obs in class_items:
+                rec = {
+                    "entity_id": f"obs:{obs['id']}",
+                    "log_index": li,
+                    "source_id": obs["source_id"],
+                }
+                # EP typing (CF-020): emitted ONLY when the observation
+                # payload carries it, so untyped logs serialize
+                # byte-identically to the pre-typing schema.
+                if "uncertaintyType" in obs["payload"]:
+                    rec["uncertaintyType"] = obs["payload"]["uncertaintyType"]
+                obs_records.append(rec)
             classes_just.append({
                 "class_repr": class_repr,
-                "observations": [
-                    {
-                        "entity_id": f"obs:{obs['id']}",
-                        "log_index": li,
-                        "source_id": obs["source_id"],
-                    }
-                    for li, obs in class_items
-                ],
+                "observations": obs_records,
             })
 
         just = {

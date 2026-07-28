@@ -1,4 +1,5 @@
-"""Tests for pilot/dolton_dossier.py (M-RI-11).
+"""Tests for pilot/dolton_dossier.py (M-RI-11) and
+pilot/dolton_dossier_typed.py (M-RI-13).
 
 Runs the dossier as a subprocess over the frozen snapshots in
 pilot/snapshots/ (no network anywhere), asserts exit 0, compares stdout
@@ -197,3 +198,134 @@ class TestDoltonDossier:
                 " FIRSTKEY HOMES" in text)
         assert "RICHARD  THORTON" in text  # raw, two spaces, verbatim
         assert "ruling R6" in text
+
+
+# ---------------------------------------------------------------------------
+# M-RI-13: EP-typed re-run (pilot/dolton_dossier_typed.py)
+# ---------------------------------------------------------------------------
+
+_GOLDEN_TYPED = _ROOT / "tests" / "golden" / "pilot" / "dolton_dossier_typed.out"
+
+# R2 drift tripwire: the M-RI-11 golden is frozen; ANY byte change is the
+# drift branch of the pre-registered replay invariant
+# (pilot/ep_typing_preregistration.md section 3) regardless of cause.
+_M_RI_11_GOLDEN_SHA256 = (
+    "6ece101e4d96c2d81ee61b816597f6025a0644f44e49320e635cc664a32f93a2")
+
+
+def _run_typed_dossier(seed=None):
+    """Run the typed dossier and return (returncode, stdout_bytes, stderr)."""
+    script = _ROOT / "pilot" / "dolton_dossier_typed.py"
+    env = dict(os.environ)
+    env["PYTHONPATH"] = str(_ROOT) + os.pathsep + str(_ROOT / "pilot")
+    if seed is not None:
+        env["PYTHONHASHSEED"] = str(seed)
+    result = subprocess.run(
+        [sys.executable, str(script)],
+        capture_output=True,
+        env=env,
+        cwd=str(_ROOT),
+    )
+    return result.returncode, result.stdout, result.stderr.decode()
+
+
+class TestDoltonDossierTyped:
+    """Tests for the M-RI-13 EP-typed re-run over the same frozen snapshots."""
+
+    def test_exit_zero(self):
+        """Typed dossier exits 0 (all pre-registered asserts pass in-process:
+        baseline masses, belief bytes typed==untyped, justification types ==
+        pre-registered map, typed replay byte-identical, untyped rebuild
+        root == frozen M-RI-11 root)."""
+        rc, _stdout, stderr = _run_typed_dossier()
+        assert rc == 0, f"Exit code {rc}, stderr:\n{stderr}"
+
+    def test_golden_transcript(self):
+        """Stdout byte-matches the NEW typed golden (R2: own golden path)."""
+        _rc, stdout, stderr = _run_typed_dossier()
+        golden = _GOLDEN_TYPED.read_bytes()
+        assert stdout == golden, (
+            f"Typed transcript differs from golden file.\n"
+            f"Golden length: {len(golden)}, actual length: {len(stdout)}\n"
+            f"stderr:\n{stderr}"
+        )
+
+    def test_cross_process_determinism(self):
+        """Identical output across two PYTHONHASHSEED values."""
+        rc1, out1, err1 = _run_typed_dossier(seed=1)
+        rc2, out2, err2 = _run_typed_dossier(seed=99999)
+        assert rc1 == 0, f"seed=1 exit {rc1}: {err1}"
+        assert rc2 == 0, f"seed=99999 exit {rc2}: {err2}"
+        assert out1 == out2, "Cross-process stdout bytes differ"
+
+    def test_m_ri_11_golden_untouched(self):
+        """R2 drift tripwire: the M-RI-11 golden's bytes are unchanged."""
+        import hashlib
+        actual = hashlib.sha256(_GOLDEN.read_bytes()).hexdigest()
+        assert actual == _M_RI_11_GOLDEN_SHA256, (
+            "M-RI-11 golden bytes changed -- pre-registered DRIFT branch, "
+            f"halt: {actual}")
+
+    def test_types_printed_per_preregistered_map(self):
+        """Every claim prints its pre-registered set-valued type."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = stdout.decode()
+        intake = text.split("SECTION 1")[1].split("SECTION 2")[0]
+        o1 = intake.split("obs_o1_ccao_owner")[1].split("obs_o2")[0]
+        o2 = intake.split("obs_o2_assessor_owner")[1].split("obs_o3")[0]
+        o3 = intake.split("obs_o3_crm_disposition")[1].split("obs_o4")[0]
+        o4 = intake.split("obs_o4_ccao_disposition")[1]
+        assert "uncertaintyType: [measured]" in o1
+        assert "uncertaintyType: [measured]" in o2
+        assert "uncertaintyType: [asserted-by-interested-party]" in o3
+        assert "uncertaintyType: [inferred-from-proxy, measured]" in o4
+
+    def test_o4_prints_both_terms_with_proxy_explanation(self):
+        """GO ruling R1: O4 prints both terms with the A2 inference sentence
+        as the proxy explanation."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = stdout.decode()
+        assert "[inferred-from-proxy, measured]" in text
+        assert "PROXY EXPLANATION (A2 inference):" in text
+        assert ("names grantor RICHARD THORTON,"
+                " not SSLBDA" in text)
+
+    def test_baseline_masses_unchanged(self):
+        """Typed-run masses equal the M-RI-11 baseline (pre-registration 2)."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = re.sub(r" +", " ", stdout.decode())
+        assert "m(emptyset) = 0.4800 [CONFLICT]" in text
+        assert "m({CSMA BLT LLC}) = 0.3200" in text
+        assert "m({FIRSTKEY HOMES}) = 0.1200" in text
+        assert "m({CSMA BLT LLC,FIRSTKEY HOMES}) = 0.0800" in text
+        assert "m(emptyset) = 0.4000 [CONFLICT]" in text
+        assert "m({not_conveyed}) = 0.4000" in text
+        assert "m({conveyed}) = 0.1000" in text
+        assert "m({conveyed,not_conveyed}) = 0.1000" in text
+
+    def test_belief_bytes_identical_typed_vs_untyped(self):
+        """Typing enriched justification only (pre-registration 2)."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = stdout.decode()
+        assert ("Belief bytes, typed vs untyped pipeline: IDENTICAL"
+                in text)
+
+    def test_epistemic_justification_reads_from_ri_core(self):
+        """Justification section states types flow through project()."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = stdout.decode()
+        assert "SECTION 4: EPISTEMIC JUSTIFICATION" in text
+        assert "read back from the ri_core justification" in text
+        assert "DISCOUNTED as an interested-party assertion" in text
+        assert "SELF-CONTRADICTS" in text
+
+    def test_replay_and_hash_classification(self):
+        """Typed replay OK; untyped rebuild reproduces the frozen M-RI-11
+        root (schema-vs-drift classification, pre-registration 3)."""
+        _rc, stdout, _err = _run_typed_dossier()
+        text = stdout.decode()
+        assert "byte-identical replay (typed log): OK" in text
+        assert "Untyped rebuild == M-RI-11 root: MATCH" in text
+        assert ("68b45d8b431f84a3fddf8a9ff0dbe0f9a20de75ce537d1161ea19a"
+                "8fa22a39fa" in text)
+        assert "SCHEMA change, not" in text
