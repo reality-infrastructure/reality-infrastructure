@@ -123,3 +123,32 @@ the run file, re-fold, byte-compare against the stored belief entry,
 verify inclusion proofs, exit nonzero on any mismatch.
 
 Open questions: none.
+
+### P4 — replay CLI with byte-identity verification (2026-08-01)
+
+Shipped:
+- rights_events/replay.py: python -m rights_events.replay --run FILE
+  --subject S [--question Q] [--belief-index N] [--expected-root HEX].
+  Rebuilds both logs (every event signature re-verifies at intake),
+  selects the stored belief (index or latest match), re-folds at the
+  belief's recorded as_of and event_log_size, byte-compares against
+  the stored belief-log entry, checks the recorded event-log root
+  (and --expected-root if given), verifies the belief's inclusion
+  proof and every contributing event's inclusion proof against the
+  recorded root. Exit 0 all-pass / 1 identity-or-proof failure /
+  2 usage-or-data error. Deterministic output, Omega and conflict
+  labeled in the printed mass listing.
+- pipeline.fold() gained at_size (anchor to commit-time log size) so
+  commits stay byte-reproducible after the log grows — regression
+  test covers commit, then ingest of unrelated events, then replay.
+- tests/test_rights_replay.py: 13 tests, including the documented
+  `python -m rights_events.replay` invocation via subprocess and
+  nonzero exit on a tampered belief entry (falsified conflict mass and
+  falsified unresolved mass both caught by byte-identity).
+- Suite: 532 passed (519 + 13).
+
+Next: P5 — Song X acceptance: single documented end-to-end command,
+m(unresolved)-dominance test, revocation-delta test, README
+"Rights-event layer" subsection, DONE report.
+
+Open questions: none.

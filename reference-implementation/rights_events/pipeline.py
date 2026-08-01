@@ -195,22 +195,30 @@ class RightsPipeline:
 
     # -- Fold ----------------------------------------------------------
 
-    def _decoded_observations(self) -> list[tuple[int, dict]]:
+    def _decoded_observations(self, size: int) -> list[tuple[int, dict]]:
         out = []
-        for idx in range(len(self.event_log)):
+        for idx in range(size):
             entry = decode(self.event_log.entry(idx))
             if isinstance(entry, dict) and entry.get("kind") == "observation":
                 out.append((idx, entry))
         return out
 
-    def fold(self, subject: str, question: str, as_of: int) -> dict:
+    def fold(self, subject: str, question: str, as_of: int,
+             at_size: int | None = None) -> dict:
         """Deterministic fold: event-log prefix -> belief object dict.
 
-        Pure function of the log content, the declared policy, and
-        as_of.  See the module docstring for the fold rules.
+        Pure function of the log content, the declared policy, as_of,
+        and at_size.  at_size anchors the fold to a log prefix (the
+        replay CLI passes the belief's recorded event_log_size so a
+        commit stays byte-reproducible after the log grows); None means
+        the full current log.  See the module docstring for fold rules.
         """
+        size = len(self.event_log) if at_size is None else at_size
+        if size < 1 or size > len(self.event_log):
+            raise PipelineError(
+                f"at_size {size} out of range [1, {len(self.event_log)}]")
         observations = [
-            (idx, obs) for idx, obs in self._decoded_observations()
+            (idx, obs) for idx, obs in self._decoded_observations(size)
             if obs["ltime"] <= as_of
         ]
 
@@ -331,8 +339,8 @@ class RightsPipeline:
             # contradicts itself, kept visible, never normalized away.
             "conflict_mass": mass[""],
             "contributing_events": contributing,
-            "event_log_size": len(self.event_log),
-            "event_log_root": self.event_log.root(),
+            "event_log_size": size,
+            "event_log_root": self.event_log.root(size),
         }
 
     # -- Commit and proofs ----------------------------------------------
