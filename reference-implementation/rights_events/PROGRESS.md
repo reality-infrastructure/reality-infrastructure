@@ -47,3 +47,42 @@ example. SYNTHETIC (labeled, spec-cited): BWARM/MLC sample (credentialed
 access — plan-gate ruling 5), PRO-conflict / Song X.
 
 Open questions: none.
+
+### P2 — adapters a-d with fixtures (2026-08-01)
+
+Shipped:
+- rights_events/adapters/: common.py (AdapterError), bwarm.py (a),
+  c2pa.py (b), tdmrep.py (c), pro_conflict.py (d). All pure functions,
+  text in -> RightsEvent list out, deterministic output order, no
+  network access anywhere.
+- Fixtures with provenance MANIFEST.json per directory:
+  - c2pa/manifest_store.json — REAL capture, c2pa-org/public-testfiles
+    legacy/1.4 adobe-20220124-CA (CC BY-SA 4.0, attributed), observed
+    2026-08-01. Signer: C2PA Test Signing Cert.
+  - tdmrep/nytimes_robots.txt — REAL capture of
+    https://www.nytimes.com/robots.txt, 2026-08-01 (GPTBot, ClaudeBot,
+    CCBot, Google-Extended, anthropic-ai and others at Disallow: /).
+  - tdmrep/tdmrep_example.json — verbatim transcription of the
+    tdmrep.json example in the W3C TDMRep Final CG Report (2024-02-02).
+  - bwarm/*_SYNTHETIC.tsv — SYNTHETIC, modeled on the DDEX BWARM
+    flat-file column subset (ddex.net standard page cited; ruling 5).
+  - pro_conflict/song_x_SYNTHETIC.json — SYNTHETIC by contract; the
+    Song X case (regA 60/40, regB 50/50 split-sheet-backed, revB
+    revocation of regB).
+- C2PA adapter docstring is load-bearing per plan-gate ruling 1 (the
+  measured thing is the signing event; the truth of what was signed is
+  untouched) and a test enforces the docstring's presence.
+- Adapter behavior notes: dispute event emitted by pro_conflict when
+  share tables differ (fuses vacuously downstream per policy);
+  same-date ordering ranks dispute after assertions, revocation last;
+  robots.txt parser collapses case-variant duplicate agents in one
+  group (real NYT capture exercises this).
+- tests/test_rights_adapters.py: 23 tests. Suite: 496 passed
+  (473 + 23).
+
+Next: P3 — pipeline: submit() intake -> revocation fold ->
+cautious_fuse per (subject, question) -> belief object (Omega named,
+conflict mass reported) -> belief-log append -> inclusion proofs ->
+run-dir persistence.
+
+Open questions: none.

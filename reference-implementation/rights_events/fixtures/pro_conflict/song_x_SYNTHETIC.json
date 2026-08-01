@@ -1,0 +1,42 @@
+{
+  "synthetic": true,
+  "label": "SYNTHETIC fixture: the Song X split-sheet conflict (Contract 1 acceptance case). Modeled on the standard PRO split-conflict pattern -- two registrations asserting incompatible ownership shares for one work, followed by a revocation. No real work, writer, society, or registration appears here.",
+  "format_modeled_on": "Public documentation of the US musical-works registry and claiming-conflict regime",
+  "source_url": "https://www.copyright.gov/music-modernization/",
+  "work": {
+    "subject_id": "work:song-x",
+    "title": "Song X (SYNTHETIC)"
+  },
+  "registrations": [
+    {
+      "registration_id": "regA-0001",
+      "society": "PRO-Alpha (SYNTHETIC)",
+      "submitter": "writer-a",
+      "share_claims": {
+        "writer-a": "60",
+        "writer-b": "40"
+      },
+      "registered_date": "2026-05-01"
+    },
+    {
+      "registration_id": "regB-0002",
+      "society": "PRO-Beta (SYNTHETIC)",
+      "submitter": "writer-b",
+      "share_claims": {
+        "writer-a": "50",
+        "writer-b": "50"
+      },
+      "registered_date": "2026-05-20",
+      "basis_document": "Split sheet dated 2026-04-30 signed by both writers (SYNTHETIC)"
+    }
+  ],
+  "revocations": [
+    {
+      "revocation_id": "revB-0003",
+      "revokes_registration_id": "regB-0002",
+      "submitted_by": "writer-b",
+      "revocation_date": "2026-06-10",
+      "reason": "Registrant withdrew the 50/50 registration (SYNTHETIC)"
+    }
+  ]
+}
