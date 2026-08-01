@@ -81,11 +81,14 @@ class TestBwarmAdapter:
         by_id = {e.event_id: e for e in self.parse()}
         w1 = by_id["bwarm:WRK0001"]
         assert w1.subject_ids == ("work:iswc:T-123456789-0",)
-        assert [s["percentage"] for s in w1.claim["shares"]] == \
+        assert w1.claim["share_claims"] == {
+            "Interested Party Alpha": Decimal("50.00"),
+            "Interested Party Beta": Decimal("50.00")}
+        assert [s["percentage"] for s in w1.claim["share_details"]] == \
             [Decimal("50.00"), Decimal("50.00")]
         w2 = by_id["bwarm:WRK0002"]
-        assert [s["party"] for s in w2.claim["shares"]] == \
-            ["Interested Party Gamma"]
+        assert w2.claim["share_claims"] == {
+            "Interested Party Gamma": Decimal("100.00")}
 
     def test_missing_column_raises(self):
         with pytest.raises(AdapterError, match="missing columns"):

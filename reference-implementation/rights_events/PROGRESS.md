@@ -86,3 +86,40 @@ conflict mass reported) -> belief-log append -> inclusion proofs ->
 run-dir persistence.
 
 Open questions: none.
+
+### P3 — pipeline: fusion, belief objects, logs, proofs (2026-08-01)
+
+Shipped:
+- rights_events/pipeline.py: RightsPipeline with engine intake
+  (project.submit: signatures, duplicate rejection, EP validation,
+  Merkle append, provenance), the F1 domain fold (revocation rule:
+  only the claimant can withdraw their own claim; frames built from
+  all mapped claims revoked-or-not so pre/post beliefs share a frame),
+  cautious_fuse per contested question, belief objects naming Omega
+  (unresolved_set/unresolved_mass) and retained conflict
+  (conflict_mass) per ruling 2, belief-log commits (entry bytes ==
+  encode(belief)), inclusion proofs for both logs, one-file canonical
+  run persistence (save/load; load re-verifies every signature and
+  round-trips bytes; tampered event entries rejected).
+- Declared question mapping (module docstring): share_claims ->
+  ownership_shares with canonical semicolon share-table hypotheses
+  (engine forbids commas in frame elements); opt_out ->
+  use_reservation with declared counter-hypothesis not_reserved;
+  dispute/revocation attach via prior_event_refs; everything else is
+  logged as a record and poses no question.
+- BWARM adapter claim now carries share_claims (same shape as PRO
+  registrations) so statutory registrations map into ownership_shares;
+  an uncontested single-hypothesis question is vacuous by construction.
+- Song X fold matches the plan-gate math exactly (asserted by test):
+  pre-revocation m(empty)=0.2025, m(A)=m(B)=0.2475, m(Omega)=0.3025
+  (unresolved dominates every singleton); post-revocation m(A)=0.45,
+  m(Omega)=0.55. Cautious idempotence demo: many same-claimant robots
+  opt-outs fuse to a single 0.3 (no double counting).
+- tests/test_rights_pipeline.py: 23 tests. Suite: 519 passed
+  (496 + 23).
+
+Next: P4 — replay CLI (python -m rights_events.replay): rebuild from
+the run file, re-fold, byte-compare against the stored belief entry,
+verify inclusion proofs, exit nonzero on any mismatch.
+
+Open questions: none.

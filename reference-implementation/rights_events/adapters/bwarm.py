@@ -81,6 +81,13 @@ def parse_works_registration(
         subject = f"work:iswc:{iswc}" if iswc else f"work:feed:{work_id}"
         work_shares = sorted(
             shares_by_work.get(work_id, []), key=lambda s: s["share_id"])
+        share_claims: dict[str, Decimal] = {}
+        for share in work_shares:
+            if share["party"] in share_claims:
+                raise AdapterError(
+                    f"Work {work_id!r} lists party {share['party']!r} "
+                    f"twice; cannot form a share table")
+            share_claims[share["party"]] = share["percentage"]
         events.append(RightsEvent(
             event_id=f"bwarm:{work_id}",
             event_type=EventType.CHAIN_ASSERTION,
@@ -88,7 +95,8 @@ def parse_works_registration(
             claimant=registry_operator,
             claim={
                 "title": row["WorkTitle"],
-                "shares": work_shares,
+                "share_claims": share_claims,
+                "share_details": work_shares,
             },
             ep_type=EPType.STATUTORY_REGISTRY,
             source_url=source_url,
