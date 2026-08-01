@@ -236,3 +236,43 @@ Next: C2-P2 — adapters/cook_parcels.py, one module, four parsers
 with the R3 registry-claimant convention and per-parser tests.
 
 Open questions: R2 export in progress (operator).
+
+### C2-P2 — Cook County parcel adapter (2026-08-01)
+
+Shipped:
+- adapters/cook_parcels.py: three parsers (deeds, assessor roll,
+  tax-sale results) + parse_all with cross-source entity resolution
+  and dispute detection. All events statutory_registry except
+  disputes (third_party_attested, records-disagree mechanism). The
+  redemption parser is deferred until the R2 export lands — writing
+  it against invented input would require synthetic parcel data,
+  which this contract forbids.
+- Declared conventions (module docstring, load-bearing): chain-tail
+  claim window (plan gate item 6); R3 competing-claim modeling with
+  the cook-county-tax-sale-registry claimant (F1: fold claimant-match
+  rule untouched); UNKNOWN buyers contribute record events only
+  (M-RI-11 I6); comma-free entity labels (engine forbids commas in
+  frame elements) with verbatim names preserved in claim payloads.
+- DEVIATION (adopted mid-phase, flagged for DONE): mechanical
+  truncation-merge entity resolution — the assessor roll truncates
+  names (ILLIANA FINANCIAL CRED vs the deed's ILLIANA FINANCIAL
+  CREDIT UNION), which would manufacture a fake contest on every
+  happy-path parcel. Rule: normalized name >= 8 chars that is a
+  strict prefix of exactly one longer name in the same parcel's
+  record pool is a truncation of it; everything else stays distinct
+  (M-RI-11 distinct-strings rule). Mechanical, deterministic,
+  documented — not an attested alias table.
+- Adapter output on the real fixtures: 56 events (30 grants, 17
+  chain assertions, 9 disputes); Dolton renders a five-way chain
+  break; all eight forfeited parcels correctly show the county's
+  competing interest (an unredeemed forfeiture against a chain IS a
+  records-level contest per R3); worst frame is 5 entities (engine
+  limit 8).
+- tests/test_rights_cook_parcels.py: 16 tests. Suite: 557 passed
+  (541 + 16).
+
+Next: C2-P3 — parcel runner (python -m rights_events.parcels),
+structural-identity test vs Song X, determinism tests; redemption
+delta remains blocked on R2.
+
+Open questions: R2 export in progress (operator).
