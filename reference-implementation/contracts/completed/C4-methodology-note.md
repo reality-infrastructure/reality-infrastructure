@@ -82,3 +82,93 @@ STOP CONDITIONS
 - Red tests at session end: record, end cleanly.
 - After this contract closes and the operator tags v1.4.0: THE BUILD IS COMPLETE. No further
   contracts open under CF-024.
+
+---
+
+# DONE REPORT (2026-08-01)
+
+Contract 4 — planned for Days 20-21 — closed on Day 1. The build is
+complete.
+
+## Phases, with commit hashes
+
+- C4-P1 the draft and the recorded read: 7e3bf05
+- C4-P2 site integration, README, CITATION, tests: 6c7318a
+- C4-P3 closeout (this commit): archive, wall proof, hard stop
+
+## Final word count
+
+2,084 words (canonical source, code spans and link URLs excluded;
+acceptance range 2,000-3,000; not padded toward the target per
+Constraint 6). Enforced by test.
+
+## References shipped in the note
+
+1. Denoeux 2008, Artificial Intelligence 172(2-3):234-264 (the
+   cautious rule).
+2. RFC 9162, Certificate Transparency Version 2.0.
+3. EU AI Act Article 53 (public text).
+4. European Commission template adoption, 24 July 2025 (adoption
+   record + Open Future independent analysis).
+5. C2PA and Content Credentials Explainer (spec.c2pa.org).
+6. The MLC, $424 million historical unmatched royalties announcement,
+   February 2021.
+
+## Anchors used (all six resolve in docs/, test-enforced)
+
+index, rights-state/song-x.html,
+rights-state/parcel-29024080530000.html, provenance/parcels.html,
+evidence/index.html, disclosure/index.html — the complete parked list
+from the C3 archive.
+
+## Drift and byte-identity results
+
+- Drift: fresh render of METHODOLOGY.md byte-equals the committed
+  docs/methodology/index.html (test).
+- Principles drift: the signature principle, claimed-not-true,
+  not-a-detector, and no-laundering sentences verbatim-present in
+  both the note and README (test).
+- Double-build byte-identity of the full site: passing (existing
+  acceptance test, unchanged).
+- Lossless rendering: every prose line of the canonical source
+  appears in the rendered page (test).
+
+## Wall diff vs v1.3.0
+
+Hard-frozen list (ri_core, schema/policy/pipeline/replay, adapters,
+both runners, existing site view renderers views/disclosure/corpus/
+html): EMPTY. Permitted deltas only: site/build.py +8/-2 (the index
+placeholder line replaced by the methodology link; the additive
+render call), README (two lines under Technical documentation),
+CITATION.cff (version/date), plus the new files (METHODOLOGY.md,
+site/methodology.py, docs/methodology/, tests).
+
+## CITATION.cff
+
+version: 1.4.0, date-released: 2026-08-01; abstract unchanged (no
+factual correction was needed); structure parses (test).
+
+## Claims cut for want of grounding
+
+None. All external claims were grounded in-session at the gate before
+drafting (the contract's cut-or-flag rule was satisfied by flagging
+zero and grounding four). One deliberate non-claim, recorded at the
+gate: no characterization of Art. 53 compliance quality or industry
+behavior beyond the instrument's own structure.
+
+## Archive path
+
+reference-implementation/contracts/completed/C4-methodology-note.md
+(this file).
+
+## The build state at hard stop
+
+Four contracts closed and archived (C1 event layer, C2 second domain,
+C3 four views, C4 methodology note). 607 tests passing in 20.49s.
+Live site: https://reality-infrastructure.github.io/reality-infrastructure/
+serving the four views and the methodology page, generated
+deterministically from replayable run artifacts. Dated artifacts:
+v1.0.0 (2026-07-31, the stake), v1.1.0, v1.2.0, v1.3.0 (2026-08-01),
+and v1.4.0 pending the operator's closeout tag and Release. The
+21-day plan closed in two calendar days. After v1.4.0: no further
+contracts open under CF-024.

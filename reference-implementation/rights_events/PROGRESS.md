@@ -522,3 +522,16 @@ CITATION.cff 1.4.0, drift/anchor/word-count tests.
 - Suite: 607 passed (594 + 13).
 
 Next: C4-P3 — wall diff vs v1.3.0, archive with DONE, hard stop.
+
+### C4-P3 — closeout (2026-08-01)
+
+- Contract text written to CURRENT.md (correcting a C4-P1 omission:
+  the gate proceeded without the swap) and archived to
+  contracts/completed/C4-methodology-note.md with the DONE report.
+- Wall vs v1.3.0: hard-frozen list EMPTY; permitted deltas only
+  (build.py placeholder line + additive render; README two lines;
+  CITATION.cff version/date).
+- Suite at close: 607 passed.
+
+Contract 4 phases complete. THE BUILD IS COMPLETE at the operator's
+v1.4.0 tag and Release. No further contracts open under CF-024.
