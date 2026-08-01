@@ -76,3 +76,7 @@ Claude Code owns implementation and treats SPEC.md as source of truth.
   RUN_FILE --subject SUBJECT` reconstructs a logged belief object and verifies byte-identity
   and inclusion proofs; `python -m rights_events.song_x` runs the layer's end-to-end
   acceptance case (a SYNTHETIC split-conflict fixture) and writes a run file.
+- The identical layer, unchanged, runs a second domain: `python -m rights_events.parcels`
+  folds real Cook County land records (recorded deeds, assessor roll, tax-sale results)
+  into belief objects structurally identical to the music case's, verified by the same
+  replay CLI with the same commands.

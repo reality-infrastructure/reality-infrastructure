@@ -312,3 +312,41 @@ REAL DATA UNAVAILABLE at P4.
 
 Next: C2-P4 — wall-proof diff vs v1.1.0, README sentence, DONE
 report, archive; delta test first if the R2 export lands.
+
+## Findings (continued)
+
+F3 (2026-08-01, operator ruling closing R2): the redemption/lien-
+release delta criterion closes NOT MET - REAL DATA UNAVAILABLE.
+- The MECHANISM is proven: domain one's revocation-delta test
+  exercises the identical fold (F1) that a redemption would use —
+  revocation via prior_event_refs under the claimant-match rule,
+  which the R3 registry-claimant convention satisfies with zero
+  changes to pipeline.py. What is missing is a real record, not a
+  capability.
+- ACCESSIBILITY EVIDENCE: no redemption data exists in the warehouse
+  (cook_clerk_tax_delinquency: 0 rows; finding F2); Cook County
+  redemption records (Estimates of Redemption, redemption receipts)
+  are request-based documents dispensed per-PIN by the Clerk rather
+  than published as a dataset, and the Clerk's online search was
+  unavailable when the operator attempted retrieval on 2026-08-01.
+- FORWARD NOTE: a single Estimate of Redemption obtained from the
+  Clerk later converts this criterion to MET with a fixture addition
+  (the R2 export file, under the R2/R4 attestation convention) and
+  zero code changes beyond the deferred redemption parser and its
+  test — no engine change, no frozen-module change, no schema change.
+
+### C2-P4 — closeout: wall proof, README, archive (2026-08-01)
+
+Shipped:
+- Zero-change wall proven: git diff v1.1.0 HEAD --stat scoped to
+  ri_core/ and rights_events/{schema,policy,pipeline,replay}.py is
+  EMPTY (output pasted in the DONE report).
+- README: one sentence added to the Rights-event layer subsection
+  (the second domain, same commands).
+- F3 recorded (above); contract archived to
+  contracts/completed/C2-second-domain.md with the DONE report.
+- Suite at close: 571 passed.
+
+Contract 2 phases complete: C2-P1..P4, closed on Day 1 of a planned
+Days 8-13 window. Delta criterion NOT MET - REAL DATA UNAVAILABLE
+(F3); every other acceptance criterion met.
