@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use this software or methodology, please cite it as below."
+title: "Reality Infrastructure: provenance-aware, contradiction-preserving belief computation for contested records"
+authors:
+  - family-names: "Pierce"
+    given-names: "Irvin"
+type: software
+version: 1.0.0
+date-released: 2026-07-31
+repository-code: "https://github.com/reality-infrastructure/reality-infrastructure"
+license: Apache-2.0
+keywords:
+  - provenance
+  - transparency-log
+  - RFC-9162
+  - dempster-shafer
+  - contested-records
+  - rights-state
+  - evidence-fusion
+  - replayable-audit
+abstract: "A reference implementation for computing justified beliefs over contested multi-source evidence. Evidence is typed by epistemic character (self-asserted, third-party attested, cryptographically signed, statutory registry), fused under the Denoeux cautious rule so that contradiction is preserved as a first-class state rather than resolved away, committed to an RFC 9162-style Merkle transparency log, and reconstructable via byte-identical replay. Domains of application include any record system where claims conflict: rights and licensing state, chain-of-title, consent and opt-out registries, compliance disclosure derivation."
