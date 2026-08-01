@@ -1,135 +1,162 @@
-# CONTRACT — M-RI-13: EP typing wired into RI's evidence layer (Dolton parcel)
-
-### The stack's first real integration. One parcel. Pre-registered. Deterministic replay MUST hold.
-
-NUMBERING (binding operator correction, 2026-07-28): this contract is M-RI-13 everywhere.
-All body references to "bank as M-RI-12" are superseded — bank as M-RI-13, archive as
-contracts/completed/M-RI-13-ep-typing.md, commit message "M-RI-13: EP typing wired into
-evidence layer, Dolton re-run — <verdict>". M-RI-12 is the banked case study (089bea5) and
-is closed.
+# CONTRACT 1 — THE EVENT LAYER (Days 1–7)
+### Rights-event schema → four adapters → EP-typed events → Denœux fusion → belief objects → Merkle log → replay CLI. Acceptance: the Song X split-sheet conflict runs end-to-end with m(unresolved) high and provable.
 
 ---
 
-## OPERATING MODE
+OBJECTIVE
+Build the rights-event layer on top of the existing Reality Infrastructure engine: a typed
+rights-event schema, four evidence adapters, a pipeline that carries adapter output through EP
+typing → Denœux fusion → belief-object serialization → Merkle transparency logging with inclusion
+proofs, and a replay CLI that reconstructs any logged belief byte-identically. The contract is
+complete when the Song X split-sheet conflict fixture runs end-to-end and a test proves
+m(unresolved) dominates the fused belief.
 
-Integrate Epistemic Provenance's typed-uncertainty layer into Reality Infrastructure's evidence
-ingestion, then re-run the EXISTING M-RI-11 Dolton parcel (PIN 29024080530000) so the belief state
-and its justification are now typed by epistemic character. This is n=1 evidence that the stack
-(RI reasons, EP types what it reasons over) works on real data — NOT a general engine, NOT a
-standard, NOT VaaS. One parcel, one integration, one better dossier.
+CONTEXT
+The engine (reference-implementation/, 425 passing tests across 13 milestones) already provides:
+epistemic typing, Denœux cautious-rule fusion, RFC 9162-style Merkle logging, byte-identical
+replay. This contract does NOT modify the engine — it builds the first domain layer that consumes
+it. The domain layer must be engine-agnostic about content: Contract 2 will feed land-records
+events through the identical schema with zero engine or schema changes, so nothing in this
+contract may be music-specific except adapter internals and fixtures. The public repo is the
+project's dated priority claim; everything committed is world-readable.
 
-The operator is on degraded sleep. This touches RI's reconciliation logic (the mathematical heart).
-Therefore: pre-register the expected belief-state effect BEFORE coding; deterministic replay MUST
-still hold; any change to the belief state must be INSPECTABLE and JUSTIFIED, never silently
-absorbed. The rigor is the guardrail against a tired-brain bug in the load-bearing layer.
+SCOPE
+IN:
+- A new package inside reference-implementation (propose the path at plan gate; suggestion:
+  `rights_events/`) containing: schema, adapters, pipeline, belief-object serialization, CLI.
+- Event schema covering exactly six event types: grant, revocation, opt_out, term_change,
+  dispute, chain_assertion. Every event carries: event_type, subject identifier(s) (the work or
+  record the claim is about), claimant/actor, claim payload, EP type (self_asserted |
+  third_party_attested | cryptographically_signed | statutory_registry), source_url,
+  observed_date, prior_event_refs (list, may be empty).
+- Four adapters, each transforming one evidence format into schema events:
+  (a) BWARM/MLC-style works-registration sample → statutory_registry events
+  (b) C2PA manifest → cryptographically_signed events (parse assertions + signer identity; the
+      adapter records WHO signed WHAT — it does not validate certificate chains in this contract)
+  (c) TDMRep / robots.txt / ai.txt opt-out signals → self_asserted opt_out events
+  (d) PRO-conflict fixture (two conflicting split registrations for one work) →
+      third_party_attested events
+- Pipeline: adapter events → EP typing (reuse engine) → Denœux fusion per subject (reuse engine)
+  → belief object (frame of discernment per contested question, mass assignments including the
+  unresolved/ignorance set, contributing event refs with their EP types) → serialized
+  deterministically → appended to the Merkle log → inclusion proof retrievable.
+- Replay CLI (`python -m rights_events.replay` or equivalent): given a subject id and log
+  position/root, reconstructs the belief object from logged events and verifies byte-identity
+  against the stored serialization; prints inclusion proof verification result.
+- Fixtures: the Song X case — Writer A PRO registration claiming 60/40; Writer B split sheet
+  claiming 50/50; B's later revocation event. Plus minimal happy-path fixtures per adapter.
+- Tests for all of the above, added to the existing suite.
+OUT:
+- Any modification to engine modules (fusion math, EP core, Merkle log internals, replay core).
+- Land-records anything (Contract 2). Web UI anything (Contract 3). Methodology prose (Days
+  20–21). Certificate-chain validation, key management, network fetching of live data,
+  performance work, CI changes, dependency additions beyond what parsing strictly requires
+  (justify any new dependency at plan gate).
 
-Build to the existing M-RI-11 artifacts and RI's actual reconciliation code on disk — not to memory.
+PLAN GATE
+Before writing any code:
+1. Survey reference-implementation/ and report: the engine's public interfaces for EP typing,
+   fusion, logging, and replay (module paths + function/class signatures you will call).
+2. Propose the new package layout (files and their responsibilities).
+3. Propose the event schema as a concrete dataclass/pydantic definition (state which, and why,
+   given what the repo already uses).
+4. Propose the deterministic serialization strategy for belief objects (byte-identity across
+   runs is an acceptance criterion — state how you guarantee key ordering, float representation,
+   and encoding).
+5. State the fixture plan: which fixture data is real public data checked in as a sample, and
+   which is synthetic. Synthetic fixtures MUST be labeled synthetic in the file and its docstring.
+6. Day-by-day sequence for the week (see Constraint 8 for the required phasing).
+Wait for my approval before proceeding.
 
----
+PLAN GATE RULINGS (2026-08-01, all five approved with amendments):
+1. EP mapping table APPROVED. cryptographically_signed → measured is honest only because the
+   C2PA adapter's claim payload is the who-signed-what fact read off the manifest bytes — not
+   the signed assertion's content taken as true. The adapter docstring must state that the
+   measured thing is the signing event; the truth of what was signed is untouched.
+2. Unresolved as Ω APPROVED. The belief object names Ω explicitly so a non-specialist reader
+   can find "unresolved" without DS notation. The retained conflict mass m(∅) is a feature —
+   report it explicitly in the belief object as conflict.
+3. Mass policy values APPROVED as declared constants. policy.py carries a docstring stating
+   these are the reference implementation's declared priors, that changing them is a policy
+   change requiring a tagged commit (same amendment discipline as NEUTRALITY.md), and the
+   dispute-fuses-vacuously rule is documented alongside them.
+4. Two-log architecture, submit()+cautious_fuse() with revocation as a domain fold APPROVED.
+   The project() finding goes into PROGRESS.md as a formal dated finding; Contract 2 inherits
+   it (parcel redemptions and lien releases are the same cross-event shape).
+5. BWARM synthetic APPROVED (credentialed access is the legitimate blocker). Synthetic,
+   labeled, spec-cited. Swapping in a public sample later is a fixture change, not a schema
+   change.
 
-## OBJECTIVE
+CONSTRAINTS
+1. ENGINE IS READ-ONLY. If any task appears to require changing fusion semantics, EP core, log
+   internals, or replay core, STOP (see stop conditions). Thin wrapper/adapter code around engine
+   interfaces is permitted; changes inside them are not.
+2. No fabrication in fixtures: real-format samples are checked in with their source_url and
+   observed_date recorded; synthetic fixtures are explicitly labeled SYNTHETIC in filename or
+   header and modeled on a cited real format. The Song X case is SYNTHETIC (modeled on the
+   standard PRO split-conflict pattern) and must say so.
+3. Every event in every fixture carries source_url and observed_date. For synthetic fixtures,
+   source_url points to the format documentation the fixture is modeled on, and the synthetic
+   label makes the distinction inspectable. NULL stays NULL — no invented values.
+4. Determinism is absolute: same events in, byte-identical belief serialization out, across runs
+   and machines. No timestamps-at-runtime, no dict-ordering luck, no floats formatted by locale.
+5. The schema is domain-neutral. Field names must make sense for a parcel as well as a song
+   (subject, claimant, claim — not track, artist, songwriter). Adapter internals may be
+   music-specific; the schema may not.
+6. All 425 existing tests must still pass at every commit. New tests extend the suite; they never
+   modify existing test expectations.
+7. Commit granularity: one commit per completed phase (see 8), message prefixed `C1-P<n>:`.
+   Push at end of each session.
+8. Required phasing (each phase ends with its tests green before the next begins):
+   P1 schema + serialization (Days 1–2)
+   P2 adapters a–d with per-adapter fixtures (Days 2–4)
+   P3 pipeline: fusion → belief object → log append → inclusion proof (Days 4–5)
+   P4 replay CLI + byte-identity verification (Days 5–6)
+   P5 the Song X acceptance fixture end-to-end + the m(unresolved) test (Day 6–7)
+9. Maintain `rights_events/PROGRESS.md`: after each phase, append phase id, date, what shipped,
+   what's next, any open questions. A fresh session reads this first and resumes; it does not
+   re-plan completed phases.
+10. No emojis anywhere. Docstrings state what IS, not what's hoped.
 
-In the Reality-Infrastructure repo, extend the evidence layer so each claim carries an EP
-uncertaintyType (set-valued, per EP's promoted schema), and RI's reconciliation USES the type in
-producing the belief state and its justification. Re-run the Dolton parcel. Produce an EP-typed
-dossier. Bank as M-RI-13. Deterministic replay must remain byte-identical for unchanged inputs.
+ACCEPTANCE
+- `pytest` green: all 425 pre-existing tests plus all new tests pass.
+- The Song X fixture runs end-to-end via a single documented command, producing:
+  (a) a belief object whose frame includes at least {A-majority, B-equal, unresolved} and whose
+      mass on unresolved exceeds the mass on every singleton hypothesis — asserted by a test, not
+      eyeballed;
+  (b) a Merkle log containing the contributing events, each with a verifiable inclusion proof;
+  (c) a replay run that reconstructs the belief object byte-identical to the stored
+      serialization and exits nonzero if identity fails.
+- Each adapter has at least one fixture-driven test proving format → events → correct EP type.
+- The revocation event demonstrably changes the fused belief relative to the pre-revocation
+  state (a test asserts the difference).
+- Schema round-trips: event → serialized → parsed → identical.
+- A reader who knows nothing about music can read the schema module and not encounter a
+  music-specific field name.
 
----
+DEPLOY
+Commit and push per Constraint 7 to origin/main. No tags (tagging happens at contract closeout
+by me). No release. No visibility changes. No README changes except: add a short "Rights-event
+layer" subsection under Technical documentation listing the package and the replay CLI command —
+nothing promotional.
 
-## PRE-REGISTRATION (write to the test file, COMMIT before touching reconciliation code)
+DONE
+Report at contract end: phases completed with commit hashes; total test count (old + new) and
+suite runtime; the exact end-to-end command for the Song X case and its output summary
+(mass assignments printed); the replay CLI invocation and its verification output; any deviations
+from plan-gate decisions with reasons; open questions parked for Contract 2.
 
-Before any code change, write and commit the expected behavior:
-
-- The type assignment for each Dolton claim (fixed before coding, justified from the source):
-    - recorded deed → `["measured"]`
-    - CRM disposition/inventory status → `["asserted-by-interested-party"]` (SSLBDA self-reports its
-    own inventory state; it is the interested party)
-    - any assessor/tax value derived from a model or estimate → `["estimated"]` or the honest type
-    - any point-in-time value with a validity window → add temporal validity
-    (If a claim is honestly dual-typed, use the set — that's what set-valued is for.)
-- The expected effect on the belief state, stated before running: does typing CHANGE the belief
-state, or only enrich the JUSTIFICATION? Pre-register which.
-- The replay invariant: deterministic replay of UNCHANGED inputs must remain byte-identical.
-Distinguish pre-registered schema change (allowed) vs. logic drift (forbidden).
-- The falsifier: what result would mean the integration made things WORSE or broke replay.
-
-## THE BUILD (after pre-registration committed)
-
-1. Extend the evidence/claim schema to carry set-valued `uncertaintyType` (+ optional temporal
-validity). Minimal change — reuse EP's promoted schema shape.
-2. Wire the type into reconciliation: RI's fusion should be able to USE the type — at minimum, the
-justification output must state each claim's type and WHY the belief was weighted as it was in
-terms of that type. If the type changes the fusion math, that change must be explicit, small, and
-justified (not a silent rewrite of Denœux).
-3. Re-run the Dolton parcel through the typed pipeline.
-4. Produce the EP-typed dossier: the belief state + a justification that now reads in epistemic
-terms ("deed trusted as measured; CRM discounted as interested-party assertion that also
-self-contradicts").
-
-## THE VERDICT (honest, un-tuned)
-
-- Replay check: does deterministic replay still hold per the pre-registered invariant? If a hash
-changed, is it the pre-registered schema-change (allowed) or logic drift (FAIL)? Report the hashes.
-- Belief-state check: did typing change the belief state as pre-registered, or did it do something
-unexpected? Report against the pre-registration.
-- The integration verdict: does the typed dossier produce belief that is BOTH justified AND
-epistemically honest about its inputs? PASS = yes, replay intact, justification now epistemic.
-FAIL = replay broke unexpectedly, or typing changed belief in an unjustified way, or typing added
-nothing the plain weight didn't already convey (typing-is-decoration).
-- Do NOT tune to force PASS. Bank as M-RI-13 with the honest verdict.
-
----
-
-## CONSTRAINTS
-
-- Build to M-RI-11 artifacts and RI's real reconciliation code on disk, not memory.
-- Pre-registration committed BEFORE reconciliation code changes.
-- Deterministic replay invariant respected; hash changes classified (schema vs. drift) per pre-reg.
-- Do NOT rewrite the Denœux fusion silently — any math change is explicit, small, justified, or
-the type only enriches justification (preferred minimal version).
-- Real Dolton data only (the existing parcel); invent nothing.
-- SCOPE HARD STOP: one parcel, one integration. NO conformance suite, NO standard, NO VaaS, NO second
-parcel, NO general engine.
-- Do NOT touch the collateral/ folder or push Dolton-named data to a public repo (check privacy at gate).
-- Do NOT run winget upgrade. No deploy.
-
-## ACCEPTANCE — all must pass, report each
-
-1. Pre-registration committed before reconciliation code changed (verify ordering in git history)
-2. Claim schema carries set-valued uncertaintyType; Dolton claims typed per the pre-registered map
-3. Reconciliation uses the type at least in the justification output; any fusion-math change is
-explicit and justified, not silent
-4. Dolton parcel re-run; EP-typed dossier produced
-5. Deterministic replay verdict reported with hashes; any hash change classified schema-vs-drift per
-pre-registration; logic drift = FAIL
-6. Integration verdict stated honestly (PASS / FAIL / typing-is-decoration), un-tuned
-7. Scope held; collateral untouched; privacy checked before any push; M-RI-13 banked; pushed if
-remote valid and privacy-safe
-
-## STOP CONDITIONS
-
-- M-RI-11 artifacts or RI reconciliation code not readable → report, halt
-- Any instruction would silently rewrite the Denœux fusion → halt
-- Deterministic replay breaks as unclassifiable logic drift → report, do not tune to hide it
-- Scope creep toward standard/suite/VaaS/second parcel → halt
-- Repo is public and push would expose Dolton-named data → halt, do not push
-- Any acceptance check fails
-
----
-
-## GO RULINGS (operator, 2026-07-28)
-
-R1 (Type map, fixed at GO): O1 = ["measured"]. O2 = ["measured"] (administrative record of
-what the roll states, not an estimate). O3 = ["asserted-by-interested-party"] alone IF the
-schema's temporal form can't express "asserted 2017-01-01, staleness unbounded" cleanly
-(it can't — see pilot/ep_typing_preregistration.md §1a). O4 = ["measured",
-"inferred-from-proxy"] — first real inferred-from-proxy encode; the dossier's O4 entry must
-print both terms with the existing A2 inference sentence as the proxy explanation.
-
-R2 (Golden discipline): tests/golden/pilot/dolton_dossier.out is UNTOUCHED — it is the
-M-RI-11 artifact. The typed re-run gets its own script output path and NEW golden
-(tests/golden/pilot/dolton_dossier_typed.out). If any pre-existing golden's bytes change,
-that is the drift branch regardless of cause — halt.
-
-R3 (Housekeeping): stale CURRENT.md (M-RI-11 text) replaced with this M-RI-13 contract as
-part of the pre-registration commit.
+STOP CONDITIONS
+- FUSION REDESIGN TRIPWIRE (the contract's named risk): if at any point the Denœux fusion, EP
+  core, log, or replay engine needs modification — not wrapping, modification — to satisfy this
+  contract, STOP immediately, write the finding to PROGRESS.md (what was needed and why), and
+  report. The engine being unfinished is a finding, not a detour. Do not "quickly fix" the engine.
+- If deterministic byte-identity cannot be achieved with the engine's existing serialization
+  behavior, STOP and report the specific nondeterminism source before working around it.
+- If any adapter's real-format sample cannot be constructed without live network fetching, STOP
+  and ask — do not silently substitute a synthetic fixture for what the plan gate promised as
+  real.
+- If a phase's tests are red at the end of a session, do not start the next phase — record state
+  in PROGRESS.md and end the session cleanly.
+- If anything in this contract conflicts with NEUTRALITY.md or the no-fabrication rule, STOP and
+  surface the conflict; the covenant wins.
