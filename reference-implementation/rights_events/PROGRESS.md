@@ -503,3 +503,22 @@ https://reality-infrastructure.github.io/reality-infrastructure/
 
 Next: C4-P2 — md renderer, methodology page, index and README lines,
 CITATION.cff 1.4.0, drift/anchor/word-count tests.
+
+### C4-P2 — site integration (2026-08-01)
+
+- site/methodology.py: stdlib line renderer for exactly the note's
+  constructs (title, ## sections, paragraphs, - lists, https links,
+  code spans); docs/methodology/index.html rendered from the
+  canonical source; index placeholder replaced with the link and the
+  approved one-liner.
+- README: METHODOLOGY.md line + Site line (live URL confirmed by
+  operator). CITATION.cff: 1.4.0 / 2026-08-01.
+- tests/test_rights_methodology.py: 13 tests — section
+  order/headings, word count in range (2,084), principles verbatim
+  in note AND README, exact worked-example masses, F3 disclosure
+  present, all six anchors mapping to docs/ files, all five parked
+  C3 anchors used, drift (fresh render == committed page), lossless
+  prose rendering, build integration, CITATION.cff state.
+- Suite: 607 passed (594 + 13).
+
+Next: C4-P3 — wall diff vs v1.3.0, archive with DONE, hard stop.

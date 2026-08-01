@@ -25,6 +25,7 @@ from rights_events import parcels as parcels_runner
 from rights_events import song_x as song_x_runner
 from rights_events.site import corpus as corpus_builder
 from rights_events.site.disclosure import render_disclosure
+from rights_events.site.methodology import ONE_LINER, render_methodology
 from rights_events.site.html import (
     REPO_URL,
     esc,
@@ -165,8 +166,8 @@ def _index_html(evidence_files: list[str]) -> str:
         'rel="noopener">Neutrality covenant</a></li>\n'
         f'    <li><a href="{REPO_URL}/blob/main/CITATION.cff" '
         'rel="noopener">Citation</a></li>\n'
-        "    <li>Methodology note — placeholder; Contract 4 fills "
-        "this.</li>\n"
+        '    <li><a href="methodology/index.html">Methodology note'
+        f"</a> — {esc(ONE_LINER)}</li>\n"
         "  </ul>\n"
     )
     return page("Reality Infrastructure — the four views", body,
@@ -279,6 +280,11 @@ def main(argv: list[str] | None = None) -> int:
         evidence / "corpus_run.ri")
     _write(out / "disclosure" / "index.html",
            render_disclosure(corpus_run))
+
+    methodology_md = (_REPO_ROOT / "METHODOLOGY.md").read_text(
+        encoding="utf-8")
+    _write(out / "methodology" / "index.html",
+           render_methodology(methodology_md))
 
     print(f"site built: {out}")
     return 0

@@ -52,6 +52,12 @@ Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 ## Technical documentation
 
+- **[METHODOLOGY.md](METHODOLOGY.md)** — the methodology note (five sections: the verification
+  gap, evidence typing, contradiction preservation, the replay guarantee, limits), canonical
+  here, rendered at the site's methodology page.
+- **Site** — [https://reality-infrastructure.github.io/reality-infrastructure/](https://reality-infrastructure.github.io/reality-infrastructure/)
+  — the four views (provenance explorer, rights-state, evidence export, derived disclosure),
+  generated deterministically from the run artifacts.
 - **/research** — IMMUTABLE artifacts: the four-stage research record (adversarial verdict,
   emergence analysis, independent derivation, Specification v0.1) and future papers.
   Never edited; corrections become new dated files.
