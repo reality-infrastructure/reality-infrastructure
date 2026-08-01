@@ -276,3 +276,39 @@ structural-identity test vs Song X, determinism tests; redemption
 delta remains blocked on R2.
 
 Open questions: R2 export in progress (operator).
+
+### C2-P3 — parcel runner, structural identity (2026-08-01)
+
+Shipped:
+- rights_events/parcels.py: python -m rights_events.parcels [--out] —
+  56 real events, 9 parcels, one belief object per parcel for
+  ownership_shares, as_of = max record ltime (data-derived, no
+  clock), in-process checks B1-B3, run file consumable by the
+  UNCHANGED replay CLI (same command, same flags, tamper exits 1 —
+  test-verified in-process and via subprocess).
+- Entity-resolution deviation extended (same declared-mechanical
+  class, flagged with the first): word-order variants (deed HERNDON
+  JOHN vs roll JOHN HERNDON; ADDISON MICHAEL divesting MICHAEL
+  ADDISON) merge by equal token multisets, labeled by the
+  lexicographically smallest variant; spelling divergences (ZOLLER
+  sold as ZOLLEN) stay distinct — that is the record's own content.
+- Structural-identity tests: the Dolton belief object and the Song X
+  belief object have the same top-level key set, the same mass-report
+  shape (singletons, explicit conflict, explicit named Omega), the
+  same contributing-event record shape, and both replay
+  byte-identically through the same load/fold path. The two lanes
+  render one structure.
+- Contested-parcel numbers (real records): Dolton 29024080530000 —
+  five competing claims, conflict 0.91296, unresolved 0.01024 (five
+  statutory records naming five entities is a records problem, and
+  the belief object says so); 29033140260000 — four competing claims
+  including the county's forfeiture interest (R3).
+- tests: +2 adapter (word-order merge, spelling stays distinct),
+  +12 runner/structural. Suite: 571 passed (557 + 14).
+
+Delta criterion: still blocked on the R2 export (operator hunting a
+redemption pair). Per ruling R2, if none exists it closes NOT MET -
+REAL DATA UNAVAILABLE at P4.
+
+Next: C2-P4 — wall-proof diff vs v1.1.0, README sentence, DONE
+report, archive; delta test first if the R2 export lands.

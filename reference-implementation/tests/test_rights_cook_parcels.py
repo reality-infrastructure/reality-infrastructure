@@ -149,6 +149,25 @@ class TestEntityResolution:
         assert entities == {"ILLIANA FINANCIAL CREDIT UNION",
                             "COOK COUNTY"}
 
+    def test_word_order_variants_merge(self):
+        # Deed grantee HERNDON JOHN vs roll owner JOHN HERNDON: equal
+        # token multisets, one entity, lexicographically smallest label;
+        # ADDISON MICHAEL / MICHAEL ADDISON likewise, so the earlier
+        # grantee shows as divested and is no chain tail.
+        events = all_events()
+        entities = {k for e in mapped_claims(events, "29031100330000")
+                    for k in e.claim["share_claims"]}
+        assert entities == {"HERNDON JOHN", "COOK COUNTY"}
+
+    def test_spelling_divergence_stays_distinct(self):
+        # RICHARD ZOLLER sold as RICHARD ZOLLEN (the record's own
+        # content): no rule merges a spelling difference, so the
+        # grantee of record remains undivested of record.
+        events = all_events()
+        entities = {k for e in mapped_claims(events, "29092100180000")
+                    for k in e.claim["share_claims"]}
+        assert "RICHARD ZOLLER" in entities
+
     def test_distinct_strings_stay_distinct(self):
         events = all_events()
         entities = {k for e in mapped_claims(events, "29031010050000")

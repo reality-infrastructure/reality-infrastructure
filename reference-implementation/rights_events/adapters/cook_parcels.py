@@ -31,17 +31,26 @@ the UNCHANGED Contract 1 fold (finding F1: claimant-match rule intact;
 this convention is routing, not identity — the recorded parties stay
 verbatim in the payload).
 
-ENTITY RESOLUTION (declared mechanical convention): the assessor roll
-truncates names (e.g. a roll string that is a leading fragment of the
-deed's grantee string). Name strings are normalized (uppercase,
-whitespace collapsed, commas and periods dropped, hyphens to spaces)
-and a normalized name at least 8 characters long that is a strict
-prefix of exactly ONE longer name in the same parcel's record pool is
-treated as a truncation of it; the longer form is the entity label.
+ENTITY RESOLUTION (declared mechanical convention, two rules):
+1. Word-order variants: county records write the same name in both
+   orders (a deed grantee HERNDON JOHN against a roll owner JOHN
+   HERNDON). Names are normalized (uppercase, whitespace collapsed,
+   commas and periods dropped, hyphens to spaces); names whose
+   normalized token multisets are equal are one entity, labeled by the
+   lexicographically smallest variant (a deterministic representative,
+   not a judgment about name order; every variant stays verbatim in
+   its claim payload).
+2. Truncation: the assessor roll truncates names (a roll string that
+   is a leading fragment of the deed's grantee string). A normalized
+   representative at least 8 characters long that is a strict prefix
+   of exactly ONE longer representative in the same parcel's record
+   pool is treated as a truncation of it; the longer form is the
+   entity label.
 Anything else stays distinct: distinct-after-rule strings are distinct
-frame entities (the M-RI-11 rule). Commas never reach share-claims
-keys (the engine forbids commas in frame elements); verbatim strings
-stay in the claim payload. A buyer recorded as UNKNOWN contributes a
+frame entities (the M-RI-11 rule) — including genuine record
+divergences like spelling differences, which are the record's own
+content. Commas never reach share-claims keys (the engine forbids
+commas in frame elements). A buyer recorded as UNKNOWN contributes a
 record event but no ownership claim (the M-RI-11 I6 rule).
 
 Where two or more mapped claims for one parcel assert different
@@ -90,25 +99,41 @@ def _normalize(name: str) -> str:
 
 
 def _cluster(names: set[str]) -> dict[str, str]:
-    """Map each normalized name to its entity label (truncation rule).
+    """Map each normalized name to its entity label.
 
-    A name >= 8 chars that is a strict prefix of exactly one longer
-    name maps to that longer name; ambiguous or non-matching names map
-    to themselves. Deterministic: processed longest-first, sorted.
+    Rule 1 (word order): names with equal token multisets form one
+    group labeled by the lexicographically smallest variant.
+    Rule 2 (truncation): a group representative >= 8 chars that is a
+    strict prefix of exactly one longer representative maps to that
+    longer representative's label; ambiguous or non-matching stays
+    itself. Deterministic: sorted processing throughout.
     """
-    ordered = sorted(names, key=lambda n: (-len(n), n))
-    labels: dict[str, str] = {}
-    reps: list[str] = []
-    for name in ordered:
-        matches = [r for r in reps
-                   if len(name) >= _PREFIX_MIN_LEN
-                   and len(name) < len(r) and r.startswith(name)]
+    # Rule 1: permutation groups.
+    perm_label: dict[str, str] = {}
+    groups: dict[tuple[str, ...], list[str]] = {}
+    for name in sorted(names):
+        groups.setdefault(tuple(sorted(name.split())), []).append(name)
+    for members in groups.values():
+        rep = min(members)
+        for member in members:
+            perm_label[member] = rep
+
+    # Rule 2: truncation across group representatives.
+    reps_sorted = sorted(set(perm_label.values()),
+                         key=lambda n: (-len(n), n))
+    rep_label: dict[str, str] = {}
+    kept: list[str] = []
+    for rep in reps_sorted:
+        matches = [k for k in kept
+                   if len(rep) >= _PREFIX_MIN_LEN
+                   and len(rep) < len(k) and k.startswith(rep)]
         if len(matches) == 1:
-            labels[name] = labels[matches[0]]
+            rep_label[rep] = rep_label[matches[0]]
         else:
-            labels[name] = name
-            reps.append(name)
-    return labels
+            rep_label[rep] = rep
+            kept.append(rep)
+
+    return {name: rep_label[perm_label[name]] for name in names}
 
 
 def _entity_pool(deed_rows: list[dict], roll_row: dict | None,
