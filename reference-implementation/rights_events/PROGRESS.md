@@ -417,3 +417,27 @@ Shipped:
 Next: C3-P3 — View 4 (derived disclosure) + site/corpus.py (ruling
 (i): Song X fixture + real reservation captures through the unchanged
 pipeline), disclosure corpus into evidence/ under SHA256SUMS.
+
+### C3-P3 — derived disclosure and the corpus artifact (2026-08-01)
+
+Shipped:
+- site/corpus.py: runner-pattern composition (docstring states wall
+  untouched, per ruling (i)) — SYNTHETIC Song X fixture + REAL
+  reservation captures through the unchanged pipeline; 20 events,
+  4 beliefs (Song X pre/post ownership + use_reservation per web
+  subject); corpus_run.ri (34572 B) lands in evidence/ under
+  SHA256SUMS and verifies with the same replay commands (tested).
+- site/disclosure.py: View 4. Panel A generated in the three-section
+  structure of the EC AI Office template (General information / List
+  of data sources / Relevant data processing aspects), every line
+  carrying event references; the reservation section derives real
+  lines from the NYT robots.txt capture and the TDMRep spec example,
+  plus the fused m(reserved) per subject; change management line from
+  the revocation. Panel B: same facts, drafted prose, zero
+  references (test-asserted). Caption verbatim; demonstration label
+  at caption weight (approved wording); corpus composition and
+  template-source lines on the page.
+- Tests +6. Suite: 594 passed (588 + 6).
+
+Next: C3-P4 — wall proof, PROGRESS close, DONE, archive. README Site
+line waits for the operator's Pages URL confirmation.

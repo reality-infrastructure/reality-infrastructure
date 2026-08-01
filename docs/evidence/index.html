@@ -17,6 +17,7 @@
     <caption>Artifacts and SHA-256 checksums</caption>
     <thead><tr><th scope="col">File</th><th scope="col">SHA-256</th></tr></thead>
     <tbody>
+      <tr><td><a href="corpus_run.ri" download>corpus_run.ri</a></td><td><code>17b67c34f6a8f6e5076dd1132ba0e90f1236503bb225af1bb8aa8f09b3fa8531</code></td></tr>
       <tr><td><a href="parcels_run.ri" download>parcels_run.ri</a></td><td><code>f66a8e4e347d760c52d7d1abb12ba212a21562a5b05df4eb9be8c646dc624bf8</code></td></tr>
       <tr><td><a href="song_x_run.ri" download>song_x_run.ri</a></td><td><code>d7470724bd02eb83dbcc5304a97ac0686093817a696cd2db24d31b7838e20c0c</code></td></tr>
     </tbody>
@@ -25,7 +26,8 @@
   <pre>git clone https://github.com/reality-infrastructure/reality-infrastructure
 cd reality-infrastructure/reference-implementation
 python -m rights_events.replay --run PATH/TO/song_x_run.ri --subject work:song-x
-python -m rights_events.replay --run PATH/TO/parcels_run.ri --subject parcel:29024080530000</pre>
+python -m rights_events.replay --run PATH/TO/parcels_run.ri --subject parcel:29024080530000
+python -m rights_events.replay --run PATH/TO/corpus_run.ri --subject web:www.nytimes.com --question use_reservation</pre>
   <h2>What each check proves</h2>
   <ul>
     <li>byte-identity — the belief object reconstructed from the logged events is byte-identical to the stored one; the conclusion follows from the record, not from anyone's word.</li>

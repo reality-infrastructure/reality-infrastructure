@@ -23,6 +23,8 @@ from pathlib import Path
 
 from rights_events import parcels as parcels_runner
 from rights_events import song_x as song_x_runner
+from rights_events.site import corpus as corpus_builder
+from rights_events.site.disclosure import render_disclosure
 from rights_events.site.html import (
     REPO_URL,
     esc,
@@ -145,9 +147,9 @@ def _index_html(evidence_files: list[str]) -> str:
         '    <li><a href="evidence/index.html">Evidence export</a> — '
         "the frozen run artifacts, their checksums, and exactly how "
         "to verify them offline.</li>\n"
-        "    <li>Derived disclosure — a disclosure document generated "
-        "from the log beside the same facts as drafted prose. (Built "
-        "in phase C3-P3.)</li>\n"
+        '    <li><a href="disclosure/index.html">Derived disclosure'
+        "</a> — a disclosure document generated from the log beside "
+        "the same facts as drafted prose.</li>\n"
         "  </ol>\n"
         "  <h2>Downloads</h2>\n"
         "  <ul>\n" + files +
@@ -195,7 +197,9 @@ def _evidence_html(sums: list[tuple[str, str]]) -> str:
         "python -m rights_events.replay --run PATH/TO/song_x_run.ri "
         "--subject work:song-x\n"
         "python -m rights_events.replay --run PATH/TO/parcels_run.ri "
-        "--subject parcel:29024080530000</pre>\n"
+        "--subject parcel:29024080530000\n"
+        "python -m rights_events.replay --run PATH/TO/corpus_run.ri "
+        "--subject web:www.nytimes.com --question use_reservation</pre>\n"
         "  <h2>What each check proves</h2>\n"
         "  <ul>\n"
         "    <li>byte-identity — the belief object reconstructed from "
@@ -236,6 +240,10 @@ def main(argv: list[str] | None = None) -> int:
             ["--out", str(evidence / "parcels_run.ri")]) != 0:
         print("BUILD FAILED: parcels runner nonzero")
         return 1
+    if corpus_builder.main(
+            ["--out", str(evidence / "corpus_run.ri")]) != 0:
+        print("BUILD FAILED: corpus builder nonzero")
+        return 1
 
     # 2. Checksums (sorted by filename).
     artifacts = sorted(p.name for p in evidence.glob("*.ri"))
@@ -263,6 +271,14 @@ def main(argv: list[str] | None = None) -> int:
                    render_subject(run, subject))
     _write(out / "rights-state" / "index.html",
            render_rights_state_index(runs))
+
+    corpus_run = load_run(
+        "corpus",
+        "Disclosure corpus (SYNTHETIC Song X + real reservation "
+        "captures)",
+        evidence / "corpus_run.ri")
+    _write(out / "disclosure" / "index.html",
+           render_disclosure(corpus_run))
 
     print(f"site built: {out}")
     return 0

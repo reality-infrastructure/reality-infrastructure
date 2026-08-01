@@ -186,6 +186,81 @@ class TestLinkIntegrity:
                     f"{html_file.name} -> {target}#{frag}")
 
 
+class TestDisclosureView:
+    def test_corpus_artifact_built_verifiable_and_checksummed(
+            self, tmp_path, capsys):
+        from rights_events.replay import main as replay_main
+        out = build_site(tmp_path)
+        corpus = out / "evidence/corpus_run.ri"
+        assert corpus.is_file()
+        sums = (out / "evidence/SHA256SUMS.txt").read_text(
+            encoding="utf-8")
+        assert "corpus_run.ri" in sums
+        capsys.readouterr()
+        assert replay_main(["--run", str(corpus),
+                            "--subject", "work:song-x"]) == 0
+        assert replay_main(["--run", str(corpus),
+                            "--subject", "web:www.nytimes.com",
+                            "--question", "use_reservation"]) == 0
+
+    def test_caption_verbatim_and_label_at_caption_weight(self,
+                                                          tmp_path):
+        out = build_site(tmp_path)
+        text = (out / "disclosure/index.html").read_text(
+            encoding="utf-8")
+        assert "One of these can be replayed." in text
+        assert 'class="caption-block"' in text
+        assert 'class="label-block"' in text
+        assert "DEMONSTRATION ONLY." in text
+        assert "no model was trained on this corpus" in text
+
+    def test_composition_and_template_source_stated_on_page(self,
+                                                            tmp_path):
+        out = build_site(tmp_path)
+        text = (out / "disclosure/index.html").read_text(
+            encoding="utf-8")
+        assert "Corpus composition:" in text
+        assert "SYNTHETIC Song X" in text
+        assert "robots.txt capture of 2026-08-01" in text
+        assert "adopted 24 July 2025" in text
+        assert "not the official form" in text
+
+    def test_panel_a_referenced_panel_b_not(self, tmp_path):
+        out = build_site(tmp_path)
+        text = (out / "disclosure/index.html").read_text(
+            encoding="utf-8")
+        panel_a = text.split("Panel A — generated from the log")[1] \
+                      .split("Panel B — the same facts")[0]
+        panel_b = text.split("Panel B — the same facts")[1] \
+                      .split("caption-block")[0]
+        assert panel_a.count("[events:") >= 6
+        assert "[events:" not in panel_b
+
+    def test_template_sections_present(self, tmp_path):
+        out = build_site(tmp_path)
+        text = (out / "disclosure/index.html").read_text(
+            encoding="utf-8")
+        assert "1. General information" in text
+        assert "2. List of data sources" in text
+        assert "3. Relevant data processing aspects" in text
+
+    def test_reservation_lines_match_corpus_artifact(self, tmp_path):
+        from rights_events.site.views import load_run
+        out = build_site(tmp_path)
+        corpus = load_run("corpus", "corpus",
+                          out / "evidence/corpus_run.ri")
+        opt_outs = [ev for _i, _o, ev in corpus.events
+                    if ev["event_type"] == "opt_out"]
+        nyt = [ev for ev in opt_outs
+               if ev["subject_ids"][0] == "web:www.nytimes.com"]
+        assert len(nyt) >= 10
+        text = (out / "disclosure/index.html").read_text(
+            encoding="utf-8")
+        assert (f"www.nytimes.com: {len(nyt)} machine-readable "
+                "reservation signals") in text
+        assert "m(reserved) = 0.3" in text
+
+
 class TestPageFloor:
     def test_semantic_and_self_contained(self, tmp_path):
         out = build_site(tmp_path)
