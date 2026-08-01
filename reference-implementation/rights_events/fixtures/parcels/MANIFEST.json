@@ -1,0 +1,39 @@
+{
+  "extraction": {
+    "date": "2026-08-01",
+    "tool": "extract_parcels.py (this directory; never imported or run by tests)",
+    "credentials": "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY from environment only; no connection string, key, or internal URL appears in this directory (operator ruling, 2026-08-01)"
+  },
+  "privacy_ruling_R1": "All personal and entity names in these fixtures appear VERBATIM as they appear in the cited public records (Cook County Assessor sales mirror, Assessor parcel universe, Treasurer 2022 Annual Tax Sale results). No mailing-address fields were extracted (taxpayer_m and mailing_* dropped). Where records name different parties for one parcel, that is a statement that RECORDS DISAGREE and requires verification against the underlying instruments; nothing in these fixtures or the belief objects built from them characterizes, accuses, or draws conclusions about any person or entity.",
+  "files": {
+    "deeds.json": {
+      "provenance": "real warehouse extraction",
+      "source_table": "cook_assessor_sales (operator warehouse mirror of Cook County Assessor - Parcel Sales)",
+      "public_dataset": "https://datacatalog.cookcountyil.gov/resource/wvhk-k5uv.json",
+      "per_pin_source_url_pattern": "https://datacatalog.cookcountyil.gov/resource/wvhk-k5uv.json?pin=<PIN>",
+      "event_observed_date": "each deed row's own sale_date (the record's date)",
+      "chain": "public dataset -> warehouse ingest (ingested_at kept per row) -> extraction 2026-08-01",
+      "rows": 30,
+      "note": "For PIN 29024080530000 the same six sale rows exist in pilot/snapshots/ccao_parcel_sales.json (M-RI-11, retrieved 2026-07-27) — two independent mirrors of the same public rows."
+    },
+    "assessor_owners.json": {
+      "provenance": "real warehouse extraction",
+      "source_table": "cook_assessor_parcel (operator warehouse mirror of the CCAO parcel universe)",
+      "public_dataset": "https://datacatalog.cookcountyil.gov/Property-Taxation/ccao-parcel/ta6y-k9gr",
+      "event_observed_date": "each row's warehouse ingested_at date (taxpayer of record as of ingest)",
+      "chain": "public dataset -> warehouse ingest -> extraction 2026-08-01",
+      "rows": 9
+    },
+    "tax_sale_forfeitures.json": {
+      "provenance": "operator-attested local export (ruling R4, 2026-08-01)",
+      "attestation": "Operator attests: extracted from operator's local export of the Cook County Treasurer's published 2022 Annual Tax Sale results, unaltered. File date 2025-01-09.",
+      "source_url": "https://www.cookcountytreasurer.com/annualtaxsale.aspx",
+      "event_observed_date": "each feature's own sale_date (2024-12-11 for the 2022 Annual Sale results)",
+      "redactions": "taxpayer_m (mailing address) and geometry dropped per privacy ruling R1; all other properties verbatim",
+      "rows": 8
+    }
+  },
+  "pending": {
+    "redemptions_releases": "Operator export in progress (ruling R2). Spec: pin, event_kind in {tax_sale, redemption, lien_recorded, lien_released}, record_id, related_record_id, party_names verbatim, event_date, source_url (or R4-style attestation if the county publishes no per-document URL), observed_date. Until it lands, the redemption/lien-release delta acceptance criterion is conditionally blocked; if no redemption exists for any reachable Dolton-area parcel by P3, the contract closes with that criterion marked NOT MET - REAL DATA UNAVAILABLE."
+  }
+}

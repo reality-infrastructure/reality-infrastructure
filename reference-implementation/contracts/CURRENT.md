@@ -1,162 +1,142 @@
-# CONTRACT 1 — THE EVENT LAYER (Days 1–7)
-### Rights-event schema → four adapters → EP-typed events → Denœux fusion → belief objects → Merkle log → replay CLI. Acceptance: the Song X split-sheet conflict runs end-to-end with m(unresolved) high and provable.
+# CONTRACT 2 — THE SECOND DOMAIN (planned Days 8–13, opened Day 1)
+### Real recorder / tax-sale / lien events for actual parcels, through the IDENTICAL schema, with zero engine changes and zero schema changes. Acceptance: a contested parcel renders a belief object structurally identical to Song X's. The day this passes, the two lanes were never two lanes.
 
 ---
 
 OBJECTIVE
-Build the rights-event layer on top of the existing Reality Infrastructure engine: a typed
-rights-event schema, four evidence adapters, a pipeline that carries adapter output through EP
-typing → Denœux fusion → belief-object serialization → Merkle transparency logging with inclusion
-proofs, and a replay CLI that reconstructs any logged belief byte-identically. The contract is
-complete when the Song X split-sheet conflict fixture runs end-to-end and a test proves
-m(unresolved) dominates the fused belief.
+Prove the rights-event layer is domain-general by ingesting real land-records evidence — recorder
+filings, tax-sale records, lien events — for 5–10 actual parcels through the exact schema,
+policy, pipeline, and replay machinery Contract 1 shipped, with zero modifications to the engine
+AND zero modifications to the Contract 1 domain layer's schema, policy, pipeline, or replay
+modules. The contract is complete when a contested parcel produces a belief object structurally
+identical to Song X's — competing claims, typed sources, explicit conflict and ignorance mass —
+and the replay CLI verifies it byte-identically, using the same commands.
 
 CONTEXT
-The engine (reference-implementation/, 425 passing tests across 13 milestones) already provides:
-epistemic typing, Denœux cautious-rule fusion, RFC 9162-style Merkle logging, byte-identical
-replay. This contract does NOT modify the engine — it builds the first domain layer that consumes
-it. The domain layer must be engine-agnostic about content: Contract 2 will feed land-records
-events through the identical schema with zero engine or schema changes, so nothing in this
-contract may be music-specific except adapter internals and fixtures. The public repo is the
-project's dated priority claim; everything committed is world-readable.
+Contract 1 built the event layer and proved it on a music fixture. The thesis staked in the
+README — "the log does not know which domain it is in; that is the point" — is unproven until a
+second domain flows through unchanged. The parcel data exists: the operator's property-data
+warehouse holds recorder, tax-sale, and lien signals for Cook County parcels under a
+no-fabrication rule where every flag already carries source_url and observed_date — the schema's
+provenance requirements are already satisfied at the source. M-RI-13's Dolton re-run previously
+exercised the engine's evidence layer on this data. Inherited finding F1: revocation is a
+cross-event relation resolved by the domain fold; redemptions and lien releases are the same
+shape and MUST reuse the same fold mechanism, not a new one.
 
 SCOPE
 IN:
-- A new package inside reference-implementation (propose the path at plan gate; suggestion:
-  `rights_events/`) containing: schema, adapters, pipeline, belief-object serialization, CLI.
-- Event schema covering exactly six event types: grant, revocation, opt_out, term_change,
-  dispute, chain_assertion. Every event carries: event_type, subject identifier(s) (the work or
-  record the claim is about), claimant/actor, claim payload, EP type (self_asserted |
-  third_party_attested | cryptographically_signed | statutory_registry), source_url,
-  observed_date, prior_event_refs (list, may be empty).
-- Four adapters, each transforming one evidence format into schema events:
-  (a) BWARM/MLC-style works-registration sample → statutory_registry events
-  (b) C2PA manifest → cryptographically_signed events (parse assertions + signer identity; the
-      adapter records WHO signed WHAT — it does not validate certificate chains in this contract)
-  (c) TDMRep / robots.txt / ai.txt opt-out signals → self_asserted opt_out events
-  (d) PRO-conflict fixture (two conflicting split registrations for one work) →
-      third_party_attested events
-- Pipeline: adapter events → EP typing (reuse engine) → Denœux fusion per subject (reuse engine)
-  → belief object (frame of discernment per contested question, mass assignments including the
-  unresolved/ignorance set, contributing event refs with their EP types) → serialized
-  deterministically → appended to the Merkle log → inclusion proof retrievable.
-- Replay CLI (`python -m rights_events.replay` or equivalent): given a subject id and log
-  position/root, reconstructs the belief object from logged events and verifies byte-identity
-  against the stored serialization; prints inclusion proof verification result.
-- Fixtures: the Song X case — Writer A PRO registration claiming 60/40; Writer B split sheet
-  claiming 50/50; B's later revocation event. Plus minimal happy-path fixtures per adapter.
-- Tests for all of the above, added to the existing suite.
-OUT:
-- Any modification to engine modules (fusion math, EP core, Merkle log internals, replay core).
-- Land-records anything (Contract 2). Web UI anything (Contract 3). Methodology prose (Days
-  20–21). Certificate-chain validation, key management, network fetching of live data,
-  performance work, CI changes, dependency additions beyond what parsing strictly requires
-  (justify any new dependency at plan gate).
+- New adapters only, under `rights_events/adapters/`: county recorder filings (deeds,
+  assignments) → statutory_registry chain_assertion/grant events; tax-sale records (sale,
+  redemption) → statutory_registry events where redemption is a revocation-shaped event naming
+  the sale via prior_event_refs; lien events (recording, release) → statutory_registry events
+  where release names the recorded lien via prior_event_refs. Whether this is three adapter
+  modules or one county adapter with three parsers is a plan-gate proposal.
+- Fixtures: real events for 5–10 actual parcels selected from the operator's warehouse data, at
+  least TWO of which are genuinely contested (competing chain assertions, unredeemed tax sale
+  against a chain, or conflicting lien priority). Every event carries the real source_url and
+  observed_date from the warehouse row. Input arrives as CSV/JSON exports checked into
+  `rights_events/fixtures/parcels/` with a MANIFEST recording extraction date and warehouse
+  provenance.
+- A parcel runner (`python -m rights_events.parcels --out <run>.ri` or equivalent, mirroring
+  song_x's shape) producing belief objects per contested question per parcel, logged with
+  inclusion proofs, persisted to a run dir consumable by the EXISTING replay CLI unchanged.
+- A structural-identity test: assert programmatically that a parcel belief object and the Song X
+  belief object have identical top-level structure — same keys, same mass-report shape (singleton
+  masses, explicit conflict, explicit ignorance/Ω), same contributing-event record shape, same
+  replay verifiability — differing only in domain content.
+- Tests: per-adapter format → events → correct EP type; redemption/release fold behavior
+  (delta test, mirroring the revocation-delta test); contested-parcel ignorance dominance where
+  the evidence genuinely warrants it; determinism (two runs byte-identical); full-suite green.
+OUT (the zero-change wall — this is the acceptance test as much as a constraint):
+- ri_core/: untouched, byte-for-byte.
+- rights_events/schema.py, policy.py, pipeline.py, replay.py: untouched, byte-for-byte. If any
+  of these needs modification to admit the second domain, that is the contract's named finding —
+  STOP, record, report (see stop conditions). New code lives only in adapters/, fixtures/, the
+  parcel runner module, and tests/.
+- No web UI (Contract 3). No methodology prose. No new dependencies. No engine performance work.
 
-PLAN GATE
-Before writing any code:
-1. Survey reference-implementation/ and report: the engine's public interfaces for EP typing,
-   fusion, logging, and replay (module paths + function/class signatures you will call).
-2. Propose the new package layout (files and their responsibilities).
-3. Propose the event schema as a concrete dataclass/pydantic definition (state which, and why,
-   given what the repo already uses).
-4. Propose the deterministic serialization strategy for belief objects (byte-identity across
-   runs is an acceptance criterion — state how you guarantee key ordering, float representation,
-   and encoding).
-5. State the fixture plan: which fixture data is real public data checked in as a sample, and
-   which is synthetic. Synthetic fixtures MUST be labeled synthetic in the file and its docstring.
-6. Day-by-day sequence for the week (see Constraint 8 for the required phasing).
-Wait for my approval before proceeding.
-
-PLAN GATE RULINGS (2026-08-01, all five approved with amendments):
-1. EP mapping table APPROVED. cryptographically_signed → measured is honest only because the
-   C2PA adapter's claim payload is the who-signed-what fact read off the manifest bytes — not
-   the signed assertion's content taken as true. The adapter docstring must state that the
-   measured thing is the signing event; the truth of what was signed is untouched.
-2. Unresolved as Ω APPROVED. The belief object names Ω explicitly so a non-specialist reader
-   can find "unresolved" without DS notation. The retained conflict mass m(∅) is a feature —
-   report it explicitly in the belief object as conflict.
-3. Mass policy values APPROVED as declared constants. policy.py carries a docstring stating
-   these are the reference implementation's declared priors, that changing them is a policy
-   change requiring a tagged commit (same amendment discipline as NEUTRALITY.md), and the
-   dispute-fuses-vacuously rule is documented alongside them.
-4. Two-log architecture, submit()+cautious_fuse() with revocation as a domain fold APPROVED.
-   The project() finding goes into PROGRESS.md as a formal dated finding; Contract 2 inherits
-   it (parcel redemptions and lien releases are the same cross-event shape).
-5. BWARM synthetic APPROVED (credentialed access is the legitimate blocker). Synthetic,
-   labeled, spec-cited. Swapping in a public sample later is a fixture change, not a schema
-   change.
+PLAN GATE RULINGS (2026-08-01, all four ruled; gate items 1, 5, 6, 7 approved as proposed):
+R1 PRIVACY: option (a) — claimant names verbatim as they appear in the cited public records,
+   consistent with the M-RI-11 precedent already published. Narrowing: no personal mailing
+   addresses in fixtures (taxpayer_m and mailing_* fields dropped). Framing requirement: the
+   parcels MANIFEST states plainly that all names appear verbatim as in the cited public
+   records, and fixtures, adapter docstrings, comments, and belief objects frame every contest
+   as RECORDS DISAGREE — never as an accusation against a person. We publish what the county
+   published, with provenance; we characterize nobody.
+R2 EXPORT: proceed now; the redemption/lien-release delta criterion is conditionally blocked on
+   an operator-produced export (spec in the gate: pin, event_kind, record_id,
+   related_record_id, party_names, event_date, source_url, observed_date). Amendment: if a
+   genuine redemption record exists but the county publishes no per-document resolving URL,
+   the R4 attestation convention applies (operator attests retrieval from the Clerk's system;
+   source_url = the system's public page; receipt/certificate number verbatim in the payload;
+   observed_date = retrieval date). If no redemption exists for any reachable Dolton-area
+   parcel by P3: the contract closes with the delta criterion explicitly marked NOT MET — REAL
+   DATA UNAVAILABLE, recorded as a finding, never waived silently, never synthesized.
+R3 TAX-SALE-AS-COMPETING-CLAIM: approved — a certificate/forfeiture is a competing interest
+   that ripens into a tax deed if unredeemed; modeling it as a mapped claim is what the record
+   means. Requirements: the payload carries the actual recorded parties and terms verbatim
+   (the cook-county-tax-sale-registry claimant convention is routing, not identity — it never
+   erases real actors), and the adapter docstring states the convention and its reason (F1
+   stretch; frozen fold; claimant-match rule unchanged).
+R4 FORFEITURE ATTESTATION: approved — mirrors the M-RI-11 CRM ruling. Operator attests
+   "extracted from operator's local export of the Cook County Treasurer's published 2022
+   Annual Tax Sale results, unaltered"; source_url = the Treasurer's published results page;
+   observed_date = file date 2025-01-09. Attestation language lives in the MANIFEST.
+OPERATIONAL: the extraction script takes warehouse credentials from environment variables
+   only — no connection strings, keys, or internal URLs in the script, fixtures, or MANIFEST.
+   Repo visibility re-checked via anonymous GitHub API before pushing fixtures.
 
 CONSTRAINTS
-1. ENGINE IS READ-ONLY. If any task appears to require changing fusion semantics, EP core, log
-   internals, or replay core, STOP (see stop conditions). Thin wrapper/adapter code around engine
-   interfaces is permitted; changes inside them are not.
-2. No fabrication in fixtures: real-format samples are checked in with their source_url and
-   observed_date recorded; synthetic fixtures are explicitly labeled SYNTHETIC in filename or
-   header and modeled on a cited real format. The Song X case is SYNTHETIC (modeled on the
-   standard PRO split-conflict pattern) and must say so.
-3. Every event in every fixture carries source_url and observed_date. For synthetic fixtures,
-   source_url points to the format documentation the fixture is modeled on, and the synthetic
-   label makes the distinction inspectable. NULL stays NULL — no invented values.
-4. Determinism is absolute: same events in, byte-identical belief serialization out, across runs
-   and machines. No timestamps-at-runtime, no dict-ordering luck, no floats formatted by locale.
-5. The schema is domain-neutral. Field names must make sense for a parcel as well as a song
-   (subject, claimant, claim — not track, artist, songwriter). Adapter internals may be
-   music-specific; the schema may not.
-6. All 425 existing tests must still pass at every commit. New tests extend the suite; they never
-   modify existing test expectations.
-7. Commit granularity: one commit per completed phase (see 8), message prefixed `C1-P<n>:`.
-   Push at end of each session.
-8. Required phasing (each phase ends with its tests green before the next begins):
-   P1 schema + serialization (Days 1–2)
-   P2 adapters a–d with per-adapter fixtures (Days 2–4)
-   P3 pipeline: fusion → belief object → log append → inclusion proof (Days 4–5)
-   P4 replay CLI + byte-identity verification (Days 5–6)
-   P5 the Song X acceptance fixture end-to-end + the m(unresolved) test (Day 6–7)
-9. Maintain `rights_events/PROGRESS.md`: after each phase, append phase id, date, what shipped,
-   what's next, any open questions. A fresh session reads this first and resumes; it does not
-   re-plan completed phases.
-10. No emojis anywhere. Docstrings state what IS, not what's hoped.
+1. Zero-change wall per SCOPE OUT. Proof of the wall is part of DONE.
+2. No fabrication, strictest form: every parcel event's source_url and observed_date come from
+   the warehouse row or the public record it cites. NULL stays NULL. No synthetic parcel events
+   anywhere in this contract — if data is missing, the event does not exist.
+3. F1 inheritance: redemptions and lien releases use the existing revocation fold via
+   prior_event_refs + claimant convention. If the existing claimant-match rule cannot express a
+   redemption (redeemer may differ from tax buyer), surface at plan gate with a proposed
+   convention — conventions live in adapters, not in the fold.
+4. Determinism identical to Contract 1: fixed seeds, source-derived ltime, encode()-only bytes.
+5. All 541 existing tests pass untouched at every commit; new tests only add.
+6. The parcel runner's output must be consumable by the EXISTING replay CLI with no flags added
+   to it. If replay needs a new flag, that's a wall violation — stop and report.
+7. No emojis. Docstrings state what is.
 
 ACCEPTANCE
-- `pytest` green: all 425 pre-existing tests plus all new tests pass.
-- The Song X fixture runs end-to-end via a single documented command, producing:
-  (a) a belief object whose frame includes at least {A-majority, B-equal, unresolved} and whose
-      mass on unresolved exceeds the mass on every singleton hypothesis — asserted by a test, not
-      eyeballed;
-  (b) a Merkle log containing the contributing events, each with a verifiable inclusion proof;
-  (c) a replay run that reconstructs the belief object byte-identical to the stored
-      serialization and exits nonzero if identity fails.
-- Each adapter has at least one fixture-driven test proving format → events → correct EP type.
-- The revocation event demonstrably changes the fused belief relative to the pre-revocation
-  state (a test asserts the difference).
-- Schema round-trips: event → serialized → parsed → identical.
-- A reader who knows nothing about music can read the schema module and not encounter a
-  music-specific field name.
+- Full suite green: 541 pre-existing + new tests, zero modifications to existing tests.
+- `git diff` proof: ri_core/, schema.py, policy.py, pipeline.py, replay.py identical to the
+  v1.1.0 tag.
+- The parcel run command produces, for at least two genuinely contested parcels, belief objects
+  with: competing singleton hypotheses, explicit reported conflict mass, explicit Ω mass, and
+  contributing events each carrying real source_url + observed_date.
+- The structural-identity test passes: parcel and Song X belief objects are structurally
+  congruent by programmatic assertion.
+- A redemption or lien-release delta test passes: the fold demonstrably changes the fused belief,
+  using the same mechanism as Song X's revocation. (Conditionally blocked per ruling R2.)
+- The unchanged replay CLI verifies a parcel run: byte-identity, root match, inclusion proofs,
+  tamper exits nonzero.
+- Reading the parcel adapters, a music-domain reader finds the schema exactly as they left it.
 
 DEPLOY
-Commit and push per Constraint 7 to origin/main. No tags (tagging happens at contract closeout
-by me). No release. No visibility changes. No README changes except: add a short "Rights-event
-layer" subsection under Technical documentation listing the package and the replay CLI command —
+Commit and push per phase to origin/main. No tags (operator tags at closeout). README: one
+sentence added to the existing Rights-event layer subsection noting the land-records instance —
 nothing promotional.
 
 DONE
-Report at contract end: phases completed with commit hashes; total test count (old + new) and
-suite runtime; the exact end-to-end command for the Song X case and its output summary
-(mass assignments printed); the replay CLI invocation and its verification output; any deviations
-from plan-gate decisions with reasons; open questions parked for Contract 2.
+Report: phases with commit hashes; test totals and runtime; the zero-change-wall proof (diff
+output); the parcel run command and a mass summary for each contested parcel; the replay
+verification output; the privacy ruling applied; parcels selected and why; deviations with
+reasons; findings (schema pressure, F1 stretch, frame-size events) even if resolved; parked
+items for Contract 3.
 
 STOP CONDITIONS
-- FUSION REDESIGN TRIPWIRE (the contract's named risk): if at any point the Denœux fusion, EP
-  core, log, or replay engine needs modification — not wrapping, modification — to satisfy this
-  contract, STOP immediately, write the finding to PROGRESS.md (what was needed and why), and
-  report. The engine being unfinished is a finding, not a detour. Do not "quickly fix" the engine.
-- If deterministic byte-identity cannot be achieved with the engine's existing serialization
-  behavior, STOP and report the specific nondeterminism source before working around it.
-- If any adapter's real-format sample cannot be constructed without live network fetching, STOP
-  and ask — do not silently substitute a synthetic fixture for what the plan gate promised as
-  real.
-- If a phase's tests are red at the end of a session, do not start the next phase — record state
-  in PROGRESS.md and end the session cleanly.
-- If anything in this contract conflicts with NEUTRALITY.md or the no-fabrication rule, STOP and
-  surface the conflict; the covenant wins.
+- THE WALL: if satisfying this contract requires ANY edit to ri_core/ or to schema.py,
+  policy.py, pipeline.py, or replay.py — stop immediately, write the finding to PROGRESS.md
+  (exactly what the second domain demanded that the first didn't), and report. A failed
+  zero-change test is the most valuable possible output of this contract; do not soften it.
+- If no real parcel data is reachable and the operator has not yet produced an export: stop at
+  the plan gate with the precise export specification. Never substitute synthetic.
+- If a needed event cannot carry a real source_url + observed_date, the event is not created —
+  and if that guts a chosen parcel's story, choose a different parcel, and if fewer than 5
+  parcels survive the rule, stop and report rather than pad.
+- If the privacy ruling is not given at the gate, do not proceed to fixtures.
+- Red tests at session end: record in PROGRESS.md, end cleanly, no phase-skipping.

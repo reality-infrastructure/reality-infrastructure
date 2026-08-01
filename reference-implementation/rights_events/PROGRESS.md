@@ -180,3 +180,59 @@ Shipped:
 - Suite: 541 passed (532 + 9).
 
 Contract 1 phases complete: P1-P5 all green, committed, pushed.
+
+---
+
+# Contract 2 — the second domain (land records)
+
+Contract text and the four plan-gate rulings (R1 privacy, R2 export /
+delta conditionally blocked, R3 tax-sale-as-competing-claim, R4
+forfeiture attestation): contracts/CURRENT.md. Zero-change wall:
+ri_core/ and rights_events/{schema,policy,pipeline,replay}.py stay
+byte-identical to v1.1.0; proof by scoped git diff at DONE.
+
+## Findings
+
+F2 (2026-08-01, plan-gate reconnaissance): the warehouse recorder
+table (cook_recorder_filing) is empty and no lien or redemption data
+is reachable anywhere in-session; cook_treasurer_tax_sale rows are
+thin (pin + sale_year + sale_type, from the frozen 55ju-2fs9 dataset,
+no parties, no dates, no status). Deed evidence comes from
+cook_assessor_sales (recorder-originated via the Assessor pipeline);
+tax-sale outcomes come from the operator-attested Treasurer 2022
+Annual Sale results (R4). The redemption/lien-release delta acceptance
+is conditionally blocked on the operator's R2 export; if no redemption
+exists for any reachable parcel by P3, the criterion closes as NOT MET
+- REAL DATA UNAVAILABLE (a finding, not a waiver).
+
+## Phases
+
+### C2-P1 — fixtures, selection, provenance (2026-08-01)
+
+Shipped:
+- fixtures/parcels/: deeds.json (30 real deed rows, 9 PINs, verbatim
+  from the warehouse mirror of Assessor - Parcel Sales wvhk-k5uv),
+  assessor_owners.json (9 current taxpayer-of-record rows, no
+  mailing-address fields per R1), tax_sale_forfeitures.json (8
+  features from the Treasurer 2022 Annual Sale results, operator
+  attestation R4, taxpayer_m and geometry dropped per R1).
+- extract_parcels.py: one-time extraction tool, env-only credentials
+  (operational ruling), never imported or run by tests.
+- MANIFEST.json: extraction chain (public dataset -> warehouse ingest
+  -> extraction 2026-08-01), per-file provenance, R1 statement
+  (verbatim public-record names; records-disagree framing), R4
+  attestation language, R2 pending-export spec.
+- SELECTION.md: nine parcels, five contested + one borderline + three
+  happy-path, with the records basis for each and the frame-size
+  convention (mapped claims = latest deed per chain tail + current
+  roll entry + live tax interest; history logged as records).
+- Pre-push checks: anonymous GitHub API returns 200 (repo public
+  since v1.0.0 — expected, R1 covers named-records publication);
+  credential grep over the fixture directory finds env-var names
+  only, no values.
+
+Next: C2-P2 — adapters/cook_parcels.py, one module, four parsers
+(deeds, assessor roll, tax-sale/forfeiture, R2 redemption export),
+with the R3 registry-claimant convention and per-parser tests.
+
+Open questions: R2 export in progress (operator).
