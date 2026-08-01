@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Rights-state — work:song-x</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Breadcrumb"><a href="../index.html">Index</a> / <a href="index.html">Rights-state</a> / work:song-x</nav>
+    <h1>Rights-state — work:song-x</h1>
+  </header>
+  <main>
+  <p class="contested">Competing entries on this page mean that the cited records disagree; resolution requires verification against the underlying instruments. Nothing here characterizes any person or entity.</p>
+  <h2>Belief at as_of 739776</h2>
+  <p>Question: <code>ownership_shares</code>. Frame of 2 hypotheses. Policy <code>rights-mass-policy-v1</code>. Event log root <code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code> at size 4.</p>
+  <table class="mass-table">
+    <caption>Mass assignments</caption>
+    <thead><tr><th scope="col">set</th><th scope="col">mass</th><th scope="col">reading</th></tr></thead>
+    <tbody>
+      <tr><td>shares:writer-a=50;writer-b=50</td><td class="num">0.2475</td><td>competing claim</td></tr>
+      <tr><td>shares:writer-a=60;writer-b=40</td><td class="num">0.2475</td><td>competing claim</td></tr>
+      <tr><td>conflict (empty set)</td><td class="num">0.2025</td><td>evidence that contradicts itself, kept visible</td></tr>
+      <tr><td>unresolved (ignorance set Omega)</td><td class="num">0.3025</td><td>mass no evidence discriminates</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <caption>Contributing events (each provable in the event log)</caption>
+    <thead><tr><th scope="col">event</th><th scope="col">type</th><th scope="col">EP type</th><th scope="col">uncertainty type</th><th scope="col">status</th><th scope="col">applied mass</th></tr></thead>
+    <tbody>
+      <tr><td>pro:regA-0001</td><td>chain_assertion</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>active</td><td class="num">0.45</td></tr>
+      <tr><td>pro:dispute:work:song-x:regA-0001+regB-0002</td><td>dispute</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>informational</td><td class="num">0</td></tr>
+      <tr><td>pro:regB-0002</td><td>chain_assertion</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>active</td><td class="num">0.45</td></tr>
+    </tbody>
+  </table>
+  <h2>Belief at as_of 739798</h2>
+  <p>Question: <code>ownership_shares</code>. Frame of 2 hypotheses. Policy <code>rights-mass-policy-v1</code>. Event log root <code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code> at size 4.</p>
+  <table class="mass-table">
+    <caption>Mass assignments</caption>
+    <thead><tr><th scope="col">set</th><th scope="col">mass</th><th scope="col">reading</th></tr></thead>
+    <tbody>
+      <tr><td>shares:writer-a=50;writer-b=50</td><td class="num">0</td><td>competing claim</td></tr>
+      <tr><td>shares:writer-a=60;writer-b=40</td><td class="num">0.45</td><td>competing claim</td></tr>
+      <tr><td>conflict (empty set)</td><td class="num">0</td><td>evidence that contradicts itself, kept visible</td></tr>
+      <tr><td>unresolved (ignorance set Omega)</td><td class="num">0.55</td><td>mass no evidence discriminates</td></tr>
+    </tbody>
+  </table>
+  <table>
+    <caption>Contributing events (each provable in the event log)</caption>
+    <thead><tr><th scope="col">event</th><th scope="col">type</th><th scope="col">EP type</th><th scope="col">uncertainty type</th><th scope="col">status</th><th scope="col">applied mass</th></tr></thead>
+    <tbody>
+      <tr><td>pro:regA-0001</td><td>chain_assertion</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>active</td><td class="num">0.45</td></tr>
+      <tr><td>pro:dispute:work:song-x:regA-0001+regB-0002</td><td>dispute</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>informational</td><td class="num">0</td></tr>
+      <tr><td>pro:regB-0002</td><td>chain_assertion</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>revoked</td><td class="num">0</td></tr>
+      <tr><td>pro:revB-0003</td><td>revocation</td><td>third_party_attested</td><td>asserted-by-interested-party</td><td>revocation</td><td class="num">0</td></tr>
+    </tbody>
+  </table>
+  <p><a href="../provenance/song-x.html">Event log for this run</a> · <a href="../evidence/index.html">Verify this offline</a></p>
+  </main>
+  <footer>
+    <p>Generated deterministically from the run artifacts; the Merkle roots on the evidence page identify this build. Source: <a href="https://github.com/reality-infrastructure/reality-infrastructure" rel="noopener">the repository</a>.</p>
+  </footer>
+</body>
+</html>

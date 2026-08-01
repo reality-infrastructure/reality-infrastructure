@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Provenance explorer — Song X (SYNTHETIC fixture)</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Breadcrumb"><a href="../index.html">Index</a> / Provenance</nav>
+    <h1>Provenance explorer — Song X (SYNTHETIC fixture)</h1>
+  </header>
+  <main>
+  <p>Song X (SYNTHETIC fixture): 4 events in an append-only Merkle log. Root <code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code>. Every row is a signed, logged event; expand a row's proof to see the RFC 9162 inclusion path binding it to the root. The same table renders every domain this layer carries.</p>
+  <table>
+    <caption>Event log — Song X (SYNTHETIC fixture)</caption>
+    <thead><tr><th scope="col">#</th><th scope="col">event id</th><th scope="col">type</th><th scope="col">subject</th><th scope="col">claimant</th><th scope="col">EP type</th><th scope="col">observed</th><th scope="col">source</th><th scope="col">proof</th></tr></thead>
+    <tbody>
+      <tr id="e0"><td>0</td><td>pro:regA-0001</td><td>chain_assertion</td><td>work:song-x</td><td>writer-a</td><td>third_party_attested</td><td>2026-05-01</td><td><a href="https://www.copyright.gov/music-modernization/" rel="noopener">https://www.copyright.gov/music-modernization/</a></td><td><details><summary>inclusion proof</summary><dl><dt>leaf index</dt><dd>0 of tree size 4</dd><dt>leaf hash</dt><dd><code>5f79e77d79fd9c13a2521457230233cb52e0d7e25bfe502fca959f20c9dbf987</code></dd><dt>audit path</dt><dd><ol><li><code>b7d067d427c8230c945dcc1166e7800c6742823a20ce71cf99ac50a8c120422c</code></li><li><code>b2529c62d3ea52141702015f6b34b0e4e5c55cbcf3e854a8e140ee2ae115b6d2</code></li></ol></dd><dt>root</dt><dd><code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code></dd></dl></details></td></tr>
+      <tr id="e1"><td>1</td><td>pro:dispute:work:song-x:regA-0001+regB-0002</td><td>dispute</td><td>work:song-x</td><td>registration-conflict-check</td><td>third_party_attested</td><td>2026-05-20</td><td><a href="https://www.copyright.gov/music-modernization/" rel="noopener">https://www.copyright.gov/music-modernization/</a></td><td><details><summary>inclusion proof</summary><dl><dt>leaf index</dt><dd>1 of tree size 4</dd><dt>leaf hash</dt><dd><code>b7d067d427c8230c945dcc1166e7800c6742823a20ce71cf99ac50a8c120422c</code></dd><dt>audit path</dt><dd><ol><li><code>5f79e77d79fd9c13a2521457230233cb52e0d7e25bfe502fca959f20c9dbf987</code></li><li><code>b2529c62d3ea52141702015f6b34b0e4e5c55cbcf3e854a8e140ee2ae115b6d2</code></li></ol></dd><dt>root</dt><dd><code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code></dd></dl></details></td></tr>
+      <tr id="e2"><td>2</td><td>pro:regB-0002</td><td>chain_assertion</td><td>work:song-x</td><td>writer-b</td><td>third_party_attested</td><td>2026-05-20</td><td><a href="https://www.copyright.gov/music-modernization/" rel="noopener">https://www.copyright.gov/music-modernization/</a></td><td><details><summary>inclusion proof</summary><dl><dt>leaf index</dt><dd>2 of tree size 4</dd><dt>leaf hash</dt><dd><code>403703e989d9c34aa3940608459408db4e0f2c824666d17d5d8ac3e4a558f736</code></dd><dt>audit path</dt><dd><ol><li><code>d3f53d1d293fddbfd1620348830103d332e024b86a9db840af0388ea5f3161c3</code></li><li><code>3ddce301f8ec9da210d9974e07f30eae35152679e6d6cc95b4d7d23c47f4adae</code></li></ol></dd><dt>root</dt><dd><code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code></dd></dl></details></td></tr>
+      <tr id="e3"><td>3</td><td>pro:revB-0003</td><td>revocation</td><td>work:song-x</td><td>writer-b</td><td>third_party_attested</td><td>2026-06-10</td><td><a href="https://www.copyright.gov/music-modernization/" rel="noopener">https://www.copyright.gov/music-modernization/</a></td><td><details><summary>inclusion proof</summary><dl><dt>leaf index</dt><dd>3 of tree size 4</dd><dt>leaf hash</dt><dd><code>d3f53d1d293fddbfd1620348830103d332e024b86a9db840af0388ea5f3161c3</code></dd><dt>audit path</dt><dd><ol><li><code>403703e989d9c34aa3940608459408db4e0f2c824666d17d5d8ac3e4a558f736</code></li><li><code>3ddce301f8ec9da210d9974e07f30eae35152679e6d6cc95b4d7d23c47f4adae</code></li></ol></dd><dt>root</dt><dd><code>0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866</code></dd></dl></details></td></tr>
+    </tbody>
+  </table>
+  </main>
+  <footer>
+    <p>Generated deterministically from the run artifacts; the Merkle roots on the evidence page identify this build. Source: <a href="https://github.com/reality-infrastructure/reality-infrastructure" rel="noopener">the repository</a>.</p>
+  </footer>
+</body>
+</html>

@@ -29,6 +29,13 @@ from rights_events.site.html import (
     limits_block,
     page,
 )
+from rights_events.site.views import (
+    load_run,
+    render_provenance,
+    render_rights_state_index,
+    render_subject,
+    subject_page_name,
+)
 
 _REPO_ROOT = Path(__file__).parents[3]
 
@@ -127,11 +134,14 @@ def _index_html(evidence_files: list[str]) -> str:
         "it legible.</p>\n"
         "  <h2>The four views</h2>\n"
         "  <ol>\n"
-        "    <li>Provenance explorer — the event logs, event by "
-        "event, with inclusion proofs. (Built in phase C3-P2.)</li>\n"
-        "    <li>Rights-state — the current belief object per "
-        "subject: who claims what, what is contested, and by how "
-        "much. (Built in phase C3-P2.)</li>\n"
+        '    <li><a href="provenance/song-x.html">Provenance '
+        'explorer</a> — the event logs, event by event, with '
+        'inclusion proofs (<a href="provenance/song-x.html">Song X'
+        '</a>, <a href="provenance/parcels.html">Cook County parcels'
+        "</a>).</li>\n"
+        '    <li><a href="rights-state/index.html">Rights-state</a> '
+        "— the belief object per subject: who claims what, what is "
+        "contested, and by how much.</li>\n"
         '    <li><a href="evidence/index.html">Evidence export</a> — '
         "the frozen run artifacts, their checksums, and exactly how "
         "to verify them offline.</li>\n"
@@ -233,10 +243,26 @@ def main(argv: list[str] | None = None) -> int:
     _write(evidence / "SHA256SUMS.txt",
            "".join(f"{digest}  {name}\n" for name, digest in sums))
 
-    # 3. Pages.
+    # 3. Load the artifacts back (read-only; signatures re-verify).
+    runs = [
+        load_run("song-x", "Song X (SYNTHETIC fixture)",
+                 evidence / "song_x_run.ri"),
+        load_run("parcels", "Cook County parcels (real records)",
+                 evidence / "parcels_run.ri"),
+    ]
+
+    # 4. Pages.
     _write(out / "style.css", STYLE_CSS)
     _write(out / "index.html", _index_html(artifacts))
     _write(evidence / "index.html", _evidence_html(sums))
+    for run in runs:
+        _write(out / "provenance" / f"{run.slug}.html",
+               render_provenance(run))
+        for subject in sorted({b["subject"] for _i, b in run.beliefs}):
+            _write(out / "rights-state" / subject_page_name(subject),
+                   render_subject(run, subject))
+    _write(out / "rights-state" / "index.html",
+           render_rights_state_index(runs))
 
     print(f"site built: {out}")
     return 0

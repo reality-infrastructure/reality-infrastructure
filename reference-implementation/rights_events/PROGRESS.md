@@ -390,3 +390,30 @@ README's Site line lands at closeout with it.
 
 Next: C3-P2 — Views 1 and 2 (provenance explorer, rights-state),
 escaping/link-integrity tests, displayed-mass spot-asserts.
+
+### C3-P2 — Views 1 and 2 (2026-08-01)
+
+Shipped:
+- site/views.py: load_run (RightsPipeline.load — read-only, signatures
+  re-verify at build), render_provenance (View 1: the contract's
+  columns, per-row RFC 9162 inclusion-proof detail via details/summary,
+  stable row anchors e0..eN, both domains through the SAME renderer),
+  render_subject + render_rights_state_index (View 2: mass table with
+  singletons, explicit conflict row, explicit named-Omega row,
+  contributing events with EP types and statuses; contested tag as
+  plain text; RECORDS_DISAGREE sentence on contested pages per R1).
+- docs/ now carries provenance/{song-x,parcels}.html and
+  rights-state/ (index + song-x + nine parcel pages); index links
+  Views 1-3, View 4 still placeholder.
+- Tests +9: same-renderer proof counts (4 and 56), real-record
+  escaping (STANDARD B&T T renders as B&amp;T in the Dolton frame
+  labels — asserted where the string actually surfaces), https link
+  rendering, stable anchors, Dolton masses 0.91296/0.01024/0.01536
+  spot-asserted against the artifact, Song X pre/post beliefs with
+  revoked/revocation statuses, ten subjects listed, full-site link
+  and anchor integrity walk.
+- Suite: 588 passed (579 + 9).
+
+Next: C3-P3 — View 4 (derived disclosure) + site/corpus.py (ruling
+(i): Song X fixture + real reservation captures through the unchanged
+pipeline), disclosure corpus into evidence/ under SHA256SUMS.
