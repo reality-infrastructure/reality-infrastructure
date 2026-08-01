@@ -350,3 +350,43 @@ Shipped:
 Contract 2 phases complete: C2-P1..P4, closed on Day 1 of a planned
 Days 8-13 window. Delta criterion NOT MET - REAL DATA UNAVAILABLE
 (F3); every other acceptance criterion met.
+
+---
+
+# Contract 3 — the four views, public
+
+Contract text and plan-gate rulings (View 4 corpus option (b);
+demonstration label verbatim; deviations accepted: .ri single-file
+terminology, no-zip packaging): contracts/CURRENT.md. Wall extends to
+the adapters and both runners, frozen at v1.2.0.
+
+## Phases
+
+### C3-P1 — site scaffolding, evidence, determinism (2026-08-01)
+
+Shipped:
+- rights_events/site/: __init__.py, html.py (esc(), https-only link
+  rendering, page chrome with no dates or scripts, LIMITS carried
+  verbatim from README's What-it-does-not-do), build.py (the one
+  documented command: python -m rights_events.site.build [--out]).
+- Build: re-runs the two frozen runners in-process with existing
+  flags into docs/evidence/, writes SHA256SUMS.txt (sorted), emits
+  style.css (hand-written, serif, court-document register), the site
+  index (three-sentence header, four views listed, downloads, limits
+  quotation, repo/NEUTRALITY/CITATION links, Contract 4 methodology
+  placeholder), and the evidence/verification page (checksums table,
+  exact replay commands, what each check proves, limits quotation).
+- docs/ committed: index.html, style.css, evidence/{index.html,
+  song_x_run.ri 9489 B, parcels_run.ri 117552 B, SHA256SUMS.txt}.
+- tests/test_rights_site.py: 8 tests — double-build byte-identity
+  (acceptance), checksum correctness, artifact equality with direct
+  runner output, README-drift test on limits language, page floor
+  (no scripts, no external assets, no http://, no build dates).
+- Suite: 579 passed (571 + 8).
+
+OPERATOR ACTION NOW DUE (plan-gate item 6): Settings -> Pages ->
+Deploy from a branch -> main, /docs. Confirm the live URL back;
+README's Site line lands at closeout with it.
+
+Next: C3-P2 — Views 1 and 2 (provenance explorer, rights-state),
+escaping/link-integrity tests, displayed-mass spot-asserts.

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Evidence export and verification</title>
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+  <header>
+    <nav aria-label="Breadcrumb"><a href="../index.html">Index</a> / Evidence</nav>
+    <h1>Evidence export and verification</h1>
+  </header>
+  <main>
+  <p>Each file below is a frozen run artifact: an append-only Merkle event log and a belief log, canonically serialized. They are the same bytes the tests verify; downloading them and verifying offline requires only the public repository.</p>
+  <table>
+    <caption>Artifacts and SHA-256 checksums</caption>
+    <thead><tr><th scope="col">File</th><th scope="col">SHA-256</th></tr></thead>
+    <tbody>
+      <tr><td><a href="parcels_run.ri" download>parcels_run.ri</a></td><td><code>f66a8e4e347d760c52d7d1abb12ba212a21562a5b05df4eb9be8c646dc624bf8</code></td></tr>
+      <tr><td><a href="song_x_run.ri" download>song_x_run.ri</a></td><td><code>d7470724bd02eb83dbcc5304a97ac0686093817a696cd2db24d31b7838e20c0c</code></td></tr>
+    </tbody>
+  </table>
+  <h2>How to verify</h2>
+  <pre>git clone https://github.com/reality-infrastructure/reality-infrastructure
+cd reality-infrastructure/reference-implementation
+python -m rights_events.replay --run PATH/TO/song_x_run.ri --subject work:song-x
+python -m rights_events.replay --run PATH/TO/parcels_run.ri --subject parcel:29024080530000</pre>
+  <h2>What each check proves</h2>
+  <ul>
+    <li>byte-identity — the belief object reconstructed from the logged events is byte-identical to the stored one; the conclusion follows from the record, not from anyone's word.</li>
+    <li>event log root — the rebuilt Merkle root matches the root recorded inside the belief object; the event set cannot have been silently rewritten.</li>
+    <li>belief inclusion and event inclusions — RFC 9162 inclusion proofs bind each displayed fact to the log.</li>
+    <li>tamper exit — altering any signed event or any stored belief makes the same command exit nonzero.</li>
+  </ul>
+  <section class="limits">
+    <h2>What verification does not prove</h2>
+    <p>From the repository README, <cite>What it does not do</cite>:</p>
+    <ul>
+      <li>It proves what was claimed, not what is true. Garbage claims, faithfully logged, are still garbage — they are simply garbage with provenance, which is what makes them auditable.</li>
+      <li>It is not a detector. It cannot determine whether a work was used to train a model, whether a signature&#x27;s holder is honest, or whether a filed deed is forged. It fuses and preserves evidence produced by other instruments; it does not generate that evidence.</li>
+      <li>Fusion does not launder weak evidence into strong evidence. The typed uncertainty is carried through to the output, not hidden by it.</li>
+      <li>Evidentiary weight in any legal proceeding is a question for counsel and courts, not for this README.</li>
+    </ul>
+  </section>
+  </main>
+  <footer>
+    <p>Generated deterministically from the run artifacts; the Merkle roots on the evidence page identify this build. Source: <a href="https://github.com/reality-infrastructure/reality-infrastructure" rel="noopener">the repository</a>.</p>
+  </footer>
+</body>
+</html>

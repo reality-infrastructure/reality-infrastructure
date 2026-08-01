@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reality Infrastructure — the four views</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Reality Infrastructure — the four views</h1>
+  </header>
+  <main>
+  <p>This site renders the run artifacts of the Reality Infrastructure reference implementation into four public views. Every fact shown is read from an append-only Merkle log and traces to a logged event; nothing is computed for display. The repository remains the proof; this site makes it legible.</p>
+  <h2>The four views</h2>
+  <ol>
+    <li>Provenance explorer — the event logs, event by event, with inclusion proofs. (Built in phase C3-P2.)</li>
+    <li>Rights-state — the current belief object per subject: who claims what, what is contested, and by how much. (Built in phase C3-P2.)</li>
+    <li><a href="evidence/index.html">Evidence export</a> — the frozen run artifacts, their checksums, and exactly how to verify them offline.</li>
+    <li>Derived disclosure — a disclosure document generated from the log beside the same facts as drafted prose. (Built in phase C3-P3.)</li>
+  </ol>
+  <h2>Downloads</h2>
+  <ul>
+      <li><a href="evidence/parcels_run.ri" download>parcels_run.ri</a></li>
+      <li><a href="evidence/song_x_run.ri" download>song_x_run.ri</a></li>
+    <li><a href="evidence/SHA256SUMS.txt">SHA256SUMS.txt</a></li>
+  </ul>
+  <section class="limits">
+    <h2>What verification does not prove</h2>
+    <p>From the repository README, <cite>What it does not do</cite>:</p>
+    <ul>
+      <li>It proves what was claimed, not what is true. Garbage claims, faithfully logged, are still garbage — they are simply garbage with provenance, which is what makes them auditable.</li>
+      <li>It is not a detector. It cannot determine whether a work was used to train a model, whether a signature&#x27;s holder is honest, or whether a filed deed is forged. It fuses and preserves evidence produced by other instruments; it does not generate that evidence.</li>
+      <li>Fusion does not launder weak evidence into strong evidence. The typed uncertainty is carried through to the output, not hidden by it.</li>
+      <li>Evidentiary weight in any legal proceeding is a question for counsel and courts, not for this README.</li>
+    </ul>
+  </section>
+  <h2>Project</h2>
+  <ul>
+    <li><a href="https://github.com/reality-infrastructure/reality-infrastructure" rel="noopener">Repository</a></li>
+    <li><a href="https://github.com/reality-infrastructure/reality-infrastructure/blob/main/NEUTRALITY.md" rel="noopener">Neutrality covenant</a></li>
+    <li><a href="https://github.com/reality-infrastructure/reality-infrastructure/blob/main/CITATION.cff" rel="noopener">Citation</a></li>
+    <li>Methodology note — placeholder; Contract 4 fills this.</li>
+  </ul>
+  </main>
+  <footer>
+    <p>Generated deterministically from the run artifacts; the Merkle roots on the evidence page identify this build. Source: <a href="https://github.com/reality-infrastructure/reality-infrastructure" rel="noopener">the repository</a>.</p>
+  </footer>
+</body>
+</html>
