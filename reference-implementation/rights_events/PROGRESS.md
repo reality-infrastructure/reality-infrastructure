@@ -441,3 +441,18 @@ Shipped:
 
 Next: C3-P4 — wall proof, PROGRESS close, DONE, archive. README Site
 line waits for the operator's Pages URL confirmation.
+
+### C3-P4 — closeout (2026-08-01)
+
+- Wall proven vs v1.2.0 over the EXTENDED freeze list (ri_core, the
+  four frozen domain modules, all adapters, both runners): scoped
+  diff EMPTY (pasted in the DONE report).
+- Contract archived to contracts/completed/C3-four-views.md with the
+  DONE report. Suite at close: 594 passed.
+- PENDING OPERATOR: Pages enablement (Settings -> Pages -> main
+  /docs, flagged at C3-P1 commit 230c6f8) and live-URL confirmation;
+  the README Site line lands in a follow-up commit with the
+  confirmed URL.
+
+Contract 3 phases complete: C3-P1..P4, closed on Day 1 of a planned
+Days 14-19 window.
