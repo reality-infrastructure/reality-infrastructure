@@ -456,3 +456,50 @@ line waits for the operator's Pages URL confirmation.
 
 Contract 3 phases complete: C3-P1..P4, closed on Day 1 of a planned
 Days 14-19 window.
+
+---
+
+# Contract 4 — the methodology note
+
+Contract text: contracts/CURRENT.md. Gate approved 2026-08-01 with
+all external claims grounded in-session (Commission template adoption
+24 July 2025; C2PA explainer's own truth-boundary language; MLC
+$424,384,787 February 2021 from the MLC's own announcement; Denoeux
+2008, AIJ 172(2-3):234-264). Live URL confirmed by operator:
+https://reality-infrastructure.github.io/reality-infrastructure/
+
+## Phases
+
+### C4-P1 — the draft, and the read (2026-08-01)
+
+- METHODOLOGY.md at the repository root: five sections under the
+  specified headings, references list, dated 2026-08-01, version
+  1.4.0.
+- THE READ (operator delegated the acceptance read to the session,
+  with four criteria; performed and recorded):
+  1. Numbers vs the site, pages open beside the draft: Song X
+     0.2475/0.2475, conflict 0.2025, Omega 0.3025, post-revocation
+     0.45/0.55; Dolton five at 0.01536, conflict 0.91296, Omega
+     0.01024; MLC figure to the dollar. All match the artifacts and
+     the rendered pages. No P0.
+  2. Superlative hunt: five hits, all technical or negation
+     ("first-class" as DS term, ordinal "First," restrictive "only,"
+     "append-only," "not a solution to") — consciously kept; zero
+     market or comparative-superiority language.
+  3. Hostile-read of section 5: the section discloses the HMAC
+     local-authority trust model, the F3 redemption gap with its
+     cause and its cure, the not-a-detector enumeration, and the
+     counsel questions as open in both directions. Nothing known is
+     withheld.
+  4. Section 1 as read by its subjects: Art. 53 characterized
+     structurally (self-declaration format, no content-level
+     verification mechanism in the instrument), C2PA by its own
+     explainer sentence, the MLC by its own press figures. Each
+     characterization is survivable by the organization reading it.
+- Word count 2,084 (range 2,000-3,000), code spans and link URLs
+  excluded. Six live anchors used — the full parked list from the C3
+  archive — all resolving in docs/.
+- Read verdict: APPROVED for C4-P2.
+
+Next: C4-P2 — md renderer, methodology page, index and README lines,
+CITATION.cff 1.4.0, drift/anchor/word-count tests.
