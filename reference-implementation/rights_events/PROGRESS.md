@@ -152,3 +152,31 @@ m(unresolved)-dominance test, revocation-delta test, README
 "Rights-event layer" subsection, DONE report.
 
 Open questions: none.
+
+### P5 — Song X acceptance end-to-end (2026-08-01)
+
+Shipped:
+- rights_events/song_x.py: single documented end-to-end command
+  (python -m rights_events.song_x [--out RUN_FILE]) — adapter (d) ->
+  engine intake -> pre- and post-revocation commits -> run file ->
+  in-process acceptance checks A1-A4 (frame + Omega named; unresolved
+  dominates every singleton; 4/4 inclusion proofs; revocation delta).
+  Exit 0 only if all pass. Verified output:
+    pre-revocation:  m(conflict)=0.2025, m(A-majority)=0.2475,
+                     m(B-equal)=0.2475, m(unresolved)=0.3025
+    post-revocation: m(A-majority)=0.45, m(unresolved)=0.55,
+                     m(B-equal)=0, m(conflict)=0
+    event log root:
+    0406860ce4501519024690465b358aa0b16817a0f5f57c6f1c4d170870942866
+  Replay of the written run file: byte-identity IDENTICAL, root MATCH,
+  belief inclusion VERIFIED, event inclusions 4/4, exit 0.
+- tests/test_rights_song_x.py: 9 acceptance tests, including both
+  documented commands via subprocess and run-file byte-stability
+  across independent runs.
+- README (repo root): "Rights-event layer" subsection under Technical
+  documentation (package + CLI commands, nothing promotional).
+- Contract archived to contracts/completed/C1-event-layer.md with the
+  DONE report appended.
+- Suite: 541 passed (532 + 9).
+
+Contract 1 phases complete: P1-P5 all green, committed, pushed.

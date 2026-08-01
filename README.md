@@ -63,3 +63,16 @@ Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 Roles: Research Claude (chat) owns necessity/prior-art/theorems/spec revision.
 Claude Code owns implementation and treats SPEC.md as source of truth.
+
+### Rights-event layer
+
+- **/reference-implementation/rights_events** — first domain layer over the engine: a
+  domain-neutral rights-event schema (six event types, four epistemic-provenance channel
+  types), four evidence adapters (works-registration samples, C2PA manifest stores,
+  TDMRep/robots.txt opt-out signals, split-conflict registration records), a pipeline that
+  fuses events per contested question through the engine's cautious rule, and Merkle-logged
+  belief objects with inclusion proofs.
+- Replay CLI: from `reference-implementation/`, `python -m rights_events.replay --run
+  RUN_FILE --subject SUBJECT` reconstructs a logged belief object and verifies byte-identity
+  and inclusion proofs; `python -m rights_events.song_x` runs the layer's end-to-end
+  acceptance case (a SYNTHETIC split-conflict fixture) and writes a run file.
