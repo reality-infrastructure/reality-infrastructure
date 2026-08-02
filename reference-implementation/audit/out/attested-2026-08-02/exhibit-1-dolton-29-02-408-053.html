@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Exhibit 1 — 29-02-408-053-0000 (Dolton) — CRM Reality Audit</title>
+<style>
+  @page { size: Letter; margin: 0.7in; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+         font-size: 9.8pt; line-height: 1.42; color: #1c2430; }
+  .banner { background: #7a1f1f; color: #fff; font-size: 8.5pt; font-weight: 600;
+            padding: 6pt 9pt; margin-bottom: 12pt; letter-spacing: 0.02em; }
+  h1 { font-size: 16pt; color: #12355b; line-height: 1.2; margin-bottom: 3pt; }
+  .sub { font-size: 9pt; color: #5a6472; margin-bottom: 12pt; padding-bottom: 7pt;
+         border-bottom: 2.5pt solid #12355b; }
+  h2 { font-size: 10.5pt; text-transform: uppercase; letter-spacing: 0.06em;
+       color: #12355b; margin: 11pt 0 4pt; }
+  p { margin-bottom: 6pt; }
+  .finding { background: #f4f6f9; border-left: 3pt solid #12355b; padding: 8pt 10pt;
+             margin-bottom: 4pt; }
+  table { border-collapse: collapse; width: 100%; margin: 4pt 0 6pt; font-size: 8.9pt; }
+  th, td { border: 0.75pt solid #c6ccd4; padding: 2.5pt 6pt; text-align: left;
+           vertical-align: top; }
+  th { background: #eef1f5; font-weight: 600; }
+  code, .mono { font-family: Consolas, "Courier New", monospace; font-size: 8.7pt; }
+  .replay { background: #1c2430; color: #d8e0ea; padding: 7pt 10pt; margin: 4pt 0 6pt; }
+  .caveat { font-size: 8.6pt; color: #5a6472; font-style: italic; }
+  .crit li { margin-left: 14pt; margin-bottom: 2pt; }
+  ul { margin-bottom: 6pt; }
+</style>
+</head>
+<body>
+<div class="banner">CLIENT DELIVERABLE — NOT FOR PROSPECT USE. Contains client-identifying information; prospect-facing derivatives go through the collateral anonymization process.</div>
+
+<h1>Exhibit 1 — Records disagree: 29-02-408-053-0000 (Dolton, IL)</h1>
+<div class="sub">CRM Reality Audit · attested re-run of 2026-08-02 · pre-registered method (audit/PREREGISTRATION.md) · every citation resolvable in the frozen snapshots (audit/MANIFEST.md)</div>
+
+<h2>Finding</h2>
+<div class="finding">
+<p>The CRM lists parcel 29-02-408-053-0000 as <b>Sold</b> on <b>2017-01-01</b>.
+Cook County's recorded conveyance for that period is a <b>warranty deed —
+document 1717247010, sale date 2017-06-16, $65,000 — from RICHARD THORTON to
+CSMA BLT, LLC</b>, neither party matching the client under any attested alias.
+Across every assessor roll year returned for this parcel (1999–2026), the
+client never appears as owner or taxpayer of record — the county's records and
+the CRM's claim cannot both be correct as stated.</p>
+</div>
+<p class="caveat">This characterizes records, not people: two record systems disagree, and this exhibit cites exactly which documents disagree and when they were retrieved.</p>
+
+<h2>Citation chain</h2>
+<p><b>The claim</b> — CRM extract (frozen 2026-08-02, source sha256 <span class="mono">8d42089d…7067</span>):
+<span class="mono">USER_ppn 29-02-408-053-0000</span> · <span class="mono">USER_disp_status "Sold"</span> (verbatim) · <span class="mono">USER_date_disposed 2017-01-01</span>.</p>
+<p><b>The contradicting conveyance</b> — Assessor Parcel Sales (Socrata <span class="mono">wvhk-k5uv</span>, retrieved 2026-08-02):
+document <b>1717247010</b>, deed type <b>Warranty</b>, sale date <b>2017-06-16</b>, price <b>$65,000</b>,
+parties verbatim <span class="mono">RICHARD&nbsp;&nbsp;THORTON -&gt; CSMA BLT, LLC</span>.
+The only recorded conveyance within ±366 days of the claimed disposal date; no recorded conveyance for this parcel names the client on either side.</p>
+<p><b>The ownership chain</b> — Assessor Parcel Addresses (Socrata <span class="mono">3723-97qp</span>, retrieved 2026-08-02), owner of record by roll year:</p>
+<table>
+<tr><th>Year</th><th>Owner of record (verbatim)</th><th>Row id</th></tr>
+<tr><td>1999–2004</td><td>ROBERT STOKES</td><td class="mono">290240805300001999 … 2004</td></tr>
+<tr><td>2005</td><td>REGINALD SMITH</td><td class="mono">290240805300002005</td></tr>
+<tr><td>2006</td><td>STD BK TR 15043</td><td class="mono">290240805300002006</td></tr>
+<tr><td>2007</td><td>CELESTINE TRUSSELL</td><td class="mono">290240805300002007</td></tr>
+<tr><td>2008–2015</td><td>LAWANDA TRUSSELL</td><td class="mono">290240805300002008 … 2015</td></tr>
+<tr><td>2016</td><td>CSMA BLT LLC</td><td class="mono">290240805300002016</td></tr>
+<tr><td>2017</td><td>FIRST KEY HOMES</td><td class="mono">290240805300002017</td></tr>
+<tr><td>2026</td><td>FIRST KEY HOMES</td><td class="mono">290240805300002026</td></tr>
+</table>
+<p>The client appears in no roll year. Tax-sale datasets (<span class="mono">55ju-2fs9</span>, <span class="mono">ydgz-vkrp</span>, retrieved 2026-08-02): zero rows for this PIN.</p>
+<p class="caveat">Pre-registered coverage caveat: the Parcel Sales dataset is transfer-declaration-derived; exempt conveyances may be structurally absent. Absence is reported as "no machine-readable record found in the queried datasets" — never as a statement about the world.</p>
+
+<h2>Selection criteria (applied in order, pre-stated)</h2>
+<ul class="crit">
+<li><b>(a) Post-attestation stability — PASS.</b> CONTRADICTED (rule D3) in baseline and attested re-run; no uncertain ruling touches this parcel.</li>
+<li><b>(b) Citation completeness — PASS.</b> Status verbatim, contradicting document with doc number / deed type / date / parties verbatim, assessor rows by year, retrieval dates throughout.</li>
+<li><b>(c) Independence from interpretation — PASS.</b> No heuristic classification, no alias inference (no client-resembling string in the parcel's records, separator-variant scan included), no deferred status semantics.</li>
+<li><b>(d) Explanation economy — PASS.</b> The finding is three sentences.</li>
+<li><b>(e) Diversity — moot.</b> Sole survivor of (a)–(c); see exhibit-selection.md for the honest-number accounting.</li>
+</ul>
+<p>Independent corroboration: this parcel is the audit's pre-registered known-answer; the full M-RI-11 title-belief dossier reached the same contradiction independently.</p>
+
+<h2>Replay</h2>
+<div class="replay mono">python -m audit.rerun_attested --pin 29024080530000</div>
+<p>Reconstructs this verdict from the frozen snapshots (sha256 chain in <span class="mono">audit/MANIFEST.md</span>) plus the operator attestation events (<span class="mono">audit/attestation/attestations.yaml</span>, sha256 <span class="mono">0fa33a42…b0f4</span>). Replay verified clean 2026-08-02: verdict CONTRADICTED (D3), identical to baseline. Full-run replay: <span class="mono">python -m audit.rerun_attested</span> — byte-identical across runs, checks C1–C5 pass.</p>
+</body>
+</html>
