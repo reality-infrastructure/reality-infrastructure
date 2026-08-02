@@ -14,6 +14,7 @@ case study exist in this directory. **They are not interchangeable.**
 | `one-pager-reality-audit-v1.pdf` | ANONYMIZED — cleared (rendered from the anonymized HTML intermediate only) | Any prospect or second land bank |
 | `refresh-scope-skeleton-DO-NOT-SEND.md` | **INTERNAL** — names the client | **No one.** Operator's pricing/scoping notes only |
 | `prospects-landbanks-2026-08.md` | INTERNAL — prospect list w/ provenance | Not sent; it is a working list, not collateral |
+| `outreach-drafts-landbanks-DO-NOT-SEND-WITHOUT-GO.md` | **DRAFT** — unsent | **No one** until (1) the A4 message is sent and (2) a named operator GO |
 
 ## Consent status
 
