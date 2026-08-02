@@ -10,6 +10,10 @@ case study exist in this directory. **They are not interchangeable.**
 | `case-study-parcel-verification-v1.md` | ANONYMIZED — cleared | Any prospect or second land bank |
 | `case-study-parcel-verification-v1.pdf` | ANONYMIZED — cleared | Any prospect or second land bank (rendered from the anonymized markdown only) |
 | `case-study-dolton-named-DO-NOT-SEND.md` | **LOCKED** | **No one.** Requires the client's written consent before ANY external use |
+| `one-pager-reality-audit-v1.md` | ANONYMIZED — cleared (M-RI-14; forbidden-string grep PASS) | Any prospect or second land bank |
+| `one-pager-reality-audit-v1.pdf` | ANONYMIZED — cleared (rendered from the anonymized HTML intermediate only) | Any prospect or second land bank |
+| `refresh-scope-skeleton-DO-NOT-SEND.md` | **INTERNAL** — names the client | **No one.** Operator's pricing/scoping notes only |
+| `prospects-landbanks-2026-08.md` | INTERNAL — prospect list w/ provenance | Not sent; it is a working list, not collateral |
 
 ## Consent status
 
