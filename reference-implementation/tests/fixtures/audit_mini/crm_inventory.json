@@ -1,0 +1,52 @@
+{
+  "retrieval": {
+    "source_id": "crm_inventory",
+    "source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "retrieved_date": "2026-08-02",
+    "attestation": "test fixture — synthetic"
+  },
+  "records": [
+    {
+      "USER_ppn": "11-11-111-111-1111",
+      "USER_disp_status": "Sold",
+      "USER_date_disposed": "2020-06-15",
+      "cook_format": true,
+      "checkable": true
+    },
+    {
+      "USER_ppn": "22-22-222-222-2222",
+      "USER_disp_status": "Sold",
+      "USER_date_disposed": "2019-01-01",
+      "cook_format": true,
+      "checkable": true
+    },
+    {
+      "USER_ppn": "33-33-333-333-3333",
+      "USER_disp_status": "Sold",
+      "USER_date_disposed": "2018-01-01",
+      "cook_format": true,
+      "checkable": true
+    },
+    {
+      "USER_ppn": "44-44-444-444-4444",
+      "USER_disp_status": "Secured Inventory - Active",
+      "USER_date_disposed": null,
+      "cook_format": true,
+      "checkable": true
+    },
+    {
+      "USER_ppn": "55-55-555-555-5555",
+      "USER_disp_status": "Listed",
+      "USER_date_disposed": null,
+      "cook_format": true,
+      "checkable": true
+    },
+    {
+      "USER_ppn": "4545",
+      "USER_disp_status": "Test Parcel",
+      "USER_date_disposed": null,
+      "cook_format": false,
+      "checkable": false
+    }
+  ]
+}

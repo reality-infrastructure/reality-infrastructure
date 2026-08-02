@@ -1,0 +1,7 @@
+pin,status,claim_class,claim_date,verdict,reason,rule,citation_count,first_citation,near_miss_strings,tax_sale_rows,scavenger_rows
+11-11-111-111-1111,Sold,DISPOSED,2020-06-15,SUPPORTED,,D1,1,wvhk-k5uv 900001 2020-05-01 SOUTH SUBURBAN LAND BANK & DEV AUTH -> JANE DOE,,0,0
+22-22-222-222-2222,Sold,DISPOSED,2019-01-01,CONTRADICTED,,D3,3,wvhk-k5uv 900002 2019-03-01 ALICE A -> BOB B,,0,0
+33-33-333-333-3333,Sold,DISPOSED,2018-01-01,UNSUPPORTED_NO_RECORD,,D4,1,"wvhk-k5uv,3723-97qp   no machine-readable record found in the queried datasets",,0,0
+44-44-444-444-4444,Secured Inventory - Active,HELD,,SUPPORTED,,H1,1,3723-97qp a3 2026.0 owner=SOUTH SUBURBAN LAND BANK & DEV AUTH mail=SOUTH SUBURBAN LAND BANK & DEV AUTH,,0,0
+4545,Test Parcel,NO_CLAIM,,NOT_CHECKABLE,pin-format,,0,,,0,0
+55-55-555-555-5555,Listed,HELD,,AMBIGUOUS,,H4+NEAR-MISS,1,"wvhk-k5uv,3723-97qp   no machine-readable record found in the queried datasets",COOK COUNTY LAND BANK AUTH,0,0

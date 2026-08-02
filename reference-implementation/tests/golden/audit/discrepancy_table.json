@@ -1,0 +1,193 @@
+{
+  "banner": "CLIENT DELIVERABLE — NOT FOR PROSPECT USE. Contains client-identifying information; prospect-facing derivatives go through the collateral anonymization process.",
+  "preregistration": "audit/PREREGISTRATION.md",
+  "retrieval": {
+    "cc_assessor": {
+      "source_id": "cc_assessor",
+      "dataset_id": "3723-97qp",
+      "retrieved_date": "2026-08-02",
+      "attestation": "test fixture — synthetic"
+    },
+    "ccao_parcel_sales": {
+      "source_id": "ccao_parcel_sales",
+      "dataset_id": "wvhk-k5uv",
+      "retrieved_date": "2026-08-02",
+      "attestation": "test fixture — synthetic"
+    },
+    "crm_inventory": {
+      "source_id": "crm_inventory",
+      "source_sha256": "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "retrieved_date": "2026-08-02",
+      "attestation": "test fixture — synthetic"
+    },
+    "tax_agency": {
+      "source_id": "tax_agency",
+      "dataset_id": "55ju-2fs9",
+      "retrieved_date": "2026-08-02",
+      "attestation": "test fixture — synthetic"
+    },
+    "tax_agency_scavenger": {
+      "source_id": "tax_agency_scavenger",
+      "dataset_id": "ydgz-vkrp",
+      "retrieved_date": "2026-08-02",
+      "attestation": "test fixture — synthetic"
+    }
+  },
+  "coverage_caveat": "Coverage caveat: the Assessor Parcel Sales dataset is transfer-declaration-derived; exempt conveyances (tax deeds, government/land-bank deeds) may be structurally absent, and assessor rolls lag. Absence of a record is therefore reported as exactly that — never as \"not sold\" or \"not owned\".",
+  "verdicts": [
+    {
+      "pin": "11-11-111-111-1111",
+      "pin14": "11111111111111",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "claim_date": "2020-06-15",
+      "verdict": "SUPPORTED",
+      "reason": null,
+      "rule": "D1",
+      "citations": [
+        {
+          "source_id": "ccao_parcel_sales",
+          "dataset_id": "wvhk-k5uv",
+          "record": "900001",
+          "date_field": "sale_date",
+          "date": "2020-05-01",
+          "parties": "SOUTH SUBURBAN LAND BANK & DEV AUTH -> JANE DOE",
+          "retrieved": "2026-08-02"
+        }
+      ],
+      "near_miss_strings": [],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    },
+    {
+      "pin": "22-22-222-222-2222",
+      "pin14": "22222222222222",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "claim_date": "2019-01-01",
+      "verdict": "CONTRADICTED",
+      "reason": null,
+      "rule": "D3",
+      "citations": [
+        {
+          "source_id": "ccao_parcel_sales",
+          "dataset_id": "wvhk-k5uv",
+          "record": "900002",
+          "date_field": "sale_date",
+          "date": "2019-03-01",
+          "parties": "ALICE A -> BOB B",
+          "retrieved": "2026-08-02"
+        },
+        {
+          "source_id": "cc_assessor",
+          "dataset_id": "3723-97qp",
+          "record": "a1",
+          "date_field": "year",
+          "date": "2018",
+          "parties": "owner=ALICE A mail=ALICE A",
+          "retrieved": "2026-08-02"
+        },
+        {
+          "source_id": "cc_assessor",
+          "dataset_id": "3723-97qp",
+          "record": "a2",
+          "date_field": "year",
+          "date": "2020",
+          "parties": "owner=BOB B mail=BOB B",
+          "retrieved": "2026-08-02"
+        }
+      ],
+      "near_miss_strings": [],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    },
+    {
+      "pin": "33-33-333-333-3333",
+      "pin14": "33333333333333",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "claim_date": "2018-01-01",
+      "verdict": "UNSUPPORTED_NO_RECORD",
+      "reason": null,
+      "rule": "D4",
+      "citations": [
+        {
+          "source_id": "attested-queries",
+          "dataset_id": "wvhk-k5uv,3723-97qp",
+          "record": null,
+          "date_field": null,
+          "date": null,
+          "parties": "no machine-readable record found in the queried datasets",
+          "retrieved": "2026-08-02"
+        }
+      ],
+      "near_miss_strings": [],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    },
+    {
+      "pin": "44-44-444-444-4444",
+      "pin14": "44444444444444",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "claim_date": null,
+      "verdict": "SUPPORTED",
+      "reason": null,
+      "rule": "H1",
+      "citations": [
+        {
+          "source_id": "cc_assessor",
+          "dataset_id": "3723-97qp",
+          "record": "a3",
+          "date_field": "year",
+          "date": "2026.0",
+          "parties": "owner=SOUTH SUBURBAN LAND BANK & DEV AUTH mail=SOUTH SUBURBAN LAND BANK & DEV AUTH",
+          "retrieved": "2026-08-02"
+        }
+      ],
+      "near_miss_strings": [],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    },
+    {
+      "pin": "4545",
+      "pin14": null,
+      "status": "Test Parcel",
+      "claim_class": "NO_CLAIM",
+      "claim_date": null,
+      "verdict": "NOT_CHECKABLE",
+      "reason": "pin-format",
+      "rule": null,
+      "citations": [],
+      "near_miss_strings": [],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    },
+    {
+      "pin": "55-55-555-555-5555",
+      "pin14": "55555555555555",
+      "status": "Listed",
+      "claim_class": "HELD",
+      "claim_date": null,
+      "verdict": "AMBIGUOUS",
+      "reason": null,
+      "rule": "H4+NEAR-MISS",
+      "citations": [
+        {
+          "source_id": "attested-queries",
+          "dataset_id": "wvhk-k5uv,3723-97qp",
+          "record": null,
+          "date_field": null,
+          "date": null,
+          "parties": "no machine-readable record found in the queried datasets",
+          "retrieved": "2026-08-02"
+        }
+      ],
+      "near_miss_strings": [
+        "COOK COUNTY LAND BANK AUTH"
+      ],
+      "tax_sale_rows": 0,
+      "scavenger_rows": 0
+    }
+  ]
+}

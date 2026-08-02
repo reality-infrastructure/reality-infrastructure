@@ -1,0 +1,34 @@
+{
+  "retrieval": {
+    "source_id": "ccao_parcel_sales",
+    "dataset_id": "wvhk-k5uv",
+    "retrieved_date": "2026-08-02",
+    "attestation": "test fixture — synthetic"
+  },
+  "records": [
+    {
+      "pin": "11111111111111",
+      "seller_name": "SOUTH SUBURBAN LAND BANK & DEV AUTH",
+      "buyer_name": "JANE DOE",
+      "sale_date": "2020-05-01T00:00:00.000",
+      "doc_no": "900001",
+      "row_id": "r1"
+    },
+    {
+      "pin": "22222222222222",
+      "seller_name": "ALICE A",
+      "buyer_name": "BOB B",
+      "sale_date": "2019-03-01T00:00:00.000",
+      "doc_no": "900002",
+      "row_id": "r2"
+    },
+    {
+      "pin": "55555555555555",
+      "seller_name": "COOK COUNTY LAND BANK AUTH",
+      "buyer_name": "BOB B",
+      "sale_date": "2021-01-01T00:00:00.000",
+      "doc_no": "900003",
+      "row_id": "r3"
+    }
+  ]
+}
