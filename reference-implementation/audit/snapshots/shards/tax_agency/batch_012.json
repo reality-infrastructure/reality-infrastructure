@@ -1,0 +1,1255 @@
+{
+  "source_id": "tax_agency",
+  "dataset_id": "55ju-2fs9",
+  "retrieved_date": "2026-08-02",
+  "queries": [
+    "https://datacatalog.cookcountyil.gov/resource/55ju-2fs9.json?%24where=pin+in%28%2731-35-413-011-0000%27%2C%2731-35-414-003-0000%27%2C%2731-35-415-038-0000%27%2C%2731-35-416-037-0000%27%2C%2731-36-103-006-0000%27%2C%2731-36-103-007-0000%27%2C%2731-36-104-005-0000%27%2C%2731-36-104-025-0000%27%2C%2731-36-105-032-0000%27%2C%2731-36-105-042-0000%27%2C%2731-36-106-003-0000%27%2C%2731-36-106-032-0000%27%2C%2731-36-107-005-0000%27%2C%2731-36-107-006-0000%27%2C%2731-36-108-010-0000%27%2C%2731-36-108-021-0000%27%2C%2731-36-109-011-0000%27%2C%2731-36-111-019-0000%27%2C%2731-36-112-007-0000%27%2C%2731-36-114-007-0000%27%2C%2731-36-202-004-0000%27%2C%2731-36-202-005-0000%27%2C%2731-36-301-010-0000%27%2C%2731-36-302-019-0000%27%2C%2731-36-303-020-0000%27%2C%2731-36-303-021-0000%27%2C%2731-36-303-024-0000%27%2C%2731-36-303-034-0000%27%2C%2731-36-304-010-0000%27%2C%2731-36-304-033-0000%27%2C%2731-36-305-004-0000%27%2C%2731-36-305-015-0000%27%2C%2731-36-305-017-0000%27%2C%2731-36-305-018-0000%27%2C%2731-36-306-012-0000%27%2C%2731-36-306-026-0000%27%2C%2731-36-309-002-0000%27%2C%2731-36-309-031-0000%27%2C%2731-36-310-026-0000%27%2C%2731-36-310-041-0000%27%2C%2731-36-312-014-0000%27%2C%2731-36-314-002-0000%27%2C%2731-36-314-028-0000%27%2C%2731-36-314-030-0000%27%2C%2731-36-316-012-0000%27%2C%2731-36-316-026-0000%27%2C%2731-36-316-028-0000%27%2C%2731-36-318-013-0000%27%2C%2731-36-319-011-0000%27%2C%2731-36-321-009-0000%27%29&%24limit=5000"
+  ],
+  "failed_pins": [],
+  "records": [
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-35-413-011-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4809.33",
+      "penalty_amount_offered": "995.89",
+      "total_tax_and_penalty_amount_offered": "5805.22",
+      "cost": "10",
+      "total_amount_forfeited": "5815.22",
+      "location_1": {
+        "latitude": "41.4750614108722",
+        "longitude": "-87.6976225316625"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-35-413-011-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2325.71",
+      "penalty_amount_offered": "453.57",
+      "total_tax_and_penalty_amount_offered": "2779.28",
+      "cost": "10",
+      "total_amount_forfeited": "2789.28",
+      "location_1": {
+        "latitude": "41.4750614108722",
+        "longitude": "-87.6976225316625"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-35-416-037-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1545.89",
+      "penalty_amount_offered": "301.47",
+      "total_tax_and_penalty_amount_offered": "1847.36",
+      "cost": "200",
+      "total_amount_paid": "2047.36",
+      "winning_bid_percent": "0",
+      "buyer_name": "PINE VALLEY ONE",
+      "location_1": {
+        "latitude": "41.4722278035765",
+        "longitude": "-87.6946591898006"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-35-416-037-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3518.68",
+      "penalty_amount_offered": "727.23",
+      "total_tax_and_penalty_amount_offered": "4245.91",
+      "cost": "10",
+      "total_amount_forfeited": "4255.91",
+      "location_1": {
+        "latitude": "41.4722278035765",
+        "longitude": "-87.6946591898006"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-35-416-037-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3554.75",
+      "penalty_amount_offered": "837.81",
+      "total_tax_and_penalty_amount_offered": "4392.56",
+      "cost": "10",
+      "total_amount_forfeited": "4402.56",
+      "location_1": {
+        "latitude": "41.4722278035765",
+        "longitude": "-87.6946591898006"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-103-006-0000",
+      "classification": "207",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "8538.89",
+      "penalty_amount_offered": "2001.74",
+      "total_tax_and_penalty_amount_offered": "10540.63",
+      "cost": "200",
+      "total_amount_paid": "10740.63",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4786876201441",
+        "longitude": "-87.6861350409555"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-103-007-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1080.8",
+      "penalty_amount_offered": "210.73",
+      "total_tax_and_penalty_amount_offered": "1291.53",
+      "cost": "200",
+      "total_amount_paid": "1491.53",
+      "winning_bid_percent": "0",
+      "buyer_name": "ATCF II Illinois, LLC",
+      "location_1": {
+        "latitude": "41.4788300202868",
+        "longitude": "-87.6860215555863"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-104-005-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5488.03",
+      "penalty_amount_offered": "1328.46",
+      "total_tax_and_penalty_amount_offered": "6816.49",
+      "cost": "200",
+      "total_amount_paid": "7016.49",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.4782360978857",
+        "longitude": "-87.6851911522416"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-104-005-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2429.67",
+      "penalty_amount_offered": "400.95",
+      "total_tax_and_penalty_amount_offered": "2830.62",
+      "cost": "10",
+      "total_amount_forfeited": "2840.62",
+      "location_1": {
+        "latitude": "41.4782360978857",
+        "longitude": "-87.6851911522416"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-104-025-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "6955.69",
+      "penalty_amount_offered": "1206.64",
+      "total_tax_and_penalty_amount_offered": "8162.33",
+      "cost": "200",
+      "total_amount_paid": "8362.33",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.4784329293121",
+        "longitude": "-87.6817449207411"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-105-032-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "8374.43",
+      "penalty_amount_offered": "1931.68",
+      "total_tax_and_penalty_amount_offered": "10306.11",
+      "cost": "200",
+      "total_amount_paid": "10506.11",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.4771170027787",
+        "longitude": "-87.6933267734967"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-105-042-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5677.08",
+      "penalty_amount_offered": "1321.68",
+      "total_tax_and_penalty_amount_offered": "6998.76",
+      "cost": "10",
+      "total_amount_forfeited": "7008.76",
+      "location_1": {
+        "latitude": "41.4755352131212",
+        "longitude": "-87.6931214717025"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-105-042-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5202.25",
+      "penalty_amount_offered": "1222.82",
+      "total_tax_and_penalty_amount_offered": "6425.07",
+      "cost": "200",
+      "total_amount_paid": "6625.07",
+      "winning_bid_percent": "0",
+      "buyer_name": "MTAG Cust CAZ  Creek IL LLC",
+      "location_1": {
+        "latitude": "41.4755352131212",
+        "longitude": "-87.6931214717025"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-105-042-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5586.49",
+      "penalty_amount_offered": "1166.75",
+      "total_tax_and_penalty_amount_offered": "6753.24",
+      "cost": "10",
+      "total_amount_forfeited": "6763.24",
+      "location_1": {
+        "latitude": "41.4755352131212",
+        "longitude": "-87.6931214717025"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-105-042-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5938.44",
+      "penalty_amount_offered": "1392.24",
+      "total_tax_and_penalty_amount_offered": "7330.68",
+      "cost": "10",
+      "total_amount_forfeited": "7340.68",
+      "location_1": {
+        "latitude": "41.4755352131212",
+        "longitude": "-87.6931214717025"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-106-003-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1391.31",
+      "penalty_amount_offered": "271.31",
+      "total_tax_and_penalty_amount_offered": "1662.62",
+      "cost": "200",
+      "total_amount_paid": "1862.62",
+      "winning_bid_percent": "0",
+      "buyer_name": "FAIR DEAL OF ILLINOIS IN",
+      "location_1": {
+        "latitude": "41.4790768681482",
+        "longitude": "-87.6932765498709"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-106-003-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3498.95",
+      "penalty_amount_offered": "710.59",
+      "total_tax_and_penalty_amount_offered": "4209.54",
+      "cost": "10",
+      "total_amount_forfeited": "4219.54",
+      "location_1": {
+        "latitude": "41.4790768681482",
+        "longitude": "-87.6932765498709"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-107-005-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4967.77",
+      "penalty_amount_offered": "1156.56",
+      "total_tax_and_penalty_amount_offered": "6124.33",
+      "cost": "200",
+      "total_amount_paid": "6324.33",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.4795456690482",
+        "longitude": "-87.6923247839572"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-107-006-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2936.19",
+      "penalty_amount_offered": "484.44",
+      "total_tax_and_penalty_amount_offered": "3420.63",
+      "cost": "200",
+      "total_amount_paid": "3620.63",
+      "winning_bid_percent": "0",
+      "buyer_name": "Madison C/ Stonefield IV",
+      "location_1": {
+        "latitude": "41.4794487308554",
+        "longitude": "-87.6921457122871"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-108-010-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3596.36",
+      "penalty_amount_offered": "851.67",
+      "total_tax_and_penalty_amount_offered": "4448.03",
+      "cost": "200",
+      "total_amount_paid": "4648.03",
+      "winning_bid_percent": "0",
+      "buyer_name": "GENERAL TAX LIEN LLC",
+      "location_1": {
+        "latitude": "41.4776782330877",
+        "longitude": "-87.6884579226426"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-108-021-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2416.6",
+      "penalty_amount_offered": "538.65",
+      "total_tax_and_penalty_amount_offered": "2955.25",
+      "cost": "10",
+      "total_amount_forfeited": "2965.25",
+      "location_1": {
+        "latitude": "41.4777305777657",
+        "longitude": "-87.6894394730473"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-108-021-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1548.68",
+      "penalty_amount_offered": "301.99",
+      "total_tax_and_penalty_amount_offered": "1850.67",
+      "cost": "10",
+      "total_amount_forfeited": "1860.67",
+      "location_1": {
+        "latitude": "41.4777305777657",
+        "longitude": "-87.6894394730473"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-109-011-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2794.63",
+      "penalty_amount_offered": "547.03",
+      "total_tax_and_penalty_amount_offered": "3341.66",
+      "cost": "200",
+      "total_amount_paid": "3541.66",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER FINANCIAL",
+      "location_1": {
+        "latitude": "41.4844367221973",
+        "longitude": "-87.6908121967139"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-111-019-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6104.14",
+      "penalty_amount_offered": "1256.51",
+      "total_tax_and_penalty_amount_offered": "7360.65",
+      "cost": "10",
+      "total_amount_forfeited": "7370.65",
+      "location_1": {
+        "latitude": "41.4832321418474",
+        "longitude": "-87.6922070909071"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-111-019-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6044.76",
+      "penalty_amount_offered": "1417.06",
+      "total_tax_and_penalty_amount_offered": "7461.82",
+      "cost": "10",
+      "total_amount_forfeited": "7471.82",
+      "location_1": {
+        "latitude": "41.4832321418474",
+        "longitude": "-87.6922070909071"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-111-019-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5778.7",
+      "penalty_amount_offered": "1345.29",
+      "total_tax_and_penalty_amount_offered": "7123.99",
+      "cost": "10",
+      "total_amount_forfeited": "7133.99",
+      "location_1": {
+        "latitude": "41.4832321418474",
+        "longitude": "-87.6922070909071"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-111-019-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5295.68",
+      "penalty_amount_offered": "1290.39",
+      "total_tax_and_penalty_amount_offered": "6586.07",
+      "cost": "200",
+      "total_amount_paid": "6786.07",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.4832321418474",
+        "longitude": "-87.6922070909071"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-112-007-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4574.95",
+      "penalty_amount_offered": "892.06",
+      "total_tax_and_penalty_amount_offered": "5467.01",
+      "cost": "200",
+      "total_amount_paid": "5667.01",
+      "winning_bid_percent": "0",
+      "buyer_name": "Pam Inst Tax Lien Fund",
+      "location_1": {
+        "latitude": "41.4834014372995",
+        "longitude": "-87.6871850386973"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-112-007-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "8767.08",
+      "penalty_amount_offered": "1948.23",
+      "total_tax_and_penalty_amount_offered": "10715.31",
+      "cost": "10",
+      "total_amount_forfeited": "10725.31",
+      "location_1": {
+        "latitude": "41.4834014372995",
+        "longitude": "-87.6871850386973"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-112-007-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "9402.75",
+      "penalty_amount_offered": "1929.74",
+      "total_tax_and_penalty_amount_offered": "11332.49",
+      "cost": "10",
+      "total_amount_forfeited": "11342.49",
+      "location_1": {
+        "latitude": "41.4834014372995",
+        "longitude": "-87.6871850386973"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-112-007-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "9170.75",
+      "penalty_amount_offered": "2149.93",
+      "total_tax_and_penalty_amount_offered": "11320.68",
+      "cost": "10",
+      "total_amount_forfeited": "11330.68",
+      "location_1": {
+        "latitude": "41.4834014372995",
+        "longitude": "-87.6871850386973"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-114-007-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2600.62",
+      "penalty_amount_offered": "620.53",
+      "total_tax_and_penalty_amount_offered": "3221.15",
+      "cost": "200",
+      "total_amount_paid": "3421.15",
+      "winning_bid_percent": "0",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4828273954693",
+        "longitude": "-87.691607051757"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-202-004-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1572.86",
+      "penalty_amount_offered": "306.67",
+      "total_tax_and_penalty_amount_offered": "1879.53",
+      "cost": "10",
+      "total_amount_forfeited": "1889.53",
+      "location_1": {
+        "latitude": "41.4782591473744",
+        "longitude": "-87.6798258079645"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-202-004-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3774.39",
+      "penalty_amount_offered": "764.87",
+      "total_tax_and_penalty_amount_offered": "4539.26",
+      "cost": "10",
+      "total_amount_forfeited": "4549.26",
+      "location_1": {
+        "latitude": "41.4782591473744",
+        "longitude": "-87.6798258079645"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-202-005-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5797.62",
+      "penalty_amount_offered": "956.56",
+      "total_tax_and_penalty_amount_offered": "6754.18",
+      "cost": "200",
+      "total_amount_paid": "6954.18",
+      "winning_bid_percent": "0",
+      "buyer_name": "Madison C/ Stonefield IV",
+      "location_1": {
+        "latitude": "41.4780943833488",
+        "longitude": "-87.6798239965847"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-301-010-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1586.44",
+      "penalty_amount_offered": "309.4",
+      "total_tax_and_penalty_amount_offered": "1895.84",
+      "cost": "200",
+      "total_amount_paid": "2095.84",
+      "winning_bid_percent": "0",
+      "buyer_name": "ATCF II Illinois, LLC",
+      "location_1": {
+        "latitude": "41.4767310654209",
+        "longitude": "-87.684910229209"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-303-020-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1948.1",
+      "penalty_amount_offered": "442.61",
+      "total_tax_and_penalty_amount_offered": "2390.71",
+      "cost": "200",
+      "total_amount_paid": "2590.71",
+      "winning_bid_percent": "0",
+      "buyer_name": "ATCF II Illinois, LLC",
+      "location_1": {
+        "latitude": "41.4757678550953",
+        "longitude": "-87.6857311509163"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-303-021-0000",
+      "classification": "204",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5773.05",
+      "penalty_amount_offered": "1304.2",
+      "total_tax_and_penalty_amount_offered": "7077.25",
+      "cost": "200",
+      "total_amount_paid": "7277.25",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.4756083465331",
+        "longitude": "-87.685767381356"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-303-024-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "861.45",
+      "penalty_amount_offered": "167.96",
+      "total_tax_and_penalty_amount_offered": "1029.41",
+      "cost": "200",
+      "total_amount_paid": "1229.41",
+      "winning_bid_percent": "0",
+      "buyer_name": "MTAG CUST FOR MGD-ILL",
+      "location_1": {
+        "latitude": "41.4751270734608",
+        "longitude": "-87.6858781672808"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-303-034-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5009.16",
+      "penalty_amount_offered": "1172.97",
+      "total_tax_and_penalty_amount_offered": "6182.13",
+      "cost": "200",
+      "total_amount_paid": "6382.13",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.4736982265946",
+        "longitude": "-87.6867581381884"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-304-010-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2847.67",
+      "penalty_amount_offered": "672.16",
+      "total_tax_and_penalty_amount_offered": "3519.83",
+      "cost": "10",
+      "total_amount_forfeited": "3529.83",
+      "location_1": {
+        "latitude": "41.4748538206895",
+        "longitude": "-87.6852909393247"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-304-010-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2830.91",
+      "penalty_amount_offered": "619.88",
+      "total_tax_and_penalty_amount_offered": "3450.79",
+      "cost": "10",
+      "total_amount_forfeited": "3460.79",
+      "location_1": {
+        "latitude": "41.4748538206895",
+        "longitude": "-87.6852909393247"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-304-010-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2437.02",
+      "penalty_amount_offered": "519.5",
+      "total_tax_and_penalty_amount_offered": "2956.52",
+      "cost": "10",
+      "total_amount_forfeited": "2966.52",
+      "location_1": {
+        "latitude": "41.4748538206895",
+        "longitude": "-87.6852909393247"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-304-033-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5520.4",
+      "penalty_amount_offered": "1121.21",
+      "total_tax_and_penalty_amount_offered": "6641.61",
+      "cost": "10",
+      "total_amount_forfeited": "6651.61",
+      "location_1": {
+        "latitude": "41.4738218248104",
+        "longitude": "-87.6852669678687"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-304-033-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4466.01",
+      "penalty_amount_offered": "1062.62",
+      "total_tax_and_penalty_amount_offered": "5528.63",
+      "cost": "200",
+      "total_amount_paid": "5728.63",
+      "winning_bid_percent": "0",
+      "buyer_name": "MTAG Cust CAZ  Creek IL LLC",
+      "location_1": {
+        "latitude": "41.4738218248104",
+        "longitude": "-87.6852669678687"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-305-015-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2345.35",
+      "penalty_amount_offered": "457.34",
+      "total_tax_and_penalty_amount_offered": "2802.69",
+      "cost": "200",
+      "total_amount_paid": "3002.69",
+      "winning_bid_percent": "0",
+      "buyer_name": "FAIR DEAL OF ILLINOIS IN",
+      "location_1": {
+        "latitude": "41.4735793515881",
+        "longitude": "-87.6847131192067"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-305-017-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1532.55",
+      "penalty_amount_offered": "298.87",
+      "total_tax_and_penalty_amount_offered": "1831.42",
+      "cost": "200",
+      "total_amount_paid": "2031.42",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.4732987906361",
+        "longitude": "-87.6849035960607"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-305-018-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3874.01",
+      "penalty_amount_offered": "912.68",
+      "total_tax_and_penalty_amount_offered": "4786.69",
+      "cost": "200",
+      "total_amount_paid": "4986.69",
+      "winning_bid_percent": "5",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.4731560000065",
+        "longitude": "-87.6850040546658"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-305-018-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1697.15",
+      "penalty_amount_offered": "330.98",
+      "total_tax_and_penalty_amount_offered": "2028.13",
+      "cost": "10",
+      "total_amount_forfeited": "2038.13",
+      "location_1": {
+        "latitude": "41.4731560000065",
+        "longitude": "-87.6850040546658"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-306-012-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6116.8",
+      "penalty_amount_offered": "1433.95",
+      "total_tax_and_penalty_amount_offered": "7550.75",
+      "cost": "10",
+      "total_amount_forfeited": "7560.75",
+      "location_1": {
+        "latitude": "41.4721588083111",
+        "longitude": "-87.6879784811376"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-306-012-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6100.33",
+      "penalty_amount_offered": "1258.8",
+      "total_tax_and_penalty_amount_offered": "7359.13",
+      "cost": "10",
+      "total_amount_forfeited": "7369.13",
+      "location_1": {
+        "latitude": "41.4721588083111",
+        "longitude": "-87.6879784811376"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-306-026-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5740.7",
+      "penalty_amount_offered": "1336.43",
+      "total_tax_and_penalty_amount_offered": "7077.13",
+      "cost": "10",
+      "total_amount_forfeited": "7087.13",
+      "location_1": {
+        "latitude": "41.4718818215546",
+        "longitude": "-87.6836522280577"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-306-026-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "6005.09",
+      "penalty_amount_offered": "1407.84",
+      "total_tax_and_penalty_amount_offered": "7412.93",
+      "cost": "200",
+      "total_amount_paid": "7612.93",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4718818215546",
+        "longitude": "-87.6836522280577"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-306-026-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5341.16",
+      "penalty_amount_offered": "1129.02",
+      "total_tax_and_penalty_amount_offered": "6470.18",
+      "cost": "10",
+      "total_amount_forfeited": "6480.18",
+      "location_1": {
+        "latitude": "41.4718818215546",
+        "longitude": "-87.6836522280577"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-309-002-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2756.08",
+      "penalty_amount_offered": "537.42",
+      "total_tax_and_penalty_amount_offered": "3293.5",
+      "cost": "200",
+      "total_amount_paid": "3493.5",
+      "winning_bid_percent": "0",
+      "buyer_name": "GENERAL TAX LIEN LLC",
+      "location_1": {
+        "latitude": "41.4777200180712",
+        "longitude": "-87.6905563214053"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-309-031-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4871.62",
+      "penalty_amount_offered": "1018.98",
+      "total_tax_and_penalty_amount_offered": "5890.6",
+      "cost": "200",
+      "total_amount_paid": "6090.6",
+      "winning_bid_percent": "0",
+      "buyer_name": "Real Tax Acquisitions",
+      "location_1": {
+        "latitude": "41.4770445162035",
+        "longitude": "-87.6908682089167"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-310-041-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5093.07",
+      "penalty_amount_offered": "1053.69",
+      "total_tax_and_penalty_amount_offered": "6146.76",
+      "cost": "10",
+      "total_amount_forfeited": "6156.76",
+      "location_1": {
+        "latitude": "41.4744417875673",
+        "longitude": "-87.6914136748819"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-310-041-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2452.99",
+      "penalty_amount_offered": "478.27",
+      "total_tax_and_penalty_amount_offered": "2931.26",
+      "cost": "10",
+      "total_amount_forfeited": "2941.26",
+      "location_1": {
+        "latitude": "41.4744417875673",
+        "longitude": "-87.6914136748819"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-310-041-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5173.92",
+      "penalty_amount_offered": "1212.93",
+      "total_tax_and_penalty_amount_offered": "6386.85",
+      "cost": "200",
+      "total_amount_paid": "6586.85",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4744417875673",
+        "longitude": "-87.6914136748819"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-312-014-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2790.12",
+      "penalty_amount_offered": "544.05",
+      "total_tax_and_penalty_amount_offered": "3334.17",
+      "cost": "200",
+      "total_amount_paid": "3534.17",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4747144636971",
+        "longitude": "-87.692996601475"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-312-014-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5154.17",
+      "penalty_amount_offered": "1252.48",
+      "total_tax_and_penalty_amount_offered": "6406.65",
+      "cost": "200",
+      "total_amount_paid": "6606.65",
+      "winning_bid_percent": "0",
+      "buyer_name": "ATCF II Illinois, LLC",
+      "location_1": {
+        "latitude": "41.4747144636971",
+        "longitude": "-87.692996601475"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-314-028-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5190.3",
+      "penalty_amount_offered": "1054.8",
+      "total_tax_and_penalty_amount_offered": "6245.1",
+      "cost": "10",
+      "total_amount_forfeited": "6255.1",
+      "location_1": {
+        "latitude": "41.4726765399209",
+        "longitude": "-87.6895299291236"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-36-314-028-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4599.59",
+      "penalty_amount_offered": "1070.72",
+      "total_tax_and_penalty_amount_offered": "5670.31",
+      "cost": "10",
+      "total_amount_forfeited": "5680.31",
+      "location_1": {
+        "latitude": "41.4726765399209",
+        "longitude": "-87.6895299291236"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-314-028-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4811.49",
+      "penalty_amount_offered": "1128.09",
+      "total_tax_and_penalty_amount_offered": "5939.58",
+      "cost": "200",
+      "total_amount_paid": "6139.58",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4726765399209",
+        "longitude": "-87.6895299291236"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-314-030-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3258.06",
+      "penalty_amount_offered": "390.96",
+      "total_tax_and_penalty_amount_offered": "3649.02",
+      "cost": "200",
+      "total_amount_paid": "3849.02",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4729796565819",
+        "longitude": "-87.689337610852"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-316-012-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4884.81",
+      "penalty_amount_offered": "1145.29",
+      "total_tax_and_penalty_amount_offered": "6030.1",
+      "cost": "200",
+      "total_amount_paid": "6230.1",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4718091082892",
+        "longitude": "-87.6897364251439"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-316-026-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3451.9",
+      "penalty_amount_offered": "698.63",
+      "total_tax_and_penalty_amount_offered": "4150.53",
+      "cost": "10",
+      "total_amount_forfeited": "4160.53",
+      "location_1": {
+        "latitude": "41.4714711863451",
+        "longitude": "-87.6897967402932"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-36-316-026-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3192.36",
+      "penalty_amount_offered": "780.57",
+      "total_tax_and_penalty_amount_offered": "3972.93",
+      "cost": "200",
+      "total_amount_paid": "4172.93",
+      "winning_bid_percent": "0",
+      "buyer_name": "USBANK C/F IL SALT FOX",
+      "location_1": {
+        "latitude": "41.4714711863451",
+        "longitude": "-87.6897967402932"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-316-026-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1423.97",
+      "penalty_amount_offered": "277.68",
+      "total_tax_and_penalty_amount_offered": "1701.65",
+      "cost": "200",
+      "total_amount_paid": "1901.65",
+      "winning_bid_percent": "5",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.4714711863451",
+        "longitude": "-87.6897967402932"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-316-028-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4973.67",
+      "penalty_amount_offered": "1023.58",
+      "total_tax_and_penalty_amount_offered": "5997.25",
+      "cost": "200",
+      "total_amount_paid": "6197.25",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.471426590578",
+        "longitude": "-87.689374557613"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-318-013-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6417.98",
+      "penalty_amount_offered": "1305.12",
+      "total_tax_and_penalty_amount_offered": "7723.1",
+      "cost": "10",
+      "total_amount_forfeited": "7733.1",
+      "location_1": {
+        "latitude": "41.4704963418657",
+        "longitude": "-87.689926712233"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-36-319-011-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2882.26",
+      "penalty_amount_offered": "680.27",
+      "total_tax_and_penalty_amount_offered": "3562.53",
+      "cost": "200",
+      "total_amount_paid": "3762.53",
+      "winning_bid_percent": "0",
+      "buyer_name": "MADISON C/O STONEFIELD IV",
+      "location_1": {
+        "latitude": "41.4700102427535",
+        "longitude": "-87.6915474969762"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-36-321-009-0000",
+      "classification": "202",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4604.14",
+      "penalty_amount_offered": "922.81",
+      "total_tax_and_penalty_amount_offered": "5526.95",
+      "cost": "10",
+      "total_amount_forfeited": "5536.95",
+      "location_1": {
+        "latitude": "41.4704561786786",
+        "longitude": "-87.6918988438991"
+      }
+    }
+  ]
+}

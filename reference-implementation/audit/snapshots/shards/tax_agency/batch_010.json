@@ -1,0 +1,657 @@
+{
+  "source_id": "tax_agency",
+  "dataset_id": "55ju-2fs9",
+  "retrieved_date": "2026-08-02",
+  "queries": [
+    "https://datacatalog.cookcountyil.gov/resource/55ju-2fs9.json?%24where=pin+in%28%2731-32-103-025-0000%27%2C%2731-32-103-026-0000%27%2C%2731-32-104-002-0000%27%2C%2731-32-104-005-0000%27%2C%2731-32-104-006-0000%27%2C%2731-32-104-008-0000%27%2C%2731-32-104-009-0000%27%2C%2731-32-104-010-0000%27%2C%2731-32-104-012-0000%27%2C%2731-32-104-013-0000%27%2C%2731-32-104-014-0000%27%2C%2731-32-104-015-0000%27%2C%2731-32-104-016-0000%27%2C%2731-32-104-017-0000%27%2C%2731-32-104-018-0000%27%2C%2731-32-104-019-0000%27%2C%2731-32-104-020-0000%27%2C%2731-32-104-021-0000%27%2C%2731-32-104-022-0000%27%2C%2731-32-104-023-0000%27%2C%2731-32-104-024-0000%27%2C%2731-32-104-025-0000%27%2C%2731-32-104-026-0000%27%2C%2731-32-104-027-0000%27%2C%2731-32-104-028-0000%27%2C%2731-32-104-029-0000%27%2C%2731-32-105-001-0000%27%2C%2731-32-105-002-0000%27%2C%2731-32-105-003-0000%27%2C%2731-32-105-004-0000%27%2C%2731-32-105-006-0000%27%2C%2731-32-105-007-0000%27%2C%2731-32-105-008-0000%27%2C%2731-32-105-012-0000%27%2C%2731-32-105-014-0000%27%2C%2731-32-105-016-0000%27%2C%2731-32-105-018-0000%27%2C%2731-32-105-019-0000%27%2C%2731-32-105-020-0000%27%2C%2731-32-105-021-0000%27%2C%2731-32-105-023-0000%27%2C%2731-32-105-024-0000%27%2C%2731-32-106-003-0000%27%2C%2731-32-106-004-0000%27%2C%2731-32-106-005-0000%27%2C%2731-32-106-007-0000%27%2C%2731-32-106-008-0000%27%2C%2731-32-106-009-0000%27%2C%2731-32-106-010-0000%27%2C%2731-32-106-013-0000%27%29&%24limit=5000"
+  ],
+  "failed_pins": [],
+  "records": [
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-103-026-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "893.3",
+      "penalty_amount_offered": "241.2",
+      "total_tax_and_penalty_amount_offered": "1134.5",
+      "cost": "200",
+      "total_amount_paid": "1334.5",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4839389122154",
+        "longitude": "-87.7632153900904"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-103-026-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1642.21",
+      "penalty_amount_offered": "381.02",
+      "total_tax_and_penalty_amount_offered": "2023.23",
+      "cost": "10",
+      "total_amount_forfeited": "2033.23",
+      "location_1": {
+        "latitude": "41.4839389122154",
+        "longitude": "-87.7632153900904"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-104-006-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.67",
+      "penalty_amount_offered": "317.44",
+      "total_tax_and_penalty_amount_offered": "1686.11",
+      "cost": "10",
+      "total_amount_forfeited": "1696.11",
+      "location_1": {
+        "latitude": "41.4829176368675",
+        "longitude": "-87.7616931862766"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-104-006-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4829176368675",
+        "longitude": "-87.7616931862766"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-104-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "867.9",
+      "penalty_amount_offered": "234.36",
+      "total_tax_and_penalty_amount_offered": "1102.26",
+      "cost": "200",
+      "total_amount_paid": "1302.26",
+      "winning_bid_percent": "18",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4824824688031",
+        "longitude": "-87.7616981738613"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-104-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1595.17",
+      "penalty_amount_offered": "370.04",
+      "total_tax_and_penalty_amount_offered": "1965.21",
+      "cost": "10",
+      "total_amount_forfeited": "1975.21",
+      "location_1": {
+        "latitude": "41.4824824688031",
+        "longitude": "-87.7616981738613"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-104-029-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1706.95",
+      "penalty_amount_offered": "396.03",
+      "total_tax_and_penalty_amount_offered": "2102.98",
+      "cost": "10",
+      "total_amount_forfeited": "2112.98",
+      "location_1": {
+        "latitude": "41.4815209554227",
+        "longitude": "-87.7664458664069"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-104-029-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "928.73",
+      "penalty_amount_offered": "250.74",
+      "total_tax_and_penalty_amount_offered": "1179.47",
+      "cost": "200",
+      "total_amount_paid": "1379.47",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4815209554227",
+        "longitude": "-87.7664458664069"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-002-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "888.77",
+      "penalty_amount_offered": "239.94",
+      "total_tax_and_penalty_amount_offered": "1128.71",
+      "cost": "200",
+      "total_amount_paid": "1328.71",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4828881676056",
+        "longitude": "-87.7623685575971"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-002-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1633.51",
+      "penalty_amount_offered": "378.85",
+      "total_tax_and_penalty_amount_offered": "2012.36",
+      "cost": "10",
+      "total_amount_forfeited": "2022.36",
+      "location_1": {
+        "latitude": "41.4828881676056",
+        "longitude": "-87.7623685575971"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-003-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "890.71",
+      "penalty_amount_offered": "240.48",
+      "total_tax_and_penalty_amount_offered": "1131.19",
+      "cost": "200",
+      "total_amount_paid": "1331.19",
+      "winning_bid_percent": "18",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4831340868643",
+        "longitude": "-87.7623674544614"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-003-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1636.88",
+      "penalty_amount_offered": "379.78",
+      "total_tax_and_penalty_amount_offered": "2016.66",
+      "cost": "10",
+      "total_amount_forfeited": "2026.66",
+      "location_1": {
+        "latitude": "41.4831340868643",
+        "longitude": "-87.7623674544614"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-006-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.67",
+      "penalty_amount_offered": "317.44",
+      "total_tax_and_penalty_amount_offered": "1686.11",
+      "cost": "10",
+      "total_amount_forfeited": "1696.11",
+      "location_1": {
+        "latitude": "41.4834302745447",
+        "longitude": "-87.7629033188005"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-006-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4834302745447",
+        "longitude": "-87.7629033188005"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4834318920936",
+        "longitude": "-87.7634507455517"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.67",
+      "penalty_amount_offered": "317.44",
+      "total_tax_and_penalty_amount_offered": "1686.11",
+      "cost": "10",
+      "total_amount_forfeited": "1696.11",
+      "location_1": {
+        "latitude": "41.4834318920936",
+        "longitude": "-87.7634507455517"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-012-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.67",
+      "penalty_amount_offered": "317.44",
+      "total_tax_and_penalty_amount_offered": "1686.11",
+      "cost": "10",
+      "total_amount_forfeited": "1696.11",
+      "location_1": {
+        "latitude": "41.4834351187595",
+        "longitude": "-87.7645456021887"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-012-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "18",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4834351187595",
+        "longitude": "-87.7645456021887"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-014-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1597.56",
+      "penalty_amount_offered": "370.66",
+      "total_tax_and_penalty_amount_offered": "1968.22",
+      "cost": "10",
+      "total_amount_forfeited": "1978.22",
+      "location_1": {
+        "latitude": "41.4834298523385",
+        "longitude": "-87.765117614514"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-014-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "869.35",
+      "penalty_amount_offered": "234.72",
+      "total_tax_and_penalty_amount_offered": "1104.07",
+      "cost": "200",
+      "total_amount_paid": "1304.07",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4834298523385",
+        "longitude": "-87.765117614514"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-016-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.67",
+      "penalty_amount_offered": "317.44",
+      "total_tax_and_penalty_amount_offered": "1686.11",
+      "cost": "10",
+      "total_amount_forfeited": "1696.11",
+      "location_1": {
+        "latitude": "41.4830928962341",
+        "longitude": "-87.7648211233333"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-016-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4830928962341",
+        "longitude": "-87.7648211233333"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-018-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1368.25",
+      "penalty_amount_offered": "317.31",
+      "total_tax_and_penalty_amount_offered": "1685.56",
+      "cost": "10",
+      "total_amount_forfeited": "1695.56",
+      "location_1": {
+        "latitude": "41.4830912844528",
+        "longitude": "-87.7642736820155"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-018-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "744.44",
+      "penalty_amount_offered": "201.06",
+      "total_tax_and_penalty_amount_offered": "945.5",
+      "cost": "200",
+      "total_amount_paid": "1145.5",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4830912844528",
+        "longitude": "-87.7642736820155"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-105-024-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1852.84",
+      "penalty_amount_offered": "429.72",
+      "total_tax_and_penalty_amount_offered": "2282.56",
+      "cost": "10",
+      "total_amount_forfeited": "2292.56",
+      "location_1": {
+        "latitude": "41.4825784691397",
+        "longitude": "-87.7627395364533"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-105-024-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1008.18",
+      "penalty_amount_offered": "272.16",
+      "total_tax_and_penalty_amount_offered": "1280.34",
+      "cost": "200",
+      "total_amount_paid": "1480.34",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4825784691397",
+        "longitude": "-87.7627395364533"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-004-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1450.82",
+      "penalty_amount_offered": "336.48",
+      "total_tax_and_penalty_amount_offered": "1787.3",
+      "cost": "10",
+      "total_amount_forfeited": "1797.3",
+      "location_1": {
+        "latitude": "41.4821040764037",
+        "longitude": "-87.7632087056702"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-004-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "789.42",
+      "penalty_amount_offered": "213.12",
+      "total_tax_and_penalty_amount_offered": "1002.54",
+      "cost": "200",
+      "total_amount_paid": "1202.54",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4821040764037",
+        "longitude": "-87.7632087056702"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-005-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "854.79",
+      "penalty_amount_offered": "230.76",
+      "total_tax_and_penalty_amount_offered": "1085.55",
+      "cost": "200",
+      "total_amount_paid": "1285.55",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4822942242445",
+        "longitude": "-87.7633214998235"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-005-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1571.3",
+      "penalty_amount_offered": "364.46",
+      "total_tax_and_penalty_amount_offered": "1935.76",
+      "cost": "10",
+      "total_amount_forfeited": "1945.76",
+      "location_1": {
+        "latitude": "41.4822942242445",
+        "longitude": "-87.7633214998235"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-007-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "893.3",
+      "penalty_amount_offered": "241.2",
+      "total_tax_and_penalty_amount_offered": "1134.5",
+      "cost": "200",
+      "total_amount_paid": "1334.5",
+      "winning_bid_percent": "18",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4826284057153",
+        "longitude": "-87.7637743086033"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-007-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1642.21",
+      "penalty_amount_offered": "381.02",
+      "total_tax_and_penalty_amount_offered": "2023.23",
+      "cost": "10",
+      "total_amount_forfeited": "2033.23",
+      "location_1": {
+        "latitude": "41.4826284057153",
+        "longitude": "-87.7637743086033"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1030.02",
+      "penalty_amount_offered": "278.1",
+      "total_tax_and_penalty_amount_offered": "1308.12",
+      "cost": "200",
+      "total_amount_paid": "1508.12",
+      "winning_bid_percent": "17",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4823596227042",
+        "longitude": "-87.7637557755338"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-008-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1893",
+      "penalty_amount_offered": "439.02",
+      "total_tax_and_penalty_amount_offered": "2332.02",
+      "cost": "10",
+      "total_amount_forfeited": "2342.02",
+      "location_1": {
+        "latitude": "41.4823596227042",
+        "longitude": "-87.7637557755338"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-009-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2875.66",
+      "penalty_amount_offered": "666.94",
+      "total_tax_and_penalty_amount_offered": "3542.6",
+      "cost": "10",
+      "total_amount_forfeited": "3552.6",
+      "location_1": {
+        "latitude": "41.4820790535645",
+        "longitude": "-87.7639738907353"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-009-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1564.77",
+      "penalty_amount_offered": "422.46",
+      "total_tax_and_penalty_amount_offered": "1987.23",
+      "cost": "200",
+      "total_amount_paid": "2187.23",
+      "winning_bid_percent": "16",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4820790535645",
+        "longitude": "-87.7639738907353"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-32-106-013-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "821.62",
+      "penalty_amount_offered": "221.76",
+      "total_tax_and_penalty_amount_offered": "1043.38",
+      "cost": "200",
+      "total_amount_paid": "1243.38",
+      "winning_bid_percent": "11",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.4826325248223",
+        "longitude": "-87.7651128136995"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-32-106-013-0000",
+      "classification": "100",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1510.08",
+      "penalty_amount_offered": "350.25",
+      "total_tax_and_penalty_amount_offered": "1860.33",
+      "cost": "10",
+      "total_amount_forfeited": "1870.33",
+      "location_1": {
+        "latitude": "41.4826325248223",
+        "longitude": "-87.7651128136995"
+      }
+    }
+  ]
+}

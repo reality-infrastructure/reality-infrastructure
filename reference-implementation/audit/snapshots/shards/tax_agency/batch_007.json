@@ -1,0 +1,1421 @@
+{
+  "source_id": "tax_agency",
+  "dataset_id": "55ju-2fs9",
+  "retrieved_date": "2026-08-02",
+  "queries": [
+    "https://datacatalog.cookcountyil.gov/resource/55ju-2fs9.json?%24where=pin+in%28%2730-17-205-002-0000%27%2C%2730-17-205-003-0000%27%2C%2730-17-205-044-0000%27%2C%2730-17-206-043-0000%27%2C%2730-17-206-044-0000%27%2C%2730-17-207-003-0000%27%2C%2730-17-207-004-0000%27%2C%2730-17-207-027-0000%27%2C%2730-17-207-028-0000%27%2C%2730-17-211-001-0000%27%2C%2730-17-213-007-0000%27%2C%2730-17-214-030-0000%27%2C%2730-17-214-031-0000%27%2C%2730-17-214-038-0000%27%2C%2730-17-214-054-0000%27%2C%2730-17-300-054-0000%27%2C%2730-17-307-007-0000%27%2C%2730-17-307-010-0000%27%2C%2730-17-307-013-0000%27%2C%2730-17-310-008-0000%27%2C%2730-17-311-012-0000%27%2C%2730-17-311-022-0000%27%2C%2730-17-401-003-0000%27%2C%2730-17-402-027-0000%27%2C%2730-17-404-013-0000%27%2C%2730-17-413-020-0000%27%2C%2730-17-415-008-0000%27%2C%2730-18-208-001-0000%27%2C%2730-18-208-029-0000%27%2C%2730-18-208-030-0000%27%2C%2730-18-208-031-0000%27%2C%2730-18-208-035-0000%27%2C%2730-18-209-064-0000%27%2C%2730-18-219-020-0000%27%2C%2730-18-219-021-0000%27%2C%2730-20-102-012-0000%27%2C%2730-20-102-054-0000%27%2C%2730-29-113-056-0000%27%2C%2730-29-207-044-0000%27%2C%2730-30-206-050-0000%27%2C%2730-30-213-006-0000%27%2C%2730-30-222-036-0000%27%2C%2730-31-206-023-0000%27%2C%2730-31-210-031-0000%27%2C%2730-32-117-014-0000%27%2C%2731-01-112-004-0000%27%2C%2731-02-100-006-0000%27%2C%2731-02-201-012-0000%27%2C%2731-03-102-021-0000%27%2C%2731-03-305-026-0000%27%29&%24limit=5000"
+  ],
+  "failed_pins": [],
+  "records": [
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-205-002-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1313.75",
+      "penalty_amount_offered": "216.81",
+      "total_tax_and_penalty_amount_offered": "1530.56",
+      "cost": "10",
+      "total_amount_forfeited": "1540.56",
+      "location_1": {
+        "latitude": "41.6135786652707",
+        "longitude": "-87.527250990535"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-205-003-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3680.62",
+      "penalty_amount_offered": "717.73",
+      "total_tax_and_penalty_amount_offered": "4398.35",
+      "cost": "200",
+      "total_amount_paid": "4598.35",
+      "winning_bid_percent": "0",
+      "buyer_name": "TTLBL   LLC",
+      "location_1": {
+        "latitude": "41.6135789308339",
+        "longitude": "-87.5271138552174"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-205-044-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3299.04",
+      "penalty_amount_offered": "685.68",
+      "total_tax_and_penalty_amount_offered": "3984.72",
+      "cost": "10",
+      "total_amount_forfeited": "3994.72",
+      "location_1": {
+        "latitude": "41.6132306926787",
+        "longitude": "-87.5254492288205"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-205-044-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3428.41",
+      "penalty_amount_offered": "802.56",
+      "total_tax_and_penalty_amount_offered": "4230.97",
+      "cost": "10",
+      "total_amount_forfeited": "4240.97",
+      "location_1": {
+        "latitude": "41.6132306926787",
+        "longitude": "-87.5254492288205"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-205-044-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2994.56",
+      "penalty_amount_offered": "722.86",
+      "total_tax_and_penalty_amount_offered": "3717.42",
+      "cost": "10",
+      "total_amount_forfeited": "3727.42",
+      "location_1": {
+        "latitude": "41.6132306926787",
+        "longitude": "-87.5254492288205"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-205-044-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3251.37",
+      "penalty_amount_offered": "757.69",
+      "total_tax_and_penalty_amount_offered": "4009.06",
+      "cost": "10",
+      "total_amount_forfeited": "4019.06",
+      "location_1": {
+        "latitude": "41.6132306926787",
+        "longitude": "-87.5254492288205"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-206-043-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2922.62",
+      "penalty_amount_offered": "605.74",
+      "total_tax_and_penalty_amount_offered": "3528.36",
+      "cost": "10",
+      "total_amount_forfeited": "3538.36",
+      "location_1": {
+        "latitude": "41.6123195763613",
+        "longitude": "-87.5278880057125"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-206-044-0000",
+      "classification": "201",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "845.07",
+      "penalty_amount_offered": "171.02",
+      "total_tax_and_penalty_amount_offered": "1016.09",
+      "cost": "10",
+      "total_amount_forfeited": "1026.09",
+      "location_1": {
+        "latitude": "41.612320497971",
+        "longitude": "-87.5277991069405"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-207-003-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2346.34",
+      "penalty_amount_offered": "546.75",
+      "total_tax_and_penalty_amount_offered": "2893.09",
+      "cost": "10",
+      "total_amount_forfeited": "2903.09",
+      "location_1": {
+        "latitude": "41.6126999029323",
+        "longitude": "-87.5271564108444"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-207-003-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2473.97",
+      "penalty_amount_offered": "579.23",
+      "total_tax_and_penalty_amount_offered": "3053.2",
+      "cost": "200",
+      "total_amount_paid": "3253.2",
+      "winning_bid_percent": "8",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.6126999029323",
+        "longitude": "-87.5271564108444"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-207-003-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2161.02",
+      "penalty_amount_offered": "549.06",
+      "total_tax_and_penalty_amount_offered": "2710.08",
+      "cost": "10",
+      "total_amount_forfeited": "2720.08",
+      "location_1": {
+        "latitude": "41.6126999029323",
+        "longitude": "-87.5271564108444"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-207-004-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "482.54",
+      "penalty_amount_offered": "113.02",
+      "total_tax_and_penalty_amount_offered": "595.56",
+      "cost": "10",
+      "total_amount_forfeited": "605.56",
+      "location_1": {
+        "latitude": "41.6126993662047",
+        "longitude": "-87.5270643097367"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-207-004-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "531.34",
+      "penalty_amount_offered": "107.57",
+      "total_tax_and_penalty_amount_offered": "638.91",
+      "cost": "10",
+      "total_amount_forfeited": "648.91",
+      "location_1": {
+        "latitude": "41.6126993662047",
+        "longitude": "-87.5270643097367"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-207-004-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "421.51",
+      "penalty_amount_offered": "98.34",
+      "total_tax_and_penalty_amount_offered": "519.85",
+      "cost": "10",
+      "total_amount_forfeited": "529.85",
+      "location_1": {
+        "latitude": "41.6126993662047",
+        "longitude": "-87.5270643097367"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-207-004-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "457.59",
+      "penalty_amount_offered": "106.71",
+      "total_tax_and_penalty_amount_offered": "564.3",
+      "cost": "10",
+      "total_amount_forfeited": "574.3",
+      "location_1": {
+        "latitude": "41.6126993662047",
+        "longitude": "-87.5270643097367"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-207-027-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1507.4",
+      "penalty_amount_offered": "355.88",
+      "total_tax_and_penalty_amount_offered": "1863.28",
+      "cost": "200",
+      "total_amount_paid": "2063.28",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER FINANCIAL",
+      "location_1": {
+        "latitude": "41.6123252876357",
+        "longitude": "-87.526516371313"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-207-028-0000",
+      "classification": "201",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "658.57",
+      "penalty_amount_offered": "133.22",
+      "total_tax_and_penalty_amount_offered": "791.79",
+      "cost": "10",
+      "total_amount_forfeited": "801.79",
+      "location_1": {
+        "latitude": "41.6123257370463",
+        "longitude": "-87.5264249398942"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-207-028-0000",
+      "classification": "201",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "598.07",
+      "penalty_amount_offered": "140.01",
+      "total_tax_and_penalty_amount_offered": "738.08",
+      "cost": "10",
+      "total_amount_forfeited": "748.08",
+      "location_1": {
+        "latitude": "41.6123257370463",
+        "longitude": "-87.5264249398942"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-213-007-0000",
+      "classification": "204",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "6046.15",
+      "penalty_amount_offered": "1242.79",
+      "total_tax_and_penalty_amount_offered": "7288.94",
+      "cost": "10",
+      "total_amount_forfeited": "7298.94",
+      "location_1": {
+        "latitude": "41.6097111574266",
+        "longitude": "-87.5263181562847"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-213-007-0000",
+      "classification": "204",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5944.3",
+      "penalty_amount_offered": "1391.63",
+      "total_tax_and_penalty_amount_offered": "7335.93",
+      "cost": "10",
+      "total_amount_forfeited": "7345.93",
+      "location_1": {
+        "latitude": "41.6097111574266",
+        "longitude": "-87.5263181562847"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-214-030-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1703.52",
+      "penalty_amount_offered": "332.15",
+      "total_tax_and_penalty_amount_offered": "2035.67",
+      "cost": "200",
+      "total_amount_paid": "2235.67",
+      "winning_bid_percent": "6",
+      "buyer_name": "FNA ELM, LLC",
+      "location_1": {
+        "latitude": "41.6088340012644",
+        "longitude": "-87.5284513001839"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-214-030-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3484.52",
+      "penalty_amount_offered": "826.31",
+      "total_tax_and_penalty_amount_offered": "4310.83",
+      "cost": "200",
+      "total_amount_paid": "4510.83",
+      "winning_bid_percent": "0",
+      "buyer_name": "USBANK C/F IL SALT FOX",
+      "location_1": {
+        "latitude": "41.6088340012644",
+        "longitude": "-87.5284513001839"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-214-030-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3265.63",
+      "penalty_amount_offered": "689.08",
+      "total_tax_and_penalty_amount_offered": "3954.71",
+      "cost": "10",
+      "total_amount_forfeited": "3964.71",
+      "location_1": {
+        "latitude": "41.6088340012644",
+        "longitude": "-87.5284513001839"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-214-054-0000",
+      "classification": "210",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4020.66",
+      "penalty_amount_offered": "936.78",
+      "total_tax_and_penalty_amount_offered": "4957.44",
+      "cost": "10",
+      "total_amount_forfeited": "4967.44",
+      "location_1": {
+        "latitude": "41.6092036483493",
+        "longitude": "-87.5279839166419"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-214-054-0000",
+      "classification": "210",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4421",
+      "penalty_amount_offered": "904.42",
+      "total_tax_and_penalty_amount_offered": "5325.42",
+      "cost": "10",
+      "total_amount_forfeited": "5335.42",
+      "location_1": {
+        "latitude": "41.6092036483493",
+        "longitude": "-87.5279839166419"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-214-054-0000",
+      "classification": "210",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4239.46",
+      "penalty_amount_offered": "992.52",
+      "total_tax_and_penalty_amount_offered": "5231.98",
+      "cost": "200",
+      "total_amount_paid": "5431.98",
+      "winning_bid_percent": "6",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.6092036483493",
+        "longitude": "-87.5279839166419"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-214-054-0000",
+      "classification": "210",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3703.02",
+      "penalty_amount_offered": "888.35",
+      "total_tax_and_penalty_amount_offered": "4591.37",
+      "cost": "10",
+      "total_amount_forfeited": "4601.37",
+      "location_1": {
+        "latitude": "41.6092036483493",
+        "longitude": "-87.5279839166419"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-300-054-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3034.69",
+      "penalty_amount_offered": "742.61",
+      "total_tax_and_penalty_amount_offered": "3777.3",
+      "cost": "10",
+      "total_amount_forfeited": "3787.3",
+      "location_1": {
+        "latitude": "41.6080292809638",
+        "longitude": "-87.5379404084199"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-300-054-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3295.03",
+      "penalty_amount_offered": "767.79",
+      "total_tax_and_penalty_amount_offered": "4062.82",
+      "cost": "10",
+      "total_amount_forfeited": "4072.82",
+      "location_1": {
+        "latitude": "41.6080292809638",
+        "longitude": "-87.5379404084199"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-300-054-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3474.16",
+      "penalty_amount_offered": "813.33",
+      "total_tax_and_penalty_amount_offered": "4287.49",
+      "cost": "10",
+      "total_amount_forfeited": "4297.49",
+      "location_1": {
+        "latitude": "41.6080292809638",
+        "longitude": "-87.5379404084199"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-300-054-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3706.13",
+      "penalty_amount_offered": "754.79",
+      "total_tax_and_penalty_amount_offered": "4460.92",
+      "cost": "10",
+      "total_amount_forfeited": "4470.92",
+      "location_1": {
+        "latitude": "41.6080292809638",
+        "longitude": "-87.5379404084199"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-307-007-0000",
+      "classification": "205",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4648.46",
+      "penalty_amount_offered": "1093.74",
+      "total_tax_and_penalty_amount_offered": "5742.2",
+      "cost": "200",
+      "total_amount_paid": "5942.2",
+      "winning_bid_percent": "0",
+      "buyer_name": "USBANK C/F IL SALT FOX",
+      "location_1": {
+        "latitude": "41.6074603924213",
+        "longitude": "-87.5311327820222"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-307-007-0000",
+      "classification": "205",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5321.77",
+      "penalty_amount_offered": "1245.99",
+      "total_tax_and_penalty_amount_offered": "6567.76",
+      "cost": "200",
+      "total_amount_paid": "6767.76",
+      "winning_bid_percent": "6",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.6074603924213",
+        "longitude": "-87.5311327820222"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-307-007-0000",
+      "classification": "205",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5047.08",
+      "penalty_amount_offered": "1175.98",
+      "total_tax_and_penalty_amount_offered": "6223.06",
+      "cost": "10",
+      "total_amount_forfeited": "6233.06",
+      "location_1": {
+        "latitude": "41.6074603924213",
+        "longitude": "-87.5311327820222"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-307-010-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3134.17",
+      "penalty_amount_offered": "736.73",
+      "total_tax_and_penalty_amount_offered": "3870.9",
+      "cost": "10",
+      "total_amount_forfeited": "3880.9",
+      "location_1": {
+        "latitude": "41.6074608646307",
+        "longitude": "-87.5306912338578"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-307-010-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2710.34",
+      "penalty_amount_offered": "528.58",
+      "total_tax_and_penalty_amount_offered": "3238.92",
+      "cost": "200",
+      "total_amount_paid": "3438.92",
+      "winning_bid_percent": "0",
+      "buyer_name": "USBANK C/F IL SALT FOX",
+      "location_1": {
+        "latitude": "41.6074608646307",
+        "longitude": "-87.5306912338578"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-307-010-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2898.82",
+      "penalty_amount_offered": "607.69",
+      "total_tax_and_penalty_amount_offered": "3506.51",
+      "cost": "10",
+      "total_amount_forfeited": "3516.51",
+      "location_1": {
+        "latitude": "41.6074608646307",
+        "longitude": "-87.5306912338578"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-311-012-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "5066.98",
+      "penalty_amount_offered": "1063.36",
+      "total_tax_and_penalty_amount_offered": "6130.34",
+      "cost": "200",
+      "total_amount_paid": "6330.34",
+      "winning_bid_percent": "0",
+      "buyer_name": "ICIB .",
+      "location_1": {
+        "latitude": "41.6053246129681",
+        "longitude": "-87.5320564532664"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-311-022-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3004.38",
+      "penalty_amount_offered": "706.28",
+      "total_tax_and_penalty_amount_offered": "3710.66",
+      "cost": "200",
+      "total_amount_paid": "3910.66",
+      "winning_bid_percent": "5",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.6053302244298",
+        "longitude": "-87.5305357422824"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-311-022-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2921.68",
+      "penalty_amount_offered": "649.29",
+      "total_tax_and_penalty_amount_offered": "3570.97",
+      "cost": "200",
+      "total_amount_paid": "3770.97",
+      "winning_bid_percent": "6",
+      "buyer_name": "FAIR DEAL OF ILLINOIS IN",
+      "location_1": {
+        "latitude": "41.6053302244298",
+        "longitude": "-87.5305357422824"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-401-003-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3101.56",
+      "penalty_amount_offered": "649.43",
+      "total_tax_and_penalty_amount_offered": "3750.99",
+      "cost": "200",
+      "total_amount_paid": "3950.99",
+      "winning_bid_percent": "2",
+      "buyer_name": "gan c gan c llc",
+      "location_1": {
+        "latitude": "41.6083308628311",
+        "longitude": "-87.5259418183485"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-402-027-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2354.1",
+      "penalty_amount_offered": "459.03",
+      "total_tax_and_penalty_amount_offered": "2813.13",
+      "cost": "200",
+      "total_amount_paid": "3013.13",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.6070973851471",
+        "longitude": "-87.5277389831512"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-402-027-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5030.07",
+      "penalty_amount_offered": "1177.65",
+      "total_tax_and_penalty_amount_offered": "6207.72",
+      "cost": "10",
+      "total_amount_forfeited": "6217.72",
+      "location_1": {
+        "latitude": "41.6070973851471",
+        "longitude": "-87.5277389831512"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-402-027-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4761.95",
+      "penalty_amount_offered": "993.23",
+      "total_tax_and_penalty_amount_offered": "5755.18",
+      "cost": "10",
+      "total_amount_forfeited": "5765.18",
+      "location_1": {
+        "latitude": "41.6070973851471",
+        "longitude": "-87.5277389831512"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-404-013-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5354.39",
+      "penalty_amount_offered": "1121.02",
+      "total_tax_and_penalty_amount_offered": "6475.41",
+      "cost": "10",
+      "total_amount_forfeited": "6485.41",
+      "location_1": {
+        "latitude": "41.607088929171",
+        "longitude": "-87.5257388486297"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-17-404-013-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3157.74",
+      "penalty_amount_offered": "541.58",
+      "total_tax_and_penalty_amount_offered": "3699.32",
+      "cost": "200",
+      "total_amount_paid": "3899.32",
+      "winning_bid_percent": "0",
+      "buyer_name": "Pam Inst Tax Lien Fund",
+      "location_1": {
+        "latitude": "41.607088929171",
+        "longitude": "-87.5257388486297"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-404-013-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5460.25",
+      "penalty_amount_offered": "1272.28",
+      "total_tax_and_penalty_amount_offered": "6732.53",
+      "cost": "10",
+      "total_amount_forfeited": "6742.53",
+      "location_1": {
+        "latitude": "41.607088929171",
+        "longitude": "-87.5257388486297"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-404-013-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "5757.29",
+      "penalty_amount_offered": "1347.93",
+      "total_tax_and_penalty_amount_offered": "7105.22",
+      "cost": "10",
+      "total_amount_forfeited": "7115.22",
+      "location_1": {
+        "latitude": "41.607088929171",
+        "longitude": "-87.5257388486297"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-17-413-020-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3431.35",
+      "penalty_amount_offered": "809.16",
+      "total_tax_and_penalty_amount_offered": "4240.51",
+      "cost": "200",
+      "total_amount_paid": "4440.51",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.6030393921763",
+        "longitude": "-87.527941505458"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-17-413-020-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3541.82",
+      "penalty_amount_offered": "832.24",
+      "total_tax_and_penalty_amount_offered": "4374.06",
+      "cost": "10",
+      "total_amount_forfeited": "4384.06",
+      "location_1": {
+        "latitude": "41.6030393921763",
+        "longitude": "-87.527941505458"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-17-413-020-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3084.86",
+      "penalty_amount_offered": "655.07",
+      "total_tax_and_penalty_amount_offered": "3739.93",
+      "cost": "10",
+      "total_amount_forfeited": "3749.93",
+      "location_1": {
+        "latitude": "41.6030393921763",
+        "longitude": "-87.527941505458"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-18-208-001-0000",
+      "classification": "205",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "4340.68",
+      "penalty_amount_offered": "906.21",
+      "total_tax_and_penalty_amount_offered": "5246.89",
+      "cost": "200",
+      "total_amount_paid": "5446.89",
+      "winning_bid_percent": "3",
+      "buyer_name": "gan c gan c llc",
+      "location_1": {
+        "latitude": "41.6152953700884",
+        "longitude": "-87.5412055729598"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-18-208-029-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3437.26",
+      "penalty_amount_offered": "708.41",
+      "total_tax_and_penalty_amount_offered": "4145.67",
+      "cost": "10",
+      "total_amount_forfeited": "4155.67",
+      "location_1": {
+        "latitude": "41.6153490414702",
+        "longitude": "-87.5408083411802"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-18-208-029-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3423.73",
+      "penalty_amount_offered": "802.5",
+      "total_tax_and_penalty_amount_offered": "4226.23",
+      "cost": "200",
+      "total_amount_paid": "4426.23",
+      "winning_bid_percent": "0",
+      "buyer_name": "PHOENIXBO ND&INDEMNITYCO",
+      "location_1": {
+        "latitude": "41.6153490414702",
+        "longitude": "-87.5408083411802"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-18-208-030-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3332.25",
+      "penalty_amount_offered": "781.09",
+      "total_tax_and_penalty_amount_offered": "4113.34",
+      "cost": "200",
+      "total_amount_paid": "4313.34",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER FINANCIAL",
+      "location_1": {
+        "latitude": "41.6152972842264",
+        "longitude": "-87.5408031797954"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-18-208-031-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3332.25",
+      "penalty_amount_offered": "781.09",
+      "total_tax_and_penalty_amount_offered": "4113.34",
+      "cost": "200",
+      "total_amount_paid": "4313.34",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER FINANCIAL",
+      "location_1": {
+        "latitude": "41.6152439695624",
+        "longitude": "-87.5408062777354"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-18-208-035-0000",
+      "classification": "211",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2431",
+      "penalty_amount_offered": "570.71",
+      "total_tax_and_penalty_amount_offered": "3001.71",
+      "cost": "200",
+      "total_amount_paid": "3201.71",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER FINANCIAL",
+      "location_1": {
+        "latitude": "41.6150320370331",
+        "longitude": "-87.5408066842419"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-18-209-064-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3368.55",
+      "penalty_amount_offered": "784.89",
+      "total_tax_and_penalty_amount_offered": "4153.44",
+      "cost": "200",
+      "total_amount_paid": "4353.44",
+      "winning_bid_percent": "0",
+      "buyer_name": "WHEELER  FINANCIAL",
+      "location_1": {
+        "latitude": "41.615144813804",
+        "longitude": "-87.5402299943781"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-20-102-012-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1556.28",
+      "penalty_amount_offered": "339.99",
+      "total_tax_and_penalty_amount_offered": "1896.27",
+      "cost": "200",
+      "total_amount_paid": "2096.27",
+      "winning_bid_percent": "0",
+      "buyer_name": "USBANK C/F IL SALT FOX",
+      "location_1": {
+        "latitude": "41.5989871097725",
+        "longitude": "-87.5369657197687"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-20-102-012-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1312.83",
+      "penalty_amount_offered": "255.97",
+      "total_tax_and_penalty_amount_offered": "1568.8",
+      "cost": "10",
+      "total_amount_forfeited": "1578.8",
+      "location_1": {
+        "latitude": "41.5989871097725",
+        "longitude": "-87.5369657197687"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-20-102-012-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2586.33",
+      "penalty_amount_offered": "540.54",
+      "total_tax_and_penalty_amount_offered": "3126.87",
+      "cost": "200",
+      "total_amount_paid": "3326.87",
+      "winning_bid_percent": "2",
+      "buyer_name": "PhoenixBon d&IndemnityC",
+      "location_1": {
+        "latitude": "41.5989871097725",
+        "longitude": "-87.5369657197687"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-20-102-054-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2283.39",
+      "penalty_amount_offered": "463.9",
+      "total_tax_and_penalty_amount_offered": "2747.29",
+      "cost": "10",
+      "total_amount_forfeited": "2757.29",
+      "location_1": {
+        "latitude": "41.5990870819779",
+        "longitude": "-87.536797972457"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-20-102-054-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1848.08",
+      "penalty_amount_offered": "432.91",
+      "total_tax_and_penalty_amount_offered": "2280.99",
+      "cost": "10",
+      "total_amount_forfeited": "2290.99",
+      "location_1": {
+        "latitude": "41.5990870819779",
+        "longitude": "-87.536797972457"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-20-102-054-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "2112.39",
+      "penalty_amount_offered": "492.72",
+      "total_tax_and_penalty_amount_offered": "2605.11",
+      "cost": "10",
+      "total_amount_forfeited": "2615.11",
+      "location_1": {
+        "latitude": "41.5990870819779",
+        "longitude": "-87.536797972457"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-20-102-054-0000",
+      "classification": "241",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1957.64",
+      "penalty_amount_offered": "458.06",
+      "total_tax_and_penalty_amount_offered": "2415.7",
+      "cost": "10",
+      "total_amount_forfeited": "2425.7",
+      "location_1": {
+        "latitude": "41.5990870819779",
+        "longitude": "-87.536797972457"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-29-113-056-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "2838.79",
+      "penalty_amount_offered": "670.82",
+      "total_tax_and_penalty_amount_offered": "3509.61",
+      "cost": "200",
+      "total_amount_paid": "3709.61",
+      "winning_bid_percent": "0",
+      "buyer_name": "FAIR DEAL OF ILLINOIS IN",
+      "location_1": {
+        "latitude": "41.5799671052725",
+        "longitude": "-87.5349258649119"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-29-207-044-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1935",
+      "penalty_amount_offered": "409.63",
+      "total_tax_and_penalty_amount_offered": "2344.63",
+      "cost": "200",
+      "total_amount_paid": "2544.63",
+      "winning_bid_percent": "5",
+      "buyer_name": "gan c gan c llc",
+      "location_1": {
+        "latitude": "41.5848082826431",
+        "longitude": "-87.5262027947922"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-30-206-050-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3103.02",
+      "penalty_amount_offered": "649.7",
+      "total_tax_and_penalty_amount_offered": "3752.72",
+      "cost": "200",
+      "total_amount_paid": "3952.72",
+      "winning_bid_percent": "5",
+      "buyer_name": "gan c gan c llc",
+      "location_1": {
+        "latitude": "41.5848640989968",
+        "longitude": "-87.54097849058"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-30-222-036-0000",
+      "classification": "203",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3486.53",
+      "penalty_amount_offered": "716.05",
+      "total_tax_and_penalty_amount_offered": "4202.58",
+      "cost": "10",
+      "total_amount_forfeited": "4212.58",
+      "location_1": {
+        "latitude": "41.5803544314711",
+        "longitude": "-87.5427059323084"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-31-206-023-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4344.19",
+      "penalty_amount_offered": "1013.81",
+      "total_tax_and_penalty_amount_offered": "5358",
+      "cost": "10",
+      "total_amount_forfeited": "5368",
+      "location_1": {
+        "latitude": "41.571790021642",
+        "longitude": "-87.5411450990157"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-31-206-023-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4038.27",
+      "penalty_amount_offered": "943.11",
+      "total_tax_and_penalty_amount_offered": "4981.38",
+      "cost": "10",
+      "total_amount_forfeited": "4991.38",
+      "location_1": {
+        "latitude": "41.571790021642",
+        "longitude": "-87.5411450990157"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "30-31-206-023-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3775.1",
+      "penalty_amount_offered": "942.51",
+      "total_tax_and_penalty_amount_offered": "4717.61",
+      "cost": "200",
+      "total_amount_paid": "4917.61",
+      "winning_bid_percent": "0",
+      "buyer_name": "Wheeler Financial, Inc",
+      "location_1": {
+        "latitude": "41.571790021642",
+        "longitude": "-87.5411450990157"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-31-206-023-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "4133.13",
+      "penalty_amount_offered": "861.2",
+      "total_tax_and_penalty_amount_offered": "4994.33",
+      "cost": "10",
+      "total_amount_forfeited": "5004.33",
+      "location_1": {
+        "latitude": "41.571790021642",
+        "longitude": "-87.5411450990157"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-31-210-031-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1962.36",
+      "penalty_amount_offered": "459.69",
+      "total_tax_and_penalty_amount_offered": "2422.05",
+      "cost": "200",
+      "total_amount_paid": "2622.05",
+      "winning_bid_percent": "6",
+      "buyer_name": "GAN B LLC.",
+      "location_1": {
+        "latitude": "41.5694628706086",
+        "longitude": "-87.5445523006725"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-31-210-031-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "1653.55",
+      "penalty_amount_offered": "353.75",
+      "total_tax_and_penalty_amount_offered": "2007.3",
+      "cost": "10",
+      "total_amount_forfeited": "2017.3",
+      "location_1": {
+        "latitude": "41.5694628706086",
+        "longitude": "-87.5445523006725"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-31-210-031-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "1869.35",
+      "penalty_amount_offered": "442.72",
+      "total_tax_and_penalty_amount_offered": "2312.07",
+      "cost": "200",
+      "total_amount_paid": "2512.07",
+      "winning_bid_percent": "18",
+      "buyer_name": "ROCK OAK  LLC",
+      "location_1": {
+        "latitude": "41.5694628706086",
+        "longitude": "-87.5445523006725"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "30-32-117-014-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3429.72",
+      "penalty_amount_offered": "714.9",
+      "total_tax_and_penalty_amount_offered": "4144.62",
+      "cost": "10",
+      "total_amount_forfeited": "4154.62",
+      "location_1": {
+        "latitude": "41.5675084223416",
+        "longitude": "-87.5359907233663"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "30-32-117-014-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": false,
+      "tax_amount_offered": "3610.63",
+      "penalty_amount_offered": "842.53",
+      "total_tax_and_penalty_amount_offered": "4453.16",
+      "cost": "10",
+      "total_amount_forfeited": "4463.16",
+      "location_1": {
+        "latitude": "41.5675084223416",
+        "longitude": "-87.5359907233663"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "30-32-117-014-0000",
+      "classification": "202",
+      "township_name": "THORNTON",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3356.48",
+      "penalty_amount_offered": "784",
+      "total_tax_and_penalty_amount_offered": "4140.48",
+      "cost": "200",
+      "total_amount_paid": "4340.48",
+      "winning_bid_percent": "0",
+      "buyer_name": "INTERSTATE FUNDING",
+      "location_1": {
+        "latitude": "41.5675084223416",
+        "longitude": "-87.5359907233663"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-02-100-006-0000",
+      "classification": "517",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "292244.55",
+      "penalty_amount_offered": "63228.51",
+      "total_tax_and_penalty_amount_offered": "355473.06",
+      "cost": "10",
+      "total_amount_forfeited": "355483.06",
+      "location_1": {
+        "latitude": "41.5564910048321",
+        "longitude": "-87.7049317895391"
+      }
+    },
+    {
+      "tax_sale_year": "2014",
+      "pin": "31-02-100-006-0000",
+      "classification": "517",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "365511.85",
+      "penalty_amount_offered": "73835.33",
+      "total_tax_and_penalty_amount_offered": "439347.18",
+      "cost": "10",
+      "total_amount_forfeited": "439357.18",
+      "location_1": {
+        "latitude": "41.5564910048321",
+        "longitude": "-87.7049317895391"
+      }
+    },
+    {
+      "tax_sale_year": "2012",
+      "pin": "31-02-100-006-0000",
+      "classification": "517",
+      "township_name": "RICH",
+      "sold_at_sale": false,
+      "tax_amount_offered": "316773.93",
+      "penalty_amount_offered": "73826.03",
+      "total_tax_and_penalty_amount_offered": "390599.96",
+      "cost": "10",
+      "total_amount_forfeited": "390609.96",
+      "location_1": {
+        "latitude": "41.5564910048321",
+        "longitude": "-87.7049317895391"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "31-02-100-006-0000",
+      "classification": "517",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "327899.4",
+      "penalty_amount_offered": "77007.27",
+      "total_tax_and_penalty_amount_offered": "404906.67",
+      "cost": "200",
+      "total_amount_paid": "405106.67",
+      "winning_bid_percent": "0",
+      "buyer_name": "NEBRASKA ALLIANCEREALTY",
+      "location_1": {
+        "latitude": "41.5564910048321",
+        "longitude": "-87.7049317895391"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "31-03-305-026-0000",
+      "classification": "203",
+      "township_name": "RICH",
+      "sold_at_sale": true,
+      "tax_amount_offered": "3350.46",
+      "penalty_amount_offered": "653.38",
+      "total_tax_and_penalty_amount_offered": "4003.84",
+      "cost": "200",
+      "total_amount_paid": "4203.84",
+      "winning_bid_percent": "0",
+      "buyer_name": "Lily Inves tments, LLC",
+      "location_1": {
+        "latitude": "41.5484612898694",
+        "longitude": "-87.730119595704"
+      }
+    }
+  ]
+}

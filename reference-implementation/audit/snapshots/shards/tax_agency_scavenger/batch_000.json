@@ -1,0 +1,171 @@
+{
+  "source_id": "tax_agency_scavenger",
+  "dataset_id": "ydgz-vkrp",
+  "retrieved_date": "2026-08-02",
+  "queries": [
+    "https://datacatalog.cookcountyil.gov/resource/ydgz-vkrp.json?%24where=pin+in%28%2718-12-417-021-0000%27%2C%2724-25-201-080-0000%27%2C%2724-36-403-015-0000%27%2C%2724-36-408-008-0000%27%2C%2724-36-432-027-0000%27%2C%2724-36-432-044-0000%27%2C%2725-29-305-050-0000%27%2C%2725-29-317-053-0000%27%2C%2725-29-318-045-0000%27%2C%2725-29-323-064-0000%27%2C%2725-29-323-065-0000%27%2C%2725-29-328-040-0000%27%2C%2725-29-328-041-0000%27%2C%2725-29-328-042-0000%27%2C%2725-29-404-063-0000%27%2C%2725-29-406-008-0000%27%2C%2725-29-407-055-0000%27%2C%2725-29-408-036-0000%27%2C%2725-29-410-042-0000%27%2C%2725-29-410-050-0000%27%2C%2725-29-411-049-0000%27%2C%2725-30-106-012-0000%27%2C%2725-30-207-023-0000%27%2C%2725-30-207-024-0000%27%2C%2725-30-207-025-0000%27%2C%2725-30-207-026-0000%27%2C%2725-30-207-027-0000%27%2C%2725-30-207-028-0000%27%2C%2725-30-207-029-0000%27%2C%2725-30-207-030-0000%27%2C%2725-30-207-031-0000%27%2C%2725-30-207-032-0000%27%2C%2725-30-403-021-0000%27%2C%2725-30-417-050-0000%27%2C%2725-31-117-041-0000%27%2C%2725-32-104-059-0000%27%2C%2725-32-112-029-0000%27%2C%2725-32-115-051-0000%27%2C%2725-32-217-053-0000%27%2C%2728-01-303-027-0000%27%2C%2728-09-404-089-1001%27%2C%2728-10-119-023-0000%27%2C%2728-10-119-025-0000%27%2C%2728-10-207-025-0000%27%2C%2728-10-207-026-0000%27%2C%2728-10-207-027-0000%27%2C%2728-10-207-028-0000%27%2C%2728-10-300-093-1085%27%2C%2728-10-400-051-0000%27%2C%2728-10-400-053-0000%27%29&%24limit=5000"
+  ],
+  "failed_pins": [],
+  "records": [
+    {
+      "tax_sale_year": "2015",
+      "pin": "24-25-201-080-0000",
+      "from_year": "2006",
+      "to_year": "2013",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "247",
+      "township": "Worth",
+      "buyer": "1500170",
+      "buyer_name": "DTR PHASE ONE",
+      "location_1": {
+        "latitude": "41.676973913505",
+        "longitude": "-87.684728329422"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "25-29-323-064-0000",
+      "from_year": "2006",
+      "to_year": "2009",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "036",
+      "township": "Calumet",
+      "buyer": "1100076",
+      "buyer_name": "MEMPHIS FUNDING",
+      "location_1": {
+        "latitude": "41.6632251012",
+        "longitude": "-87.657681256514"
+      }
+    },
+    {
+      "tax_sale_year": "2015",
+      "pin": "25-29-328-040-0000",
+      "from_year": "2008",
+      "to_year": "2013",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "036",
+      "township": "Calumet",
+      "buyer": "1500019",
+      "buyer_name": "PILOTA",
+      "location_1": {
+        "latitude": "41.663311640969",
+        "longitude": "-87.651832301178"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "25-29-328-041-0000",
+      "from_year": "2006",
+      "to_year": "2011",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "036",
+      "township": "Calumet",
+      "buyer": "1300082",
+      "buyer_name": "PILOTA KENNETH W",
+      "location_1": {
+        "latitude": "41.663313003752",
+        "longitude": "-87.651740575116"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "25-29-328-042-0000",
+      "from_year": "2006",
+      "to_year": "2011",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "036",
+      "township": "Calumet",
+      "buyer": "1300082",
+      "buyer_name": "PILOTA KENNETH W",
+      "location_1": {
+        "latitude": "41.663314353134",
+        "longitude": "-87.651648811098"
+      }
+    },
+    {
+      "tax_sale_year": "2015",
+      "pin": "25-32-112-029-0000",
+      "from_year": "2008",
+      "to_year": "2013",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "039",
+      "township": "Calumet",
+      "buyer": "1500004",
+      "buyer_name": "QWANCHIVALOUS",
+      "location_1": {
+        "latitude": "41.660148249769",
+        "longitude": "-87.652602154681"
+      }
+    },
+    {
+      "tax_sale_year": "2011",
+      "pin": "25-32-115-051-0000",
+      "from_year": "2008",
+      "to_year": "2009",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "039",
+      "township": "Calumet",
+      "buyer": "1100030",
+      "buyer_name": "LAIKA INV GROUP LLC",
+      "location_1": {
+        "latitude": "41.660379900766",
+        "longitude": "-87.651481867943"
+      }
+    },
+    {
+      "tax_sale_year": "2015",
+      "pin": "25-32-217-053-0000",
+      "from_year": "2007",
+      "to_year": "2013",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "039",
+      "township": "Calumet",
+      "buyer": "1500171",
+      "buyer_name": "IL RE HOLDINGS",
+      "location_1": {
+        "latitude": "41.662436869303",
+        "longitude": "-87.649984401243"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "28-10-400-051-0000",
+      "from_year": "2009",
+      "to_year": "2011",
+      "total_amount_paid": "490",
+      "sold_at_sale": true,
+      "vol": "026",
+      "township": "Bremen",
+      "buyer": "1300109",
+      "buyer_name": "SABRE INVESTMENTS LLC",
+      "location_1": {
+        "latitude": "41.625012123698",
+        "longitude": "-87.726529217136"
+      }
+    },
+    {
+      "tax_sale_year": "2013",
+      "pin": "28-10-400-053-0000",
+      "from_year": "2009",
+      "to_year": "2011",
+      "total_amount_paid": "440",
+      "sold_at_sale": true,
+      "vol": "026",
+      "township": "Bremen",
+      "buyer": "1300109",
+      "buyer_name": "SABRE INVESTMENTS LLC",
+      "location_1": {
+        "latitude": "41.625005311092",
+        "longitude": "-87.726801693385"
+      }
+    }
+  ]
+}
