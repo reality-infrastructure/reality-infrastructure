@@ -1,0 +1,59 @@
+# attestations.yaml — filled by the OPERATOR only. The re-run refuses blanks.
+# Schema (strict; parsed by the re-run with an exact-format parser, stdlib only):
+#   name_variants[*].decision: one of  client-alias | not-client | uncertain
+#   statuses[*].decision:      one of  DISPOSED | HELD | NO_CLAIM | uncertain
+#   basis: the operator's stated basis for the decision, in their words (non-empty)
+#   date:  YYYY-MM-DD
+# Variant strings must remain EXACTLY as written (they match county records verbatim).
+
+name_variants:
+  - variant: "C.C. LAND BANK AUTH. DO NOT USE(NO PINS)"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "LAND BANK AND DEVELOPMENT AUTHORITY, AN ILLINOIS INTERGOVERNMENTAL AGENCY"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "SO SUB LAND BANK"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "SOUTH SUB LAND BK"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "SOUTH SUBN LAND BK & DEV AUTH"
+    decision: ""
+    basis: ""
+    date: ""
+  - variant: "SUBURBAN LAND BANK &amp;"
+    decision: ""
+    basis: ""
+    date: ""
+
+statuses:
+  - status: "Deed Recorded"
+    decision: ""
+    basis: ""
+    date: ""
+  - status: "Deed Issued"
+    decision: ""
+    basis: ""
+    date: ""
+  - status: "Assigned"
+    decision: ""
+    basis: ""
+    date: ""
+  - status: "To Be Secured"
+    decision: ""
+    basis: ""
+    date: ""
+  - status: "Offer Pending"
+    decision: ""
+    basis: ""
+    date: ""
