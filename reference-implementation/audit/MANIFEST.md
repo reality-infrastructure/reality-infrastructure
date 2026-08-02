@@ -21,3 +21,19 @@ file is the chain of custody. Discipline mirrors pilot/MANIFEST.md.
 | tax_agency_scavenger.json | tax_agency_scavenger | ydgz-vkrp | Treasurer - Scavenger Tax Sale | 2026-08-02 | 35 | 0 | 2243c4ec65617ee3d6d2c382acea9b8aaefab21d6b19fd1fec88be039d1987bf |
 
 Query form: SODA `$where=pin in(...)` batches of 50 over the 694 checkable PINs; exact per-batch URLs preserved in `snapshots/shards/<source_id>/batch_NNN.json`.
+
+## Attestation-phase entry (M-RI-15; PREREGISTRATION.md §9 amendment A1)
+
+Operator rulings on the 12 open attestation items entered the audit as first-class,
+provenance-carrying input — the only new input to the attested re-run (snapshots above
+unchanged; no re-fetching).
+
+| file | kind | items | attested_by | date | sha256 |
+|---|---|---|---|---|---|
+| attestation/attestations.yaml | operator attestation events | 12 (7 name variants, 5 status semantics) | operator | 2026-08-02 | 0fa33a42548e6483c846f4ef31726498823e6a363b2222af25325fce1e13b0f4 |
+
+Rulings: 4 client-alias (exact-string) · 2 not-client · 1 uncertain · 5 status uncertain.
+Consumed by `audit/rerun_attested.py` via composition at the rules boundary; frozen
+classifier surfaces (`rules.py`, `engine.py`, `report.py`, `run_audit.py`) byte-identical
+to the freeze, asserted by sha256-pinning test. Attested outputs:
+`audit/out/attested-2026-08-02/` (baseline `audit/out/` preserved).

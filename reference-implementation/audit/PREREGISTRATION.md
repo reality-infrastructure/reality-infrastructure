@@ -142,4 +142,27 @@ batch) saturates `$limit` after pagination.
 
 ## 9. AMENDMENTS (dated, append-only; empty at freeze)
 
-*(none)*
+### A1 — 2026-08-02 (M-RI-15): operator attestation events enter as audit input
+
+Per §4 ("extending the alias list is an operator amendment (§9) followed by a re-run"):
+the operator ruled all 12 open attestation items (7 name variants, 5 status semantics).
+Rulings recorded in `audit/attestation/attestations.yaml`
+(sha256 `0fa33a42548e6483c846f4ef31726498823e6a363b2222af25325fce1e13b0f4`,
+attested_by operator, date 2026-08-02; each ruling carries the operator's basis verbatim).
+
+Effect on the re-run (`audit/rerun_attested.py`), applied by composition at the rules
+boundary — `rules.py` and `engine.py` byte-identical to the freeze (sha256-pinned by test):
+- ATTESTED CLIENT ALIASES (normalized exact-string equality — narrower than §4's substring
+  patterns; a ruling never generalizes beyond the attested string):
+  `LAND BANK AND DEVELOPMENT AUTHORITY, AN ILLINOIS INTERGOVERNMENTAL AGENCY` ·
+  `SO SUB LAND BANK` · `SOUTH SUB LAND BK` · `SOUTH SUBN LAND BK & DEV AUTH`.
+- ATTESTED NOT-CLIENT (released from the §4 near-miss AMBIGUOUS force; still never
+  client-matched): `C.C. LAND BANK AUTH. DO NOT USE(NO PINS)` ·
+  `COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY`.
+- UNCERTAIN (no behavior change; near-miss force stands): `SUBURBAN LAND BANK &amp;`.
+- STATUS SEMANTICS: all five (`Deed Recorded`, `Deed Issued`, `Assigned`,
+  `To Be Secured`, `Offer Pending`) ruled `uncertain` — §3's CLAIM_UNCLEAR mapping
+  stands; deferred to client confirmation.
+
+§6 known-answer commitment unchanged. Baseline outputs in `audit/out/` preserved;
+the attested re-run writes to `audit/out/attested-2026-08-02/`.
