@@ -1,84 +1,86 @@
-# CONTRACT 4 — THE METHODOLOGY NOTE (planned Days 20–21, opened Day 1)
-### The constitution: ~2,500 words, five sections, standards register, limits carrying the weight. Canonical in the repo, rendered on the site, linked to the live views as worked examples. Ship: note published, release tagged, dated. Then the hard stop.
-
----
+TASK — Batch CRM Reality Audit: full-inventory verification against county primary records (M-RI-14)
 
 OBJECTIVE
-Write and publish the canonical methodology note: approximately 2,500 words in exactly five
-sections — the verification gap, evidence typing, contradiction preservation, the replay
-guarantee, and limits — in standards-document register, with every factual claim checkable,
-every external reference real, and the live site's views linked as worked examples. The note is
-canonical in the repository, rendered as the site's methodology page from the single source, and
-shipped in the final release. This contract completes the 21-day build.
+Classify every parcel in the frozen client CRM export (740 features; 695 Cook-format PINs
+checkable) against the four attested Cook County datasets into a pre-registered closed
+5-verdict vocabulary, every verdict citing source + record + observation date, and emit a
+machine-readable discrepancy table plus a client-facing audit report — the concrete
+deliverable behind the committed ~Aug 22 refresh.
+
+CONTEXT
+pilot/fetch_snapshots.py (the four Socrata endpoints, snapshot format, MANIFEST discipline);
+pilot/MANIFEST.md (CRM extract attestation, sha256 8d42089d…7067, R3 dead-endpoint ruling);
+pilot/mass_assignments.md + pilot/ep_typing_preregistration.md (pre-registration pattern);
+pilot/snapshots/ (FROZEN — read-only known-answer input for PIN 29024080530000);
+tests/test_pilot.py (subprocess + golden + PYTHONHASHSEED convention);
+collateral/README.md (anonymization rule; forbidden-string list in
+contracts/completed/M-RI-12-case-study.md);
+the-registry-signal/data/nigel-shared/All_Inventory.geojson (READ-ONLY source, 2,104,717
+bytes, 740 features, 740 distinct USER_ppn);
+capability-factory: _admission/crm-reality-audit-proposal.md (RATIFIED 2026-08-02), CF-025.
 
 SCOPE
 IN:
-- METHODOLOGY.md at the repository root: canonical source, 2,000–3,000 words, five sections in
-  order under the specified headings (the verification gap; evidence typing (EP); contradiction
-  preservation; the replay guarantee; limits, stated plainly), every external claim sourced,
-  worked examples with actual masses linked to live rights-state pages, F3 disclosed.
-- Site integration: methodology page rendered from the canonical source by the existing
-  generator pattern (stdlib only); drift test; anchors tested against docs/.
-- CITATION.cff to 1.4.0 / 2026-08-01. README methodology line from placeholder to link.
-- Tests: drift, anchor presence, word-count range, suite green.
-OUT: the wall extended — everything frozen at v1.3.0 stays frozen (engine, domain core,
-adapters, runners, existing site views); the methodology page ADDS, modifying only the index
-placeholder line and README line. No market/superlative language. No new dependencies. No
-emojis. No changes to NEUTRALITY.md.
+- audit/ (new, sibling of pilot/): PREREGISTRATION.md, MANIFEST.md, pins.py, rules.py,
+  extract_crm.py, fetch_batch.py, engine.py, report.py, run_audit.py, snapshots/, out/
+- tests/test_audit_pins.py, test_audit_rules.py, test_audit_classifier.py,
+  test_audit_report.py (+ golden files under tests/golden/audit/)
+- collateral/one-pager-reality-audit-v1.md (+ PDF via existing build path) and
+  collateral/refresh-scope-skeleton-DO-NOT-SEND.md
+OUT (explicitly forbidden this contract):
+- No edits to SPEC.md, ri_core/, rights_events/, pilot/ (snapshots included), /research
+- No writes anywhere in the-registry-signal (read-only context)
+- No new dependencies (stdlib only: urllib, json, csv, hashlib, argparse, pathlib)
+- No email sent by this session; no price asserted anywhere ([OPERATOR SETS] placeholders)
+- The named case study file is untouched; client name never appears in prospect-facing files
 
-PLAN GATE RULINGS (2026-08-01, gate approved):
-- All external claims grounded in-session before drafting: Commission AI Office template
-  adoption 24 July 2025 (adoption record + independent analyses); C2PA's own explainer language
-  ("provenance information alone cannot tell you whether the digital content is true, accurate
-  or factual"); The MLC's $424,384,787 February 2021 accrued historical unmatched royalties
-  (the MLC's own announcement, 20 DSPs); Denoeux 2008, Artificial Intelligence 172(2–3):234–264
-  (confirmed citation). Operator verified the Dolton mass arithmetic, the Denoeux citation, and
-  the MLC figure independently before approving.
-- md->html path: stdlib line renderer for exactly the note's constructs; note formatting
-  constrained to the renderer, not the reverse. Drift test: fresh render byte-compared against
-  the committed page.
-- Anchors: the full parked list from the C3 archive, verified against docs/.
-- Title: "Verifiable Records of Contested Claims: Methodology". One-liner approved.
-- Live URL confirmed by operator: 
-  https://reality-infrastructure.github.io/reality-infrastructure/
-- THE READ: the operator delegated the C4-P1 acceptance read to the session with four criteria
-  (numbers against the site pages; superlative hunt with a correct count of zero; hostile read
-  of section 5; section 1 survivable by its subjects). Performed and recorded in PROGRESS.md
-  before P2.
+PLAN GATE
+SATISFIED 2026-08-02: plan approved at the session plan gate (preserved at
+~/.claude/plans/binary-plotting-lecun.md; admission record ratified in capability-factory).
+Sequencing: pre-registration commit strictly precedes engine code (git-verifiable);
+fetch phase is manual and never imported by tests; audit phase reads snapshot bytes only.
 
-CONSTRAINTS
-1. Standards register throughout; the reader is assumed intelligent and skeptical.
-2. Every factual claim checkable; a wrong mass in the constitution is a P0 defect.
-3. The signature principle, claimed-not-true, and not-a-detector appear verbatim-consistent
-   with the README (drift-checked).
-4. Counsel flags framed as open questions for qualified counsel, never as legal conclusions.
-5. F3 disclosure in Section 5 is mandatory.
-6. Word count is a discipline, not a target to pad toward.
-7. Suite green at every commit; wall diff at DONE.
+CONSTRAINTS (MUST / NEVER)
+- MUST: engine/report/rules/pins are pure, deterministic — no wall clock (report dates come
+  from snapshot retrieval blocks), no network imports, sorted iteration, no floats in logic.
+- MUST: tests deterministic, no network, no sleeps; golden runs repeated under two
+  PYTHONHASHSEED values.
+- MUST: absence of record is reported as "no machine-readable record found in the queried
+  datasets" — NEVER as "not sold" / "not owned" (tax-deed coverage caveat is pre-declared).
+- MUST: unlisted party-name variants surface as AMBIGUOUS with verbatim strings — never
+  silently matched (M-RI-11 alias discipline).
+- NEVER: change a rule after data is seen without a written, dated amendment in
+  PREREGISTRATION.md; rules.py values are test-pinned so silent edits fail the suite.
+- NEVER: alter pilot/snapshots/ bytes or any golden file outside tests/golden/audit/.
 
-ACCEPTANCE
-- METHODOLOGY.md: five sections in order; word count in range; references complete; zero
-  unsourced external claims; zero market/superlative language.
-- Read approval recorded in PROGRESS.md before P2.
-- Methodology page renders from the canonical source; drift test passes; anchors resolve;
-  file:// works; double-build byte-identity passes.
-- CITATION.cff at 1.4.0 / 2026-08-01 and parses.
-- Wall diff vs v1.3.0 empty except the permitted index-placeholder and README lines.
-- Suite green (594 + new).
+ACCEPTANCE CRITERIA (deterministic)
+- [ ] PREREGISTRATION.md committed in a commit strictly before any engine.py exists.
+- [ ] Known-answer: PIN 29024080530000 classifies CONTRADICTED from the frozen pilot
+      snapshots (test pasted).
+- [ ] Full suite `pytest -q` green from reference-implementation/ (output pasted).
+- [ ] `python -m audit.run_audit` twice → byte-identical outputs (hashes pasted).
+- [ ] audit/out/ holds discrepancy_table.csv, discrepancy_table.json, and
+      audit-report-client-DO-NOT-SEND-PROSPECTS.md with the CLIENT DELIVERABLE banner.
+- [ ] audit/MANIFEST.md holds sha256 + exact queries for every snapshot; fetch failures (if
+      any) enumerated, none silently dropped.
+- [ ] Forbidden-string grep passes on every new prospect-facing collateral/ file.
 
-DEPLOY
-Commit and push per phase. After operator approval of the final state, the operator runs the
-closeout: tag v1.4.0 and a GitHub Release — the operator tags, not the session.
+VERIFY (fixed runbook — do not improvise)
+pytest -q (full suite) → run_audit twice + hash-compare → forbidden-string grep on
+collateral → git status clean → commits "M-RI-14: <part>" → push origin/main.
 
-DONE
-Report: phases with commits; final word count; references; anchors; drift and byte-identity
-results; wall diff; CITATION.cff state; claims cut for want of grounding; archive path. Final
-line: the build state at hard stop.
+DONE = planned-implemented-tested-committed-pushed. REPORT BACK ALL FIVE:
+1. Plan Gate reference (ratified plan)
+2. `pytest -q` full-suite output pasted
+3. git status clean
+4. commit hash(es) pushed to origin/main
+5. Acceptance checklist above, each item with proof pasted
 
 STOP CONDITIONS
-- Ungroundable external claims: flag or cut; never approximate.
-- Markdown-dependency pressure: simplify the note instead; failing that, stop.
-- Sections that cannot be filled honestly: write the smaller true thing and flag.
-- Red tests at session end: record, end cleanly.
-- After this contract closes and the operator tags v1.4.0: THE BUILD IS COMPLETE. No further
-  contracts open under CF-024.
+Halt and report — do not proceed — if: CRM source sha256 differs from the pinned value; any
+USER_disp_status outside the 24 pre-registered values; duplicate or missing USER_ppn; Socrata
+schema drift (expected fields absent from sampled records); >5% of PINs fetch-failed after
+retries + per-PIN fallback, or persistent 429; the known-answer test fails (that is a finding,
+not a bug to tune away); any (dataset, PIN) saturates $limit after pagination; a golden file's
+bytes outside tests/golden/audit/ would change; or an acceptance test cannot pass without
+violating a MUST.
