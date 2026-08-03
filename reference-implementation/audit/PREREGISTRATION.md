@@ -189,3 +189,43 @@ Amendment (versioned, never silent):
 - Re-run lands at `audit/out/attested-remediated-2026-08-02/`; both prior baselines
   preserved. Every transition vs the M-RI-15 attested baseline cause-traced
   (attestation / amendment / both) via counterfactual runs.
+
+### A3 — 2026-08-03: supplemental acquisition-date extract for temporal qualification
+### of the delinquency-while-held analysis (analysis layer only)
+
+Context: the 2026-08-03 read-only analysis pass (`audit/out/analysis-2026-08-03/`)
+flagged that its DELINQUENT-WHILE-HELD class (40 of 99 county-confirmed-held parcels
+with 2011–2014 Treasurer tax-sale records) could not date the delinquency relative to
+the holding period — the frozen extract carries no acquisition date, and a land bank
+characteristically acquires parcels because they were delinquent. Operator authorized
+this amendment to decide the finding's frame from on-disk data.
+
+Scope and discipline:
+- **Zero fetches.** Input is the already-pinned source file (§1 sha256 `8d42…7067`),
+  verified byte-for-byte before extraction (S1 discipline).
+- **Classifier surfaces untouched; verdicts unchanged.** `rules.py`, `engine.py`,
+  `report.py`, the frozen `crm_inventory.json`, and every audit output are not modified;
+  the 5-verdict table is not affected. No pin breaks; no re-pin is required. This
+  amendment feeds the analysis layer only.
+- Supplemental extract: `audit/extract_acq_dates.py` (new, mirrors `extract_crm.py`
+  conventions) writes `audit/snapshots/crm_acq_dates.json` — verbatim
+  `USER_acq_secure_date` per `USER_ppn`, nulls preserved, sorted by `USER_ppn`,
+  retrieval block + MANIFEST entry with sha256. Field coverage measured from the source
+  this pass, before any join: **72 of 740 non-null**, ISO `YYYY-MM-DD` strings.
+
+Temporal classes for the 40 DELINQUENT-WHILE-HELD parcels — declared here BEFORE the
+join is computed; comparison is year-granular (tax-sale records carry `tax_sale_year`
+only), and year-granularity is stated wherever these labels appear:
+- `PRE-ACQUISITION` — every tax-sale year (annual `tax_sale_year`; scavenger
+  `tax_sale_year`) is strictly less than the acquisition year.
+- `SAME-YEAR-INDETERMINATE` — the latest tax-sale year equals the acquisition year
+  (year granularity cannot order the two events; never counted as anomalous).
+- `POST-ACQUISITION-ANOMALY` — any tax-sale year strictly greater than the acquisition
+  year (a tax-sale record dated after the CRM says the parcel was secured).
+- `ACQ-DATE-NULL` — `USER_acq_secure_date` is null for the parcel.
+
+Additional operator ruling recorded in this batch: PIN `31-33-407-020-0000`
+(14-digit Cook format, county label Will — the single `county-mismatch` row) is
+authorized to enter the checkable universe **at the next fetch cycle**. Its
+NOT_CHECKABLE(`county-mismatch`) verdict stands unchanged until a fetch occurs; no
+fetch is performed under this amendment.

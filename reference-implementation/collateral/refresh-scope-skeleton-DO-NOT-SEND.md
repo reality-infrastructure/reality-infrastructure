@@ -21,6 +21,15 @@ May be sent to: No one. The client-facing words go through the A4 message
   is BOTH a data-quality gift and the natural next-engagement hook (attest → amend →
   re-run moves ~26 AMBIGUOUS parcels to real verdicts).
 
+## The costless ask (added 2026-08-03 — drift baseline)
+- Ask the client to include a **current inventory export** with the refresh exchange.
+  Costs them one button; it makes the drift measurement real. The frozen 2026-08-02
+  extract is the baseline half already on disk; their next export is the other half,
+  and the first true inventory-change number ("N statuses moved since the audit") is
+  the quarterly-reconciliation product performing its first cycle. (Per the 2026-08-03
+  analysis pass, drift is currently unmeasurable: both extracts on disk share the same
+  source bytes — the zero measured there is extraction consistency, not stability.)
+
 ## What the paid full audit adds (the [OPERATOR SETS] price line in A4)
 - The complete 740-parcel discrepancy table + written audit report with per-parcel
   citations (already produced; delivery is gated on payment terms the operator sets).

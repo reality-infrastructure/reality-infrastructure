@@ -52,3 +52,9 @@ history with the M-RI-15 baseline). Gate evidence archived at
 Remediated outputs: `audit/out/attested-remediated-2026-08-02/` (both prior baselines
 preserved; every transition vs the M-RI-15 attested baseline cause-traced via
 counterfactual runs).
+
+## A3 supplemental extract entry (written by extract_acq_dates.py)
+
+| file | source | source sha256 | extracted | records | non-null dates | snapshot sha256 |
+|---|---|---|---|---|---|---|
+| crm_acq_dates.json | All_Inventory.geojson | 8d42089d14a03dfceb285a09f22147486f4c5d3279de6f2b833d4d3d46737067 | 2026-08-03 | 740 | 72 | 480c2752fe9b4c3d76af0f570a4a6e4ef507dfc9bf34f445586703bea98ebedd |
