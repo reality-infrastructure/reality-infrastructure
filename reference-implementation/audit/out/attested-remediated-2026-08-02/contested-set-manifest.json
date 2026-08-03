@@ -1,0 +1,325 @@
+{
+  "banner": "CLIENT DELIVERABLE — NOT FOR PROSPECT USE. Contains client-identifying information; prospect-facing derivatives go through the collateral anonymization process.",
+  "purpose": "M-RI-17 frozen input: the post-remediation contested set (CONTRADICTED + AMBIGUOUS) of the M-RI-16 run",
+  "run": "audit/out/attested-remediated-2026-08-02/discrepancy_table.json",
+  "run_sha256": "d8567a4f10b6f16b04f19cca3175270a9a257142038c2dd319ea4fc3d7c215f1",
+  "attestations": "audit/attestation/attestations.yaml (13 events)",
+  "preregistration_amendments": [
+    "A1",
+    "A2"
+  ],
+  "counts": {
+    "CONTRADICTED": 9,
+    "AMBIGUOUS": 35
+  },
+  "parcels": [
+    {
+      "pin": "25-29-323-064-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": true
+    },
+    {
+      "pin": "25-29-328-042-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "25-29-411-049-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "25-30-207-023-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": true
+    },
+    {
+      "pin": "25-32-104-059-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-01-303-027-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-11-302-020-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-11-302-032-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-11-302-033-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-16-418-001-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-16-419-001-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "28-30-113-005-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-02-408-053-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-15-200-026-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-15-200-041-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-108-016-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-123-019-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-123-020-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Associated Parcel - Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-127-028-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-131-036-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-131-038-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-202-016-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-218-016-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-218-038-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-218-039-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-218-040-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-218-041-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D-nodate",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-225-042-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "29-30-226-022-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "30-17-113-007-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "30-17-113-008-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "30-17-202-025-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "30-18-208-035-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-26-300-061-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-100-038-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-100-048-0000",
+      "verdict": "CONTRADICTED",
+      "rule": "D3",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-100-049-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-100-053-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-100-054-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-410-017-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-35-413-011-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-36-304-010-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "31-36-306-026-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D5",
+      "status": "Sold",
+      "recorder_banner": false
+    },
+    {
+      "pin": "32-20-107-008-0000",
+      "verdict": "AMBIGUOUS",
+      "rule": "D1+NEAR-MISS",
+      "status": "Sold",
+      "recorder_banner": false
+    }
+  ]
+}

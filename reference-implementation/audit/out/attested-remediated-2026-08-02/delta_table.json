@@ -1,0 +1,1839 @@
+{
+  "banner": "CLIENT DELIVERABLE — NOT FOR PROSPECT USE. Contains client-identifying information; prospect-facing derivatives go through the collateral anonymization process.",
+  "contract": "M-RI-16",
+  "amendment": "audit/PREREGISTRATION.md §9 A2",
+  "inputs": {
+    "attestations_sha256": "71d8a30a8d03608e94bccb3f34bc3532ea1fd17a7dff41da2f2a21c8c7292aab",
+    "baseline": "C:/Users/newce/Reality-Infrastructure/reference-implementation/audit/out/attested-2026-08-02/discrepancy_table.json",
+    "baseline_sha256": "2a4b6cfdfd6b44bad30d2c5ebce8dc80399ac43222816958a32e6dc8b001e7f9",
+    "snapdir": "C:/Users/newce/Reality-Infrastructure/reference-implementation/audit/snapshots"
+  },
+  "headline": {
+    "before": {
+      "SUPPORTED": 204,
+      "CONTRADICTED": 25,
+      "UNSUPPORTED_NO_RECORD": 162,
+      "AMBIGUOUS": 14,
+      "NOT_CHECKABLE": 335
+    },
+    "after": {
+      "SUPPORTED": 291,
+      "CONTRADICTED": 9,
+      "UNSUPPORTED_NO_RECORD": 70,
+      "AMBIGUOUS": 35,
+      "NOT_CHECKABLE": 335
+    }
+  },
+  "cause_counts": {
+    "attestation": 0,
+    "amendment": 0,
+    "both": 120
+  },
+  "transitions": [
+    {
+      "pin": "25-29-328-042-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D4",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "25-29-406-008-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:C.C. LAND BANK AUTH. DO NOT USE(NO PINS)=not-client",
+        "name-variant:COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY=not-client",
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "25-32-115-051-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY=not-client",
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-01-303-027-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-10-119-025-0000",
+      "status": "Demolition Phase",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-10-400-051-0000",
+      "status": "Listed",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-10-400-053-0000",
+      "status": "Listed",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-11-302-020-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-11-302-032-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-11-302-033-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D-nodate",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D-nodate",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-16-418-001-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D4",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-16-419-001-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-30-204-061-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-31-103-026-1028",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "28-32-300-031-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-10-203-024-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-15-200-041-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D-nodate",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D-nodate",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-16-109-005-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-16-307-019-0000",
+      "status": "Demolition Phase",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:C.C. LAND BANK AUTH. DO NOT USE(NO PINS)=not-client",
+        "name-variant:COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY=not-client",
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-123-019-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D4",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-123-020-0000",
+      "status": "Associated Parcel - Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "D-nodate",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D-nodate",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-127-028-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-131-036-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-200-029-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "29-30-226-022-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "30-17-113-007-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "30-17-113-008-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "30-17-202-025-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "30-17-213-007-0000",
+      "status": "Listed",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-13-106-023-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-13-106-024-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-13-106-025-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-13-106-026-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-13-106-027-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-14-407-006-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "AMBIGUOUS",
+      "from_rule": "H5",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-14-409-007-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-23-105-016-0000",
+      "status": "Under Contract",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-25-305-036-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-26-300-061-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-002-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-005-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-006-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-007-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-008-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-010-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-012-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-014-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-016-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-018-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-020-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-021-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-023-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-024-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-025-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-103-026-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-002-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-005-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-006-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-008-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-009-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-010-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-012-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-013-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-014-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-015-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-016-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-017-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-018-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-019-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-020-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-021-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-022-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-023-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-024-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-025-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-026-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-027-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-028-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-104-029-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-001-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-002-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-003-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-004-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-006-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-007-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-008-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-012-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-014-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-016-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-018-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-019-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-020-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-021-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-023-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-105-024-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-003-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-004-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-005-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-007-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-008-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-009-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-010-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-013-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-014-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-017-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-018-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-019-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-021-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-32-106-023-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-35-100-038-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-35-100-049-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-35-100-053-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-35-100-054-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-35-413-011-0000",
+      "status": "Sold",
+      "claim_class": "DISPOSED",
+      "from_verdict": "CONTRADICTED",
+      "from_rule": "D3",
+      "to_verdict": "AMBIGUOUS",
+      "to_rule": "D5",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "31-36-303-020-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "32-19-313-031-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "32-21-409-019-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "32-25-114-011-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "32-29-222-016-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "SUPPORTED",
+      "from_rule": "H2",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": false,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    },
+    {
+      "pin": "32-32-415-050-0000",
+      "status": "Secured Inventory - Active",
+      "claim_class": "HELD",
+      "from_verdict": "UNSUPPORTED_NO_RECORD",
+      "from_rule": "H4",
+      "to_verdict": "SUPPORTED",
+      "to_rule": "H1",
+      "verdict_changed": true,
+      "causing_events": [
+        "name-variant:SO SUB LAND/BK/DEV=client-alias"
+      ],
+      "cause": "both",
+      "recorder_banner": ""
+    }
+  ]
+}
