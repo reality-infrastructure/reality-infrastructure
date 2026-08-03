@@ -133,7 +133,7 @@ the wall, C2-second-domain.md:50-56):
 
 | # | Pattern | Shipped at |
 |---|---------|-----------|
-| 7.1 | Naming: engine tests mirror modules 1:1; domain layers use a prefix (`test_rights_*`, `test_audit_*`) | ri/tests/ (e.g. test_rights_schema.py, test_audit_rules.py) |
+| 7.1 | Naming: engine tests mirror modules one-to-one; domain layers use a prefix (`test_rights_*`, `test_audit_*`) | ri/contracts/completed/C1-event-layer.md:186-188 (names the five test_rights_* files); ri/contracts/completed/M-RI-14-crm-reality-audit.md:25-27 (names the four test_audit_* files) |
 | 7.2 | Golden files: frozen byte-exact outputs under tests/golden/<area>/, resolved relative to the test file | ri/tests/test_serialization.py:24, :108-112 |
 | 7.3 | Byte-identity as the determinism proof: `encode(replayed) == encode(original)` | ri/tests/test_replay.py:129-139 |
 | 7.4 | CLI tested via subprocess with the documented invocation | ri/tests/test_rights_replay.py:168, :179 |
