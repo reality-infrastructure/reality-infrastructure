@@ -35,6 +35,20 @@ This generates, into the existing `reference-implementation/` structure:
 
 It is idempotent (refuses to overwrite an existing domain) and stdlib-only.
 
+## Where things live (read before pointing --dest anywhere)
+
+`forge/` sits at the REPO ROOT. Everything it generates lands one level down,
+under `reference-implementation/` — the tree where contracts/, audit/, tests/,
+and the engine already live. There is exactly ONE contracts/ tree in this
+repo and it is `reference-implementation/contracts/`; nothing belongs in a
+root-level contracts/, adapters/, or tests/ directory, and scaffold.py will
+refuse to create one (it rejects any `--dest` that is not a
+reference-implementation-shaped tree containing ri_core/,
+rights_events/adapters/, tests/, and contracts/). You should almost never
+need `--dest`: the default resolves to the reference-implementation beside
+this forge/. If you pass it anyway, point it at such a tree — never at a
+repo root.
+
 ## The sequence, timed (Gate 4 — honest numbers)
 
 Measured on this machine 2026-08-03 (mechanical steps timed for real;

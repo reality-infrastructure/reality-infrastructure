@@ -5,6 +5,12 @@ hasn't been used in a shipped build, it does not go in the library). Every
 claim below cites where it shipped; the full citation table is
 forge/INVENTORY.md.
 
+What this library's own timing gate found (forge/SCOREBOARD.md, Gate 4): the
+sub-15-minute path holds only when source data is already on disk — data
+acquisition, not scaffolding, is what made builds take days. This library
+removes friction; it does not remove the constraint. Do not mistake the tool
+for the bottleneck.
+
 ---
 
 ## 1. Closed-contract structure
