@@ -166,3 +166,26 @@ boundary — `rules.py` and `engine.py` byte-identical to the freeze (sha256-pin
 
 §6 known-answer commitment unchanged. Baseline outputs in `audit/out/` preserved;
 the attested re-run writes to `audit/out/attested-2026-08-02/`.
+
+### A2 — 2026-08-02 (M-RI-16): normalization amended (`/` → space) + F1 attestation
+
+Finding F1 (M-RI-15): §4's normalization strips `.,'` and maps `&` → ` AND ` but left
+`/` intact, so the assessor string `SO SUB LAND/BK/DEV` (607 rows, 154 parcels, field
+`owner_address_name` only) matched no NEAR_MISS pattern (`LAND BK` is not a substring of
+`LAND/BK`) and was silently counted client-absent — the premise of D3/H4 in 16/25
+CONTRADICTED and 92/162 UNSUPPORTED verdicts of the attested run.
+
+Amendment (versioned, never silent):
+- BEFORE: `normalize("SO SUB LAND/BK/DEV")` = `SO SUB LAND/BK/DEV` (no pattern match).
+  AFTER: `/` maps to a space before punctuation stripping, so it normalizes to
+  `SO SUB LAND BK DEV` (NEAR_MISS `LAND BK` visible; exact-string attestation resolves it).
+- `audit/rules.py` edited; the M-RI-15 sha256 pin deliberately breaks and is re-pinned to
+  the new hash in the same commit (rerun runner + tests), commit message naming this entry.
+- Sibling separators (`- + \ _ . | ( ) , * : ; # @`) tested against every party string in
+  both snapshots: zero match-status changes — no other character amended (proven-need
+  rule; recorded as observation in f1-gate-evidence.md).
+- Operator attestation recorded (attestations.yaml, 13th item): `SO SUB LAND/BK/DEV` →
+  client-alias, basis verbatim, attested 2026-08-02, revisit clause honored at the gate.
+- Re-run lands at `audit/out/attested-remediated-2026-08-02/`; both prior baselines
+  preserved. Every transition vs the M-RI-15 attested baseline cause-traced
+  (attestation / amendment / both) via counterfactual runs.

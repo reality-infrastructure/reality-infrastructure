@@ -37,3 +37,18 @@ Consumed by `audit/rerun_attested.py` via composition at the rules boundary; fro
 classifier surfaces (`rules.py`, `engine.py`, `report.py`, `run_audit.py`) byte-identical
 to the freeze, asserted by sha256-pinning test. Attested outputs:
 `audit/out/attested-2026-08-02/` (baseline `audit/out/` preserved).
+
+## Attestation-phase entry (M-RI-16; PREREGISTRATION.md §9 amendment A2)
+
+F1 remediation: the escaped assessor string attested (13th item), normalization amended
+(`/` → space, versioned — `rules.py` re-pinned to sha256 `33bf6bfb…86a7`; prior pin in
+history with the M-RI-15 baseline). Gate evidence archived at
+`attestation/f1-gate-evidence.md` (revisit clause honored; operator confirmed).
+
+| file | kind | items | attested_by | date | sha256 |
+|---|---|---|---|---|---|
+| attestation/attestations.yaml | operator attestation events | 13 (8 name variants, 5 status semantics) | operator | 2026-08-02 | 71d8a30a8d03608e94bccb3f34bc3532ea1fd17a7dff41da2f2a21c8c7292aab |
+
+Remediated outputs: `audit/out/attested-remediated-2026-08-02/` (both prior baselines
+preserved; every transition vs the M-RI-15 attested baseline cause-traced via
+counterfactual runs).

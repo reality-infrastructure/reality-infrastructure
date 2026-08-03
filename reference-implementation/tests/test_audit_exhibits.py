@@ -81,9 +81,12 @@ def test_replay_line_runs_clean(capsys):
     assert "CONTRADICTED (D3)" in out
 
 
-def test_f1_escaped_variant_is_the_only_one():
-    """The F1 finding's bound: exactly one string in the evidence base escapes
-    the near-miss net under punctuation-neutral normalization."""
+def test_no_string_escapes_the_near_miss_net():
+    """Post-A2 (M-RI-16): the F1 escape set is EMPTY — no string in the
+    evidence base changes match status under punctuation-neutral
+    normalization. (Pre-A2 this asserted the set was exactly
+    {'SO SUB LAND/BK/DEV'}; the amendment closed it, and this test now
+    holds the net shut.)"""
     escaped = set()
     for fname, fields in (("ccao_parcel_sales.json",
                            ("seller_name", "buyer_name")),
@@ -98,4 +101,4 @@ def test_f1_escaped_variant_is_the_only_one():
                 loose = re.sub(r"[^A-Za-z0-9&]", " ", s)
                 if rules.client_match(loose) or rules.near_miss(loose):
                     escaped.add(s)
-    assert escaped == {"SO SUB LAND/BK/DEV"}
+    assert escaped == set()

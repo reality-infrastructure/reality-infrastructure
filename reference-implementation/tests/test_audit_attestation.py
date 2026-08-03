@@ -28,7 +28,7 @@ def _yaml_text() -> str:
 
 def test_recorded_attestations_load_and_are_complete():
     events = att.load_events()
-    assert len(events) == 12
+    assert len(events) == 13
     assert [e["subject"] for e in events if e["kind"] == "name-variant"] == \
         list(att.EXPECTED_VARIANTS)
     assert sorted(e["subject"] for e in events
@@ -46,7 +46,8 @@ def test_recorded_rulings_are_the_operator_adopted_sheet():
         "LAND BANK AND DEVELOPMENT AUTHORITY, AN ILLINOIS INTERGOVERNMENTAL "
         "AGENCY",
         "SO SUB LAND BANK", "SOUTH SUB LAND BK",
-        "SOUTH SUBN LAND BK & DEV AUTH")
+        "SOUTH SUBN LAND BK & DEV AUTH",
+        "SO SUB LAND/BK/DEV")  # M-RI-16, §9 amendment A2
     assert att.not_client_strings(events) == (
         "C.C. LAND BANK AUTH. DO NOT USE(NO PINS)",
         "COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY")
@@ -128,6 +129,12 @@ def test_overlay_exact_string_semantics():
     # exact-string only: a ruling never generalizes into a pattern
     assert not cm("SOUTH SUBN LAND BK & DEV AUTH LLC")
     assert nm("SOUTH SUBN LAND BK & DEV AUTH LLC")
+    # M-RI-16 (§9 A2): the F1 string is attested; a variant of it is not,
+    # and post-amendment the near-miss net now SEES such variants
+    assert cm("SO SUB LAND/BK/DEV")
+    assert not nm("SO SUB LAND/BK/DEV")
+    assert not cm("SO SUB LAND/BK/DEV II")
+    assert nm("SO SUB LAND/BK/DEV II")
     # frozen behavior delegated for everything else
     assert cm("SOUTH SUBURBAN LAND BANK AND DEVELOPMENT AUTHORITY")
     assert not cm("US BANK TR") and not nm("US BANK TR")
@@ -150,10 +157,16 @@ def test_overlay_is_scoped_and_restored():
 
 @pytest.fixture(scope="module")
 def rerun():
+    """Live machine vs the M-RI-15 attested baseline — the M-RI-16 comparison.
+
+    (The M-RI-14 baseline comparison is preserved as a disk-artifact test
+    below; the live machine moved past it with §9 amendment A2.)
+    """
     events = att.load_events()
     snaps = engine.load_snapshots(AUDIT_DIR / "snapshots")
-    baseline = json.loads((AUDIT_DIR / "out" / "discrepancy_table.json")
-                          .read_text(encoding="utf-8"))["verdicts"]
+    baseline = json.loads(
+        (AUDIT_DIR / "out" / "attested-2026-08-02" / "discrepancy_table.json")
+        .read_text(encoding="utf-8"))["verdicts"]
     attested = rerun_attested.classify_all_attested(snaps, events)
     return events, snaps, baseline, attested
 
@@ -171,8 +184,9 @@ def test_known_answer_survives_attestation(rerun):
 
 def test_every_transition_traces_to_an_attestation_event(rerun):
     events, snaps, baseline, attested = rerun
-    delta = rerun_attested.compute_delta(baseline, attested, events)
-    assert delta, "attestation resolved nothing — expected transitions"
+    delta = rerun_attested.compute_delta(
+        baseline, attested, events, rerun_attested.parties_by_pin14(snaps))
+    assert delta, "remediation resolved nothing — expected transitions"
     for d in delta:
         assert d["causing_events"], (
             f"{d['pin']}: {d['from_verdict']} -> {d['to_verdict']} has no "
@@ -182,18 +196,27 @@ def test_every_transition_traces_to_an_attestation_event(rerun):
 def test_zero_transitions_outside_the_attested_surface(rerun):
     events, snaps, baseline, attested = rerun
     ruled = set(att.alias_strings(events)) | set(att.not_client_strings(events))
+    parties = rerun_attested.parties_by_pin14(snaps)
     base_by_pin = {v["pin"]: v for v in baseline}
     for v in attested:
         b = base_by_pin[v["pin"]]
         if b["verdict"] != v["verdict"]:
-            assert set(b["near_miss_strings"]) & ruled, (
-                f"{v['pin']} transitioned without a ruled near-miss string")
+            touched = (set(b["near_miss_strings"]) | set(
+                parties.get(v["pin14"] or "", []))) & ruled
+            assert touched, (
+                f"{v['pin']} transitioned without a ruled string in its records")
 
 
-def test_contradicted_set_survives_attestation_untouched(rerun):
-    """The structural guarantee: rulings cannot reach the baseline
-    CONTRADICTED parcels (any parcel with a ruled string was AMBIGUOUS)."""
-    events, snaps, baseline, attested = rerun
-    base_c = {v["pin"] for v in baseline if v["verdict"] == rules.CONTRADICTED}
-    new_c = {v["pin"] for v in attested if v["verdict"] == rules.CONTRADICTED}
-    assert base_c <= new_c
+def test_mri15_structural_guarantee_pinned_as_history():
+    """The M-RI-15 property, re-pinned on the shipped artifacts: the operator's
+    first 12 rulings could not reach the M-RI-14 CONTRADICTED set (any parcel
+    with a ruled string was already AMBIGUOUS). Asserted on disk so the live
+    machine's later amendments (§9 A2) cannot erode the historical record."""
+    base = json.loads((AUDIT_DIR / "out" / "discrepancy_table.json")
+                      .read_text(encoding="utf-8"))["verdicts"]
+    m15 = json.loads(
+        (AUDIT_DIR / "out" / "attested-2026-08-02" / "discrepancy_table.json")
+        .read_text(encoding="utf-8"))["verdicts"]
+    base_c = {v["pin"] for v in base if v["verdict"] == rules.CONTRADICTED}
+    m15_c = {v["pin"] for v in m15 if v["verdict"] == rules.CONTRADICTED}
+    assert base_c == m15_c

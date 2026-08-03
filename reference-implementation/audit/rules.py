@@ -80,8 +80,14 @@ _WS_RE = re.compile(r"\s+")
 
 
 def normalize(name: str) -> str:
-    """Pilot-mirroring normalization: upper, & -> AND, strip .,' , collapse ws."""
-    s = (name or "").upper().replace("&", " AND ")
+    """Pilot-mirroring normalization: upper, & -> AND, / -> space, strip .,' ,
+    collapse ws.
+
+    '/' -> space is PREREGISTRATION.md §9 amendment A2 (2026-08-02, finding F1):
+    county field-separator artifacts (LAND/BK) must normalize equal to their
+    spaced forms (LAND BK) so the near-miss net can see them.
+    """
+    s = (name or "").upper().replace("&", " AND ").replace("/", " ")
     s = _PUNCT_RE.sub("", s)
     return _WS_RE.sub(" ", s).strip()
 

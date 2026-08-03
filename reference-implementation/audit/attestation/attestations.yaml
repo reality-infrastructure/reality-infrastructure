@@ -40,6 +40,17 @@ name_variants:
     basis: "One deed, leading 'SOUTH' absent — the truncation inference is plausible but I won't attest an identity from a single record. Deferring to client confirmation."
     date: "2026-08-02"
 
+  # M-RI-16 (F1 remediation), attested at the gate 2026-08-02 after review of
+  # f1-gate-evidence.md. REVISIT CLAUSE: if the gate's evidence table shows any
+  # assessor context where the string's usage contradicts the family reading,
+  # surface it before the run — the operator revisits rather than the run
+  # proceeding on a doubted attestation. Gate outcome: nothing triggered; the
+  # operator confirmed ("attestation stands as supplied").
+  - variant: "SO SUB LAND/BK/DEV"
+    decision: "client-alias"
+    basis: "Same abbreviation family as my attested A5/A6 rulings (SO SUB = South Suburban, BK = Bank, DEV = Development); the slash is a county field-separator artifact, not a different entity."
+    date: "2026-08-02"
+
 statuses:
   - status: "Deed Recorded"
     decision: "uncertain"

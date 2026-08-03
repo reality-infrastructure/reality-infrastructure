@@ -41,6 +41,22 @@ def test_normalization_mirrors_pilot_precedents():
     assert rules.normalize("STANDARD B&T T") == "STANDARD B AND T T"
 
 
+def test_normalization_amendment_a2_slash_to_space():
+    """§9 amendment A2 (M-RI-16, finding F1): '/' maps to a space, so county
+    field-separator artifacts normalize equal to their spaced forms."""
+    assert rules.normalize("LAND/BK") == rules.normalize("LAND BK")
+    assert rules.normalize("SO SUB LAND/BK/DEV") == "SO SUB LAND BK DEV"
+    assert rules.near_miss("SO SUB LAND/BK/DEV")  # the net now sees it
+    # prior behaviors unchanged: .,' still strip, & still maps to AND
+    assert rules.normalize("C.C. LAND BANK AUTH.") == "CC LAND BANK AUTH"
+    assert rules.normalize("O'BRIEN, J.") == "OBRIEN J"
+    assert rules.normalize("STANDARD B&T T") == "STANDARD B AND T T"
+    # control strings must NOT change class
+    assert not rules.near_miss("US BANK TR")
+    assert not rules.client_match("A/C SERVICES LLC")
+    assert not rules.near_miss("A/C SERVICES LLC")
+
+
 def test_client_match_and_near_miss():
     assert rules.client_match("SOUTH SUBURBAN LAND BANK & DEV AUTH")
     assert rules.client_match("SSLBDA")

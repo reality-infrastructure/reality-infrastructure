@@ -37,7 +37,10 @@ from audit import engine, report, rules
 from audit.attestation import events as att
 
 FROZEN_SHA256 = {
-    "rules.py": "4b9f561d495206d8403289ad0cee38b052bcafa9fac2c3d07f1e0c9e41023748",
+    # rules.py re-pinned by PREREGISTRATION.md §9 amendment A2 (M-RI-16,
+    # normalization '/' -> space); prior pin 4b9f561d…3748 remains in history
+    # with the M-RI-15 baseline.
+    "rules.py": "33bf6bfb0e90e6431f58aa9e4bcbd8bdfe9c3eab2fc39a6f0118e484fcec86a7",
     "engine.py": "fb68f4e74f6b6722874c73fc50118409a0f9715f85fbf238734d0ccb0aa11f93",
     "report.py": "99c5dd931974113b520305864e41bd092c1b789f1bb6360cfb19b0b9bf0428ff",
     "run_audit.py": "14d3133eea3b4a7fe200e9717465e51ecf0ffb343a5284ee5328fe26127f00ae",
@@ -102,12 +105,20 @@ def classify_all_attested(snaps: dict, events: list[dict]) -> list[dict]:
 # delta vs the archived baseline
 # --------------------------------------------------------------------------
 
-def causing_events(base_v: dict, events: list[dict]) -> list[str]:
-    """Attestation events attributable to this parcel's transition."""
+def causing_events(base_v: dict, events: list[dict],
+                   parties: list[str] | None = None) -> list[str]:
+    """Attestation events attributable to this parcel's transition.
+
+    An event is attributable if its subject was flagged as a baseline near-miss
+    OR (with `parties` given) appears verbatim among the parcel's party strings
+    — the latter covers subjects the pre-A2 net could not see (finding F1).
+    """
     out = []
     nm = set(base_v.get("near_miss_strings") or [])
+    pset = set(parties or [])
     for e in events:
-        if e["kind"] == "name-variant" and e["subject"] in nm:
+        if e["kind"] == "name-variant" and (e["subject"] in nm
+                                            or e["subject"] in pset):
             out.append(f"name-variant:{e['subject']}={e['decision']}")
         elif (e["kind"] == "status-semantics"
               and e["subject"] == base_v["status"]
@@ -116,21 +127,32 @@ def causing_events(base_v: dict, events: list[dict]) -> list[str]:
     return out
 
 
+def parties_by_pin14(snaps: dict) -> dict[str, list[str]]:
+    """Every party string per pin14 — the trace surface for causing_events."""
+    deeds_idx = engine._index_by_pin14(snaps["ccao_parcel_sales"]["records"])
+    assr_idx = engine._index_by_pin14(snaps["cc_assessor"]["records"])
+    return {p14: engine._party_strings(deeds_idx.get(p14, []),
+                                       assr_idx.get(p14, []))
+            for p14 in set(deeds_idx) | set(assr_idx)}
+
+
 def compute_delta(baseline: list[dict], attested: list[dict],
-                  events: list[dict]) -> list[dict]:
+                  events: list[dict],
+                  parties: dict[str, list[str]] | None = None) -> list[dict]:
     base_by_pin = {v["pin"]: v for v in baseline}
     delta = []
     for v in attested:
         b = base_by_pin[v["pin"]]
         if (b["verdict"], b["rule"]) == (v["verdict"], v["rule"]):
             continue
+        pp = (parties or {}).get(v.get("pin14") or "", [])
         delta.append({
             "pin": v["pin"], "status": v["status"],
             "claim_class": v["claim_class"],
             "from_verdict": b["verdict"], "from_rule": b["rule"],
             "to_verdict": v["verdict"], "to_rule": v["rule"],
             "verdict_changed": b["verdict"] != v["verdict"],
-            "causing_events": causing_events(b, events),
+            "causing_events": causing_events(b, events, pp),
         })
     return delta
 
@@ -270,7 +292,7 @@ def delta_markdown(delta: list[dict], baseline: list[dict], attested: list[dict]
 def build_outputs(snaps: dict, baseline: list[dict],
                   events: list[dict], meta: dict) -> dict[str, str]:
     verdicts = classify_all_attested(snaps, events)
-    delta = compute_delta(baseline, verdicts, events)
+    delta = compute_delta(baseline, verdicts, events, parties_by_pin14(snaps))
     return {
         "discrepancy_table.csv": report.to_csv(verdicts),
         "discrepancy_table.json": report.to_json(verdicts, snaps),
@@ -317,7 +339,8 @@ def main(argv: list[str] | None = None) -> int:
         base = {v["pin"]: v for v in baseline}[hit[0]["pin"]]
         print(f"\nbaseline verdict: {base['verdict']} ({base['rule']})"
               f" -> attested verdict: {hit[0]['verdict']} ({hit[0]['rule']})")
-        for c in causing_events(base, events):
+        pp = parties_by_pin14(snaps).get(hit[0]["pin14"] or "", [])
+        for c in causing_events(base, events, pp):
             print(f"  caused by {c}")
         return 0
 
@@ -325,7 +348,7 @@ def main(argv: list[str] | None = None) -> int:
     outputs2 = build_outputs(snaps, baseline, events, meta)
 
     verdicts = classify_all_attested(snaps, events)
-    delta = compute_delta(baseline, verdicts, events)
+    delta = compute_delta(baseline, verdicts, events, parties_by_pin14(snaps))
 
     checks = []
     ok_vocab = all(

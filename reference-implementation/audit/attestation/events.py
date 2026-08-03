@@ -7,9 +7,9 @@ attested_by, date). This module parses and validates them; it decides nothing.
 Strict exact-format parser, stdlib only (no yaml dependency): the file is the
 schema written by the M-RI-14 intake — two sections, quoted scalars, one
 decision/basis/date triple per item. Any blank decision or basis, unknown
-decision word, malformed date, or deviation from the pinned 12-item inventory
-refuses the whole file. UNKNOWN ("uncertain") is a valid ruling; a missing one
-is not.
+decision word, malformed date, or deviation from the pinned 13-item inventory
+(8 name variants, 5 statuses) refuses the whole file. UNKNOWN ("uncertain") is
+a valid ruling; a missing one is not.
 
 The classifier and rules stay frozen: this module only *derives* the sets the
 re-run composes at the rules boundary (attested alias strings, attested
@@ -31,7 +31,8 @@ VARIANT_DECISIONS = ("client-alias", "not-client", "uncertain")
 STATUS_DECISIONS = (rules.DISPOSED, rules.HELD, rules.NO_CLAIM, "uncertain")
 
 # Pinned inventory: the seven unattested name variants surfaced by the M-RI-14
-# near-miss discipline, verbatim from county records (attestation-request.md).
+# near-miss discipline (attestation-request.md), plus the F1 escaped variant
+# attested in M-RI-16 (§9 amendment A2; gate evidence f1-gate-evidence.md).
 EXPECTED_VARIANTS = (
     "C.C. LAND BANK AUTH. DO NOT USE(NO PINS)",
     "COUNTY OF COOK D/B/A COOK COUNTY LAND BANK AUTHORITY",
@@ -40,6 +41,7 @@ EXPECTED_VARIANTS = (
     "SOUTH SUB LAND BK",
     "SOUTH SUBN LAND BK & DEV AUTH",
     "SUBURBAN LAND BANK &amp;",
+    "SO SUB LAND/BK/DEV",
 )
 
 # The five unclear statuses are exactly the CLAIM_UNCLEAR keys of the frozen map.
