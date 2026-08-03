@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "reality-infrastructure/forge/schemas/ep.schema.json",
+  "title": "RightsEvent — domain-neutral EP-typed rights event (canonical dict form)",
+  "$comment": "Extracted from reference-implementation/rights_events/schema.py:129-197 (RightsEvent, validated in __post_init__) and its to_dict() form (schema.py:201-219). Domain-agnostic by contract: 'Field names must make sense for a parcel as well as a song' (contracts/completed/C1-event-layer.md:103-105). Proven on two domains with this schema byte-identical between them (C2-second-domain.md:276-278). This JSON Schema describes the dict that to_dict() produces / from_dict() accepts strictly (schema.py:222-272: exact key set, no additions).",
+  "type": "object",
+  "properties": {
+    "kind": {
+      "const": "rights_event",
+      "$comment": "schema.py:63 (_EVENT_KIND); from_dict rejects any other kind (schema.py:240-243)."
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Examples from the proven domains: split-sheet 'evt:song-x:reg-a' style ids emitted by adapters/pro_conflict.py; parcels deed-document ids emitted by adapters/cook_parcels.py:218 (parse_deeds)."
+    },
+    "event_type": {
+      "enum": ["grant", "revocation", "opt_out", "term_change", "dispute", "chain_assertion"],
+      "$comment": "Closed set of six (schema.py:45-52; declared closed at C1-event-layer.md:27-28). Second domain needed no seventh type: deed=grant, roll/tax-sale=chain_assertion, redemption=revocation, conflicts=dispute (C2-second-domain.md:276-278)."
+    },
+    "subject_ids": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "minItems": 1,
+      "$comment": "A subject is any identifiable thing a claim can be about (schema.py:3-5). Proven schemes: 'work:song-x' (song_x.py:47), 'parcel:29024080530000' (parcels.py:74,82). Multi-subject events (splits/merges) are schema-supported (C1-event-layer.md:276-279)."
+    },
+    "claimant": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "Proven conventions: a real party, a registry routing claimant ('cook-county-tax-sale-registry', cook_parcels.py:80 — routing, not identity; recorded parties stay verbatim in the payload, C2-second-domain.md:78-80), or a named mechanical detector ('registration-conflict-check', pro_conflict.py:35)."
+    },
+    "claim": {
+      "$ref": "#/$defs/claimValue",
+      "type": "object",
+      "$comment": "Domain payload. No floats anywhere — Decimal or int (schema.py:71-102, determinism rule C1-event-layer.md:101-102). In canonical JSON bytes a Decimal is the envelope {\"__t\": \"decimal\", \"__v\": \"<fixed-point>\"} (ri_core/serialization.py:130-131). Proven payloads: share_claims tables (pro_conflict.py:38-50); verbatim recorded parties and terms (cook_parcels.py:23-32)."
+    },
+    "ep_type": {
+      "enum": ["self_asserted", "third_party_attested", "cryptographically_signed", "statutory_registry"],
+      "$comment": "Closed set of four epistemic-provenance channel types (schema.py:55-60). Mapping onto the engine's uncertaintyType vocabulary is policy, not schema (schema.py:14-17; policy.py:65). Proven: third_party_attested for PRO registrations (pro_conflict.py:1), statutory_registry for county records (cook_parcels.py:1)."
+    },
+    "source_url": {
+      "type": "string",
+      "minLength": 1,
+      "$comment": "No-fabrication rule: required non-empty (schema.py:175). Real record → the resolving public URL; synthetic fixture → the format documentation it is modeled on, with the SYNTHETIC label making the distinction inspectable (C1-event-layer.md:98-100); attested retrieval → the system's public page (C2-second-domain.md:66-74)."
+    },
+    "observed_date": {
+      "type": "string",
+      "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+      "$comment": "Canonical ISO YYYY-MM-DD, strictly validated (schema.py:105-118, :176). Drives ltime via policy.ltime_for (policy.py:103) — event time comes from the record, never from a clock (parcels.py:14-15)."
+    },
+    "prior_event_refs": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "$comment": "Cross-event relations (may be empty; never self-referencing, schema.py:194-197). Proven use: revocation names the revoked registration (pro_conflict.py:19-20); redemption names its tax sale through the identical fold (finding F1, C2-second-domain.md:22-24)."
+    }
+  },
+  "required": ["kind", "event_id", "event_type", "subject_ids", "claimant", "claim", "ep_type", "source_url", "observed_date", "prior_event_refs"],
+  "additionalProperties": false,
+  "$defs": {
+    "claimValue": {
+      "$comment": "Mirrors _validate_claim_value (schema.py:71-102): None, bool, int, str, Decimal (envelope form), list, dict with string keys. Non-integer JSON numbers are unrepresentable here by design — floats are rejected at the schema boundary.",
+      "anyOf": [
+        { "type": "null" },
+        { "type": "boolean" },
+        { "type": "integer" },
+        { "type": "string" },
+        {
+          "type": "object",
+          "properties": {
+            "__t": { "const": "decimal" },
+            "__v": { "type": "string" }
+          },
+          "required": ["__t", "__v"],
+          "additionalProperties": false
+        },
+        { "type": "array", "items": { "$ref": "#/$defs/claimValue" } },
+        {
+          "type": "object",
+          "additionalProperties": { "$ref": "#/$defs/claimValue" }
+        }
+      ]
+    }
+  }
+}
