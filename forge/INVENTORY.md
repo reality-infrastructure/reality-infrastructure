@@ -179,6 +179,51 @@ against the parcel domain (ri/rights_events/parcels.py + adapters/cook_parcels.p
 | as_of choice | declared checkpoint dates | max record ltime | song_x.py:51-52; parcels.py:72 |
 | In-process check content | A1-A4 | B1-B3 | song_x.py:110-138; parcels.py:102-132 |
 
+---
+
+## 9. Amendments received mid-contract (2026-08-03, operator message before Method 4)
+
+**A1 — Test count / Gate 2 baseline.** Contract context ("541+ passing tests", "v1.0.0
+engine") declared stale; current state v1.4.0, suite at 675. Gate 2 amended: report the
+verbatim test count from the run output; the gate FAILS on any reduction from 675.
+*Applied, with one measured finding:* the 675-test suite is **invocation-path-case-sensitive
+on Windows**. At the same HEAD (72ab7d2, clean tree), `pytest -q` from
+`C:\Users\newce\Reality-Infrastructure\reference-implementation` yields **675 passed**;
+from `c:\users\newce\reality-infrastructure\...` (lowercase casing of the identical
+directory) yields **674 passed, 1 failed** —
+`test_audit_remediation.py::test_shipped_artifacts_match_live_machine`. Cause-traced: the
+shipped `audit/out/attested-remediated-2026-08-02/delta_table.json` embeds absolute
+machine paths in `meta.inputs` (`"baseline": "C:/Users/newce/Reality-Infrastructure/..."`),
+and the test (tests/test_audit_remediation.py:30-37, :57-62) rebuilds those strings from
+`Path(__file__)`, whose casing follows the invocation path. Gate 2 is therefore run from
+the capitalized path (the casing the shipped artifacts recorded). This is a pre-existing
+property of M-RI-16's shipped artifacts, not of forge; recorded here as a finding, not
+fixed (fixing it would modify audit/ outside this contract's scope).
+
+**A2 — Path convention.** `forge/` landed at **repo root** —
+`C:\Users\newce\reality-infrastructure\forge\` — which is what CONTRACT-RI-FORGE.md
+line 20 mandates ("Create a `forge/` directory at repo root"); not a wrong level, no stop.
+Contracts, audit, and tests live under `reference-implementation/`; per this amendment
+scaffold.py generates into that EXISTING structure and creates no parallel root-level
+directories: `contracts/<domain>/` → `reference-implementation/contracts/<domain>/`,
+`adapters/<domain>.py` → `reference-implementation/rights_events/adapters/<domain>.py`,
+`tests/test_<domain>_gates.py` → `reference-implementation/tests/test_<domain>_gates.py`.
+
+**A3 — analysis-2026-08-03 exclusion.** Applied — excluded by name from Gate 2's
+tree-cleanliness assessment; not deleted; not committed by this contract. *One factual
+discrepancy to surface:* the amendment describes
+`reference-implementation/audit/out/analysis-2026-08-03/` as untracked, but it is
+**already tracked** — committed at 72ab7d2 ("analysis-2026-08-03: (b) trio ...", 8 files
+under that directory). Nothing for this contract to do either way; recorded so the
+exclusion ruling rests on the actual state.
+
+**A4 — Kill-criterion framing.** Acknowledged: firing the kill criterion would be a PASS;
+the "zero architectural changes" claim is published in METHODOLOGY.md and a contradiction
+would be a needed finding. The §8 verdict below stands as originally written because it
+rests on shipped evidence (C2's recorded empty `git diff v1.1.0` wall proof,
+C2-second-domain.md:163-173), not on any abstraction constructed by this contract:
+adapters/new_domain.py documents the as-shipped interface and invents nothing.
+
 ### Kill-criterion verdict
 
 **The clean common surface EXISTS; the kill criterion does not trip.** The two domains share
