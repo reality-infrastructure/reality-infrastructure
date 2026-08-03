@@ -1,136 +1,76 @@
-# CONTRACT — ATTEST, RE-RUN, SELECT (day-class, M-RI-15)
-### The system verifies its own correction: operator-attested alias rulings enter as first-class attestation events, the 740-parcel audit re-runs through the SAME frozen machinery, deltas are reported against the pre-registered baseline, and the three cleanest contradiction exhibits are selected by declared criteria — citation-complete, replayable, client-ready.
+# CONTRACT M-RI-16 — F1 REMEDIATION: ATTEST, AMEND, RE-BASELINE (day-class)
+### The escaped variant (SO SUB LAND/BK/DEV, 154 parcels) enters through the attestation door; the normalization defect is fixed as a VERSIONED rules change — §9-amended, re-pinned, new baseline — never a silent edit; the full audit re-runs; the contested set stabilizes. Output: the externally-safe headline, the post-remediation CONTRADICTED set re-scored for exhibits, and the stable input M-RI-17's belief-engine pass requires.
 
 OBJECTIVE
-Ingest the operator's attestation rulings on the seven unattested name variants (and the five
-unclear CRM status semantics) as recorded, provenance-carrying inputs; re-run the complete
-740-parcel CRM Reality Audit through the unchanged fetch manifest, classifier, and rules;
-report every verdict delta against the archived M-RI-14 baseline; and select the three cleanest
-contradiction exhibits under declared, pre-stated criteria — each exhibit a self-contained,
-citation-complete unit suitable for the A4 sample and the Aug 22 refresh. The audit's own
-discipline applies to its correction: attestations are logged events, the re-run is
-deterministic, and the delta table is itself an auditable artifact.
+Remediate finding F1 end-to-end: record the operator's attestation of the escaped assessor
+string; amend the normalization rule to strip `/` as a versioned, pinned, §9-documented change;
+re-run the full 740-parcel audit; produce the delta against the M-RI-15 attested baseline with
+every transition traced to exactly one of the two causes (the new attestation, the
+normalization amendment); re-score the exhibit criteria over the post-remediation CONTRADICTED
+set; and declare the post-remediation headline externally safe (or state precisely why not).
+This run's contested set becomes M-RI-17's frozen input.
 
 CONTEXT
-M-RI-14 (CF-025) shipped the audit: 740 parcels, 405 checkable claims, verdicts 25 CONTRADICTED
-/ 37 AMBIGUOUS / 162 UNSUPPORTED, every verdict citing deed, assessor row, and retrieval date.
-The alias discipline correctly refused to merge seven name variants without operator
-attestation — several are almost certainly the client under county truncation; CCLBA was
-correctly not matched. ~26 AMBIGUOUS parcels are expected to resolve once attested. Five CRM
-status strings (e.g., "Deed Recorded") have undetermined semantics only the operator can rule
-on. The A4 message and the Aug 22 refresh will carry numbers from THIS re-run — they must be
-final, attested, and replayable before anything external sees them.
+M-RI-15 closed with F1: normalization strips `.,'` but not `/`, so SO SUB LAND/BK/DEV (154
+parcels) never matched the near-miss net and was silently counted as client-absent — the
+premise of D3 and H4 in 16 of 25 CONTRADICTED and 92 of 162 UNSUPPORTED verdicts. The
+exhaustive scan (test-pinned) confirms it is the only escaping string. F1's stated bound: no
+CONTRADICTED/UNSUPPORTED headline goes external until this remediation lands. The operator has
+supplied the attestation ruling (below). Adjacent issue carried in: docs 2401822036/37 —
+blank-party $100 quit claims that are the sole evidence behind two CONTRADICTED verdicts —
+carry a Recorder-confirmation-required banner until a human reads the documents.
+
+OPERATOR ATTESTATION (recorded verbatim into attestations.yaml at P2; CONFIRMED at gate
+2026-08-02 after review of audit/attestation/f1-gate-evidence.md):
+- subject: "SO SUB LAND/BK/DEV" (gate scan confirmed: the only verbatim variant in the
+  evidence base — exact-string discipline, one string, one attestation)
+- decision: client-alias
+- basis: "Same abbreviation family as my attested A5/A6 rulings (SO SUB = South Suburban,
+  BK = Bank, DEV = Development); the slash is a county field-separator artifact, not a
+  different entity."
+- attested_by: operator · date: 2026-08-02
+- REVISIT CLAUSE (recorded as comment): if the gate's evidence table shows any assessor
+  context where the string's usage contradicts the family reading, surface it before the
+  run — the operator revisits rather than the run proceeding on a doubted attestation.
+  (Gate outcome: nothing triggered; evidence affirmatively strengthens the family reading.)
 
 SCOPE
 IN:
-1. ATTESTATION INTAKE (blocking, at the plan gate): present the operator with two decision
-   tables and wait —
-   a. The seven name variants: each row shows the variant verbatim, the candidate canonical
-      entity, the county records it appears in (doc numbers), and the match rationale. The
-      operator rules each: SAME AS <entity> / DISTINCT / UNKNOWN. UNKNOWN keeps the parcel
-      AMBIGUOUS — attestation is never assumed.
-   b. The five unclear CRM statuses: each with the parcels it affects and the two candidate
-      readings. The operator rules the semantics or marks UNKNOWN.
-2. ATTESTATION AS EVENTS: each ruling becomes a recorded attestation artifact carrying: the
-   ruling verbatim, attested_by (operator), attestation_date, and the basis field the operator
-   supplies (e.g., "client's registered entity name; county truncates at N chars"). Rulings
-   join the audit inputs the same way every other input entered — provenanced, immutable once
-   logged, visible in the re-run's manifest. Where the existing audit architecture logs inputs
-   (the sha256 manifest / pre-registration pattern), attestations log identically; if the
-   audit's current structure has no input-event slot for attestations, propose the minimal
-   additive slot at the plan gate — the classifier and rules stay frozen.
-3. RE-RUN: the full 740-parcel audit, re-executed with: the SAME frozen fetched data (the
-   sha256-manifested county snapshots — no re-fetching; the correction is attestation, not new
-   data), the SAME classifier and rules byte-for-byte, plus the attestation events as the only
-   new input. Determinism: running it twice produces byte-identical outputs.
-4. DELTA REPORT (audit/out/, versioned beside the baseline, never overwriting it):
-   - Verdict transition table: every parcel whose verdict changed, from → to, with the
-     attestation event(s) that caused it. Expected shape: AMBIGUOUS → SUPPORTED or
-     → CONTRADICTED or → UNSUPPORTED; any transition NOT caused by an attestation is a defect —
-     investigate and report before proceeding.
-   - Headline before/after: 25/37/162 → the new counts, with denominators.
-   - Parcels still AMBIGUOUS and why (UNKNOWN rulings, or ambiguity attestation can't cure).
-5. EXHIBIT SELECTION — the three cleanest CONTRADICTED parcels, by these declared criteria
-   applied in order (state each exhibit's score against them):
-   a. Post-attestation stability: the verdict is CONTRADICTED after attestation and no pending
-      UNKNOWN touches it.
-   b. Citation completeness: every element of the contradiction chain has a resolving citation —
-      the CRM status (verbatim), the specific recorded document that contradicts it (doc
-      number, deed type, date, parties verbatim), the assessor row, retrieval dates throughout.
-   c. Independence from interpretation: the contradiction is legible from the records alone —
-      no reliance on the heuristic buyer classification, no alias inference beyond attested
-      rulings, no status-semantics reading the operator marked UNKNOWN.
-   d. Explanation economy: statable in three sentences or fewer to a non-technical reader.
-   e. Tie-breaker: prefer diversity of contradiction type (e.g., one status-vs-conveyance, one
-      never-divested chain, one wrong-current-owner) over three of the same shape.
-6. EXHIBIT ARTIFACTS: for each of the three — a one-page exhibit (md + pdf, matching the
-   existing client-report register: banner-marked for the client version) containing the
-   three-sentence finding, the full citation chain, the records-disagree framing (R1 discipline:
-   characterizes records, never people), and the replay line: the command that reconstructs
-   this verdict from the manifest + attestations. Verify each exhibit's replay line actually
-   runs clean before shipping it.
-7. Tests: attestation-event round-trip; re-run determinism (twice, byte-identical); a test
-   asserting every verdict transition traces to an attestation event; exhibit citation-link
-   integrity. Suite green throughout (645 at last count + new).
-OUT:
-- No re-fetching of county data (the snapshot is the frozen evidence base; new data is a
-  different contract).
-- No classifier or rule changes — if an attestation ruling exposes a rule defect, STOP and
-  report; fixing rules mid-correction contaminates the delta.
-- No changes to ri_core/ or the frozen rights_events modules (standing wall).
-- No client identification in any prospect-facing artifact; the banner discipline holds.
-- No A4 sending, no pricing, no outreach — this contract produces the numbers and exhibits;
-  the operator moves the money.
-
-PLAN GATE
-1. The two attestation decision tables (Scope 1), fully populated from the audit artifacts —
-   then STOP and wait for the operator's rulings. Nothing runs until rulings are recorded.
-2. With rulings in hand: state the attestation-event representation (or the minimal additive
-   slot if needed), the re-run command, where the delta report and exhibits will land, and the
-   expected verdict-transition surface (which parcels the rulings should touch). Wait for
-   approval, then execute.
+1. Gate evidence table (archived: audit/attestation/f1-gate-evidence.md) — presented,
+   operator confirmed.
+2. Attestation recording via the existing intake — sha256 to MANIFEST, §9 amendment entry.
+3. The versioned normalization amendment: `/` → space; sibling separators tested with
+   evidence (14 characters, zero status changes — observation only, no amendment);
+   rules.py edited with pin test updated in the same commit, §9 entry, regression tests.
+4. Full re-run: frozen snapshots, attestation-aware runner, amended normalization;
+   determinism twice, byte-identical.
+5. Delta vs. the M-RI-15 attested baseline: every transition cause-traced
+   (new-attestation / normalization-amendment / both) via counterfactual runs; untraced
+   transition = stop. Full transition table; before/after headline with denominators;
+   the 16-CONTRADICTED and 92-UNSUPPORTED F1 cohorts specifically accounted.
+6. Recorder-confirmation banners on the two verdicts resting solely on docs 2401822036/37;
+   excluded from exhibits by construction.
+7. Exhibit re-score: criteria (a)–(e) over the post-remediation CONTRADICTED set; ship
+   every exhibit passing (a)–(c) up to three; honest number; Exhibit 1 re-verified.
+8. External-safety declaration: what is now externally safe; what remains bounded.
+9. Tests: attestation round-trip for the new string; normalization regression set; new pin
+   hashes; transition-traceability; determinism; known-answer. Suite green (667 + new).
+OUT: no re-fetching; no classifier logic beyond the normalization amendment; no
+belief-engine computation (M-RI-17); ri_core/ and rights_events/ walls unchanged;
+no external sending.
 
 CONSTRAINTS
-1. Attestation is the ONLY new input. The evidence base, classifier, and rules are frozen;
-   the delta is therefore attributable entirely to the operator's rulings — that attribution
-   is the point.
-2. UNKNOWN is a valid ruling and costs nothing; a guessed attestation poisons the audit. Never
-   pressure a ruling; never default one.
-3. Baseline artifacts are never overwritten — the delta report sits beside M-RI-14's outputs,
-   both replayable.
-4. Verbatim discipline everywhere: names, statuses, doc numbers exactly as recorded.
-5. R1 framing in all exhibits: records disagree; nobody is characterized.
-6. Every number that will appear in A4 or the refresh comes from the post-attestation run and
-   is stated with its denominator.
+1. The rules change is versioned, never silent: §9 entry + new pin + naming commit, one
+   commit. M-RI-15 baseline and pins remain in history untouched.
+2. Exact-string attestation discipline.
+3. Both prior baselines preserved; new run lands at audit/out/attested-remediated-2026-08-02/.
+4. Denominators everywhere; F1 cohorts explicitly accounted; expected-vs-actual reported
+   as a finding either way.
+5. R1 framing; banners honored in every table.
 
-ACCEPTANCE
-- All rulings recorded as attestation events with operator, date, basis; round-trip test green.
-- Re-run deterministic (byte-identical twice); every verdict transition traces to an
-  attestation event (test-asserted); zero transitions from any other cause.
-- Delta report complete: transition table, before/after headline with denominators, residual
-  AMBIGUOUS accounted for.
-- Three exhibits selected with per-criterion scoring shown; each replay line executes clean;
-  each is three sentences or fewer at the finding level with full citations beneath.
-- Suite green; wall diff empty over frozen paths.
-
-DEPLOY
-Commit and push per phase (M-RI-15-P<n>:). Baseline preserved. Exhibits to audit/out/ (client
-versions banner-marked) with copies of the pdfs to the operator's Downloads per the established
-pattern. No external sending of anything.
-
-DONE
-Report: the rulings as recorded (table); before/after headline; the transition table summary;
-residual AMBIGUOUS count and reasons; the three exhibits with their criterion scores and
-replay-verification results; file paths; any rule defects surfaced (findings, not fixes);
-suite and wall state.
-
-STOP CONDITIONS
-- Any verdict transition not traceable to an attestation event: stop, investigate, report
-  before shipping the delta — an unexplained transition means the re-run is not the same
-  machine, and that finding outranks the deliverable.
-- Any attestation ruling that exposes a classifier/rule defect: stop and report; no mid-run
-  fixes.
-- If fewer than three CONTRADICTED parcels survive criteria (a)–(c): ship the honest number
-  with the criterion each failed — two clean exhibits beat three decorated ones.
-- Operator rulings incomplete at gate 1: wait. No partial attestation runs.
-- Red tests at session end: record in the audit PROGRESS, end cleanly.
+ACCEPTANCE / DEPLOY / DONE / STOP CONDITIONS: as supplied by the operator (session
+transcript, 2026-08-02) — commit/push per phase M-RI-16-P<n>; DONE report includes the
+recorded attestation, amendment summary with old/new pins, headline, transition-cause
+breakdown, F1-cohort disposition, exhibits with scores, external-safety declaration
+verbatim, expected-vs-actual finding, paths, suite/wall state, and the frozen
+contested-set manifest (parcel list + run sha) as M-RI-17's input.
