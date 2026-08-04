@@ -1,76 +1,116 @@
-# CONTRACT M-RI-16 — F1 REMEDIATION: ATTEST, AMEND, RE-BASELINE (day-class)
-### The escaped variant (SO SUB LAND/BK/DEV, 154 parcels) enters through the attestation door; the normalization defect is fixed as a VERSIONED rules change — §9-amended, re-pinned, new baseline — never a silent edit; the full audit re-runs; the contested set stabilizes. Output: the externally-safe headline, the post-remediation CONTRADICTED set re-scored for exhibits, and the stable input M-RI-17's belief-engine pass requires.
+# CONTRACT M-RI-17 — Belief-engine pass over the post-remediation contested set
 
 OBJECTIVE
-Remediate finding F1 end-to-end: record the operator's attestation of the escaped assessor
-string; amend the normalization rule to strip `/` as a versioned, pinned, §9-documented change;
-re-run the full 740-parcel audit; produce the delta against the M-RI-15 attested baseline with
-every transition traced to exactly one of the two causes (the new attestation, the
-normalization amendment); re-score the exhibit criteria over the post-remediation CONTRADICTED
-set; and declare the post-remediation headline externally safe (or state precisely why not).
-This run's contested set becomes M-RI-17's frozen input.
+Ship the first DS belief-engine computation over real client-inventory parcels, such
+that every genuinely-contested parcel in the M-RI-16 post-remediation CONTRADICTED set
+carries a conflict mass m(∅), an ignorance mass m(Ω), and mass on the surviving
+ownership hypotheses — each replayable byte-identically from the log. Closes the gap
+named in M-RI-14 and carried through M-RI-15 and M-RI-16: the audit classifier is
+purely rule-based; DS has never run on the 740, so the property that distinguishes
+this engine from any deterministic reconciler has never been exercised on client data.
 
 CONTEXT
-M-RI-15 closed with F1: normalization strips `.,'` but not `/`, so SO SUB LAND/BK/DEV (154
-parcels) never matched the near-miss net and was silently counted as client-absent — the
-premise of D3 and H4 in 16 of 25 CONTRADICTED and 92 of 162 UNSUPPORTED verdicts. The
-exhaustive scan (test-pinned) confirms it is the only escaping string. F1's stated bound: no
-CONTRADICTED/UNSUPPORTED headline goes external until this remediation lands. The operator has
-supplied the attestation ruling (below). Adjacent issue carried in: docs 2401822036/37 —
-blank-party $100 quit claims that are the sole evidence behind two CONTRADICTED verdicts —
-carry a Recorder-confirmation-required banner until a human reads the documents.
-
-OPERATOR ATTESTATION (recorded verbatim into attestations.yaml at P2; CONFIRMED at gate
-2026-08-02 after review of audit/attestation/f1-gate-evidence.md):
-- subject: "SO SUB LAND/BK/DEV" (gate scan confirmed: the only verbatim variant in the
-  evidence base — exact-string discipline, one string, one attestation)
-- decision: client-alias
-- basis: "Same abbreviation family as my attested A5/A6 rulings (SO SUB = South Suburban,
-  BK = Bank, DEV = Development); the slash is a county field-separator artifact, not a
-  different entity."
-- attested_by: operator · date: 2026-08-02
-- REVISIT CLAUSE (recorded as comment): if the gate's evidence table shows any assessor
-  context where the string's usage contradicts the family reading, surface it before the
-  run — the operator revisits rather than the run proceeding on a doubted attestation.
-  (Gate outcome: nothing triggered; evidence affirmatively strengthens the family reading.)
+- contracts/completed/M-RI-16-f1-remediation.md — the post-remediation contested set is
+  this contract's frozen input, as M-RI-16 states in its own OBJECTIVE.
+- contracts/completed/M-RI-13-ep-typing.md — the EP channel typing this pass consumes.
+- The C2 adapter and fold, wall-frozen, proven on 9 real parcels including the Dolton
+  parcel at m(∅)=0.91296. Read the adapter interface only; do not modify it.
+- audit/PREREGISTRATION.md and its §9 amendments — the frozen rules and the versioned
+  normalization change. Read-only in this contract.
+- The meaningful input set is small and confirmed so: approximately 12 genuinely-
+  contested parcels. Ω-vs-∅ separation on this set is the deliverable, not volume.
+  [OPERATOR CORRECTION AT GATE, 2026-08-04: the "~12" figure was wrong; the frozen
+  input is 44 parcels. Recorded in audit/prereg/M-RI-17-PREREGISTRATION.md §1.]
 
 SCOPE
 IN:
-1. Gate evidence table (archived: audit/attestation/f1-gate-evidence.md) — presented,
-   operator confirmed.
-2. Attestation recording via the existing intake — sha256 to MANIFEST, §9 amendment entry.
-3. The versioned normalization amendment: `/` → space; sibling separators tested with
-   evidence (14 characters, zero status changes — observation only, no amendment);
-   rules.py edited with pin test updated in the same commit, §9 entry, regression tests.
-4. Full re-run: frozen snapshots, attestation-aware runner, amended normalization;
-   determinism twice, byte-identical.
-5. Delta vs. the M-RI-15 attested baseline: every transition cause-traced
-   (new-attestation / normalization-amendment / both) via counterfactual runs; untraced
-   transition = stop. Full transition table; before/after headline with denominators;
-   the 16-CONTRADICTED and 92-UNSUPPORTED F1 cohorts specifically accounted.
-6. Recorder-confirmation banners on the two verdicts resting solely on docs 2401822036/37;
-   excluded from exhibits by construction.
-7. Exhibit re-score: criteria (a)–(e) over the post-remediation CONTRADICTED set; ship
-   every exhibit passing (a)–(c) up to three; honest number; Exhibit 1 re-verified.
-8. External-safety declaration: what is now externally safe; what remains bounded.
-9. Tests: attestation round-trip for the new string; normalization regression set; new pin
-   hashes; transition-traceability; determinism; known-answer. Suite green (667 + new).
-OUT: no re-fetching; no classifier logic beyond the normalization amendment; no
-belief-engine computation (M-RI-17); ri_core/ and rights_events/ walls unchanged;
-no external sending.
+- audit/belief/ (new — adapter invocation, fold, per-parcel belief objects)
+- audit/out/belief-determination.md (new)
+- tests/test_m_ri_17.py (new)
+- audit/prereg/M-RI-17-PREREGISTRATION.md (new, FROZEN before any belief code)
 
-CONSTRAINTS
-1. The rules change is versioned, never silent: §9 entry + new pin + naming commit, one
-   commit. M-RI-15 baseline and pins remain in history untouched.
-2. Exact-string attestation discipline.
-3. Both prior baselines preserved; new run lands at audit/out/attested-remediated-2026-08-02/.
-4. Denominators everywhere; F1 cohorts explicitly accounted; expected-vs-actual reported
-   as a finding either way.
-5. R1 framing; banners honored in every table.
+OUT (explicitly forbidden this contract):
+- ri_core/ — the engine is proven and domain-general; it is invoked, never modified.
+  git diff proves it at DONE.
+- audit/engine.py, audit/rules.py, audit/PREREGISTRATION.md — the classifier and its
+  frozen rules stay untouched. This contract consumes M-RI-16's output; it does not
+  re-run, re-tune, or extend the classifier.
+- The C2 adapter and fold — wall-frozen. Invoked as-is.
+- Any re-fetch of county data. The frozen snapshot and its MANIFEST are the universe.
+- Any parcel outside the post-remediation contested set.
+- Any client-facing artifact, message, or exhibit. This contract produces the internal
+  determination only.
+- No new dependencies. No network in tests.
 
-ACCEPTANCE / DEPLOY / DONE / STOP CONDITIONS: as supplied by the operator (session
-transcript, 2026-08-02) — commit/push per phase M-RI-16-P<n>; DONE report includes the
-recorded attestation, amendment summary with old/new pins, headline, transition-cause
-breakdown, F1-cohort disposition, exhibits with scores, external-safety declaration
-verbatim, expected-vs-actual finding, paths, suite/wall state, and the frozen
-contested-set manifest (parcel list + run sha) as M-RI-17's input.
+PLAN GATE
+Before writing any code, report: (1) the exact count and identity of parcels in the
+post-remediation contested set, read from M-RI-16's output, with the file and line it
+comes from; (2) for each, the competing ownership claims and their channel types, as
+they exist on disk — this is the frame of discernment and it must be enumerated before
+any mass is assigned; (3) the load-bearing design choice: the mass assignment per
+channel type, stated as fixed numbers with reasoning, and an explicit statement that
+these assignments are discretionary and the replay guarantee does not cover them;
+(4) which parcels have enough competing claims for m(∅) to be meaningful and which
+will resolve to high m(Ω) instead — declared as an expectation before running. Then
+WAIT for GO.
+[GATE HELD 2026-08-04. Rulings D1 (attested-alias canonicalization), D2 (placeholder
+drop), D3 (tax-sale context-only), D4 (CRM context-only) all APPROVED as proposed;
+CURRENT.md swap approved per M-RI-13 R3 precedent; GO given.]
+
+CONSTRAINTS (MUST / NEVER)
+- MUST: PREREGISTRATION committed in a commit strictly before audit/belief/ exists.
+- MUST: mass assignments per channel type declared in PREREGISTRATION, mirrored in
+  code, and test-pinned so a silent edit fails the suite.
+- MUST: the output separate m(Ω) from m(∅) explicitly, per parcel, in words as well as
+  numbers — ignorance says go dig, conflict says stop. A reader who cannot tell them
+  apart has not been served.
+- MUST: every observation entering the fold trace to a snapshot field with its
+  source_url and observed_date.
+- NEVER: fabricate. A source lacking data produces NO observation, never a guess.
+  NULL stays NULL.
+- NEVER: report absence as conflict. A parcel with one claim and no counter-claim
+  carries mass on Ω, not on ∅.
+- NEVER: modify ri_core, the adapter, the fold, or any frozen rule. If the pass
+  requires a change to the engine, that is a finding and a STOP, not an edit.
+- NEVER: report a dollar figure or an external-facing claim in this contract.
+
+ACCEPTANCE CRITERIA (deterministic)
+- [ ] `git log --format=%H -- audit/prereg/M-RI-17-PREREGISTRATION.md | tail -1`
+      resolves strictly earlier than the first commit touching audit/belief/ →
+      ordering proven, both hashes pasted
+- [ ] `pytest -q` full suite → all pass, output pasted verbatim
+- [ ] Two runs of the belief pass → byte-identical output, both hashes pasted
+- [ ] Goldens reproduce under two PYTHONHASHSEED values, both pasted
+- [ ] Known-answer commitment: the Dolton parcel, re-run through this pass, MUST
+      reproduce m(∅)=0.91296 exactly. If it does not, that is the finding — the pass
+      is not tuned to match.
+- [ ] `git diff --stat ri_core/ audit/engine.py audit/rules.py` → empty; the wall held
+- [ ] audit/out/belief-determination.md carries, per parcel: the frame of discernment
+      enumerated, mass on each hypothesis, m(Ω), m(∅), and every source cited
+- [ ] Counts of high-conflict vs high-ignorance parcels declared UNKNOWN in
+      PREREGISTRATION. Counts as measured — never predicted.
+
+VERIFY (fixed runbook — do not improvise)
+pytest -q (full suite) → output pasted verbatim ·
+commit-ordering command pasted with output ·
+double-run hash compare pasted ·
+`git diff --stat ri_core/ audit/engine.py audit/rules.py` pasted ·
+`git status` clean · commit hashes pushed to origin/main
+
+DONE = planned-implemented-tested-committed-pushed. REPORT BACK ALL FIVE:
+1. Plan Gate output (as approved)
+2. `pytest -q` full-suite output pasted
+3. git status clean
+4. commit hash(es) pushed to origin/main
+5. Acceptance checklist above, each item with proof pasted
+
+STOP CONDITIONS
+Halt and report — do not proceed — if: the post-remediation contested set cannot be
+read unambiguously from M-RI-16's committed output; a parcel's competing claims cannot
+be enumerated as mutually exclusive hypotheses over a single frame — a set of
+heterogeneous facts about a parcel is not a frame of discernment and must not be
+forced into one; the Dolton known-answer does not reproduce; the pass would require
+any change to ri_core, the adapter, the fold, or a frozen rule; a mass assignment is
+contemplated or adjusted AFTER a belief object has been seen — that adjustment IS the
+failure happening in real time; a golden file's bytes would change; or an acceptance
+test cannot pass without violating a MUST.
