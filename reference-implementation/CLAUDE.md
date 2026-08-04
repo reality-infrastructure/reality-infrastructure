@@ -34,3 +34,12 @@ A contract is complete ONLY when:
 3. git status clean, committed, pushed (hashes pasted).
 4. The five-gate DONE report in the contract is answered in full.
 5. CURRENT.md moved to /contracts/completed/ with the DONE report appended.
+
+COMPLETION step 5 is a MOVE, not a copy. The archive in contracts/completed/ must be
+self-contained — contract text and DONE report in one file, never a pointer to a commit.
+CURRENT.md holds no contract text after archival. A non-empty CURRENT.md is a plan-gate
+STOP for the next contract.
+
+## WINDOWS
+Never use > for git output on Windows. The console codepage corrupts UTF-8.
+Use Copy-Item for files, or the editor.
