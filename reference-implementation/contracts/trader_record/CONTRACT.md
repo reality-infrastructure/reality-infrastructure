@@ -156,8 +156,8 @@ fixture and the four pinned gates are untouched (they still run as the default).
   wallet-independence multi-address clustering is N/A to one address and was not run
   (recorded in the MANIFEST). The adapter computed no association.
 - **Delivered additively:** `rights_events/fixtures/trader_record/`
-  `capture_REAL_2026-10-15.json` (12,403 bytes, sha256
-  `36549ac0b540458feb99f1df20cfdbeed575a632ef5ceab98090b9f74df42201`),
+  `capture_REAL_2026-10-15.json` (12,126 bytes LF, sha256
+  `c58d24e75e6eed9060bc2bcac5ebc7d14062214646eb590b55549927f05e8194`),
   `MANIFEST_REAL_2026-10-15.json`, and the provenance generator
   `capture_from_hyperliquid.py` (reads network+clock; not ri_core, not a test). Runner
   gained an additive `--capture PATH` flag; the SYNTHETIC default and all gates are

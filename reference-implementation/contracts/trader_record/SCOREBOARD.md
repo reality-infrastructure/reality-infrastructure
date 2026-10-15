@@ -115,5 +115,5 @@ Evidence (verbatim):
     (frozen-path git diff printed nothing)
 
 Known answer (real data): displayed week −1,218,145.553639 (LOSS) vs chain realized
-net +27.676980 (GAIN) → exactly one dispute. Fixture sha256
-36549ac0b540458feb99f1df20cfdbeed575a632ef5ceab98090b9f74df42201.
+net +27.676980 (GAIN) → exactly one dispute. Fixture sha256 (LF)
+c58d24e75e6eed9060bc2bcac5ebc7d14062214646eb590b55549927f05e8194.
