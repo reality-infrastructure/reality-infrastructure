@@ -123,3 +123,30 @@ reference-implementation/
 - If the fold could only produce nonzero conflict by construction (i.e. it could not
   return 0 on agreement), STOP — that would be a rigged detector, not an honest fold.
   (Gate 4 proves it is not.)
+
+## DONE report (PATH B)
+
+- **Planned:** restore the `net_pnl_bucket` conflict-mass fold on a sibling `ri_core`
+  layer, without touching any frozen module and without routing a trading question
+  through `rights_events.pipeline`.
+- **Implemented:** `trading_frame/__init__.py`, `trading_frame/fold.py` (pure fold:
+  venue self_asserted 0.30 vs chain cryptographically_signed 0.55 over frame
+  {GAIN,FLAT,LOSS}, fused by `ri_core.reconcile.cautious_fuse`, conflict mass retained),
+  `trading_frame/run.py` (signed event log + belief log + save/load + re-fold verifier +
+  CLI), `tests/test_trading_frame_gates.py` (10 tests). Reuses by import only the frozen
+  `rights_events.schema`, `rights_events.policy` (`CLAIM_MASS`), and the PATH A adapter.
+- **Tested:** all four gates green — gate suite `10 passed`; full suite `710 passed in
+  18.90s` (+10 new, 0 modified); frozen-path `git diff --stat` empty; known-answer
+  matches PREREG on SYNTHETIC and REAL (conflict_mass 0.165, chain 0.385, displayed
+  0.135, unresolved 0.315); agreement → conflict 0; reload + re-fold byte-identical;
+  one-bit fill tamper caught; byte-identical run files; holds under PYTHONHASHSEED 0 & 1.
+  REAL belief-log root `cf194accd0869f336673c9f3c88b907e6ed06d9fab61fe3b3e570151cbedb005`.
+- **Committed:** branch `contract/trading-frame`; PREREG committed in P0 strictly before
+  any fold code (ordering proof in git log: P0 precedes P1). Not pushed (local
+  demonstration lineage; origin requires auth).
+- **Open items:** none for this contract. The gdex.pro contribution now spans PATH A
+  (provenance + tamper-evidence + replay, real HyperLiquid capture) and PATH B (the
+  conflict-mass belief the engine declined). Remaining work is outside these contracts:
+  the CEO one-pager/pitch, and a multi-address actor capture whose address→actor grouping
+  comes from wallet-independence clustering (the single-address REAL capture exercises the
+  identity grouping only).
