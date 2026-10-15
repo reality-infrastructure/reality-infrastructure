@@ -86,3 +86,25 @@ When the displayed bucket equals the chain bucket (e.g. displayed `GAIN` 0.30 vs
 - A need to edit any frozen module to produce the fold (would be a kill-finding, not a
   fix).
 - The agreement case producing nonzero conflict (would prove the fold rigged).
+
+## 7. AMENDMENTS (dated, append-only)
+
+### A1 — 2026-10-15 — known-answer for the gdex-sourced captures (PINNED before gates)
+
+Inputs pinned in `contracts/trader_record/PREREG.md` §7 A1 (same commit as this
+amendment; the consuming gates land strictly later):
+
+- `capture_REAL_2026-10-15_gdex.json` sha256
+  `a84893e857a80405b6afa2689c9df4226cbba9c48caf6912f06bf96c8774601c` — displayed GAIN
+  (0.30) vs chain LOSS (0.55); chain net `-1092671.088114`.
+- `capture_REAL_2026-10-15_gdex_multi.json` sha256
+  `e3b47fa51e32dd021d23a985764b6e0f42b2377e001c1c6aca54953da01766b1` — displayed GAIN
+  (0.30) vs chain LOSS (0.55) over a 5-address actor; chain net `-401006.054671`.
+
+Both are the §3 MISMATCH case and MUST yield exactly: `conflict_mass` **0.165**, mass on
+`LOSS` (chain) **0.385**, mass on `GAIN` (displayed) **0.135**, `unresolved_mass`
+**0.315**, `FLAT` and every 2-element subset **0**, sum **1**. The venue weight stays
+0.30 even though the venue is now gdex's own endpoint rather than the underlying HL API
+— the EP type (`self_asserted`) is what sets the prior, not the host. The §5
+reproducibility predictions hold unchanged (re-fold byte-identical from the reloaded
+log; one-bit tamper fails reload). A different mass is a STOP, not a retune.

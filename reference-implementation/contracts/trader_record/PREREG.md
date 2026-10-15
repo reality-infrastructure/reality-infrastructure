@@ -89,3 +89,76 @@ associate) · S4 the layer would require a change to `ri_core` or any frozen
 commitment fails · S6 any event would need a fabricated `source_url`/`observed_date`.
 
 ## 7. AMENDMENTS (dated, append-only; empty at freeze)
+
+### A1 — 2026-10-15 — gdex-sourced captures (single-address + multi-address actor)
+
+Committed BEFORE any test or runner code that consumes these fixtures (the commit
+that adds this amendment also adds the pinned inputs; the consuming gates land in a
+strictly later commit — the ordering is the proof).
+
+**Venue side is gdex's own surface.** The displayed stat is parsed from the verbatim
+response of the gdex MCP read tool `get_hl_top_traders_by_pnl` (= `GET
+https://trade-api.gemach.io/v1/hl/top_traders_by_pnl`, keyless, the request gdex's own
+SDK makes), observed 2026-10-15T23:33:55Z (ms 1792107235385), saved as
+`gdex_hl_top_traders_by_pnl_2026-10-15.json` — bytes **115358** · sha256
+**a4cd88c1518938324188f3246a050952278262783d1a85c676661300b269f8a3**. The
+`venue_claim.source_url` of every gdex capture is that endpoint literally.
+
+**Chain side is the chain.** gdex exposes no per-fill history for a third-party wallet
+(probed: `hl_tx_list` → code 101 missing params; `get_wallet_performance` → code 101;
+`get_hl_user_stats` → code 103 wallet not found; `get_hl_trade_history` →
+ERR_MODULE_NOT_FOUND and, by source, a direct HyperLiquid `userFills` call). Fills
+therefore come from the HyperLiquid L1 info API (`userFillsByTime`) over the trailing-7d
+window ending at the board observation, each with its L1 explorer `source_url`. Recorded
+in both MANIFESTs; no event's source is relabeled.
+
+**Pinned inputs (LF bytes):**
+
+- `capture_REAL_2026-10-15_gdex.json` — bytes **233949** · sha256
+  **a84893e857a80405b6afa2689c9df4226cbba9c48caf6912f06bf96c8774601c**. Actor
+  `0x45d26f28196d226497130c4bac709d808fed4029` (gdex week board), identity grouping,
+  476 fills (fully covered). Displayed week `+2674711.6253889999` (GAIN); chain realized
+  net `-1092671.088114` (LOSS).
+- `capture_REAL_2026-10-15_gdex_multi.json` — bytes **145059** · sha256
+  **e3b47fa51e32dd021d23a985764b6e0f42b2377e001c1c6aca54953da01766b1**. Actor
+  `0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66` (gdex week/day/month boards), grouping of
+  **5 addresses** = the master + its 4 HyperLiquid-registered sub-accounts, 296 fills
+  (fully covered; 18 from the master, 278 from sub-account `0xb7ccdb75…12da6`, 0 from the
+  other three). Displayed week `+4021896.310697` (GAIN); chain realized net
+  `-401006.054671` (LOSS); master-only realized net `+320.91528` (GAIN).
+- Grouping input for the multi capture: `hl_subaccounts_0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66_2026-10-15.json`
+  — sha256 **950619b93cb7f696c4b80422b954f07bac9b103d7a903430dff7a8e3388acdbc** (HL info
+  `type=subAccounts`, verbatim).
+
+**Grouping provenance — KILL FINDING recorded, not coded around.** The intended input,
+wallet-independence clustering (`C:/Users/newce/wallet-independence`,
+`independence17.py` / `homogeneity17.py`), produces NO address→actor grouping: its
+surveys judge measures and never wallets (M-WI-02 "no surviving measure is a verdict about
+any wallet"; "Classification, if it ever happens, is a later contract"), and its tooling
+reads frozen Solana snapshots. Per Kill Criteria ("STOP and report rather than invent
+one"), the multi-address grouping is instead the chain-attested HyperLiquid sub-account
+registry (each sub-account exists only through the master's signed `createSubAccount`
+action) and is labeled so in the MANIFEST. The adapter still computes no association; a
+fill outside the five declared addresses is an `AdapterError` (S3), to be exercised by a
+gate on this very capture.
+
+**Known-answer commitments (PINNED):**
+
+- gdex single: adapter yields **478** events (1 venue + 476 fills + **exactly 1**
+  `dispute`, `displayed_bucket=GAIN`, `chain_bucket=LOSS`,
+  `chain_net_pnl_usdc=-1092671.088114`), `prior_event_refs` = venue + all 476 fills.
+- gdex multi: adapter yields **298** events (1 venue + 296 fills + **exactly 1**
+  `dispute`, `displayed_bucket=GAIN`, `chain_bucket=LOSS`,
+  `chain_net_pnl_usdc=-401006.054671`); fill claimants span exactly **2** distinct
+  addresses, both inside the declared grouping; re-addressing any fill to an address
+  outside the grouping raises `AdapterError`.
+- Both: every inclusion proof verifies; reload re-verifies; one-bit tamper fails reload;
+  run files byte-identical under PYTHONHASHSEED 0 and 1. Anything else is a STOP.
+
+**Scope note (declared before the gates):** the leaderboard row is per address; the multi
+capture's dispute is at actor level and would NOT fire master-only (GAIN vs GAIN). This is
+reported, not hidden — the MANIFEST carries the per-address decomposition.
+
+**Selection (not contrived):** all 84 distinct addresses on gdex's four boards were
+scanned; 43 diverge displayed-vs-realized-closed; 24 show a nonzero week PnL with zero
+closed fills; of the 11 fully-covered addresses with fills, 7 diverge.

@@ -1,0 +1,192 @@
+[
+  {
+    "clearinghouseState": {
+      "assetPositions": [
+        {
+          "position": {
+            "coin": "BTC",
+            "cumFunding": {
+              "allTime": "-57445.733495",
+              "sinceChange": "-533.061256",
+              "sinceOpen": "-56038.866596"
+            },
+            "entryPx": "77543.4",
+            "leverage": {
+              "type": "cross",
+              "value": 30
+            },
+            "liquidationPx": "84205.9215184897",
+            "marginUsed": "100835.046912",
+            "maxLeverage": 40,
+            "positionValue": "3025051.4073600001",
+            "returnOnEquity": "-1.792246867",
+            "szi": "-36.81186",
+            "unrealizedPnl": "-170533.367142"
+          },
+          "type": "oneWay"
+        },
+        {
+          "position": {
+            "coin": "ETH",
+            "cumFunding": {
+              "allTime": "57262.20554",
+              "sinceChange": "426.134861",
+              "sinceOpen": "57262.20554"
+            },
+            "entryPx": "2513.02",
+            "leverage": {
+              "type": "cross",
+              "value": 20
+            },
+            "liquidationPx": "2373.4526830096",
+            "marginUsed": "138698.766024",
+            "maxLeverage": 25,
+            "positionValue": "2773975.3204800002",
+            "returnOnEquity": "-0.5700550095",
+            "szi": "1136.2232",
+            "unrealizedPnl": "-81385.641005"
+          },
+          "type": "oneWay"
+        }
+      ],
+      "crossMaintenanceMarginUsed": "93292.649001",
+      "crossMarginSummary": {
+        "accountValue": "168951.900585",
+        "totalMarginUsed": "239533.812936",
+        "totalNtlPos": "5799026.7278399998",
+        "totalRawUsd": "420027.987465"
+      },
+      "marginSummary": {
+        "accountValue": "168951.900585",
+        "totalMarginUsed": "239533.812936",
+        "totalNtlPos": "5799026.7278399998",
+        "totalRawUsd": "420027.987465"
+      },
+      "time": 1792108201539,
+      "withdrawable": "0.0"
+    },
+    "master": "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+    "name": "eth/l2s",
+    "spotState": {
+      "balances": [
+        {
+          "coin": "USDC",
+          "entryNtl": "0.0",
+          "hold": "0.0",
+          "token": 0,
+          "total": "0.0000008"
+        }
+      ]
+    },
+    "subAccountUser": "0xb7ccdb75f39d2b74b0c3588c43d909e136512da6"
+  },
+  {
+    "clearinghouseState": {
+      "assetPositions": [],
+      "crossMaintenanceMarginUsed": "0.0",
+      "crossMarginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "marginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "time": 1792108201539,
+      "withdrawable": "0.0"
+    },
+    "master": "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+    "name": "lit/aster",
+    "spotState": {
+      "balances": [
+        {
+          "coin": "USDC",
+          "entryNtl": "0.0",
+          "hold": "0.0",
+          "token": 0,
+          "total": "2125283.4156010002"
+        },
+        {
+          "coin": "USDH",
+          "entryNtl": "0.0",
+          "hold": "0.0",
+          "token": 360,
+          "total": "0.0"
+        }
+      ]
+    },
+    "subAccountUser": "0xef70339934261ca3524bddfa7d02e0a69107a84c"
+  },
+  {
+    "clearinghouseState": {
+      "assetPositions": [],
+      "crossMaintenanceMarginUsed": "0.0",
+      "crossMarginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "marginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "time": 1792108201539,
+      "withdrawable": "0.0"
+    },
+    "master": "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+    "name": "hype/sht",
+    "spotState": {
+      "balances": [
+        {
+          "coin": "USDC",
+          "entryNtl": "0.0",
+          "hold": "0.0",
+          "token": 0,
+          "total": "0.000012"
+        }
+      ]
+    },
+    "subAccountUser": "0x8b0be882a693ad3849f9bfde6951ec36489f30be"
+  },
+  {
+    "clearinghouseState": {
+      "assetPositions": [],
+      "crossMaintenanceMarginUsed": "0.0",
+      "crossMarginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "marginSummary": {
+        "accountValue": "0.0",
+        "totalMarginUsed": "0.0",
+        "totalNtlPos": "0.0",
+        "totalRawUsd": "0.0"
+      },
+      "time": 1792108201539,
+      "withdrawable": "0.0"
+    },
+    "master": "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+    "name": "zro/sol",
+    "spotState": {
+      "balances": [
+        {
+          "coin": "USDC",
+          "entryNtl": "0.0",
+          "hold": "0.0",
+          "token": 0,
+          "total": "0.000002"
+        }
+      ]
+    },
+    "subAccountUser": "0x2a246fca547f9a845e67a51c9221d888576eb81c"
+  }
+]

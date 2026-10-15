@@ -1,0 +1,103 @@
+{
+  "fixture": "capture_REAL_2026-10-15_gdex_multi.json",
+  "status": "REAL",
+  "bytes": 145059,
+  "sha256": "e3b47fa51e32dd021d23a985764b6e0f42b2377e001c1c6aca54953da01766b1",
+  "generator": "capture_from_gdex.py",
+  "source": {
+    "venue_displayed": {
+      "what": "gdex.pro HyperLiquid PnL leaderboard row, 'week' window PnL (includes unrealized mark-to-market + funding).",
+      "url": "https://trade-api.gemach.io/v1/hl/top_traders_by_pnl",
+      "gdex_mcp_tool": "@gemachdao/gdex-mcp-server: get_hl_top_traders_by_pnl",
+      "payload_origin": "saved payload gdex_hl_top_traders_by_pnl_2026-10-15.json (the gdex MCP tool response, @gemachdao/gdex-mcp-server: get_hl_top_traders_by_pnl)",
+      "payload_verbatim_file": "gdex_hl_top_traders_by_pnl_2026-10-15.json",
+      "payload_sha256": "a4cd88c1518938324188f3246a050952278262783d1a85c676661300b269f8a3",
+      "payload_observed_ms": 1792107235385,
+      "observed_date": "2026-10-15",
+      "row_boards": [
+        "week",
+        "day",
+        "month"
+      ],
+      "row_account_value": "49470716.2689909935",
+      "row_display_name": null,
+      "access_note": "Keyless GET; the endpoint answers HTTP 403 'Non-browser clients not allowed' unless the gdex SDK's default browser User-Agent is sent, which is what the gdex MCP server itself sends."
+    },
+    "chain_fills": {
+      "what": "Realized closed PnL (closedPnl - fee) per fill for every address in the actor grouping over the trailing-7d window [start,end] ending at the board observation.",
+      "api": "https://api.hyperliquid.xyz/info (type=userFillsByTime)",
+      "explorer": "https://app.hyperliquid.xyz/explorer/tx/<tx_hash>",
+      "window_start_ms": 1791502435385,
+      "window_end_ms": 1792107235385,
+      "fill_count": 296,
+      "fully_covered": true,
+      "per_address": {
+        "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66": {
+          "fill_count": 18,
+          "realized_net_usdc": "320.91528",
+          "bucket": "GAIN"
+        },
+        "0x2a246fca547f9a845e67a51c9221d888576eb81c": {
+          "fill_count": 0,
+          "realized_net_usdc": "0",
+          "bucket": "FLAT"
+        },
+        "0x8b0be882a693ad3849f9bfde6951ec36489f30be": {
+          "fill_count": 0,
+          "realized_net_usdc": "0",
+          "bucket": "FLAT"
+        },
+        "0xb7ccdb75f39d2b74b0c3588c43d909e136512da6": {
+          "fill_count": 278,
+          "realized_net_usdc": "-401326.969951",
+          "bucket": "LOSS"
+        },
+        "0xef70339934261ca3524bddfa7d02e0a69107a84c": {
+          "fill_count": 0,
+          "realized_net_usdc": "0",
+          "bucket": "FLAT"
+        }
+      },
+      "why_not_gdex": {
+        "what": "gdex read tools probed for a per-fill history of a third-party wallet (the chain side). None served one; the chain side therefore comes from the L1 info API and is labeled so.",
+        "hl_tx_list (GET /v1/hl/tx_list?address=...)": "code 101 'missing params' for a leaderboard address (the endpoint lists a gdex copy-trade user's own transactions, not an arbitrary wallet's).",
+        "get_wallet_performance (GET /v1/wallet_performance)": "code 101 'missing params' with and without a chain argument.",
+        "get_hl_user_stats (GET /v1/hl/user_stats?user=...)": "code 103 'Wallet not found' for leaderboard addresses (gdex-managed wallets only).",
+        "get_hl_trade_history": "ERR_MODULE_NOT_FOUND '@gdexsdk/hyper-liquid-trader' in the installed MCP server; and by its source it calls HyperLiquid userFills directly, not a gdex endpoint.",
+        "get_hl_clearinghouse_state (GET /v1/hl/clearinghouse_state?address=...)": "works (positions/margin), but carries no fills."
+      }
+    }
+  },
+  "actor_grouping": {
+    "rule": "address->actor grouping is an INPUT to the pure adapter, not computed by it; a fill outside the grouping raises AdapterError.",
+    "addresses": [
+      "0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66",
+      "0x2a246fca547f9a845e67a51c9221d888576eb81c",
+      "0x8b0be882a693ad3849f9bfde6951ec36489f30be",
+      "0xb7ccdb75f39d2b74b0c3588c43d909e136512da6",
+      "0xef70339934261ca3524bddfa7d02e0a69107a84c"
+    ],
+    "produced_by": "HyperLiquid sub-account registry (info type=subAccounts) for the master address: each sub-account exists only because the master signed a createSubAccount action, so the grouping is chain-attested, not inferred. Registry saved verbatim as hl_subaccounts_0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66_2026-10-15.json (sha256 950619b93cb7f696c4b80422b954f07bac9b103d7a903430dff7a8e3388acdbc).",
+    "clustering_finding": "wallet-independence (C:/Users/newce/wallet-independence) was examined as the intended clustering input and does NOT produce an address->actor grouping: its surveys judge measures, never wallets (M-WI-02: 'no surviving measure is a verdict about any wallet'; 'Classification, if it ever happens, is a later contract'), and its tooling reads frozen Solana snapshots. Per the contract's kill rule (no invented association) the grouping was taken from a chain-attested registry instead and labeled so here."
+  },
+  "dispute_semantics": {
+    "meaning": "A dispute fires when the displayed window bucket differs from the bucket of realized-closed PnL over the same window for the declared actor grouping. It records that the displayed figure is not reproducible from the actor's closed fills (the copier's verification gap) - NOT that any single number was falsified. NOTE: the leaderboard row is PER ADDRESS (the master); per_address above shows the master-only bucket so a reader can see whether the divergence lives in the master's own fills or in a sub-account's.",
+    "displayed_bucket": "GAIN",
+    "displayed_net_pnl_usdc": "4021896.310697",
+    "chain_realized_net_pnl_usdc": "-401006.054671",
+    "chain_bucket": "LOSS",
+    "dispute_expected": true
+  },
+  "selection": {
+    "how": "Every distinct address on gdex's four PnL boards (day/week/month/allTime, 30 rows each) in the pinned payload was scanned: realized-closed net over the trailing-7d window vs the row's displayed 'week' bucket; the HL sub-account registry was read for each. One fully-covered (uncapped) divergence was selected per capture.",
+    "distinct_addresses": 84,
+    "displayed_vs_realized_bucket_divergence": 43,
+    "with_at_least_one_fill": 33,
+    "with_at_least_one_fill_and_divergent": 19,
+    "fully_covered_with_fills": 11,
+    "fully_covered_with_fills_and_divergent": 7,
+    "nonzero_displayed_week_pnl_but_zero_closed_fills": 24,
+    "with_registered_subaccounts": 25,
+    "aggregate_finding": "The displayed week figure is not reproducible from the same address's closed fills for 43 of 84 board rows; 24 rows display a nonzero week PnL with zero closed fills (unrealized mark-to-market only). The verification gap is the norm on this board, not a contrived case."
+  }
+}
