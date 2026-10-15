@@ -133,3 +133,38 @@ reference-implementation/
   closed contract, separate frozen PREREG. Real-capture swap (replace the SYNTHETIC
   fixture with a live gdex leaderboard + on-chain fills carrying source_url/observed_date
   and an upstream address→actor grouping) is a prerequisite and its own gate.
+
+## REAL-CAPTURE SWAP (addendum, 2026-10-15) — prerequisite gate for PATH B, DONE
+
+The MANIFEST's provenance_rule is now satisfied with a live capture; the SYNTHETIC
+fixture and the four pinned gates are untouched (they still run as the default).
+
+- **Source (honest).** The `@gemachdao/gdex-mcp-server` is not connected to this
+  session, so the capture was taken from the public, keyless **HyperLiquid API** — the
+  surface gdex.pro's HL copy-trade leaderboard re-displays — and labeled so in the
+  MANIFEST. `venue_claim` = HL leaderboard `week` window PnL (includes unrealized MTM +
+  funding); `fills` = realized `closedPnl − fee` for the same address over the same
+  trailing-7d window, each carrying its L1 tx hash + explorer `source_url` +
+  `observed_date`. No field is invented.
+- **Selection (not contrived).** Scanned the 80 most active leaderboard rows by |week
+  PnL|; 18 of 38 scanned showed a displayed-vs-realized-closed **bucket divergence**.
+  Selected one fully-covered (uncapped, 23 fills) case:
+  `0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918` — displayed week **−1,218,145.55 (LOSS)**,
+  chain realized net **+27.68 (GAIN)** → the displayed figure is not reproducible from
+  the closed fills. This is the copier's verification gap, on real data.
+- **Grouping is input.** Single-address account: identity grouping `{address}`;
+  wallet-independence multi-address clustering is N/A to one address and was not run
+  (recorded in the MANIFEST). The adapter computed no association.
+- **Delivered additively:** `rights_events/fixtures/trader_record/`
+  `capture_REAL_2026-10-15.json` (12,403 bytes, sha256
+  `36549ac0b540458feb99f1df20cfdbeed575a632ef5ceab98090b9f74df42201`),
+  `MANIFEST_REAL_2026-10-15.json`, and the provenance generator
+  `capture_from_hyperliquid.py` (reads network+clock; not ri_core, not a test). Runner
+  gained an additive `--capture PATH` flag; the SYNTHETIC default and all gates are
+  unchanged.
+- **Run result (real data), event-log root**
+  `3d0797b98c6b6a910d36d667712d64bfc5fa3680749b735bba2696fa3d2ab9b9`: 25 events (23
+  fills + venue + 1 dispute); all 25 inclusion proofs verify; independent
+  `--verify` reloads and re-verifies every signature; a one-bit flip of a real fill
+  makes reload fail (tamper CAUGHT). Gate suite still `10 passed`; frozen-path
+  `git diff` empty.

@@ -81,3 +81,39 @@ Evidence (verbatim):
 Full suite at close: 700 passed in 45.55s. Delta vs baseline: +10 new tests, 0 modified.
 Event-log root of the SYNTHETIC run (reproducible):
 6a27a097862e8f38f1752a461b6eaa5a6e2ff3e27a94aa6e15174a7d7f0d1e28.
+
+## REAL-CAPTURE SWAP (addendum, 2026-10-15)
+
+The PATH-B prerequisite gate. SYNTHETIC fixture + four pinned gates unchanged; a live
+HyperLiquid capture added alongside and run through the same runner (`--capture`).
+
+Commands (verbatim):
+
+    python -m rights_events.trader_record --capture rights_events/fixtures/trader_record/capture_REAL_2026-10-15.json --out <run>
+    python -m rights_events.trader_record --verify --run <run>
+    python -m pytest tests/test_trader_record_gates.py -q
+    git diff --stat -- ri_core/ rights_events/schema.py rights_events/policy.py rights_events/pipeline.py rights_events/replay.py
+
+Evidence (verbatim):
+
+    REAL capture: capture_REAL_2026-10-15.json
+    Subject: trader:0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918
+    Checks:
+      PASS  C1 adapter produced 25 events incl. 1 dispute (mismatch recorded)
+      PASS  C2 all 25 inclusion proofs verify against the root
+      PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+    Event log root: 3d0797b98c6b6a910d36d667712d64bfc5fa3680749b735bba2696fa3d2ab9b9
+    TRADER-RECORD RUN: OK
+
+    VERIFY ...: reloaded 25 events, all signatures re-verified, all inclusion
+    proofs verified; event-log root 3d0797b98c6b6a910d36d667712d64bfc5fa3680749b735bba2696fa3d2ab9b9
+    RESULT: OK
+
+    tampered real run verifies? False -> CAUGHT
+
+    10 passed in 0.39s
+    (frozen-path git diff printed nothing)
+
+Known answer (real data): displayed week −1,218,145.553639 (LOSS) vs chain realized
+net +27.676980 (GAIN) → exactly one dispute. Fixture sha256
+36549ac0b540458feb99f1df20cfdbeed575a632ef5ceab98090b9f74df42201.

@@ -83,6 +83,10 @@ def main(argv: list[str] | None = None) -> int:
                         help="verify an existing run file instead of building one")
     parser.add_argument("--run", default=None,
                         help="run file to verify (with --verify)")
+    parser.add_argument("--capture", default=None,
+                        help="capture document to ingest (default: the pinned "
+                             "SYNTHETIC fixture). A REAL capture carries live "
+                             "source_urls + observed_dates per the MANIFEST.")
     args = parser.parse_args(argv)
 
     if args.verify:
@@ -94,16 +98,24 @@ def main(argv: list[str] | None = None) -> int:
         print(f"RESULT: {'OK' if ok else 'FAILED'}")
         return 0 if ok else 1
 
+    capture_path = Path(args.capture) if args.capture else _FIXTURE
+    capture_text = capture_path.read_text(encoding="utf-8")
+    is_synthetic = capture_path == _FIXTURE
+
     print("=" * 70)
     print("TRADER-RECORD EVIDENCE RUN (PATH A) -- END TO END")
-    print("SYNTHETIC fixture: a gdex.pro leaderboard claim beside on-chain")
-    print("fills; no real wallet, venue, trader, or transaction.")
+    if is_synthetic:
+        print("SYNTHETIC fixture: a gdex.pro leaderboard claim beside on-chain")
+        print("fills; no real wallet, venue, trader, or transaction.")
+    else:
+        print(f"REAL capture: {capture_path.name}")
+        print("Live HyperLiquid leaderboard claim beside the same address's")
+        print("on-chain fills (realized closedPnl - fee); see MANIFEST.")
     print("No belief is folded (Gate-0 finding; see CONTRACT.md).")
     print("=" * 70)
     print()
 
-    pipeline, events, indices = ingest_capture(
-        _FIXTURE.read_text(encoding="utf-8"))
+    pipeline, events, indices = ingest_capture(capture_text)
     subject = events[0].subject_ids[0]
 
     print(f"Subject: {subject}")

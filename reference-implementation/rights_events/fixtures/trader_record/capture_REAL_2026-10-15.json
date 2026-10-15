@@ -1,0 +1,277 @@
+{
+  "kind": "trader_record_capture",
+  "synthetic": false,
+  "note": "REAL capture. Source: public HyperLiquid API (keyless), the surface gdex.pro's HL copy-trade leaderboard re-displays. The venue_claim is the HL leaderboard 'week' window PnL (includes unrealized mark-to-market + funding); the fills are the realized closed PnL (closedPnl - fee) for the same address over the same trailing-7d window, each with its L1 tx hash. See MANIFEST.",
+  "actor": {
+    "actor_id": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+    "addresses": [
+      "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918"
+    ]
+  },
+  "venue_claim": {
+    "actor_id": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+    "window": {
+      "start": "2026-10-08",
+      "end": "2026-10-15"
+    },
+    "displayed_net_pnl_usdc": "-1218145.553639",
+    "displayed_bucket": "LOSS",
+    "source_url": "https://stats-data.hyperliquid.xyz/Mainnet/leaderboard",
+    "observed_date": "2026-10-15"
+  },
+  "fills": [
+    {
+      "fill_id": "1057636112044748",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "4.49838",
+      "fee_usdc": "0.015782",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "1060115430227978",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.92468",
+      "fee_usdc": "0.007265",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "141867426371859",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.92302",
+      "fee_usdc": "0.003739",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "157953281964190",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.96558",
+      "fee_usdc": "0.003743",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "205128050278422",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.70247",
+      "fee_usdc": "0.002798",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "222845838690039",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.89507",
+      "fee_usdc": "0.007635",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "31678310330635",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.00282",
+      "fee_usdc": "0.003746",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "395031943960583",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.00282",
+      "fee_usdc": "0.003746",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "396461564601251",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.69552",
+      "fee_usdc": "0.003032",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "399487125148124",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.91504",
+      "fee_usdc": "0.003739",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "464757919778098",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.99484",
+      "fee_usdc": "0.003745",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "476484788621314",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.01878",
+      "fee_usdc": "0.003747",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "479385210983256",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "2.06916",
+      "fee_usdc": "0.007277",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "479763886963215",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.90174",
+      "fee_usdc": "0.003738",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "51802502725173",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.99484",
+      "fee_usdc": "0.003745",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "65087788131855",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.97888",
+      "fee_usdc": "0.003744",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "78593687727946",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.95228",
+      "fee_usdc": "0.003742",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "844158867305181",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.69252",
+      "fee_usdc": "0.002798",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "888007013150583",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.85918",
+      "fee_usdc": "0.003734",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "911616318830740",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.00548",
+      "fee_usdc": "0.003746",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "939328395081761",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.88578",
+      "fee_usdc": "0.003736",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "95524750523927",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "0.87248",
+      "fee_usdc": "0.003735",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    },
+    {
+      "fill_id": "984271839196113",
+      "address": "0xea0027b6ea9b6d7d401b5266979cc3b3ca87a918",
+      "token": "io:PRL",
+      "side": "Close Long",
+      "realized_pnl_usdc": "1.03208",
+      "fee_usdc": "0.003748",
+      "tx_sig": "0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "source_url": "https://app.hyperliquid.xyz/explorer/tx/0x1d36383e5b4f93971eaf04469c57b80205140023f642b269c0fee3911a436d81",
+      "observed_date": "2026-10-15"
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "fixture": "capture_REAL_2026-10-15.json",
+  "status": "REAL",
+  "bytes": 12403,
+  "sha256": "36549ac0b540458feb99f1df20cfdbeed575a632ef5ceab98090b9f74df42201",
+  "generator": "capture_from_hyperliquid.py",
+  "source": {
+    "venue_displayed": {
+      "what": "HyperLiquid leaderboard 'week' window PnL (includes unrealized mark-to-market + funding).",
+      "url": "https://stats-data.hyperliquid.xyz/Mainnet/leaderboard",
+      "human_page": "https://app.hyperliquid.xyz/leaderboard",
+      "observed_date": "2026-10-15",
+      "gdex_relation": "gdex.pro's HyperLiquid copy-trade leaderboard re-displays this HL surface; the gdex MCP server (@gemachdao/gdex-mcp-server) was not connected to this session, so the capture was taken from the underlying HL API directly and labeled so."
+    },
+    "chain_fills": {
+      "what": "Realized closed PnL (closedPnl - fee) per fill for the address over the trailing-7d window [start,end].",
+      "api": "https://api.hyperliquid.xyz/info (type=userFillsByTime)",
+      "explorer": "https://app.hyperliquid.xyz/explorer/tx/<tx_hash>",
+      "window_start_ms": 1791499128561,
+      "window_end_ms": 1792103928561,
+      "fill_count": 23,
+      "fully_covered": true
+    }
+  },
+  "actor_grouping": {
+    "rule": "address->actor grouping is an INPUT to the pure adapter, not computed by it.",
+    "this_capture": "Single-address account: the grouping is the identity grouping {address}. wallet-independence multi-address actor clustering is not applicable to one address and was not run; for a multi-address actor the grouping would come from that clustering, recorded here."
+  },
+  "dispute_semantics": {
+    "meaning": "A dispute fires when the displayed window bucket differs from the bucket of realized-closed PnL over the same window. It records that the displayed figure is not reproducible from the actor's closed fills (the copier's verification gap) - NOT that any single number was falsified.",
+    "displayed_bucket": "LOSS",
+    "displayed_net_pnl_usdc": "-1218145.553639",
+    "chain_realized_net_pnl_usdc": "27.676980",
+    "chain_bucket": "GAIN",
+    "dispute_expected": true
+  },
+  "selection": {
+    "how": "Scanned the 80 most active (by |week PnL|) leaderboard rows; fetched each address's realized-closed PnL over the trailing-7d window; selected one fully-covered (uncapped) divergence with a small, complete fill set.",
+    "aggregate_finding": "18 of 38 scanned active top traders showed a displayed-vs-realized-closed bucket divergence - the verification gap is common, not contrived."
+  }
+}
