@@ -99,3 +99,60 @@ is restored on a sibling ri_core layer, with zero frozen-module changes.
 SYNTHETIC belief-log root dc0ac41b2f11e523f5100883baed95ac9480bd56041f937717bf7e59fd34fad6;
 REAL 2026-10-15 belief-log root cf194accd0869f336673c9f3c88b907e6ed06d9fab61fe3b3e570151cbedb005.
 Flagship number: displayed-vs-chain contradiction retains conflict_mass 0.165.
+
+## GDEX-SOURCED CAPTURES (addendum, 2026-10-15)
+
+Known answers pinned in PREREG.md §7 A1 (commit `GDEX-CAPTURE-P0`) before the gates in
+`tests/test_trading_frame_gdex_gates.py` (commit `GDEX-CAPTURE-P1`).
+
+Commands (verbatim):
+
+    python -m trading_frame.run --capture rights_events/fixtures/trader_record/capture_REAL_2026-10-15_gdex.json --out <run>
+    python -m trading_frame.run --verify --run <run>
+    python -m trading_frame.run --capture rights_events/fixtures/trader_record/capture_REAL_2026-10-15_gdex_multi.json --out <run2>
+    python -m trading_frame.run --verify --run <run2>
+
+Evidence (verbatim):
+
+    Capture: capture_REAL_2026-10-15_gdex.json
+    Subject:          trader:0x45d26f28196d226497130c4bac709d808fed4029
+    Displayed bucket: GAIN (self_asserted 0.30) -> mass 0.135
+    Chain bucket:     LOSS (cryptographically_signed 0.55) -> mass 0.385  [realized net -1092671.088114]
+    CONFLICT MASS:    0.165   (retained, never normalized away)
+    Unresolved (all): 0.315
+    Checks:
+      PASS  C1 all 478 inclusion proofs verify against the root
+      PASS  C2 reload + re-fold reproduces the belief byte-for-byte
+    Belief-log root:  0d44a6d8f34b81d504210c4d937fd393fd4a2dc34c02ab36680af9e57cc27477
+    TRADING-FRAME RUN: OK
+    VERIFY ...: reloaded 478 events, all signatures re-verified, all inclusion proofs verified; belief re-folded byte-identically; conflict_mass 0.165, root b9fbfbfc96740d3666d98e6721a093929ad543f46d72560273812eda5159c416
+    RESULT: OK
+
+    Capture: capture_REAL_2026-10-15_gdex_multi.json
+    Subject:          trader:0x77375a8c9d13bf79afb2a87f1b0ac1dfd5f5bf66
+    Displayed bucket: GAIN (self_asserted 0.30) -> mass 0.135
+    Chain bucket:     LOSS (cryptographically_signed 0.55) -> mass 0.385  [realized net -401006.054671]
+    CONFLICT MASS:    0.165   (retained, never normalized away)
+    Unresolved (all): 0.315
+    Checks:
+      PASS  C1 all 298 inclusion proofs verify against the root
+      PASS  C2 reload + re-fold reproduces the belief byte-for-byte
+    Belief-log root:  89c19048ab4656ea32b084f57eacf1c3a4a29899670740a6e7d058824f152441
+    TRADING-FRAME RUN: OK
+    VERIFY ...: reloaded 298 events, all signatures re-verified, all inclusion proofs verified; belief re-folded byte-identically; conflict_mass 0.165, root 11a3145e876695681602c584f7de1f3e91e7355697bb05a5e6ea95b50d59c5c6
+    RESULT: OK
+
+    PATH B: tampered run verifies? False -> CAUGHT
+    PATH B multi: tampered run verifies? False -> CAUGHT
+
+    PYTHONHASHSEED=0 ... 18 passed in 3.56s
+    PYTHONHASHSEED=1 ... 18 passed in 3.61s
+    (run files byte-identical across seeds — sha256 9ae6bbea162ddc2484f98ffc9fa5f31004942eee4d6d2ed437b8f17bb08406b8
+     single, 7fe5981ace605b15125bc79e6ea1979a9ccadfc03588b7471fee3153f4f40062 multi)
+
+    728 passed in 22.37s
+    (frozen-path git diff printed nothing)
+
+Both gdex captures match PREREG A1 exactly: conflict_mass 0.165, chain 0.385, displayed
+0.135, unresolved 0.315, all else 0, sum 1. The flagship number now rests on gdex's own
+displayed figures, not on the underlying HL leaderboard stand-in.

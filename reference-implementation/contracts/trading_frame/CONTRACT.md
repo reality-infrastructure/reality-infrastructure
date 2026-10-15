@@ -150,3 +150,17 @@ reference-implementation/
   the CEO one-pager/pitch, and a multi-address actor capture whose address→actor grouping
   comes from wallet-independence clustering (the single-address REAL capture exercises the
   identity grouping only).
+
+## GDEX-SOURCED CAPTURES (addendum, 2026-10-15) — DONE
+
+The fold now runs on captures whose venue side is gdex's own leaderboard endpoint (see
+`contracts/trader_record/CONTRACT.md`, same-dated addendum, for sources, the sub-account
+grouping, and the clustering kill finding). PREREG §7 A1 pinned the masses first
+(`GDEX-CAPTURE-P0`); `tests/test_trading_frame_gdex_gates.py` (6 tests) landed after
+(`GDEX-CAPTURE-P1`). Both captures yield exactly the §3 mismatch masses: conflict_mass
+**0.165**, chain 0.385, displayed 0.135, unresolved 0.315; re-fold byte-identical from the
+reloaded log; one-bit tamper caught; byte-identical under PYTHONHASHSEED 0 and 1.
+Belief-log roots `0d44a6d8…7477` (single, 478 events) and `89c19048…2441` (multi, 298
+events). Full suite 728 passed; frozen-path diff empty; no frozen module touched. The
+flagship number now rests on gdex-displayed figures. Remaining outside both contracts:
+the CEO one-pager and any push.

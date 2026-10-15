@@ -23,6 +23,7 @@ against the rebuilt root. Exit 0 all checks pass, 1 otherwise.
 from __future__ import annotations
 
 import argparse
+import json
 import sys
 from pathlib import Path
 
@@ -109,8 +110,9 @@ def main(argv: list[str] | None = None) -> int:
         print("fills; no real wallet, venue, trader, or transaction.")
     else:
         print(f"REAL capture: {capture_path.name}")
-        print("Live HyperLiquid leaderboard claim beside the same address's")
-        print("on-chain fills (realized closedPnl - fee); see MANIFEST.")
+        venue_url = json.loads(capture_text).get("venue_claim", {}).get("source_url")
+        print(f"Venue displayed claim ({venue_url}) beside the actor's on-chain")
+        print("fills (realized closedPnl - fee); see the MANIFEST beside the capture.")
     print("No belief is folded (Gate-0 finding; see CONTRACT.md).")
     print("=" * 70)
     print()

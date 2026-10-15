@@ -168,3 +168,45 @@ fixture and the four pinned gates are untouched (they still run as the default).
   `--verify` reloads and re-verifies every signature; a one-bit flip of a real fill
   makes reload fail (tamper CAUGHT). Gate suite still `10 passed`; frozen-path
   `git diff` empty.
+
+## GDEX-SOURCED CAPTURES (addendum, 2026-10-15) — DONE
+
+Closes the two open items left by the REAL-CAPTURE SWAP: the venue side now comes from
+gdex's own surface, and a multi-address actor capture exercises the grouping-is-input
+rule with real addresses.
+
+- **Source (honest).** The gdex MCP server was connected this session; its READ tool
+  `get_hl_top_traders_by_pnl` (= keyless `GET https://trade-api.gemach.io/v1/hl/
+  top_traders_by_pnl`) supplied the displayed stat; the payload is saved verbatim and
+  sha256-pinned beside the captures (`gdex_hl_top_traders_by_pnl_2026-10-15.json`).
+  Every gdex capture's `venue_claim.source_url` is that endpoint literally. No execution
+  or custody tool was called. gdex exposes no per-fill history for a third-party wallet
+  (`hl_tx_list` → code 101; `get_wallet_performance` → 101; `get_hl_user_stats` → 103;
+  `get_hl_trade_history` → missing module, and by source a direct HL `userFills` call),
+  so the chain side is the HyperLiquid L1 info API with per-fill explorer URLs, labeled so
+  in both MANIFESTs. No source was relabeled to make the capture look more gdex than it is.
+- **Captures.** `capture_REAL_2026-10-15_gdex.json` (sha256 `a84893e8…4601c`, 476 fills):
+  `0x45d26f28…4029` displayed week **+2,674,711.63 GAIN** vs chain realized
+  **−1,092,671.09 LOSS**. `capture_REAL_2026-10-15_gdex_multi.json` (sha256
+  `e3b47fa5…66b1`, 296 fills): `0x77375a8c…bf66` as a **5-address actor** (master + 4
+  sub-accounts) displayed week **+4,021,896.31 GAIN** vs actor realized **−401,006.05
+  LOSS**; master-only **+320.92 GAIN** (agrees) — the divergence lives in sub-account
+  `0xb7ccdb75…12da6`'s 278 fills. Declared in PREREG A1 before the gates; pinned by tests.
+- **Grouping is input — KILL FINDING on the intended source.** wallet-independence
+  clustering (`independence17.py` / `homogeneity17.py` and the whole `src/`) emits no
+  address→actor grouping: it judges measures, never wallets, and reads frozen Solana
+  snapshots. Per the Kill Criteria the grouping was NOT invented; it was taken from the
+  chain-attested HyperLiquid sub-account registry (`hl_subaccounts_…_2026-10-15.json`,
+  verbatim, pinned) and labeled so. The adapter computed no association; a fill outside
+  the five declared addresses raises `AdapterError` (`test_multi_fill_outside_grouping_raises`).
+- **Delivered additively.** Generator `capture_from_gdex.py` (network + clock; not
+  ri_core; reproduces the frozen captures from the pinned payload via `--board-json`),
+  two captures + MANIFESTs + two verbatim upstream payloads,
+  `tests/test_trader_record_gdex_gates.py` (12 tests), runner banner now prints the
+  capture's venue `source_url` instead of a hard-coded HL line. SYNTHETIC default, the
+  2026-10-15 HL capture, and all prior gates unchanged.
+- **Result.** Event-log roots `5a65da38…2c80` (478 events) and `47ef07ba…137d` (298
+  events); all inclusion proofs verify; `--verify` OK; one-bit tamper CAUGHT on both;
+  byte-identical under PYTHONHASHSEED 0 and 1; full suite **728 passed in 22.37s** (+18, 0
+  modified); frozen-path diff empty. PREREG amendment committed in `GDEX-CAPTURE-P0`
+  strictly before the gates in `GDEX-CAPTURE-P1`.
