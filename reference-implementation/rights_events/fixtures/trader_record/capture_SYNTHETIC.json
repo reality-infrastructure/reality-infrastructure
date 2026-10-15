@@ -1,0 +1,55 @@
+{
+  "kind": "trader_record_capture",
+  "synthetic": true,
+  "note": "SYNTHETIC fixture. No real wallet, venue, trader, or transaction appears here. Modeled on the shape of a gdex.pro copy-trade leaderboard claim (self-asserted) set beside the on-chain fills (cryptographically signed) attributed to the same actor. Addresses are RFC-5737/invalid placeholders. See MANIFEST.json.",
+  "actor": {
+    "actor_id": "actorA",
+    "addresses": [
+      "0x00000000000000000000000000000000000000a1",
+      "0x00000000000000000000000000000000000000a2"
+    ]
+  },
+  "venue_claim": {
+    "actor_id": "actorA",
+    "window": {"start": "2026-09-01", "end": "2026-09-30"},
+    "displayed_net_pnl_usdc": "1250.00",
+    "displayed_bucket": "GAIN",
+    "source_url": "https://example.invalid/gdex/leaderboard/actorA",
+    "observed_date": "2026-10-01"
+  },
+  "fills": [
+    {
+      "fill_id": "f1",
+      "address": "0x00000000000000000000000000000000000000a1",
+      "token": "SOL-PERP",
+      "side": "long",
+      "realized_pnl_usdc": "500.00",
+      "fee_usdc": "2.00",
+      "tx_sig": "SYNTHETIC-TX-0001",
+      "source_url": "https://example.invalid/chain/tx/SYNTHETIC-TX-0001",
+      "observed_date": "2026-09-05"
+    },
+    {
+      "fill_id": "f2",
+      "address": "0x00000000000000000000000000000000000000a2",
+      "token": "ETH-PERP",
+      "side": "short",
+      "realized_pnl_usdc": "-900.00",
+      "fee_usdc": "3.00",
+      "tx_sig": "SYNTHETIC-TX-0002",
+      "source_url": "https://example.invalid/chain/tx/SYNTHETIC-TX-0002",
+      "observed_date": "2026-09-18"
+    },
+    {
+      "fill_id": "f3",
+      "address": "0x00000000000000000000000000000000000000a1",
+      "token": "SOL-PERP",
+      "side": "long",
+      "realized_pnl_usdc": "100.00",
+      "fee_usdc": "1.50",
+      "tx_sig": "SYNTHETIC-TX-0003",
+      "source_url": "https://example.invalid/chain/tx/SYNTHETIC-TX-0003",
+      "observed_date": "2026-09-27"
+    }
+  ]
+}

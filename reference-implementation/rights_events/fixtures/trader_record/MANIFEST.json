@@ -1,0 +1,9 @@
+{
+  "fixture": "capture_SYNTHETIC.json",
+  "status": "SYNTHETIC",
+  "bytes": 1933,
+  "sha256": "a814f954998825a3267bc741ecda623d1e57bb15a26ce86038f106d45f4882bf",
+  "modeled_on": "A gdex.pro copy-trade leaderboard claim (venue self-asserted displayed net PnL / bucket) placed beside the on-chain fills attributed to the same actor. No real wallet, venue, trader, or transaction is represented.",
+  "provenance_rule": "Because this fixture is SYNTHETIC, its events carry example.invalid source_urls and are labeled SYNTHETIC end to end. A real capture replaces this file with one whose venue_claim and every fill carry a live source_url + observed_date, and whose address-to-actor grouping is produced upstream (e.g. by wallet-independence actor clustering) and recorded here as input to the pure adapter.",
+  "addresses_are": "RFC-5737-style invalid placeholders; not real on-chain addresses."
+}
