@@ -112,3 +112,24 @@ reference-implementation/
   uses `chain_assertion` and `dispute` only, within the closed schema.)
 - If the "address→actor grouping is input, not computed" rule cannot hold without
   fabricating an association, STOP and report rather than invent one.
+
+## DONE report (PATH A)
+
+- **Planned:** PATH A per the Gate-0 finding — provenance + tamper-evidence + replay on
+  the unmodified engine; no trading fold.
+- **Implemented:** `rights_events/adapters/trader_record.py` (pure adapter, six
+  declarations), `rights_events/trader_record.py` (runner + `--verify`), SYNTHETIC
+  fixture + MANIFEST, `tests/test_trader_record_gates.py` (10 tests).
+- **Tested:** all four gates green — suite `10 passed`; full suite `700 passed in
+  45.55s` (+10 new, 0 modified); frozen-path `git diff --stat` empty; independent
+  `--verify` OK; one-bit tamper caught; byte-identical under PYTHONHASHSEED 0 and 1.
+  Reproducible event-log root `6a27a097862e8f38f1752a461b6eaa5a6e2ff3e27a94aa6e15174a7d7f0d1e28`.
+- **Committed:** branch `contract/trader-record`; PREREG committed in P0 strictly before
+  any adapter/runner code (ordering proof below). Not pushed (origin requires auth; this
+  is a local demonstration contract, not a push-complete engine contract).
+- **Open items / next contract:** PATH B — a trading-frame domain layer built directly
+  on `ri_core` (new `map_event` for `net_pnl_bucket`: GAIN/FLAT/LOSS) that restores the
+  DS conflict-mass fold the frozen `rights_events.pipeline` cannot express. Separate
+  closed contract, separate frozen PREREG. Real-capture swap (replace the SYNTHETIC
+  fixture with a live gdex leaderboard + on-chain fills carrying source_url/observed_date
+  and an upstream address→actor grouping) is a prerequisite and its own gate.
