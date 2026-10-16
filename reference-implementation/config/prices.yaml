@@ -12,7 +12,12 @@ anthropic:
   claude-sonnet-5:   { input: "2.00",  output: "10.00" }
   claude-haiku-5-5:  { input: "0.10",  output: "0.50" }
 openai_compat:
-  # Fill per deployment.  A model missing here fails the run at price time.
+  # Per deployment.  DeepSeek: api-docs.deepseek.com/quick_start/pricing, read 2026-10-16,
+  # PEAK cache-miss rates (the conservative figure; off-peak is half, cache hits far less).
+  # The engine bills every token at these rates; it does not model cache hits or peak hours.
+  deepseek-flash:    { input: "0.30",  output: "1.20" }   # DeepSeek-V4.1-Flash
+  deepseek-v4-pro:   { input: "1.32",  output: "3.96" }   # DeepSeek-V4-Pro-0813
+  # A model missing here falls back to default = 0.00: cost_usd would be meaningless.
   default:           { input: "0.00",  output: "0.00" }
 local:
   # Fixture responders: a nominal FIXTURE price so cost accounting is exercised
