@@ -19,7 +19,7 @@ import pytest
 import yaml
 
 from engine.config import ENGINE_ROOT
-from engine.errors import ManifestError
+from engine.errors import EngineError, ManifestError
 from engine.eval import run_eval
 from engine.manifest import load_agent
 from engine.packs import load_pack
@@ -176,3 +176,14 @@ def test_judgement_records_conflict_when_model_is_confidently_wrong(runner, engi
     assert Decimal(summary["reject"]) > Decimal(summary["accept"])
     good = runner.run("allocator", {"capacity": 20})
     assert Decimal(engine.store.get_run(good.run_id)["judgement"]["summaries"]["1:0"]["conflict"]) == 0
+
+
+def test_missing_api_key_is_a_traced_provider_error(runner, engine, monkeypatch):
+    """A real provider with no credential fails as a ProviderError: the run is
+    recorded with status error and the reason names the variable (found by the
+    first real pack, 2026-10-16: the SDK's TypeError escaped without a trace)."""
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    with pytest.raises(EngineError, match="ANTHROPIC_API_KEY is not set"):
+        runner.run("checker", {"sheet_id": "S1"}, model_override=("anthropic", "claude-fable-5-1"))
+    rows = [r for r in engine.store.list_runs(pack="_reference", agent="checker") if r["status"] == "error"]
+    assert len(rows) == 1 and "ANTHROPIC_API_KEY is not set" in rows[0]["failure_reasons"][0]

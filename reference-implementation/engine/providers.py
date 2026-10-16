@@ -113,6 +113,10 @@ class AnthropicProvider(_Priced):
                 import anthropic
             except ImportError as e:
                 raise ProviderError("anthropic SDK not installed") from e
+            if not os.environ.get("ANTHROPIC_API_KEY"):
+                # Caught here so the run is traced as an error instead of the SDK's
+                # TypeError escaping the loop without a trace row.
+                raise ProviderError("ANTHROPIC_API_KEY is not set")
             self._client = anthropic.Anthropic()
         return self._client
 
@@ -140,6 +144,8 @@ class AnthropicProvider(_Priced):
             raise ProviderError(f"anthropic API error {e.status_code}: {e.message}") from e
         except anthropic.APIConnectionError as e:
             raise ProviderError(f"anthropic connection error: {e}") from e
+        except (anthropic.AnthropicError, TypeError, ValueError) as e:
+            raise ProviderError(f"anthropic request failed: {e}") from e
         latency = int((time.perf_counter() - t0) * 1000)
         text_parts, tool_uses = [], []
         for block in resp.content:
