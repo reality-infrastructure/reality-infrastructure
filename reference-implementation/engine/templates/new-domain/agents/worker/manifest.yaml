@@ -3,7 +3,7 @@ role: worker
 version: 0.1.0
 model:
   provider: anthropic
-  name: claude-fable-5-1
+  name: claude-haiku-5-5
   system_prompt_file: prompts/system.md
   max_tokens: 16000
 grounding:

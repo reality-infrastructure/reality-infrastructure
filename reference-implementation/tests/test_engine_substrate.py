@@ -184,3 +184,64 @@ def test_working_memory_budget_trims_deterministically():
     assert len(c["grounding"][0]["data"]) < 5 and _estimate_tokens(c) <= 400
     with pytest.raises(EngineError, match="cannot fit"):
         _fit_budget(ctx(), 50)
+
+
+def test_anthropic_strict_schema_drops_unsupported_keywords_and_falls_back(monkeypatch):
+    """Found live 2026-10-16: the API rejects strict tools carrying minimum/maximum.
+    The model-facing copy is sanitized; a 400 naming the tools retries once without
+    strict; the engine's own schema stays untouched."""
+    import anthropic
+    cfg = load_config()
+    provider = AnthropicProvider(cfg)
+    calls = []
+
+    class _Block:
+        def __init__(self, **kw):
+            self.__dict__.update(kw)
+
+    class _Resp:
+        content = [_Block(type="tool_use", id="tu_1", name="engine__submit", input={"n": 1})]
+        stop_reason = "tool_use"
+        usage = _Block(input_tokens=10, output_tokens=5)
+        model = "claude-fable-5-1"
+
+        def model_dump(self, mode="json"):
+            return {}
+
+    class _Messages:
+        def create(self, **request):
+            calls.append(request)
+            if len(calls) == 1 and any("strict" in t for t in request["tools"]):
+                raise anthropic.BadRequestError(
+                    "tools.0.custom: For 'integer' type, properties maximum, minimum are not supported",
+                    response=httpx_response(), body=None)
+            return _Resp()
+
+    def httpx_response():
+        import httpx
+        return httpx.Response(400, request=httpx.Request("POST", "https://api.anthropic.com/v1/messages"))
+
+    class _Client:
+        messages = _Messages()
+
+    monkeypatch.setattr(provider, "_get_client", lambda: _Client())
+    schema = {"type": "object", "additionalProperties": False, "required": ["n"],
+              "properties": {"n": {"type": "integer", "minimum": 1, "maximum": 5},
+                             "s": {"type": "string", "maxLength": 3, "pattern": "^a$"},
+                             "items": {"type": "array", "minItems": 1, "items": {"type": "number", "minimum": 0}}}}
+    tools = [{"name": "engine__submit", "description": "d", "input_schema": schema}]
+    c = provider.complete(model="claude-fable-5-1", system="S", messages=[text_message("user", "hi")],
+                          tools=tools, max_tokens=64)
+    assert c.tool_uses[0].input == {"n": 1}
+    # first attempt: strict with a sanitized copy
+    sent = calls[0]["tools"][0]
+    assert sent["strict"] is True
+    assert "minimum" not in sent["input_schema"]["properties"]["n"]
+    assert "pattern" not in sent["input_schema"]["properties"]["s"]
+    assert "minItems" not in sent["input_schema"]["properties"]["items"]
+    assert "minimum" not in sent["input_schema"]["properties"]["items"]["items"]
+    # second attempt: full schema, no strict
+    assert len(calls) == 2 and "strict" not in calls[1]["tools"][0]
+    assert calls[1]["tools"][0]["input_schema"] is schema
+    # the caller's schema was never mutated
+    assert schema["properties"]["n"]["minimum"] == 1

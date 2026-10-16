@@ -100,6 +100,32 @@ class _Priced:
 # Anthropic
 # ---------------------------------------------------------------------------
 
+# Keywords the Anthropic strict tool-use subset does not accept.  They are
+# dropped from the copy sent to the model; the engine validates the full
+# schema itself (schema_valid), so nothing is lost.
+_STRICT_UNSUPPORTED = frozenset({
+    "minimum", "maximum", "exclusiveMinimum", "exclusiveMaximum", "multipleOf",
+    "minLength", "maxLength", "pattern", "format",
+    "minItems", "maxItems", "uniqueItems", "default",
+})
+
+
+def _strict_copy(node):
+    if isinstance(node, dict):
+        return {k: _strict_copy(v) for k, v in node.items() if k not in _STRICT_UNSUPPORTED}
+    if isinstance(node, list):
+        return [_strict_copy(v) for v in node]
+    return node
+
+
+def _strict_tool(t: dict) -> dict:
+    """strict=True with a sanitized schema where the schema is a closed object; else as is."""
+    schema = t["input_schema"]
+    if schema.get("additionalProperties") is False and "required" in schema:
+        return dict(t, input_schema=_strict_copy(schema), strict=True)
+    return t
+
+
 class AnthropicProvider(_Priced):
     id = "anthropic"
 
@@ -130,14 +156,19 @@ class AnthropicProvider(_Priced):
             "messages": messages,
         }
         if tools:
-            # strict tool use needs a closed object schema; only promise it where the schema allows.
-            request["tools"] = [
-                dict(t, strict=True) if (t["input_schema"].get("additionalProperties") is False
-                                         and "required" in t["input_schema"]) else t
-                for t in tools]
+            request["tools"] = [_strict_tool(t) for t in tools]
         t0 = time.perf_counter()
         try:
-            resp = client.messages.create(**request)
+            try:
+                resp = client.messages.create(**request)
+            except anthropic.BadRequestError as e:
+                # The API's strict-schema subset is narrower than JSON Schema.  If it
+                # rejects a tool definition, send the full schemas once without strict;
+                # the engine's schema_valid guardrail still enforces every keyword.
+                if not (tools and "tools." in str(e)):
+                    raise
+                request["tools"] = list(tools)
+                resp = client.messages.create(**request)
         except anthropic.RateLimitError as e:
             raise ProviderError(f"anthropic rate limited: {e}") from e
         except anthropic.APIStatusError as e:
