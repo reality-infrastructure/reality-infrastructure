@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pack event declarations",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["events"],
+  "properties": {
+    "events": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z_][a-z0-9_]*\\.[a-z][a-z0-9_]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["description", "payload"],
+        "properties": {
+          "description": {"type": "string", "minLength": 1},
+          "payload": {"type": "object"}
+        }
+      }
+    }
+  }
+}

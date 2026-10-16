@@ -1,0 +1,16 @@
+# One slot, two interchangeable fixture vendors.  Swapping is this one line.
+slots:
+  records_feed:
+    binding: mock_a
+    latency_sla_seconds: 3600
+    required_flags: [disclosure]
+    scorecard: VENDOR-SCORECARD.md
+bindings:
+  mock_a:
+    module: adapters.mock_a
+    class: MockVendorA
+    config: { suppressed: [rec-3] }
+  mock_b:
+    module: adapters.mock_b
+    class: MockVendorB
+    config: { suppressed: [rec-3] }

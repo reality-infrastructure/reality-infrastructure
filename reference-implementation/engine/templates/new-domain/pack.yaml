@@ -1,0 +1,13 @@
+name: __PACK__
+description: "TODO: one line on the domain this pack harnesses"
+# Real packs are never fixtures.  Only packs/_reference may set this true.
+fixture: false
+# TODO: the domain nouns events are about (lowercase identifiers).
+entity_types: [todo_entity]
+# One bespoke super sub-agent per pack.  Raising this needs an ADR under adr/.
+max_specialists: 1
+tables: {}
+modules:
+  tools: []
+  guardrails: []
+  verifiers: []

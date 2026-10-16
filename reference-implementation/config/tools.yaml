@@ -1,0 +1,68 @@
+# Descriptions and argument schemas for the engine's generic tools and the
+# synthetic submit tool.  These are the only model-facing strings the engine
+# owns; they are data, not Python.
+engine.submit:
+  description: >-
+    Submit the final output for this run. The input must satisfy the output
+    schema exactly. Call this once, when the work is finished. Any figure that
+    the schema marks as traceable must carry a citation to the source row it
+    was read from.
+events.query:
+  description: >-
+    Query the append-only event log. Returns events newest first, each with its
+    event_id, entity_type, entity_id, event_type, payload, source and observed_at.
+    Cite an event as event:events:<event_id>.
+  input_schema:
+    type: object
+    additionalProperties: false
+    properties:
+      entity_type: { type: string }
+      entity_id: { type: string }
+      event_type: { type: string }
+      since: { type: string, description: ISO-8601 lower bound on observed_at }
+      limit: { type: integer, minimum: 1, maximum: 500, default: 50 }
+events.append:
+  description: >-
+    Append one event to the event log. The event_type must be declared in the
+    pack's events.yaml and the payload must satisfy its schema. Events are never
+    edited; a correction is a new event.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [entity_type, entity_id, event_type, payload]
+    properties:
+      entity_type: { type: string }
+      entity_id: { type: string }
+      event_type: { type: string }
+      payload: { type: object }
+      observed_at: { type: string }
+agent_output.read:
+  description: >-
+    Read the certified output of a prior agent run by run_id. Figures from it
+    are cited as run:agent_runs:<run_id> with the field path.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [run_id]
+    properties:
+      run_id: { type: string }
+files.read:
+  description: Read a text file the agent is granted. Cite as file:<path>:<line>.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [path]
+    properties:
+      path: { type: string }
+tables.read:
+  description: >-
+    Read rows from a pack table. Each row carries an id; cite a row as
+    table:<table>:<id>.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [table]
+    properties:
+      table: { type: string }
+      row_id: { type: string }
+      limit: { type: integer, minimum: 1, maximum: 5000, default: 1000 }

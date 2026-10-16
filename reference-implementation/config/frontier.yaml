@@ -1,0 +1,9 @@
+# The frontier model.  Orchestrators are pinned here (manifest validator refuses
+# any other model for role: orchestrator).  Any non-orchestrator agent on a
+# different model needs an eval parity matrix (engine.eval --models) unless its
+# pack is a fixture pack.
+frontier:
+  provider: anthropic
+  name: claude-fable-5-1
+# Providers whose models are fixtures, permitted only in packs with fixture: true.
+fixture_providers: [local]

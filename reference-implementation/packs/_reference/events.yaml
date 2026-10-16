@@ -1,0 +1,21 @@
+events:
+  _reference.sheet_checked:
+    description: The checker finished a sheet; which rows were flagged.
+    payload:
+      type: object
+      additionalProperties: false
+      required: [sheet_id, flagged, row_ids]
+      properties:
+        sheet_id: { type: string }
+        flagged: { type: integer, minimum: 0 }
+        row_ids: { type: array, items: { type: string } }
+  _reference.record_observed:
+    description: A licensed feed (adapter) reported a record value.
+    payload:
+      type: object
+      additionalProperties: false
+      required: [record_id, value, vendor]
+      properties:
+        record_id: { type: string }
+        value: { type: number }
+        vendor: { type: string }

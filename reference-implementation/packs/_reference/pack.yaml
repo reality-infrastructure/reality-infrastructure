@@ -1,0 +1,24 @@
+name: _reference
+description: "Blueprint pack on labeled fixture data: arithmetic sheet QA (worker), knapsack allocation (specialist), brief (orchestrator)."
+fixture: true
+entity_types: [sheet, record]
+max_specialists: 1
+tables:
+  sheets:     { backend: file, ref: fixtures/sheets.jsonl, id_field: id }
+  candidates: { backend: file, ref: fixtures/candidates.jsonl, id_field: id }
+modules:
+  tools: [tools.arith]
+  guardrails: [guardrails.flags]
+  verifiers: [verifiers.knapsack]
+# Fixture "models": deterministic responders.  Only a fixture pack may declare these.
+local_models:
+  checker-v1:           fixtures.responders:checker_v1
+  checker-v2:           fixtures.responders:checker_v2
+  checker-malformed:    fixtures.responders:checker_malformed
+  checker-snoop:        fixtures.responders:checker_snoop
+  allocator-v1:         fixtures.responders:allocator_v1
+  allocator-greedy:     fixtures.responders:allocator_greedy
+  allocator-infeasible: fixtures.responders:allocator_infeasible
+  allocator-misstated:  fixtures.responders:allocator_misstated
+  briefer-v1:           fixtures.responders:briefer_v1
+  compactor-v1:         fixtures.responders:compactor_v1

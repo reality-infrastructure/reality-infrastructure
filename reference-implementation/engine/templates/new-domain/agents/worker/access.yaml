@@ -1,0 +1,8 @@
+# Deny by default.  Anything not listed raises AccessDenied and fails the run closed.
+tables:
+  read: [events]
+  write: [events]
+files:
+  read: []
+  write: []
+network: []

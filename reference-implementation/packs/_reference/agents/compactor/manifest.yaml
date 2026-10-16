@@ -1,0 +1,23 @@
+name: compactor
+role: worker
+version: 1.0.0
+model:
+  provider: local
+  name: compactor-v1
+  system_prompt_file: prompts/system.md
+  max_tokens: 4000
+grounding:
+  sources: []
+tools: []
+memory:
+  working: { max_tokens: 80000 }
+  long_term: null
+  compaction: null
+loop:
+  max_iterations: 1
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, bounded_size]
+  verifier: null

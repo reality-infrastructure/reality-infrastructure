@@ -1,0 +1,13 @@
+# Every real action is one event.  Declare each type with a payload schema.
+# Undeclared types are rejected at append time.  The engine adds
+# __PACK__.verdict, __PACK__.correction, __PACK__.command_blocked,
+# __PACK__.latency_breach and compaction.summary for you.
+events:
+  __PACK__.todo_observed:
+    description: "TODO: what happened, in the domain's words"
+    payload:
+      type: object
+      additionalProperties: false
+      required: [note]
+      properties:
+        note: { type: string }

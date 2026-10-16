@@ -1,0 +1,2 @@
+{"threshold": 1.0, "compare": ["headline"], "fixture": true}
+{"id": "cap50", "fixture": true, "provenance": "FIXTURE: headline follows from the allocator's certified cap50 optimum (270 / 50 / 4 items) with no feed records ingested", "input": {"capacity": 50}, "expected": {"headline": "total_value=270 total_weight=50 selected=4 records_seen=0"}}

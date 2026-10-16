@@ -1,0 +1,3 @@
+{"threshold": 1.0, "compare": ["selected", "total_weight", "total_value"], "fixture": true}
+{"id": "cap50", "fixture": true, "provenance": "FIXTURE: optimum of fixtures/candidates.jsonl at capacity 50 by exhaustive enumeration (c1+c2+c4+c5 = 50 / 270)", "input": {"capacity": 50}, "expected": {"selected": ["c1", "c2", "c4", "c5"], "total_weight": 50, "total_value": 270}}
+{"id": "cap20", "fixture": true, "provenance": "FIXTURE: optimum of fixtures/candidates.jsonl at capacity 20 by exhaustive enumeration (c4+c5 = 20 / 110; greedy-by-ratio picks c1+c5 = 80)", "input": {"capacity": 20}, "expected": {"selected": ["c4", "c5"], "total_weight": 20, "total_value": 110}}

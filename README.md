@@ -70,6 +70,16 @@ Apache-2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 Roles: Research Claude (chat) owns necessity/prior-art/theorems/spec revision.
 Claude Code owns implementation and treats SPEC.md as source of truth.
 
+### Harness engine (agents that live inside RI)
+
+- **/reference-implementation/engine** — a domain-agnostic agent harness built on the engine:
+  manifest-defined agents (orchestrator / specialist / worker), deny-by-default access, guardrails,
+  a proposer/verifier split, an append-only event log and run traces bound to an RI Merkle ledger,
+  and an RI belief (cautious fusion of signed check observations, conflict mass retained) on every
+  candidate, replayable with `python -m engine.replay <run_id>`. Packs supply domain nouns; the
+  engine supplies mechanism. See `reference-implementation/HARNESS.md` and the blueprint pack
+  `reference-implementation/packs/_reference` (labeled fixture data).
+
 ### Rights-event layer
 
 - **/reference-implementation/rights_events** — first domain layer over the engine: a

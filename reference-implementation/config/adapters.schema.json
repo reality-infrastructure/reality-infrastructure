@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Adapter slot bindings",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["slots", "bindings"],
+  "properties": {
+    "slots": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["binding", "latency_sla_seconds"],
+        "properties": {
+          "binding": {"type": "string"},
+          "latency_sla_seconds": {"type": "number", "exclusiveMinimum": 0},
+          "required_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+          "scorecard": {"type": "string"}
+        }
+      }
+    },
+    "bindings": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[a-z][a-z0-9_]*$"},
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["module", "class"],
+        "properties": {
+          "module": {"type": "string"},
+          "class": {"type": "string"},
+          "config": {"type": "object"}
+        }
+      }
+    }
+  }
+}

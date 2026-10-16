@@ -1,0 +1,26 @@
+name: briefer
+role: orchestrator
+version: 1.0.0
+model:
+  provider: local
+  name: briefer-v1
+  system_prompt_file: prompts/system.md
+  max_tokens: 4000
+grounding:
+  sources:
+    - { kind: event_query, ref: "event_type=_reference.record_observed", limit: 20 }
+    - { kind: agent_output, ref: allocator, limit: 2 }
+tools: [agent._reference.allocator, agent_output.read, events.query]
+memory:
+  working: { max_tokens: 80000 }
+  long_term: { event_queries: [], prior_outputs: 1 }
+  compaction: null
+loop:
+  max_iterations: 2
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match]
+  verifier: null
+  confidence_field: confidence

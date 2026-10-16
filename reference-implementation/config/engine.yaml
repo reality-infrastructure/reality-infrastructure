@@ -1,0 +1,10 @@
+# Engine-level knobs that are not agent behavior.
+loop:
+  max_tool_calls_per_candidate: 24
+  default_max_iterations: 3
+  default_search_width: 1
+export:
+  min_verdicted_runs: 500
+citations:
+  # ref format: <kind>:<table_or_path>:<id>
+  kinds: [event, table, file, run]

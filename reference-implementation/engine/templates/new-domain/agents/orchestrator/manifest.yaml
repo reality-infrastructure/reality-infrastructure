@@ -1,0 +1,26 @@
+name: orchestrator
+role: orchestrator
+version: 0.1.0
+model:
+  provider: anthropic
+  name: claude-fable-5-1       # pinned; the validator refuses any other model for this role
+  system_prompt_file: prompts/system.md
+  max_tokens: 16000
+grounding:
+  sources:
+    - { kind: event_query, ref: "event_type=__PACK__.todo_observed", limit: 50 }
+    - { kind: agent_output, ref: worker, limit: 3 }
+tools: [events.query, agent.__PACK__.worker]
+memory:
+  working: { max_tokens: 80000 }
+  long_term: { event_queries: [], prior_outputs: 2 }
+  compaction: null
+loop:
+  max_iterations: 2
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match]
+  verifier: null
+  confidence_field: confidence

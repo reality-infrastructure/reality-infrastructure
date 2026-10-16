@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Domain pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "fixture", "entity_types", "max_specialists"],
+  "properties": {
+    "name": {"type": "string", "pattern": "^_?[a-z][a-z0-9_]*$"},
+    "description": {"type": "string"},
+    "fixture": {"type": "boolean"},
+    "entity_types": {"type": "array", "items": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"}, "minItems": 1, "uniqueItems": true},
+    "max_specialists": {"type": "integer", "minimum": 0},
+    "tables": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["backend", "ref"],
+        "properties": {
+          "backend": {"type": "string", "enum": ["file"]},
+          "ref": {"type": "string", "minLength": 1},
+          "id_field": {"type": "string", "default": "id"}
+        }
+      }
+    },
+    "modules": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tools": {"type": "array", "items": {"type": "string"}},
+        "guardrails": {"type": "array", "items": {"type": "string"}},
+        "verifiers": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "local_models": {
+      "type": "object",
+      "additionalProperties": {"type": "string", "pattern": "^[A-Za-z0-9_.]+:[A-Za-z_][A-Za-z0-9_]*$"}
+    }
+  }
+}

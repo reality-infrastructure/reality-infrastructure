@@ -1,0 +1,20 @@
+# USD per 1M tokens.  Source: Anthropic first-party API price table (cached 2026-10-06).
+# The engine never hardcodes a price; Provider.price() reads this file.
+# Unknown models are a ProviderError, never a silent zero.
+anthropic:
+  claude-fable-5-1:  { input: "10.00", output: "50.00" }
+  claude-fable-5:    { input: "10.00", output: "50.00" }
+  claude-opus-5-5:   { input: "4.00",  output: "20.00" }
+  claude-opus-5:     { input: "5.00",  output: "25.00" }
+  claude-opus-4-8:   { input: "5.00",  output: "25.00" }
+  claude-opus-4-7:   { input: "5.00",  output: "25.00" }
+  claude-sonnet-5-5: { input: "2.00",  output: "10.00" }
+  claude-sonnet-5:   { input: "2.00",  output: "10.00" }
+  claude-haiku-5-5:  { input: "0.10",  output: "0.50" }
+openai_compat:
+  # Fill per deployment.  A model missing here fails the run at price time.
+  default:           { input: "0.00",  output: "0.00" }
+local:
+  # Fixture responders: a nominal FIXTURE price so cost accounting is exercised
+  # end to end (traces, eval matrix, crank).  Not a real tariff.
+  default:           { input: "1.00",  output: "5.00" }

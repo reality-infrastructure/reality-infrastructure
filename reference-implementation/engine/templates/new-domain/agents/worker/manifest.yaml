@@ -1,0 +1,27 @@
+name: worker
+role: worker
+version: 0.1.0
+model:
+  provider: anthropic
+  name: claude-fable-5-1
+  system_prompt_file: prompts/system.md
+  max_tokens: 16000
+grounding:
+  sources:
+    - { kind: event_query, ref: "event_type=__PACK__.todo_observed", limit: 50 }
+tools: [events.query, events.append]
+memory:
+  working: { max_tokens: 60000 }
+  long_term: { event_queries: [ { event_type: __PACK__.todo_observed, limit: 20 } ], prior_outputs: 3 }
+  compaction: null
+loop:
+  max_iterations: 3
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match]
+  verifier: null
+  confidence_field: confidence
+metrics:
+  items_evaluated_field: items

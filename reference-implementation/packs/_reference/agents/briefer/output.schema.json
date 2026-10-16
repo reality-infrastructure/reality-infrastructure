@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "brief",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["headline", "figures", "citations", "confidence"],
+  "properties": {
+    "headline": {"type": "string", "minLength": 1},
+    "figures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "value", "citations"],
+        "properties": {
+          "name": {"type": "string"},
+          "value": {"type": ["number", "null"], "traceable": true},
+          "citations": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["ref", "field"],
+              "properties": {"ref": {"type": "string"}, "field": {"type": "string"}}
+            }
+          }
+        }
+      }
+    },
+    "citations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ref"],
+        "properties": {"ref": {"type": "string"}, "field": {"type": "string"}}
+      }
+    },
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

@@ -1,0 +1,26 @@
+# Judgement: how candidate checks become signed observations on an RI evidence
+# log and are fused under the Denoeux cautious rule.
+#
+# These mass assignments are DISCRETIONARY.  The replay guarantee covers the
+# fold (same log + same config -> same belief, byte for byte); it does not
+# cover the choice of numbers.  Change them only with a dated note here and a
+# version bump, because every trace records the hash of this file.
+version: 1
+frame: [accept, reject]
+# A deterministic check puts `weight` on its verdict and the rest on ignorance.
+# Both must be < 1 so every observation stays non-dogmatic (m(Omega) > 0).
+sources:
+  guardrail:
+    pass: "0.70"
+    fail: "0.90"
+  verifier:
+    pass: "0.90"
+    fail: "0.95"
+  # The model's own stated confidence is an interested-party assertion.  It is
+  # discounted before it may count toward `accept`, and it is what produces
+  # conflict mass m(empty) when the model is confidently wrong: the check says
+  # reject, the model says accept, and the cautious rule keeps both.
+  model_confidence:
+    discount: "0.50"
+    uncertainty_type: [asserted-by-interested-party]
+  check_uncertainty_type: [measured]

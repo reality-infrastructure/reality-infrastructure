@@ -1,0 +1,7 @@
+tables:
+  read: [sheets, events, agent_runs]   # agent_runs: its own prior outputs (long-term memory)
+  write: [events]
+files:
+  read: []
+  write: []
+network: []

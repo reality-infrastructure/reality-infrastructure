@@ -1,0 +1,37 @@
+{
+  "agent": "_reference/allocator",
+  "compare": [
+    "selected",
+    "total_weight",
+    "total_value"
+  ],
+  "frontier": "anthropic/claude-fable-5-1",
+  "frontier_score": null,
+  "manifest_hash": "59dbf829d4f5e413933a2dd5d76eefd66a43f514759c0a34ba5e950a90295bee",
+  "models": [
+    {
+      "counted": 2,
+      "excluded": 0,
+      "mean_cost_usd": "0.00080400",
+      "mean_latency_ms": 5,
+      "model": "local/allocator-v1",
+      "parity": null,
+      "passed": 2,
+      "score": "1.0000"
+    },
+    {
+      "counted": 2,
+      "excluded": 0,
+      "mean_cost_usd": "0.00124350",
+      "mean_latency_ms": 3,
+      "model": "local/allocator-greedy",
+      "parity": null,
+      "passed": 1,
+      "score": "0.5000"
+    }
+  ],
+  "pass": true,
+  "primary": "local/allocator-v1",
+  "summary": "PASS (2/2 >= 1.0)",
+  "threshold": "1.0"
+}

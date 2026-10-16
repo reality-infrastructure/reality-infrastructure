@@ -1,0 +1,31 @@
+name: checker
+role: worker
+version: 1.0.0
+model:
+  provider: local
+  name: checker-v1
+  system_prompt_file: prompts/system.md
+  max_tokens: 4000
+  variants:
+    checker-v2: { system_prompt_file: prompts/system-v2.md }
+grounding:
+  sources:
+    - { kind: table, ref: sheets }
+tools: [_reference.arith.eval, events.append, events.query, tables.read]
+memory:
+  working: { max_tokens: 50000 }
+  long_term:
+    event_queries: [ { event_type: _reference.sheet_checked, limit: 5 } ]
+    prior_outputs: 2
+  compaction: { after_days: 30, summary_agent: compactor }
+loop:
+  max_iterations: 2
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match, _reference.flags_consistent]
+  verifier: null
+  confidence_field: confidence
+metrics:
+  items_evaluated_field: items
