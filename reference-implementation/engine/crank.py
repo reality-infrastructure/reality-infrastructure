@@ -63,7 +63,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
         a["latency_ms"] += int(r["latency_ms"])
         a["items"] += int(r["items_evaluated"] or 0)
         if r["human_verdict"]:
-            verdicts[r["human_verdict"]] += 1
+            verdicts[f"{r['human_verdict']} ({r.get('verdict_source') or 'human'})"] += 1
             if r["human_verdict"] in ("overridden", "wrong") and r["verdict_reason"]:
                 override_reasons[r["verdict_reason"].strip()] += 1
         for it in r["iterations"]:
@@ -156,7 +156,9 @@ def render(report: dict) -> str:
     rec = report["recommendation"]
     L += ["", "## Recommended change (one, lowest rung first)", "",
           f"rung: {rec['rung']}", "", rec["change"], "", f"evidence: `{rec['evidence']}`", "",
-          "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract."]
+          "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract, or "
+          "engine.autoloop lets the pack's refiner propose the rung-1/2 edit and adopts it only if the "
+          "golden set does not get worse."]
     return "\n".join(L) + "\n"
 
 

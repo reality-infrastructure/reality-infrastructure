@@ -46,6 +46,31 @@ agent_output.read:
     required: [run_id]
     properties:
       run_id: { type: string }
+agent_run.read:
+  description: >-
+    Read one prior run of this pack in full for adjudication: its input, status,
+    output, failure reasons, model, and a compact trace of every iteration
+    (tool calls, failed guardrails, verifier result, which candidate was
+    accepted). A failed run cannot be cited; state its run_id in your output.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [run_id]
+    properties:
+      run_id: { type: string }
+runs.list:
+  description: >-
+    List prior runs of this pack, newest last: run_id, agent, status, input,
+    the verdict in force and who recorded it. Filter by agent, status or
+    whether a verdict exists.
+  input_schema:
+    type: object
+    additionalProperties: false
+    properties:
+      agent: { type: string }
+      status: { type: string }
+      verdicted: { type: boolean }
+      limit: { type: integer, minimum: 1, maximum: 500, default: 50 }
 files.read:
   description: Read a text file the agent is granted. Cite as file:<path>:<line>.
   input_schema:

@@ -250,3 +250,64 @@ def compactor_v1(*, model, system, messages, tools, candidate_index) -> Completi
                f"types: {', '.join(types)}")
     return _submit(messages, {"summary": summary,
                               "citations": [{"ref": f"event:events:{e['event_id']}"} for e in events]})
+
+
+# ---------------------------------------------------------------------------
+# the closed loop (engine.autoloop): judge, planner, refiner, and faulty variants
+# ---------------------------------------------------------------------------
+
+def judge_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Reads the run, then: a failed run is 'wrong' with its first failure; a succeeded run is 'followed'."""
+    ctx = _context(messages)
+    rid = ctx["input"]["run_id"]
+    if _turn(messages) == 0:
+        return _calls(messages, [("agent_run__read", {"run_id": rid})])
+    run = _tool_results(messages)[-1]
+    if run.get("status") != "succeeded":
+        reasons = run.get("failure_reasons") or ["no reason recorded"]
+        return _submit(messages, {"run_id": rid, "verdict": "wrong",
+                                  "reason": f"{run.get('status')}: {reasons[0]}"[:1000], "confidence": 0.9})
+    keys = ", ".join(sorted(k for k in (run.get("output") or {}) if k != "citations"))
+    return _submit(messages, {"run_id": rid, "verdict": "followed",
+                              "reason": f"every check passed; output fields {keys} match the workflow", "confidence": 0.8})
+
+
+def judge_lenient(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Says 'followed' without looking; verdict_grounded refuses it on a failed run."""
+    ctx = _context(messages)
+    return _submit(messages, {"run_id": ctx["input"]["run_id"], "verdict": "followed",
+                              "reason": "looks fine", "confidence": 0.99})
+
+
+def planner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Schedules the sheet and the capacity the week has not seen, under the cap."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    seen = {(p["agent"], json.dumps(p["input"], sort_keys=True)) for p in inp.get("pending", [])}
+    wanted = [("checker", {"sheet_id": "S2"}), ("allocator", {"capacity": 20}), ("checker", {"sheet_id": "S1"})]
+    batch = [{"agent": a, "input": i} for a, i in wanted if (a, json.dumps(i, sort_keys=True)) not in seen]
+    batch = batch[: int(inp.get("max_runs", 20))]
+    return _submit(messages, {"batch": batch, "why": f"{len(batch)} inputs the week has not covered", "confidence": 0.7})
+
+
+def planner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Names an agent the pack does not have; batch_resolves refuses it."""
+    return _submit(messages, {"batch": [{"agent": "nobody", "input": {}}], "why": "guess", "confidence": 0.5})
+
+
+def refiner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """One exact edit: the first non-empty line of skills.md gets a suffix."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    text = inp["files"]["skills.md"]
+    first = next(l for l in text.splitlines() if l.strip())
+    return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md", "old": first,
+                              "new": first + " (refined by the loop)", "why": inp["change"][:200], "confidence": 0.6})
+
+
+def refiner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Proposes text that is not in the file; edit_applies refuses it."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md",
+                              "old": "THIS TEXT IS NOT IN THE FILE", "new": "x", "why": "guess", "confidence": 0.5})

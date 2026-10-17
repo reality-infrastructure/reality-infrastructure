@@ -1,5 +1,5 @@
 name: _reference
-description: "Blueprint pack on labeled fixture data: arithmetic sheet QA (worker), knapsack allocation (specialist), brief (orchestrator)."
+description: "Blueprint pack on labeled fixture data: arithmetic sheet QA (worker), knapsack allocation (specialist), brief (orchestrator), and the closed loop's judge, planner and refiner."
 fixture: true
 entity_types: [sheet, record]
 max_specialists: 1
@@ -22,3 +22,9 @@ local_models:
   allocator-misstated:  fixtures.responders:allocator_misstated
   briefer-v1:           fixtures.responders:briefer_v1
   compactor-v1:         fixtures.responders:compactor_v1
+  judge-v1:             fixtures.responders:judge_v1
+  judge-lenient:        fixtures.responders:judge_lenient
+  planner-v1:           fixtures.responders:planner_v1
+  planner-bad:          fixtures.responders:planner_bad
+  refiner-v1:           fixtures.responders:refiner_v1
+  refiner-bad:          fixtures.responders:refiner_bad

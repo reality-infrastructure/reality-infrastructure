@@ -140,7 +140,8 @@ class Runner:
         provider = self.providers.get(agent.model.provider)
         tool_defs = self.pack.tools.definitions(list(agent.tools)) + [self._submit_tool(agent)]
         gctx = GuardrailContext(agent=agent, output_schema=agent.output_schema, resolver=resolver,
-                                run_input=run_input, pack=self.pack, max_output_bytes=agent.max_output_bytes)
+                                run_input=run_input, pack=self.pack, max_output_bytes=agent.max_output_bytes,
+                                engine=self.engine)
         vctx = VerifyContext(pack=self.pack, agent=agent, run_input=run_input, resolver=resolver,
                              read_table=self.pack.table_rows)
         feedback: list[dict] = []

@@ -2,6 +2,7 @@
 
 - events.query / events.append   the event log, through EventLog (declared types only)
 - agent_output.read              a prior certified run's output
+- agent_run.read / runs.list     a prior run in full (for a judge) / the run list (for a planner)
 - files.read                     a granted file
 - tables.read                    a pack table
 - agent.<pack>.<name>            call another agent (orchestrator only, one level deep)
@@ -56,6 +57,45 @@ def _agent_output_read(args: dict, ctx: ToolContext):
             "output": row["output"], "ref": f"run:agent_runs:{row['run_id']}"}
 
 
+_RUN_FIELDS = ("run_id", "agent", "role", "status", "input", "output", "failure_reasons", "provider", "model",
+               "manifest_hash", "cost_usd", "latency_ms", "items_evaluated", "human_verdict", "verdict_source",
+               "created_at")
+
+
+def _trace_summary(iterations: list[dict]) -> list[dict]:
+    out = []
+    for it in iterations:
+        for cand in it.get("candidates", []):
+            out.append({
+                "iteration": it.get("index"), "candidate": cand.get("index"), "accepted": bool(cand.get("accepted")),
+                "tool_calls": [{"tool": c.get("tool"), "args": c.get("args"), "error": c.get("error")}
+                               for c in cand.get("tool_calls", [])],
+                "guardrails": [g for g in cand.get("guardrails", []) if not g.get("passed")],
+                "verifier": cand.get("verifier"),
+            })
+    return out
+
+
+def _agent_run_read(args: dict, ctx: ToolContext):
+    row = ctx.engine.store.get_run(args["run_id"])
+    if row is None:
+        raise ToolError(f"no run {args['run_id']!r}")
+    if row["pack"] != ctx.pack.name:
+        raise ToolError(f"run {args['run_id']!r} belongs to another pack")
+    out = {k: (str(row[k]) if k == "cost_usd" else row[k]) for k in _RUN_FIELDS}
+    out["trace"] = _trace_summary(row["iterations"])
+    out["ref"] = f"run:agent_runs:{row['run_id']}" if row["status"] == "succeeded" else None
+    return out
+
+
+def _runs_list(args: dict, ctx: ToolContext):
+    rows = ctx.engine.store.list_runs(pack=ctx.pack.name, agent=args.get("agent"), status=args.get("status"),
+                                      verdicted=args.get("verdicted"))
+    rows = rows[-int(args.get("limit", 50)):]
+    return [{k: row[k] for k in ("run_id", "agent", "role", "status", "input", "human_verdict", "verdict_source",
+                                  "created_at")} for row in rows]
+
+
 def _files_read(args: dict, ctx: ToolContext):
     path = ctx.access.check_file(args["path"], "read")
     if not path.is_file():
@@ -92,6 +132,14 @@ def register_builtin_tools(reg: ToolRegistry) -> None:
         ToolSpec(id="agent_output.read", effect="read", deterministic=True,
                  input_schema=_cfg("agent_output.read")["input_schema"],
                  description=_cfg("agent_output.read")["description"], fn=_agent_output_read,
+                 targets=lambda a: [Target("table", "agent_runs", "read")]),
+        ToolSpec(id="agent_run.read", effect="read", deterministic=True,
+                 input_schema=_cfg("agent_run.read")["input_schema"],
+                 description=_cfg("agent_run.read")["description"], fn=_agent_run_read,
+                 targets=lambda a: [Target("table", "agent_runs", "read")]),
+        ToolSpec(id="runs.list", effect="read", deterministic=True,
+                 input_schema=_cfg("runs.list")["input_schema"],
+                 description=_cfg("runs.list")["description"], fn=_runs_list,
                  targets=lambda a: [Target("table", "agent_runs", "read")]),
         ToolSpec(id="files.read", effect="read", deterministic=True,
                  input_schema=_cfg("files.read")["input_schema"],

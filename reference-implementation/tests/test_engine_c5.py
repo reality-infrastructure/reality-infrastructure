@@ -34,7 +34,7 @@ def test_crank_report_sections_and_recommendation(runner, engine, pack):
     assert agents["allocator"]["runs"] == 3 and agents["allocator"]["failed_verifier"] == 2
     assert agents["checker"]["scale_ratio"] == "1.00"           # 3 items / baseline 3
     assert float(agents["allocator"]["mean_conflict_mass"]) > 0  # confidently wrong proposals
-    assert report["verdicts"] == {"overridden": 1}
+    assert report["verdicts"] == {"overridden (human)": 1}      # attributed since C7: who adjudicated
     assert report["override_reasons"][0]["reason"] == "capacity was really 45"
     assert report["recommendation"]["rung"] == 2
     assert bad.run_id in {r for c in report["failure_clusters"] for r in c["runs"]}

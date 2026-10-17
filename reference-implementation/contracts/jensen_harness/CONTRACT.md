@@ -125,3 +125,78 @@ C6
   proven by a stubbed-client test (request shape, block mapping, pricing), not a live call.
 - Postgres: `DATABASE_URL` is unset; `PostgresStore` and `migrations/postgres/` are written and
   the round-trip test is in place but skipped here.
+
+---
+
+# CONTRACT JH-C7 — The closed loop: the pack's agents decide the verdict, the data and the training
+
+Operator instruction 2026-10-17, verbatim: "Change the proposer to AI deciding the verdict
+the data and the training using reality infrastructure." Built on `contract/irv-harness`
+in the same session as HL-02 (hood). Concern stated before building and not withdrawn:
+all three interviews the operator read as a trader (Brown, Schulman/Millidge/O'Neill,
+Musk) warn that an AI grading its own outputs learns to game the grader. Two structural
+guards therefore hold on every turn of the loop: an agent verdict can never contradict a
+deterministic check and is recorded under its own source, and a human verdict outranks it.
+
+## OBJECTIVE
+`python -m engine.autoloop <pack> --week W` runs one cycle in which the pack's own
+`planner` chooses the next runs, the runs execute, the pack's `judge` adjudicates every
+run of the week that has no verdict, the crank reports, the pack's `refiner` turns a
+rung-1/2 recommendation into one exact text edit that is adopted only if the agent's
+golden score does not fall, and every specialist whose gate is open is exported; every
+step is a traced run or a ledger-bound event.
+
+## SCOPE
+IN: `engine/autoloop.py` (new), `engine/verdicts.py` (source), `engine/store.py` +
+`migrations/*/0004_verdict_source.sql` (verdict_source, verdict_ref), `engine/manifest.py`
+(roles judge/planner/refiner; frontier-only; no verifier; required output keys),
+`engine/guardrails.py` (`verdict_grounded`, `batch_resolves`, `edit_applies`;
+`GuardrailContext.engine`), `engine/builtin_tools.py` + `config/tools.yaml`
+(`agent_run.read`, `runs.list`), `engine/crank.py` (verdicts attributed by source),
+`engine/export.py` + `config/engine.yaml` (`export.accept_agent_verdicts`, `autoloop.*`),
+`config/manifest.schema.json`, `config/engine-events.json` (`<pack>.refinement`),
+`packs/_reference/agents/{judge,planner,refiner}` + fixture responders,
+`tests/test_engine_c7.py`, `tests/test_engine_c5.py` (one expectation), `HARNESS.md`,
+`IMPROVEMENT-ORDER.md`, this section.
+OUT: `ri_core/`, any model pin, any guardrail or verifier of a pack, any training.
+
+## PLAN GATE (answered)
+(a) Who adjudicates is a column, not a new table: `verdict_source` (human|agent) and
+`verdict_ref` (the judge's run_id) beside the existing verdict columns; the freeze
+triggers admit the two new columns and nothing else. (b) The three loop roles are
+manifest roles with the orchestrator's economics (frontier only, no swap) and no verifier;
+the loop reads fixed keys from their certified outputs, so the manifest validator requires
+those keys in the output schema. (c) The model proposes, code decides, at every step: the
+judge's verdict is checked by `verdict_grounded` against the judged run's own status; the
+planner's batch by `batch_resolves` against the pack; the refiner's edit by `edit_applies`
+against the files it was handed, and then by the golden set before and after. (d) The
+export gate counts agent verdicts only when `export.accept_agent_verdicts` is true
+(operator's decision: true); a human verdict on the same run replaces the agent's.
+
+## ACCEPTANCE — proof (2026-10-17)
+1. `python -m engine.validate _reference` → `OK … agent judge (judge) … agent planner
+   (planner) … agent refiner (refiner) … guardrails: 10 … event types: 8`.
+2. `tests/test_engine_c7.py` (11 tests): roles load; a non-frontier judge is refused
+   (`role judge must run the frontier`); a judge schema without `verdict` is refused; an
+   agent verdict carries `verdict_source=agent` and the judge's run as `verdict_ref`, its
+   event is `source=agent:judge`, the judge run replays byte-identical; a human verdict
+   replaces it and an agent verdict never replaces the human's; a judge may not judge itself
+   nor another loop role's run; `judge-lenient` saying `followed` on a failed run →
+   `failed_guardrail` ("contradicts code"); `planner-bad` → `failed_guardrail` ("no agent
+   'nobody'"); `refiner-bad` → `failed_guardrail` ("occur exactly once"); the gate counts
+   agent verdicts iff config says so; one cycle on the fixture pack plans the one input the
+   week lacked, runs it, judges all three runs (`followed`, `wrong`), attributes verdicts in
+   the crank (`wrong (agent)`), refines the allocator's skills.md with a `_reference.refinement`
+   event (adopted, PASS before and after), reports the gate closed, and renders every section;
+   the CLI writes `autoloop-<week>.md/.json` and the crank.
+3. Full suite: `759 passed, 1 skipped` after one hypothesis flake in `tests/test_identity.py`
+   (pre-existing, `ri_core` untouched; passes alone: `26 passed`).
+
+## DONE
+1. Plan Gate: above. 2. `pytest -q`: 758 passed + the flake, re-run green (above).
+3. git status clean at commit. 4. Commit on `contract/irv-harness`, pushed — hash in the
+commit trailer. 5. Checklist: above.
+
+## STOP CONDITIONS HIT
+- None in the engine. The live turn of the loop (a real judge, planner and refiner on
+  Haiku over Hood's runs) is hood contract HL-03, in that repo.

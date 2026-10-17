@@ -5,6 +5,13 @@ loop:
   default_search_width: 1
 export:
   min_verdicted_runs: 500
+  # Whether a judge agent's verdict counts toward the gate and into the dataset
+  # (operator decision 2026-10-17: the loop closes itself; a human verdict still
+  # outranks an agent's on the same run).
+  accept_agent_verdicts: true
+autoloop:
+  max_runs_per_cycle: 20        # the planner's batch is capped here, whatever it proposes
+  refine_rungs: [1, 2]          # the refiner may touch grounding and harness text only
 citations:
   # ref format: <kind>:<table_or_path>:<id>
   kinds: [event, table, file, run]

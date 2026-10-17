@@ -5,6 +5,9 @@ Invariants enforced here:
 - role: orchestrator  -> model must be the frontier (config/frontier.yaml)
 - role: specialist    -> verifier required, pack problem.md required,
                          count <= pack max_specialists (override needs an ADR)
+- roles judge / planner / refiner (the closed loop, engine.autoloop) -> frontier only,
+                         no verifier, no agent tools, and an output schema that
+                         requires the keys the loop reads (see LOOP_ROLE_KEYS)
 - fixture providers (local) only inside fixture packs
 - any non-frontier model outside a fixture pack needs an eval parity matrix
 - every agent carries skills.md, workflow.md (with manual_baseline_items) and access.yaml
@@ -26,7 +29,14 @@ from engine.hashing import sha256_tree
 from engine.packs import Pack
 from engine.schema import load_schema, validate
 
-ROLES = ("orchestrator", "specialist", "worker")
+ROLES = ("orchestrator", "specialist", "worker", "judge", "planner", "refiner")
+FRONTIER_ROLES = ("orchestrator", "judge", "planner", "refiner")
+# What engine.autoloop reads from each loop role's certified output; the schema must require them.
+LOOP_ROLE_KEYS = {
+    "judge": ("run_id", "verdict", "reason"),
+    "planner": ("batch",),
+    "refiner": ("agent", "rung", "file", "old", "new", "why"),
+}
 AGENT_TOOL_PREFIX = "agent."
 
 
@@ -127,10 +137,10 @@ def _check_model_economics(agent_dir: Path, agent_name: str, role: str, model: M
             f"{agent_name}: provider {model.provider!r} is a fixture provider; "
             f"only packs with fixture: true may use it")
     # A fixture responder is not a model; the frontier pin governs real models.
-    if role == "orchestrator" and not is_frontier and not (pack.fixture and is_fixture_model):
+    if role in FRONTIER_ROLES and not is_frontier and not (pack.fixture and is_fixture_model):
         raise ManifestError(
-            f"{agent_name}: role orchestrator must run the frontier model "
-            f"{frontier.model_string}; model swap is disallowed for orchestrators")
+            f"{agent_name}: role {role} must run the frontier model "
+            f"{frontier.model_string}; model swap is disallowed for {role}s")
     if is_frontier or pack.fixture:
         return
     matrix = _latest_matrix(agent_dir)
@@ -181,6 +191,8 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
             raise ManifestError(f"pack {pack.name!r}: a specialist requires problem.md")
     if role == "orchestrator" and verifier is not None:
         raise ManifestError(f"{manifest_path}: an orchestrator does no proprietary math and takes no verifier")
+    if role in LOOP_ROLE_KEYS and verifier is not None:
+        raise ManifestError(f"{manifest_path}: a {role} takes no verifier; the loop's checks are engine guardrails")
 
     # agent tools: orchestrators only, one level deep
     agent_tools = [t for t in manifest["tools"] if t.startswith(AGENT_TOOL_PREFIX)]
@@ -232,6 +244,14 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
     # output schema
     schema_path = (agent_dir / manifest["safeguards"]["output_schema"]).resolve()
     output_schema = load_schema(schema_path)
+    if role in LOOP_ROLE_KEYS:
+        missing = [k for k in LOOP_ROLE_KEYS[role] if k not in (output_schema.get("required") or [])]
+        if missing:
+            raise ManifestError(f"{schema_path}: a {role}'s output schema must require {list(LOOP_ROLE_KEYS[role])}; missing {missing}")
+        if role == "judge":
+            enum = ((output_schema.get("properties") or {}).get("verdict") or {}).get("enum")
+            if sorted(enum or []) != sorted(("followed", "overridden", "wrong", "n/a")):
+                raise ManifestError(f"{schema_path}: a judge's verdict must be an enum of followed|overridden|wrong|n/a")
 
     # model
     provider, model_name = model_override or (manifest["model"]["provider"], manifest["model"]["name"])

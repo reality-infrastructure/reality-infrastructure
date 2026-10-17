@@ -3,7 +3,8 @@
     python -m engine.export <pack>/<specialist> --format sft|preference --out FILE [--db DSN]
 
 Refuses unless the agent is a specialist and at least ``export.min_verdicted_runs``
-(config/engine.yaml, 500) of its runs carry a human verdict.  Output is a JSONL
+(config/engine.yaml, 500) of its runs carry a verdict that counts: a human's always,
+a judge agent's when ``export.accept_agent_verdicts`` is true.  Output is a JSONL
 dataset file only; training and hosting are outside the engine.
 """
 
@@ -41,11 +42,19 @@ def _rejected_candidates(row: dict) -> list[dict]:
     return out
 
 
+def counted_runs(engine: Engine, pack, agent_name: str, **kw) -> list[dict]:
+    """Verdicted runs whose verdict counts: human always; agent when config says so."""
+    rows = engine.store.list_runs(pack=pack.name, agent=agent_name, verdicted=True, **kw)
+    if engine.config.export_accepts_agent_verdicts:
+        return rows
+    return [r for r in rows if (r.get("verdict_source") or "human") == "human"]
+
+
 def check_gate(engine: Engine, pack, agent_name: str) -> tuple[object, int]:
     agent = load_agent(pack, agent_name, config=engine.config)
     if agent.role != "specialist":
         raise GateError(f"export refused: {agent.ref} has role {agent.role!r}; only specialists are post-trained")
-    n = len(engine.store.list_runs(pack=pack.name, agent=agent_name, verdicted=True))
+    n = len(counted_runs(engine, pack, agent_name))
     need = engine.config.export_min_verdicts
     if n < need:
         raise GateError(f"export refused: {n} verdicted runs for {agent.ref}, gate is {need}")
@@ -54,7 +63,7 @@ def check_gate(engine: Engine, pack, agent_name: str) -> tuple[object, int]:
 
 def sft_rows(engine: Engine, pack, agent) -> Iterator[dict]:
     """Runs a human marked ``followed``: the accepted candidate's full exchange."""
-    for row in engine.store.list_runs(pack=pack.name, agent=agent.name, verdicted=True, status="succeeded"):
+    for row in counted_runs(engine, pack, agent.name, status="succeeded"):
         if row["human_verdict"] != "followed":
             continue
         cand = _accepted_candidate(row)
@@ -69,13 +78,14 @@ def sft_rows(engine: Engine, pack, agent) -> Iterator[dict]:
             "output": row["output"],
             "verdict": row["human_verdict"],
             "verdict_reason": row["verdict_reason"],
+            "verdict_source": row.get("verdict_source") or "human",
         }
 
 
 def preference_rows(engine: Engine, pack, agent) -> Iterator[dict]:
     """Pairs: chosen = accepted + followed; rejected = a failed candidate of the same run,
     or the output of a run on the same input the human marked wrong/overridden."""
-    runs = engine.store.list_runs(pack=pack.name, agent=agent.name, verdicted=True)
+    runs = counted_runs(engine, pack, agent.name)
     bad_by_input: dict[str, list[dict]] = {}
     for row in runs:
         if row["human_verdict"] not in ("wrong", "overridden"):

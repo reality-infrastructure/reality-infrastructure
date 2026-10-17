@@ -3,7 +3,13 @@
 Cost order, cheapest first. Every refinement PR states which rung it is on and
 why the lower rungs are exhausted. The weekly crank (`python -m engine.crank`)
 recommends one rung-1 or rung-2 change with evidence rows; a human turns it
-into the next contract.
+into the next contract, or the closed loop (`python -m engine.autoloop`, since
+C7) lets the pack's own agents take the turn: the planner decides the data
+(which runs next), the judge decides the verdict (recorded as `agent`-sourced;
+a human's outranks it), and the refiner decides the training at rungs 1 and 2
+only, as one exact text edit that is kept only if the agent's golden score does
+not fall. Rung 3 still needs the parity matrix and rung 4 the export gate; the
+loop never touches code, a guardrail, a verifier or a model pin.
 
 | Rung | Change | Gate | Where |
 |---|---|---|---|

@@ -10,6 +10,23 @@
       "reason": {"type": "string"}
     }
   },
+  "refinement": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "rung", "file", "old_sha256", "new_sha256", "before_score", "after_score", "adopted", "refiner_run_id", "why"],
+    "properties": {
+      "agent": {"type": "string"},
+      "rung": {"type": "integer", "minimum": 1, "maximum": 2},
+      "file": {"type": "string"},
+      "old_sha256": {"type": "string"},
+      "new_sha256": {"type": "string"},
+      "before_score": {"type": "string"},
+      "after_score": {"type": "string"},
+      "adopted": {"type": "boolean"},
+      "refiner_run_id": {"type": "string"},
+      "why": {"type": "string"}
+    }
+  },
   "correction": {
     "type": "object",
     "additionalProperties": false,

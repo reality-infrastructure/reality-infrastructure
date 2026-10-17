@@ -36,7 +36,7 @@ RUN_COLUMNS = (
     "model", "input_hash", "input", "iterations", "output", "status", "cost_usd",
     "latency_ms", "items_evaluated", "parent_run_id", "judgement", "judgement_hash",
     "access_denied", "failure_reasons", "ledger_index", "leaf_hash", "human_verdict",
-    "verdict_reason", "verdict_at", "created_at",
+    "verdict_reason", "verdict_at", "verdict_source", "verdict_ref", "created_at",
 )
 EVENT_COLUMNS = (
     "event_id", "entity_type", "entity_id", "event_type", "payload", "source",
@@ -79,10 +79,12 @@ class Store:
     def list_runs(self, *, pack: str | None = None, agent: str | None = None,
                   status: str | None = None, since: str | None = None,
                   until: str | None = None, verdicted: bool | None = None,
-                  parent_run_id: str | None = None, limit: int | None = None) -> list[dict]:
+                  parent_run_id: str | None = None, limit: int | None = None,
+                  verdict_source: str | None = None) -> list[dict]:
         raise NotImplementedError
 
-    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str) -> None:
+    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
+                    source: str = "human", ref: str | None = None) -> None:
         raise NotImplementedError
 
     # events ----------------------------------------------------------------------
@@ -195,10 +197,10 @@ class SqliteStore(Store):
         return None if r is None else self._run_from_row(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
-                  verdicted=None, parent_run_id=None, limit=None) -> list[dict]:
+                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None) -> list[dict]:
         where, params = ["1=1"], []
         for col, val in (("pack", pack), ("agent", agent), ("status", status),
-                         ("parent_run_id", parent_run_id)):
+                         ("parent_run_id", parent_run_id), ("verdict_source", verdict_source)):
             if val is not None:
                 where.append(f"{col} = ?")
                 params.append(val)
@@ -215,10 +217,12 @@ class SqliteStore(Store):
             sql += f" LIMIT {int(limit)}"
         return [self._run_from_row(r) for r in self._conn.execute(sql, tuple(params))]
 
-    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str) -> None:
+    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
+                    source: str = "human", ref: str | None = None) -> None:
         cur = self.execute(
-            "UPDATE agent_runs SET human_verdict = ?, verdict_reason = ?, verdict_at = ? WHERE run_id = ?",
-            (verdict, reason, at, run_id))
+            "UPDATE agent_runs SET human_verdict = ?, verdict_reason = ?, verdict_at = ?, "
+            "verdict_source = ?, verdict_ref = ? WHERE run_id = ?",
+            (verdict, reason, at, source, ref, run_id))
         if cur.rowcount != 1:
             raise StoreError(f"no run {run_id!r}")
 
@@ -345,7 +349,7 @@ class PostgresStore(Store):
     @staticmethod
     def _norm_run(d: dict) -> dict:
         d = dict(d)
-        for col in ("run_id", "parent_run_id"):
+        for col in ("run_id", "parent_run_id", "verdict_ref"):
             if d.get(col) is not None:
                 d[col] = str(d[col])
         for col in ("verdict_at", "created_at"):
@@ -359,10 +363,10 @@ class PostgresStore(Store):
         return None if r is None else self._norm_run(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
-                  verdicted=None, parent_run_id=None, limit=None) -> list[dict]:
+                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None) -> list[dict]:
         where, params = ["TRUE"], []
         for col, val in (("pack", pack), ("agent", agent), ("status", status),
-                         ("parent_run_id", parent_run_id)):
+                         ("parent_run_id", parent_run_id), ("verdict_source", verdict_source)):
             if val is not None:
                 where.append(f"{col} = %s"); params.append(val)
         if since is not None:
@@ -378,10 +382,12 @@ class PostgresStore(Store):
             sql += f" LIMIT {int(limit)}"
         return [self._norm_run(r) for r in self._exec(sql, tuple(params)).fetchall()]
 
-    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str) -> None:
+    def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
+                    source: str = "human", ref: str | None = None) -> None:
         cur = self._exec(
-            "UPDATE agent_runs SET human_verdict = %s, verdict_reason = %s, verdict_at = %s WHERE run_id = %s",
-            (verdict, reason, at, run_id))
+            "UPDATE agent_runs SET human_verdict = %s, verdict_reason = %s, verdict_at = %s, "
+            "verdict_source = %s, verdict_ref = %s WHERE run_id = %s",
+            (verdict, reason, at, source, ref, run_id))
         if cur.rowcount != 1:
             raise StoreError(f"no run {run_id!r}")
 

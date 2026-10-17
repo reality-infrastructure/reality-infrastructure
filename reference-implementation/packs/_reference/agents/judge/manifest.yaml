@@ -1,0 +1,24 @@
+name: judge
+role: judge
+version: 1.0.0
+model:
+  provider: local
+  name: judge-v1
+  system_prompt_file: prompts/system.md
+  max_tokens: 4000
+grounding:
+  sources: []
+tools: [agent_run.read]
+memory:
+  working: { max_tokens: 50000 }
+  long_term: null
+  compaction: null
+loop:
+  max_iterations: 2
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match, verdict_grounded]
+  verifier: null
+  confidence_field: confidence

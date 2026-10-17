@@ -71,6 +71,18 @@ class EngineConfig:
         return int(self.engine["export"]["min_verdicted_runs"])
 
     @property
+    def export_accepts_agent_verdicts(self) -> bool:
+        return bool(self.engine["export"].get("accept_agent_verdicts", False))
+
+    @property
+    def autoloop_max_runs(self) -> int:
+        return int((self.engine.get("autoloop") or {}).get("max_runs_per_cycle", 20))
+
+    @property
+    def autoloop_refine_rungs(self) -> tuple[int, ...]:
+        return tuple(int(r) for r in (self.engine.get("autoloop") or {}).get("refine_rungs", [1, 2]))
+
+    @property
     def citation_kinds(self) -> frozenset[str]:
         return frozenset(self.engine["citations"]["kinds"])
 
