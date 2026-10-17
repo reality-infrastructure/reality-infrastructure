@@ -83,6 +83,12 @@ class EngineConfig:
         return tuple(int(r) for r in (self.engine.get("autoloop") or {}).get("refine_rungs", [1, 2]))
 
     @property
+    def sweep(self) -> dict:
+        s = dict(self.engine.get("sweep") or {})
+        return {"workers": int(s.get("workers", 8)), "budget_usd": s.get("budget_usd"),
+                "kill_check_every": int(s.get("kill_check_every", 20))}
+
+    @property
     def autoloop(self) -> dict:
         """The loop's law with its defaults (config/engine.yaml autoloop)."""
         a = dict(self.engine.get("autoloop") or {})

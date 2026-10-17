@@ -17,6 +17,8 @@ engine/
   eval.py           python -m engine.eval <pack>/<agent> [--models p/a,p/b]   # PASS/FAIL + eval/matrix-<date>.*
   export.py         python -m engine.export <pack>/<specialist> --format sft|preference --out FILE  (gated)
   crank.py          python -m engine.crank <pack> --week YYYY-Www            # packs/<pack>/crank/<week>.md
+  sweep.py          python -m engine.sweep <pack>/<agent> --table T [--judge] [--workers N] [--budget-usd X]
+                    # every row not yet graded, N runs in flight, one ledger; stops only when done, over budget or halted
   autoloop.py       python -m engine.autoloop <pack> --week YYYY-Www         # the closed loop: plan -> act -> judge -> crank -> refine -> export
   scaffold.py       python -m engine.scaffold new-domain <pack>
   validate.py       python -m engine.validate <pack>
@@ -46,7 +48,10 @@ IMPROVEMENT-ORDER.md
 ```
 
 Storage: `DATABASE_URL` (`postgresql://...` or `sqlite:///path`), default
-`.harness/engine.sqlite3`. Tests use `sqlite://:memory:`.
+`.harness/engine.sqlite3`. Tests use `sqlite://:memory:`. One process per store:
+the ledger's Merkle log lives in that process's memory and follows the store
+under the store's lock, so a sweep's threads share one Engine; two processes on
+one store would race the ledger index.
 
 ## Where RI is load-bearing
 

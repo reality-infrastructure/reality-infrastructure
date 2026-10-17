@@ -47,15 +47,19 @@ class RandomIdGen:
 
 
 class SeededIdGen:
-    """Deterministic UUIDs derived from a seed and a counter (tests, replays)."""
+    """Deterministic UUIDs derived from a seed and a counter (tests, replays).  Thread-safe."""
 
     def __init__(self, seed: str) -> None:
+        import threading
         self._seed = seed
         self._n = 0
+        self._lock = threading.Lock()
 
     def new(self) -> str:
-        self._n += 1
-        digest = hashlib.sha256(f"{self._seed}:{self._n}".encode("utf-8")).digest()
+        with self._lock:
+            self._n += 1
+            n = self._n
+        digest = hashlib.sha256(f"{self._seed}:{n}".encode("utf-8")).digest()
         return str(uuid.UUID(bytes=digest[:16], version=4))
 
 

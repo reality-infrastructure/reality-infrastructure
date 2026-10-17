@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import os
 import sqlite3
+import threading
 from contextlib import contextmanager
 from dataclasses import dataclass
 from decimal import Decimal
@@ -53,9 +54,16 @@ def _migration_files(dialect: str) -> list[Path]:
 # ---------------------------------------------------------------------------
 
 class Store:
-    """Backend-neutral persistence.  Subclasses implement the ``_``-methods."""
+    """Backend-neutral persistence.  Subclasses implement the ``_``-methods.
+
+    Thread model: one Store per process, shared by every thread of a sweep.  ``lock`` is
+    reentrant and is held for every statement and for the whole of every transaction, so
+    the ledger's in-memory Merkle log (mutated only inside a transaction) never sees two
+    appends interleave and a run row and its ledger entry always land together.
+    """
 
     dialect: str
+    lock: threading.RLock
 
     # transactions ------------------------------------------------------------
     @contextmanager
@@ -117,10 +125,12 @@ class SqliteStore(Store):
         self._path = str(path)
         if self._path != ":memory:":
             Path(self._path).parent.mkdir(parents=True, exist_ok=True)
-        self._conn = sqlite3.connect(self._path, isolation_level=None)
+        self.lock = threading.RLock()
+        self._conn = sqlite3.connect(self._path, isolation_level=None, check_same_thread=False)
         self._conn.row_factory = sqlite3.Row
         self._conn.execute("PRAGMA foreign_keys = ON")
         self._conn.execute("PRAGMA journal_mode = WAL") if self._path != ":memory:" else None
+        self._conn.execute("PRAGMA busy_timeout = 30000")
         self._depth = 0
         self.migrate()
 
@@ -140,26 +150,28 @@ class SqliteStore(Store):
 
     @contextmanager
     def transaction(self) -> Iterator[None]:
-        if self._depth == 0:
-            self._conn.execute("BEGIN")
-        self._depth += 1
-        try:
-            yield
-        except BaseException:
-            self._depth -= 1
+        with self.lock:
             if self._depth == 0:
-                self._conn.execute("ROLLBACK")
-            raise
-        else:
-            self._depth -= 1
-            if self._depth == 0:
-                self._conn.execute("COMMIT")
+                self._conn.execute("BEGIN IMMEDIATE")
+            self._depth += 1
+            try:
+                yield
+            except BaseException:
+                self._depth -= 1
+                if self._depth == 0:
+                    self._conn.execute("ROLLBACK")
+                raise
+            else:
+                self._depth -= 1
+                if self._depth == 0:
+                    self._conn.execute("COMMIT")
 
     def execute(self, sql: str, params: tuple = ()) -> sqlite3.Cursor:
-        try:
-            return self._conn.execute(sql, params)
-        except sqlite3.IntegrityError as e:
-            raise StoreError(str(e)) from e
+        with self.lock:
+            try:
+                return self._conn.execute(sql, params)
+            except sqlite3.IntegrityError as e:
+                raise StoreError(str(e)) from e
 
     # ledger
     def ledger_entries(self) -> Iterator[tuple[int, bytes, bytes]]:
@@ -195,7 +207,7 @@ class SqliteStore(Store):
         return d
 
     def get_run(self, run_id: str) -> dict | None:
-        r = self._conn.execute("SELECT * FROM agent_runs WHERE run_id = ?", (run_id,)).fetchone()
+        r = self.execute("SELECT * FROM agent_runs WHERE run_id = ?", (run_id,)).fetchone()
         return None if r is None else self._run_from_row(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
@@ -218,7 +230,7 @@ class SqliteStore(Store):
         sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} {order}"
         if limit is not None:
             sql += f" LIMIT {int(limit)}"
-        rows = [self._run_from_row(r) for r in self._conn.execute(sql, tuple(params))]
+        rows = [self._run_from_row(r) for r in self.execute(sql, tuple(params))]
         return rows[::-1] if newest_first else rows
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
@@ -245,7 +257,7 @@ class SqliteStore(Store):
         return d
 
     def get_event(self, event_id: str) -> dict | None:
-        r = self._conn.execute("SELECT * FROM events WHERE event_id = ?", (event_id,)).fetchone()
+        r = self.execute("SELECT * FROM events WHERE event_id = ?", (event_id,)).fetchone()
         return None if r is None else self._event_from_row(r)
 
     def query_events(self, *, entity_type=None, entity_id=None, event_type=None, source=None,
@@ -263,7 +275,7 @@ class SqliteStore(Store):
         order = "ASC" if ascending else "DESC"
         sql = (f"SELECT * FROM events WHERE {' AND '.join(where)} "
                f"ORDER BY observed_at {order}, ledger_index {order} LIMIT {int(limit)}")
-        return [self._event_from_row(r) for r in self._conn.execute(sql, tuple(params))]
+        return [self._event_from_row(r) for r in self.execute(sql, tuple(params))]
 
     def close(self) -> None:
         self._conn.close()
@@ -284,6 +296,7 @@ class PostgresStore(Store):
         except ImportError as e:  # pragma: no cover - exercised only with psycopg installed
             raise StoreError("psycopg is required for a Postgres DATABASE_URL") from e
         self._Jsonb = Jsonb
+        self.lock = threading.RLock()
         self._conn = psycopg.connect(dsn, row_factory=dict_row, autocommit=True)
         self._depth = 0
         self.migrate()
@@ -303,6 +316,10 @@ class PostgresStore(Store):
 
     @contextmanager
     def transaction(self) -> Iterator[None]:
+        with self.lock:
+            yield from self._transaction()
+
+    def _transaction(self) -> Iterator[None]:
         if self._depth == 0:
             self._conn.autocommit = False
         self._depth += 1
@@ -321,6 +338,10 @@ class PostgresStore(Store):
                 self._conn.autocommit = True
 
     def _exec(self, sql: str, params: tuple = ()):
+        with self.lock:
+            return self._exec_unlocked(sql, params)
+
+    def _exec_unlocked(self, sql: str, params: tuple = ()):
         import psycopg
         try:
             cur = self._conn.cursor()

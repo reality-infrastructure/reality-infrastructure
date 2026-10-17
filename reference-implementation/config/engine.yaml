@@ -22,6 +22,10 @@ autoloop:
     min_compared: 5             #   once the operator has overridden or confirmed this many agent verdicts
     max_disagreement: 0.25      #   above this disagreement rate the judge is suspended (no agent verdicts recorded)
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
+sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
+  workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
+  budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
+  kill_check_every: 20          # completions between kill-rule checks
 citations:
   # ref format: <kind>:<table_or_path>:<id>
   kinds: [event, table, file, run]
