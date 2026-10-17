@@ -167,15 +167,21 @@ class SqliteStore(Store):
                     self._conn.execute("COMMIT")
 
     def execute(self, sql: str, params: tuple = ()) -> sqlite3.Cursor:
+        """A statement under the lock.  Callers that read rows use ``query``: a cursor iterated after the
+        lock is released would interleave with another thread's statement on the shared connection."""
         with self.lock:
             try:
                 return self._conn.execute(sql, params)
             except sqlite3.IntegrityError as e:
                 raise StoreError(str(e)) from e
 
+    def query(self, sql: str, params: tuple = ()) -> list[sqlite3.Row]:
+        with self.lock:
+            return self._conn.execute(sql, params).fetchall()
+
     # ledger
     def ledger_entries(self) -> Iterator[tuple[int, bytes, bytes]]:
-        for r in self._conn.execute("SELECT idx, entry, leaf_hash FROM ledger ORDER BY idx"):
+        for r in self.query("SELECT idx, entry, leaf_hash FROM ledger ORDER BY idx"):
             yield int(r["idx"]), bytes(r["entry"]), bytes(r["leaf_hash"])
 
     def ledger_append(self, idx: int, entry: bytes, leaf: bytes) -> None:
@@ -207,7 +213,8 @@ class SqliteStore(Store):
         return d
 
     def get_run(self, run_id: str) -> dict | None:
-        r = self.execute("SELECT * FROM agent_runs WHERE run_id = ?", (run_id,)).fetchone()
+        rows = self.query("SELECT * FROM agent_runs WHERE run_id = ?", (run_id,))
+        r = rows[0] if rows else None
         return None if r is None else self._run_from_row(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
@@ -230,7 +237,7 @@ class SqliteStore(Store):
         sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} {order}"
         if limit is not None:
             sql += f" LIMIT {int(limit)}"
-        rows = [self._run_from_row(r) for r in self.execute(sql, tuple(params))]
+        rows = [self._run_from_row(r) for r in self.query(sql, tuple(params))]
         return rows[::-1] if newest_first else rows
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
@@ -257,7 +264,8 @@ class SqliteStore(Store):
         return d
 
     def get_event(self, event_id: str) -> dict | None:
-        r = self.execute("SELECT * FROM events WHERE event_id = ?", (event_id,)).fetchone()
+        rows = self.query("SELECT * FROM events WHERE event_id = ?", (event_id,))
+        r = rows[0] if rows else None
         return None if r is None else self._event_from_row(r)
 
     def query_events(self, *, entity_type=None, entity_id=None, event_type=None, source=None,
@@ -275,7 +283,7 @@ class SqliteStore(Store):
         order = "ASC" if ascending else "DESC"
         sql = (f"SELECT * FROM events WHERE {' AND '.join(where)} "
                f"ORDER BY observed_at {order}, ledger_index {order} LIMIT {int(limit)}")
-        return [self._event_from_row(r) for r in self.execute(sql, tuple(params))]
+        return [self._event_from_row(r) for r in self.query(sql, tuple(params))]
 
     def close(self) -> None:
         self._conn.close()
