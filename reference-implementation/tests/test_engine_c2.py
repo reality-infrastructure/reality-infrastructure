@@ -84,9 +84,9 @@ def test_orchestrator_cannot_leave_the_frontier(pack_copy):
     m.write_text(yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
     with pytest.raises(ManifestError, match="must run the frontier model"):
         load_agent(load_pack("_reference", pack_copy), "briefer")
-    doc["model"]["name"] = "claude-haiku-5-5"
+    doc["model"]["provider"], doc["model"]["name"] = "openai_compat", "deepseek-flash"
     m.write_text(yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
-    assert load_agent(load_pack("_reference", pack_copy), "briefer").model.name == "claude-haiku-5-5"
+    assert load_agent(load_pack("_reference", pack_copy), "briefer").model.name == "deepseek-flash"
 
 
 def test_only_orchestrators_call_agents_and_only_one_level(pack_copy):

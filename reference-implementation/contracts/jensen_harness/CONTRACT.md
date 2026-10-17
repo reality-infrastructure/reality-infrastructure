@@ -254,3 +254,18 @@ Engine side of hood HL-07 (commit 421e0da, pushed; `tests/test_engine_c9.py`, 6)
   and a prompt variant the manifest registers, then runs the parity matrix against the teacher on golden and
   held-out (`run_eval(reference=...)`); export and distillation admit workers (the sweep makes them the volume)
   and refuse orchestrators and loop roles; a held-out set with no case yet is not a gate.
+
+## JH-C10 — THE FRONTIER IS DEEPSEEK; CACHE HITS ARE BILLED AS THE PROVIDER REPORTS THEM (operator, 2026-10-17:
+## "Use deepseek for everything replace the Claude Haiku model with the deepseek to save money")
+`config/frontier.yaml` pins `openai_compat/deepseek-flash` (DeepSeek-V4.1-Flash-1017); every manifest in hood and
+ri_closeout runs it, every role included; the engine templates scaffold it; Anthropic stays only as a parity-matrix
+column. Live on the swap: hood scout eval 20/20; a judged sweep of 13 launches, every verdict recorded by the judge.
+Found on that sweep: the engine billed $1.47 for runs the DeepSeek balance charged $0.04, because every call
+re-reads a 35k-token grounding that the provider serves from its prompt cache and the engine priced at the miss
+rate, so the sweep's budget stop fired thirty times too early. Now `Usage.cache_read_tokens` carries what the
+provider reports (DeepSeek `prompt_cache_hit_tokens`, OpenAI `prompt_tokens_details.cached_tokens`, Anthropic
+`cache_read_input_tokens`), `prices.yaml` carries `cache_read` per model (a model without it pays the input rate),
+`Provider.price` bills the hit tokens at that rate, and the provider call records them. Off-peak windows are not
+modelled: `cost_usd` stays an upper bound on the bill. Test `test_cache_hits_are_billed_at_the_cache_read_rate`.
+Live after the fix: 38 launches judged at $0.0086 per launch with its verdict by the engine's upper bound (Haiku
+was $0.0082), the DeepSeek balance moving by a fraction of that.

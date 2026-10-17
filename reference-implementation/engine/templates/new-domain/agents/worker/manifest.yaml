@@ -2,8 +2,8 @@ name: worker
 role: worker
 version: 0.1.0
 model:
-  provider: anthropic
-  name: claude-haiku-5-5
+  provider: openai_compat
+  name: deepseek-flash
   system_prompt_file: prompts/system.md
   max_tokens: 16000
 grounding:

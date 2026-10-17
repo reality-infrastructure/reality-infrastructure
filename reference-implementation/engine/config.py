@@ -114,6 +114,17 @@ class EngineConfig:
         return (Decimal(str(row["input"])) / per_million,
                 Decimal(str(row["output"])) / per_million)
 
+    def cache_read_price_per_token(self, provider: str, model: str) -> Decimal:
+        """USD per prompt token the provider served from its cache (`cache_read` in prices.yaml).
+        A model without the figure is billed at its input rate: never cheaper than published."""
+        table = self.prices.get(provider)
+        if table is None:
+            raise EngineError(f"no price table for provider {provider!r}")
+        row = table.get(model) or table.get("default")
+        if row is None:
+            raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
+        return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

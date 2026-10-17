@@ -51,8 +51,8 @@ def test_downgrade_without_parity_is_refused(tmp_path):
     with pytest.raises(ManifestError, match="no eval/matrix"):
         load_agent(load_pack("econ_pack", root), "worker")
     eval_dir = root / "econ_pack" / "agents" / "worker" / "eval"
-    matrix = {"agent": "econ_pack/worker", "frontier": "anthropic/claude-haiku-5-5", "frontier_score": "0.9",
-              "models": [{"model": "anthropic/claude-haiku-5-5", "score": "0.9", "parity": True},
+    matrix = {"agent": "econ_pack/worker", "frontier": "openai_compat/deepseek-flash", "frontier_score": "0.9",
+              "models": [{"model": "openai_compat/deepseek-flash", "score": "0.9", "parity": True},
                          {"model": "anthropic/claude-sonnet-5-5", "score": "0.8", "parity": False}]}
     (eval_dir / "matrix-2026-10-01.json").write_text(json.dumps(matrix), encoding="utf-8")
     with pytest.raises(ManifestError, match="downgrade refused"):

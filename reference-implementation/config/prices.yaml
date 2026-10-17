@@ -1,22 +1,26 @@
 # USD per 1M tokens.  Source: Anthropic first-party API price table (cached 2026-10-06).
 # The engine never hardcodes a price; Provider.price() reads this file.
 # Unknown models are a ProviderError, never a silent zero.
+# `cache_read`: the rate for prompt tokens the provider reports as served from its cache
+# (Anthropic cache_read_input_tokens = 0.1x input; DeepSeek prompt_cache_hit_tokens).  A model
+# without it is billed at its input rate.  Off-peak windows are not modelled: cost_usd is an
+# upper bound on the bill, never an estimate below it.
 anthropic:
-  claude-fable-5-1:  { input: "10.00", output: "50.00" }
-  claude-fable-5:    { input: "10.00", output: "50.00" }
-  claude-opus-5-5:   { input: "4.00",  output: "20.00" }
-  claude-opus-5:     { input: "5.00",  output: "25.00" }
-  claude-opus-4-8:   { input: "5.00",  output: "25.00" }
-  claude-opus-4-7:   { input: "5.00",  output: "25.00" }
-  claude-sonnet-5-5: { input: "2.00",  output: "10.00" }
-  claude-sonnet-5:   { input: "2.00",  output: "10.00" }
-  claude-haiku-5-5:  { input: "0.10",  output: "0.50" }
+  claude-fable-5-1:  { input: "10.00", output: "50.00", cache_read: "1.00" }
+  claude-fable-5:    { input: "10.00", output: "50.00", cache_read: "1.00" }
+  claude-opus-5-5:   { input: "4.00",  output: "20.00", cache_read: "0.40" }
+  claude-opus-5:     { input: "5.00",  output: "25.00", cache_read: "0.50" }
+  claude-opus-4-8:   { input: "5.00",  output: "25.00", cache_read: "0.50" }
+  claude-opus-4-7:   { input: "5.00",  output: "25.00", cache_read: "0.50" }
+  claude-sonnet-5-5: { input: "2.00",  output: "10.00", cache_read: "0.20" }
+  claude-sonnet-5:   { input: "2.00",  output: "10.00", cache_read: "0.20" }
+  claude-haiku-5-5:  { input: "0.10",  output: "0.50",  cache_read: "0.01" }
 openai_compat:
-  # Per deployment.  DeepSeek: api-docs.deepseek.com/quick_start/pricing, read 2026-10-16,
-  # PEAK cache-miss rates (the conservative figure; off-peak is half, cache hits far less).
-  # The engine bills every token at these rates; it does not model cache hits or peak hours.
-  deepseek-flash:    { input: "0.30",  output: "1.20" }   # DeepSeek-V4.1-Flash
-  deepseek-v4-pro:   { input: "1.32",  output: "3.96" }   # DeepSeek-V4-Pro-0813
+  # Per deployment.  DeepSeek: api-docs.deepseek.com/quick_start/pricing, re-read 2026-10-17:
+  # PEAK rates (peak = 01:00-04:00 and 06:00-10:00 UTC Mon-Fri; every other hour is half).
+  # cache_read = the cache-HIT input rate; the API reports hits as prompt_cache_hit_tokens.
+  deepseek-flash:    { input: "0.30",  output: "1.20", cache_read: "0.006" }   # DeepSeek-V4.1-Flash-1017
+  deepseek-v4-pro:   { input: "1.32",  output: "3.96", cache_read: "0.044" }   # DeepSeek-V4-Pro-0813
   # A model missing here falls back to default = 0.00: cost_usd would be meaningless.
   default:           { input: "0.00",  output: "0.00" }
 local:

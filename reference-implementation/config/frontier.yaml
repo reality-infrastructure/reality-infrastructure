@@ -3,7 +3,7 @@
 # different model needs an eval parity matrix (engine.eval --models) unless its
 # pack is a fixture pack.
 frontier:
-  provider: anthropic
-  name: claude-haiku-5-5
+  provider: openai_compat
+  name: deepseek-flash   # DeepSeek V4.1 Flash (operator ruling 2026-10-17: DeepSeek for everything)
 # Providers whose models are fixtures, permitted only in packs with fixture: true.
 fixture_providers: [local]

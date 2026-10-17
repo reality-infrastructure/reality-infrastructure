@@ -101,10 +101,12 @@ class RunTrace:
             self.iterations[-1].tool_calls.append(record)
 
     def record_provider_call(self, cand: CandidateTrace, *, model: str, input_tokens: int,
-                             output_tokens: int, cost: Decimal, latency_ms: int, stop_reason: str) -> None:
+                             output_tokens: int, cost: Decimal, latency_ms: int, stop_reason: str,
+                             cache_read_tokens: int = 0) -> None:
         self.cost += cost
         cand.provider_calls.append({
             "model": model, "input_tokens": input_tokens, "output_tokens": output_tokens,
+            "cache_read_tokens": cache_read_tokens,
             "cost_usd": str(cost), "latency_ms": latency_ms, "stop_reason": stop_reason,
         })
 

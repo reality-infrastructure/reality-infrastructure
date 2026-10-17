@@ -40,8 +40,9 @@ class ToolUse:
 
 @dataclass(frozen=True)
 class Usage:
-    input_tokens: int
+    input_tokens: int                 # every prompt token, cache hits included
     output_tokens: int
+    cache_read_tokens: int = 0        # the part of input_tokens the provider served from its prompt cache
 
 
 @dataclass(frozen=True)
@@ -82,7 +83,7 @@ class Provider(Protocol):
     def complete(self, *, model: str, system: str, messages: list[dict],
                  tools: list[dict], max_tokens: int, candidate_index: int = 0) -> Completion: ...
 
-    def price(self, model: str, in_tokens: int, out_tokens: int) -> Decimal: ...
+    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0) -> Decimal: ...
 
 
 class _Priced:
@@ -91,9 +92,17 @@ class _Priced:
     def __init__(self, config: EngineConfig) -> None:
         self._config = config
 
-    def price(self, model: str, in_tokens: int, out_tokens: int) -> Decimal:
+    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0) -> Decimal:
+        """USD for one call at the peak cache-miss tariff, with the tokens the provider reports as
+        served from its prompt cache billed at the cache-read rate (config/prices.yaml `cache_read`;
+        absent, the input rate).  Found 2026-10-17: a 35k-token grounding read on every call made the
+        engine bill DeepSeek $1.47 for runs its balance charged $0.04; the sweep's budget stop fired
+        thirty times too early.  Off-peak windows are not modelled: the figure stays an upper bound."""
         pin, pout = self._config.price_per_token(self.id, model)
-        return (Decimal(in_tokens) * pin + Decimal(out_tokens) * pout).quantize(COST_PLACES)
+        pcache = self._config.cache_read_price_per_token(self.id, model)
+        cached = max(0, min(int(cache_read_tokens), int(in_tokens)))
+        return (Decimal(in_tokens - cached) * pin + Decimal(cached) * pcache
+                + Decimal(out_tokens) * pout).quantize(COST_PLACES)
 
 
 # ---------------------------------------------------------------------------
@@ -187,7 +196,8 @@ class AnthropicProvider(_Priced):
         return Completion(
             text="".join(text_parts), tool_uses=tuple(tool_uses),
             stop_reason=str(resp.stop_reason),
-            usage=Usage(resp.usage.input_tokens, resp.usage.output_tokens),
+            usage=Usage(resp.usage.input_tokens, resp.usage.output_tokens,
+                        int(getattr(resp.usage, "cache_read_input_tokens", 0) or 0)),
             model=resp.model, latency_ms=latency,
             raw=resp.model_dump(mode="json"),
         )
@@ -196,6 +206,14 @@ class AnthropicProvider(_Priced):
 # ---------------------------------------------------------------------------
 # OpenAI-compatible (stdlib HTTP)
 # ---------------------------------------------------------------------------
+
+def _cached_prompt_tokens(usage: dict) -> int:
+    """DeepSeek reports `prompt_cache_hit_tokens`; OpenAI `prompt_tokens_details.cached_tokens`."""
+    hit = usage.get("prompt_cache_hit_tokens")
+    if hit is None:
+        hit = (usage.get("prompt_tokens_details") or {}).get("cached_tokens", 0)
+    return int(hit or 0)
+
 
 class OpenAICompatProvider(_Priced):
     id = "openai_compat"
@@ -273,7 +291,8 @@ class OpenAICompatProvider(_Priced):
                 "content_filter": "refusal"}.get(finish, finish or "other")
         return Completion(
             text=msg.get("content") or "", tool_uses=tuple(tool_uses), stop_reason=stop,
-            usage=Usage(int(usage.get("prompt_tokens", 0)), int(usage.get("completion_tokens", 0))),
+            usage=Usage(int(usage.get("prompt_tokens", 0)), int(usage.get("completion_tokens", 0)),
+                        _cached_prompt_tokens(usage)),
             model=data.get("model", model), latency_ms=latency, raw=data,
         )
 

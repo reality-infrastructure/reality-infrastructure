@@ -2,8 +2,8 @@ name: orchestrator
 role: orchestrator
 version: 0.1.0
 model:
-  provider: anthropic
-  name: claude-haiku-5-5       # pinned; the validator refuses any other model for this role
+  provider: openai_compat
+  name: deepseek-flash       # pinned; the validator refuses any other model for this role
   system_prompt_file: prompts/system.md
   max_tokens: 16000
 grounding:

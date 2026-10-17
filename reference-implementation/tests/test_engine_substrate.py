@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import os
 from decimal import Decimal
 from pathlib import Path
@@ -81,6 +82,46 @@ def test_prices_come_from_config_not_code():
     assert p.price("claude-fable-5-1", 1_000_000, 100_000) == Decimal("15.00000000")
     with pytest.raises(Exception, match="no price"):
         OpenAICompatProvider(cfg).price("x", 1, 1) if "default" not in cfg.prices["openai_compat"] else (_ for _ in ()).throw(Exception("no price"))
+
+
+def test_cache_hits_are_billed_at_the_cache_read_rate(monkeypatch):
+    """Found live 2026-10-17 on the DeepSeek swap: the scout's 35k-token grounding is a cache hit on
+    every call after the first; billed at the miss rate the engine charged $1.47 for runs the account
+    charged $0.04, and the sweep's budget stop fired thirty times early.  The provider reports the
+    hits; the engine bills them at the cache-read rate and records them on the provider call."""
+    import io, urllib.request
+    cfg = load_config()
+    pin, pout = cfg.price_per_token("openai_compat", "deepseek-flash")
+    pcache = cfg.cache_read_price_per_token("openai_compat", "deepseek-flash")
+    assert pcache < pin and pcache * 1_000_000 == Decimal("0.006")
+    assert cfg.cache_read_price_per_token("anthropic", "claude-haiku-5-5") * 1_000_000 == Decimal("0.01")
+    # a model without the figure pays the input rate for a hit: never below the published tariff
+    cfg.prices["openai_compat"]["no-cache-row"] = {"input": "1.00", "output": "2.00"}
+    try:
+        assert cfg.cache_read_price_per_token("openai_compat", "no-cache-row") * 1_000_000 == Decimal("1.00")
+    finally:
+        del cfg.prices["openai_compat"]["no-cache-row"]
+    provider = OpenAICompatProvider(cfg, base_url="https://example.invalid/v1", api_key="k")
+    miss = provider.price("deepseek-flash", 35_000, 100)
+    hit = provider.price("deepseek-flash", 35_000, 100, cache_read_tokens=34_000)
+    assert hit == (Decimal(1_000) * pin + Decimal(34_000) * pcache + Decimal(100) * pout).quantize(Decimal("0.00000001"))
+    assert hit < miss / 10
+    assert provider.price("deepseek-flash", 10, 1, cache_read_tokens=50) == provider.price("deepseek-flash", 10, 1, cache_read_tokens=10)
+
+    body = {"choices": [{"message": {"content": "ok", "tool_calls": []}, "finish_reason": "stop"}],
+            "usage": {"prompt_tokens": 35000, "completion_tokens": 100, "prompt_cache_hit_tokens": 34000,
+                      "prompt_cache_miss_tokens": 1000}, "model": "deepseek-flash"}
+
+    class _Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=None: _Resp(json.dumps(body).encode()))
+    c = provider.complete(model="deepseek-flash", system="S", messages=[text_message("user", "hi")], tools=[], max_tokens=10)
+    assert c.usage == Usage(35000, 100, 34000)
+    openai_body = dict(body, usage={"prompt_tokens": 10, "completion_tokens": 1, "prompt_tokens_details": {"cached_tokens": 8}})
+    monkeypatch.setattr(urllib.request, "urlopen", lambda req, timeout=None: _Resp(json.dumps(openai_body).encode()))
+    assert provider.complete(model="deepseek-flash", system="S", messages=[text_message("user", "hi")], tools=[], max_tokens=10).usage == Usage(10, 1, 8)
 
 
 def test_model_string_parsing():

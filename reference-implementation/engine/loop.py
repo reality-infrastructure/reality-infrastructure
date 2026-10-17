@@ -212,9 +212,11 @@ class Runner:
             completion: Completion = provider.complete(
                 model=agent.model.name, system=agent.model.system_prompt, messages=messages,
                 tools=tool_defs, max_tokens=agent.model.max_tokens, candidate_index=candidate_index)
-            cost = provider.price(agent.model.name, completion.usage.input_tokens, completion.usage.output_tokens)
+            cost = provider.price(agent.model.name, completion.usage.input_tokens, completion.usage.output_tokens,
+                                  completion.usage.cache_read_tokens)
             trace.record_provider_call(cand, model=completion.model, input_tokens=completion.usage.input_tokens,
-                                       output_tokens=completion.usage.output_tokens, cost=cost,
+                                       output_tokens=completion.usage.output_tokens,
+                                       cache_read_tokens=completion.usage.cache_read_tokens, cost=cost,
                                        latency_ms=completion.latency_ms, stop_reason=completion.stop_reason)
             messages.append(assistant_message(completion))
             if completion.stop_reason == "refusal":
