@@ -17,7 +17,7 @@ Invariants enforced here:
 from __future__ import annotations
 
 import json
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 
 import yaml
@@ -47,6 +47,7 @@ class ModelSpec:
     system_prompt: str
     tools: tuple[str, ...]
     max_tokens: int
+    request: dict = field(default_factory=dict)   # provider-specific request fields, passed through untouched (manifest model.request)
 
     @property
     def model_string(self) -> str:
@@ -117,7 +118,7 @@ def _resolve_model(manifest: dict, agent_dir: Path, provider: str, name: str) ->
         raise ManifestError(f"system prompt file is empty: {prompt_path}")
     tools = tuple(variant.get("tool_overrides") or manifest["tools"])
     return ModelSpec(provider=provider, name=name, system_prompt=system_prompt,
-                     tools=tools, max_tokens=int(m.get("max_tokens", 16000)))
+                     tools=tools, max_tokens=int(m.get("max_tokens", 16000)), request=dict(m.get("request") or {}))
 
 
 def _latest_matrix(agent_dir: Path) -> dict | None:

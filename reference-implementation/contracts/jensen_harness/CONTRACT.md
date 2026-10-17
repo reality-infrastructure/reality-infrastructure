@@ -269,3 +269,13 @@ provider reports (DeepSeek `prompt_cache_hit_tokens`, OpenAI `prompt_tokens_deta
 modelled: `cost_usd` stays an upper bound on the bill. Test `test_cache_hits_are_billed_at_the_cache_read_rate`.
 Live after the fix: 38 launches judged at $0.0086 per launch with its verdict by the engine's upper bound (Haiku
 was $0.0082), the DeepSeek balance moving by a fraction of that.
+
+## JH-C10.1 — A PROVIDER REQUEST BLOCK PER AGENT; REASONING TOKENS COUNTED (hood HL-08, 2026-10-17)
+Found live: DeepSeek V4.1 Flash thinks by default (`reasoning_content`) and hood's strategist spent its whole 6,000-token
+output budget reasoning on three consecutive turns without calling a tool, which the loop can only record as max_tokens.
+A manifest's `model.request` (free-form, provider-specific; `config/manifest.schema.json`) is now merged into every request
+that agent sends — the openai_compat body (`{"thinking": {"type": "disabled"}}`, `reasoning_effort`) or the Anthropic
+messages.create kwargs — and the engine reads none of it; the loop passes it only when set, so fixture providers and test
+stubs are untouched.  `Usage.reasoning_tokens` carries a thinking model's reasoning spend
+(`completion_tokens_details.reasoning_tokens`) and the provider call records it.  Test
+`test_the_manifest_request_block_reaches_the_provider_and_reasoning_tokens_are_counted`.

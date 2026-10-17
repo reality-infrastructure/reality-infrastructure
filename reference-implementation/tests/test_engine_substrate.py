@@ -124,6 +124,43 @@ def test_cache_hits_are_billed_at_the_cache_read_rate(monkeypatch):
     assert provider.complete(model="deepseek-flash", system="S", messages=[text_message("user", "hi")], tools=[], max_tokens=10).usage == Usage(10, 1, 8)
 
 
+def test_the_manifest_request_block_reaches_the_provider_and_reasoning_tokens_are_counted(monkeypatch, pack_copy):
+    """Found live 2026-10-17: DeepSeek V4.1 Flash thinks by default and a strategist spent 6,000 output tokens reasoning
+    without ever calling a tool.  A manifest may now carry model.request, passed through to the provider untouched
+    (the engine reads none of it), and a thinking model's reasoning tokens are counted on the provider call."""
+    import io, urllib.request, yaml
+    from engine.manifest import load_agent
+    from engine.packs import load_pack
+    m = pack_copy / "_reference" / "agents" / "allocator" / "manifest.yaml"
+    doc = yaml.safe_load(m.read_text(encoding="utf-8"))
+    doc["model"]["request"] = {"thinking": {"type": "disabled"}, "reasoning_effort": "low"}
+    m.write_text(yaml.safe_dump(doc, sort_keys=False), encoding="utf-8")
+    agent = load_agent(load_pack("_reference", pack_copy), "allocator")
+    assert agent.model.request == {"thinking": {"type": "disabled"}, "reasoning_effort": "low"}
+    assert load_agent(load_pack("_reference", pack_copy), "checker").model.request == {}
+    cfg = load_config()
+    provider = OpenAICompatProvider(cfg, base_url="https://example.invalid/v1", api_key="k")
+    sent = {}
+    body = {"choices": [{"message": {"content": "", "reasoning_content": "let me think", "tool_calls": []}, "finish_reason": "stop"}],
+            "usage": {"prompt_tokens": 50, "completion_tokens": 40, "completion_tokens_details": {"reasoning_tokens": 33}}, "model": "deepseek-flash"}
+
+    class _Resp(io.BytesIO):
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+
+    def fake_urlopen(req, timeout=None):
+        sent.clear(); sent.update(json.loads(req.data.decode("utf-8")))
+        return _Resp(json.dumps(body).encode())
+
+    monkeypatch.setattr(urllib.request, "urlopen", fake_urlopen)
+    c = provider.complete(model="deepseek-flash", system="S", messages=[text_message("user", "hi")], tools=[], max_tokens=10,
+                          request={"thinking": {"type": "disabled"}})
+    assert sent["thinking"] == {"type": "disabled"} and sent["model"] == "deepseek-flash" and sent["max_tokens"] == 10
+    assert c.usage == Usage(50, 40, 0, 33) and c.usage.reasoning_tokens == 33
+    c2 = provider.complete(model="deepseek-flash", system="S", messages=[text_message("user", "hi")], tools=[], max_tokens=10)
+    assert "thinking" not in sent and c2.usage.reasoning_tokens == 33
+
+
 def test_model_string_parsing():
     assert parse_model_string("anthropic/claude-opus-5-5") == ("anthropic", "claude-opus-5-5")
     with pytest.raises(ProviderError):

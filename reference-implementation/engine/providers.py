@@ -43,6 +43,7 @@ class Usage:
     input_tokens: int                 # every prompt token, cache hits included
     output_tokens: int
     cache_read_tokens: int = 0        # the part of input_tokens the provider served from its prompt cache
+    reasoning_tokens: int = 0         # the part of output_tokens a thinking model spent before answering (DeepSeek reasoning_tokens)
 
 
 @dataclass(frozen=True)
@@ -81,7 +82,8 @@ class Provider(Protocol):
     id: str
 
     def complete(self, *, model: str, system: str, messages: list[dict],
-                 tools: list[dict], max_tokens: int, candidate_index: int = 0) -> Completion: ...
+                 tools: list[dict], max_tokens: int, candidate_index: int = 0,
+                 request: dict | None = None) -> Completion: ...
 
     def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0) -> Decimal: ...
 
@@ -155,14 +157,16 @@ class AnthropicProvider(_Priced):
             self._client = anthropic.Anthropic()
         return self._client
 
-    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0) -> Completion:
+    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0, request: dict | None = None) -> Completion:
         import anthropic
         client = self._get_client()
-        request: dict = {
+        extra = dict(request or {})
+        request = {
             "model": model,
             "max_tokens": max_tokens,
             "system": system,
             "messages": messages,
+            **extra,                       # the manifest's model.request (thinking budgets and the like), passed through
         }
         if tools:
             request["tools"] = [_strict_tool(t) for t in tools]
@@ -247,13 +251,14 @@ class OpenAICompatProvider(_Priced):
                                     "content": b["content"]})
         return out
 
-    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0) -> Completion:
+    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0, request: dict | None = None) -> Completion:
         if not self._base_url:
             raise ProviderError("OPENAI_COMPAT_BASE_URL is not set")
         body: dict = {
             "model": model,
             "max_tokens": max_tokens,
             "messages": self._to_openai_messages(system, messages),
+            **dict(request or {}),         # the manifest's model.request: e.g. {"thinking": {"type": "disabled"}} on DeepSeek
         }
         if tools:
             body["tools"] = [{"type": "function", "function": {
@@ -292,7 +297,7 @@ class OpenAICompatProvider(_Priced):
         return Completion(
             text=msg.get("content") or "", tool_uses=tuple(tool_uses), stop_reason=stop,
             usage=Usage(int(usage.get("prompt_tokens", 0)), int(usage.get("completion_tokens", 0)),
-                        _cached_prompt_tokens(usage)),
+                        _cached_prompt_tokens(usage), int((usage.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)),
             model=data.get("model", model), latency_ms=latency, raw=data,
         )
 
@@ -316,7 +321,7 @@ class LocalProvider(_Priced):
         super().__init__(config)
         self._responders = dict(responders)
 
-    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0) -> Completion:
+    def complete(self, *, model, system, messages, tools, max_tokens, candidate_index: int = 0, request: dict | None = None) -> Completion:
         fn = self._responders.get(model)
         if fn is None:
             raise ProviderError(f"local model {model!r} is not declared in the pack's local_models")

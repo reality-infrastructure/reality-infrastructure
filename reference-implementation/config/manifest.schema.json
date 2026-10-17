@@ -3,72 +3,174 @@
   "title": "Agent manifest",
   "type": "object",
   "additionalProperties": false,
-  "required": ["name", "role", "version", "model", "grounding", "tools", "memory", "loop", "safeguards"],
+  "required": [
+    "name",
+    "role",
+    "version",
+    "model",
+    "grounding",
+    "tools",
+    "memory",
+    "loop",
+    "safeguards"
+  ],
   "properties": {
-    "name": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
-    "role": {"type": "string", "enum": ["orchestrator", "specialist", "worker", "judge", "planner", "refiner"]},
-    "version": {"type": "string", "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"},
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_]*$"
+    },
+    "role": {
+      "type": "string",
+      "enum": [
+        "orchestrator",
+        "specialist",
+        "worker",
+        "judge",
+        "planner",
+        "refiner"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)\\.(0|[1-9][0-9]*)$"
+    },
     "model": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["provider", "name", "system_prompt_file"],
+      "required": [
+        "provider",
+        "name",
+        "system_prompt_file"
+      ],
       "properties": {
-        "provider": {"type": "string", "enum": ["anthropic", "openai_compat", "local"]},
-        "name": {"type": "string", "minLength": 1},
-        "system_prompt_file": {"type": "string", "minLength": 1},
-        "max_tokens": {"type": "integer", "minimum": 256, "maximum": 128000, "default": 16000},
+        "provider": {
+          "type": "string",
+          "enum": [
+            "anthropic",
+            "openai_compat",
+            "local"
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "system_prompt_file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "max_tokens": {
+          "type": "integer",
+          "minimum": 256,
+          "maximum": 128000,
+          "default": 16000
+        },
         "variants": {
           "type": "object",
           "additionalProperties": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
-              "system_prompt_file": {"type": "string", "minLength": 1},
-              "tool_overrides": {"type": "array", "items": {"type": "string"}}
+              "system_prompt_file": {
+                "type": "string",
+                "minLength": 1
+              },
+              "tool_overrides": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
             }
           }
+        },
+        "request": {
+          "type": "object",
+          "description": "Provider-specific fields merged into every request this agent sends (openai_compat: the JSON body, e.g. {\"thinking\": {\"type\": \"disabled\"}} or {\"reasoning_effort\": \"low\"}; anthropic: the messages.create kwargs, e.g. {\"thinking\": {...}}). The engine never reads them; the provider passes them through.  Found 2026-10-17: a thinking model spent its whole output budget reasoning and never called a tool."
         }
       }
     },
     "grounding": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["sources"],
+      "required": [
+        "sources"
+      ],
       "properties": {
         "sources": {
           "type": "array",
           "items": {
             "type": "object",
             "additionalProperties": false,
-            "required": ["kind", "ref"],
+            "required": [
+              "kind",
+              "ref"
+            ],
             "properties": {
-              "kind": {"type": "string", "enum": ["table", "file", "event_query", "agent_output"]},
-              "ref": {"type": "string", "minLength": 1},
-              "limit": {"type": "integer", "minimum": 1, "maximum": 5000}
+              "kind": {
+                "type": "string",
+                "enum": [
+                  "table",
+                  "file",
+                  "event_query",
+                  "agent_output"
+                ]
+              },
+              "ref": {
+                "type": "string",
+                "minLength": 1
+              },
+              "limit": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 5000
+              }
             }
           }
         }
       }
     },
-    "tools": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
+    "tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
     "memory": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["working", "long_term", "compaction"],
+      "required": [
+        "working",
+        "long_term",
+        "compaction"
+      ],
       "properties": {
         "working": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["max_tokens"],
-          "properties": {"max_tokens": {"type": "integer", "minimum": 1000}}
+          "required": [
+            "max_tokens"
+          ],
+          "properties": {
+            "max_tokens": {
+              "type": "integer",
+              "minimum": 1000
+            }
+          }
         },
         "long_term": {
           "oneOf": [
-            {"type": "null"},
+            {
+              "type": "null"
+            },
             {
               "type": "object",
               "additionalProperties": false,
-              "required": ["event_queries", "prior_outputs"],
+              "required": [
+                "event_queries",
+                "prior_outputs"
+              ],
               "properties": {
                 "event_queries": {
                   "type": "array",
@@ -76,27 +178,51 @@
                     "type": "object",
                     "additionalProperties": false,
                     "properties": {
-                      "entity_type": {"type": "string"},
-                      "event_type": {"type": "string"},
-                      "limit": {"type": "integer", "minimum": 1, "maximum": 500, "default": 50}
+                      "entity_type": {
+                        "type": "string"
+                      },
+                      "event_type": {
+                        "type": "string"
+                      },
+                      "limit": {
+                        "type": "integer",
+                        "minimum": 1,
+                        "maximum": 500,
+                        "default": 50
+                      }
                     }
                   }
                 },
-                "prior_outputs": {"type": "integer", "minimum": 0, "maximum": 50}
+                "prior_outputs": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 50
+                }
               }
             }
           ]
         },
         "compaction": {
           "oneOf": [
-            {"type": "null"},
+            {
+              "type": "null"
+            },
             {
               "type": "object",
               "additionalProperties": false,
-              "required": ["after_days", "summary_agent"],
+              "required": [
+                "after_days",
+                "summary_agent"
+              ],
               "properties": {
-                "after_days": {"type": "integer", "minimum": 1},
-                "summary_agent": {"type": "string", "minLength": 1}
+                "after_days": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "summary_agent": {
+                  "type": "string",
+                  "minLength": 1
+                }
               }
             }
           ]
@@ -107,28 +233,69 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "max_iterations": {"type": "integer", "minimum": 1, "maximum": 20},
-        "search_width": {"type": "integer", "minimum": 1, "maximum": 8},
-        "stop_when": {"type": "string", "enum": ["all_guardrails_pass", "verifier_certified", "iterations_exhausted"]}
+        "max_iterations": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 20
+        },
+        "search_width": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 8
+        },
+        "stop_when": {
+          "type": "string",
+          "enum": [
+            "all_guardrails_pass",
+            "verifier_certified",
+            "iterations_exhausted"
+          ]
+        }
       }
     },
     "safeguards": {
       "type": "object",
       "additionalProperties": false,
-      "required": ["output_schema", "guardrails", "verifier"],
+      "required": [
+        "output_schema",
+        "guardrails",
+        "verifier"
+      ],
       "properties": {
-        "output_schema": {"type": "string", "minLength": 1},
-        "guardrails": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-        "verifier": {"type": ["string", "null"]},
-        "confidence_field": {"type": "string"},
-        "max_output_bytes": {"type": "integer", "minimum": 1024, "default": 65536}
+        "output_schema": {
+          "type": "string",
+          "minLength": 1
+        },
+        "guardrails": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        },
+        "verifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "confidence_field": {
+          "type": "string"
+        },
+        "max_output_bytes": {
+          "type": "integer",
+          "minimum": 1024,
+          "default": 65536
+        }
       }
     },
     "metrics": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "items_evaluated_field": {"type": "string"}
+        "items_evaluated_field": {
+          "type": "string"
+        }
       }
     }
   }
