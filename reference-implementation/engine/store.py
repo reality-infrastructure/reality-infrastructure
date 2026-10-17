@@ -80,7 +80,9 @@ class Store:
                   status: str | None = None, since: str | None = None,
                   until: str | None = None, verdicted: bool | None = None,
                   parent_run_id: str | None = None, limit: int | None = None,
-                  verdict_source: str | None = None) -> list[dict]:
+                  verdict_source: str | None = None, newest_first: bool = False) -> list[dict]:
+        """Runs in creation order (oldest first); ``newest_first`` with ``limit`` returns the latest N,
+        still oldest first."""
         raise NotImplementedError
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
@@ -197,7 +199,7 @@ class SqliteStore(Store):
         return None if r is None else self._run_from_row(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
-                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None) -> list[dict]:
+                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None, newest_first=False) -> list[dict]:
         where, params = ["1=1"], []
         for col, val in (("pack", pack), ("agent", agent), ("status", status),
                          ("parent_run_id", parent_run_id), ("verdict_source", verdict_source)):
@@ -212,10 +214,12 @@ class SqliteStore(Store):
             where.append("human_verdict IS NOT NULL")
         elif verdicted is False:
             where.append("human_verdict IS NULL")
-        sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} ORDER BY created_at, run_id"
+        order = "ORDER BY created_at DESC, run_id DESC" if newest_first else "ORDER BY created_at, run_id"
+        sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} {order}"
         if limit is not None:
             sql += f" LIMIT {int(limit)}"
-        return [self._run_from_row(r) for r in self._conn.execute(sql, tuple(params))]
+        rows = [self._run_from_row(r) for r in self._conn.execute(sql, tuple(params))]
+        return rows[::-1] if newest_first else rows
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
                     source: str = "human", ref: str | None = None) -> None:
@@ -363,7 +367,7 @@ class PostgresStore(Store):
         return None if r is None else self._norm_run(r)
 
     def list_runs(self, *, pack=None, agent=None, status=None, since=None, until=None,
-                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None) -> list[dict]:
+                  verdicted=None, parent_run_id=None, limit=None, verdict_source=None, newest_first=False) -> list[dict]:
         where, params = ["TRUE"], []
         for col, val in (("pack", pack), ("agent", agent), ("status", status),
                          ("parent_run_id", parent_run_id), ("verdict_source", verdict_source)):
@@ -377,10 +381,12 @@ class PostgresStore(Store):
             where.append("human_verdict IS NOT NULL")
         elif verdicted is False:
             where.append("human_verdict IS NULL")
-        sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} ORDER BY created_at, run_id"
+        order = "ORDER BY created_at DESC, run_id DESC" if newest_first else "ORDER BY created_at, run_id"
+        sql = f"SELECT * FROM agent_runs WHERE {' AND '.join(where)} {order}"
         if limit is not None:
             sql += f" LIMIT {int(limit)}"
-        return [self._norm_run(r) for r in self._exec(sql, tuple(params)).fetchall()]
+        rows = [self._norm_run(r) for r in self._exec(sql, tuple(params)).fetchall()]
+        return rows[::-1] if newest_first else rows
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
                     source: str = "human", ref: str | None = None) -> None:

@@ -83,8 +83,11 @@ def assemble_working_context(agent, ctx: ToolContext, run_input: dict) -> dict:
                                      "rows": ctx.call("events.query", args, origin="memory")})
         n = int(long_term.get("prior_outputs", 0))
         if n > 0:
-            runs = ctx.engine.store.list_runs(pack=agent.pack.name, agent=agent.name, status="succeeded")
-            for r in runs[-n:]:
+            # the latest n only: loading every succeeded run of a long-lived agent (traces included)
+            # exhausted memory on hood's second live cycle, 2026-10-17
+            runs = ctx.engine.store.list_runs(pack=agent.pack.name, agent=agent.name, status="succeeded",
+                                              limit=n, newest_first=True)
+            for r in runs:
                 out = ctx.call("agent_output.read", {"run_id": r["run_id"]}, origin="memory")
                 out["human_verdict"] = r["human_verdict"]
                 out["verdict_reason"] = r["verdict_reason"]
