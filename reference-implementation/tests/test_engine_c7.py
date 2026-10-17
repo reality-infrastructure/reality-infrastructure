@@ -187,9 +187,9 @@ def test_autoloop_cycle_plans_judges_cranks_refines_and_reports(pack_copy, tmp_p
         assert all(a["status"] == "succeeded" for a in result["act"])
         # judge: every judgeable run of the week now carries an agent verdict
         assert len(result["judge"]) == 3 and {j["verdict"] for j in result["judge"]} == {"followed", "wrong"}
-        # the only runs left without a verdict are the refine step's own golden evaluations (2 cases, before and after)
+        # the only runs left without a verdict are the refine step's own evaluations: golden (2) and held-out (2), before and after
         left = unjudged(eng, pack, since="2026-10-12T00:00:00+00:00", until="2026-10-19T00:00:00+00:00")
-        assert len(left) == 4 and all(r["agent"] == "allocator" for r in left)
+        assert len(left) == 8 and all(r["agent"] == "allocator" for r in left)
         assert all(r["verdict_source"] == "agent" for r in eng.store.list_runs(pack="_reference", agent="checker"))
         # crank: verdicts are attributed, the misstated run drives the recommendation
         assert "wrong (agent)" in result["crank"]["verdicts"] and result["crank"]["recommendation"]["rung"] == 2
@@ -202,6 +202,11 @@ def test_autoloop_cycle_plans_judges_cranks_refines_and_reports(pack_copy, tmp_p
         ev = rn.events.query(event_type="_reference.refinement", limit=1)[0]
         assert ev["payload"]["adopted"] is True and ev["source"] == "agent:refiner" and ev["payload"]["refiner_run_id"] == r["refiner_run_id"]
         eng.ledger.verify_row(ev)
+        assert r["before_holdout"].startswith("PASS") and r["after_holdout"].startswith("PASS") and r["holdout"] == "held-out set evaluated"
+        assert ev["payload"]["before_holdout"] == "1.0000" and ev["payload"]["after_holdout"] == "1.0000"
+        assert result["safety"]["killed"] == {} and result["safety"]["judge"]["suspended"] is False
+        assert result["grow"] == []                      # no operator-followed run this week; the judge's verdicts never grow the set
+        assert "## The loop's law" in render(result) and "trusted" in render(result)
         # export: the gate is closed at this volume
         assert result["export"][0] == {"agent": "allocator", "status": "gate_closed", "why": result["export"][0]["why"]}
         assert "gate is 500" in result["export"][0]["why"]
@@ -269,3 +274,78 @@ def test_refiner_may_decline_and_the_loop_records_it(engine, pack_copy):
     half = rn.run("refiner", {"agent": "allocator", "rung": 2, "rungs": [1, 2], "change": "x", "evidence": [], "files": {}},
                   model_override=("local", "refiner-bad"))
     assert half.status == "failed_guardrail"
+
+
+# -- the loop's law (defaults on): held-out adoption, kill rule, judge safety case, golden growth ------------
+
+def test_adopt_decision_needs_the_held_out_set_not_to_fall():
+    from engine.autoloop import adopt_decision
+    ok = {"pass": True, "models": [{"score": "1.0000"}]}
+    worse = {"pass": True, "models": [{"score": "0.9000"}]}
+    fail = {"pass": False, "models": [{"score": "0.5000"}]}
+    assert adopt_decision(ok, ok, ok, ok) is True
+    assert adopt_decision(ok, ok, None, None) is True              # no held-out set: golden alone decides
+    assert adopt_decision(ok, ok, ok, worse) is False              # golden held, held-out fell: rejected (Schulman)
+    assert adopt_decision(worse, ok, ok, ok) is True               # golden improved, held-out held
+    assert adopt_decision(ok, fail, ok, ok) is False
+    assert adopt_decision(ok, ok, worse, fail) is False
+
+
+def test_kill_rule_halts_a_collapsing_agent_and_the_planner_cannot_schedule_it(runner, engine, pack):
+    from engine.autoloop import kill_rule
+    assert kill_rule(engine, pack) == {}
+    for _ in range(5):
+        runner.run("allocator", {"capacity": 20}, model_override=("local", "allocator-misstated"))
+    killed = kill_rule(engine, pack)
+    assert set(killed) == {"allocator"} and "pass rate 0.00 over the last 5 runs" in killed["allocator"]
+    inp = {"week": WEEK, "max_runs": 3, "report": {}, "pending": [], "golden": {}, "killed": killed}
+    from engine.guardrails import GuardrailContext, batch_resolves
+    gctx = GuardrailContext(agent=None, output_schema={}, resolver=None, run_input=inp, pack=pack, max_output_bytes=65536)
+    msgs = batch_resolves({"batch": [{"agent": "allocator", "input": {"capacity": 50}}, {"agent": "checker", "input": {"sheet_id": "S1"}}]}, gctx)
+    assert len(msgs) == 1 and "halted by the kill rule" in msgs[0]
+    # recovery: enough good runs inside the window lift it
+    for _ in range(6):
+        runner.run("allocator", {"capacity": 50})
+    assert kill_rule(engine, pack) == {}
+
+
+def test_judge_is_suspended_when_the_operator_keeps_overriding_it(runner, engine, pack):
+    from engine.autoloop import cycle, judge as judge_runs, judge_safety
+    rows = [engine.store.get_run(runner.run("checker", {"sheet_id": "S1"}).run_id) for _ in range(5)]
+    judge_runs(runner, "judge", rows)
+    assert judge_safety(engine, pack) == {"compared": 0, "disagreements": 0, "rate": 0.0, "suspended": False,
+                                          "max_disagreement": 0.25, "min_compared": 5}
+    for i, row in enumerate(rows):
+        record_verdict(engine, pack, row["run_id"], "overridden" if i < 2 else "followed", "operator looked")
+    s = judge_safety(engine, pack)
+    assert s["compared"] == 5 and s["disagreements"] == 2 and s["rate"] == 0.4 and s["suspended"] is True
+    fresh = runner.run("checker", {"sheet_id": "S2"})
+    result = cycle(engine, pack, WEEK, packs_root=pack.root.parent, do_plan=False, do_refine=False, do_export=False, runner=runner)
+    assert result["judge"] == [] and "SUSPENDED" in render(result) and "2 of 5" in result["judge_suspended"]
+    assert engine.store.get_run(fresh.run_id)["human_verdict"] is None
+
+
+def test_golden_grows_only_from_operator_followed_runs(pack_copy):
+    from engine.autoloop import grow_golden, judge as judge_runs
+    from engine.loop import Runner
+    eng = Engine.open("sqlite://:memory:", clock=FixedClock(T0), ids=SeededIdGen("c7-grow"))
+    try:
+        pc = load_pack("_reference", pack_copy)
+        rn = Runner(eng, pc)
+        a = rn.run("allocator", {"capacity": 30})
+        b = rn.run("allocator", {"capacity": 40})
+        c = rn.run("allocator", {"capacity": 50})               # already a golden input
+        judge_runs(rn, "judge", [eng.store.get_run(b.run_id)])   # the judge's own 'followed' never grows the set
+        record_verdict(eng, pc, a.run_id, "followed", "operator checked the optimum by hand")
+        record_verdict(eng, pc, c.run_id, "followed", "operator checked")
+        since, until = "2026-10-12T00:00:00+00:00", "2026-10-19T00:00:00+00:00"
+        grown = grow_golden(eng, pc, since=since, until=until)
+        assert grown == [{"agent": "allocator", "added": 1, "ids": [f"run-{a.run_id}"]}]
+        lines = (pc.agent_dir("allocator") / "eval" / "golden.jsonl").read_text(encoding="utf-8").splitlines()
+        case = json.loads(lines[-1])
+        assert case["input"] == {"capacity": 30} and case["expected"]["total_value"] == 170 and "operator" in case["provenance"]
+        assert grow_golden(eng, pc, since=since, until=until) == []          # idempotent
+        from engine.eval import load_golden
+        assert len(load_golden(pc.agent_dir("allocator") / "eval" / "golden.jsonl", pack_is_fixture=True).cases) == 3
+    finally:
+        eng.close()

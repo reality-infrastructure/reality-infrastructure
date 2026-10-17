@@ -148,10 +148,12 @@ class ModelReport:
         return 0 if self.runs == 0 else self.latency_ms // self.runs
 
 
-def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None = None) -> dict:
+def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None = None,
+             golden_file: str = "golden.jsonl") -> dict:
+    """``golden_file`` may name ``holdout.jsonl``: the held-out set the loop never tunes on."""
     runner = Runner(engine, pack)
     agent = runner.agent(agent_name)
-    golden = load_golden(agent.dir / "eval" / "golden.jsonl", pack_is_fixture=pack.fixture)
+    golden = load_golden(agent.dir / "eval" / golden_file, pack_is_fixture=pack.fixture)
     model_strings = models or [agent.model.model_string]
     reports: dict[str, ModelReport] = {}
     for ms in model_strings:

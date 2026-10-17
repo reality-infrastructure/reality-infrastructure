@@ -271,6 +271,9 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
         if gctx.pack is not None and name not in gctx.pack.agent_names:
             problems.append(f"batch/{i}: no agent {name!r} in this pack")
             continue
+        if name in (gctx.run_input.get("killed") or {}):
+            problems.append(f"batch/{i}: {name} is halted by the kill rule ({(gctx.run_input.get('killed') or {}).get(name)}); it is not scheduled until it recovers")
+            continue
         if gctx.pack is not None:
             from engine.config import load_yaml
             role = load_yaml(gctx.pack.agent_dir(name) / "manifest.yaml").get("role")

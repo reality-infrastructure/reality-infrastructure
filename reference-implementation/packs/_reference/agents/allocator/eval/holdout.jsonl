@@ -1,0 +1,3 @@
+{"threshold": 1.0, "compare": ["selected", "total_weight", "total_value"], "fixture": true}
+{"id": "holdout-cap30", "fixture": true, "provenance": "FIXTURE held-out: optimum of fixtures/candidates.jsonl at capacity 30 by DP (c1+c4+c5 = 30 / 170); never used to tune the allocator", "input": {"capacity": 30}, "expected": {"selected": ["c1", "c4", "c5"], "total_weight": 30, "total_value": 170}}
+{"id": "holdout-cap40", "fixture": true, "provenance": "FIXTURE held-out: optimum of fixtures/candidates.jsonl at capacity 40 by DP (c2+c4+c5 = 40 / 210); never used to tune the allocator", "input": {"capacity": 40}, "expected": {"selected": ["c2", "c4", "c5"], "total_weight": 40, "total_value": 210}}

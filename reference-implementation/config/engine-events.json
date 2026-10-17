@@ -24,7 +24,9 @@
       "after_score": {"type": "string"},
       "adopted": {"type": "boolean"},
       "refiner_run_id": {"type": "string"},
-      "why": {"type": "string"}
+      "why": {"type": "string"},
+      "before_holdout": {"type": ["string", "null"]},
+      "after_holdout": {"type": ["string", "null"]}
     }
   },
   "correction": {

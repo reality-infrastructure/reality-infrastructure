@@ -12,6 +12,16 @@ export:
 autoloop:
   max_runs_per_cycle: 20        # the planner's batch is capped here, whatever it proposes
   refine_rungs: [1, 2]          # the refiner may touch grounding and harness text only
+  # The loop's law (operator, 2026-10-17: "make sure the RSI performs exactly how explained in the interviews"):
+  holdout: true                 # Schulman: an edit is adopted only if eval/holdout.jsonl (never tuned on) does not fall either
+  kill:                         # Musk: drastic action when success leaves the set of outcomes
+    window_runs: 20             #   over the agent's last N runs
+    min_runs: 5                 #   once it has at least this many
+    min_pass_rate: 0.5          #   below this pass rate the agent is halted: not planned, reported, until it recovers
+  judge:                        # Brown: the grader is checked, and a grader that is being gamed stops counting
+    min_compared: 5             #   once the operator has overridden or confirmed this many agent verdicts
+    max_disagreement: 0.25      #   above this disagreement rate the judge is suspended (no agent verdicts recorded)
+  grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
 citations:
   # ref format: <kind>:<table_or_path>:<id>
   kinds: [event, table, file, run]

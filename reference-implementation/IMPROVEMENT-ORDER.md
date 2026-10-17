@@ -11,6 +11,16 @@ only, as one exact text edit that is kept only if the agent's golden score does
 not fall. Rung 3 still needs the parity matrix and rung 4 the export gate; the
 loop never touches code, a guardrail, a verifier or a model pin.
 
+The loop's law, on by default (`config/engine.yaml` `autoloop`), is the three
+interviews as mechanism: an edit is kept only if a held-out set the loop never
+tunes on does not fall (Schulman: redeploy only when the held-out benchmark
+holds); an agent whose pass rate collapses is halted until it recovers (Musk:
+drastic action when success leaves the set of outcomes); the judge is checked
+against the operator and suspended when it is being overridden (Brown: the
+grader must not be gamed); golden sets grow only from runs the operator marked
+followed, never from the judge's own verdicts (the panel: fold graded traces
+into the next environments, without self-labeling).
+
 | Rung | Change | Gate | Where |
 |---|---|---|---|
 | 1 | Grounding / context: sources, memory queries, tables, onboarding text | none | `manifest.yaml` grounding + memory, `skills.md`, `workflow.md` |

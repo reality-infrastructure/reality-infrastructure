@@ -214,3 +214,15 @@ commit trailer. 5. Checklist: above.
 
 ## STOP CONDITIONS HIT
 - None in the engine.
+
+## JH-C7.1 — THE LOOP'S LAW (operator, 2026-10-17: "make sure the RSI performs exactly how explained in the
+## interviews … that should be default for our engine and for hood … build exactly what they say out")
+Defaults in `config/engine.yaml` `autoloop`, enforced by `engine/autoloop.py` and tested in `tests/test_engine_c7.py`:
+| interview claim | mechanism | test |
+|---|---|---|
+| Schulman: redeploy only when a held-out benchmark improves | `eval/holdout.jsonl` per agent (validate refuses one that shares an input with golden); `adopt_decision` requires golden AND held-out not to fall; both scores on the `<pack>.refinement` event | `test_adopt_decision_needs_the_held_out_set_not_to_fall`, cycle test |
+| Musk: drastic action when success leaves the set of outcomes | `kill_rule`: pass rate over the last 20 runs below 0.5 (after 5) halts the agent; `batch_resolves` refuses it; lifted when it recovers | `test_kill_rule_halts_a_collapsing_agent_and_the_planner_cannot_schedule_it` |
+| Brown: the grader must be checked; a gamed grader stops counting | `judge_safety`: operator overrides of agent verdicts (from the verdict events) above 25 % after 5 suspend the judge; the cycle records no agent verdict and says so | `test_judge_is_suspended_when_the_operator_keeps_overriding_it` |
+| the panel: fold the graded traces into the next environments | `grow_golden`: operator-followed runs become golden cases; the judge's own verdicts never do | `test_golden_grows_only_from_operator_followed_runs` |
+| Brown: one rung at a time, an evaluation before the next | one refinement per cycle, golden before/after; rung 3 only by parity matrix; rung 4 only past the export gate | C4, C5, cycle test |
+Reference pack: `allocator/eval/holdout.jsonl` (capacities 30 and 40, never used to tune).

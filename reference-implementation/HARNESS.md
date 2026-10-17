@@ -73,6 +73,7 @@ confidently wrong more often, and the crank reports it per agent.
 - `events`, `ledger` reject UPDATE/DELETE; `agent_runs` freezes everything but the verdict columns
 - undeclared event types and payload-schema violations are rejected before any write
 - compaction summaries cite only events inside the window; raw events stay
+- the loop's law (config `autoloop`, on by default): an edit is adopted only if `eval/holdout.jsonl` (never tuned on) does not fall either; an agent whose pass rate over its last runs collapses is halted and cannot be planned until it recovers; the judge is suspended when the operator's overrides exceed the disagreement rate; golden sets grow only from runs the operator marked followed
 - export refuses below 500 verdicted runs (human always; agent verdicts when `export.accept_agent_verdicts`) and for any non-specialist
 
 ## Dependencies
