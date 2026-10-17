@@ -319,3 +319,30 @@ def refiner_declines(*, model, system, messages, tools, candidate_index) -> Comp
     inp = ctx["input"]
     return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": None, "old": "", "new": "",
                               "why": "the recommendation names data, not text", "confidence": 0.8})
+
+
+def judge_careful(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Reads the run, then recomputes an allocator's total_value from the candidates table; a figure that
+    disagrees is an override that names the field.  Everything else is judged like judge_v1."""
+    ctx = _context(messages)
+    rid = ctx["input"]["run_id"]
+    results = _tool_results(messages)
+    if _turn(messages) == 0:
+        return _calls(messages, [("agent_run__read", {"run_id": rid})])
+    run = results[0]
+    if run.get("status") != "succeeded":
+        return _submit(messages, {"run_id": rid, "verdict": "wrong", "reason": f"{run.get('status')}", "confidence": 0.9})
+    if run.get("agent") == "allocator" and _turn(messages) == 1:
+        return _calls(messages, [("tables__read", {"table": "candidates"})])
+    out = run.get("output") or {}
+    if run.get("agent") == "allocator":
+        rows = {r["id"]: r for r in results[-1]}
+        value = sum(int(rows[i]["value"]) for i in out.get("selected", []) if i in rows)
+        weight = sum(int(rows[i]["weight"]) for i in out.get("selected", []) if i in rows)
+        if out.get("total_value") != value:
+            return _submit(messages, {"run_id": rid, "verdict": "overridden",
+                                      "reason": f"total_value states {out.get('total_value')} but the selected candidates sum to {value}", "confidence": 0.9})
+        if out.get("total_weight") != weight:
+            return _submit(messages, {"run_id": rid, "verdict": "overridden",
+                                      "reason": f"total_weight states {out.get('total_weight')} but the selected candidates weigh {weight}", "confidence": 0.9})
+    return _submit(messages, {"run_id": rid, "verdict": "followed", "reason": "every figure recomputes from the table", "confidence": 0.85})

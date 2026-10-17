@@ -10,6 +10,7 @@ modules:
   tools: [tools.arith]
   guardrails: [guardrails.flags]
   verifiers: [verifiers.knapsack]
+  drift: [drift]
 # Fixture "models": deterministic responders.  Only a fixture pack may declare these.
 local_models:
   checker-v1:           fixtures.responders:checker_v1
@@ -24,6 +25,7 @@ local_models:
   compactor-v1:         fixtures.responders:compactor_v1
   judge-v1:             fixtures.responders:judge_v1
   judge-lenient:        fixtures.responders:judge_lenient
+  judge-careful:        fixtures.responders:judge_careful
   planner-v1:           fixtures.responders:planner_v1
   planner-bad:          fixtures.responders:planner_bad
   refiner-v1:           fixtures.responders:refiner_v1

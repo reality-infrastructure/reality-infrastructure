@@ -49,6 +49,7 @@ def validate_pack(name: str, root: Path | None = None) -> dict:
         engine.close()
     return {"pack": pack.name, "fixture": pack.fixture, "agents": {n: a.role for n, a in agents.items()},
             "tools": pack.tools.ids(), "guardrails": pack.guardrails.ids(), "verifiers": pack.verifiers.ids(),
+            "drift": pack.drift.ids() if pack.drift else [],
             "event_types": sorted(events.declared_types), "golden_cases": golden, "holdout_cases": holdout,
             "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {}))}
 

@@ -52,8 +52,10 @@ def test_export_refuses_below_gate_and_for_orchestrators(runner, engine, pack, t
         export(engine, pack, "allocator", "sft", tmp_path / "x.jsonl")
     with pytest.raises(GateError, match="role 'orchestrator'"):
         export(engine, pack, "briefer", "sft", tmp_path / "x.jsonl")
-    with pytest.raises(GateError, match="role 'worker'"):
+    with pytest.raises(GateError, match="gate is 500"):                 # a worker is distilled too since C9; the gate still holds
         export(engine, pack, "checker", "sft", tmp_path / "x.jsonl")
+    with pytest.raises(GateError, match="role 'judge'"):
+        export(engine, pack, "judge", "sft", tmp_path / "x.jsonl")
 
 
 def test_export_with_500_verdicts_writes_dataset(runner, engine, pack, tmp_path):

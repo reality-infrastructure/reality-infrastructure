@@ -149,8 +149,9 @@ class ModelReport:
 
 
 def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None = None,
-             golden_file: str = "golden.jsonl") -> dict:
-    """``golden_file`` may name ``holdout.jsonl``: the held-out set the loop never tunes on."""
+             golden_file: str = "golden.jsonl", reference: str | None = None) -> dict:
+    """``golden_file`` may name ``holdout.jsonl``: the held-out set the loop never tunes on.  ``reference`` is the
+    model parity is measured against (default: the configured frontier; a distillation names its teacher)."""
     runner = Runner(engine, pack)
     agent = runner.agent(agent_name)
     golden = load_golden(agent.dir / "eval" / golden_file, pack_is_fixture=pack.fixture)
@@ -177,7 +178,7 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
         reports[ms] = rep
     if all(r.counted == 0 for r in reports.values()):
         raise EvalError("no countable golden cases (a real pack cannot be scored on fixture cases)")
-    frontier = engine.config.frontier.model_string
+    frontier = reference or engine.config.frontier.model_string
     frontier_score = reports[frontier].score if frontier in reports else None
     rows = []
     for ms, rep in reports.items():

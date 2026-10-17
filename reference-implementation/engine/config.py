@@ -93,7 +93,8 @@ class EngineConfig:
         """The loop's law with its defaults (config/engine.yaml autoloop)."""
         a = dict(self.engine.get("autoloop") or {})
         kill = {"window_runs": 20, "min_runs": 5, "min_pass_rate": 0.5, **(a.get("kill") or {})}
-        judge = {"min_compared": 5, "max_disagreement": 0.25, **(a.get("judge") or {})}
+        judge = {"min_compared": 5, "max_disagreement": 0.25, "honeypots_per_cycle": 2, "min_planted": 4, "max_missed": 0.25,
+                 **(a.get("judge") or {})}
         return {"holdout": bool(a.get("holdout", True)), "kill": kill, "judge": judge,
                 "grow_golden": bool(a.get("grow_golden", True))}
 

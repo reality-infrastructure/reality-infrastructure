@@ -50,6 +50,7 @@ from pathlib import Path
 
 from engine.config import load_yaml
 from engine.crank import build_report, render as render_crank, week_bounds
+from engine.drift import DriftContext
 from engine.errors import EngineError, GateError
 from engine.eval import load_golden, run_eval
 from engine.events import EventLog
@@ -86,8 +87,11 @@ def _run_summary(row: dict) -> dict:
 
 
 def _holdout_path(pack, agent: str) -> Path | None:
+    """The held-out set, when it exists and holds at least one case (an empty one is a period not yet recorded)."""
     p = pack.agent_dir(agent) / "eval" / "holdout.jsonl"
-    return p if p.is_file() else None
+    if not p.is_file():
+        return None
+    return p if load_golden(p, pack_is_fixture=pack.fixture).cases else None
 
 
 # -- the loop's law -------------------------------------------------------------------------
@@ -111,10 +115,16 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
 
 
 def judge_safety(engine: Engine, pack) -> dict:
-    """How often the operator, having looked at a run the judge adjudicated, said something else.
-    Compared = runs with an agent verdict event followed by a human verdict event; a disagreement is a
-    different verdict.  Above ``max_disagreement`` (after ``min_compared``) the judge is suspended."""
+    """Two checks on the grader.  The operator's: how often a human, having looked at a run the judge
+    adjudicated, said something else (compared = runs with an agent verdict event followed by a human one).
+    The loop's own: how often the judge missed a honeypot, a succeeded run served to it with one figure
+    altered (``<pack>.honeypot`` events).  Either rate above its threshold, after enough cases, suspends
+    the judge: no agent verdict is recorded until a human looks."""
     cfg = engine.config.autoloop["judge"]
+    pots = engine.store.query_events(event_type=f"{pack.name}.honeypot", limit=100000, ascending=True)
+    planted = len(pots)
+    missed = sum(1 for e in pots if not e["payload"]["hit"])
+    miss_rate = (missed / planted) if planted else 0.0
     events = engine.store.query_events(event_type=f"{pack.name}.verdict", limit=100000, ascending=True)
     by_run: dict[str, list[dict]] = {}
     for e in events:
@@ -130,9 +140,76 @@ def judge_safety(engine: Engine, pack) -> dict:
                 disagreements += int(e["payload"]["verdict"] != agent_v)
                 agent_v = None
     rate = (disagreements / compared) if compared else 0.0
-    suspended = compared >= int(cfg["min_compared"]) and rate > float(cfg["max_disagreement"])
-    return {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4), "suspended": suspended,
-            "max_disagreement": float(cfg["max_disagreement"]), "min_compared": int(cfg["min_compared"])}
+    by_operator = compared >= int(cfg["min_compared"]) and rate > float(cfg["max_disagreement"])
+    by_honeypots = planted >= int(cfg["min_planted"]) and miss_rate > float(cfg["max_missed"])
+    return {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4),
+            "planted": planted, "missed": missed, "miss_rate": round(miss_rate, 4),
+            "suspended": by_operator or by_honeypots, "suspended_by": "operator" if by_operator else "honeypots" if by_honeypots else None,
+            "max_disagreement": float(cfg["max_disagreement"]), "min_compared": int(cfg["min_compared"]),
+            "max_missed": float(cfg["max_missed"]), "min_planted": int(cfg["min_planted"])}
+
+
+def _numeric_leaf(output, path: tuple = ()) -> tuple[str, object] | None:
+    """The first numeric leaf of an output, depth first, skipping citations and confidence: what a honeypot alters."""
+    if isinstance(output, bool):
+        return None
+    if isinstance(output, (int, float)):
+        return ".".join(path), output
+    if isinstance(output, dict):
+        for k, v in output.items():
+            if k in ("citations", "confidence"):
+                continue
+            found = _numeric_leaf(v, path + (k,))
+            if found:
+                return found
+    if isinstance(output, list):
+        for i, v in enumerate(output):
+            found = _numeric_leaf(v, path + (str(i),))
+            if found:
+                return found
+    return None
+
+
+def plant_honeypots(runner: Runner, judge_name: str, rows: list[dict], k: int) -> list[dict]:
+    """Serve the judge k succeeded runs with one figure altered and record whether it noticed.  A hit is a verdict
+    of overridden or wrong whose reason names the altered field; the verdict is never recorded on the real run."""
+    out = []
+    for row in [r for r in rows if r["status"] == "succeeded" and r["role"] in JUDGEABLE_ROLES][-k:]:
+        leaf = _numeric_leaf(row["output"])
+        if leaf is None:
+            continue
+        path, value = leaf
+        altered = value + 1 if isinstance(value, int) else round(value * 1.07 + 0.01, 6)
+        runner.honeypots[row["run_id"]] = (path, altered)
+        try:
+            j = runner.run(judge_name, {"run_id": row["run_id"]})
+        except EngineError as e:
+            runner.honeypots.pop(row["run_id"], None)
+            out.append({"target_run_id": row["run_id"], "judge_run_id": None, "path": path, "hit": False, "verdict": None, "error": str(e)[:200]})
+            continue
+        finally:
+            runner.honeypots.pop(row["run_id"], None)
+        verdict = j.output["verdict"] if j.status == "succeeded" else None
+        field = path.split(".")[-1]
+        hit = bool(verdict in ("overridden", "wrong") and j.status == "succeeded" and field in (j.output.get("reason") or ""))
+        ev = EventLog(runner.engine, runner.pack).append(
+            entity_type="agent_run", entity_id=j.run_id, event_type=f"{runner.pack.name}.honeypot",
+            payload={"target_run_id": row["run_id"], "judge_run_id": j.run_id, "path": path, "hit": hit, "verdict": verdict},
+            source=f"agent:{judge_name}", source_ref=j.run_id)
+        out.append({"target_run_id": row["run_id"], "judge_run_id": j.run_id, "path": path, "hit": hit, "verdict": verdict, "event_id": ev["event_id"]})
+    return out
+
+
+def drift_readings(engine: Engine, pack) -> list[dict]:
+    """Every drift function the pack declares, recorded as events; the loop refines and grows nothing while any says shifted."""
+    if not pack.drift or not pack.drift.ids():
+        return []
+    readings = pack.drift.readings(DriftContext(pack=pack, engine=engine, read_table=pack.table_rows))
+    log = EventLog(engine, pack)
+    for r in readings:
+        log.append(entity_type="agent_run", entity_id=pack.name, event_type=f"{pack.name}.drift",
+                   payload={"id": r["id"], "shifted": r["shifted"], "why": r["why"], "measured": r["measured"]}, source="pipeline:autoloop")
+    return readings
 
 
 def grow_golden(engine: Engine, pack, *, since: str, until: str) -> list[dict]:
@@ -366,7 +443,9 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     result: dict = {"pack": pack.name, "week": week, "loop_agents": agents}
     killed = kill_rule(engine, pack)
     safety = judge_safety(engine, pack)
-    result["safety"] = {"killed": killed, "judge": safety}
+    drift = drift_readings(engine, pack)
+    result["safety"] = {"killed": killed, "judge": safety, "drift": drift}
+    shifted = [d for d in drift if d["shifted"]]
     report = build_report(engine, pack, week)
     if do_plan and "planner" in agents:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
@@ -376,16 +455,26 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     if do_judge and "judge" in agents:
         if safety["suspended"]:
             result["judge"] = []
-            result["judge_suspended"] = (f"the operator disagreed with {safety['disagreements']} of {safety['compared']} agent verdicts "
-                                         f"({safety['rate']:.0%}), above {safety['max_disagreement']:.0%}: no agent verdict recorded this cycle")
+            result["judge_suspended"] = (f"suspended by {safety['suspended_by']}: the operator disagreed with {safety['disagreements']} of "
+                                         f"{safety['compared']} agent verdicts ({safety['rate']:.0%}), honeypots missed {safety['missed']} of "
+                                         f"{safety['planted']} ({safety['miss_rate']:.0%}): no agent verdict recorded this cycle")
         else:
             result["judge"] = judge(runner, agents["judge"], unjudged(engine, pack, since=since, until=until))
+            k = int(engine.config.autoloop["judge"]["honeypots_per_cycle"])
+            if k > 0:
+                result["honeypots"] = plant_honeypots(runner, agents["judge"], engine.store.list_runs(pack=pack.name, since=since, until=until, status="succeeded"), k)
     report = build_report(engine, pack, week)
     result["crank"] = _slim_report(report)
-    if do_refine and "refiner" in agents:
-        result["refine"] = refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root)
-    if engine.config.autoloop["grow_golden"]:
-        result["grow"] = grow_golden(engine, pack, since=since, until=until)
+    if shifted:
+        why = "; ".join(f"{d['id']}: {d['why']}" for d in shifted)
+        result["refine"] = {"status": "skipped", "why": f"drift: {why}; golden and held-out sets must be re-counted against the new record before any edit is adopted"}
+        result["grow"] = []
+        result["drift_hold"] = why
+    else:
+        if do_refine and "refiner" in agents:
+            result["refine"] = refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root)
+        if engine.config.autoloop["grow_golden"]:
+            result["grow"] = grow_golden(engine, pack, since=since, until=until)
     if do_export:
         result["export"] = export_open(engine, pack, pack.root, week)
     result["safety"]["killed_after"] = kill_rule(engine, pack)
@@ -402,10 +491,17 @@ def render(result: dict) -> str:
               + (f"; after this cycle: {', '.join(f'{a} halted' for a in s['killed_after']) or 'none'}" if "killed_after" in s else "")]
         j = s["judge"]
         L += [f"- judge safety case: the operator reviewed {j['compared']} agent verdicts and disagreed with {j['disagreements']} "
-              f"({j['rate']:.0%}; suspension above {j['max_disagreement']:.0%} after {j['min_compared']}): "
-              + ("SUSPENDED" if j["suspended"] else "trusted")]
+              f"({j['rate']:.0%}; suspension above {j['max_disagreement']:.0%} after {j['min_compared']}); honeypots planted "
+              f"{j.get('planted', 0)}, missed {j.get('missed', 0)} ({j.get('miss_rate', 0):.0%}; suspension above {j.get('max_missed', 0):.0%} "
+              f"after {j.get('min_planted', 0)}): " + ("SUSPENDED" if j["suspended"] else "trusted")]
         if result.get("judge_suspended"):
             L += [f"  {result['judge_suspended']}"]
+        if result.get("honeypots"):
+            L += [f"- honeypots this cycle: " + ", ".join(f"{h['path']} -> {'hit' if h['hit'] else 'MISS'} ({h['verdict']})" for h in result["honeypots"])]
+        for d in s.get("drift") or []:
+            L += [f"- drift {d['id']}: {'SHIFTED' if d['shifted'] else 'steady'}: {d['why']}"]
+        if result.get("drift_hold"):
+            L += [f"  no edit adopted and no golden case grown while the distribution has moved: {result['drift_hold']}"]
         L += [""]
     if "plan" in result:
         p = result["plan"]["run"]

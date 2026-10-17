@@ -21,6 +21,9 @@ autoloop:
   judge:                        # Brown: the grader is checked, and a grader that is being gamed stops counting
     min_compared: 5             #   once the operator has overridden or confirmed this many agent verdicts
     max_disagreement: 0.25      #   above this disagreement rate the judge is suspended (no agent verdicts recorded)
+    honeypots_per_cycle: 2      #   succeeded runs served to the judge with one figure altered; it must say so
+    min_planted: 4              #   once this many were planted ...
+    max_missed: 0.25            #   ... a miss rate above this suspends the judge
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized

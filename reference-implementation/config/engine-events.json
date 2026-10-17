@@ -10,6 +10,29 @@
       "reason": {"type": "string"}
     }
   },
+  "drift": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "shifted", "why", "measured"],
+    "properties": {
+      "id": {"type": "string"},
+      "shifted": {"type": "boolean"},
+      "why": {"type": "string"},
+      "measured": {"type": "object"}
+    }
+  },
+  "honeypot": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["target_run_id", "judge_run_id", "path", "hit", "verdict"],
+    "properties": {
+      "target_run_id": {"type": "string"},
+      "judge_run_id": {"type": "string"},
+      "path": {"type": "string"},
+      "hit": {"type": "boolean"},
+      "verdict": {"type": ["string", "null"]}
+    }
+  },
   "refinement": {
     "type": "object",
     "additionalProperties": false,

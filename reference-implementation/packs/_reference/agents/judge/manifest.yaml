@@ -8,7 +8,7 @@ model:
   max_tokens: 4000
 grounding:
   sources: []
-tools: [agent_run.read]
+tools: [agent_run.read, tables.read]
 memory:
   working: { max_tokens: 50000 }
   long_term: null

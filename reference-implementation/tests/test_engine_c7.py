@@ -313,8 +313,8 @@ def test_judge_is_suspended_when_the_operator_keeps_overriding_it(runner, engine
     from engine.autoloop import cycle, judge as judge_runs, judge_safety
     rows = [engine.store.get_run(runner.run("checker", {"sheet_id": "S1"}).run_id) for _ in range(5)]
     judge_runs(runner, "judge", rows)
-    assert judge_safety(engine, pack) == {"compared": 0, "disagreements": 0, "rate": 0.0, "suspended": False,
-                                          "max_disagreement": 0.25, "min_compared": 5}
+    s0 = judge_safety(engine, pack)
+    assert (s0["compared"], s0["disagreements"], s0["rate"], s0["suspended"], s0["planted"]) == (0, 0, 0.0, False, 0)
     for i, row in enumerate(rows):
         record_verdict(engine, pack, row["run_id"], "overridden" if i < 2 else "followed", "operator looked")
     s = judge_safety(engine, pack)

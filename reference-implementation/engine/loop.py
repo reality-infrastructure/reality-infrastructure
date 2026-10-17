@@ -62,6 +62,7 @@ class Runner:
         self.config = engine.config
         self.providers = providers or ProviderRegistry(self.config, local_responders=pack.local_models)
         self.events = EventLog(engine, pack)
+        self.honeypots: dict[str, tuple[str, object]] = {}   # run_id -> (dotted path, value) the loop planted for its judge
         self._agents: dict[str, Agent] = {}
         self._gateway = None
 
@@ -99,7 +100,7 @@ class Runner:
             access=agent.access, registry=self.pack.tools, recorder=trace.record_tool_call,
             adapters=self.gateway, depth=depth, parent_run_id=parent_run_id,
             run_agent=lambda child, inp: self._child(child, inp, trace, depth + 1),
-            extra={"events": self.events},
+            extra={"events": self.events, "honeypots": self.honeypots},
         )
         status, output, failures, access_denied = "error", None, [], False
         try:

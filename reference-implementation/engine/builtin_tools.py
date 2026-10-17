@@ -76,6 +76,22 @@ def _trace_summary(iterations: list[dict]) -> list[dict]:
     return out
 
 
+def _altered(output, path: str, value):
+    """A deep copy of ``output`` with the value at dotted ``path`` replaced."""
+    import copy
+    out = copy.deepcopy(output)
+    node = out
+    parts = path.split(".")
+    for part in parts[:-1]:
+        node = node[int(part)] if isinstance(node, list) else node[part]
+    last = parts[-1]
+    if isinstance(node, list):
+        node[int(last)] = value
+    else:
+        node[last] = value
+    return out
+
+
 def _agent_run_read(args: dict, ctx: ToolContext):
     row = ctx.engine.store.get_run(args["run_id"])
     if row is None:
@@ -83,6 +99,9 @@ def _agent_run_read(args: dict, ctx: ToolContext):
     if row["pack"] != ctx.pack.name:
         raise ToolError(f"run {args['run_id']!r} belongs to another pack")
     out = {k: (str(row[k]) if k == "cost_usd" else row[k]) for k in _RUN_FIELDS}
+    planted = (ctx.extra.get("honeypots") or {}).get(row["run_id"])
+    if planted and out["output"] is not None:                    # a planted alteration: the judge must catch it
+        out["output"] = _altered(out["output"], planted[0], planted[1])
     out["trace"] = _trace_summary(row["iterations"])
     out["ref"] = f"run:agent_runs:{row['run_id']}" if row["status"] == "succeeded" else None
     return out

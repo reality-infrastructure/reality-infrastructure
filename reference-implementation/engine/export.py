@@ -2,7 +2,7 @@
 
     python -m engine.export <pack>/<specialist> --format sft|preference --out FILE [--db DSN]
 
-Refuses unless the agent is a specialist and at least ``export.min_verdicted_runs``
+Refuses unless the agent is a worker or a specialist and at least ``export.min_verdicted_runs``
 (config/engine.yaml, 500) of its runs carry a verdict that counts: a human's always,
 a judge agent's when ``export.accept_agent_verdicts`` is true.  Output is a JSONL
 dataset file only; training and hosting are outside the engine.
@@ -52,8 +52,8 @@ def counted_runs(engine: Engine, pack, agent_name: str, **kw) -> list[dict]:
 
 def check_gate(engine: Engine, pack, agent_name: str) -> tuple[object, int]:
     agent = load_agent(pack, agent_name, config=engine.config)
-    if agent.role != "specialist":
-        raise GateError(f"export refused: {agent.ref} has role {agent.role!r}; only specialists are post-trained")
+    if agent.role not in ("specialist", "worker"):
+        raise GateError(f"export refused: {agent.ref} has role {agent.role!r}; only workers and specialists are post-trained")
     n = len(counted_runs(engine, pack, agent_name))
     need = engine.config.export_min_verdicts
     if n < need:

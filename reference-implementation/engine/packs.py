@@ -13,6 +13,7 @@ import importlib
 import json
 import os
 import sys
+from typing import Any
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -55,6 +56,7 @@ class Pack:
     guardrails: GuardrailRegistry
     verifiers: VerifierRegistry
     agent_names: tuple[str, ...]
+    drift: Any = None                       # engine.drift.DriftRegistry
     _table_cache: dict = field(default_factory=dict, repr=False)
 
     # -- tables ----------------------------------------------------------------
@@ -195,6 +197,8 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
     register_builtin_tools(tools)
     guardrails = builtin_registry()
     verifiers = VerifierRegistry()
+    from engine.drift import DriftRegistry
+    drifts = DriftRegistry()
     modules = config.get("modules") or {}
     for dotted in modules.get("tools") or []:
         tools.register_module(import_pack_module(name, dotted, root))
@@ -202,6 +206,8 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         guardrails.register_module(import_pack_module(name, dotted, root))
     for dotted in modules.get("verifiers") or []:
         verifiers.register_module(import_pack_module(name, dotted, root))
+    for dotted in modules.get("drift") or []:
+        drifts.register_module(import_pack_module(name, dotted, root))
 
     agents_dir = pack_dir / "agents"
     agent_names = tuple(sorted(p.name for p in agents_dir.iterdir()
@@ -215,7 +221,7 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         max_specialists=int(config["max_specialists"]),
         tables=tables, event_types=event_types, adapters_config=adapters_config,
         problem_text=problem_text, local_models=local_models,
-        tools=tools, guardrails=guardrails, verifiers=verifiers, agent_names=agent_names,
+        tools=tools, guardrails=guardrails, verifiers=verifiers, agent_names=agent_names, drift=drifts,
     )
 
 
