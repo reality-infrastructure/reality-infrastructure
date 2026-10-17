@@ -18,6 +18,8 @@ engine/
   export.py         python -m engine.export <pack>/<specialist> --format sft|preference --out FILE  (gated)
   crank.py          python -m engine.crank <pack> --week YYYY-Www            # packs/<pack>/crank/<week>.md
   sweep.py          python -m engine.sweep <pack>/<agent> --table T [--judge] [--workers N] [--budget-usd X]
+  distill.py        python -m engine.distill <pack>/<agent> --student p/m [--matrix]   # rung four: exemplars from followed runs into a student variant, parity vs the teacher
+  drift.py          @drift readings a pack declares (modules.drift); the loop adopts and grows nothing while any says shifted
                     # every row not yet graded, N runs in flight, one ledger; stops only when done, over budget or halted
   autoloop.py       python -m engine.autoloop <pack> --week YYYY-Www         # the closed loop: plan -> act -> judge -> crank -> refine -> export
   scaffold.py       python -m engine.scaffold new-domain <pack>
@@ -78,8 +80,10 @@ confidently wrong more often, and the crank reports it per agent.
 - `events`, `ledger` reject UPDATE/DELETE; `agent_runs` freezes everything but the verdict columns
 - undeclared event types and payload-schema violations are rejected before any write
 - compaction summaries cite only events inside the window; raw events stay
+- the judge is also tested by honeypots: succeeded runs served with one figure altered (`agent_run.read` through the loop's plant); misses above the threshold suspend it; `<pack>.honeypot` events
+- a pack's drift readings (`@drift`) gate refinement and golden growth; `<pack>.drift` events
 - the loop's law (config `autoloop`, on by default): an edit is adopted only if `eval/holdout.jsonl` (never tuned on) does not fall either; an agent whose pass rate over its last runs collapses is halted and cannot be planned until it recovers; the judge is suspended when the operator's overrides exceed the disagreement rate; golden sets grow only from runs the operator marked followed
-- export refuses below 500 verdicted runs (human always; agent verdicts when `export.accept_agent_verdicts`) and for any non-specialist
+- export and distillation refuse below 500 verdicted runs (human always; agent verdicts when `export.accept_agent_verdicts`) and for orchestrators and loop roles (workers and specialists are distilled)
 
 ## Dependencies
 

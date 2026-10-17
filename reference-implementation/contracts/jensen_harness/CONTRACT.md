@@ -240,3 +240,17 @@ whose ledger has no gap and whose every run replays, budget and limit stops, the
 Live: hood's first sweep over 4,729 pinned launches at six in flight, scout then profiler, judged, $25 each.
 Fixes forced: commits f141659 (the sweep), 9a784ac (reads fetched under the lock: three errored runs on the first
 live sweep came from a cursor iterated after the lock was released).
+
+## JH-C9 — THE BLIND SPOTS THE INTERVIEWS NAMED (operator, 2026-10-17: "Build all 7 flawlessly")
+Engine side of hood HL-07 (commit 421e0da, pushed; `tests/test_engine_c9.py`, 6):
+- the drift gate: a pack declares `@drift` readings (`modules.drift`); every cycle records them as `<pack>.drift`
+  events and, while any says shifted, adopts no edit and grows no golden set (the panel: a score on a dead regime
+  is not a score);
+- honeypots for the judge: each cycle serves the judge succeeded runs with one numeric figure altered
+  (`Runner.honeypots`, applied by `agent_run.read`); a hit is an override or wrong that names the field; misses
+  above `max_missed` after `min_planted` suspend the judge beside the operator's disagreement rate;
+  `<pack>.honeypot` events; the real run never receives the honeypot verdict (Brown: the grader is tested);
+- rung four as far as it can be built without a training API: `engine.distill` turns followed runs into exemplars
+  and a prompt variant the manifest registers, then runs the parity matrix against the teacher on golden and
+  held-out (`run_eval(reference=...)`); export and distillation admit workers (the sweep makes them the volume)
+  and refuse orchestrators and loop roles; a held-out set with no case yet is not a gate.

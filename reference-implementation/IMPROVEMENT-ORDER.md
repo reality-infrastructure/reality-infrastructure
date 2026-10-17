@@ -26,7 +26,7 @@ into the next environments, without self-labeling).
 | 1 | Grounding / context: sources, memory queries, tables, onboarding text | none | `manifest.yaml` grounding + memory, `skills.md`, `workflow.md` |
 | 2 | Harness: system prompt, tools, guardrails, loop params (`max_iterations`, `search_width`) | none | `prompts/`, `tools/`, `guardrails/`, `manifest.yaml` loop |
 | 3 | Model swap | `engine.eval --models` matrix committed as `eval/matrix-<date>.md` showing score ≥ frontier on the same golden set; the manifest validator refuses otherwise. Orchestrators never swap. | `manifest.yaml` model |
-| 4 | Post-training (specialist only) | `engine.export` refuses below 500 human-verdicted runs and refuses orchestrators | dataset file only; training is outside the engine |
+| 4 | Post-training (workers and specialists) | `engine.export` and `engine.distill` refuse below 500 verdicted runs and refuse orchestrators and loop roles; a distilled student is adopted only by the rung-3 parity matrix against its teacher on golden and held-out | `engine.export` writes the dataset (training outside the engine); `engine.distill` grounds a student variant on the record in context |
 
 Rules that hold on every rung:
 
