@@ -226,3 +226,18 @@ def test_autoloop_cli_writes_reports(pack_copy, tmp_path, capsys, monkeypatch):
     assert autoloop_main(["_reference", "--week", week, "--db", db, "--out", str(out), "--max-runs", "1"]) == 0
     assert (out / f"autoloop-{week}.md").is_file() and (out / f"autoloop-{week}.json").is_file() and (out / f"{week}.md").is_file()
     assert "autoloop report" in capsys.readouterr().out
+
+
+def test_refine_targets_the_first_cluster_of_a_refinable_agent(runner, engine, pack):
+    """A failure cluster made of loop-role runs (a judge whose own output failed) is never refined by the loop;
+    the next cluster with a worker or specialist run is (found live on hood 2026-10-17)."""
+    from engine.autoloop import _target_cluster
+    bad = runner.run("allocator", {"capacity": 20}, model_override=("local", "allocator-misstated"))
+    lenient = runner.run("judge", {"run_id": bad.run_id}, model_override=("local", "judge-lenient"))
+    assert lenient.status == "failed_guardrail"
+    report = {"recommendation": {"evidence": {"cluster": "guardrail verdict_grounded: x", "count": 5, "runs": [lenient.run_id]}},
+              "failure_clusters": [{"cluster": "guardrail verdict_grounded: x", "count": 5, "runs": [lenient.run_id]},
+                                   {"cluster": "verifier: total_value misstated", "count": 1, "runs": [bad.run_id]}]}
+    agent, cluster = _target_cluster(engine, pack, report)
+    assert agent == "allocator" and cluster["runs"] == [bad.run_id]
+    assert _target_cluster(engine, pack, {"recommendation": {}, "failure_clusters": [{"cluster": "y", "count": 1, "runs": [lenient.run_id]}]}) is None

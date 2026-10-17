@@ -132,12 +132,19 @@ def judge(runner: Runner, judge_name: str, rows: list[dict]) -> list[dict]:
 
 # -- refine -------------------------------------------------------------------------------
 
-def _target_agent(engine: Engine, pack, report: dict) -> str | None:
-    ev = (report.get("recommendation") or {}).get("evidence") or {}
-    for rid in ev.get("runs") or []:
-        row = engine.store.get_run(rid)
-        if row and row["role"] in JUDGEABLE_ROLES:
-            return row["agent"]
+def _target_cluster(engine: Engine, pack, report: dict) -> tuple[str, dict] | None:
+    """The first failure cluster (the crank orders them by count) whose evidence runs belong to a
+    worker, specialist or orchestrator: loop roles are never refined by the loop.  Falls back to
+    the recommendation's own evidence when it names such a run."""
+    candidates = list(report.get("failure_clusters") or [])
+    rec_ev = (report.get("recommendation") or {}).get("evidence") or {}
+    if rec_ev.get("runs"):
+        candidates.insert(0, rec_ev)
+    for cluster in candidates:
+        for rid in cluster.get("runs") or []:
+            row = engine.store.get_run(rid)
+            if row and row["role"] in JUDGEABLE_ROLES:
+                return row["agent"], cluster
     return None
 
 
@@ -152,10 +159,9 @@ def _text_files(agent_dir: Path) -> dict[str, str]:
     return files
 
 
-def _evidence(engine: Engine, report: dict) -> list[dict]:
-    ev = (report.get("recommendation") or {}).get("evidence") or {}
+def _evidence(engine: Engine, cluster: dict) -> list[dict]:
     out = []
-    for rid in (ev.get("runs") or [])[:3]:
+    for rid in (cluster.get("runs") or [])[:3]:
         row = engine.store.get_run(rid)
         if row:
             out.append({"run_id": rid, "agent": row["agent"], "status": row["status"], "input": row["input"],
@@ -173,12 +179,14 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     rungs = engine.config.autoloop_refine_rungs
     if rec.get("rung") not in rungs:
         return {"status": "skipped", "why": f"recommendation rung {rec.get('rung')!r} is not in {list(rungs)}"}
-    agent = _target_agent(engine, pack, report)
-    if agent is None:
-        return {"status": "skipped", "why": "no evidence run names an agent to refine"}
+    target = _target_cluster(engine, pack, report)
+    if target is None:
+        return {"status": "skipped", "why": "no failure cluster names a worker, specialist or orchestrator run to refine"}
+    agent, cluster = target
     files = _text_files(pack.agent_dir(agent))
-    r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": rec["change"],
-                             "evidence": _evidence(engine, report), "files": files})
+    change = rec["change"] if cluster is rec.get("evidence") else f"{rec['change']} Cluster: {cluster.get('cluster')} ({cluster.get('count')}x)."
+    r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
+                             "evidence": _evidence(engine, cluster), "files": files})
     if r.status != "succeeded":
         return {"status": "refiner_failed", "refiner_run_id": r.run_id, "agent": agent, "failure_reasons": list(r.failure_reasons)}
     out = r.output
