@@ -67,7 +67,7 @@ confidently wrong more often, and the crank reports it per agent.
 - engine code has no domain nouns and no prompt strings (`tests/test_engine_c0.py`)
 - unknown manifest key / tool / guardrail / verifier fails at load
 - orchestrators, judges, planners and refiners are pinned to the frontier (`config/frontier.yaml`); specialists need a verifier and `problem.md`; one specialist per pack without an ADR
-- the closed loop (C7): a judge's verdict never contradicts a deterministic check and is recorded as `agent`-sourced; a human verdict replaces it and is never replaced by one; a judge never judges its own run or another loop role's; a planner schedules only agents the pack can run, under the cap; a refiner edits one onboarding/prompt text file and the edit is adopted only if the agent's golden score does not fall (`<pack>.refinement` event, both scores)
+- the closed loop (C7): a judge's verdict never contradicts a deterministic check and is recorded as `agent`-sourced; a human verdict replaces it and is never replaced by one; a judge never judges its own run or another loop role's; a planner schedules only agents the pack can run, under the cap; a refiner edits one onboarding/prompt text file and the edit is adopted only if the agent's golden score does not fall (`<pack>.refinement` event, both scores), or declines (`file: null`) when the evidence warrants no edit
 - a non-frontier model outside a fixture pack needs `eval/matrix-*.json` showing parity
 - unlisted table / file / tool / network target raises `AccessDenied`; the run fails closed as `access_denied`
 - `events`, `ledger` reject UPDATE/DELETE; `agent_runs` freezes everything but the verdict columns

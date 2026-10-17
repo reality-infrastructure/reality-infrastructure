@@ -14,5 +14,10 @@ evidence runs.
 ## Good
 `{"agent": "checker", "rung": 2, "file": "skills.md", "old": "## Mission", "new": "## Mission (every row, no exceptions)", "why": "two runs skipped a row", "confidence": 0.7}`
 
+## Declining
+When the evidence warrants no edit (the recommendation names data, not text,
+or the failing runs were right), submit `file: null`, `old: ""`, `new: ""` and
+say why; the loop records a declined refinement and spends no evaluation.
+
 ## Bad
 An edit to Python; text that is not in the file; two edits at once.

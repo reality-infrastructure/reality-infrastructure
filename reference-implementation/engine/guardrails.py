@@ -286,7 +286,9 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
 @guardrail(id="edit_applies")
 def edit_applies(output, gctx: GuardrailContext) -> list[str]:
     """A refiner's edit is one exact replacement in one onboarding or prompt text file the
-    loop handed it, on a rung the loop allows, for the agent the loop named."""
+    loop handed it, on a rung the loop allows, for the agent the loop named.  A refiner may
+    decline (``file`` null, ``old`` and ``new`` empty) when the evidence warrants no edit; the
+    ``why`` then carries the reason and the loop records a declined refinement."""
     if not isinstance(output, dict):
         return ["output must be an object"]
     problems = []
@@ -296,6 +298,10 @@ def edit_applies(output, gctx: GuardrailContext) -> list[str]:
         problems.append(f"agent: edit names {output.get('agent')!r}, the loop asked about {gctx.run_input.get('agent')!r}")
     if output.get("rung") not in rungs:
         problems.append(f"rung must be one of {list(rungs)}, got {output.get('rung')!r}")
+    if output.get("file") is None:
+        if output.get("old") or output.get("new"):
+            problems.append("a declined edit (file null) carries no old or new text")
+        return problems
     path = output.get("file")
     if not isinstance(path, str) or path not in files:
         return problems + [f"file must be one of the files handed to the refiner {sorted(files)}, got {path!r}"]

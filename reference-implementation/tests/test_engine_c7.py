@@ -241,3 +241,31 @@ def test_refine_targets_the_first_cluster_of_a_refinable_agent(runner, engine, p
     agent, cluster = _target_cluster(engine, pack, report)
     assert agent == "allocator" and cluster["runs"] == [bad.run_id]
     assert _target_cluster(engine, pack, {"recommendation": {}, "failure_clusters": [{"cluster": "y", "count": 1, "runs": [lenient.run_id]}]}) is None
+
+
+def test_refiner_may_decline_and_the_loop_records_it(engine, pack_copy):
+    """A refiner that finds no edit the evidence warrants declines (file null); the loop records it,
+    changes nothing and spends no golden evaluation (the closeout pack's first live cycle adopted a
+    well-meant but unasked-for edit because declining was impossible, 2026-10-17)."""
+    import yaml
+    from engine.autoloop import refine
+    from engine.crank import build_report
+    from engine.loop import Runner
+    from engine.packs import load_pack
+    path = pack_copy / "_reference" / "agents" / "refiner" / "manifest.yaml"
+    doc = yaml.safe_load(path.read_text(encoding="utf-8"))
+    doc["model"]["name"] = "refiner-declines"
+    path.write_text(yaml.safe_dump(doc), encoding="utf-8")
+    pc = load_pack("_reference", pack_copy)
+    rn = Runner(engine, pc)
+    bad = rn.run("allocator", {"capacity": 20}, model_override=("local", "allocator-misstated"))
+    report = build_report(engine, pc, WEEK)
+    assert bad.run_id in report["recommendation"]["evidence"]["runs"]
+    n_before = len(engine.store.list_runs(pack="_reference", agent="allocator"))
+    result = refine(engine, pc, rn, "refiner", report, packs_root=pack_copy)
+    assert result["status"] == "declined" and result["agent"] == "allocator" and "data, not text" in result["why"]
+    assert len(engine.store.list_runs(pack="_reference", agent="allocator")) == n_before
+    assert rn.events.query(event_type="_reference.refinement", limit=5) == []
+    half = rn.run("refiner", {"agent": "allocator", "rung": 2, "rungs": [1, 2], "change": "x", "evidence": [], "files": {}},
+                  model_override=("local", "refiner-bad"))
+    assert half.status == "failed_guardrail"

@@ -3,14 +3,47 @@
   "title": "refiner edit",
   "type": "object",
   "additionalProperties": false,
-  "required": ["agent", "rung", "file", "old", "new", "why", "confidence"],
+  "required": [
+    "agent",
+    "rung",
+    "file",
+    "old",
+    "new",
+    "why",
+    "confidence"
+  ],
   "properties": {
-    "agent": {"type": "string"},
-    "rung": {"type": "integer", "enum": [1, 2]},
-    "file": {"type": "string"},
-    "old": {"type": "string", "minLength": 1},
-    "new": {"type": "string"},
-    "why": {"type": "string", "minLength": 1, "maxLength": 1000},
-    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    "agent": {
+      "type": "string"
+    },
+    "rung": {
+      "type": "integer",
+      "enum": [
+        1,
+        2
+      ]
+    },
+    "file": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "old": {
+      "type": "string"
+    },
+    "new": {
+      "type": "string"
+    },
+    "why": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    }
   }
 }

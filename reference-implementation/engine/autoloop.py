@@ -190,6 +190,8 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     if r.status != "succeeded":
         return {"status": "refiner_failed", "refiner_run_id": r.run_id, "agent": agent, "failure_reasons": list(r.failure_reasons)}
     out = r.output
+    if out.get("file") is None:                                    # the refiner declined: no edit warranted
+        return {"status": "declined", "agent": agent, "rung": out.get("rung"), "refiner_run_id": r.run_id, "why": out["why"]}
     before = run_eval(engine, pack, agent)
     new_text = files[out["file"]].replace(out["old"], out["new"], 1)
     tmp = Path(tempfile.mkdtemp(prefix="autoloop-"))
@@ -282,6 +284,8 @@ def render(result: dict) -> str:
         L += ["", "## Refine", "", f"{r['status']}" + (f": {r['agent']} {r['file']} rung {r['rung']}; golden before {r['before']} after {r['after']}; event {r['event_id']}" if r["status"] in ("adopted", "rejected") else f": {r.get('why') or r.get('failure_reasons')}")]
         if r.get("why") and r["status"] in ("adopted", "rejected"):
             L += ["", f"> {r['why']}"]
+        if r["status"] == "declined":
+            L += ["", f"The refiner (run {r['refiner_run_id']}) found no edit the evidence warrants; nothing changed and no golden evaluation was spent."]
     if "export" in result:
         L += ["", "## Export", ""] + [f"- {e['agent']}: {e['status']}" + (f" ({e['rows']} rows -> {e['path']})" if e["status"] == "exported" else f" ({e['why']})") for e in result["export"]]
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]

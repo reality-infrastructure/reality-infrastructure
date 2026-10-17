@@ -311,3 +311,11 @@ def refiner_bad(*, model, system, messages, tools, candidate_index) -> Completio
     inp = ctx["input"]
     return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md",
                               "old": "THIS TEXT IS NOT IN THE FILE", "new": "x", "why": "guess", "confidence": 0.5})
+
+
+def refiner_declines(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Finds no edit the evidence warrants and says so."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": None, "old": "", "new": "",
+                              "why": "the recommendation names data, not text", "confidence": 0.8})
