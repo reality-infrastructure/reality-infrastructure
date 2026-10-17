@@ -197,6 +197,20 @@ export gate counts agent verdicts only when `export.accept_agent_verdicts` is tr
 3. git status clean at commit. 4. Commit on `contract/irv-harness`, pushed — hash in the
 commit trailer. 5. Checklist: above.
 
+## LIVE TURNS AND THE FIXES THEY FORCED (2026-10-17, all pushed)
+- hood HL-03 (three cycles) and ri_closeout (one cycle) ran the loop on Haiku. Both judged every run of the
+  week (hood 50 verdicts: 48 followed, 2 wrong; closeout 49: 43 followed, 5 overridden, 1 wrong), both
+  adopted one refinement after the golden set passed before and after (hood: profiler prompt, rung 2;
+  closeout: closeout skills, rung 1), both export gates closed.
+- 2055d6b: the refine step skipped when the top failure cluster was the judge's own runs; it now takes the
+  first cluster of a refinable agent (loop roles are never refined by the loop).
+- 5c366ae: prior-output memory loaded every succeeded run with its trace and exhausted memory on hood's
+  second cycle; it loads the latest N (`list_runs(newest_first=True, limit=n)`).
+- c34f5a9: a refiner may decline (`file: null`); the closeout cycle had adopted a well-meant edit the
+  recommendation did not call for because declining was impossible.
+- Found by the judges, not by code: a candidate that fails a guardrail after calling `events.append` leaves its
+  event in the ledger (two identical events for one input). Both packs' refiners aimed their edits at it; an
+  engine-level answer (side effects of a rejected candidate) is a later contract.
+
 ## STOP CONDITIONS HIT
-- None in the engine. The live turn of the loop (a real judge, planner and refiner on
-  Haiku over Hood's runs) is hood contract HL-03, in that repo.
+- None in the engine.
