@@ -226,3 +226,17 @@ Defaults in `config/engine.yaml` `autoloop`, enforced by `engine/autoloop.py` an
 | the panel: fold the graded traces into the next environments | `grow_golden`: operator-followed runs become golden cases; the judge's own verdicts never do | `test_golden_grows_only_from_operator_followed_runs` |
 | Brown: one rung at a time, an evaluation before the next | one refinement per cycle, golden before/after; rung 3 only by parity matrix; rung 4 only past the export gate | C4, C5, cycle test |
 Reference pack: `allocator/eval/holdout.jsonl` (capacities 30 and 40, never used to tune).
+
+## JH-C8 — THE SWEEP (operator, 2026-10-17: "Brown would run the grading as one continuous parallel RL loop where
+## cost is the only reason to stop … This is what we do")
+`python -m engine.sweep <pack>/<agent> --table T [--column C] [--input-key K] [--workers N] [--budget-usd X] [--judge]`:
+every distinct value of C without a succeeded run becomes an input; N runs in flight against one engine and one
+ledger (the store's reentrant lock holds every statement and the whole of every transaction, every sqlite read is
+fetched under it, `check_same_thread` is off, seeded ids are locked); with `--judge` each run is adjudicated at
+once and the verdict recorded as the judge's; the sweep stops only when done, when the budget is spent (no new
+work after the cost reaches it), or when the kill rule halts the agent; a halted agent never starts. Report
+`crank/sweep-<agent>-<stamp>.md/.json`. Tests `tests/test_engine_c8.py` (5): candidates, a parallel judged sweep
+whose ledger has no gap and whose every run replays, budget and limit stops, the kill rule, the CLI.
+Live: hood's first sweep over 4,729 pinned launches at six in flight, scout then profiler, judged, $25 each.
+Fixes forced: commits f141659 (the sweep), 9a784ac (reads fetched under the lock: three errored runs on the first
+live sweep came from a cursor iterated after the lock was released).
