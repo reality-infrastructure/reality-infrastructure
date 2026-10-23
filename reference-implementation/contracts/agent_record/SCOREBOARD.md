@@ -88,3 +88,50 @@ RESULT: OK
 Quote 81169 · paper fill 81141.5 · deviation 3.387992952974657812711749560 bps ≤ 50 →
 two events, zero disputes (as committed). Tolerance lowered to 1 bps in memory → one
 `dispute`, mechanism `quote-vs-fill-deviation`, prior refs = (intent, fill) (as committed).
+
+## A1 (Day 2 machinery, built night one 2026-10-22) — the paper CLOSE leg
+
+Commit ordering: `c81312c AGENT-RECORD-A1` (the amendment) strictly before this
+`AGENT-RECORD-P2` commit (adapter R6-R9, runner over both legs in one log, capture tool
+`--close`, 10 new gates on in-memory derived close documents). The real close capture is
+taken on 2026-10-23 and pinned in A1.1 before its own gate.
+
+Gates (16 Day-1 + 10 A1):
+
+```
+..........................                                               [100%]
+26 passed in 0.51s
+```
+
+Full suite (754 = 728 pre-existing + 26 new, 0 modified):
+
+```
+..................................                                       [100%]
+754 passed in 26.26s
+```
+
+Default run (open leg only, nothing pinned for the close yet) reproduces the Day-1 root
+unchanged: `14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c`.
+
+Smoke test of `--close` against live HyperLiquid data in a TEMP directory (deleted
+after; NOT pinned, NOT the Day-2 capture):
+
+```
+PAPER capture (open leg): capture_PAPER_2026-10-23_pv_f1998cef7df0489e.json
+PAPER capture (close leg): capture_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json
+Realized paper PnL (pv_f1998cef7df0489e): 0.032060 USD, GAIN (open 81141.5, close 81370.5, size 0.00014, fees 0)
+  PASS  C1 adapter produced 5 events: 2 intent, 2 fill, 1 realized, 0 dispute
+  PASS  C2 all 5 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+AGENT-RECORD RUN: OK
+RESULT: OK
+```
+
+Morning of 2026-10-23, the whole of Day 2 is:
+
+```
+python rights_events/fixtures/agent_record/capture_from_gdex_preview.py --close --open-capture rights_events/fixtures/agent_record/capture_PAPER_2026-10-23_pv_f1998cef7df0489e.json
+```
+then A1.1 (pin the close capture + payloads, the real known answer), the gate on it, the
+Day-2 run file, one commit, push.

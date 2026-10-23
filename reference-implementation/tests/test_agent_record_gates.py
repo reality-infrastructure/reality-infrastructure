@@ -184,3 +184,121 @@ def test_run_file_byte_identical(tmp_path):
     p1.save(a)
     p2.save(b)
     assert a.read_bytes() == b.read_bytes()
+
+
+# --- A1 (Day 2): the paper CLOSE leg, on in-memory derived documents ----------
+# The real close capture is pinned in PREREG A1.1 on the day it is taken; these
+# gates fix the rules R6-R9 on documents derived from the pinned open capture.
+
+from rights_events.adapters.agent_record import PAPER_AGENT_CLAIMANT, PNL_CHECK, REALIZED
+
+
+def _close_doc(close_px: str, quote_px: str | None = None) -> dict:
+    o = _doc()
+    oi, of = o["intent"], o["paper_fill"]
+    cid = f"paper:{oi['intent_id']}:close"
+    return {
+        "kind": "agent_record_capture", "mode": "PAPER", "synthetic": False,
+        "actor": o["actor"],
+        "closes": {"capture": runner._FIXTURE.name, "sha256": PINS[runner._FIXTURE.name],
+                   "intent_id": oi["intent_id"], "fill_id": of["fill_id"],
+                   "side": oi["side"], "size": oi["size"],
+                   "fill_price_usd": of["price_usd"], "fill_fee_usd": of["fee_usd"]},
+        "intent": {"source": "paper-agent", "intent_id": cid, "kind": "perp_close",
+                   "market": oi["market"], "side": "close_long", "order_type": "market",
+                   "size": oi["size"], "quote_price_usd": quote_px or close_px,
+                   "quote_source": "hyperliquid metaAndAssetCtxs",
+                   "quote_as_of_ms": 1792800000000, "created_ms": 1792800000000,
+                   "source_url": "https://api.hyperliquid.xyz/info",
+                   "observed_date": "2026-10-24"},
+        "paper_fill": {"fill_id": f"{cid}:fill", "intent_id": cid, "price_usd": close_px,
+                       "size": oi["size"], "fee_usd": "0",
+                       "fee_model": "none (paper)", "mark_source": "hyperliquid allMids",
+                       "observed_ms": 1792800001000,
+                       "source_url": "https://api.hyperliquid.xyz/info",
+                       "observed_date": "2026-10-24"},
+        "tolerance": {"max_quote_to_fill_bps": "50"},
+    }
+
+
+@pytest.mark.parametrize("close_px,pnl,bucket", [
+    ("81241.5", "0.014000", "GAIN"),
+    ("81041.5", "-0.014000", "LOSS"),
+    ("81141.5", "0", "FLAT"),
+])
+def test_close_leg_known_answer(close_px, pnl, bucket):
+    events = parse_events(json.dumps(_close_doc(close_px)))
+    assert len(events) == 3
+    intent = next(e for e in events if e.claimant == PAPER_AGENT_CLAIMANT)
+    assert intent.ep_type is EPType.SELF_ASSERTED
+    assert set(intent.claim) == {"intent_id", "kind", "market", "side", "order_type",
+                                 "size", "quote_price_usd", "quote_source",
+                                 "quote_as_of_ms", "created_ms", "mode"}
+    r = next(e for e in events if e.claimant == PNL_CHECK)
+    assert r.event_type is EventType.CHAIN_ASSERTION
+    assert r.ep_type is EPType.THIRD_PARTY_ATTESTED
+    assert r.claim["mechanism"] == REALIZED
+    assert r.claim["realized_pnl_usd"] == Decimal(pnl)
+    assert r.claim["bucket"] == bucket
+    assert r.claim["dir"] == 1
+    assert r.prior_event_refs == (
+        "agent_record:fill:paper:pv_f1998cef7df0489e:open",
+        "agent_record:fill:paper:pv_f1998cef7df0489e:close:fill")
+    assert parse_events(json.dumps(_close_doc(close_px))) == events
+
+
+def test_close_leg_refs_resolve_in_one_log(tmp_path):
+    texts = [FIXTURE_TEXT, json.dumps(_close_doc("81241.5"))]
+    pipeline, events, indices = runner.ingest_captures(texts)
+    assert len(pipeline.event_log) == len(events) == 5
+    for e in events:
+        for ref in e.prior_event_refs:
+            assert ref in indices
+    assert runner._all_inclusions_verify(pipeline)
+    run_path = tmp_path / "run.ri"
+    pipeline.save(run_path)
+    ok, report = runner.verify_run(run_path)
+    assert ok, report
+
+
+def test_close_leg_dispute_is_per_leg():
+    doc = _close_doc("81241.5", quote_px="80000")
+    events = parse_events(json.dumps(doc))
+    disputes = [e for e in events if e.event_type is EventType.DISPUTE]
+    assert len(disputes) == 1
+    assert disputes[0].event_id == "agent_record:dispute:paper:pv_f1998cef7df0489e:close"
+
+
+def test_close_leg_rejects_other_size():
+    doc = _close_doc("81241.5")
+    doc["closes"]["size"] = "0.00015"
+    with pytest.raises(AdapterError):
+        parse_events(json.dumps(doc))
+
+
+def test_close_leg_requires_perp_close_kind():
+    doc = _close_doc("81241.5")
+    doc["intent"]["kind"] = "perp_open"
+    with pytest.raises(AdapterError):
+        parse_events(json.dumps(doc))
+
+
+def test_paper_agent_intent_invents_nothing():
+    doc = _close_doc("81241.5")
+    doc["intent"]["binding"] = "deadbeef"
+    events = parse_events(json.dumps(doc))
+    intent = next(e for e in events if e.claimant == PAPER_AGENT_CLAIMANT)
+    assert "binding" not in intent.claim
+
+
+def test_gdex_preview_intent_still_requires_binding():
+    doc = _doc()
+    del doc["intent"]["binding"]
+    with pytest.raises(AdapterError):
+        parse_events(json.dumps(doc))
+
+
+def test_pinned_captures_default_order():
+    names = [p.name for p in runner.pinned_captures()]
+    assert names[0] == runner._FIXTURE.name
+    assert names == sorted(names)
