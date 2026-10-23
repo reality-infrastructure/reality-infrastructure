@@ -1,0 +1,44 @@
+{
+  "fixture": "capture_PAPER_2026-10-23_pv_f1998cef7df0489e.json",
+  "status": "PAPER",
+  "bytes": 2078,
+  "sha256": "564d0781708f448fff1c53a60a71791162d3aeefae6a982c84666941cbfc3674",
+  "generator": "capture_from_gdex_preview.py",
+  "source": {
+    "intent": {
+      "what": "GDEX preview: exact executable terms for an explicit trade intent, bound to GDEX managed custody; nothing submitted.",
+      "gdex_mcp_tool": "@gemachdao/gdex-mcp-server: gdex_preview_trade",
+      "custody_backend": "https://trade-api.gemach.io/v1",
+      "payload_verbatim_file": "gdex_preview_pv_f1998cef7df0489e.json",
+      "payload_sha256": "f4f776912c431a24aa6c0b5287a69117e694ad78497531d1e87139196a36e96d",
+      "preview_created_ms": 1792715035550,
+      "preview_expires_ms": 1792715095550,
+      "quote_source": "hyperliquid metaAndAssetCtxs",
+      "quote_as_of_ms": 1792715037192,
+      "observed_date": "2026-10-23"
+    },
+    "paper_fill": {
+      "what": "Simulated fill of the intent's size at the HyperLiquid mid for the coin at the observation instant. Self-asserted by this tool; not a chain event.",
+      "api": "https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_origin": "live POST https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_verbatim_file": "hl_allMids_1792715169653.json",
+      "payload_sha256": "d5eda47cc6e9dacb32ddeb1b69144729fbee695cc7d2eaae208707032e6062f5",
+      "observed_ms": 1792715169653,
+      "observed_date": "2026-10-23",
+      "fee_model": "none (paper; the preview reports no fee; a LIVE fill carries the chain's fee)"
+    }
+  },
+  "actor": {
+    "rule": "actor_id is the GDEX managed EVM wallet the preview binds to; the control wallet (if given) only signed the session in.",
+    "actor_id": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "control_wallet": "0xa62993eb48ddcf74e2ac5cbeede580be0c915b92"
+  },
+  "dispute_semantics": {
+    "meaning": "A dispute fires when the paper fill price deviates from the preview's quote price by more than max_quote_to_fill_bps. It records that the intent's terms were not reproducible at the fill instant - NOT that any number was falsified.",
+    "quote_price_usd": "81169",
+    "fill_price_usd": "81141.5",
+    "deviation_bps": "3.387992952974657812711749560",
+    "max_quote_to_fill_bps": "50",
+    "dispute_expected": false
+  }
+}

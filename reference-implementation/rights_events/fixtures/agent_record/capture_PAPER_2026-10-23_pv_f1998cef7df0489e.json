@@ -1,0 +1,49 @@
+{
+  "kind": "agent_record_capture",
+  "mode": "PAPER",
+  "synthetic": false,
+  "note": "PAPER capture. INTENT SIDE: GDEX's own preview (@gemachdao/gdex-mcp-server: gdex_preview_trade, bound to GDEX managed custody at https://trade-api.gemach.io/v1); exact executable terms, nothing submitted. PAPER SIDE: this tool's own simulated fill of the intent's size at the HyperLiquid allMids price for the coin at the observation instant (POST https://api.hyperliquid.xyz/info {type: allMids}); fee 0 and labeled so. A paper fill is self-asserted simulation, never a chain fill. See the MANIFEST beside this file.",
+  "actor": {
+    "actor_id": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+    "control_wallet": "0xa62993eb48ddcf74e2ac5cbeede580be0c915b92"
+  },
+  "intent": {
+    "intent_id": "pv_f1998cef7df0489e",
+    "kind": "perp_open",
+    "market": "BTC",
+    "side": "long",
+    "order_type": "market",
+    "size": "0.00014",
+    "sz_decimals": 5,
+    "notional_usd": "11.36",
+    "margin_usd": "11.36",
+    "leverage": 1,
+    "margin_mode": "cross",
+    "quote_price_usd": "81169",
+    "mark_price_usd": "81169",
+    "quote_source": "hyperliquid metaAndAssetCtxs",
+    "quote_as_of_ms": 1792715037192,
+    "created_ms": 1792715035550,
+    "expires_ms": 1792715095550,
+    "binding": "46b1d7b10f9b20fbe3c2b6846510e5b41e8976c7f4ee565983b7a5b8cf2217c3",
+    "tool": "@gemachdao/gdex-mcp-server: gdex_preview_trade",
+    "source_url": "https://trade-api.gemach.io/v1",
+    "observed_date": "2026-10-23"
+  },
+  "paper_fill": {
+    "fill_id": "paper:pv_f1998cef7df0489e:open",
+    "intent_id": "pv_f1998cef7df0489e",
+    "price_usd": "81141.5",
+    "size": "0.00014",
+    "fee_usd": "0",
+    "fee_model": "none (paper; the preview reports no fee; a LIVE fill carries the chain's fee)",
+    "mark_source": "hyperliquid allMids",
+    "observed_ms": 1792715169653,
+    "source_url": "https://api.hyperliquid.xyz/info",
+    "observed_date": "2026-10-23"
+  },
+  "tolerance": {
+    "max_quote_to_fill_bps": "50"
+  }
+}

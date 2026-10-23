@@ -1,0 +1,37 @@
+{
+  "previewId": "pv_f1998cef7df0489e",
+  "accountRef": "acct_8c48b321e89c",
+  "custody": "GDEX managed custody: GDEX holds the trading wallets; this machine holds the session key that authorizes trades.",
+  "kind": "perp_open",
+  "createdAt": 1792715035550,
+  "expiresAt": 1792715095550,
+  "notionalUsd": 11.36366,
+  "summary": "Market long 0.00014 BTC (~$11.36 notional, ~$11.36 margin at 1x cross)",
+  "terms": {
+    "coin": "BTC",
+    "dex": "",
+    "side": "long",
+    "isLong": true,
+    "orderType": "market",
+    "price": "81169",
+    "markPx": "81169",
+    "size": "0.00014",
+    "szDecimals": 5,
+    "notionalUsd": "11.36",
+    "marginUsd": "11.36",
+    "leverage": 1,
+    "marginMode": "cross",
+    "maxLeverage": 40,
+    "tpPrice": "",
+    "slPrice": "",
+    "priceSource": "hyperliquid metaAndAssetCtxs",
+    "priceAsOf": 1792715037192
+  },
+  "binding": "46b1d7b10f9b20fbe3c2b6846510e5b41e8976c7f4ee565983b7a5b8cf2217c3",
+  "warnings": [
+    "Market order: fills near the mark price within the backend slippage band; the fill price is confirmed after execution.",
+    "No TP/SL attached.",
+    "Cross margin: the backend uses cross for core perps, so the position shares the whole perp account balance as collateral."
+  ],
+  "exit": "Close or reduce with gdex_manage_position { action: \"close\", coin: \"BTC\" }."
+}
