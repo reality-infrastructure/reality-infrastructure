@@ -99,3 +99,27 @@ reference-implementation/
 - If the capture tool cannot obtain a verbatim upstream payload for either side, no
   capture is written (no partial capture, ever).
 - If any path would submit a trade, STOP: that is outside this contract.
+
+## DONE report (Day 1: PAPER)
+
+- **Planned:** the log before the trade — the operator's own GDEX intent (preview, nothing
+  submitted) beside its paper outcome, as signed, Merkle-logged, re-verifiable events on
+  the unmodified engine; a quote-vs-fill deviation beyond a declared tolerance as a
+  `dispute`.
+- **Implemented:** `rights_events/adapters/agent_record.py` (pure adapter, six
+  declarations, PAPER mode only), `rights_events/agent_record.py` (runner + `--verify`),
+  `rights_events/fixtures/agent_record/capture_from_gdex_preview.py` (impure capture
+  tool), pinned PAPER capture + MANIFEST + verbatim preview and allMids payloads,
+  `tests/test_agent_record_gates.py` (16 tests), the committed run file
+  `run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri` (sha256 598761ff…1699).
+- **Tested:** all four gates green — `16 passed in 0.33s`; full suite `744 passed in
+  33.15s` (+16 new, 0 modified); frozen-path `git diff --stat` empty; independent
+  `--verify` OK; one-bit tamper caught; byte-identical run files. Event-log root
+  `14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c`.
+- **Committed:** branch `contract/agent-record` (off `contract/trading-frame`); P0
+  `6c5b1cf` strictly before P1. Push status is stated in the P1 commit's session report.
+- **Open items / next days:** Day 2 — the paper CLOSE leg (a second intent + paper fill
+  for the same position, realized paper PnL net of the 0 fee, as a dated PREREG
+  amendment); Day 3 — LIVE mode (chain-signed fill with tx hash, `cryptographically_signed`,
+  the sim-to-real gap as a number); Day 4 — the honest week-board mirror; Day 5 — review.
+  Account funding and any live execution are the operator's hand, never this code.
