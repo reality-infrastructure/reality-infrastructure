@@ -123,3 +123,31 @@ reference-implementation/
   amendment); Day 3 — LIVE mode (chain-signed fill with tx hash, `cryptographically_signed`,
   the sim-to-real gap as a number); Day 4 — the honest week-board mirror; Day 5 — review.
   Account funding and any live execution are the operator's hand, never this code.
+
+## DONE report (Day 2: the paper CLOSE leg, 2026-10-23)
+
+- **Planned (PREREG A1, night of 2026-10-22):** a second intent and a second paper fill
+  closing the Day-1 position, the first realized paper PnL net of fees as a mechanical
+  attestation over both fills, both legs in one log; the real capture pinned in A1.1
+  before its gate.
+- **Implemented:** `--close` mode in the capture tool (quote = HL `metaAndAssetCtxs`
+  markPx because GDEX previews a close only against a real position); adapter rules
+  R6-R9 (`paper-agent` intent, `closes` validation, `paper-realized-pnl` event with
+  prior refs to both fills); runner ingests every pinned capture into ONE log and checks
+  refs resolve; 19 new gates (10 on derived documents, 9 on the real capture and run).
+- **Taken:** one `--close` run on 2026-10-23 morning. Close intent 81765.0, close paper
+  fill 81767.5, deviation 0.3058 bps (no dispute). Realized paper PnL **+0.087640 USD,
+  GAIN** on 0.00014 BTC (open 81141.5), fee 0. Five signed events, root `2b5a846b…fc38`,
+  run file `run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri` (sha256 8abb84a2…d13d).
+- **Tested:** `35 passed in 0.62s`; full suite `763 passed in 38.67s` (+35 new, 0
+  modified); frozen-path diff empty; `--verify` OK on both run files; the Day-1 run
+  file byte-untouched.
+- **Committed:** `c81312c` (A1) → `bb0a97a` (P2 machinery) → `cd642cc` (A1.1 pin) →
+  this `AGENT-RECORD-P3` commit; each amendment strictly before the code that consumes
+  it. Push is the operator's hand.
+- **Honest note:** the figure is a paper gain of under a dime on an unfunded account. Its
+  value is that it is the first intent-and-outcome pair the operator can hand a stranger
+  with a verifier, not its size. Sizing follows the record (north star), never this number.
+- **Next:** Day 3 — LIVE mode as a dated amendment (`cryptographically_signed` fill with
+  the chain's tx hash and fee; the sim-to-real gap as one number: live fill vs the paper
+  fill at the same instant). Funding the account is the operator's hand, never this code.

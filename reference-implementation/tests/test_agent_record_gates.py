@@ -35,6 +35,15 @@ PINS = {
         "f4f776912c431a24aa6c0b5287a69117e694ad78497531d1e87139196a36e96d",
     "hl_allMids_1792715169653.json":
         "d5eda47cc6e9dacb32ddeb1b69144729fbee695cc7d2eaae208707032e6062f5",
+    # A1.1 (Day 2, 2026-10-23): the real paper CLOSE capture and its payloads
+    "capture_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json":
+        "6096d82739f2b086b180145998e6c784ada37978ef8074a6a9fba57c6c094ab0",
+    "MANIFEST_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json":
+        "ed25860f57c8fbbe826b9481ef75587618388207fc81818beee1a8f2109bd014",
+    "hl_metaAndAssetCtxs_1792756277107.json":
+        "76bfa09e9a2f826ac26c84b5594d78b036c73f668e7776af8e96e8f3710d3a3b",
+    "hl_allMids_1792756277922.json":
+        "b9a3dc803583f67838b66c13cf837859cce0604936e79724da5b00c90c00f83d",
 }
 
 FIXTURE_TEXT = runner._FIXTURE.read_text(encoding="utf-8")
@@ -302,3 +311,80 @@ def test_pinned_captures_default_order():
     names = [p.name for p in runner.pinned_captures()]
     assert names[0] == runner._FIXTURE.name
     assert names == sorted(names)
+
+
+# --- A1.1 (Day 2, 2026-10-23): the REAL paper CLOSE capture --------------------
+# Pinned in PREREG A1.1 (commit cd642cc) strictly before these gates. The numbers
+# below are the A1.1 known answer, not re-derived from the fixture.
+
+_CLOSE_FIXTURE = _FIX / "capture_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json"
+CLOSE_TEXT = _CLOSE_FIXTURE.read_text(encoding="utf-8")
+_DAY2_RUN = _FIX / "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri"
+
+
+def test_day2_close_capture_names_the_pinned_open_leg():
+    c = json.loads(CLOSE_TEXT)["closes"]
+    assert c["capture"] == runner._FIXTURE.name
+    assert c["sha256"] == PINS[runner._FIXTURE.name]          # S8
+    assert c["intent_id"] == "pv_f1998cef7df0489e"           # R7 / S9
+    assert c["size"] == "0.00014"
+    assert c["fill_price_usd"] == "81141.5"
+
+
+def test_day2_close_leg_known_answer():
+    events = parse_events(CLOSE_TEXT)
+    assert len(events) == 3
+    assert not [e for e in events if e.event_type is EventType.DISPUTE]
+    intent = next(e for e in events if e.claimant == PAPER_AGENT_CLAIMANT)
+    assert intent.claim["quote_price_usd"] == Decimal("81765.0")
+    assert intent.claim["kind"] == "perp_close"
+    fill = next(e for e in events if e.claimant == PAPER_CLAIMANT)
+    assert fill.claim["price_usd"] == Decimal("81767.5")
+    assert fill.ep_type is EPType.SELF_ASSERTED
+    assert deviation_bps(Decimal("81765.0"), Decimal("81767.5")) ==         Decimal("0.3057542958478566623861065248")
+    r = next(e for e in events if e.claimant == PNL_CHECK)
+    assert r.claim["realized_pnl_usd"] == Decimal("0.087640")
+    assert r.claim["bucket"] == "GAIN"
+    assert r.claim["open_price_usd"] == Decimal("81141.5")
+    assert r.claim["fees_usd"] == Decimal("0")
+    assert r.observed_date == "2026-10-23"
+    assert parse_events(CLOSE_TEXT) == events
+
+
+def test_day2_default_run_is_five_events_zero_disputes():
+    paths = runner.pinned_captures()
+    assert [p.name for p in paths] == [runner._FIXTURE.name, _CLOSE_FIXTURE.name]
+    pipeline, events, indices = runner.ingest_captures(
+        [p.read_text(encoding="utf-8") for p in paths])
+    assert len(events) == len(pipeline.event_log) == 5
+    assert not [e for e in events if e.event_type is EventType.DISPUTE]
+    assert {e.observed_date for e in events} == {"2026-10-23"}
+    r = next(e for e in events if e.claimant == PNL_CHECK)
+    assert r.prior_event_refs == (
+        "agent_record:fill:paper:pv_f1998cef7df0489e:open",
+        "agent_record:fill:paper:pv_f1998cef7df0489e:close:fill")
+    for ref in r.prior_event_refs:
+        assert ref in indices                                  # S10
+    assert runner._all_inclusions_verify(pipeline)
+
+
+def test_day2_committed_run_file_is_the_default_run(tmp_path):
+    """The committed Day-2 run file is byte-identical to a fresh default run and
+    re-verifies as a stranger would check it."""
+    paths = runner.pinned_captures()
+    pipeline, _e, _i = runner.ingest_captures(
+        [p.read_text(encoding="utf-8") for p in paths])
+    fresh = tmp_path / "fresh.ri"
+    pipeline.save(fresh)
+    assert fresh.read_bytes() == _DAY2_RUN.read_bytes()
+    ok, report = runner.verify_run(_DAY2_RUN)
+    assert ok, report
+    assert "reloaded 5 events" in report
+
+
+def test_day1_run_file_untouched():
+    day1 = _FIX / "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri"
+    assert _lf_sha(day1) == "598761ff5f99fea49ddcee34721a8c35711b7896deea752cabd784ecb6141699"
+    ok, report = runner.verify_run(day1)
+    assert ok and report.endswith(
+        "14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c")
