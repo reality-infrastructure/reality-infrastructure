@@ -107,3 +107,63 @@ would need a fabricated `source_url`/`observed_date` · S7 any code path would s
 trade.
 
 ## 7. AMENDMENTS (dated, append-only; empty at freeze)
+
+### A1 — 2026-10-22 — Day 2: the paper CLOSE leg and the first realized paper PnL
+
+Committed BEFORE any close-leg adapter, runner or gate code (the ordering is the proof).
+The close capture itself cannot exist until it is taken on 2026-10-23; its sha256 is
+pinned in **A1.1** on that date, strictly before the gate that consumes it.
+
+**Why the close intent is the agent's own, not GDEX's.** `gdex_preview_trade
+{kind: perp_close, coin: BTC, size: 0.00014}` on 2026-10-22 answered VALIDATION_ERROR
+"No open BTC position found for 0x9f976123…b7f23": the venue previews a close only
+against a real position, and the Day-1 position is paper. So the close intent is formed
+by the paper agent and quoted from the SAME source the venue's open preview quoted from
+(`hyperliquid metaAndAssetCtxs`, field `markPx`, `POST https://api.hyperliquid.xyz/info
+{"type":"metaAndAssetCtxs"}`), saved verbatim and pinned. Recorded here; no event's
+source is relabeled.
+
+**Input (A1.1 will pin):** `capture_PAPER_<date>_pv_f1998cef7df0489e_close.json`, a
+second `agent_record_capture` (mode PAPER) carrying `closes` (the Day-1 open leg it
+closes: the open capture's file name + sha256, intent_id, side, size, open fill price and
+fee, as pinned in §2), an `intent` with `source = "paper-agent"`, a `paper_fill` at the
+allMids mid at the observation instant, and the same `tolerance` rule.
+
+**Closed vocabulary added:** `intent.source ∈ {"gdex-preview", "paper-agent"}`;
+`intent.kind` for a close = `perp_close`; bucket vocabulary `GAIN / FLAT / LOSS` with
+ε = 0 (strict sign), as in trader_record; mechanism string `paper-realized-pnl`.
+
+**Decision rules added (govern the adapter, written before it):**
+
+- R6 A `paper-agent` intent → one `chain_assertion`, `ep_type = self_asserted`,
+  `claimant = "paper-agent"`, `claim = {intent_id, kind, market, side, order_type, size,
+  quote_price_usd, quote_source, quote_as_of_ms, created_ms, mode}`; required fields are
+  exactly those (no binding, expiry, margin or leverage is invented for a paper intent).
+  A `gdex-preview` intent keeps R1 unchanged.
+- R7 A close capture's `intent.size` and `paper_fill.size` MUST equal `closes.size`, and
+  `closes.intent_id` MUST equal the pinned open intent id; otherwise `AdapterError`.
+- R8 Realized paper PnL = `(close_fill_price − open_fill_price) × size × dir − (open_fee +
+  close_fee)`, `dir = +1` for an opened long, `−1` for an opened short, Decimal only. It is
+  emitted as one `chain_assertion`, `claimant = "paper-pnl-check"`, `ep_type =
+  third_party_attested` (a mechanical computation over logged events, not a claim about
+  the world), `event_id = agent_record:realized:<open intent_id>`, `claim = {mechanism,
+  open_fill_event_id, close_fill_event_id, open_price_usd, close_price_usd, size, dir,
+  fees_usd, realized_pnl_usd, bucket, mode = "PAPER"}`, `prior_event_refs = (open fill
+  event id, close fill event id)`. `source_url`/`observed_date` = the close fill's.
+- R9 The Day-2 run ingests BOTH captures (open, then close) into ONE event log, so the
+  realized event's prior refs resolve inside the same log; the Day-1 run file is
+  unchanged. Deviation disputes (R3) apply to each leg independently.
+
+**Known-answer commitment (formula; the numbers land in A1.1):** with the pinned open
+fill at **81141.5**, size **0.00014**, long, fee 0, a close fill at price `p` yields
+`realized_pnl_usd = (p − 81141.5) × 0.00014`, bucket by strict sign. The Day-2 run MUST
+hold exactly **five** events (open intent, open fill, close intent, close fill, realized)
+plus a dispute per leg whose deviation exceeds its tolerance. A gate on an in-memory
+derived close document (close at 81241.5 → realized **+0.014** USD, GAIN; close at
+81041.5 → **−0.014**, LOSS; close at 81141.5 → **0**, FLAT) is committed with the code;
+the gate on the real close capture lands with A1.1.
+
+**STOP conditions added:** S8 the close capture's `closes.sha256` differs from the §2 pin
+of the open capture · S9 a close leg whose size or intent_id does not match the open leg
+(reject, never associate) · S10 a realized event whose prior refs do not resolve in the
+run's own log.
