@@ -167,3 +167,47 @@ the gate on the real close capture lands with A1.1.
 of the open capture · S9 a close leg whose size or intent_id does not match the open leg
 (reject, never associate) · S10 a realized event whose prior refs do not resolve in the
 run's own log.
+
+### A1.1 — 2026-10-23 — the real paper CLOSE capture, pinned before its gate
+
+Taken this morning by `capture_from_gdex_preview.py --close --open-capture
+rights_events/fixtures/agent_record/capture_PAPER_2026-10-23_pv_f1998cef7df0489e.json`
+(one run; the tool never overwrites, and the prereg allows one close leg per open leg).
+Nothing below is edited by hand; the numbers are read from the pinned files.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+2182  6096d82739f2b086b180145998e6c784ada37978ef8074a6a9fba57c6c094ab0  capture_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json
+2334  ed25860f57c8fbbe826b9481ef75587618388207fc81818beee1a8f2109bd014  MANIFEST_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json
+72071 76bfa09e9a2f826ac26c84b5594d78b036c73f668e7776af8e96e8f3710d3a3b  hl_metaAndAssetCtxs_1792756277107.json   (close intent quote, markPx)
+25329 b9a3dc803583f67838b66c13cf837859cce0604936e79724da5b00c90c00f83d  hl_allMids_1792756277922.json            (close paper fill, mid)
+```
+
+The close capture's `closes.sha256` = `564d0781…3674` = the §2 pin of the open capture
+(S8 holds). `closes.intent_id = pv_f1998cef7df0489e`, `closes.size = 0.00014` = both the
+close intent's and the close fill's size (R7 / S9 hold).
+
+**Known-answer commitment (the real numbers, by A1's formula):**
+
+- Close intent (`paper-agent`, `perp_close`, `close_long`, 0.00014 BTC) quoted at
+  **81765.0** (markPx, as of 1792756277107 ms). Close paper fill at **81767.5** (allMids,
+  observed 1792756277922 ms), fee 0.
+- Close-leg deviation = |81767.5 − 81765.0| / 81765.0 × 10000 =
+  **0.3057542958478566623861065248 bps** ≤ 50 → **no dispute**.
+- Realized paper PnL = (81767.5 − 81141.5) × 0.00014 × (+1) − 0 = **0.087640 USD**,
+  bucket **GAIN**.
+- The Day-2 run (`python -m rights_events.agent_record` with no `--capture`, both pinned
+  captures in sorted order) MUST hold exactly **five** events — open intent, open fill,
+  close intent, close fill, realized — and **zero** disputes; the realized event's prior
+  refs are `agent_record:fill:paper:pv_f1998cef7df0489e:open` and
+  `agent_record:fill:paper:pv_f1998cef7df0489e:close:fill`, both resolving in the same log
+  (S10 holds). Every event is dated `2026-10-23`.
+- The Day-1 run file (open leg only, root `14ffd9c7…`) is NOT regenerated; the Day-2 run
+  is written beside it as `run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri`, and its
+  root and sha256 are pasted into the SCOREBOARD after the run, never predicted here.
+
+**What this amendment does not do:** it does not relabel the paper fill (still
+`self_asserted`, mode PAPER), does not invent a fee, does not fold any belief, and does
+not touch GDEX (no order previewed, none submitted). The gate on this capture lands in the
+strictly later `AGENT-RECORD-P3` commit.

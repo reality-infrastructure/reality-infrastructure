@@ -1,0 +1,52 @@
+{
+  "fixture": "capture_PAPER_2026-10-23_pv_f1998cef7df0489e_close.json",
+  "status": "PAPER",
+  "leg": "close",
+  "bytes": 2182,
+  "sha256": "6096d82739f2b086b180145998e6c784ada37978ef8074a6a9fba57c6c094ab0",
+  "generator": "capture_from_gdex_preview.py",
+  "closes": {
+    "capture": "capture_PAPER_2026-10-23_pv_f1998cef7df0489e.json",
+    "sha256": "564d0781708f448fff1c53a60a71791162d3aeefae6a982c84666941cbfc3674"
+  },
+  "source": {
+    "intent": {
+      "what": "The paper agent's own close intent, quoted from the mark price the venue's own open preview quoted from.",
+      "why_not_gdex": "gdex_preview_trade {kind: perp_close} answers VALIDATION_ERROR 'No open <coin> position found' for a paper position (probed 2026-10-22).",
+      "api": "https://api.hyperliquid.xyz/info {\"type\": \"metaAndAssetCtxs\"}",
+      "payload_origin": "live POST https://api.hyperliquid.xyz/info {\"type\": \"metaAndAssetCtxs\"}",
+      "payload_verbatim_file": "hl_metaAndAssetCtxs_1792756277107.json",
+      "payload_sha256": "76bfa09e9a2f826ac26c84b5594d78b036c73f668e7776af8e96e8f3710d3a3b",
+      "quote_field": "markPx",
+      "observed_ms": 1792756277107,
+      "observed_date": "2026-10-23"
+    },
+    "paper_fill": {
+      "what": "Simulated fill of the open size at the HyperLiquid mid at the observation instant. Self-asserted; not a chain event.",
+      "api": "https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_origin": "live POST https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_verbatim_file": "hl_allMids_1792756277922.json",
+      "payload_sha256": "b9a3dc803583f67838b66c13cf837859cce0604936e79724da5b00c90c00f83d",
+      "observed_ms": 1792756277922,
+      "observed_date": "2026-10-23",
+      "fee_model": "none (paper; a LIVE fill carries the chain's fee)"
+    }
+  },
+  "dispute_semantics": {
+    "quote_price_usd": "81765.0",
+    "fill_price_usd": "81767.5",
+    "deviation_bps": "0.3057542958478566623861065248",
+    "max_quote_to_fill_bps": "50",
+    "dispute_expected": false
+  },
+  "realized_paper_pnl": {
+    "formula": "(close_fill - open_fill) * size * dir - fees, Decimal",
+    "open_price_usd": "81141.5",
+    "close_price_usd": "81767.5",
+    "size": "0.00014",
+    "dir": 1,
+    "fees_usd": "0",
+    "realized_pnl_usd": "0.087640",
+    "bucket": "GAIN"
+  }
+}
