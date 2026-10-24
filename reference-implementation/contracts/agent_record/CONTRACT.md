@@ -151,3 +151,44 @@ reference-implementation/
 - **Next:** Day 3 — LIVE mode as a dated amendment (`cryptographically_signed` fill with
   the chain's tx hash and fee; the sim-to-real gap as one number: live fill vs the paper
   fill at the same instant). Funding the account is the operator's hand, never this code.
+
+## DONE report (Day 3: LIVE mode, the first settled LIVE pair, 2026-10-24)
+
+- **Planned (PREREG A2, morning of 2026-10-24, account unfunded):** LIVE mode as a dated
+  amendment — the chain's fill typed `cryptographically_signed` with its L1 tx hash and
+  fee, a PAPER shadow at the same instant, the sim-to-real gap as one number, the live
+  CLOSE leg with realized PnL net of chain fees and venue reconciliation; each real
+  capture pinned before its gate (A2.1 open, A2.3 close); A2.2 added on the day when the
+  venue's close preview turned out to have its own shape.
+- **Implemented:** adapter mode LIVE (R10-R19 + R1-close), runner refusing a PAPER/LIVE
+  mix and printing the gap, capture tool `--live` polling HyperLiquid `userFillsByTime`
+  for the fill the operator placed and taking the `allMids` shadow at once (never
+  submitting), 66 new gates (46 on derived documents, 20 on the real captures and run).
+- **Taken:** funded 25.28 USDC + 0.001 ETH, deposited 20; opened 0.00014 BTC long at 1x
+  by `gdex_execute_trade` on the preview (fill 80778.0, tx 0x8402a8c3…3ab2); closed by a
+  reduce-only limit sell through `place_perp_order` inside the close preview's window
+  (fill 80758.0, tx 0x906ccd1d…8c07) because the execute-by-preview close path cannot
+  load on Node 20.18 and the market path was rejected at the backend's 11 USD floor —
+  recorded in A2.3 in full. Gaps +0.0619 / +0.0619 bps; fees 0.016193 + 0.016190;
+  **realized −0.035183 USD, LOSS**, venue closedPnl −0.0028 reconciled exactly. Nine
+  signed events, two `cryptographically_signed`, zero disputes, root `8777b0a1…ee95`, run
+  file `run_LIVE_2026-10-24_pv_e1849abce514440c.ri` (sha256 126afbe5…559a).
+- **Tested:** `101 passed in 0.91s` (agent-record gates); full suite `829 passed in
+  35.31s` (+66 new since Day 2, 0 modified); frozen-path diff empty; `--verify` OK on all
+  three run files; PAPER run files byte-untouched.
+- **Committed:** `8fbba13` (A2) → `14cb736` (P4) → `144b78a` (A2.1) → `07882b9` (A2.2) →
+  `0da24d8` (P4.1) → `56c6195` (A2.3) → this `AGENT-RECORD-P5` commit; every amendment
+  strictly before the code or gate that consumes it. Push status is stated in the P5
+  session report.
+- **Honest note:** the first LIVE pair lost three and a half cents, twelve times the price
+  move, all of it fees; paper and live agreed on price to six hundredths of a basis point.
+  The record's value is that a stranger can verify both legs against the chain, not the
+  sign of the number. Two things were found and recorded, not hidden: the venue's close
+  preview has its own shape (A2.2), and the close had to be submitted by a different tool
+  than planned (A2.3). Sizing follows the record (north star), never this number.
+- **Next:** Day 4 — the honest week-board mirror: the operator's own account as the first
+  verified row (three run files, three roots, two chain hashes), beside the venue's
+  self-reported board. Environment before the next trade: Node ≥ 20.19.0 and the GDEX
+  MCP server at 5.1.0, so the close-by-preview path works; decide in the prereg whether
+  the close is a market order sized above the 11 USD floor or the marketable reduce-only
+  limit used today.

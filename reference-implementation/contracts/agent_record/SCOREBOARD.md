@@ -354,3 +354,159 @@ python -m rights_events.agent_record --capture rights_events/fixtures/agent_reco
 
 Then P5: the gates on the real captures and the run file, this SCOREBOARD's evidence, the
 DONE report, push.
+
+## A2.1 + A2.2 + A2.3 + P5 (Day 3, 2026-10-24) — the first settled LIVE pair
+
+Run on 2026-10-24 (local) from the same directory and branch.
+
+### Commit ordering (the proof)
+
+```
+8fbba13 AGENT-RECORD-A2    rules for LIVE mode                     (before any LIVE code; account unfunded)
+14cb736 AGENT-RECORD-P4    the LIVE machinery + 39 derived gates    (before any LIVE capture existed)
+144b78a AGENT-RECORD-A2.1  the real LIVE OPEN capture pinned        (before its gate; position open)
+07882b9 AGENT-RECORD-A2.2  the close preview's own shape, measured  (before the close; probe pinned)
+0da24d8 AGENT-RECORD-P4.1  the close-shape code + 7 derived gates   (after A2.2, before the close)
+56c6195 AGENT-RECORD-A2.3  the real LIVE CLOSE capture pinned       (before its gate; position flat)
+<this>  AGENT-RECORD-P5    gates on the real captures + the Day-3 run file + this evidence + DONE
+```
+
+### The operator's hand, in order (nothing below is code in this repo)
+
+1. 25.28 USDC (native Arbitrum USDC, 0xaf88…5831) sent to the managed wallet 0x9f97…b7f23.
+2. `perp_deposit 20` rejected by the backend: `insufficient funds for gas * price + value …
+   have 0 want 5258925000000` — nothing moved. 0.001 ETH sent (0.000514 arrived).
+3. `perp_deposit 20` → Arbitrum tx `0x7550079d4dd563a290fcb935e181650d0a7558f085e37c456dc98294d62d19c9`,
+   landed as perp account value 20.00 about nine minutes later.
+4. `gdex_preview_trade {perp_open, BTC, long, market, leverage 1, notionalUsd 11.5}` →
+   `pv_e1849abce514440c`, size 0.00014, quote 80776. Capture tool started polling. On the
+   operator's explicit term-bounded "go": `gdex_execute_trade {previewId, userApproved:
+   true}` → `op_aaf20be973d74bd2` filled, entry 80778.0.
+5. `gdex_preview_trade {perp_close, BTC, size 0.00014}` → `VALIDATION_ERROR No open BTC
+   position found` (with `size`); without `size` → the close preview, a different shape
+   (A2.2 probe `pv_b3918dbcef0b40d7`, pinned, never executed). STOP → A2.2 → P4.1.
+6. The close could not be submitted by `gdex_execute_trade`: its close path loads
+   `@gdexsdk/hyper-liquid-trader` (installed at 1.1.1 on the operator's "install"), whose
+   dependencies require Node ≥ 20.19.0 against Node 20.18.0 here (`ERR_REQUIRE_ESM`).
+   `place_perp_order` market with `price "0"` hits the same module; with an explicit price
+   it reached GDEX and was rejected: `Min order size value is 11$`. Three close previews
+   expired unexecuted meanwhile (`pv_a92f…`, `pv_11bb…`, `pv_3351…`; files removed).
+7. Fresh close preview `pv_286c449157434b1e` (markPx 80758), saved verbatim; capture tool
+   started; `place_perp_order {BTC, isLong false, isMarket false, price "80690", size
+   "0.00014", reduceOnly true}` inside the preview's window → filled as a taker at 80758.0
+   (the preview's own markPx), position flat. Recorded in A2.3 in full.
+
+### Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`
+
+```
+3097  2e9538c0629b751c847726058421439ab8202c3e5f203157c08aad508e8f7e5c  capture_LIVE_2026-10-24_pv_e1849abce514440c.json
+3672  33d7d39e7019e7017cb1828acac8bc3e5dfcf94f5f81d6caf10acf38cf804483  MANIFEST_LIVE_2026-10-24_pv_e1849abce514440c.json
+1340  0a56d9994c8e637f1d3783d1ca646f8166d7acad99774e30fa150826fd6cfaf5  gdex_preview_pv_e1849abce514440c.json
+342   d90c24212a18c29af61b35ce8d2e22b940a92f504a529426dcd213859bc6747f  hl_userFillsByTime_1792823307404.json
+25166 b800493b2b5af0efcc93cc7c78fae48767c5f07be90386c43f0c81e358eefe51  hl_allMids_1792823307660.json
+899   29617e0f66720a93dda929d3588981bd338f2b08375ab74eb0f9be07ac3a0e1c  gdex_preview_pv_b3918dbcef0b40d7_probe.json
+3669  9404f0502910828260b2a64af1e091fe0e3cf509720b6b2693821e8f30d80850  capture_LIVE_2026-10-24_pv_e1849abce514440c_close.json
+4435  ff00fac48c3c1aa209f26baf1d7ddb686d816077500a9d2998b3aa87476924eb  MANIFEST_LIVE_2026-10-24_pv_e1849abce514440c_close.json
+899   c586a311f7e0156b57dd0254d04ae682d3eacce6f8de38b7ab28ef6fcdca24e1  gdex_preview_pv_286c449157434b1e.json
+352   a2f3595419831f4fa8a5c81f1192efd8ecd6513dcbdbb78cf5cc882eb17f1d40  hl_userFillsByTime_1792824335531.json
+25149 137e4c5a912fdce869c4f199914306efc86c9f5093cbb90a056f06610b3e5be6  hl_allMids_1792824335729.json
+```
+
+### Gates — `pytest tests/test_agent_record_day3_gates.py tests/test_agent_record_live_gates.py tests/test_agent_record_gates.py -q` (35 Days 1-2 + 46 A2/A2.2 derived + 20 Day 3 real)
+
+```
+........................................................................ [ 71%]
+.............................                                            [100%]
+101 passed in 0.91s
+```
+
+### Engine untouched
+
+```
+$ git diff --stat contract/trading-frame -- ri_core/ rights_events/schema.py rights_events/policy.py rights_events/pipeline.py rights_events/replay.py
+(empty)
+```
+
+Full suite (829 = 763 pre-existing + 66 new since Day 2, 0 modified):
+
+```
+.....................................                                    [100%]
+829 passed in 35.31s
+```
+
+### Runner, end to end — `python -m rights_events.agent_record --capture <open> --capture <close> --out rights_events/fixtures/agent_record/run_LIVE_2026-10-24_pv_e1849abce514440c.ri`
+
+```
+Subject: agent:0x9f976123e7c48952be487664b8130aad144b7f23
+  [0] agent_record:fill:live:pv_e1849abce514440c:close      chain_assertion, cryptographically_signed, claimant hyperliquid-l1
+  [1] agent_record:fill:live:pv_e1849abce514440c:open       chain_assertion, cryptographically_signed, claimant hyperliquid-l1
+  [2] agent_record:fill:paper:pv_e1849abce514440c:close:shadow  chain_assertion, self_asserted, claimant paper-simulator
+  [3] agent_record:fill:paper:pv_e1849abce514440c:open:shadow   chain_assertion, self_asserted, claimant paper-simulator
+  [4] agent_record:gap:pv_286c449157434b1e:close            chain_assertion, third_party_attested, claimant sim-to-real-check
+  [5] agent_record:gap:pv_e1849abce514440c:open             chain_assertion, third_party_attested, claimant sim-to-real-check
+  [6] agent_record:intent:pv_286c449157434b1e               chain_assertion, self_asserted, claimant gdex-preview
+  [7] agent_record:intent:pv_e1849abce514440c               chain_assertion, self_asserted, claimant gdex-preview
+  [8] agent_record:realized:live:pv_e1849abce514440c        chain_assertion, third_party_attested, claimant live-pnl-check
+
+Sim-to-real gap (pv_e1849abce514440c, open leg): 0.06189842468509176441459564854 bps (live 80778.0 vs paper 80777.5, cost sign +1, shadow lag 2056 ms, live fee 0.016193 USD)
+Sim-to-real gap (pv_e1849abce514440c, close leg): 0.06191298748738522879944525963 bps (live 80758.0 vs paper 80758.5, cost sign -1, shadow lag 938 ms, live fee 0.016190 USD)
+Realized live PnL (pv_e1849abce514440c): -0.035183 USD, LOSS (open 80778.0, close 80758.0, size 0.00014, fees 0.032383, venue closedPnl -0.0028)
+
+Event log root: 8777b0a1e37df424f804943eb6c2e37b6c9853d8e241e1daefd8b772a754ee95
+Run file:       rights_events/fixtures/agent_record/run_LIVE_2026-10-24_pv_e1849abce514440c.ri (16678 bytes)
+
+Checks:
+  PASS  C1 adapter produced 9 events: 2 intent, 4 fill, 1 realized, 0 dispute, 2 gap, 2 cryptographically_signed
+  PASS  C2 all 9 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+
+AGENT-RECORD RUN: OK
+```
+
+The committed Day-3 run file (the operator's first settled LIVE pair: nine signed rows):
+
+```
+16678 126afbe5a4bb5116162919c6cd47cedcaa41d55805475ceb1b4167de13c9559a run_LIVE_2026-10-24_pv_e1849abce514440c.ri
+```
+
+The PAPER run files are untouched and gated (Day 1 root 14ffd9c7…, Day 2 root 2b5a846b…).
+
+### Stranger's check — `python -m rights_events.agent_record --verify --run <Day-3 run file>`
+
+```
+VERIFY rights_events/fixtures/agent_record/run_LIVE_2026-10-24_pv_e1849abce514440c.ri: reloaded 9 events, all signatures re-verified, all inclusion proofs verified; event-log root 8777b0a1e37df424f804943eb6c2e37b6c9853d8e241e1daefd8b772a754ee95
+RESULT: OK
+```
+
+Anyone can also check the two fills against the chain:
+`https://app.hyperliquid.xyz/explorer/tx/0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2` (open) and
+`https://app.hyperliquid.xyz/explorer/tx/0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07` (close).
+
+### Known answers (PREREG A2.1 / A2.3), as committed
+
+Open: quote 80776 · live 80778.0 · shadow 80777.5 · gap +0.0619 bps · lag 2056 ms · fee 0.016193 · no dispute.
+Close: quote 80758 · live 80758.0 · shadow 80758.5 · gap +0.0619 bps · lag 938 ms · fee 0.016190 · no dispute.
+Realized −0.035183 USD LOSS = price −0.0028 (the chain's closedPnl, exactly) − fees 0.032383. Nine events, two signed, zero disputes.
+
+### The sim-to-real number, published
+
+| | paper said | live did | gap |
+|---|---|---|---|
+| open price | 80777.5 | 80778.0 | +0.0619 bps |
+| close price | 80758.5 | 80758.0 | +0.0619 bps |
+| fees, round trip | 0 | 0.032383 USD | 28.6 bps of notional |
+| realized | −0.0028 USD | −0.035183 USD | the fee |
+
+On a market order of this size at the mid, paper and live agree on price to six hundredths
+of a basis point. The whole sim-to-real gap is the fee, and a third of the fee is GDEX's
+builder code (0.005654 + 0.005653 USDC) — the mechanism the north star's rule 4 depends
+on, now observed on the operator's own rows.
+
+### Carried to Day 4 (environment, not rules)
+
+- Node ≥ 20.19.0 on this machine, so the GDEX MCP server's trader paths (close by
+  preview, trade history, mark price) load; the server itself should move to 5.1.0.
+- The 11 USD backend floor on market closes at this size: either size the next position
+  so a market close clears it, or keep the marketable reduce-only limit as the close path
+  and say so in the prereg before the next trade.
