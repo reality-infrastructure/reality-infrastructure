@@ -560,7 +560,10 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
                          "written.")
     created_ms, expires_ms = int(prev["createdAt"]), int(prev["expiresAt"])
     intent_date = _iso(created_ms)
-    coin, size, side = terms["coin"], terms["size"], terms["side"]
+    coin, size = terms["coin"], terms["size"]
+    # A2.2: the venue's close preview names the side it will SEND (closeSide),
+    # not a position side; the open preview names `side`.
+    side = terms["side"] if kind == "perp_open" else terms["closeSide"]
     side_sign = _side_sign(side)
     dest_prev = HERE / f"gdex_preview_{preview_id}.json"
     if dest_prev.exists():
@@ -660,7 +663,8 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
     fill_time_ms = int(rows[-1]["time"])
     fill_date = _iso(fill_time_ms)
     closed_pnl = sum((_d(r["closedPnl"]) for r in rows), Decimal(0))
-    quote, shadow_px = _d(terms["price"]), _d(mids[coin])
+    quote = _d(terms["price"] if kind == "perp_open" else terms["markPx"])
+    shadow_px = _d(mids[coin])
     gap_bps = (live_px - shadow_px) / shadow_px * Decimal(10000) * side_sign
     shadow_lag_ms = shadow_ms - fill_time_ms
     dev_live = abs(live_px - quote) / quote * Decimal(10000)
@@ -669,28 +673,8 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
     leg = "close" if kind == "perp_close" else "open"
     live_fill_id = f"live:{open_id}:{leg}"
     shadow_fill_id = f"paper:{open_id}:{leg}:shadow"
-    capture = {
-        "kind": "agent_record_capture",
-        "mode": "LIVE",
-        "synthetic": False,
-        "note": ("LIVE capture, " + leg.upper() + " leg. INTENT SIDE: GDEX's own "
-                 "preview (" + GDEX_MCP_TOOL + "), exact executable terms; the "
-                 "operator submitted it by hand through their own GDEX account. "
-                 "OUTCOME SIDE: the fill the HyperLiquid L1 recorded under the "
-                 "actor's wallet (POST " + HL_INFO_URL + " {type: " + HL_FILLS_TYPE
-                 + "}), with its transaction hash(es) and the chain's fee; a "
-                 "cryptographically signed chain event. SHADOW: this tool's own "
-                 "simulated fill at the allMids mid at the instant the fill was "
-                 "observed (PAPER, self-asserted), so the sim-to-real gap is one "
-                 "number. This tool READ the fill; it submitted nothing. See the "
-                 "MANIFEST beside this file."),
-        "actor": {
-            "actor_id": actor_id,
-            "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
-            **({"control_wallet": control_wallet.lower()} if control_wallet else {}),
-        },
-        **({"closes": closes} if closes else {}),
-        "intent": {
+    if kind == "perp_open":
+        intent_block = {
             "intent_id": preview_id,
             "kind": kind,
             "market": coin,
@@ -712,7 +696,61 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
             "tool": GDEX_MCP_TOOL,
             "source_url": GDEX_BASE,
             "observed_date": intent_date,
+        }
+    else:
+        # A2.2: the close preview's own shape — reduce-only against the live
+        # position, quoted at markPx, no priceAsOf, no margin terms. Recorded
+        # as reported; the quote-time rule is declared, not hidden.
+        if not terms.get("reduceOnly"):
+            raise SystemExit("the close preview is not reduce-only; no capture "
+                             "is written.")
+        intent_block = {
+            "intent_id": preview_id,
+            "kind": kind,
+            "market": coin,
+            "side": side,
+            "order_type": "market",
+            "size": size,
+            "position_side": terms["positionSide"],
+            "position_size": terms["positionSize"],
+            "is_full_close": bool(terms["isFullClose"]),
+            "reduce_only": True,
+            "notional_usd": str(prev["notionalUsd"]),
+            "quote_price_usd": terms["markPx"],
+            "mark_price_usd": terms["markPx"],
+            "quote_source": terms["priceSource"],
+            "quote_as_of_ms": created_ms,
+            "quote_as_of_rule": "createdAt (the close preview reports no priceAsOf; "
+                                "its markPx is taken as of the preview's creation)",
+            "created_ms": created_ms,
+            "expires_ms": expires_ms,
+            "binding": prev["binding"],
+            "tool": GDEX_MCP_TOOL,
+            "source_url": GDEX_BASE,
+            "observed_date": intent_date,
+        }
+    capture = {
+        "kind": "agent_record_capture",
+        "mode": "LIVE",
+        "synthetic": False,
+        "note": ("LIVE capture, " + leg.upper() + " leg. INTENT SIDE: GDEX's own "
+                 "preview (" + GDEX_MCP_TOOL + "), exact executable terms; the "
+                 "operator submitted it by hand through their own GDEX account. "
+                 "OUTCOME SIDE: the fill the HyperLiquid L1 recorded under the "
+                 "actor's wallet (POST " + HL_INFO_URL + " {type: " + HL_FILLS_TYPE
+                 + "}), with its transaction hash(es) and the chain's fee; a "
+                 "cryptographically signed chain event. SHADOW: this tool's own "
+                 "simulated fill at the allMids mid at the instant the fill was "
+                 "observed (PAPER, self-asserted), so the sim-to-real gap is one "
+                 "number. This tool READ the fill; it submitted nothing. See the "
+                 "MANIFEST beside this file."),
+        "actor": {
+            "actor_id": actor_id,
+            "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+            **({"control_wallet": control_wallet.lower()} if control_wallet else {}),
         },
+        **({"closes": closes} if closes else {}),
+        "intent": intent_block,
         "live_fill": {
             "fill_id": live_fill_id,
             "intent_id": preview_id,
@@ -778,7 +816,9 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
                 "preview_created_ms": created_ms,
                 "preview_expires_ms": expires_ms,
                 "quote_source": terms["priceSource"],
-                "quote_as_of_ms": int(terms["priceAsOf"]),
+                "quote_as_of_ms": intent_block["quote_as_of_ms"],
+                **({"quote_as_of_rule": intent_block["quote_as_of_rule"]}
+                   if "quote_as_of_rule" in intent_block else {}),
                 "observed_date": intent_date,
             },
             "live_fill": {

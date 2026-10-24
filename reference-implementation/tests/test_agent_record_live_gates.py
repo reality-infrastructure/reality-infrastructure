@@ -86,11 +86,19 @@ def _close_doc(live_px: str, shadow_px: str, *, open_live_px="80008",
     o = json.loads(OPEN_TEXT)
     created = CREATED + 3_600_000
     fill_time = created + 7000
-    intent = dict(o["intent"])
-    intent.update({"intent_id": CPV, "kind": "perp_close", "side": side,
-                   "quote_price_usd": shadow_px, "quote_as_of_ms": created,
-                   "created_ms": created, "expires_ms": created + 60000,
-                   "binding": "cafe" * 16})
+    # A2.2: the venue's close preview shape (position terms, no margin terms).
+    intent = {
+        "intent_id": CPV, "kind": "perp_close", "market": "BTC", "side": side,
+        "order_type": "market", "size": SIZE, "position_side": open_side,
+        "position_size": SIZE, "is_full_close": True, "reduce_only": True,
+        "notional_usd": "11.3092", "quote_price_usd": shadow_px,
+        "mark_price_usd": shadow_px, "quote_source": "hyperliquid metaAndAssetCtxs",
+        "quote_as_of_ms": created,
+        "quote_as_of_rule": "createdAt (the close preview reports no priceAsOf)",
+        "created_ms": created, "expires_ms": created + 60000,
+        "binding": "cafe" * 16, "source_url": o["intent"]["source_url"],
+        "observed_date": "2026-10-23",
+    }
     open_dir = 1 if open_side == "long" else -1
     gross = (Decimal(live_px) - Decimal(open_live_px)) * Decimal(SIZE) * open_dir
     return {
@@ -332,6 +340,38 @@ def test_venue_pnl_reconciliation_dispute():
     # the venue's number is recorded, never substituted
     r = _by(events, LIVE_PNL_CHECK)[0]
     assert r.claim["realized_pnl_usd"] == Decimal("0.006")
+
+
+def test_close_preview_intent_has_the_close_shape():
+    """A2.2 R1-close: position terms, the declared quote-time rule, no margin
+    terms invented."""
+    events = parse_events(json.dumps(_close_doc("80108", "80100")))
+    intent = _by(events, INTENT_CLAIMANT)[0]
+    assert intent.ep_type is EPType.SELF_ASSERTED
+    assert set(intent.claim) == {
+        "intent_id", "kind", "market", "side", "order_type", "size",
+        "quote_price_usd", "quote_source", "quote_as_of_ms", "created_ms", "mode",
+        "position_side", "position_size", "is_full_close", "reduce_only",
+        "notional_usd", "expires_ms", "binding", "quote_as_of_rule"}
+    assert intent.claim["side"] == "close_long"
+    assert intent.claim["position_side"] == "long"
+    assert intent.claim["reduce_only"] is True
+    assert "leverage" not in intent.claim and "margin_usd" not in intent.claim
+
+
+@pytest.mark.parametrize("missing", ["position_side", "position_size",
+                                     "is_full_close", "reduce_only", "binding"])
+def test_close_preview_intent_rejects_missing_position_terms(missing):
+    doc = _close_doc("80108", "80100")
+    del doc["intent"][missing]
+    with pytest.raises(AdapterError):
+        parse_events(json.dumps(doc))
+
+
+def test_close_preview_side_sell_is_accepted():
+    """The real close preview says closeSide 'sell' (probe pv_b3918dbcef0b40d7)."""
+    events = parse_events(json.dumps(_close_doc("79992", "80000", side="sell")))
+    assert _by(events, GAP_CHECK)[0].claim["gap_bps"] == Decimal("1")
 
 
 def test_close_leg_requires_closes_block():

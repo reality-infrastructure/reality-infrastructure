@@ -127,6 +127,13 @@ def _require_int(container: dict, key: str, ctx: str) -> int:
     return value
 
 
+def _require_bool(container: dict, key: str, ctx: str) -> bool:
+    value = container.get(key)
+    if not isinstance(value, bool):
+        raise AdapterError(f"{ctx}: {key!r} must be a boolean")
+    return value
+
+
 def _decimal(raw, ctx: str) -> Decimal:
     if isinstance(raw, Decimal):
         return raw
@@ -313,8 +320,27 @@ def _intent_event(intent: dict, subject: str, mode: str) -> tuple[RightsEvent, s
         "created_ms": _require_int(intent, "created_ms", ctx),
         "mode": mode,
     }
-    if source == INTENT_CLAIMANT:
-        # R1: the venue's preview carries its full binding terms.
+    if source == INTENT_CLAIMANT and claim["kind"] == "perp_close":
+        # A2.2 (R1-close): the venue's CLOSE preview carries position terms
+        # (reduce-only against the live position), not margin terms. Nothing
+        # the preview did not report is invented; the quote-time rule the
+        # capture declares is carried through.
+        claim.update({
+            "position_side": _require_str(intent, "position_side", ctx),
+            "position_size": _decimal(intent.get("position_size"),
+                                      f"{ctx}.position_size"),
+            "is_full_close": _require_bool(intent, "is_full_close", ctx),
+            "reduce_only": _require_bool(intent, "reduce_only", ctx),
+            "notional_usd": _decimal(intent.get("notional_usd"),
+                                     f"{ctx}.notional_usd"),
+            "expires_ms": _require_int(intent, "expires_ms", ctx),
+            "binding": _require_str(intent, "binding", ctx),
+        })
+        rule = intent.get("quote_as_of_rule")
+        if isinstance(rule, str) and rule:
+            claim["quote_as_of_rule"] = rule
+    elif source == INTENT_CLAIMANT:
+        # R1: the venue's OPEN preview carries its full binding terms.
         claim.update({
             "notional_usd": _decimal(intent.get("notional_usd"),
                                      f"{ctx}.notional_usd"),
