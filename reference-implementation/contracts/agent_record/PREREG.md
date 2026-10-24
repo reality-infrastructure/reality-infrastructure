@@ -450,3 +450,61 @@ fee is now on the record, signed by the chain.
 `self_asserted`, mode PAPER), does not invent anything the chain did not report, does not
 fold any belief, and does not close the position. The gate on this capture lands in the
 strictly later `AGENT-RECORD-P5` commit.
+
+### A2.2 — 2026-10-24 — the venue's CLOSE preview has its own shape (R1-close), measured before the close is taken
+
+Committed BEFORE the close is executed and BEFORE the code that reads the close preview
+(the ordering is the proof). The position opened in A2.1 is still open at this commit.
+
+**What was measured.** With the position real, `gdex_preview_trade {kind: perp_close, coin:
+BTC, size: "0.00014"}` answered `VALIDATION_ERROR "No open BTC position found for
+0x9f976123…b7f23"` (the same text A1 recorded for a paper position; with `size` given the
+venue's lookup misses the managed wallet's position). The same call WITHOUT `size`
+returned a close preview — pinned verbatim as the probe, never executed, expired unused:
+
+```
+899  29617e0f66720a93dda929d3588981bd338f2b08375ab74eb0f9be07ac3a0e1c  gdex_preview_pv_b3918dbcef0b40d7_probe.json
+```
+
+Its `terms` are `{coin, dex, positionSide: "long", closeSide: "sell", isLong, positionSize,
+size, remainingSize, isFullClose: true, markPx: "80780", priceSource: "hyperliquid
+metaAndAssetCtxs", reduceOnly: true}` with top-level `notionalUsd`, `createdAt`,
+`expiresAt`, `binding`. There is NO `side`, `orderType`, `price`, `priceAsOf`,
+`szDecimals`, `marginUsd`, `leverage` or `marginMode`. A2's R10 ("a LIVE intent is R1
+unchanged") assumed the OPEN shape for both legs; against this preview the capture tool
+would fail on a missing key and the adapter would reject the intent under R1. That is a
+STOP (S4-adjacent: a rule that does not fit the measured input), resolved by this dated
+amendment, not by a silent edit.
+
+**R1-close (replaces R1 for a `gdex-preview` intent whose `kind = perp_close`; R1 for
+`perp_open` is unchanged):** the intent event stays `chain_assertion` / `self_asserted` /
+`claimant = "gdex-preview"` / `event_id = agent_record:intent:<previewId>`. Its claim is
+`{intent_id, kind, market, side = terms.closeSide, order_type = "market" (the preview
+says "reduce-only market sell"; a close preview that is not reduceOnly is rejected by the
+capture tool), size, quote_price_usd = terms.markPx, quote_source = terms.priceSource,
+quote_as_of_ms = createdAt, quote_as_of_rule = "createdAt (the close preview reports no
+priceAsOf; …)", created_ms, expires_ms, binding, notional_usd (top-level, as the venue
+reports it), position_side, position_size, is_full_close, reduce_only, mode}`. No margin,
+leverage or margin-mode field is invented; a close intent missing any position term is
+an `AdapterError`. `closeSide = "sell"` is already in A2's closed buy/sell vocabulary
+(`_SELL_SIDES`), so R11's direction check (`Close Long` ⇔ a sell that closes a long) and
+R14's cost sign (−1 for a sell) need no change.
+
+**Operational rule added:** the close preview is taken WITHOUT `size` (full close of the
+live position; `isFullClose` must be true and `positionSize` must equal the pinned open
+size, else STOP). Everything else in A2 (R11-R19, S11-S17) stands; A2.1's pin and known
+answer are untouched.
+
+**Known-answer commitment (formula; the numbers land in A2.3):** the close leg of the
+Day-3 run adds exactly five events (close intent, close live fill, close shadow, close
+gap, realized live) to A2.1's four, nine in all, plus any disputes under R15/R16/R18. The
+realized live PnL = (close_fill − 80778.0) × 0.00014 × (+1) − (0.016193 + close_fee),
+bucket by strict sign; the venue's `closedPnl` on the close row is recorded beside it and
+reconciled at 0.000001 USD. Derived gates committed with the code: a close-preview intent
+yields exactly the R1-close claim set and no margin field; each missing position term is
+rejected; `closeSide = "sell"` on a long position yields the +1 bps gap on the A2 derived
+numbers.
+
+**Next:** the code under this amendment (`AGENT-RECORD-P4.1`), then the close preview
+(without `size`), the capture tool started before the submit, the submit on the
+operator's explicit go, and **A2.3** pinning the real close capture before its gate.
