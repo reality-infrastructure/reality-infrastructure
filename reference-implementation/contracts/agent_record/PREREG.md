@@ -508,3 +508,90 @@ numbers.
 **Next:** the code under this amendment (`AGENT-RECORD-P4.1`), then the close preview
 (without `size`), the capture tool started before the submit, the submit on the
 operator's explicit go, and **A2.3** pinning the real close capture before its gate.
+
+### A2.3 — 2026-10-24 — the real LIVE CLOSE capture, pinned before its gate (the first settled LIVE pair)
+
+Taken this morning (local) in one run of `capture_from_gdex_preview.py --live
+--preview-json rights_events/fixtures/agent_record/gdex_preview_pv_286c449157434b1e.json
+--actor-id 0x9f97…b7f23 --control-wallet 0xa629…5b92 --open-capture
+rights_events/fixtures/agent_record/capture_LIVE_2026-10-24_pv_e1849abce514440c.json
+--poll-seconds 180`, started BEFORE the close was submitted. The tool wrote the files
+below and exited 0; nothing below is edited by hand.
+
+**How the close was submitted (recorded in full, because it differs from A2's plan).**
+The intent is the venue's close preview `pv_286c449157434b1e` (perp_close, reduce-only
+market sell, 0.00014 BTC, markPx 80758, created 1792824308578, expires 1792824368578),
+taken without `size` per A2.2. It was NOT submitted with `gdex_execute_trade {previewId}`:
+that call's close path loads `@gdexsdk/hyper-liquid-trader`, whose dependencies
+(`@nktkas/hyperliquid` 0.32.2, `@noble/hashes` 2.4.0) require Node ≥ 20.19.0 and this
+machine runs Node 20.18.0 (`ERR_REQUIRE_ESM`; the package itself was installed into the
+server's npx cache at 1.1.1 and still cannot load). The backend order tool
+`place_perp_order` with `isMarket: true, price: "0"` hits the same module (mark lookup);
+with an explicit price it reached GDEX and was rejected: `Min order size value is 11$`
+(the backend prices a market sell's notional below the 11 USD floor at this size). The
+close was therefore submitted, inside the preview's 60-second window and on the
+operator's standing instruction to close Day 3, as a **reduce-only LIMIT sell at 80690**
+(8.4 bps below the preview's mark, so it crossed the book at once) through
+`place_perp_order {coin: BTC, isLong: false, isMarket: false, price: "80690", size:
+"0.00014", reduceOnly: true}` — the same reduce-only sell of the same size the preview
+describes, filled as a taker (`crossed: true`) at **80758.0**, the preview's own markPx.
+Three earlier close previews were taken and expired unexecuted while this was diagnosed
+(`pv_a92f3a6925f7404f`, `pv_11bbb908b7f74c6d`, `pv_3351b5b948e9488b`); their saved files
+were removed and are not part of the record; their ids are the venue's. The intent
+event's `order_type = "market"` is the preview's description of the intent, as R1-close
+defines it; the submission detail lives here and in the SCOREBOARD, not in any event.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+3669  9404f0502910828260b2a64af1e091fe0e3cf509720b6b2693821e8f30d80850  capture_LIVE_2026-10-24_pv_e1849abce514440c_close.json
+4435  ff00fac48c3c1aa209f26baf1d7ddb686d816077500a9d2998b3aa87476924eb  MANIFEST_LIVE_2026-10-24_pv_e1849abce514440c_close.json
+899   c586a311f7e0156b57dd0254d04ae682d3eacce6f8de38b7ab28ef6fcdca24e1  gdex_preview_pv_286c449157434b1e.json          (the close intent, verbatim)
+352   a2f3595419831f4fa8a5c81f1192efd8ecd6513dcbdbb78cf5cc882eb17f1d40  hl_userFillsByTime_1792824335531.json          (the chain's close fill, verbatim)
+25149 137e4c5a912fdce869c4f199914306efc86c9f5093cbb90a056f06610b3e5be6  hl_allMids_1792824335729.json                  (the close shadow, verbatim)
+```
+
+The close capture's `closes.sha256` = `2e9538c0…7e5c` = A2.1's pin of the open capture
+(S17 holds); `closes.intent_id = pv_e1849abce514440c`, `closes.size = 0.00014` = the close
+intent's and close fill's size (R7 / S9 hold); `positionSize = 0.00014 = isFullClose`.
+
+**The chain's row (one row, one order — R11 holds):** coin BTC, dir `Close Long`, px
+**80758.0**, sz 0.00014, time **1792824334791** (inside [1792824308578, 1792824428578]),
+oid 584385802254, tid 1015472974168984, hash
+**`0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07`**, fee 0.010537 +
+builderFee 0.005653 = **0.016190 USDC**, closedPnl **−0.0028**, startPosition 0.00014.
+
+**Known-answer commitment (the real numbers, by A2's formulas):**
+
+- Close intent quoted at **80758** (markPx as of createdAt, by the declared rule). Live
+  close fill **80758.0** → live deviation **0.0 bps**. Close shadow **80758.5** (allMids
+  observed 1792824335729) → shadow deviation **0.06191337081156046459793456995 bps**.
+  Neither exceeds 50 → no dispute.
+- **Close sim-to-real gap = (80758.0 − 80758.5) / 80758.5 × 10000 × (−1) =
+  0.06191298748738522879944525963 bps** (selling half a dollar per BTC below paper cost
+  more). Shadow lag **938 ms** ≤ 5000 → no stale dispute.
+- **Realized live PnL = (80758.0 − 80778.0) × 0.00014 × (+1) − (0.016193 + 0.016190) =
+  −0.0028 − 0.032383 = −0.035183 USD, LOSS.** Venue reconciliation: computed gross
+  −0.0028 vs the chain's `closedPnl` −0.0028 → difference **0.000000** ≤ 0.000001 → no
+  dispute. The venue and the record agree to the last digit.
+- The Day-3 run (`--capture` open, `--capture` close) MUST hold exactly **nine** events
+  (two intents, two live fills, two shadows, two gaps, one realized), **zero** disputes,
+  exactly **two** typed `cryptographically_signed` (the two live fills); the realized
+  event's prior refs are `agent_record:fill:live:pv_e1849abce514440c:open` and
+  `agent_record:fill:live:pv_e1849abce514440c:close`, both resolving in the same log
+  (S10 holds). Every event is dated `2026-10-24`.
+- The run file is written once by the strictly later `AGENT-RECORD-P5` commit as
+  `run_LIVE_2026-10-24_pv_e1849abce514440c.ri`, beside the untouched PAPER run files; its
+  root and sha256 are pasted into the SCOREBOARD after the run, never predicted here.
+
+**What this is, honestly.** The first settled pair on the operator's own account that a
+stranger can verify against the chain. Price moved 20 USD per BTC against the position
+in the sixteen minutes it was open (−0.0028 USD at this size); the fees were twelve times
+that. Both sim-to-real gaps are six hundredths of a basis point; the paper record's only
+material fiction was the fee, and that fiction is now closed. The tooling path that
+failed is recorded above and goes to Day 4 as an environment task (Node ≥ 20.19), not as
+a change to any rule.
+
+**What this amendment does not do:** it does not relabel any shadow, does not invent
+anything the chain did not report, does not fold any belief, and does not touch the
+PAPER record. The gates on this capture and on the Day-3 run land in `AGENT-RECORD-P5`.
