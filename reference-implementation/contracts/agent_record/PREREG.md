@@ -384,3 +384,69 @@ exists there at claim mass 0.55, "measured"), and does not touch GDEX from code.
 account is not funded or the five-hour gate closes before the close leg, the OPEN leg
 with its gap number (A2.1 + its gates) is the Day-3 deliverable and the close carries to
 the next day as A2.2; the amendment does not need rewriting for that.
+
+### A2.1 — 2026-10-24 — the real LIVE OPEN capture, pinned before its gate
+
+Taken this morning (local) in one run of `capture_from_gdex_preview.py --live
+--preview-json rights_events/fixtures/agent_record/gdex_preview_pv_e1849abce514440c.json
+--actor-id 0x9f976123e7c48952be487664b8130aad144b7f23 --control-wallet 0xa629…5b92
+--poll-seconds 180`, started BEFORE the preview was submitted. The operator's hand, in
+order, all through the operator's own GDEX account (acct_8c48b321e89c): 25.28 USDC sent
+to the managed wallet on Arbitrum; 0.001 ETH sent for gas after the first deposit attempt
+was rejected by the backend with `insufficient funds for gas` (nothing moved); then
+`perp_deposit 20 USDC` (Arbitrum tx `0x7550079d…19c9`), landed as account value 20.00;
+then `gdex_preview_trade {perp_open, BTC, long, market, leverage 1, notionalUsd 11.5}` →
+`pv_e1849abce514440c` (size 0.00014, quote 80776, created 1792823282360, expires
+1792823342360); then `gdex_execute_trade {previewId, userApproved: true}` on the
+operator's explicit, term-bounded approval given in chat → operation `op_aaf20be973d74bd2`,
+state `filled`, "position 0 -> 0.00014 BTC (1x cross)", entry 80778.0. The tool wrote the
+four files below and exited 0; nothing below is edited by hand.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+3097  2e9538c0629b751c847726058421439ab8202c3e5f203157c08aad508e8f7e5c  capture_LIVE_2026-10-24_pv_e1849abce514440c.json
+3672  33d7d39e7019e7017cb1828acac8bc3e5dfcf94f5f81d6caf10acf38cf804483  MANIFEST_LIVE_2026-10-24_pv_e1849abce514440c.json
+1340  0a56d9994c8e637f1d3783d1ca646f8166d7acad99774e30fa150826fd6cfaf5  gdex_preview_pv_e1849abce514440c.json          (the intent, verbatim)
+342   d90c24212a18c29af61b35ce8d2e22b940a92f504a529426dcd213859bc6747f  hl_userFillsByTime_1792823307404.json          (the chain's fill, verbatim)
+25166 b800493b2b5af0efcc93cc7c78fae48767c5f07be90386c43f0c81e358eefe51  hl_allMids_1792823307660.json                  (the shadow, verbatim)
+```
+
+**The chain's row (one row, one order, size equal to the intent's — R11 holds):** coin
+BTC, dir `Open Long`, px **80778.0**, sz 0.00014, time **1792823305604** (inside
+[1792823282360, 1792823402360]), oid 584378126572, tid 136174246550601, hash
+**`0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2`**, fee 0.010539 +
+builderFee 0.005654 = **0.016193 USDC** (14.3 bps of the 11.31 notional; the builder fee
+is GDEX's builder code, recorded as the chain reports it), closedPnl 0.0, startPosition 0.0.
+
+**Known-answer commitment (the real numbers, by A2's formulas):**
+
+- Intent (`gdex-preview`, `perp_open`, long, 0.00014 BTC, 1x cross) quoted at **80776**
+  (markPx as of 1792823282652). Live fill **80778.0**, the first event in this record
+  typed `cryptographically_signed`. Shadow paper fill **80777.5** (allMids observed
+  1792823307660), fee 0.
+- Live deviation = |80778.0 − 80776| / 80776 × 10000 = **0.2475982965237199168069723680
+  bps** ≤ 50 → no dispute. Shadow deviation = **0.1856987223927899376052292760 bps** → no
+  dispute.
+- **Sim-to-real gap = (80778.0 − 80777.5) / 80777.5 × 10000 × (+1) =
+  0.06189842468509176441459564854 bps** (live cost 0.07 USD-cents more per BTC than paper
+  said; on this size, 0.00007 USD). Shadow lag = 1792823307660 − 1792823305604 = **2056 ms**
+  ≤ 5000 → no stale dispute.
+- The capture MUST yield exactly **four** events — intent, live fill, shadow fill, gap —
+  and **zero** disputes; exactly one event typed `cryptographically_signed`
+  (`agent_record:fill:live:pv_e1849abce514440c:open`); the gap's prior refs are that live
+  fill and `agent_record:fill:paper:pv_e1849abce514440c:open:shadow`. Every event is dated
+  `2026-10-24`.
+- The Day-3 run file is NOT written here: it is written once (both legs, one log) after
+  A2.2 pins the close, as `run_LIVE_2026-10-24_pv_e1849abce514440c.ri`, beside the untouched
+  PAPER run files, and its root and sha256 go into the SCOREBOARD after the run.
+
+**What this is, honestly.** The sim-to-real gap on this leg is six hundredths of a basis
+point, and the fee the paper record never carried is 14.3 bps. The gap the panel talks
+about was never the price; on a market order of this size at the mid it is the fee. The
+fee is now on the record, signed by the chain.
+
+**What this amendment does not do:** it does not relabel the shadow (still
+`self_asserted`, mode PAPER), does not invent anything the chain did not report, does not
+fold any belief, and does not close the position. The gate on this capture lands in the
+strictly later `AGENT-RECORD-P5` commit.
