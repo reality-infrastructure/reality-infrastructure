@@ -1,12 +1,12 @@
 """Agent-record evidence run — ingest, prove, save, re-verify.
 
-The operator's own intent-and-outcome record on GDEX (PAPER). Takes the
-adapter's events (adapters/agent_record.py) from every pinned capture, submits
-them through the unmodified engine (EP typing, HMAC signatures, Merkle event
-log) as ONE log, proves each event's RFC 9162 inclusion against the event-log
-root, writes a run file, and reloads it so every signature re-verifies — a
-single altered byte makes the reload fail. No belief is folded; no trade is
-executed.
+The operator's own intent-and-outcome record on GDEX (PAPER, and LIVE under
+PREREG A2). Takes the adapter's events (adapters/agent_record.py) from the
+named captures, submits them through the unmodified engine (EP typing, HMAC
+signatures, Merkle event log) as ONE log, proves each event's RFC 9162
+inclusion against the event-log root, writes a run file, and reloads it so
+every signature re-verifies — a single altered byte makes the reload fail. No
+belief is folded; no trade is executed.
 
 Usage:
     python -m rights_events.agent_record [--capture CAPTURE ...] [--out RUN_FILE]
@@ -14,6 +14,9 @@ Usage:
 
 With no --capture, every pinned `capture_PAPER_*.json` in fixtures/agent_record
 is ingested in sorted name order (an open leg sorts before its `_close` leg).
+A LIVE run names its captures with --capture explicitly and is written beside
+the PAPER run files (A2 R19); PAPER and LIVE captures are never mixed in one
+run — they are different positions — and the runner refuses the mix.
 The second form is the stranger's check: rebuild the logs from the run file
 (signatures re-verify at intake) and verify every event's inclusion proof
 against the rebuilt root. Exit 0 all checks pass, 1 otherwise.
@@ -27,8 +30,9 @@ import sys
 from pathlib import Path
 
 from rights_events.adapters.agent_record import parse_events
+from rights_events.adapters.common import AdapterError
 from rights_events.pipeline import RightsPipeline
-from rights_events.schema import EventType
+from rights_events.schema import EPType, EventType
 from rights_events.trader_record import _all_inclusions_verify, verify_run
 
 _FIXTURES = Path(__file__).parent / "fixtures" / "agent_record"
@@ -45,6 +49,12 @@ def ingest_captures(document_texts: list[str]) -> tuple[RightsPipeline, list, di
     events: list = []
     for text in document_texts:
         events.extend(parse_events(text))
+    modes = {e.claim["mode"] for e in events
+             if e.event_id.startswith("agent_record:intent:")}
+    if len(modes) > 1:
+        # A2 R19: different positions, different logs.
+        raise AdapterError(f"PAPER and LIVE captures are never mixed in one run "
+                           f"(PREREG A2 R19); got modes {sorted(modes)}")
     pipeline = RightsPipeline()
     indices = pipeline.ingest(events)
     return pipeline, events, indices
@@ -111,29 +121,48 @@ def main(argv: list[str] | None = None) -> int:
     intents = [e for e in events if e.event_id.startswith("agent_record:intent:")]
     fills = [e for e in events if e.event_id.startswith("agent_record:fill:")]
     realized = [e for e in events if e.event_id.startswith("agent_record:realized:")]
+    gaps = [e for e in events if e.event_id.startswith("agent_record:gap:")]
+    signed = [e for e in events if e.ep_type is EPType.CRYPTOGRAPHICALLY_SIGNED]
     disputes = [e for e in events if e.event_type is EventType.DISPUTE]
+    n_live = sum(1 for d in docs if d.get("mode") == "LIVE")
+    expected_fills = sum(2 if d.get("mode") == "LIVE" else 1 for d in docs)
     logged = set(indices)
     refs_ok = all(ref in logged for e in events for ref in e.prior_event_refs)
     inclusions_ok = _all_inclusions_verify(pipeline)
     reload_ok, reload_report = verify_run(args.out)
     reloaded_root_ok = reload_ok and reload_report.endswith(root.hex())
 
+    c1_label = (f"C1 adapter produced {len(events)} events: {len(intents)} intent, "
+                f"{len(fills)} fill, {len(realized)} realized, {len(disputes)} dispute")
+    if n_live:
+        c1_label += f", {len(gaps)} gap, {len(signed)} cryptographically_signed"
     checks = [
-        (f"C1 adapter produced {len(events)} events: {len(intents)} intent, "
-         f"{len(fills)} fill, {len(realized)} realized, {len(disputes)} dispute",
-         len(intents) == len(fills) == len(paths) and len(realized) <= len(fills)),
+        (c1_label,
+         len(intents) == len(paths) and len(fills) == expected_fills
+         and len(gaps) == n_live and len(signed) == n_live
+         and len(realized) <= len(intents)),
         (f"C2 all {len(pipeline.event_log)} inclusion proofs verify against "
          f"the root", inclusions_ok),
         ("C3 saved run reloads; every signature re-verifies; root unchanged",
          reloaded_root_ok),
         ("C4 every prior_event_ref resolves inside this run's own log", refs_ok),
     ]
+    for e in gaps:
+        c = e.claim
+        print(f"Sim-to-real gap ({c['live_fill_event_id'].split(':')[3]}, "
+              f"{e.event_id.rsplit(':', 1)[1]} leg): {c['gap_bps']} bps "
+              f"(live {c['live_price_usd']} vs paper {c['paper_price_usd']}, "
+              f"cost sign {c['cost_sign']:+d}, shadow lag {c['shadow_lag_ms']} ms, "
+              f"live fee {c['live_fee_usd']} USD)")
     for e in realized:
-        print(f"Realized paper PnL ({e.claim['open_intent_id']}): "
+        label = "live" if e.claim["mode"] == "LIVE" else "paper"
+        print(f"Realized {label} PnL ({e.claim['open_intent_id']}): "
               f"{e.claim['realized_pnl_usd']} USD, {e.claim['bucket']} "
               f"(open {e.claim['open_price_usd']}, close {e.claim['close_price_usd']}, "
-              f"size {e.claim['size']}, fees {e.claim['fees_usd']})")
-    if realized:
+              f"size {e.claim['size']}, fees {e.claim['fees_usd']}"
+              + (f", venue closedPnl {e.claim['venue_closed_pnl_usd']}"
+                 if label == "live" else "") + ")")
+    if realized or gaps:
         print()
 
     print(f"Event log root: {root.hex()}")

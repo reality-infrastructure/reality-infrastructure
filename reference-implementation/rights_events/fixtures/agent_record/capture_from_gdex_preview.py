@@ -42,6 +42,27 @@ paper PnL over both legs without inventing an association.
         --close --open-capture PATH [--ctxs-json PATH --ctxs-observed-ms MS] \
         [--mids-json PATH --mids-observed-ms MS] [--max-bps 50]
 
+THE LIVE LEG (PREREG A2). The intent is again GDEX's own preview, saved
+verbatim. The OUTCOME is the real fill the HyperLiquid L1 recorded under the
+actor's wallet, read back from the info API (POST {type: userFillsByTime,
+user, startTime}) — never from this tool placing anything: the operator
+submits the preview through their own GDEX account, by hand, inside its
+60-second expiry; this tool only polls for the fill, then at once takes the
+allMids mid as the PAPER shadow fill at the same instant. Both payloads are
+saved verbatim and pinned. The fill rows are associated to the intent only by
+coin, chain `dir`, time window and one order id, with sizes summing exactly to
+the intent's (select_fill_rows, pure); anything else writes nothing. The
+adapter types the live fill `cryptographically_signed` because it carries the
+L1 transaction hash(es); the shadow stays `self_asserted` PAPER; the gap
+between them is the day's number.
+
+    python rights_events/fixtures/agent_record/capture_from_gdex_preview.py \
+        --live --preview-json PATH --actor-id 0x<managed evm wallet> \
+        [--open-capture PATH            # for a perp_close preview: the LIVE open leg] \
+        [--fills-json PATH --fills-observed-ms MS] [--mids-json PATH --mids-observed-ms MS] \
+        [--max-bps 50] [--max-shadow-lag-ms 5000] [--max-fill-after-expiry-ms 60000] \
+        [--max-pnl-recon-usd 0.000001] [--poll-seconds 120]
+
 Re-running writes a new set keyed by date + previewId; it never overwrites.
 No partial capture is ever written.
 """
@@ -458,10 +479,403 @@ def build_close(open_capture: Path, ctxs_json: Path | None,
     return cap_path, man_path
 
 
+HL_FILLS_TYPE = "userFillsByTime"
+HL_EXPLORER_TX = "https://app.hyperliquid.xyz/explorer/tx/"
+_BUY_SIDES = ("long", "buy", "close_short")
+_SELL_SIDES = ("short", "sell", "close_long")
+_DIR_FOR = {("perp_open", 1): "Open Long", ("perp_open", -1): "Open Short",
+            ("perp_close", -1): "Close Long", ("perp_close", 1): "Close Short"}
+
+
+def _fmt(x: Decimal) -> str:
+    return format(x, "f")
+
+
+def _side_sign(side: str) -> int:
+    if side in _BUY_SIDES:
+        return 1
+    if side in _SELL_SIDES:
+        return -1
+    raise SystemExit(f"preview side {side!r} is outside the closed buy/sell "
+                     "vocabulary; no capture is written.")
+
+
+def fetch_fills(actor_id: str, start_ms: int) -> tuple[bytes, int, dict]:
+    query = {"type": HL_FILLS_TYPE, "user": actor_id, "startTime": int(start_ms)}
+    req = urllib.request.Request(
+        HL_INFO_URL, data=json.dumps(query).encode(),
+        headers={"Content-Type": "application/json"})
+    observed_ms = int(time.time() * 1000)
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return resp.read(), observed_ms, query
+
+
+def select_fill_rows(rows, coin: str, expected_dir: str, size,
+                     created_ms: int, deadline_ms: int):
+    """PURE (A2 R11). The rows that ARE the intent's fill, sorted by (time, tid),
+    or None while the fill has not (fully) arrived. SystemExit when the rows can
+    never be associated: more than one order in the window, or more size than
+    the intent. Nothing is inferred beyond coin, dir, window and one oid."""
+    want = _d(size)
+    cands = [r for r in rows
+             if r.get("coin") == coin and r.get("dir") == expected_dir
+             and created_ms <= int(r["time"]) <= deadline_ms]
+    if not cands:
+        return None
+    oids = sorted({int(r["oid"]) for r in cands})
+    if len(oids) > 1:
+        raise SystemExit(f"{len(oids)} orders {oids} match the intent's window; "
+                         "ambiguous, no capture is written.")
+    total = sum((_d(r["sz"]) for r in cands), Decimal(0))
+    if total < want:
+        return None
+    if total > want:
+        raise SystemExit(f"matched fills sum to {total} > intent size {want}; "
+                         "no capture is written.")
+    return sorted(cands, key=lambda r: (int(r["time"]), int(r["tid"])))
+
+
+def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
+               open_capture: Path | None, fills_json: Path | None,
+               fills_observed_ms: int | None, mids_json: Path | None,
+               mids_observed_ms: int | None, max_bps: str, max_shadow_lag_ms: int,
+               max_fill_after_expiry_ms: int, max_pnl_recon_usd: str,
+               poll_seconds: int) -> tuple[Path, Path]:
+    """The LIVE leg (PREREG A2): the venue's preview beside the chain's fill and
+    a PAPER shadow at the same instant. READS only; never submits."""
+    actor_id = actor_id.lower()
+
+    # --- intent side: the gdex preview, saved verbatim, pinned before parsing ---
+    raw_prev = preview_json.read_bytes().replace(b"\r\n", b"\n")
+    prev_sha = _sha(raw_prev)
+    prev = json.loads(raw_prev.decode("utf-8"))
+    preview_id = prev["previewId"]
+    terms = prev["terms"]
+    kind = prev.get("kind")
+    if kind not in ("perp_open", "perp_close"):
+        raise SystemExit(f"preview kind {kind!r} is out of scope; no capture is "
+                         "written.")
+    if terms.get("dex"):
+        raise SystemExit("builder-DEX previews are out of scope; no capture is "
+                         "written.")
+    created_ms, expires_ms = int(prev["createdAt"]), int(prev["expiresAt"])
+    intent_date = _iso(created_ms)
+    coin, size, side = terms["coin"], terms["size"], terms["side"]
+    side_sign = _side_sign(side)
+    dest_prev = HERE / f"gdex_preview_{preview_id}.json"
+    if dest_prev.exists():
+        if dest_prev.read_bytes().replace(b"\r\n", b"\n") != raw_prev:
+            raise SystemExit(f"{dest_prev.name} exists with different bytes.")
+    elif dest_prev.resolve() != preview_json.resolve():
+        _write_lf(dest_prev, raw_prev.decode("utf-8"))
+
+    # --- a close leg names the pinned LIVE open leg it closes (R17) ------------
+    closes = None
+    open_id = preview_id
+    if kind == "perp_close":
+        if open_capture is None:
+            raise SystemExit("a perp_close preview requires --open-capture (the "
+                             "pinned LIVE open leg); no capture is written.")
+        open_raw = open_capture.read_bytes().replace(b"\r\n", b"\n")
+        opened = json.loads(open_raw.decode("utf-8"))
+        if (opened.get("kind") != "agent_record_capture"
+                or opened.get("mode") != "LIVE" or "closes" in opened
+                or opened["intent"].get("kind") != "perp_open"):
+            raise SystemExit("--open-capture must be a LIVE OPEN agent_record "
+                             "capture.")
+        o_intent, o_fill = opened["intent"], opened["live_fill"]
+        if o_intent["market"] != coin or _d(o_intent["size"]) != _d(size):
+            raise SystemExit("the close preview's coin/size differ from the open "
+                             "leg's; no capture is written.")
+        open_dir = _side_sign(o_intent["side"])
+        if side_sign != -open_dir:
+            raise SystemExit(f"close side {side!r} does not close a "
+                             f"{o_intent['side']} position; no capture is written.")
+        open_id = o_intent["intent_id"]
+        expected_dir = _DIR_FOR[("perp_close", side_sign)]
+        closes = {
+            "capture": open_capture.name,
+            "sha256": _sha(open_raw),
+            "intent_id": open_id,
+            "fill_id": o_fill["fill_id"],
+            "side": "long" if open_dir == 1 else "short",
+            "size": size,
+            "fill_price_usd": o_fill["price_usd"],
+            "fill_fee_usd": o_fill["fee_usd"],
+        }
+    else:
+        expected_dir = _DIR_FOR[("perp_open", side_sign)]
+    deadline_ms = expires_ms + int(max_fill_after_expiry_ms)
+
+    # --- outcome side: the chain's fill record, polled, verbatim ---------------
+    if fills_json is not None:
+        raw_fills = fills_json.read_bytes().replace(b"\r\n", b"\n")
+        if fills_observed_ms is None:
+            raise SystemExit("--fills-json requires --fills-observed-ms.")
+        fills_ms = fills_observed_ms
+        fills_query = {"type": HL_FILLS_TYPE, "user": actor_id,
+                       "startTime": created_ms}
+        fills_origin = f"saved payload {fills_json.name}"
+        rows = select_fill_rows(json.loads(raw_fills.decode("utf-8")), coin,
+                                expected_dir, size, created_ms, deadline_ms)
+        if rows is None:
+            raise SystemExit("the saved fills payload holds no complete fill for "
+                             "this intent; no capture is written.")
+    else:
+        started = time.time()
+        while True:
+            raw_fills, fills_ms, fills_query = fetch_fills(actor_id, created_ms)
+            rows = select_fill_rows(json.loads(raw_fills.decode("utf-8")), coin,
+                                    expected_dir, size, created_ms, deadline_ms)
+            if rows is not None:
+                break
+            if time.time() - started > poll_seconds:
+                raise SystemExit(f"no complete {expected_dir} {coin} fill of {size} "
+                                 f"for {actor_id} within {poll_seconds}s; no "
+                                 "capture is written.")
+            time.sleep(2)
+        fills_origin = f"live POST {HL_INFO_URL} {json.dumps(fills_query)}"
+
+    # --- the PAPER shadow at the same instant, verbatim ------------------------
+    raw_mids, shadow_ms, mids_origin = _load_mids(mids_json, mids_observed_ms)
+    mids = json.loads(raw_mids.decode("utf-8"))
+    if coin not in mids:
+        raise SystemExit(f"{coin} not in allMids; no capture is written.")
+
+    fills_path = HERE / f"hl_{HL_FILLS_TYPE}_{fills_ms}.json"
+    fills_sha = _pin_verbatim(fills_path, raw_fills)
+    mids_path = HERE / f"hl_allMids_{shadow_ms}.json"
+    mids_sha = _pin_verbatim(mids_path, raw_mids)
+
+    # --- aggregate the fill rows (R11): one order, sizes summing to the intent ---
+    total_sz = sum((_d(r["sz"]) for r in rows), Decimal(0))
+    live_px = sum((_d(r["px"]) * _d(r["sz"]) for r in rows), Decimal(0)) / total_sz
+    fee = sum((_d(r["fee"]) + _d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    tokens = sorted({r.get("feeToken") for r in rows})
+    if tokens != ["USDC"]:
+        raise SystemExit(f"fee token(s) {tokens} are not USDC; no capture is "
+                         "written (no conversion is invented).")
+    tx_hashes = [r["hash"] for r in rows]
+    tids = [int(r["tid"]) for r in rows]
+    fill_time_ms = int(rows[-1]["time"])
+    fill_date = _iso(fill_time_ms)
+    closed_pnl = sum((_d(r["closedPnl"]) for r in rows), Decimal(0))
+    quote, shadow_px = _d(terms["price"]), _d(mids[coin])
+    gap_bps = (live_px - shadow_px) / shadow_px * Decimal(10000) * side_sign
+    shadow_lag_ms = shadow_ms - fill_time_ms
+    dev_live = abs(live_px - quote) / quote * Decimal(10000)
+    dev_shadow = abs(shadow_px - quote) / quote * Decimal(10000)
+
+    leg = "close" if kind == "perp_close" else "open"
+    live_fill_id = f"live:{open_id}:{leg}"
+    shadow_fill_id = f"paper:{open_id}:{leg}:shadow"
+    capture = {
+        "kind": "agent_record_capture",
+        "mode": "LIVE",
+        "synthetic": False,
+        "note": ("LIVE capture, " + leg.upper() + " leg. INTENT SIDE: GDEX's own "
+                 "preview (" + GDEX_MCP_TOOL + "), exact executable terms; the "
+                 "operator submitted it by hand through their own GDEX account. "
+                 "OUTCOME SIDE: the fill the HyperLiquid L1 recorded under the "
+                 "actor's wallet (POST " + HL_INFO_URL + " {type: " + HL_FILLS_TYPE
+                 + "}), with its transaction hash(es) and the chain's fee; a "
+                 "cryptographically signed chain event. SHADOW: this tool's own "
+                 "simulated fill at the allMids mid at the instant the fill was "
+                 "observed (PAPER, self-asserted), so the sim-to-real gap is one "
+                 "number. This tool READ the fill; it submitted nothing. See the "
+                 "MANIFEST beside this file."),
+        "actor": {
+            "actor_id": actor_id,
+            "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+            **({"control_wallet": control_wallet.lower()} if control_wallet else {}),
+        },
+        **({"closes": closes} if closes else {}),
+        "intent": {
+            "intent_id": preview_id,
+            "kind": kind,
+            "market": coin,
+            "side": side,
+            "order_type": terms["orderType"],
+            "size": size,
+            "sz_decimals": int(terms["szDecimals"]),
+            "notional_usd": terms["notionalUsd"],
+            "margin_usd": terms["marginUsd"],
+            "leverage": int(terms["leverage"]),
+            "margin_mode": terms["marginMode"],
+            "quote_price_usd": terms["price"],
+            "mark_price_usd": terms["markPx"],
+            "quote_source": terms["priceSource"],
+            "quote_as_of_ms": int(terms["priceAsOf"]),
+            "created_ms": created_ms,
+            "expires_ms": expires_ms,
+            "binding": prev["binding"],
+            "tool": GDEX_MCP_TOOL,
+            "source_url": GDEX_BASE,
+            "observed_date": intent_date,
+        },
+        "live_fill": {
+            "fill_id": live_fill_id,
+            "intent_id": preview_id,
+            "price_usd": _fmt(live_px),
+            "size": size,
+            "fee_usd": _fmt(fee),
+            "fee_token": "USDC",
+            "tx_hashes": tx_hashes,
+            "tids": tids,
+            "oid": int(rows[-1]["oid"]),
+            "fill_time_ms": fill_time_ms,
+            "dir": expected_dir,
+            "closed_pnl_usd": _fmt(closed_pnl),
+            "start_position": str(rows[0]["startPosition"]),
+            "explorer_url": HL_EXPLORER_TX + tx_hashes[0],
+            "rows": len(rows),
+            "mode": "LIVE",
+            "source_url": HL_INFO_URL,
+            "observed_date": fill_date,
+        },
+        "shadow_fill": {
+            "fill_id": shadow_fill_id,
+            "intent_id": preview_id,
+            "price_usd": str(mids[coin]),
+            "size": size,
+            "fee_usd": "0",
+            "fee_model": "none (paper shadow at the live fill's instant; the live "
+                         "fill beside it carries the chain's fee)",
+            "mark_source": "hyperliquid allMids",
+            "observed_ms": shadow_ms,
+            "source_url": HL_INFO_URL,
+            "observed_date": _iso(shadow_ms),
+        },
+        "association": {"max_fill_after_expiry_ms": int(max_fill_after_expiry_ms)},
+        "tolerance": {
+            "max_quote_to_fill_bps": str(_d(max_bps)),
+            "max_shadow_lag_ms": int(max_shadow_lag_ms),
+            **({"max_pnl_recon_usd": str(_d(max_pnl_recon_usd))} if closes else {}),
+        },
+    }
+    suffix = "_close" if closes else ""
+    cap_path = HERE / f"capture_LIVE_{intent_date}_{open_id}{suffix}.json"
+    cap_bytes = _write_lf(cap_path, json.dumps(capture, indent=2) + "\n")
+
+    manifest = {
+        "fixture": cap_path.name,
+        "status": "LIVE",
+        "leg": leg,
+        "bytes": len(cap_bytes),
+        "sha256": _sha(cap_bytes),
+        "generator": Path(__file__).name,
+        **({"closes": {"capture": closes["capture"], "sha256": closes["sha256"]}}
+           if closes else {}),
+        "source": {
+            "intent": {
+                "what": "GDEX preview: exact executable terms for an explicit trade "
+                        "intent, bound to GDEX managed custody; submitted by the "
+                        "operator's own hand, never by this tool.",
+                "gdex_mcp_tool": GDEX_MCP_TOOL,
+                "custody_backend": GDEX_BASE,
+                "payload_verbatim_file": dest_prev.name,
+                "payload_sha256": prev_sha,
+                "preview_created_ms": created_ms,
+                "preview_expires_ms": expires_ms,
+                "quote_source": terms["priceSource"],
+                "quote_as_of_ms": int(terms["priceAsOf"]),
+                "observed_date": intent_date,
+            },
+            "live_fill": {
+                "what": "The fill the HyperLiquid L1 recorded under the actor's "
+                        "wallet: a chain event carrying its transaction hash(es) "
+                        "and the chain's fee.",
+                "api": HL_INFO_URL + " " + json.dumps(fills_query),
+                "payload_origin": fills_origin,
+                "payload_verbatim_file": fills_path.name,
+                "payload_sha256": fills_sha,
+                "payload_observed_ms": fills_ms,
+                "association": {
+                    "rule": "coin == intent.market, dir == expected, created_ms <= "
+                            "time <= expires_ms + max_fill_after_expiry_ms, one oid, "
+                            "sizes sum exactly to intent.size",
+                    "expected_dir": expected_dir,
+                    "window_ms": [created_ms, deadline_ms],
+                    "rows_matched": len(rows),
+                    "oid": int(rows[-1]["oid"]),
+                    "tx_hashes": tx_hashes,
+                },
+                "fee_rule": "sum of fee + builderFee over the matched rows, USDC",
+                "observed_date": fill_date,
+            },
+            "shadow_fill": {
+                "what": "Simulated fill of the intent's size at the HyperLiquid mid "
+                        "at the instant the live fill was observed. Self-asserted; "
+                        "not a chain event.",
+                "api": HL_INFO_URL + " " + json.dumps(HL_MIDS_QUERY),
+                "payload_origin": mids_origin,
+                "payload_verbatim_file": mids_path.name,
+                "payload_sha256": mids_sha,
+                "observed_ms": shadow_ms,
+                "observed_date": _iso(shadow_ms),
+            },
+        },
+        "dispute_semantics": {
+            "quote_price_usd": _fmt(quote),
+            "live_fill_price_usd": _fmt(live_px),
+            "live_deviation_bps": _fmt(dev_live),
+            "live_dispute_expected": dev_live > _d(max_bps),
+            "shadow_fill_price_usd": _fmt(shadow_px),
+            "shadow_deviation_bps": _fmt(dev_shadow),
+            "shadow_dispute_expected": dev_shadow > _d(max_bps),
+            "max_quote_to_fill_bps": str(_d(max_bps)),
+        },
+        "sim_to_real_gap": {
+            "formula": "(live - paper) / paper * 10000 * cost_sign, Decimal; "
+                       "cost_sign +1 when the agent buys, -1 when it sells; "
+                       "positive = live cost more than paper",
+            "live_price_usd": _fmt(live_px),
+            "paper_price_usd": _fmt(shadow_px),
+            "cost_sign": side_sign,
+            "gap_bps": _fmt(gap_bps),
+            "shadow_lag_ms": shadow_lag_ms,
+            "max_shadow_lag_ms": int(max_shadow_lag_ms),
+            "stale_dispute_expected": abs(shadow_lag_ms) > int(max_shadow_lag_ms),
+        },
+    }
+    if closes:
+        open_dir = 1 if closes["side"] == "long" else -1
+        fees = _d(closes["fill_fee_usd"]) + fee
+        realized = (live_px - _d(closes["fill_price_usd"])) * _d(size) * open_dir - fees
+        gross = realized + fees
+        manifest["realized_live_pnl"] = {
+            "formula": "(close_fill - open_fill) * size * dir - (open_fee + "
+                       "close_fee), Decimal, fees from the chain",
+            "open_price_usd": closes["fill_price_usd"],
+            "close_price_usd": _fmt(live_px),
+            "size": size,
+            "dir": open_dir,
+            "fees_usd": _fmt(fees),
+            "realized_pnl_usd": _fmt(realized),
+            "bucket": _bucket(realized),
+            "venue_closed_pnl_usd": _fmt(closed_pnl),
+            "recon_difference_usd": _fmt(abs(gross - closed_pnl)),
+            "max_pnl_recon_usd": str(_d(max_pnl_recon_usd)),
+            "recon_dispute_expected": abs(gross - closed_pnl) > _d(max_pnl_recon_usd),
+        }
+    man_path = HERE / f"MANIFEST_LIVE_{intent_date}_{open_id}{suffix}.json"
+    _write_lf(man_path, json.dumps(manifest, indent=2) + "\n")
+    return cap_path, man_path
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--close", action="store_true",
                     help="take the paper CLOSE leg of --open-capture (PREREG A1)")
+    ap.add_argument("--live", action="store_true",
+                    help="LIVE leg (PREREG A2): read the chain's fill of the "
+                         "preview the operator submitted by hand; never submits")
+    ap.add_argument("--fills-json", default=None, type=Path)
+    ap.add_argument("--fills-observed-ms", default=None, type=int)
+    ap.add_argument("--max-shadow-lag-ms", default=5000, type=int)
+    ap.add_argument("--max-fill-after-expiry-ms", default=60000, type=int)
+    ap.add_argument("--max-pnl-recon-usd", default="0.000001")
+    ap.add_argument("--poll-seconds", default=120, type=int)
     ap.add_argument("--open-capture", default=None, type=Path)
     ap.add_argument("--ctxs-json", default=None, type=Path)
     ap.add_argument("--ctxs-observed-ms", default=None, type=int)
@@ -473,7 +887,18 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--mids-observed-ms", default=None, type=int)
     ap.add_argument("--max-bps", default="50")
     args = ap.parse_args(argv)
-    if args.close:
+    if args.live and args.close:
+        raise SystemExit("--live and --close are different legs; pick one")
+    if args.live:
+        if args.preview_json is None or args.actor_id is None:
+            raise SystemExit("--live requires --preview-json and --actor-id")
+        cap, man = build_live(args.preview_json, args.actor_id, args.control_wallet,
+                              args.open_capture, args.fills_json,
+                              args.fills_observed_ms, args.mids_json,
+                              args.mids_observed_ms, args.max_bps,
+                              args.max_shadow_lag_ms, args.max_fill_after_expiry_ms,
+                              args.max_pnl_recon_usd, args.poll_seconds)
+    elif args.close:
         if args.open_capture is None:
             raise SystemExit("--close requires --open-capture PATH")
         cap, man = build_close(args.open_capture, args.ctxs_json,
