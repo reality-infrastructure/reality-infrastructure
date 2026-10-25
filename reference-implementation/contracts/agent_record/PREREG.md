@@ -850,3 +850,96 @@ any step would require a size, leverage or coin other than the unit above → ST
 **Daily rule check:** (1) nine signed rows, two chain-signed · (2) graded by the chain the
 moment it fills · (3) code in this repo, record in this log, agent under the operator's
 account. Node unchanged; one variable (the close path), declared.
+
+### A5 — 2026-10-25 — the watched stop (live control 30 bps) and the paper stop-fork population on the same tape
+
+Committed BEFORE the pair is taken and before the watcher tool exists (the ordering is the
+proof). Ruled by the operator today: "we want to be the best loser and always lose fast,
+taking the minimal drawdown to stay in the game"; mechanism = the watched stop through the
+R26 close (not a venue-side `slPrice`, whose execute path is untested on Node 20.18 and
+whose triggered close has no preview — that is a later single variable); live control
+distance = **30 bps**; and, because one account holds one net position, the other stop
+distances are tested in PAPER, in parallel, against the same tape (seven-rules R4), never
+live. A4 is otherwise unchanged: unit, open path, R26 close, five-hour gate, hands.
+
+**Definitions (closed):**
+
+- `adverse_bps(t)` = `(open_fill − mid(t)) / open_fill × 10000` for a long (`(mid − open_fill)
+  / open_fill × 10000` for a short), where `open_fill` is the LIVE open fill price the chain
+  reported (A2 R11, read from the pinned open capture) and `mid(t)` is HyperLiquid `allMids`
+  BTC at poll `t`. Decimal arithmetic only.
+- The **tape** = the watcher's poll log `watch_LIVE_<date>_<previewId>.jsonl`, one row
+  `{ms, mid}` per poll, polled every 5 seconds from the open fill until the five-hour gate
+  (`fill_time_ms + 5 h`), whatever happens to the live position in between. The same tape
+  marks the live control and every fork.
+- **Fork set (closed, this amendment):** stop distances `{10, 20, 30, 50, 100}` bps and
+  `gate_only` (no stop; exits at the gate). The live control is the 30 bps member; it is
+  also marked as a paper fork, so the stop's own sim-to-real gap is measured.
+
+**Decision rules (govern the watcher and the fork adapter, written before them):**
+
+- R27 (the live stop). When the tape first shows `adverse_bps ≥ 30`, the watcher prints
+  `TRIGGER live` with that poll's `ms` and `mid`, and the live close is taken at once by the
+  A4 path: close preview without `size` (A2.2) → saved verbatim → capture tool `--live
+  --open-capture` polling → `place_perp_order` reduce-only LIMIT at `P = markPx × 0.999`
+  rounded down to a whole 10 USD (R26) inside the preview's 60-second window. The
+  submission happens on the operator's STANDING term-bounded go given before the open
+  (a stop cannot wait for a chat round trip); the go names the rule, not a price. If the
+  gate arrives first, the close is taken at the gate the same way (`TRIGGER gate`).
+- R28 (the paper forks). For each fork `S`, the watcher records the first poll with
+  `adverse_bps ≥ S` as `{trigger_ms, trigger_mid}` and pins that poll's full `allMids`
+  payload as `hl_allMids_<ms>.json`; `gate_only` records the poll at or after the gate. A
+  fork that never triggers before the gate records `triggered = false` and exits at the
+  gate poll like `gate_only`. Each fork becomes ONE `chain_assertion`, `ep_type =
+  self_asserted` (a simulation; the record says so), `claimant = "paper-simulator"`,
+  `event_id = agent_record:fork:<openIntentId>:<S|gate_only>`, `claim = {mechanism =
+  "paper-stop-fork", open_intent_id, open_fill_event_id, open_fill_price_usd, size, dir,
+  stop_bps (null for gate_only), triggered, exit_ms, exit_mid_usd, exit_mark_source =
+  "hyperliquid allMids", gross_paper_pnl_usd = (exit_mid − open_fill) × size × dir,
+  fee_model = "none (paper fork; compare to the live control's gross)", tape_file,
+  tape_sha256, payload_file, payload_sha256, mode = "PAPER", is_live_control (bool)}`,
+  `prior_event_refs = (the live open fill event)` — so every fork hangs off the real open
+  fill and nothing else. Forks are compared on GROSS price PnL against the live control's
+  `realized + fees` (the live gross), never on net, because a paper fork pays no fee.
+- R29 (promotion, seven-rules R5). A fork becomes a candidate to replace the live control
+  only after its gross beats the control's gross on **three consecutive forward days**, each
+  day's forks declared before that day's open; today is in-sample for every fork and
+  promotes nothing. Nothing in this amendment changes size (north star rule 2).
+- R30 (one tape, one log). The Day-4 LIVE run holds the A2 nine events plus the six fork
+  events = **fifteen** events in one log (`run_LIVE_2026-10-25_<previewId>.ri`); two
+  `cryptographically_signed`; `prior_event_refs` resolve inside it; the fork events are
+  PAPER-labeled inside a LIVE run by design (they are shadows of one LIVE position, like
+  the A2 shadow fills) and the runner's PAPER/LIVE-mix refusal (R19) keys on intent events
+  only, which stays true.
+- R31 (the watcher reads only). The watcher POSTs `allMids` and nothing else; it never
+  previews, submits, cancels or moves anything; gated by source inspection like the capture
+  tool (S14).
+
+**Files:** `watch_stop_forks.py` (the watcher), `watch_LIVE_<date>_<previewId>.jsonl` (the
+tape), `forks_LIVE_<date>_<previewId>.json` (the fork capture, kind
+`agent_record_fork_capture`, with its MANIFEST), the pinned `hl_allMids_<ms>.json` per
+trigger. Pins land in A5.1 (with the close capture, after the gate), the fork adapter and
+gates in `AGENT-RECORD-P8` with the Day-4 LIVE run.
+
+**Known-answer commitment (structural):** the tape has about 3600 rows (5 h at 5 s;
+fewer only if the watcher is interrupted, which is then recorded); six fork events, each
+with `triggered` and an exit at a mid that appears in the tape; the 30 bps fork's
+`exit_mid` is the mid of the poll that fired `TRIGGER live` (or the gate poll), and the gap
+between it and the live close fill is the stop's sim-to-real gap, published; the live
+realized loss, if the stop fires, is bounded by about 30 bps + both fees + the R26 offset
+(≈ 0.07 USD at this unit) unless the chain's fill lands beyond the limit, which the record
+would show. No fork's number is a prediction; all are measured.
+
+**STOP conditions (added):** S27 the watcher cannot read the open capture's live fill
+price/time → it does not start, and the position is closed at the gate by R26 (recorded as
+"unwatched") · S28 `allMids` fails for more than 60 consecutive seconds → the watcher logs
+the outage rows as `{ms, mid: null}` and continues; an outage spanning the live trigger is
+recorded, never back-filled · S29 any fork or control would need a price that is not in
+the tape → STOP (nothing invented) · S30 the operator's standing go is absent → the stop is
+observed and recorded but NOT acted on, and the close happens at the gate only.
+
+**Honest framing.** With a 30 bps stop under a five-hour gate at this unit, the likely
+outcome on most days is a small loss (stop + fees ≈ 0.07 USD) or the fee alone; the trade
+wins only when price runs favorably before noise reaches the stop. That is the operator's
+stated objective — minimal drawdown, stay in the game — and the forks exist to find out, on
+the record, which distance loses best. The record, not the sign, is the asset.
