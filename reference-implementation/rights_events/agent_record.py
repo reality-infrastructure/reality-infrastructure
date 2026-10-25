@@ -29,6 +29,8 @@ import json
 import sys
 from pathlib import Path
 
+from rights_events.adapters.agent_fork import CAPTURE_KIND as FORK_KIND
+from rights_events.adapters.agent_fork import parse_events as parse_fork_events
 from rights_events.adapters.agent_record import parse_events
 from rights_events.adapters.common import AdapterError
 from rights_events.pipeline import RightsPipeline
@@ -44,11 +46,21 @@ def pinned_captures() -> list[Path]:
     return sorted(_FIXTURES.glob("capture_PAPER_*.json"))
 
 
+def _is_fork(document_text: str) -> bool:
+    try:
+        return json.loads(document_text).get("kind") == FORK_KIND
+    except (json.JSONDecodeError, AttributeError):
+        return False
+
+
 def ingest_captures(document_texts: list[str]) -> tuple[RightsPipeline, list, dict]:
     """Parse every capture, ingest all events into ONE log (PREREG A1 R9)."""
     events: list = []
     for text in document_texts:
-        events.extend(parse_events(text))
+        # A5 R30: a fork capture (the paper stop forks of ONE live position) goes
+        # through its own pure adapter into the same log; everything else is an
+        # agent_record_capture.
+        events.extend(parse_fork_events(text) if _is_fork(text) else parse_events(text))
     modes = {e.claim["mode"] for e in events
              if e.event_id.startswith("agent_record:intent:")}
     if len(modes) > 1:
@@ -97,6 +109,9 @@ def main(argv: list[str] | None = None) -> int:
     print("=" * 70)
     print("AGENT-RECORD EVIDENCE RUN -- END TO END")
     for p, d in zip(paths, docs):
+        if d.get("kind") == FORK_KIND:
+            print(f"PAPER fork capture (stop forks of the live position): {p.name}")
+            continue
         leg = "close" if "closes" in d else "open"
         print(f"{d.get('mode')} capture ({leg} leg): {p.name}")
     print("The operator's own intent beside the outcome it produced; see the")
@@ -124,8 +139,11 @@ def main(argv: list[str] | None = None) -> int:
     gaps = [e for e in events if e.event_id.startswith("agent_record:gap:")]
     signed = [e for e in events if e.ep_type is EPType.CRYPTOGRAPHICALLY_SIGNED]
     disputes = [e for e in events if e.event_type is EventType.DISPUTE]
-    n_live = sum(1 for d in docs if d.get("mode") == "LIVE")
-    expected_fills = sum(2 if d.get("mode") == "LIVE" else 1 for d in docs)
+    legs = [d for d in docs if d.get("kind") != FORK_KIND]
+    n_live = sum(1 for d in legs if d.get("mode") == "LIVE")
+    expected_fills = sum(2 if d.get("mode") == "LIVE" else 1 for d in legs)
+    forks = [e for e in events if e.event_id.startswith("agent_record:fork:")]
+    n_fork_docs = len(docs) - len(legs)
     logged = set(indices)
     refs_ok = all(ref in logged for e in events for ref in e.prior_event_refs)
     inclusions_ok = _all_inclusions_verify(pipeline)
@@ -136,9 +154,13 @@ def main(argv: list[str] | None = None) -> int:
                 f"{len(fills)} fill, {len(realized)} realized, {len(disputes)} dispute")
     if n_live:
         c1_label += f", {len(gaps)} gap, {len(signed)} cryptographically_signed"
+    if n_fork_docs:
+        c1_label += f", {len(forks)} paper stop fork"
     checks = [
         (c1_label,
-         len(intents) == len(paths) and len(fills) == expected_fills
+         len(intents) == len(legs) and len(fills) == expected_fills
+         and (n_fork_docs == 0 or (len(forks) >= 2 and all(
+             e.ep_type is EPType.SELF_ASSERTED for e in forks)))
          and len(gaps) == n_live and len(signed) == n_live
          and len(realized) <= len(intents)),
         (f"C2 all {len(pipeline.event_log)} inclusion proofs verify against "
@@ -154,6 +176,12 @@ def main(argv: list[str] | None = None) -> int:
               f"(live {c['live_price_usd']} vs paper {c['paper_price_usd']}, "
               f"cost sign {c['cost_sign']:+d}, shadow lag {c['shadow_lag_ms']} ms, "
               f"live fee {c['live_fee_usd']} USD)")
+    for e in sorted(forks, key=lambda e: (e.claim["stop_bps"] is None, e.claim["stop_bps"] or 0)):
+        c = e.claim
+        print(f"Paper stop fork {c['fork']:>9}{' (live control)' if c['is_live_control'] else ''}: "
+              f"{'triggered' if c['triggered'] else 'untriggered'}, exit by {c['exit_reason']} at "
+              f"mid {c['exit_mid_usd']} (adverse {c['adverse_bps_at_exit']} bps), gross "
+              f"{c['gross_paper_pnl_usd']} USD")
     for e in realized:
         label = "live" if e.claim["mode"] == "LIVE" else "paper"
         print(f"Realized {label} PnL ({e.claim['open_intent_id']}): "
@@ -162,7 +190,7 @@ def main(argv: list[str] | None = None) -> int:
               f"size {e.claim['size']}, fees {e.claim['fees_usd']}"
               + (f", venue closedPnl {e.claim['venue_closed_pnl_usd']}"
                  if label == "live" else "") + ")")
-    if realized or gaps:
+    if realized or gaps or forks:
         print()
 
     print(f"Event log root: {root.hex()}")

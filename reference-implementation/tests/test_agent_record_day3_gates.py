@@ -225,6 +225,12 @@ def test_default_run_still_paper_only_and_live_captures_are_exactly_two():
     names = [p.name for p in runner.pinned_captures()]
     assert names and all(n.startswith("capture_PAPER_") for n in names)
     live = sorted(p.name for p in _FIX.glob("capture_LIVE_*.json"))
-    assert live == [OPEN_CAP.name, CLOSE_CAP.name]
+    # Day 3 pinned "exactly these two"; from Day 4 on each day's pair adds its own dated
+    # pair, so the gate keeps the Day-3 pair present and every LIVE capture dated and
+    # named by its venue preview id (widened 2026-10-25, disclosed in the P8 evidence).
+    assert OPEN_CAP.name in live and CLOSE_CAP.name in live
+    import re
+    assert all(re.fullmatch(r"capture_LIVE_2026-\d\d-\d\d_pv_[0-9a-f]{16}(_close)?\.json", n)
+               for n in live), live
     unexecuted = ("pv_a92f3a6925f7404f", "pv_11bbb908b7f74c6d", "pv_3351b5b948e9488b")
     assert not any((_FIX / f"gdex_preview_{pv}.json").exists() for pv in unexecuted)

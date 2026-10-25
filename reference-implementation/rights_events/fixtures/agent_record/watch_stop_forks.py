@@ -69,6 +69,7 @@ def new_state(open_doc: dict, live_stop_bps: int, fork_bps: list[int],
                  "Simulations, self-asserted; nothing was submitted for any fork. The live "
                  "control's close, if it fired, is in the LIVE close capture beside this."),
         "actor": dict(open_doc["actor"]),
+        "source_url": HL_INFO_URL,
         "open": {
             "capture": None,                     # filled by main (file name + sha)
             "capture_sha256": None,
