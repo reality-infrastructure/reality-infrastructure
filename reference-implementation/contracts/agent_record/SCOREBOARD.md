@@ -510,3 +510,133 @@ on, now observed on the operator's own rows.
 - The 11 USD backend floor on market closes at this size: either size the next position
   so a market close clears it, or keep the marketable reduce-only limit as the close path
   and say so in the prereg before the next trade.
+
+## A3 + P6 + A3.1 + P7 (Day 4, 2026-10-25) — the honest week-board mirror
+
+Run on 2026-10-25 (local) from the same directory and branch. Preflight before anything:
+head `727e29f` = origin, frozen-path diff empty, `829 passed`.
+
+### Commit ordering (the proof)
+
+```
+dc79102 AGENT-RECORD-A3    rules for the mirror (R20-R25, S18-S22, known answer predicted)  (before any mirror code)
+382393a AGENT-RECORD-P6    adapter + runner + renderer + capture tool + 18 derived gates        (before any board payload existed)
+59c8ae4 AGENT-RECORD-A3.1  the real board payload pinned (30 rows, actor on no board)          (before its gate)
+<this>  AGENT-RECORD-P7    gates on the real capture + the board run + the mirror files + this evidence + DONE
+```
+
+### The daily list, applied (doc "Week one" tab, "Every day, in order", added today)
+
+1 preflight green · 2 prereg first (A3 before P6; A3.1 before P7) · 3 the settled pair is
+pre-registered next (A4) and taken on the operator's go, not by this code · 4 the real
+payload pinned before its gate · 5 run + `--verify` below · 6 the Day-3 gaps carried into
+the verified row unchanged · 7 size unchanged (one unit) · 8 this evidence + DONE + push ·
+9 Standing row after the push · 10 nothing missed yet today; the Node upgrade is recorded
+as deferred, not as a miss.
+
+### Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`
+
+```
+55608 4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316 gdex_hl_top_traders_by_pnl_2026-10-25.json
+9080  3c79b46c7b300c63b6aa14e00c5d07d4c355618f7224fdf92543d2c7b9417504 capture_BOARD_2026-10-25.json
+1686  e158701124bfef1e7dd6b9a4c51bf2a853a10e33a6e03fa0b2d793ff3979d3b9 MANIFEST_BOARD_2026-10-25.json
+```
+
+### Gates — `pytest tests/test_agent_record_day4_gates.py tests/test_agent_board_gates.py -q` (18 derived + 14 real)
+
+```
+................................                                         [100%]
+32 passed in 0.53s
+```
+
+All agent-record gates (Days 1-4): `133 passed in 0.75s`.
+
+### Engine untouched
+
+```
+$ git diff --stat contract/trading-frame -- ri_core/ rights_events/schema.py rights_events/policy.py rights_events/pipeline.py rights_events/replay.py
+(empty)
+```
+
+Full suite (861 = 829 pre-existing + 32 new, 0 modified):
+
+```
+.....................................................................    [100%]
+861 passed in 21.91s
+```
+
+### Runner, end to end — `python -m rights_events.agent_board --out rights_events/fixtures/agent_record/run_BOARD_2026-10-25.ri --mirror-out rights_events/fixtures/agent_record/board_2026-10-25`
+
+```
+Subject: agent:0x9f976123e7c48952be487664b8130aad144b7f23
+  [0] agent_record:board:week:1792906235038   chain_assertion, self_asserted, observed 2026-10-25, claimant gdex-leaderboard
+  [1] agent_record:mirror:2026-10-25          chain_assertion, third_party_attested, observed 2026-10-25, claimant record-mirror-check
+
+Venue board: 30 rows, window week, payload sha256 4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316, actor on board: False
+Verified row: 3 run files, 2 chain hashes, settled pairs {'PAPER': 1, 'LIVE': 1}, realized PAPER 0.08764 USD, realized LIVE -0.035183 USD (fees 0.032383), gaps ['0.06189842468509176441459564854', '0.06191298748738522879944525963'] bps
+
+Event log root: 6190df8f34f3066b6c52a9e088f6c6957e0d81e810bc1bdf91883267f66e72d3
+Run file:       rights_events/fixtures/agent_record/run_BOARD_2026-10-25.ri (18095 bytes)
+Mirror:         rights_events\fixtures\agent_record\board_2026-10-25.json (17265 bytes)
+Mirror:         rights_events\fixtures\agent_record\board_2026-10-25.md (6487 bytes)
+Mirror:         rights_events\fixtures\agent_record\board_2026-10-25.html (16973 bytes)
+
+Checks:
+  PASS  C1 adapter produced 2 events: 1 board (self_asserted), 1 verified row (third_party_attested), 0 dispute, 0 cryptographically_signed
+  PASS  C2 all 2 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+  PASS  C5 verified row traces: every number is a claim value of a reloaded run-file event
+  PASS  C6 venue rows carry the pinned payload's strings unchanged
+
+AGENT-RECORD BOARD RUN: OK
+```
+
+(`0.08764` is the canonical form of the Day-2 figure `0.087640`; Decimal-equal, and the
+Day-4 gate compares them as Decimals.)
+
+The committed Day-4 run file and mirror files (bytes · sha256):
+
+```
+18095 3d4f13d611d0383bdd6af71a4285e5aa4a6d1cb2a77b968f5ac5eb9c09b8d1ab run_BOARD_2026-10-25.ri
+17265 79240201ac3acfdf883a0d32abb94fc55751e0a4891d1ac21de9f201d563bce9 board_2026-10-25.json
+6487  677371aa2d124cbda4d482c08df5395feb7bb4a5d7e87e160049cd0c193d8211 board_2026-10-25.md
+16973 d16b07c86db96ad32e195e869f30a4ed39fbc5f9900e64702db06d6824d5772b board_2026-10-25.html
+```
+
+The PAPER and LIVE run files are untouched and gated (roots 14ffd9c7…, 2b5a846b…,
+8777b0a1…).
+
+### Stranger's check — `python -m rights_events.agent_board --verify --run rights_events/fixtures/agent_record/run_BOARD_2026-10-25.ri`
+
+```
+VERIFY rights_events/fixtures/agent_record/run_BOARD_2026-10-25.ri: reloaded 2 events, all signatures re-verified, all inclusion proofs verified; event-log root 6190df8f34f3066b6c52a9e088f6c6957e0d81e810bc1bdf91883267f66e72d3
+RESULT: OK
+```
+
+### Known answers (PREREG A3 / A3.1), as committed
+
+Board: 30 rows · actor on board false · listing [] · payload sha 4caa7ef6…9316 (as
+predicted in A3; S22 not triggered). Verified row: 3 run files, roots 14ffd9c7… /
+2b5a846b… / 8777b0a1…, 2 hashes (0x8402a8c3…3ab2, 0x906ccd1d…8c07), settled pairs PAPER 1
+/ LIVE 1, realized PAPER +0.087640, realized LIVE −0.035183, LIVE fees 0.032383, gaps
++0.0619 / +0.0619 bps, never summed across modes. Two events, zero disputes, zero
+`cryptographically_signed` (R25). Trace gate (S20): every number in the verified row is a
+claim value of a reloaded run-file event.
+
+### The mirror, published
+
+`board_2026-10-25.html` is published as a private page:
+https://claude.ai/artifact/Tb9EiDkMyvWrGgBbtFnFVu (the same bytes as the committed file;
+the page renders from the repo's file, nothing else). Thirty rows read `self-reported`;
+one row reads `verified`, and it is the row with the smallest numbers and a loss. That is
+the point: the row is there because a stranger can check it, not because of its sign.
+
+### Carried forward (environment, not rules)
+
+- Node ≥ 20.19 on this machine remains deferred: not the binding constraint while the
+  reduce-only limit close path works (A3 decision). Revisit when it binds.
+- Rung 2 (nightly board mirror, 2026-11-04): the same tool and runner, run nightly, each
+  night's payload its own pinned capture and its own board run.
+- Rung 3 (2026-11-18): the venue's thirty rows checked against `userFillsByTime`, each
+  with a status that can move from `self_reported` to `verified` or to a dispute.

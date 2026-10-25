@@ -1,0 +1,144 @@
+<title>Proof of Outcome Week Board</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root {
+  /* ledger: cool paper, ink with a blue bias, one teal accent; semantic green only on "verified" */
+  --bg: #f5f6f8; --surface: #ffffff; --fg: #15202b; --muted: #5b6672; --rule: #d9dee5;
+  --accent: #0e6e7a; --verified-bg: #e3f3e8; --verified-fg: #14532d;
+  --self-bg: #eef0f3; --self-fg: #44505c;
+  --display: "Avenir Next", "Segoe UI Variable Display", "Segoe UI", system-ui, sans-serif;
+  --body: "Segoe UI", system-ui, -apple-system, sans-serif;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #121820; --surface: #1a222c; --fg: #e6ebf0; --muted: #98a4b1; --rule: #2c3743;
+  --accent: #5fc3cf; --verified-bg: #16321f; --verified-fg: #a6e3b8;
+  --self-bg: #242e39; --self-fg: #b4bec8; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #121820; --surface: #1a222c; --fg: #e6ebf0; --muted: #98a4b1; --rule: #2c3743;
+  --accent: #5fc3cf; --verified-bg: #16321f; --verified-fg: #a6e3b8;
+  --self-bg: #242e39; --self-fg: #b4bec8; color-scheme: dark }
+body { background: var(--bg); color: var(--fg); font-family: var(--body); line-height: 1.5;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 48px; }
+main { max-width: 1040px; margin: 0 auto; display: grid; gap: 28px; }
+h1 { font-family: var(--display); font-size: clamp(1.6rem, 3.5vw, 2.3rem); letter-spacing: -0.01em;
+  margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-size: 1.15rem; margin: 0 0 10px; }
+p { margin: 0; max-width: 68ch; }
+.lead { color: var(--muted); }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.chip { display: inline-block; font: 600 0.72rem/1 var(--body); letter-spacing: 0.04em; padding: 5px 8px;
+  border-radius: 3px; text-transform: uppercase; white-space: nowrap; }
+.chip.self { background: var(--self-bg); color: var(--self-fg); }
+.chip.verified { background: var(--verified-bg); color: var(--verified-fg); }
+.legend { display: grid; gap: 10px; }
+.legend div { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; }
+.wrap { overflow-x: auto; border: 1px solid var(--rule); background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 0.86rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 8px 10px; border-bottom: 1px solid var(--rule); text-align: left; vertical-align: top; }
+th { font-weight: 600; color: var(--muted); font-size: 0.74rem; letter-spacing: 0.04em; text-transform: uppercase; }
+td.num, th.num { text-align: right; font-family: var(--mono); }
+.mono { font-family: var(--mono); font-size: 0.82rem; word-break: break-all; }
+tr:last-child td { border-bottom: 0; }
+.card { background: var(--surface); border: 1px solid var(--rule); border-left: 4px solid var(--verified-fg);
+  padding: 18px; display: grid; gap: 14px; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.facts div { min-width: 0; }
+.facts .k { font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.facts .v { font-family: var(--mono); font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+a { color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+code { font-family: var(--mono); font-size: 0.82rem; background: var(--self-bg); padding: 1px 4px; border-radius: 3px; }
+footer { color: var(--muted); font-size: 0.86rem; display: grid; gap: 6px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+<main>
+  <header style="display:grid;gap:10px">
+    <div class="eyebrow">Proof of Outcome · mirror of gdex.pro HyperLiquid PnL board · week window · as of 2026-10-25</div>
+    <h1>One verified row beside thirty self-reported ones</h1>
+    <p class="lead">The venue's public week board, carried verbatim, and the operator's own account as the first row whose every number a stranger can re-verify offline and against the chain. No venue number is recomputed, re-ranked or corrected; no venue address&#x27;s fills are checked (rung 3).</p>
+  </header>
+
+  <section class="legend" aria-label="What the two statuses mean">
+    <div><span class="chip self">self-reported</span><p>The venue&#x27;s displayed figure, carried verbatim from its public payload. Not checked against the chain here.</p></div>
+    <div><span class="chip verified">verified</span><p>Every number traces to a signed event in a committed run file that re-verifies offline (signatures + inclusion proofs); LIVE fills carry their HyperLiquid L1 transaction hashes.</p></div>
+  </section>
+
+  <section>
+    <h2>The venue's board</h2>
+    <p class="lead" style="margin-bottom:10px">30 rows from <code>gdex_hl_top_traders_by_pnl_2026-10-25.json</code>, sha256 <span class="mono">4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316</span>, observed ms 1792906235038. Source: <a href="https://trade-api.gemach.io/v1/hl/top_traders_by_pnl" rel="noopener">https://trade-api.gemach.io/v1/hl/top_traders_by_pnl</a>.</p>
+    <div class="wrap"><table>
+      <thead><tr><th class="num">rank</th><th>address</th><th class="num">week pnl (USDC)</th><th class="num">week roi</th><th class="num">account value (USDC)</th><th>status</th></tr></thead>
+      <tbody>
+<tr><td class="num">1</td><td class="mono">0x5b5d51203a0f9079f8aeb098a6523a13f298c060</td><td class="num">10599150.8316670004</td><td class="num">0.0523994296</td><td class="num">231722858.8703080118</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">2</td><td class="mono">0x3a98be4692cae9eee26ecf73b4be7b8961ebf4b8</td><td class="num">8923425.9970249999</td><td class="num">101.8572915064</td><td class="num">9011033.1370250005</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">3</td><td class="mono">0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36</td><td class="num">6572173.9598059999</td><td class="num">0.0350438145</td><td class="num">209271200.1717559993</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">4</td><td class="mono">0x8cfac7c6f03e00db2f298699df96933a9694b6ab</td><td class="num">6138843.2866970003</td><td class="num">10.5585199325</td><td class="num">6720254.6327879997</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">5</td><td class="mono">0xdd53c5297309130ab5fe5623dc905752e3342b13</td><td class="num">4778960.9643710004</td><td class="num">0.0716058071</td><td class="num">71518812.870709002</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">6</td><td class="mono">0x7fdafde5cfb5465924316eced2d3715494c517d1</td><td class="num">4013387.6576160002</td><td class="num">0.068090824</td><td class="num">40361476.927451998</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">7</td><td class="mono">0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8</td><td class="num">3849246.1058979994</td><td class="num">0.1830263754</td><td class="num">44140237.8843059987</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">8</td><td class="mono">0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae</td><td class="num">3588405.2967250003</td><td class="num">0.1910966395</td><td class="num">15782947.8120770007</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">9</td><td class="mono">0xdcda2478f8f4f16fe13335f7b2795e2ce3520176</td><td class="num">3312000.0</td><td class="num">1104.0</td><td class="num">3315000.0</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">10</td><td class="mono">0x6910c590d8503a1f3ef5ea9b64a5d7c7f3b5feda</td><td class="num">3102560.4061230002</td><td class="num">1.1987270102</td><td class="num">5696160.943736</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">11</td><td class="mono">0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00</td><td class="num">3072600.2349999999</td><td class="num">0.0528372992</td><td class="num">93321980.9379729927</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">12</td><td class="mono">0x45d26f28196d226497130c4bac709d808fed4029</td><td class="num">2796575.4737189999</td><td class="num">0.1017126364</td><td class="num">62337089.7428909987</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">13</td><td class="mono">0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf</td><td class="num">2577231.0986610004</td><td class="num">0.0241768848</td><td class="num">118893526.1586189866</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">14</td><td class="mono">0xdf954bbe619273a56e0cfa90dad8382195dc7d72</td><td class="num">2445612.7345069996</td><td class="num">0.0635482958</td><td class="num">46021942.8476300016</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">15</td><td class="mono">0xbf732ea04197942783e34730ed6e0f6099575d58</td><td class="num">2414713.078772</td><td class="num">0.2935262884</td><td class="num">9826101.4486030005</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">16</td><td class="mono">0xf5d81a135f756ca16544e53c20fc20643ec3ad53</td><td class="num">2256556.5015870002</td><td class="num">0.0275433496</td><td class="num">84374065.0574519932</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">17</td><td class="mono">0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb</td><td class="num">2169372.12634</td><td class="num">0.1084686107</td><td class="num">22169371.3263400011</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">18</td><td class="mono">0xf02d16a272a842f8bac1d9a9e773aba1933454c6</td><td class="num">2100153.0001699999</td><td class="num">0.1631888561</td><td class="num">32395522.0261210017</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">19</td><td class="mono">0x856c35038594767646266bc7fd68dc26480e910d</td><td class="num">1963087.4273389999</td><td class="num">0.0358662971</td><td class="num">79905898.1884420067</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">20</td><td class="mono">0xd4c1f7e8d876c4749228d515473d36f919583d1d</td><td class="num">1834097.0099559999</td><td class="num">0.2076117135</td><td class="num">5267441.9331219997</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">21</td><td class="mono">0xb695651daa495f59dd2725c6fe98322d8b51a92d</td><td class="num">1725026.885246</td><td class="num">0.0351138849</td><td class="num">48928430.8744330034</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">22</td><td class="mono">0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d</td><td class="num">1555593.831336</td><td class="num">0.0427835864</td><td class="num">32935162.0499190018</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">23</td><td class="mono">0xff4cd3826ecee12acd4329aada4a2d3419fc463c</td><td class="num">1527737.5292089996</td><td class="num">0.0450420455</td><td class="num">45913169.9078159854</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">24</td><td class="mono">0x484bc1608211d0604bf70bae72792a56884562f8</td><td class="num">1504901.7780539999</td><td class="num">0.0971318386</td><td class="num">48690992.9244529903</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">25</td><td class="mono">0x5647249079e257329ecb6f46ed41821d3c69e7de</td><td class="num">1450944.006576</td><td class="num">0.5164681408</td><td class="num">6418804.2461320003</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">26</td><td class="mono">0x218a65e21eddeece7a9df38c6bbdd89f692b7da2</td><td class="num">1398702.2095989999</td><td class="num">0.0865486254</td><td class="num">13459585.1990140006</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">27</td><td class="mono">0x88560b720239179d7f3f9e49ca934a4861593d7f</td><td class="num">1351907.500641</td><td class="num">0.169756019</td><td class="num">32852284.6143620051</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">28</td><td class="mono">0xd8c5228c515db3043dfa0c8cd6f22450ee9a99b0</td><td class="num">1265410.883128</td><td class="num">0.0850547694</td><td class="num">19340937.5181230009</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">29</td><td class="mono">0x77ee3604adbdefa66a817b3cf776412a6613a018</td><td class="num">1240723.150719</td><td class="num">0.3727509449</td><td class="num">6227482.8201869996</td><td><span class="chip self">self-reported</span></td></tr>
+<tr><td class="num">30</td><td class="mono">0xbfce143acf73a34a1f8b2e2da64736146035c732</td><td class="num">1112000.0</td><td class="num">1112.0</td><td class="num">1113000.0</td><td><span class="chip self">self-reported</span></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section class="card" aria-label="The operator's verified row">
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <span class="chip verified">verified</span>
+      <span class="mono">0x9f976123e7c48952be487664b8130aad144b7f23</span>
+      <span class="lead">on the venue's board: no</span>
+    </div>
+    <div class="facts">
+      <div><div class="k">settled pairs</div><div class="v">PAPER 1 · LIVE 1</div></div>
+      <div><div class="k">realized, LIVE (USD)</div><div class="v">-0.035183</div></div>
+      <div><div class="k">LIVE fees (USD)</div><div class="v">0.032383</div></div>
+      <div><div class="k">realized, PAPER (USD)</div><div class="v">0.08764</div></div>
+      <div><div class="k">sim-to-real gaps (bps)</div><div class="v" style="font-size:0.9rem">0.06189842468509176441459564854, 0.06191298748738522879944525963</div></div>
+    </div>
+    <p class="lead">PAPER and LIVE are different positions and are never summed. The LIVE result is a loss, and all of it is the fee; the row is here because it can be checked, not because of its sign.</p>
+    <div class="wrap"><table>
+      <thead><tr><th>run file</th><th>mode</th><th class="num">events</th><th class="num">signed</th><th>event-log root</th></tr></thead>
+      <tbody>
+<tr><td class="mono">run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri</td><td>PAPER</td><td class="num">2</td><td class="num">0</td><td class="mono">14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c</td></tr>
+<tr><td class="mono">run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri</td><td>PAPER</td><td class="num">5</td><td class="num">0</td><td class="mono">2b5a846b714d578da06f71d3dc1e9e29c6d92e1358e0c76cbabf5f6f32adfc38</td></tr>
+<tr><td class="mono">run_LIVE_2026-10-24_pv_e1849abce514440c.ri</td><td>LIVE</td><td class="num">9</td><td class="num">2</td><td class="mono">8777b0a1e37df424f804943eb6c2e37b6c9853d8e241e1daefd8b772a754ee95</td></tr>
+      </tbody>
+    </table></div>
+    <div>
+      <div class="eyebrow" style="margin-bottom:6px">Chain fills, HyperLiquid L1</div>
+      <ul style="margin:0;padding-left:18px;display:grid;gap:4px">
+<li><a class="mono" href="https://app.hyperliquid.xyz/explorer/tx/0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07" rel="noopener">https://app.hyperliquid.xyz/explorer/tx/0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07</a></li>
+<li><a class="mono" href="https://app.hyperliquid.xyz/explorer/tx/0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2" rel="noopener">https://app.hyperliquid.xyz/explorer/tx/0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2</a></li>
+      </ul>
+    </div>
+    <p>Verify any run file offline: <code>python -m rights_events.agent_record --verify --run rights_events/fixtures/agent_record/&lt;run file&gt;</code></p>
+  </section>
+
+  <footer>
+    <div>This mirror's own run: <code>run_BOARD_2026-10-25.ri</code>, root <span class="mono">6190df8f34f3066b6c52a9e088f6c6957e0d81e810bc1bdf91883267f66e72d3</span>, events <code>agent_record:board:week:1792906235038</code> and <code>agent_record:mirror:2026-10-25</code>.</div>
+    <div>Record source: <a href="https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record" rel="noopener">https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record</a>. An independent mirror; not operated by or affiliated with the venue.</div>
+  </footer>
+</main>

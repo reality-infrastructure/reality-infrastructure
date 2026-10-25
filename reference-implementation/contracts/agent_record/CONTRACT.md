@@ -192,3 +192,41 @@ reference-implementation/
   MCP server at 5.1.0, so the close-by-preview path works; decide in the prereg whether
   the close is a market order sized above the 11 USD floor or the marketable reduce-only
   limit used today.
+
+## DONE report (Day 4: the honest week-board mirror, 2026-10-25)
+
+- **Planned (PREREG A3, morning of 2026-10-25, before any mirror code):** the venue's public
+  `week` board carried verbatim as `self_reported` rows beside the operator's own account as
+  ONE `verified` row whose every number traces to an event in a committed run file; the
+  board observation and the verified-row computation as two events in a new run file (the
+  daily rule's signed rows); no venue number recomputed, re-ranked or checked today (rung
+  3); the known answer predicted (30 rows, actor on no board) and pinned in A3.1 before its
+  gate.
+- **Implemented:** `rights_events/adapters/agent_board.py` (pure adapter, R20 board
+  observation + R21 verified row, PAPER/LIVE never summed, board runs refused as evidence),
+  `rights_events/agent_board.py` (runner reloading the Day 1-3 run files through
+  `RightsPipeline.load`, one new log, C1-C6 including the S20 trace gate and C6
+  byte-equality to the pinned payload, `--verify`, pure renderers for `.json`/`.md`/`.html`),
+  `capture_board_from_gdex.py` (gdex SDK UA; reads one public page and nothing else), 32
+  new gates (18 on derived documents, 14 on the real capture, run and mirror files).
+- **Taken:** one live fetch of the board (HTTP 200 with the SDK UA; 403 to a bare client,
+  recorded). 30 rows; the operator's address on none of the four windows — exactly as
+  predicted. Board run: two events, zero disputes, zero `cryptographically_signed`, root
+  `6190df8f…72d3`, run file `run_BOARD_2026-10-25.ri` (sha256 3d4f13d6…d1ab). Mirror files
+  committed (sha256 79240201…bce9 / 677371aa…8211 / d16b07c8…772b) and the HTML published
+  privately at https://claude.ai/artifact/Tb9EiDkMyvWrGgBbtFnFVu.
+- **Tested:** `32 passed in 0.53s` (Day-4 gates); all agent-record gates `133 passed in
+  0.75s`; full suite `861 passed in 21.91s` (+32 new, 0 modified); frozen-path diff empty;
+  `--verify` OK on all four run files; Day 1-3 run files byte-untouched.
+- **Committed:** `dc79102` (A3) → `382393a` (P6) → `59c8ae4` (A3.1) → this
+  `AGENT-RECORD-P7` commit; every amendment strictly before the code or gate that consumes
+  it. Push status is stated in the P7 session report.
+- **Honest note:** the only verified row on the mirror is the smallest row and a loss of
+  three and a half cents, all of it fees. Thirty rows with week PnLs in the millions carry
+  no verification at all here; ten days ago 43 of this venue's 84 board addresses diverged
+  displayed-vs-realized. The mirror's value is the status column, not the numbers. Node
+  stays at 20.18 by decision (not the binding constraint), recorded in A3.
+- **Next:** today's settled pair under A4 (the close path pre-registered as the marketable
+  reduce-only limit that worked on Day 3; opened and closed on the operator's explicit go,
+  inside the five-hour gate); Day 5 review (one chart from the signed log, one
+  limiting-factor sentence, next 50th-percentile date); rung 2 = this mirror nightly.

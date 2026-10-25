@@ -1,0 +1,407 @@
+{
+  "kind": "proof_of_outcome_board_mirror",
+  "as_of": "2026-10-25",
+  "observed_ms": 1792906235038,
+  "statuses": {
+    "self_reported": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here.",
+    "verified": "Every number traces to a signed event in a committed run file that re-verifies offline (signatures + inclusion proofs); LIVE fills carry their HyperLiquid L1 transaction hashes."
+  },
+  "venue": {
+    "name": "gdex.pro HyperLiquid PnL board",
+    "window": "week",
+    "source_url": "https://trade-api.gemach.io/v1/hl/top_traders_by_pnl",
+    "payload_file": "gdex_hl_top_traders_by_pnl_2026-10-25.json",
+    "payload_sha256": "4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316",
+    "rows": 30,
+    "user_agent_rule": "the gdex SDK default User-Agent (GdexApiClient DEFAULT_USER_AGENT); a bare client is answered HTTP 403 'Access denied: Non-browser clients not allowed' (measured 2026-10-25)",
+    "what_is_not_done": "No venue number is recomputed, re-ranked or corrected; no venue address's fills are checked (rung 3)."
+  },
+  "actor": {
+    "actor_id": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "on_venue_board": false,
+    "boards_listing_actor": []
+  },
+  "rows": [
+    {
+      "status": "self_reported",
+      "rank": 1,
+      "address": "0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+      "account_value_usdc": "231722858.8703080118",
+      "week_pnl_usdc": "10599150.8316670004",
+      "week_roi": "0.0523994296",
+      "week_vlm": "50088722.2700000033",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 2,
+      "address": "0x3a98be4692cae9eee26ecf73b4be7b8961ebf4b8",
+      "account_value_usdc": "9011033.1370250005",
+      "week_pnl_usdc": "8923425.9970249999",
+      "week_roi": "101.8572915064",
+      "week_vlm": "71906.85",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 3,
+      "address": "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+      "account_value_usdc": "209271200.1717559993",
+      "week_pnl_usdc": "6572173.9598059999",
+      "week_roi": "0.0350438145",
+      "week_vlm": "95978624.9099999964",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 4,
+      "address": "0x8cfac7c6f03e00db2f298699df96933a9694b6ab",
+      "account_value_usdc": "6720254.6327879997",
+      "week_pnl_usdc": "6138843.2866970003",
+      "week_roi": "10.5585199325",
+      "week_vlm": "0.0",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 5,
+      "address": "0xdd53c5297309130ab5fe5623dc905752e3342b13",
+      "account_value_usdc": "71518812.870709002",
+      "week_pnl_usdc": "4778960.9643710004",
+      "week_roi": "0.0716058071",
+      "week_vlm": "29000627.4600000009",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 6,
+      "address": "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+      "account_value_usdc": "40361476.927451998",
+      "week_pnl_usdc": "4013387.6576160002",
+      "week_roi": "0.068090824",
+      "week_vlm": "631676704.5499999523",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 7,
+      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "account_value_usdc": "44140237.8843059987",
+      "week_pnl_usdc": "3849246.1058979994",
+      "week_roi": "0.1830263754",
+      "week_vlm": "220944596.9000000656",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 8,
+      "address": "0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae",
+      "account_value_usdc": "15782947.8120770007",
+      "week_pnl_usdc": "3588405.2967250003",
+      "week_roi": "0.1910966395",
+      "week_vlm": "72716447.5300000012",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 9,
+      "address": "0xdcda2478f8f4f16fe13335f7b2795e2ce3520176",
+      "account_value_usdc": "3315000.0",
+      "week_pnl_usdc": "3312000.0",
+      "week_roi": "1104.0",
+      "week_vlm": "0.0",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 10,
+      "address": "0x6910c590d8503a1f3ef5ea9b64a5d7c7f3b5feda",
+      "account_value_usdc": "5696160.943736",
+      "week_pnl_usdc": "3102560.4061230002",
+      "week_roi": "1.1987270102",
+      "week_vlm": "0.0",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 11,
+      "address": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+      "account_value_usdc": "93321980.9379729927",
+      "week_pnl_usdc": "3072600.2349999999",
+      "week_roi": "0.0528372992",
+      "week_vlm": "2782274399.5599999428",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 12,
+      "address": "0x45d26f28196d226497130c4bac709d808fed4029",
+      "account_value_usdc": "62337089.7428909987",
+      "week_pnl_usdc": "2796575.4737189999",
+      "week_roi": "0.1017126364",
+      "week_vlm": "353591.84",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 13,
+      "address": "0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf",
+      "account_value_usdc": "118893526.1586189866",
+      "week_pnl_usdc": "2577231.0986610004",
+      "week_roi": "0.0241768848",
+      "week_vlm": "5219634006.279999733",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 14,
+      "address": "0xdf954bbe619273a56e0cfa90dad8382195dc7d72",
+      "account_value_usdc": "46021942.8476300016",
+      "week_pnl_usdc": "2445612.7345069996",
+      "week_roi": "0.0635482958",
+      "week_vlm": "35377783.5",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 15,
+      "address": "0xbf732ea04197942783e34730ed6e0f6099575d58",
+      "account_value_usdc": "9826101.4486030005",
+      "week_pnl_usdc": "2414713.078772",
+      "week_roi": "0.2935262884",
+      "week_vlm": "794483535.9199999571",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 16,
+      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "account_value_usdc": "84374065.0574519932",
+      "week_pnl_usdc": "2256556.5015870002",
+      "week_roi": "0.0275433496",
+      "week_vlm": "8895198018.6899986267",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 17,
+      "address": "0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb",
+      "account_value_usdc": "22169371.3263400011",
+      "week_pnl_usdc": "2169372.12634",
+      "week_roi": "0.1084686107",
+      "week_vlm": "49656642.3400000036",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 18,
+      "address": "0xf02d16a272a842f8bac1d9a9e773aba1933454c6",
+      "account_value_usdc": "32395522.0261210017",
+      "week_pnl_usdc": "2100153.0001699999",
+      "week_roi": "0.1631888561",
+      "week_vlm": "21160484.620000001",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 19,
+      "address": "0x856c35038594767646266bc7fd68dc26480e910d",
+      "account_value_usdc": "79905898.1884420067",
+      "week_pnl_usdc": "1963087.4273389999",
+      "week_roi": "0.0358662971",
+      "week_vlm": "341593280.3799999952",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 20,
+      "address": "0xd4c1f7e8d876c4749228d515473d36f919583d1d",
+      "account_value_usdc": "5267441.9331219997",
+      "week_pnl_usdc": "1834097.0099559999",
+      "week_roi": "0.2076117135",
+      "week_vlm": "209992596.2400000095",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 21,
+      "address": "0xb695651daa495f59dd2725c6fe98322d8b51a92d",
+      "account_value_usdc": "48928430.8744330034",
+      "week_pnl_usdc": "1725026.885246",
+      "week_roi": "0.0351138849",
+      "week_vlm": "34634225.75",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 22,
+      "address": "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+      "account_value_usdc": "32935162.0499190018",
+      "week_pnl_usdc": "1555593.831336",
+      "week_roi": "0.0427835864",
+      "week_vlm": "416292140.7900000215",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 23,
+      "address": "0xff4cd3826ecee12acd4329aada4a2d3419fc463c",
+      "account_value_usdc": "45913169.9078159854",
+      "week_pnl_usdc": "1527737.5292089996",
+      "week_roi": "0.0450420455",
+      "week_vlm": "2301999901.3099994659",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 24,
+      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
+      "account_value_usdc": "48690992.9244529903",
+      "week_pnl_usdc": "1504901.7780539999",
+      "week_roi": "0.0971318386",
+      "week_vlm": "54917962.5500000045",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 25,
+      "address": "0x5647249079e257329ecb6f46ed41821d3c69e7de",
+      "account_value_usdc": "6418804.2461320003",
+      "week_pnl_usdc": "1450944.006576",
+      "week_roi": "0.5164681408",
+      "week_vlm": "13377357.9700000007",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 26,
+      "address": "0x218a65e21eddeece7a9df38c6bbdd89f692b7da2",
+      "account_value_usdc": "13459585.1990140006",
+      "week_pnl_usdc": "1398702.2095989999",
+      "week_roi": "0.0865486254",
+      "week_vlm": "11636836.6500000004",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 27,
+      "address": "0x88560b720239179d7f3f9e49ca934a4861593d7f",
+      "account_value_usdc": "32852284.6143620051",
+      "week_pnl_usdc": "1351907.500641",
+      "week_roi": "0.169756019",
+      "week_vlm": "0.0",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 28,
+      "address": "0xd8c5228c515db3043dfa0c8cd6f22450ee9a99b0",
+      "account_value_usdc": "19340937.5181230009",
+      "week_pnl_usdc": "1265410.883128",
+      "week_roi": "0.0850547694",
+      "week_vlm": "51288357.950000003",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 29,
+      "address": "0x77ee3604adbdefa66a817b3cf776412a6613a018",
+      "account_value_usdc": "6227482.8201869996",
+      "week_pnl_usdc": "1240723.150719",
+      "week_roi": "0.3727509449",
+      "week_vlm": "34892846.9299999997",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    },
+    {
+      "status": "self_reported",
+      "rank": 30,
+      "address": "0xbfce143acf73a34a1f8b2e2da64736146035c732",
+      "account_value_usdc": "1113000.0",
+      "week_pnl_usdc": "1112000.0",
+      "week_roi": "1112.0",
+      "week_vlm": "0.0",
+      "verification": "The venue's displayed figure, carried verbatim from its public payload. Not checked against the chain here."
+    }
+  ],
+  "verified_row": {
+    "status": "verified",
+    "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "on_venue_board": false,
+    "settled_pairs": {
+      "PAPER": 1,
+      "LIVE": 1
+    },
+    "realized_paper_usd": "0.08764",
+    "realized_live_usd": "-0.035183",
+    "fees_live_usd": "0.032383",
+    "never_summed_across_modes": true,
+    "gaps_bps": [
+      "0.06189842468509176441459564854",
+      "0.06191298748738522879944525963"
+    ],
+    "realized_events": [
+      {
+        "run_file": "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
+        "event_id": "agent_record:realized:pv_f1998cef7df0489e",
+        "mode": "PAPER",
+        "realized_pnl_usd": "0.08764",
+        "fees_usd": "0",
+        "bucket": "GAIN"
+      },
+      {
+        "run_file": "run_LIVE_2026-10-24_pv_e1849abce514440c.ri",
+        "event_id": "agent_record:realized:live:pv_e1849abce514440c",
+        "mode": "LIVE",
+        "realized_pnl_usd": "-0.035183",
+        "fees_usd": "0.032383",
+        "bucket": "LOSS"
+      }
+    ],
+    "run_files": [
+      {
+        "file": "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri",
+        "sha256": "598761ff5f99fea49ddcee34721a8c35711b7896deea752cabd784ecb6141699",
+        "root": "14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c",
+        "events": 2,
+        "cryptographically_signed": 0,
+        "mode": "PAPER"
+      },
+      {
+        "file": "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
+        "sha256": "8abb84a25d0809ae6bd56b383c41e2ae9e9951c25a3be697ac88e8f53a4dd13d",
+        "root": "2b5a846b714d578da06f71d3dc1e9e29c6d92e1358e0c76cbabf5f6f32adfc38",
+        "events": 5,
+        "cryptographically_signed": 0,
+        "mode": "PAPER"
+      },
+      {
+        "file": "run_LIVE_2026-10-24_pv_e1849abce514440c.ri",
+        "sha256": "126afbe5a4bb5116162919c6cd47cedcaa41d55805475ceb1b4167de13c9559a",
+        "root": "8777b0a1e37df424f804943eb6c2e37b6c9853d8e241e1daefd8b772a754ee95",
+        "events": 9,
+        "cryptographically_signed": 2,
+        "mode": "LIVE"
+      }
+    ],
+    "tx_hashes": [
+      "0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07",
+      "0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2"
+    ],
+    "explorer_urls": [
+      "https://app.hyperliquid.xyz/explorer/tx/0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07",
+      "https://app.hyperliquid.xyz/explorer/tx/0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2"
+    ],
+    "verify_command": "python -m rights_events.agent_record --verify --run rights_events/fixtures/agent_record/<run file>",
+    "event_id": "agent_record:mirror:2026-10-25",
+    "verification": "Every number traces to a signed event in a committed run file that re-verifies offline (signatures + inclusion proofs); LIVE fills carry their HyperLiquid L1 transaction hashes."
+  },
+  "board_run": {
+    "file": "run_BOARD_2026-10-25.ri",
+    "root": "6190df8f34f3066b6c52a9e088f6c6957e0d81e810bc1bdf91883267f66e72d3",
+    "events": [
+      "agent_record:board:week:1792906235038",
+      "agent_record:mirror:2026-10-25"
+    ],
+    "record_source_url": "https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record"
+  }
+}
