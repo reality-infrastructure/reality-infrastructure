@@ -1063,3 +1063,67 @@ and the position check, about 49 s the preview-to-fill path itself. The limit fi
 above its price (80110 vs 80070): R26's cushion was not needed today. The tape, the fork file
 and the wider forks (100, gate_only) run to the gate (1792925352038 ms) and are pinned in A5.1.
 Nothing in A5's promotion rule changes: one day, no promotion (R29).
+
+### A5.1 — 2026-10-25 — the real paper stop-fork capture (Day 4), pinned before its gate: one tape, six forks, the tightest stop lost the least
+
+Written by ONE run of `watch_stop_forks.py --open-capture
+rights_events/fixtures/agent_record/capture_LIVE_2026-10-25_pv_aca51be96df9478c.json
+--live-stop-bps 30 --fork-bps 10,20,30,50,100 --gate-hours 5 --poll-seconds 5`, started on
+the A4.1 capture the moment it existed (first poll ms 1792907430535, 78 s after the chain's
+open fill) and left alone until the gate; it exited 0 at ms **1792925356293** (the first poll
+at or after the gate 1792925352038). It read `allMids` and nothing else (R31). Nothing below
+is edited by hand.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+4493   8499ce2927952dfb33a36d35040d4a97bdeae9895fd217f310f24836db3fc9cd  forks_LIVE_2026-10-25_pv_aca51be96df9478c.json   (kind agent_record_fork_capture, complete true)
+134545 1e9a9e9216c0c4357efbea454d2a152ab353b211b36bbfab7810ec196359b64b  watch_LIVE_2026-10-25_pv_aca51be96df9478c.jsonl  (the tape: 3366 polls, 19 null)
+25305  a774ffc72f05be10046d9a1ea361ebe1cf320af95ab8eac9d05ebc11fbe102ce  hl_allMids_1792911091777.json                     (payload at the 10 bps trigger)
+25352  7b22b3603d8646a6f4133fa9b4760e85fa69728bd464120fdd4cff7c492a4e72  hl_allMids_1792916921385.json                     (payload at the 20 bps trigger)
+25338  56a9589fdf862001d474fd35186544bb53bfd81cb19b83761297084bb1d777c3  hl_allMids_1792919581626.json                     (payload at the 30 bps trigger, the live control)
+25122  c58c3335df9cc1a87fd2e23d945ba4f097443b430079a0e021a896eaf7044e73  hl_allMids_1792919698491.json                     (payload at the 50 bps trigger)
+25172  71f2826ddca32a5853662365a33efea9cb1f7aae32cb15536524ce6e8aa0fa45  hl_allMids_1792925356293.json                     (payload at the gate)
+```
+
+The fork file's `tape.sha256` equals the tape's pin above; `open.capture_sha256` =
+`71b18174…a5d258` = A4.1's pin of the open capture; `open.fill_event_id =
+agent_record:fill:live:pv_aca51be96df9478c:open`, the real signed open fill every fork
+hangs off (R28).
+
+**The tape (measured):** 3366 polls from ms 1792907430535 to 1792925356293, 19 null (the
+public endpoint timed out 19 times in five hours; a null marks nothing, R28). Mid range
+80051.5 … 80691.5; worst adverse excursion on the tape **58.43 bps** (never 100). The open
+fill was 80522.0, dir +1.
+
+**Known-answer commitment (the real numbers, by A5's formulas; the gate asserts these):**
+
+| fork | exit | ms | exit mid | adverse bps at exit | gross paper PnL USD |
+|---|---|---|---|---|---|
+| 10 | stop | 1792911091777 | 80440.5 | 10.12145748987854251012145749 | **−0.011410** |
+| 20 | stop | 1792916921385 | 80354.5 | 20.80176846079332356374655374 | −0.023450 |
+| 30 (live control) | stop | 1792919581626 | 80260.5 | 32.47559673132808425026700777 | −0.036610 |
+| 50 | stop | 1792919698491 | 80115.5 | 50.48309778694021509649536773 | −0.056910 |
+| 100 | gate | 1792925356293 | 80194.5 | 40.67211445319291622165370955 | −0.045850 |
+| gate_only | gate | 1792925356293 | 80194.5 | 40.67211445319291622165370955 | −0.045850 |
+
+Six events, all `chain_assertion` / `self_asserted` / claimant `paper-simulator` / mode
+PAPER, observed_date 2026-10-25 (UTC date of each exit), `prior_event_refs` = the real open
+fill, `source_url` https://api.hyperliquid.xyz/info. With the pair (A4.1, A4.2) the LIVE
+log is **fifteen events, two `cryptographically_signed`, zero disputes** (R30); the run
+root is pinned in the P8 evidence, not here.
+
+**Compared on gross vs the control's gross (R29, day 1 of 3):** every tighter fork beat the
+30 bps control today (10: −0.011410; 20: −0.023450; control −0.036610), every wider one
+lost more (50: −0.056910; 100 and gate_only: −0.045850, the price came part-way back by the
+gate). The live control's own REAL gross was −0.057680 (A4.2) — worse than its paper fork
+by 0.021070 USD, the trigger-to-fill latency measured in A4.2 — and its real net
+−0.089880 after the two chain fees. One day proves nothing (R29: three consecutive forward
+days out of sample before any promotion); it is recorded as one day.
+
+**Disclosed:** the watcher instance that wrote this file predates the `source_url` line
+added to `new_state` in P8b, so the fork document carries no `source_url`; the adapter takes
+the declared constant for its `exit_mark_source` (`hyperliquid allMids` →
+https://api.hyperliquid.xyz/info), which is the URL the watcher actually read. The gate
+poll landed 4255 ms after the gate (poll period 5 s); the adapter requires `exit_ms ≥
+gate_ms` and nothing finer.

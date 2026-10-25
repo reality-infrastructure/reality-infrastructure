@@ -1,0 +1,123 @@
+{
+  "kind": "agent_record_fork_capture",
+  "mode": "PAPER",
+  "synthetic": false,
+  "note": "Paper stop forks (PREREG A5 R28): every distance marked against ONE tape of polled HyperLiquid mids from the chain's open fill to the five-hour gate. Simulations, self-asserted; nothing was submitted for any fork. The live control's close, if it fired, is in the LIVE close capture beside this.",
+  "actor": {
+    "actor_id": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+    "control_wallet": "0xa62993eb48ddcf74e2ac5cbeede580be0c915b92"
+  },
+  "open": {
+    "capture": "capture_LIVE_2026-10-25_pv_aca51be96df9478c.json",
+    "capture_sha256": "71b181749208262ddb43f712922096418d3b5e36bf42af2fbc2a2275a90d5258",
+    "intent_id": "pv_aca51be96df9478c",
+    "fill_event_id": "agent_record:fill:live:pv_aca51be96df9478c:open",
+    "fill_price_usd": "80522.0",
+    "fill_time_ms": 1792907352038,
+    "size": "0.00014",
+    "side": "long",
+    "dir": 1,
+    "market": "BTC"
+  },
+  "rules": {
+    "adverse_bps": "(open_fill - mid) / open_fill * 10000 * dir, Decimal",
+    "live_stop_bps": 30,
+    "gate_ms": 1792925352038,
+    "poll_seconds": 5,
+    "exit_mark_source": "hyperliquid allMids",
+    "fee_model": "none (paper fork; compare to the live control's gross)"
+  },
+  "tape": {
+    "file": "watch_LIVE_2026-10-25_pv_aca51be96df9478c.jsonl",
+    "sha256": "1e9a9e9216c0c4357efbea454d2a152ab353b211b36bbfab7810ec196359b64b",
+    "rows": 3366,
+    "null_rows": 19
+  },
+  "forks": {
+    "10": {
+      "stop_bps": 10,
+      "triggered": true,
+      "is_live_control": false,
+      "exit_ms": 1792911091777,
+      "exit_mid_usd": "80440.5",
+      "adverse_bps_at_exit": "10.12145748987854251012145749",
+      "exit_reason": "stop",
+      "gross_paper_pnl_usd": "-0.011410",
+      "payload_file": "hl_allMids_1792911091777.json",
+      "payload_sha256": "a774ffc72f05be10046d9a1ea361ebe1cf320af95ab8eac9d05ebc11fbe102ce"
+    },
+    "20": {
+      "stop_bps": 20,
+      "triggered": true,
+      "is_live_control": false,
+      "exit_ms": 1792916921385,
+      "exit_mid_usd": "80354.5",
+      "adverse_bps_at_exit": "20.80176846079332356374655374",
+      "exit_reason": "stop",
+      "gross_paper_pnl_usd": "-0.023450",
+      "payload_file": "hl_allMids_1792916921385.json",
+      "payload_sha256": "7b22b3603d8646a6f4133fa9b4760e85fa69728bd464120fdd4cff7c492a4e72"
+    },
+    "30": {
+      "stop_bps": 30,
+      "triggered": true,
+      "is_live_control": true,
+      "exit_ms": 1792919581626,
+      "exit_mid_usd": "80260.5",
+      "adverse_bps_at_exit": "32.47559673132808425026700777",
+      "exit_reason": "stop",
+      "gross_paper_pnl_usd": "-0.036610",
+      "payload_file": "hl_allMids_1792919581626.json",
+      "payload_sha256": "56a9589fdf862001d474fd35186544bb53bfd81cb19b83761297084bb1d777c3"
+    },
+    "50": {
+      "stop_bps": 50,
+      "triggered": true,
+      "is_live_control": false,
+      "exit_ms": 1792919698491,
+      "exit_mid_usd": "80115.5",
+      "adverse_bps_at_exit": "50.48309778694021509649536773",
+      "exit_reason": "stop",
+      "gross_paper_pnl_usd": "-0.056910",
+      "payload_file": "hl_allMids_1792919698491.json",
+      "payload_sha256": "c58c3335df9cc1a87fd2e23d945ba4f097443b430079a0e021a896eaf7044e73"
+    },
+    "100": {
+      "stop_bps": 100,
+      "triggered": false,
+      "is_live_control": false,
+      "exit_ms": 1792925356293,
+      "exit_mid_usd": "80194.5",
+      "adverse_bps_at_exit": "40.67211445319291622165370955",
+      "exit_reason": "gate",
+      "gross_paper_pnl_usd": "-0.045850",
+      "payload_file": "hl_allMids_1792925356293.json",
+      "payload_sha256": "71f2826ddca32a5853662365a33efea9cb1f7aae32cb15536524ce6e8aa0fa45"
+    },
+    "gate_only": {
+      "stop_bps": null,
+      "triggered": false,
+      "is_live_control": false,
+      "exit_ms": 1792925356293,
+      "exit_mid_usd": "80194.5",
+      "adverse_bps_at_exit": "40.67211445319291622165370955",
+      "exit_reason": "gate",
+      "gross_paper_pnl_usd": "-0.045850",
+      "payload_file": "hl_allMids_1792925356293.json",
+      "payload_sha256": "71f2826ddca32a5853662365a33efea9cb1f7aae32cb15536524ce6e8aa0fa45"
+    }
+  },
+  "live_trigger": {
+    "ms": 1792919581626,
+    "mid": "80260.5",
+    "adverse_bps": "32.47559673132808425026700777",
+    "reason": "stop"
+  },
+  "gate": {
+    "ms": 1792925356293,
+    "mid": "80194.5",
+    "adverse_bps": "40.67211445319291622165370955"
+  },
+  "complete": true
+}
