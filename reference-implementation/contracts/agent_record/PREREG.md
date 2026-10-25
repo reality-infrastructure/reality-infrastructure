@@ -1127,3 +1127,175 @@ the declared constant for its `exit_mark_source` (`hyperliquid allMids` →
 https://api.hyperliquid.xyz/info), which is the URL the watcher actually read. The gate
 poll landed 4255 ms after the gate (poll period 5 s); the adapter requires `exit_ms ≥
 gate_ms` and nothing finer.
+
+
+### A6 — 2026-10-25 — Day 5's settled pair: the venue's resting stop (`slPrice` on the open preview) replaces the watched R26 close — the one variable; distance, unit, forks, gate unchanged
+
+Committed BEFORE any code that reads a resting stop and BEFORE any Day-5 LIVE capture
+exists (the ordering is the proof). Day 4 is DONE and pushed (`196d009`). The position is
+flat; the perp account holds about 19.90 USDC.
+
+**Why this variable (the limiting factor, measured, not guessed).** Day 4's live control was
+set at 30 bps and the chain closed at 51.17 bps adverse. The distance was not the binding
+constraint; the close path was: 144 090 ms from the tape's trigger (mid 80260.5) to the
+chain's fill (80110.0), 18.75 bps of the trigger mid, **0.021070 USD** on the unit (A4.2).
+About 95 s of it was a refused close preview and the position check that answered it, about
+49 s the ordinary preview-to-fill path. Seven-rules R1 says attack the limiting factor; this
+amendment removes the whole close path from the trigger: the stop rests ON THE VENUE,
+attached to the open, and the venue's own matching engine closes the position when its mark
+price reaches the trigger. No preview, no hand, no chat round trip at the trigger.
+
+**Correction, disclosed.** The P8d SCOREBOARD "day's bit" and the Day-4 DONE report say that
+0.021070 USD was "more than the whole paper difference between the 10 and 30 bps forks".
+That difference is 0.036610 − 0.011410 = **0.025200 USD**; the latency cost is 84 % of it,
+and larger than the 20-to-30 difference (0.013160 USD). The committed numbers are right; the
+comparison sentence was wrong. It is corrected here and by an appended line in the
+SCOREBOARD (append-only; the P8d block is not rewritten).
+
+**What was measured before writing the rule (reads only; nothing submitted).**
+
+- The gdex MCP's `gdex_preview_trade` schema carries `slPrice` ("perp_open stop-loss",
+  decimal string) and `tpPrice`; the gdex perp skill documents `hlCreateOrder({…, tpPrice,
+  slPrice, …})` ("'' to skip") on the managed-custody backend's `/hl/create_order` — the same
+  endpoint the Day-3 and Day-4 opens went through on Node 20.18. The A5 note that the
+  `slPrice` "execute path is untested" stands: it is tested by this amendment's pair, on the
+  record.
+- The venue's own documentation (hyperliquid.gitbook.io, "Take profit and stop loss orders
+  (TP/SL)", read 2026-10-25): "The mark price is used to trigger TP/SL orders." · "TP/SL
+  market orders have a slippage tolerance of 10%." · "These orders will attempt to close the
+  entire position at the time of trigger." · Order types: "Stop Market: A market order that
+  is activated when the price reaches the selected trigger price."
+- The probe. One `allMids` poll at ms 1792939972916 gave BTC mid **80523.5**; the R32 rule
+  below gives `slPrice = floor(80523.5 × 0.997 / 10) × 10 = 80280`. `gdex_preview_trade
+  {perp_open, BTC, long, market, leverage 1, notionalUsd 11.5, slPrice "80280"}` returned
+  preview `pv_d84e156efa42404d` (price/markPx 80523.1, size 0.00014, cross, 1x) with
+  `terms.slPrice = "80280"`, `terms.tpPrice = ""`, and WITHOUT the Day-3/Day-4 warning "No
+  TP/SL attached" (the other two warnings unchanged). Pinned verbatim, never executed,
+  expired unused:
+
+```
+1314   c088e2573031f56484b2f0c1223f5854941cb0b39878733c541f36f565233ef0  gdex_preview_pv_d84e156efa42404d_probe.json
+25604  7832495f84e43cb8901df9fc860498d683fb88bcf86e3c2d3af30563cc23ea62  hl_allMids_1792939972916_probe.json
+```
+
+- Not yet measurable (no resting order exists while flat), therefore declared "as reported",
+  measured in A6.1 and never assumed: how the backend places the stop on the L1 (a
+  position-linked TP/SL or a standalone reduce-only trigger order), the resting order's
+  `orderType` string, its `triggerPx` and `triggerCondition`, whether `reduceOnly` and
+  `isPositionTpsl` are set, and whether it survives a position closed by another order.
+
+**The unit (unchanged, S26):** BTC perp, long, 1x cross, `notionalUsd 11.5` at the preview
+(size the preview's own, 0.00014 at these prices), one position, no sizing up (the record is
+two LIVE pairs, both losses; north star rule 2).
+
+**The open (A4 unchanged except ONE field):** `gdex_preview_trade {perp_open, BTC, long,
+market, leverage 1, notionalUsd 11.5, slPrice = R32}` → saved verbatim → capture tool
+polling before submission → `gdex_execute_trade {previewId, userApproved: true}` on the
+operator's explicit term-bounded go, inside the 60-second expiry. Open capture as A4.1.
+
+**Decision rules (govern the capture tool and the adapter, written before them):**
+
+- R32 (the stop price). Immediately before the open preview, ONE `allMids` poll is taken
+  and pinned as `hl_allMids_<ms>.json`; with `mid` its BTC value, `slPrice = floor(mid ×
+  (1 − 30/10000) / 10) × 10` for a long (a short would use `ceil(mid × (1 + 30/10000) / 10)
+  × 10`; not this pair). Decimal arithmetic; the whole-10 rounding is the same tick rule R26
+  used. The preview's `terms.slPrice` must equal that value and its `terms.price` must lie
+  within 20 bps of `mid`, else the preview is NOT submitted (S31) and a fresh poll + preview
+  is taken; every probe is recorded. The realized stop distance `(open_fill − slPrice) /
+  open_fill × 10000` is published after the fill (about 30 bps less the open gap and the
+  quote drift; a measurement, not a prediction).
+- R33 (R1-stop: the close leg's intent and outcome). The close INTENT is the resting trigger
+  order the L1 reports under the actor's wallet — `POST {type: frontendOpenOrders, user}`
+  read immediately after the open fill and pinned verbatim as
+  `hl_frontendOpenOrders_<ms>.json` — together with the open preview's `terms.slPrice`.
+  Intent event `agent_record:intent:<openPreviewId>:stop`, `chain_assertion`,
+  `self_asserted`, `claimant = "gdex-preview"`; claim = the R1-close set with `kind =
+  perp_close`, `side = "sell"`, `order_type = "stop_market"`, `size` = the open fill size,
+  `position_side = "long"`, `position_size` = the open fill size, `is_full_close = true`,
+  `reduce_only` = as the resting order reports, `notional_usd = slPrice × size`,
+  `quote_price_usd = slPrice`, `quote_source = "gdex preview terms.slPrice (hyperliquid mark
+  trigger)"`, `quote_as_of_ms` = the open preview's `priceAsOf`, `quote_as_of_rule` declared,
+  `created_ms` = the open preview's `createdAt`, `expires_ms = open fill_time_ms + 5 h` (the
+  stop's declared life: the gate), `binding` = the open preview's binding — PLUS the stop
+  terms `trigger_price_usd = slPrice`, `trigger_source = "hyperliquid mark price"`,
+  `venue_order_type`, `venue_trigger_px`, `venue_trigger_condition`, `resting_oid`,
+  `resting_observed_ms`, `resting_payload_file`, `resting_payload_sha256`, each as the chain
+  reports it, none invented. The OUTCOME is the chain's fill (`userFillsByTime`, `Close
+  Long`, sizes summing exactly to the open size, ONE `oid`) inside `[created_ms, expires_ms
+  + grace]`; S32: that `oid` must equal `resting_oid`, else nothing is associated. The
+  shadow, the gap (R14), the stale rule (R15), the deviation rule (R16, quote = `slPrice`,
+  50 bps), the realized live PnL (R17) and the venue reconciliation (R18) are unchanged.
+  The capture tool's new mode (`--live --stop-close`) READS only: `userFillsByTime`,
+  `allMids`, `frontendOpenOrders`; S14's source gate is extended to the new info type and
+  keeps every forbidden string.
+- R34 (the latency, the day's metric). `close_latency_ms = fill_time_ms − trigger_ms` where
+  `trigger_ms` is the 30 bps paper fork's first crossing on the mid tape (the same reference
+  Day 4 used: 144 090 ms); `latency_cost_bps = (trigger_mid − fill) / trigger_mid × 10000`
+  for a long; `latency_cost_usd = latency_cost_bps / 10000 × trigger_mid × size`. Because
+  the venue triggers on MARK and the tape is MID, the latency and its cost may be negative
+  (the stop firing before the mid tape crossed); they are published with their sign. The
+  pre-registered pass/fail on THIS variable: it WORKED if `close_latency_ms < 10 000` and
+  `|latency_cost_bps| < 5`; otherwise it FAILED and the record says so. Neither outcome
+  changes size. If the stop does not fire before the gate, the latency is `not triggered`,
+  the pair still settles at the gate by R26 (unchanged), and the variable carries to the
+  next day.
+- R35 (forks unchanged, promotion continues). The watcher runs exactly as A5 (R27-R31; it
+  still prints `TRIGGER live` at 30 bps but NO hand acts on it — the venue does); the 30 bps
+  fork stays the live control marker (`rules.live_stop_bps = 30`); the venue stop's own
+  sim-to-real gap = real gross − the 30 bps fork's paper gross, published beside Day 4's
+  0.021070. The same fork set `{10, 20, 30, 50, 100, gate_only}` is declared here, before
+  the open, so Day 5 is forward day 2 of 3 under R29 for every fork. Nothing is promoted by
+  this amendment.
+- R36 (one variable). Relative to A4 + A5 the ONLY change is the close MECHANISM: a venue
+  resting stop at the venue's mark price instead of a watched close on the mid tape through
+  the R26 path. Unchanged: 30 bps, the unit, the open path, the forks, the five-hour gate,
+  the hand on the open, Node 20.18.
+
+**Hands (S14 amended for the stop):** previewing and every chain read is a read; the open
+with the stop attached is submitted by the operator's own hand on an explicit term-bounded
+go that names the previewId and this amendment; the CLOSE AT THE TRIGGER IS THE VENUE'S,
+not a hand — that is the variable. The standing go also covers (a) the R26 gate close if
+the stop has not fired by the gate and (b) the cancel of a resting stop that survives a
+flat position (`cancel_perp_order`, recorded with the chain's answer; S33: a stop still
+resting after the position is flat is cancelled before the day is DONE, and the record
+says whether the venue or the operator cancelled it).
+
+**Files:** `hl_allMids_<ms>.json` (the pre-quote poll), `gdex_preview_<previewId>.json`,
+`hl_frontendOpenOrders_<ms>.json`, `capture_LIVE_2026-10-26_<previewId>.json` (+ `_close`)
+and MANIFESTs, `hl_userFillsByTime_<ms>.json`, `watch_LIVE_2026-10-26_<previewId>.jsonl`,
+`forks_LIVE_2026-10-26_<previewId>.json`, `run_LIVE_2026-10-26_<previewId>.ri`. Code under
+this amendment: `AGENT-RECORD-P9a` (capture tool `--stop-close`, the adapter's R1-stop
+fields, derived gates on synthetic input), then the pair, then **A6.1** (open + resting
+stop pinned), **A6.2** (close pinned), **A6.3** (forks pinned), each before its gate, then
+`AGENT-RECORD-P9b` (gates, run file, evidence, DONE). The Day 1-4 run files are not
+regenerated by anything here.
+
+**Known-answer commitment (structural; prices are not predicted):** the Day-5 LIVE run
+holds **fifteen** events (nine for the pair + six forks), **two** `cryptographically_signed`,
+one `realized:live` event reconciling to the venue's `closedPnl` at 0.000001 USD, **zero**
+disputes unless the trigger fill deviates more than 50 bps from `slPrice` or a shadow lags
+more than 5000 ms — then the dispute is the known answer and is recorded; the close intent
+carries the resting order's `oid` and the fill carries the same `oid`; the realized figure
+is published with its sign; the R34 latency and cost are published with their sign and the
+pass/fail word.
+
+**STOP conditions (added):** S31 the preview's `terms.slPrice` ≠ the R32 value, or its
+`terms.price` is more than 20 bps from the poll's mid → not submitted · S32 the close fill's
+`oid` ≠ the resting stop's `oid` → never associated; the capture refuses · S33 a stop still
+resting after the position is flat → cancelled by hand before DONE, recorded · S34
+`gdex_execute_trade` of the open-with-stop is refused, `denied` or `revised` → no second
+attempt without a dated amendment; the day's pair is NOT taken on the Day-4 path (that would
+not test the variable); reported · S35 the resting order's `triggerPx` ≠ `slPrice` → recorded
+as reported, the realized distance published, no cancel/replace by hand (the venue's
+behaviour is the measurement).
+
+**Honest framing.** The venue's stop trades the Day-4 path's 144 s for the venue's own
+trigger-to-match, at the cost of a trigger on MARK (which the tape does not see) and a
+market close with a 10 % slippage tolerance the venue documents. On a thin unit at 1x the
+expected fill is near the trigger, but the record decides. If the variable fails the
+pre-registered threshold, the next candidate is a stop-LIMIT at the trigger (`limitPx`) —
+a separate dated amendment, not a mid-day change.
+
+**Daily rule check:** (1) fifteen signed rows, two chain-signed · (2) graded by the chain
+when the venue fills the stop · (3) code in this repo, record in this log, agent under the
+operator's account. One variable, declared before the code.

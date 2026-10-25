@@ -860,3 +860,13 @@ Position FLAT; perp account about 19.90 USDC. The venue `slPrice` stop (preview 
 execution path untested) is a later single variable. Rung 2 = the board mirror nightly
 (2026-11-04), now with `--run-file` naming the record as of each observation. Day 5 =
 weekly review.
+
+
+### Correction to the P8d block above (appended 2026-10-25, with PREREG A6)
+
+"The day's bit" says the 0.021070 USD close latency was "more than the whole paper
+difference between the 10 and 30 bps forks". That difference is 0.036610 − 0.011410 =
+0.025200 USD; the latency cost is 84 % of it, and larger than the 20-to-30 difference
+(0.013160 USD). The numbers in the block are right; the comparison sentence was wrong. The
+block is not rewritten (append-only); the Day-4 DONE report in CONTRACT.md carries the same
+sentence and the same correction applies.
