@@ -943,3 +943,41 @@ outcome on most days is a small loss (stop + fees ≈ 0.07 USD) or the fee alone
 wins only when price runs favorably before noise reaches the stop. That is the operator's
 stated objective — minimal drawdown, stay in the game — and the forks exist to find out, on
 the record, which distance loses best. The record, not the sign, is the asset.
+
+### A4.1 — 2026-10-25 — the real LIVE OPEN capture (Day 4), pinned before its gate
+
+Taken in one run of `capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_aca51be96df9478c.json --actor-id
+0x9f97…b7f23 --control-wallet 0xa629…5b92 --poll-seconds 180`, started BEFORE the open was
+submitted. The open: preview `pv_aca51be96df9478c` (perp_open BTC long market, size
+0.00014, 1x cross, notional 11.27, quote 80534, created 1792907322241,
+expires 1792907382241; S23 passed) executed by `gdex_execute_trade {previewId, userApproved:
+true}` on the operator's go ("go", 2026-10-25, covering the A5 plan: open, stop close, gate
+close) → `op_021607a50d744e4e` accepted. Two earlier previews taken while the stop was being
+decided (`pv_c5f97c90d642402f`, `pv_45f7f1dfe17e4747` — the second with an `slPrice` probe)
+expired unexecuted; their files were never placed in the fixtures; their ids are the venue's.
+The tool wrote the files below and exited 0; nothing below is edited by hand.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+3097  71b181749208262ddb43f712922096418d3b5e36bf42af2fbc2a2275a90d5258  capture_LIVE_2026-10-25_pv_aca51be96df9478c.json
+3669  904d5c28e15fbf34d4706f16f2bc32384277ca8f2fac879b485b3feb5e4fe19e  MANIFEST_LIVE_2026-10-25_pv_aca51be96df9478c.json
+1340  4583eac293f047c9031128915efd2392ac47ddf4a12715a13653c20db6b94ba6  gdex_preview_pv_aca51be96df9478c.json
+342   61f133c2c29f23fb046d5f138195882bd87626fed4c91b707ee835433aae773e  hl_userFillsByTime_1792907352982.json
+25253 35efd07aa26ea6e19282bdbe3e15f8b6c17ccd27954fa0930f78971f5d8d0bad  hl_allMids_1792907353204.json
+```
+
+**The chain's row (one row, one order — R11 holds):** coin BTC, dir `Open Long`, px
+**80522.0**, sz 0.00014, time **1792907352038**, oid 585107424637, tid 277616750224802, hash
+`0x239c825c5cb3130f251604474f72980203e30041f7b631e1c7652daf1bb6ecf9`, fee 0.010505 + builderFee 0.005636 = **0.016141** USDC,
+closedPnl 0.0, startPosition 0.0, crossed True.
+
+**The shadow (R13):** allMids BTC **80516.5** at ms 1792907353204 (lag 1166 ms ≤ 5000).
+
+**Known answer, this leg (the gate asserts these):** live fill 80522.0, shadow 80516.5,
+sim-to-real gap **+0.6831 bps** (cost sign +1; live cost more than paper by 0.6831 bps),
+deviation from the quote 1.4901 bps ≤ 50 → no dispute; four events, one
+`cryptographically_signed`, zero disputes. The position is OPEN (0.00014 BTC long); the
+watcher (A5) started at once on this capture; the close is taken at the 30 bps stop or the
+five-hour gate (1792925352038 ms) by R26 and pinned in A4.2.
