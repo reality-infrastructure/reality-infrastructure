@@ -73,7 +73,12 @@ def _text(cap: dict) -> str:
 
 
 def _run_files():
-    return runner.record_run_files()
+    # The record AS OF the 2026-10-25 board observation (the three run files its verified
+    # row names); later days add run files beside them (widened 2026-10-25, P8d, disclosed).
+    return [_FIX / n for n in (
+        "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri",
+        "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
+        "run_LIVE_2026-10-24_pv_e1849abce514440c.ri")]
 
 
 # --- R20: the board observation ------------------------------------------------------

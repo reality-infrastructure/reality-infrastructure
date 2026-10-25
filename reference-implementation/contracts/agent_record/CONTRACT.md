@@ -230,3 +230,49 @@ reference-implementation/
   reduce-only limit that worked on Day 3; opened and closed on the operator's explicit go,
   inside the five-hour gate); Day 5 review (one chart from the signed log, one
   limiting-factor sentence, next 50th-percentile date); rung 2 = this mirror nightly.
+
+
+## DONE report (Day 4, the settled pair: the watched stop and the paper forks, 2026-10-25)
+
+- **Planned (PREREG A4 and A5, 2026-10-25, before anything was taken):** the same unit
+  (BTC long 0.00014 at 1x cross, notional 11.5, one position, no sizing up), the open
+  unchanged, the close path declared in advance as the marketable reduce-only limit at
+  P = markPx × 0.999 rounded down to a whole 10 USD (R26); a 30 bps watched stop as the
+  live control on the HyperLiquid mid polled every 5 s, the five-hour gate as the time
+  stop; a paper fork population {10, 20, 30, 50, 100 bps, gate_only} marked against the
+  SAME tape, one self_asserted PAPER event per fork hanging off the real open fill,
+  compared on gross, promotion only after three consecutive forward days (R27-R31,
+  S23-S30). Ruled by the operator: "be the best loser, lose fast, minimal drawdown."
+- **Implemented:** `watch_stop_forks.py` (reads allMids only; one tape; pins the payload
+  at every trigger; writes the fork capture), `rights_events/adapters/agent_fork.py` (pure
+  adapter; recomputes every fork's adverse bps and gross and refuses disagreement; exactly
+  one live control; gate_only required), the runner routing a fork capture into the same
+  LIVE log (fifteen events for one pair), 40 new gates (8 derived, 18 on the real pair, 14
+  on the real forks and the run file); seven board gates re-pointed at the record as of the
+  board's observation (disclosed).
+- **Taken:** one settled LIVE pair on the operator's go. Open 80522.0 (tx 0x239c825c…ecf9).
+  The control fired at 32.48 bps (mid 80260.5); the R26 close filled at 80110.0 (tx
+  0x19606256…9facb8) 144 s later, 51.17 bps adverse. **Realized −0.089880 USD, LOSS**
+  (gross −0.057680 = venue closedPnl; fees 0.032200). Gaps +0.6831 / +0.0624 bps. Forks on
+  gross: 10 → −0.011410, 20 → −0.023450, 30 → −0.036610, 50 → −0.056910, 100 and gate_only
+  → −0.045850. Run file `run_LIVE_2026-10-25_pv_aca51be96df9478c.ri` (sha256
+  4c03441d…0d1b), root c805f124…05d9, fifteen events, two cryptographically_signed, zero
+  disputes. Position flat.
+- **Tested:** Day-4 live gates `32 passed`; all agent-record gates `173 passed`; full suite
+  `901 passed` (+40 new, 0 removed, 7 re-pointed and disclosed); frozen-path diff empty;
+  `--verify` OK on all five run files; Day 1-3 and board run files byte-untouched.
+- **Committed:** `2578914` (A4) → `412aa88` (A5) → `7d56010` (P8a) → `5d76416` (A4.1) →
+  `fc59cec` (P8b) → `c946cb3` (A4.2) → `ddd1204` (P8c) → `c21c415` (A5.1) → this
+  `AGENT-RECORD-P8d` commit; every amendment strictly before the code or gate that consumes
+  it. Push status is stated in the P8d session report.
+- **Honest note:** the stop was set at 30 bps and the chain closed at 51. The distance was
+  not the limiting factor; the close latency on the venue path was (a refused close preview
+  while the chain showed the position open, then the ordinary preview-to-fill path). That
+  latency cost 0.021 USD on the unit, more than the paper gap between the 10 and 30 bps
+  forks. The tighter forks won today; one day proves nothing (R29).
+- **Next:** attack the limiting factor measured today — the close latency — as ONE
+  variable (candidates, in order of how much they remove: the venue `slPrice` resting stop
+  on the open preview, which removes the whole close path from the trigger; a pre-armed
+  close preview is impossible at 60 s expiry); Day 5 weekly review (one chart from the
+  signed log, one limiting-factor sentence, next 50th-percentile date); rung 2 = the board
+  mirror nightly with `--run-file` naming the record as of each observation.

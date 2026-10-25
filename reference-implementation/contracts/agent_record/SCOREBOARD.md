@@ -640,3 +640,223 @@ the point: the row is there because a stranger can check it, not because of its 
   night's payload its own pinned capture and its own board run.
 - Rung 3 (2026-11-18): the venue's thirty rows checked against `userFillsByTime`, each
   with a status that can move from `self_reported` to `verified` or to a dispute.
+
+
+## A4 + A5 + P8a + A4.1 + P8b + A4.2 + P8c + A5.1 + P8d (Day 4, 2026-10-25) — the settled LIVE pair under a watched stop, with the paper stop forks on the same tape
+
+Run on 2026-10-25 (local) from the same directory and branch, after the P7 push.
+Preflight before the pair: head `dda4892` = origin, frozen-path diff empty, `861 passed`.
+
+### Commit ordering (the proof)
+
+```
+2578914 AGENT-RECORD-A4    the close path pre-registered (R26 marketable reduce-only limit), S23-S26   (before any Day-4 LIVE capture)
+412aa88 AGENT-RECORD-A5    the watched stop (30 bps live control) + paper forks on one tape, R27-R31    (before the watcher tool, before the pair)
+7d56010 AGENT-RECORD-P8a   the watcher (reads allMids only; marks forks; pins payloads)                 (before the pair)
+5d76416 AGENT-RECORD-A4.1  the real LIVE OPEN capture pinned                                            (before its gate)
+fc59cec AGENT-RECORD-P8b   fork adapter + runner route + 8 derived gates; one Day-3 gate widened        (before the fork capture completed)
+c946cb3 AGENT-RECORD-A4.2  the real LIVE CLOSE capture pinned (the control fired; R26 close)            (before its gate)
+ddd1204 AGENT-RECORD-P8c   18 gates on the real pair                                                    (after A4.1 / A4.2)
+c21c415 AGENT-RECORD-A5.1  the real fork capture + tape + payloads pinned                               (before its gate)
+<this>  AGENT-RECORD-P8d   14 gates on the real forks + the fifteen-event run file + this evidence + DONE
+```
+
+### The daily list, applied
+
+1 preflight green · 2 prereg first (A4, A5 before anything was taken; A4.1 / A4.2 / A5.1
+each before its gate) · 3 ONE settled pair, taken on the operator's explicit term-bounded
+go ("go", covering open, stop close, gate close) · 4 every capture pinned before its gate ·
+5 run + `--verify` below · 6 the gaps: +0.6831 bps open, +0.0624 bps close · 7 size
+unchanged (one unit, 0.00014 BTC at 1x) · 8 this evidence + DONE + push · 9 Standing row
+after the push · 10 the miss recorded (below: the refused close preview and the 144 s).
+
+### The operator's own hand (what was submitted, in order)
+
+```
+gdex_preview_trade  {kind: perp_open,  coin: BTC, side: long, orderType: market, leverage: 1, notionalUsd: "11.5"}  -> pv_aca51be96df9478c (quote 80534)
+gdex_execute_trade  {previewId: pv_aca51be96df9478c, userApproved: true}                                          -> op_021607a50d744e4e accepted; chain fill 80522.0
+   ... watcher on the tape; 10 bps fork at 80440.5, 20 bps at 80354.5 ...
+   ... live control crossed 30 bps at ms 1792919581626, mid 80260.5 (32.48 bps) ...
+gdex_preview_trade  {kind: perp_close, coin: BTC}                        -> REFUSED: "No open BTC position found for 0x9f97...b7f23" (the chain showed it open)
+gdex_positions / HL clearinghouseState                                   -> BTC szi 0.00014 entry 80522.0, no open orders (read-only)
+gdex_preview_trade  {kind: perp_close, coin: BTC}                        -> pv_3e5df69d73074fd2 (markPx 80160, created 1792919676572, expires 1792919736572)
+place_perp_order    {coin: BTC, isLong: false, isMarket: false, reduceOnly: true, size: "0.00014", price: "80070"}  -> isSuccess; chain fill 80110.0 at 1792919725716
+```
+
+P = floor(80160 × 0.999 / 10) × 10 = 80070, as R26 declares. One order, one attempt (S25
+not reached). The two earlier open previews (`pv_c5f97c90d642402f`, `pv_45f7f1dfe17e4747`)
+expired unexecuted while the stop was decided; never in the fixtures.
+
+### Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`
+
+```
+3097   71b181749208262ddb43f712922096418d3b5e36bf42af2fbc2a2275a90d5258  capture_LIVE_2026-10-25_pv_aca51be96df9478c.json          (A4.1)
+3669   904d5c28e15fbf34d4706f16f2bc32384277ca8f2fac879b485b3feb5e4fe19e  MANIFEST_LIVE_2026-10-25_pv_aca51be96df9478c.json
+1340   4583eac293f047c9031128915efd2392ac47ddf4a12715a13653c20db6b94ba6  gdex_preview_pv_aca51be96df9478c.json
+342    61f133c2c29f23fb046d5f138195882bd87626fed4c91b707ee835433aae773e  hl_userFillsByTime_1792907352982.json
+25253  35efd07aa26ea6e19282bdbe3e15f8b6c17ccd27954fa0930f78971f5d8d0bad  hl_allMids_1792907353204.json
+3669   883ac6494bdb19873ca382ca773e72d65314123ddba6e01c9999c9e33b4b144f  capture_LIVE_2026-10-25_pv_aca51be96df9478c_close.json    (A4.2)
+4460   815d174da508b08e82fc94d47dbabc2d2d6784849f723c871e194dc5fca7ff71  MANIFEST_LIVE_2026-10-25_pv_aca51be96df9478c_close.json
+899    afe123a25a43f93bf07150c04660d365ac05d33c8f5a566c4174fcf5e4b26b79  gdex_preview_pv_3e5df69d73074fd2.json
+352    9520c3decb3f810acc77cba76d8be274e2cc81d2e8527f84c03c67874cca7608  hl_userFillsByTime_1792919726408.json
+25138  551f1c133565208ac146704eb1a408d73f42471793124f2d5a9aa889e49bfcd4  hl_allMids_1792919726691.json
+4493   8499ce2927952dfb33a36d35040d4a97bdeae9895fd217f310f24836db3fc9cd  forks_LIVE_2026-10-25_pv_aca51be96df9478c.json            (A5.1)
+134545 1e9a9e9216c0c4357efbea454d2a152ab353b211b36bbfab7810ec196359b64b  watch_LIVE_2026-10-25_pv_aca51be96df9478c.jsonl
+25305  a774ffc72f05be10046d9a1ea361ebe1cf320af95ab8eac9d05ebc11fbe102ce  hl_allMids_1792911091777.json
+25352  7b22b3603d8646a6f4133fa9b4760e85fa69728bd464120fdd4cff7c492a4e72  hl_allMids_1792916921385.json
+25338  56a9589fdf862001d474fd35186544bb53bfd81cb19b83761297084bb1d777c3  hl_allMids_1792919581626.json
+25122  c58c3335df9cc1a87fd2e23d945ba4f097443b430079a0e021a896eaf7044e73  hl_allMids_1792919698491.json
+25172  71f2826ddca32a5853662365a33efea9cb1f7aae32cb15536524ce6e8aa0fa45  hl_allMids_1792925356293.json
+```
+
+### Gates — `pytest tests/test_agent_record_day4_live_gates.py -q` (18 on the pair + 14 on the forks and the run file)
+
+```
+................................                                         [100%]
+32 passed in 0.55s
+```
+
+All agent-record gates (Days 1-4, board, forks): `173 passed in 1.25s`.
+
+### Engine untouched
+
+```
+$ git diff --stat contract/trading-frame -- ri_core/ rights_events/schema.py rights_events/policy.py rights_events/pipeline.py rights_events/replay.py
+(empty)
+```
+
+Full suite (901 = 861 at P7 + 8 fork gates at P8b + 18 at P8c + 14 at P8d, 0 removed):
+
+```
+.....................................                                    [100%]
+901 passed in 25.93s
+```
+
+### Runner, end to end — `python -m rights_events.agent_record --capture rights_events/fixtures/agent_record/capture_LIVE_2026-10-25_pv_aca51be96df9478c.json --capture rights_events/fixtures/agent_record/capture_LIVE_2026-10-25_pv_aca51be96df9478c_close.json --capture rights_events/fixtures/agent_record/forks_LIVE_2026-10-25_pv_aca51be96df9478c.json --out rights_events/fixtures/agent_record/run_LIVE_2026-10-25_pv_aca51be96df9478c.ri`
+
+```
+======================================================================
+AGENT-RECORD EVIDENCE RUN -- END TO END
+LIVE capture (open leg): capture_LIVE_2026-10-25_pv_aca51be96df9478c.json
+LIVE capture (close leg): capture_LIVE_2026-10-25_pv_aca51be96df9478c_close.json
+PAPER fork capture (stop forks of the live position): forks_LIVE_2026-10-25_pv_aca51be96df9478c.json
+The operator's own intent beside the outcome it produced; see the
+MANIFEST beside each capture. No belief is folded. No trade is executed.
+======================================================================
+
+Subject: agent:0x9f976123e7c48952be487664b8130aad144b7f23
+Events submitted through the engine (EP-typed, signed, logged):
+  [0] agent_record:fill:live:pv_aca51be96df9478c:close
+      chain_assertion, cryptographically_signed, observed 2026-10-25, claimant hyperliquid-l1
+  [1] agent_record:fill:live:pv_aca51be96df9478c:open
+      chain_assertion, cryptographically_signed, observed 2026-10-25, claimant hyperliquid-l1
+  [2] agent_record:fill:paper:pv_aca51be96df9478c:close:shadow
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [3] agent_record:fill:paper:pv_aca51be96df9478c:open:shadow
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [4] agent_record:fork:pv_aca51be96df9478c:10
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [5] agent_record:fork:pv_aca51be96df9478c:100
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [6] agent_record:fork:pv_aca51be96df9478c:20
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [7] agent_record:fork:pv_aca51be96df9478c:30
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [8] agent_record:fork:pv_aca51be96df9478c:50
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [9] agent_record:fork:pv_aca51be96df9478c:gate_only
+      chain_assertion, self_asserted, observed 2026-10-25, claimant paper-simulator
+  [10] agent_record:gap:pv_3e5df69d73074fd2:close
+      chain_assertion, third_party_attested, observed 2026-10-25, claimant sim-to-real-check
+  [11] agent_record:gap:pv_aca51be96df9478c:open
+      chain_assertion, third_party_attested, observed 2026-10-25, claimant sim-to-real-check
+  [12] agent_record:intent:pv_3e5df69d73074fd2
+      chain_assertion, self_asserted, observed 2026-10-25, claimant gdex-preview
+  [13] agent_record:intent:pv_aca51be96df9478c
+      chain_assertion, self_asserted, observed 2026-10-25, claimant gdex-preview
+  [14] agent_record:realized:live:pv_aca51be96df9478c
+      chain_assertion, third_party_attested, observed 2026-10-25, claimant live-pnl-check
+
+Sim-to-real gap (pv_aca51be96df9478c, open leg): 0.6830898014692640638875261592 bps (live 80522.0 vs paper 80516.5, cost sign +1, shadow lag 1166 ms, live fee 0.016141 USD)
+Sim-to-real gap (pv_aca51be96df9478c, close leg): 0.06241379095124858788797972800 bps (live 80110.0 vs paper 80110.5, cost sign -1, shadow lag 975 ms, live fee 0.016059 USD)
+Paper stop fork        10: triggered, exit by stop at mid 80440.5 (adverse 10.12145748987854251012145749 bps), gross -0.011410 USD
+Paper stop fork        20: triggered, exit by stop at mid 80354.5 (adverse 20.80176846079332356374655374 bps), gross -0.023450 USD
+Paper stop fork        30 (live control): triggered, exit by stop at mid 80260.5 (adverse 32.47559673132808425026700777 bps), gross -0.036610 USD
+Paper stop fork        50: triggered, exit by stop at mid 80115.5 (adverse 50.48309778694021509649536773 bps), gross -0.056910 USD
+Paper stop fork       100: untriggered, exit by gate at mid 80194.5 (adverse 40.67211445319291622165370955 bps), gross -0.045850 USD
+Paper stop fork gate_only: untriggered, exit by gate at mid 80194.5 (adverse 40.67211445319291622165370955 bps), gross -0.045850 USD
+Realized live PnL (pv_aca51be96df9478c): -0.089880 USD, LOSS (open 80522.0, close 80110.0, size 0.00014, fees 0.032200, venue closedPnl -0.05768)
+
+Event log root: c805f1240831a27f6ce924e7172e76f4cb19b4ca810ca71fd5815aea166605d9
+Run file:       rights_events/fixtures/agent_record/run_LIVE_2026-10-25_pv_aca51be96df9478c.ri (32846 bytes)
+
+Checks:
+  PASS  C1 adapter produced 15 events: 2 intent, 4 fill, 1 realized, 0 dispute, 2 gap, 2 cryptographically_signed, 6 paper stop fork
+  PASS  C2 all 15 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+
+Verify independently (reload + re-verify signatures + inclusions):
+  python -m rights_events.agent_record --verify --run rights_events/fixtures/agent_record/run_LIVE_2026-10-25_pv_aca51be96df9478c.ri
+
+AGENT-RECORD RUN: OK
+```
+
+The committed Day-4 run file (bytes · sha256): `32846
+4c03441d4c6224fb8fc2358eea2b5819ed34bd98dca0fa3cec38c3766ec80d1b
+run_LIVE_2026-10-25_pv_aca51be96df9478c.ri`. The Day 1-3 and board run files are untouched
+and gated (598761ff…, 8abb84a2…, 126afbe5…, 3d4f13d6…).
+
+### Stranger's check — `python -m rights_events.agent_record --verify --run rights_events/fixtures/agent_record/run_LIVE_2026-10-25_pv_aca51be96df9478c.ri`
+
+```
+VERIFY rights_events/fixtures/agent_record/run_LIVE_2026-10-25_pv_aca51be96df9478c.ri: reloaded 15 events, all signatures re-verified, all inclusion proofs verified; event-log root c805f1240831a27f6ce924e7172e76f4cb19b4ca810ca71fd5815aea166605d9
+RESULT: OK
+```
+
+### Known answers (PREREG A4.1 / A4.2 / A5.1), as committed
+
+Open 80522.0 (tx 0x239c825c…ecf9, fee 0.016141), shadow 80516.5, gap +0.6831 bps, lag
+1166 ms. Close 80110.0 (tx 0x19606256…9facb8, fee 0.016059, closedPnl −0.05768), shadow
+80110.5, gap +0.0624 bps, lag 975 ms. **Realized LIVE PnL −0.089880 USD, LOSS**; gross
+−0.057680 = the venue's closedPnl exactly; fees 0.032200 (a third of it builder fee).
+Fifteen events, two `cryptographically_signed`, zero disputes, root c805f124…05d9. Forks on
+gross: 10 → −0.011410, 20 → −0.023450, 30 (control) → −0.036610, 50 → −0.056910, 100 and
+gate_only → −0.045850; worst excursion on the tape 58.43 bps; 3366 polls, 19 null.
+
+### The day's bit
+
+The control was set at 30 bps and the chain closed at **51.17 bps** adverse. The distance
+was not the binding constraint; the close latency was: 144 s from trigger to fill, of which
+about 95 s were a refused close preview (the venue said no position while the chain showed
+one) and the position check that answered it, about 49 s the preview-to-fill path itself.
+That latency cost 18.75 bps of the trigger mid, 0.021070 USD on the unit — more than the
+whole paper difference between the 10 and 30 bps forks. Every tighter fork beat the control
+today and every wider one lost more, but that is one day of three (R29): recorded, not
+promoted.
+
+### Disclosed
+
+- The first close preview was refused (`No open BTC position found`) and retried once; a
+  preview submits nothing; one order, one attempt (A4.2).
+- The running watcher predated the `source_url` line added in P8b; the fork document has no
+  `source_url`; the adapter's declared-constant fallback (the URL the watcher read) applies
+  (A5.1, gated).
+- Seven pre-existing board gates (`test_agent_record_day4_gates.py`,
+  `test_agent_board_gates.py`) rendered the board over "every run file in the directory";
+  Day 4's own run file now sits beside the three the board observed. They were re-pointed
+  at the record AS OF the observation (the three run files the committed board run's own
+  verified row names) and the directory gate now asserts the record GREW (four files, the
+  fourth pinned). The committed board files are byte-unchanged; the widening is in the
+  gates' reading, not the record. (P8b had widened one Day-3 gate the same way.)
+- The A4.1 commit message was written in cp1252 and lost two typographic characters
+  (cosmetic; not rewritten).
+- The gdex MCP's `get_mark_price` and `get_hl_open_orders` still fail (`ERR_REQUIRE_ESM`,
+  Node 20.18.0); neither is on the path. Node stays by the A3 decision.
+
+### Carried forward (environment, not rules)
+
+Position FLAT; perp account about 19.90 USDC. The venue `slPrice` stop (preview accepts it;
+execution path untested) is a later single variable. Rung 2 = the board mirror nightly
+(2026-11-04), now with `--run-file` naming the record as of each observation. Day 5 =
+weekly review.

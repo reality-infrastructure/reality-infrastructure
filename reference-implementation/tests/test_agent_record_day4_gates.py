@@ -2,6 +2,12 @@
 board run + mirror files. The pins were committed strictly before this file
 (A3.1 59c8ae4). The numbers below are the A3 / A3.1 known answers, not re-derived
 from the fixtures. Pre-existing gates are untouched; these only add.
+
+Widened 2026-10-25 evening (P8d, disclosed): the board of 2026-10-25 mirrored the record
+AS OF its observation — the three run files its own verified row names. Each later day's
+pair adds a run file beside them (A2 R19), so the gates below render over that named set
+(RECORD_AT_OBSERVATION) instead of "every run file in the directory", and the directory
+gate asserts the record has GROWN rather than that it is frozen.
 """
 
 from __future__ import annotations
@@ -93,8 +99,14 @@ def test_day4_board_known_answer():
     assert not any(r["address"].lower() == ACTOR for r in c["rows_verbatim"])
 
 
+RECORD_AT_OBSERVATION = [_FIX / n for n in (
+    "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri",
+    "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
+    "run_LIVE_2026-10-24_pv_e1849abce514440c.ri")]
+
+
 def _day4_run():
-    return runner.build(TEXT, runner.record_run_files())
+    return runner.build(TEXT, RECORD_AT_OBSERVATION)
 
 
 def test_day4_run_is_two_events_zero_disputes_zero_signed():
@@ -144,9 +156,12 @@ def test_day4_committed_mirror_files_are_the_render():
         assert r["week_pnl_usdc"] in html_text
 
 
-def test_day4_runner_main_ok_on_defaults(tmp_path, capsys):
+def test_day4_runner_main_ok_on_the_record_at_observation(tmp_path, capsys):
     out = tmp_path / "run.ri"
-    assert runner.main(["--out", str(out), "--mirror-out", str(tmp_path / "board")]) == 0
+    argv = ["--out", str(out), "--mirror-out", str(tmp_path / "board")]
+    for path in RECORD_AT_OBSERVATION:
+        argv += ["--run-file", str(path)]
+    assert runner.main(argv) == 0
     text = capsys.readouterr().out
     assert "AGENT-RECORD BOARD RUN: OK" in text
     assert "PASS  C6 venue rows carry the pinned payload's strings unchanged\n" in text
@@ -156,11 +171,14 @@ def test_day4_runner_main_ok_on_defaults(tmp_path, capsys):
 
 def test_exactly_one_pinned_board_capture_and_record_files_untouched():
     assert [p.name for p in runner.pinned_board_captures()] == [CAPTURE.name]
-    assert [p.name for p in runner.record_run_files()] == [
-        "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri",
-        "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
-        "run_LIVE_2026-10-24_pv_e1849abce514440c.ri"]
+    today = [p.name for p in runner.record_run_files()]
+    assert today[:3] == [p.name for p in RECORD_AT_OBSERVATION]
+    # The record has grown since the observation (Day 4's own pair, A4.2 / A5.1); the
+    # committed board files stay the render over the three files they name.
+    assert today[3:] == ["run_LIVE_2026-10-25_pv_aca51be96df9478c.ri"]
     pins = {
+        "run_LIVE_2026-10-25_pv_aca51be96df9478c.ri":
+            "4c03441d4c6224fb8fc2358eea2b5819ed34bd98dca0fa3cec38c3766ec80d1b",
         "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri":
             "598761ff5f99fea49ddcee34721a8c35711b7896deea752cabd784ecb6141699",
         "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri":
