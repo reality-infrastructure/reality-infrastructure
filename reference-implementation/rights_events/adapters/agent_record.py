@@ -83,6 +83,7 @@ from rights_events.schema import EPType, EventType, RightsEvent
 
 SUBJECT_PREFIX = "agent:"
 INTENT_CLAIMANT = "gdex-preview"
+STOP_ORDER_TYPE = "stop_market"      # A6 R1-stop: the venue's resting stop
 PAPER_AGENT_CLAIMANT = "paper-agent"
 PAPER_CLAIMANT = "paper-simulator"
 DETECTOR = "intent-fill-reconciliation-check"
@@ -339,6 +340,29 @@ def _intent_event(intent: dict, subject: str, mode: str) -> tuple[RightsEvent, s
         rule = intent.get("quote_as_of_rule")
         if isinstance(rule, str) and rule:
             claim["quote_as_of_rule"] = rule
+        if claim["order_type"] == STOP_ORDER_TYPE:
+            # A6 (R1-stop): the venue's resting stop is the close intent. Its
+            # trigger terms are carried exactly as the chain reported them; a
+            # stop intent missing any of them is rejected, nothing is invented.
+            claim.update({
+                "trigger_price_usd": _decimal(intent.get("trigger_price_usd"),
+                                              f"{ctx}.trigger_price_usd"),
+                "trigger_source": _require_str(intent, "trigger_source", ctx),
+                "venue_order_type": _require_str(intent, "venue_order_type", ctx),
+                "venue_trigger_px": _decimal(intent.get("venue_trigger_px"),
+                                             f"{ctx}.venue_trigger_px"),
+                "venue_trigger_condition": _require_str(
+                    intent, "venue_trigger_condition", ctx),
+                "resting_oid": _require_int(intent, "resting_oid", ctx),
+                "resting_observed_ms": _require_int(intent, "resting_observed_ms", ctx),
+                "resting_payload_file": _require_str(intent, "resting_payload_file", ctx),
+                "resting_payload_sha256": _require_str(
+                    intent, "resting_payload_sha256", ctx),
+                "expires_rule": _require_str(intent, "expires_rule", ctx),
+            })
+            if claim["trigger_price_usd"] != quote:
+                raise AdapterError(f"{ctx}.trigger_price_usd != quote_price_usd "
+                                   "(a stop intent is quoted at its trigger)")
     elif source == INTENT_CLAIMANT:
         # R1: the venue's OPEN preview carries its full binding terms.
         claim.update({
@@ -505,6 +529,12 @@ def _parse_live(doc: dict, subject: str, intent_event: RightsEvent,
         raise AdapterError(f"{ctx}.dir {direction!r} is inconsistent with intent "
                            f"kind {kind!r} / side {side!r} (S12)")
     fill_time_ms = _require_int(live, "fill_time_ms", ctx)
+    live_oid = _require_int(live, "oid", ctx)
+    if ("resting_oid" in intent_event.claim
+            and live_oid != intent_event.claim["resting_oid"]):
+        raise AdapterError(f"{ctx}.oid {live_oid} != the resting stop's oid "
+                           f"{intent_event.claim['resting_oid']} (S32: never "
+                           "associate)")
     association = doc.get("association")
     if not isinstance(association, dict):
         raise AdapterError("Document has no association object")

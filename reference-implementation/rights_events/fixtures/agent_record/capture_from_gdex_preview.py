@@ -63,6 +63,25 @@ between them is the day's number.
         [--max-bps 50] [--max-shadow-lag-ms 5000] [--max-fill-after-expiry-ms 60000] \
         [--max-pnl-recon-usd 0.000001] [--poll-seconds 120]
 
+THE RESTING-STOP CLOSE (PREREG A6, R32-R34). The close INTENT is the stop the
+venue placed for the open preview's own `slPrice`: the trigger order the
+HyperLiquid L1 reports resting under the actor's wallet (POST {type:
+frontendOpenOrders, user}), pinned verbatim, together with the open preview's
+`terms.slPrice`. The venue, not a hand, executes it on its mark price; this
+tool only waits for the chain's fill (`userFillsByTime`, Close Long, ONE oid
+that MUST equal the resting order's oid — S32) inside the stop's declared life
+(the open preview's createdAt .. the open fill + the gate), then takes the
+allMids shadow at that instant, exactly as the live leg. `stop_price` is the
+pure R32 rule (mid × (1 − bps/10000), rounded down to a whole 10 USD for a
+long; up for a short).
+
+    python rights_events/fixtures/agent_record/capture_from_gdex_preview.py \
+        --live --stop-close --preview-json PATH --open-capture PATH --actor-id 0x... \
+        [--open-orders-json PATH --open-orders-observed-ms MS] [--gate-hours 5] \
+        [--fills-json PATH --fills-observed-ms MS] [--mids-json PATH --mids-observed-ms MS] \
+        [--max-bps 50] [--max-shadow-lag-ms 5000] [--max-fill-after-expiry-ms 60000] \
+        [--max-pnl-recon-usd 0.000001] [--poll-seconds 18600]
+
 Re-running writes a new set keyed by date + previewId; it never overwrites.
 No partial capture is ever written.
 """
@@ -485,6 +504,49 @@ _BUY_SIDES = ("long", "buy", "close_short")
 _SELL_SIDES = ("short", "sell", "close_long")
 _DIR_FOR = {("perp_open", 1): "Open Long", ("perp_open", -1): "Open Short",
             ("perp_close", -1): "Close Long", ("perp_close", 1): "Close Short"}
+HL_OPEN_ORDERS_TYPE = "frontendOpenOrders"
+STOP_ORDER_TYPE = "stop_market"
+STOP_QUOTE_SOURCE = "gdex preview terms.slPrice (hyperliquid mark trigger)"
+STOP_TRIGGER_SOURCE = "hyperliquid mark price"
+
+
+def stop_price(mid, bps, direction: int) -> Decimal:
+    """PURE (A6 R32). The venue stop for a position opened near `mid`: `bps`
+    under the mid for a long (direction +1), over it for a short (-1), rounded
+    to a whole 10 USD AWAY from the position (down for a long, up for a short).
+    Decimal only."""
+    mid, bps = _d(mid), _d(bps)
+    if mid <= 0 or bps <= 0 or direction not in (1, -1):
+        raise SystemExit("stop_price: mid and bps must be positive, direction +1/-1")
+    if direction == 1:
+        raw = mid * (Decimal(1) - bps / Decimal(10000)) / 10
+        return raw.to_integral_value(rounding="ROUND_FLOOR") * 10
+    raw = mid * (Decimal(1) + bps / Decimal(10000)) / 10
+    return raw.to_integral_value(rounding="ROUND_CEILING") * 10
+
+
+def fetch_open_orders(actor_id: str) -> tuple[bytes, int, dict]:
+    query = {"type": HL_OPEN_ORDERS_TYPE, "user": actor_id}
+    req = urllib.request.Request(
+        HL_INFO_URL, data=json.dumps(query).encode(),
+        headers={"Content-Type": "application/json"})
+    observed_ms = int(time.time() * 1000)
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        return resp.read(), observed_ms, query
+
+
+def select_resting_stop(rows, coin: str, close_side: int) -> dict:
+    """PURE (A6 R33). The ONE resting trigger order on `coin` whose side closes
+    the position (`close_side` -1 = a sell closing a long -> chain side "A";
+    +1 -> "B"). Zero or more than one is a SystemExit: nothing is inferred."""
+    want = "A" if close_side == -1 else "B"
+    cands = [r for r in rows
+             if r.get("coin") == coin and bool(r.get("isTrigger"))
+             and r.get("side") == want]
+    if len(cands) != 1:
+        raise SystemExit(f"{len(cands)} resting trigger orders on {coin} side "
+                         f"{want!r}; exactly one is the stop; no capture is written.")
+    return cands[0]
 
 
 def _fmt(x: Decimal) -> str:
@@ -903,6 +965,401 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
     return cap_path, man_path
 
 
+def build_stop_close(preview_json: Path, actor_id: str, control_wallet: str | None,
+                     open_capture: Path, open_orders_json: Path | None,
+                     open_orders_observed_ms: int | None, gate_hours: int,
+                     fills_json: Path | None, fills_observed_ms: int | None,
+                     mids_json: Path | None, mids_observed_ms: int | None,
+                     max_bps: str, max_shadow_lag_ms: int,
+                     max_fill_after_expiry_ms: int, max_pnl_recon_usd: str,
+                     poll_seconds: int) -> tuple[Path, Path]:
+    """The resting-stop CLOSE leg (PREREG A6 R33): the venue's stop for the open
+    preview's slPrice, read from the chain as a resting trigger order, beside the
+    chain's fill of it and a PAPER shadow at the same instant. READS only; the
+    venue executes the stop, never this tool or a hand."""
+    actor_id = actor_id.lower()
+
+    # --- the open preview that carried the stop, verbatim, pinned --------------
+    raw_prev = preview_json.read_bytes().replace(b"\r\n", b"\n")
+    prev_sha = _sha(raw_prev)
+    prev = json.loads(raw_prev.decode("utf-8"))
+    preview_id = prev["previewId"]
+    terms = prev["terms"]
+    if prev.get("kind") != "perp_open" or terms.get("dex"):
+        raise SystemExit("--stop-close needs the OPEN preview (perp_open, core "
+                         "perp) that carried slPrice; no capture is written.")
+    sl_raw = terms.get("slPrice")
+    if not sl_raw:
+        raise SystemExit("the open preview carries no slPrice; there is no "
+                         "resting stop to capture.")
+    sl_px = _d(sl_raw)
+    coin, size = terms["coin"], terms["size"]
+    open_dir = _side_sign(terms["side"])
+    close_sign = -open_dir
+    close_side = "sell" if close_sign == -1 else "buy"
+    expected_dir = _DIR_FOR[("perp_close", close_sign)]
+    created_ms = int(prev["createdAt"])
+    intent_date = _iso(created_ms)
+    dest_prev = HERE / f"gdex_preview_{preview_id}.json"
+    if dest_prev.exists():
+        if dest_prev.read_bytes().replace(b"\r\n", b"\n") != raw_prev:
+            raise SystemExit(f"{dest_prev.name} exists with different bytes.")
+    elif dest_prev.resolve() != preview_json.resolve():
+        _write_lf(dest_prev, raw_prev.decode("utf-8"))
+
+    # --- the pinned LIVE open leg this stop closes (R17) -------------------------
+    open_raw = open_capture.read_bytes().replace(b"\r\n", b"\n")
+    opened = json.loads(open_raw.decode("utf-8"))
+    if (opened.get("kind") != "agent_record_capture"
+            or opened.get("mode") != "LIVE" or "closes" in opened
+            or opened["intent"].get("kind") != "perp_open"):
+        raise SystemExit("--open-capture must be a LIVE OPEN agent_record capture.")
+    o_intent, o_fill = opened["intent"], opened["live_fill"]
+    if o_intent["intent_id"] != preview_id:
+        raise SystemExit("the open capture's intent is not this preview; no "
+                         "capture is written.")
+    if o_intent["market"] != coin or _d(o_intent["size"]) != _d(size):
+        raise SystemExit("the open capture's coin/size differ from the preview's; "
+                         "no capture is written.")
+    open_fill_ms = int(o_fill["fill_time_ms"])
+    expires_ms = open_fill_ms + int(gate_hours) * 3600 * 1000      # the stop's life
+    deadline_ms = expires_ms + int(max_fill_after_expiry_ms)
+    closes = {
+        "capture": open_capture.name,
+        "sha256": _sha(open_raw),
+        "intent_id": preview_id,
+        "fill_id": o_fill["fill_id"],
+        "side": "long" if open_dir == 1 else "short",
+        "size": size,
+        "fill_price_usd": o_fill["price_usd"],
+        "fill_fee_usd": o_fill["fee_usd"],
+    }
+
+    # --- the resting stop as the chain reports it, verbatim, pinned (R33) ------
+    if open_orders_json is not None:
+        raw_orders = open_orders_json.read_bytes().replace(b"\r\n", b"\n")
+        if open_orders_observed_ms is None:
+            raise SystemExit("--open-orders-json requires --open-orders-observed-ms.")
+        orders_ms = open_orders_observed_ms
+        orders_query = {"type": HL_OPEN_ORDERS_TYPE, "user": actor_id}
+        orders_origin = f"saved payload {open_orders_json.name}"
+    else:
+        raw_orders, orders_ms, orders_query = fetch_open_orders(actor_id)
+        orders_origin = f"live POST {HL_INFO_URL} {json.dumps(orders_query)}"
+    resting = select_resting_stop(json.loads(raw_orders.decode("utf-8")), coin,
+                                  close_sign)
+    resting_oid = int(resting["oid"])
+    if _d(resting.get("sz", resting.get("origSz"))) != _d(size):
+        raise SystemExit("the resting stop's size is not the position's; no "
+                         "capture is written.")
+    orders_path = HERE / f"hl_{HL_OPEN_ORDERS_TYPE}_{orders_ms}.json"
+    orders_sha = _pin_verbatim(orders_path, raw_orders)
+
+    # --- the chain's fill of the stop (R11 + S32), polled, verbatim ------------
+    def _select(rows):
+        sel = select_fill_rows(rows, coin, expected_dir, size, created_ms,
+                               deadline_ms)
+        if sel is not None and int(sel[-1]["oid"]) != resting_oid:
+            raise SystemExit(f"the {expected_dir} fill's oid {sel[-1]['oid']} is "
+                             f"not the resting stop's {resting_oid} (S32: never "
+                             "associate); no capture is written.")
+        return sel
+
+    if fills_json is not None:
+        raw_fills = fills_json.read_bytes().replace(b"\r\n", b"\n")
+        if fills_observed_ms is None:
+            raise SystemExit("--fills-json requires --fills-observed-ms.")
+        fills_ms = fills_observed_ms
+        fills_query = {"type": HL_FILLS_TYPE, "user": actor_id,
+                       "startTime": open_fill_ms}
+        fills_origin = f"saved payload {fills_json.name}"
+        rows = _select(json.loads(raw_fills.decode("utf-8")))
+        if rows is None:
+            raise SystemExit("the saved fills payload holds no complete fill of "
+                             "the stop; no capture is written.")
+    else:
+        started = time.time()
+        while True:
+            raw_fills, fills_ms, fills_query = fetch_fills(actor_id, open_fill_ms)
+            rows = _select(json.loads(raw_fills.decode("utf-8")))
+            if rows is not None:
+                break
+            if time.time() - started > poll_seconds:
+                raise SystemExit(f"no complete {expected_dir} {coin} fill of {size} "
+                                 f"for {actor_id} within {poll_seconds}s; no "
+                                 "capture is written.")
+            time.sleep(2)
+        fills_origin = f"live POST {HL_INFO_URL} {json.dumps(fills_query)}"
+
+    # --- the PAPER shadow at the same instant, verbatim ------------------------
+    raw_mids, shadow_ms, mids_origin = _load_mids(mids_json, mids_observed_ms)
+    mids = json.loads(raw_mids.decode("utf-8"))
+    if coin not in mids:
+        raise SystemExit(f"{coin} not in allMids; no capture is written.")
+    fills_path = HERE / f"hl_{HL_FILLS_TYPE}_{fills_ms}.json"
+    fills_sha = _pin_verbatim(fills_path, raw_fills)
+    mids_path = HERE / f"hl_allMids_{shadow_ms}.json"
+    mids_sha = _pin_verbatim(mids_path, raw_mids)
+
+    total_sz = sum((_d(r["sz"]) for r in rows), Decimal(0))
+    live_px = sum((_d(r["px"]) * _d(r["sz"]) for r in rows), Decimal(0)) / total_sz
+    fee = sum((_d(r["fee"]) + _d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    tokens = sorted({r.get("feeToken") for r in rows})
+    if tokens != ["USDC"]:
+        raise SystemExit(f"fee token(s) {tokens} are not USDC; no capture is "
+                         "written (no conversion is invented).")
+    tx_hashes = [r["hash"] for r in rows]
+    tids = [int(r["tid"]) for r in rows]
+    fill_time_ms = int(rows[-1]["time"])
+    fill_date = _iso(fill_time_ms)
+    closed_pnl = sum((_d(r["closedPnl"]) for r in rows), Decimal(0))
+    quote = sl_px
+    shadow_px = _d(mids[coin])
+    gap_bps = (live_px - shadow_px) / shadow_px * Decimal(10000) * close_sign
+    shadow_lag_ms = shadow_ms - fill_time_ms
+    dev_live = abs(live_px - quote) / quote * Decimal(10000)
+    dev_shadow = abs(shadow_px - quote) / quote * Decimal(10000)
+    open_px = _d(o_fill["price_usd"])
+    realized_distance_bps = (open_px - sl_px) / open_px * Decimal(10000) * open_dir
+
+    stop_intent_id = f"{preview_id}:stop"
+    intent_block = {
+        "intent_id": stop_intent_id,
+        "kind": "perp_close",
+        "market": coin,
+        "side": close_side,
+        "order_type": STOP_ORDER_TYPE,
+        "size": size,
+        "position_side": closes["side"],
+        "position_size": size,
+        "is_full_close": True,
+        "reduce_only": bool(resting.get("reduceOnly")),
+        "notional_usd": _fmt(sl_px * _d(size)),
+        "quote_price_usd": _fmt(sl_px),
+        "mark_price_usd": terms["markPx"],
+        "quote_source": STOP_QUOTE_SOURCE,
+        "quote_as_of_ms": int(terms["priceAsOf"]),
+        "quote_as_of_rule": "the open preview's priceAsOf (slPrice was computed by "
+                            "R32 from the allMids poll taken just before that "
+                            "preview and bound into it)",
+        "created_ms": created_ms,
+        "expires_ms": expires_ms,
+        "expires_rule": f"open fill_time_ms + {int(gate_hours)} h (the stop's "
+                        "declared life: the gate)",
+        "binding": prev["binding"],
+        "trigger_price_usd": _fmt(sl_px),
+        "trigger_source": STOP_TRIGGER_SOURCE,
+        "venue_order_type": str(resting.get("orderType")),
+        "venue_trigger_px": str(resting.get("triggerPx")),
+        "venue_trigger_condition": str(resting.get("triggerCondition")),
+        "venue_is_position_tpsl": bool(resting.get("isPositionTpsl")),
+        "venue_limit_px": str(resting.get("limitPx")),
+        "resting_oid": resting_oid,
+        "resting_timestamp_ms": int(resting["timestamp"]),
+        "resting_observed_ms": orders_ms,
+        "resting_payload_file": orders_path.name,
+        "resting_payload_sha256": orders_sha,
+        "realized_stop_distance_bps": _fmt(realized_distance_bps),
+        "tool": GDEX_MCP_TOOL,
+        "source_url": GDEX_BASE,
+        "observed_date": intent_date,
+    }
+    live_fill_id = f"live:{preview_id}:close"
+    shadow_fill_id = f"paper:{preview_id}:close:shadow"
+    capture = {
+        "kind": "agent_record_capture",
+        "mode": "LIVE",
+        "synthetic": False,
+        "note": ("LIVE capture, CLOSE leg by the venue's RESTING STOP (PREREG A6). "
+                 "INTENT SIDE: the stop the venue placed for the open preview's own "
+                 "slPrice (" + GDEX_MCP_TOOL + "), read back from the HyperLiquid L1 "
+                 "as a resting trigger order (POST " + HL_INFO_URL + " {type: "
+                 + HL_OPEN_ORDERS_TYPE + "}); the venue executes it on its mark "
+                 "price; no hand and no preview at the trigger. OUTCOME SIDE: the "
+                 "fill the L1 recorded under the actor's wallet (POST {type: "
+                 + HL_FILLS_TYPE + "}) with the SAME oid as the resting order, its "
+                 "transaction hash(es) and the chain's fee; a cryptographically "
+                 "signed chain event. SHADOW: this tool's own simulated fill at the "
+                 "allMids mid at the instant the fill was observed (PAPER, "
+                 "self-asserted). This tool READ the order and the fill; it "
+                 "submitted nothing. See the MANIFEST beside this file."),
+        "actor": {
+            "actor_id": actor_id,
+            "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+            **({"control_wallet": control_wallet.lower()} if control_wallet else {}),
+        },
+        "closes": closes,
+        "intent": intent_block,
+        "live_fill": {
+            "fill_id": live_fill_id,
+            "intent_id": stop_intent_id,
+            "price_usd": _fmt(live_px),
+            "size": size,
+            "fee_usd": _fmt(fee),
+            "fee_token": "USDC",
+            "tx_hashes": tx_hashes,
+            "tids": tids,
+            "oid": int(rows[-1]["oid"]),
+            "fill_time_ms": fill_time_ms,
+            "dir": expected_dir,
+            "closed_pnl_usd": _fmt(closed_pnl),
+            "start_position": str(rows[0]["startPosition"]),
+            "explorer_url": HL_EXPLORER_TX + tx_hashes[0],
+            "rows": len(rows),
+            "mode": "LIVE",
+            "source_url": HL_INFO_URL,
+            "observed_date": fill_date,
+        },
+        "shadow_fill": {
+            "fill_id": shadow_fill_id,
+            "intent_id": stop_intent_id,
+            "price_usd": str(mids[coin]),
+            "size": size,
+            "fee_usd": "0",
+            "fee_model": "none (paper shadow at the live fill's instant; the live "
+                         "fill beside it carries the chain's fee)",
+            "mark_source": "hyperliquid allMids",
+            "observed_ms": shadow_ms,
+            "source_url": HL_INFO_URL,
+            "observed_date": _iso(shadow_ms),
+        },
+        "association": {"max_fill_after_expiry_ms": int(max_fill_after_expiry_ms),
+                        "oid_rule": "the fill's oid must equal the resting stop's "
+                                    "oid (S32)"},
+        "tolerance": {
+            "max_quote_to_fill_bps": str(_d(max_bps)),
+            "max_shadow_lag_ms": int(max_shadow_lag_ms),
+            "max_pnl_recon_usd": str(_d(max_pnl_recon_usd)),
+        },
+    }
+    cap_path = HERE / f"capture_LIVE_{intent_date}_{preview_id}_close.json"
+    cap_bytes = _write_lf(cap_path, json.dumps(capture, indent=2) + "\n")
+
+    fees = _d(closes["fill_fee_usd"]) + fee
+    realized = (live_px - open_px) * _d(size) * open_dir - fees
+    gross = realized + fees
+    manifest = {
+        "fixture": cap_path.name,
+        "status": "LIVE",
+        "leg": "close",
+        "close_mechanism": "venue resting stop (PREREG A6)",
+        "bytes": len(cap_bytes),
+        "sha256": _sha(cap_bytes),
+        "generator": Path(__file__).name,
+        "closes": {"capture": closes["capture"], "sha256": closes["sha256"]},
+        "source": {
+            "intent": {
+                "what": "The venue's resting stop for the open preview's slPrice: "
+                        "placed by the venue with the open the operator submitted, "
+                        "read back from the L1 as a resting trigger order; "
+                        "executed by the venue on its mark price, never by this "
+                        "tool or a hand.",
+                "gdex_mcp_tool": GDEX_MCP_TOOL,
+                "custody_backend": GDEX_BASE,
+                "preview_verbatim_file": dest_prev.name,
+                "preview_sha256": prev_sha,
+                "preview_created_ms": created_ms,
+                "preview_sl_price": sl_raw,
+                "resting_api": HL_INFO_URL + " " + json.dumps(orders_query),
+                "resting_payload_origin": orders_origin,
+                "resting_payload_verbatim_file": orders_path.name,
+                "resting_payload_sha256": orders_sha,
+                "resting_observed_ms": orders_ms,
+                "resting_order_as_reported": resting,
+                "quote_as_of_ms": intent_block["quote_as_of_ms"],
+                "quote_as_of_rule": intent_block["quote_as_of_rule"],
+                "expires_rule": intent_block["expires_rule"],
+                "observed_date": intent_date,
+            },
+            "live_fill": {
+                "what": "The fill the HyperLiquid L1 recorded under the actor's "
+                        "wallet: a chain event carrying its transaction hash(es) "
+                        "and the chain's fee.",
+                "api": HL_INFO_URL + " " + json.dumps(fills_query),
+                "payload_origin": fills_origin,
+                "payload_verbatim_file": fills_path.name,
+                "payload_sha256": fills_sha,
+                "payload_observed_ms": fills_ms,
+                "association": {
+                    "rule": "coin == intent.market, dir == expected, created_ms <= "
+                            "time <= expires_ms + max_fill_after_expiry_ms, one oid "
+                            "== the resting stop's oid, sizes sum exactly to "
+                            "intent.size",
+                    "expected_dir": expected_dir,
+                    "window_ms": [created_ms, deadline_ms],
+                    "rows_matched": len(rows),
+                    "oid": int(rows[-1]["oid"]),
+                    "resting_oid": resting_oid,
+                    "tx_hashes": tx_hashes,
+                },
+                "fee_rule": "sum of fee + builderFee over the matched rows, USDC",
+                "observed_date": fill_date,
+            },
+            "shadow_fill": {
+                "what": "Simulated fill of the intent's size at the HyperLiquid mid "
+                        "at the instant the live fill was observed. Self-asserted; "
+                        "not a chain event.",
+                "api": HL_INFO_URL + " " + json.dumps(HL_MIDS_QUERY),
+                "payload_origin": mids_origin,
+                "payload_verbatim_file": mids_path.name,
+                "payload_sha256": mids_sha,
+                "observed_ms": shadow_ms,
+                "observed_date": _iso(shadow_ms),
+            },
+        },
+        "dispute_semantics": {
+            "quote_price_usd": _fmt(quote),
+            "quote_is": "the stop's trigger price (slPrice)",
+            "live_fill_price_usd": _fmt(live_px),
+            "live_deviation_bps": _fmt(dev_live),
+            "live_dispute_expected": dev_live > _d(max_bps),
+            "shadow_fill_price_usd": _fmt(shadow_px),
+            "shadow_deviation_bps": _fmt(dev_shadow),
+            "shadow_dispute_expected": dev_shadow > _d(max_bps),
+            "max_quote_to_fill_bps": str(_d(max_bps)),
+        },
+        "sim_to_real_gap": {
+            "formula": "(live - paper) / paper * 10000 * cost_sign, Decimal; "
+                       "cost_sign +1 when the agent buys, -1 when it sells; "
+                       "positive = live cost more than paper",
+            "live_price_usd": _fmt(live_px),
+            "paper_price_usd": _fmt(shadow_px),
+            "cost_sign": close_sign,
+            "gap_bps": _fmt(gap_bps),
+            "shadow_lag_ms": shadow_lag_ms,
+            "max_shadow_lag_ms": int(max_shadow_lag_ms),
+            "stale_dispute_expected": abs(shadow_lag_ms) > int(max_shadow_lag_ms),
+        },
+        "stop": {
+            "sl_price_usd": _fmt(sl_px),
+            "open_fill_price_usd": _fmt(open_px),
+            "realized_stop_distance_bps": _fmt(realized_distance_bps),
+            "resting_to_fill_ms": fill_time_ms - int(resting["timestamp"]),
+            "note": "R34's close_latency_ms is measured against the 30 bps paper "
+                    "fork's first crossing on the mid tape (the fork capture), not "
+                    "here; the venue triggers on MARK, which the tape does not see.",
+        },
+        "realized_live_pnl": {
+            "formula": "(close_fill - open_fill) * size * dir - (open_fee + "
+                       "close_fee), Decimal, fees from the chain",
+            "open_price_usd": closes["fill_price_usd"],
+            "close_price_usd": _fmt(live_px),
+            "size": size,
+            "dir": open_dir,
+            "fees_usd": _fmt(fees),
+            "realized_pnl_usd": _fmt(realized),
+            "bucket": _bucket(realized),
+            "venue_closed_pnl_usd": _fmt(closed_pnl),
+            "recon_difference_usd": _fmt(abs(gross - closed_pnl)),
+            "max_pnl_recon_usd": str(_d(max_pnl_recon_usd)),
+            "recon_dispute_expected": abs(gross - closed_pnl) > _d(max_pnl_recon_usd),
+        },
+    }
+    man_path = HERE / f"MANIFEST_LIVE_{intent_date}_{preview_id}_close.json"
+    _write_lf(man_path, json.dumps(manifest, indent=2) + "\n")
+    return cap_path, man_path
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--close", action="store_true",
@@ -910,6 +1367,13 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--live", action="store_true",
                     help="LIVE leg (PREREG A2): read the chain's fill of the "
                          "preview the operator submitted by hand; never submits")
+    ap.add_argument("--stop-close", action="store_true",
+                    help="with --live: the CLOSE leg by the venue's resting stop "
+                         "(PREREG A6); reads the resting order and the chain's "
+                         "fill of it; never submits")
+    ap.add_argument("--open-orders-json", default=None, type=Path)
+    ap.add_argument("--open-orders-observed-ms", default=None, type=int)
+    ap.add_argument("--gate-hours", default=5, type=int)
     ap.add_argument("--fills-json", default=None, type=Path)
     ap.add_argument("--fills-observed-ms", default=None, type=int)
     ap.add_argument("--max-shadow-lag-ms", default=5000, type=int)
@@ -929,7 +1393,19 @@ def main(argv: list[str] | None = None) -> int:
     args = ap.parse_args(argv)
     if args.live and args.close:
         raise SystemExit("--live and --close are different legs; pick one")
-    if args.live:
+    if args.live and args.stop_close:
+        if (args.preview_json is None or args.actor_id is None
+                or args.open_capture is None):
+            raise SystemExit("--live --stop-close requires --preview-json, "
+                             "--open-capture and --actor-id")
+        cap, man = build_stop_close(
+            args.preview_json, args.actor_id, args.control_wallet,
+            args.open_capture, args.open_orders_json, args.open_orders_observed_ms,
+            args.gate_hours, args.fills_json, args.fills_observed_ms,
+            args.mids_json, args.mids_observed_ms, args.max_bps,
+            args.max_shadow_lag_ms, args.max_fill_after_expiry_ms,
+            args.max_pnl_recon_usd, args.poll_seconds)
+    elif args.live:
         if args.preview_json is None or args.actor_id is None:
             raise SystemExit("--live requires --preview-json and --actor-id")
         cap, man = build_live(args.preview_json, args.actor_id, args.control_wallet,
