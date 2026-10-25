@@ -981,3 +981,85 @@ deviation from the quote 1.4901 bps ≤ 50 → no dispute; four events, one
 `cryptographically_signed`, zero disputes. The position is OPEN (0.00014 BTC long); the
 watcher (A5) started at once on this capture; the close is taken at the 30 bps stop or the
 five-hour gate (1792925352038 ms) by R26 and pinned in A4.2.
+
+### A4.2 — 2026-10-25 — the real LIVE CLOSE capture (Day 4), pinned before its gate: the 30 bps live control fired and the R26 close followed
+
+Taken in one run of `capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_3e5df69d73074fd2.json --actor-id
+0x9f97…b7f23 --control-wallet 0xa629…5b92 --open-capture
+rights_events/fixtures/agent_record/capture_LIVE_2026-10-25_pv_aca51be96df9478c.json
+--poll-seconds 180`, started BEFORE the close was submitted. The tool wrote the files below
+and exited 0; nothing below is edited by hand.
+
+**What fired (A5 R27, measured by the watcher on the one tape):** the live control crossed
+30 bps at ms **1792919581626**, mid **80260.5**, adverse **32.47559673132808425026700777 bps**
+(payload `hl_allMids_1792919581626.json`, pinned in A5.1 with the rest of the tape). The paper
+forks 10 and 20 had already exited (ms 1792911091777 at 80440.5; ms 1792916921385 at 80354.5).
+
+**How the close was submitted (R26, recorded in full, with the one thing that did not go to
+plan).** On the trigger, under the operator's standing go for the A5 plan ("go", 2026-10-25),
+the close preview was taken without `size` (A2.2). The FIRST call
+(`gdex_preview_trade {kind: perp_close, coin: BTC}`, ~ms 1792919630000) was REFUSED by the
+gdex server: `No open BTC position found for 0x9f976123e7c48952be487664b8130aad144b7f23`
+(VALIDATION_ERROR, not_submitted). The position WAS open: `gdex_positions` (asOf
+1792919651208) and the chain's `clearinghouseState` (1792919659431) both showed BTC szi
+0.00014 at entry 80522.0, no open orders, no fills since the open. The refusal was a venue
+lookup fault, not a flat book; a preview submits nothing, so it was retried ONCE: the second
+call succeeded → `pv_3e5df69d73074fd2` (perp_close, reduce-only market sell, 0.00014 BTC,
+positionSize 0.00014, isFullClose, **markPx 80160**, created **1792919676572**, expires
+1792919736572, no warnings). Saved verbatim; the poller started; then, inside the window,
+`place_perp_order {coin: BTC, isLong: false, isMarket: false, reduceOnly: true, size:
+"0.00014", price: "80070"}` — P = floor(80160 × 0.999 / 10) × 10 = **80070** exactly as R26
+declares — returned `isSuccess: true`. It crossed the book as a taker and filled at
+**80110.0**, 40 USD above the limit, 10.856 s before the preview expired. S25 was not
+reached: one order, one attempt. The gdex MCP's `get_mark_price` and `get_hl_open_orders`
+still fail with `ERR_REQUIRE_ESM` on Node 20.18.0 (the A3 decision stands); neither is on
+the close path.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+3669  883ac6494bdb19873ca382ca773e72d65314123ddba6e01c9999c9e33b4b144f  capture_LIVE_2026-10-25_pv_aca51be96df9478c_close.json
+4460  815d174da508b08e82fc94d47dbabc2d2d6784849f723c871e194dc5fca7ff71  MANIFEST_LIVE_2026-10-25_pv_aca51be96df9478c_close.json
+899   afe123a25a43f93bf07150c04660d365ac05d33c8f5a566c4174fcf5e4b26b79  gdex_preview_pv_3e5df69d73074fd2.json          (the close intent, verbatim)
+352   9520c3decb3f810acc77cba76d8be274e2cc81d2e8527f84c03c67874cca7608  hl_userFillsByTime_1792919726408.json          (the chain's close fill, verbatim)
+25138 551f1c133565208ac146704eb1a408d73f42471793124f2d5a9aa889e49bfcd4  hl_allMids_1792919726691.json                  (the close shadow, verbatim)
+```
+
+The close capture's `closes.sha256` = `71b18174…a5d258` = A4.1's pin of the open capture
+(S17 holds); `closes.intent_id = pv_aca51be96df9478c`, `closes.size = 0.00014` = the close
+intent's and close fill's size (R7 / S9 hold); `positionSize = 0.00014 = isFullClose`.
+
+**The chain's row (one row, one order — R11 holds):** coin BTC, dir `Close Long`, px
+**80110.0**, sz 0.00014, time **1792919725716** (inside [1792919676572, 1792919796572]; in
+fact before expiry), oid 585206689925, tid 464692864142121, hash
+**`0x196062567a9bd2ce1ada0447520dbe020133003c159ef1a0bd290da9399facb8`**, fee 0.010452 +
+builderFee 0.005607 = **0.016059 USDC**, closedPnl **−0.05768**, startPosition 0.00014,
+crossed True.
+
+**Known-answer commitment (the real numbers, by A2's formulas; the gate asserts these):**
+
+- Close intent quoted at **80160** (markPx as of createdAt). Live close fill **80110.0** →
+  live deviation **6.237524950099800399201596806 bps**. Close shadow **80110.5** (allMids
+  observed 1792919726691, lag 975 ms ≤ 5000) → shadow deviation
+  6.175149700598802395209580838 bps. Neither exceeds 50 → no dispute.
+- **Close sim-to-real gap = (80110.0 − 80110.5) / 80110.5 × 10000 × (−1) =
+  0.06241379095124858788797972800 bps** (selling half a dollar per BTC below paper; live
+  cost more than paper by 0.0624 bps). Open gap +0.6831 bps (A4.1).
+- **Realized LIVE PnL = (80110.0 − 80522.0) × 0.00014 − (0.016141 + 0.016059) =
+  −0.057680 − 0.032200 = −0.089880 USD, LOSS.** Gross −0.057680 = the venue's closedPnl
+  −0.05768 exactly (recon 0 ≤ 0.000001; S-recon holds).
+- The settled pair: nine events in the LIVE log, two `cryptographically_signed` (the two
+  chain fills), two gaps, one realized, zero disputes; with the A5.1 forks it becomes
+  fifteen (R30).
+
+**The stop's own number (A5 R29 material, measured, not asserted):** the control crossed at
+80260.5 and the chain closed at 80110.0, **144.09 s** later: trigger-to-fill cost
+**18.75144062147631774035795939 bps** of the trigger mid = **0.021070 USD** on the unit
+(paper 30 bps fork gross −0.036610 vs live gross −0.057680). Adverse at the fill was
+**51.17 bps**, not 30: the 50 bps paper fork fired at ms 1792919698491 (80115.5) DURING the
+close latency, before the live fill. Of the 144 s, about 95 s were the refused first preview
+and the position check, about 49 s the preview-to-fill path itself. The limit filled 4.996 bps
+above its price (80110 vs 80070): R26's cushion was not needed today. The tape, the fork file
+and the wider forks (100, gate_only) run to the gate (1792925352038 ms) and are pinned in A5.1.
+Nothing in A5's promotion rule changes: one day, no promotion (R29).

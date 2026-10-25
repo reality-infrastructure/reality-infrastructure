@@ -1,0 +1,89 @@
+{
+  "kind": "agent_record_capture",
+  "mode": "LIVE",
+  "synthetic": false,
+  "note": "LIVE capture, CLOSE leg. INTENT SIDE: GDEX's own preview (@gemachdao/gdex-mcp-server: gdex_preview_trade), exact executable terms; the operator submitted it by hand through their own GDEX account. OUTCOME SIDE: the fill the HyperLiquid L1 recorded under the actor's wallet (POST https://api.hyperliquid.xyz/info {type: userFillsByTime}), with its transaction hash(es) and the chain's fee; a cryptographically signed chain event. SHADOW: this tool's own simulated fill at the allMids mid at the instant the fill was observed (PAPER, self-asserted), so the sim-to-real gap is one number. This tool READ the fill; it submitted nothing. See the MANIFEST beside this file.",
+  "actor": {
+    "actor_id": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "custody": "GDEX managed custody (managed EVM wallet = actor_id)",
+    "control_wallet": "0xa62993eb48ddcf74e2ac5cbeede580be0c915b92"
+  },
+  "closes": {
+    "capture": "capture_LIVE_2026-10-25_pv_aca51be96df9478c.json",
+    "sha256": "71b181749208262ddb43f712922096418d3b5e36bf42af2fbc2a2275a90d5258",
+    "intent_id": "pv_aca51be96df9478c",
+    "fill_id": "live:pv_aca51be96df9478c:open",
+    "side": "long",
+    "size": "0.00014",
+    "fill_price_usd": "80522.0",
+    "fill_fee_usd": "0.016141"
+  },
+  "intent": {
+    "intent_id": "pv_3e5df69d73074fd2",
+    "kind": "perp_close",
+    "market": "BTC",
+    "side": "sell",
+    "order_type": "market",
+    "size": "0.00014",
+    "position_side": "long",
+    "position_size": "0.00014",
+    "is_full_close": true,
+    "reduce_only": true,
+    "notional_usd": "11.222399999999999",
+    "quote_price_usd": "80160",
+    "mark_price_usd": "80160",
+    "quote_source": "hyperliquid metaAndAssetCtxs",
+    "quote_as_of_ms": 1792919676572,
+    "quote_as_of_rule": "createdAt (the close preview reports no priceAsOf; its markPx is taken as of the preview's creation)",
+    "created_ms": 1792919676572,
+    "expires_ms": 1792919736572,
+    "binding": "072d24a7a2ad0f28a68e2d139fee20363706312e4fa0b1d432f86bd3844f510b",
+    "tool": "@gemachdao/gdex-mcp-server: gdex_preview_trade",
+    "source_url": "https://trade-api.gemach.io/v1",
+    "observed_date": "2026-10-25"
+  },
+  "live_fill": {
+    "fill_id": "live:pv_aca51be96df9478c:close",
+    "intent_id": "pv_3e5df69d73074fd2",
+    "price_usd": "80110.0",
+    "size": "0.00014",
+    "fee_usd": "0.016059",
+    "fee_token": "USDC",
+    "tx_hashes": [
+      "0x196062567a9bd2ce1ada0447520dbe020133003c159ef1a0bd290da9399facb8"
+    ],
+    "tids": [
+      464692864142121
+    ],
+    "oid": 585206689925,
+    "fill_time_ms": 1792919725716,
+    "dir": "Close Long",
+    "closed_pnl_usd": "-0.05768",
+    "start_position": "0.00014",
+    "explorer_url": "https://app.hyperliquid.xyz/explorer/tx/0x196062567a9bd2ce1ada0447520dbe020133003c159ef1a0bd290da9399facb8",
+    "rows": 1,
+    "mode": "LIVE",
+    "source_url": "https://api.hyperliquid.xyz/info",
+    "observed_date": "2026-10-25"
+  },
+  "shadow_fill": {
+    "fill_id": "paper:pv_aca51be96df9478c:close:shadow",
+    "intent_id": "pv_3e5df69d73074fd2",
+    "price_usd": "80110.5",
+    "size": "0.00014",
+    "fee_usd": "0",
+    "fee_model": "none (paper shadow at the live fill's instant; the live fill beside it carries the chain's fee)",
+    "mark_source": "hyperliquid allMids",
+    "observed_ms": 1792919726691,
+    "source_url": "https://api.hyperliquid.xyz/info",
+    "observed_date": "2026-10-25"
+  },
+  "association": {
+    "max_fill_after_expiry_ms": 60000
+  },
+  "tolerance": {
+    "max_quote_to_fill_bps": "50",
+    "max_shadow_lag_ms": 5000,
+    "max_pnl_recon_usd": "0.000001"
+  }
+}
