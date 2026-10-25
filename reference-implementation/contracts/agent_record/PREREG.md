@@ -733,3 +733,43 @@ does not fold any belief; it does not touch the PAPER or LIVE adapter paths or r
 it does not submit anything. The code lands in `AGENT-RECORD-P6` (tool, adapter, runner,
 renderer, gates on derived documents), the real payload in `AGENT-RECORD-A3.1`, the gates
 on it and the mirror outputs in `AGENT-RECORD-P7`.
+
+### A3.1 — 2026-10-25 — the real board payload, pinned before its gate
+
+Taken today (local) in one run of `capture_board_from_gdex.py --actor-id 0x9f97…b7f23
+--control-wallet 0xa629…5b92` (a live `GET https://trade-api.gemach.io/v1/hl/
+top_traders_by_pnl` with the gdex SDK default User-Agent; HTTP 200). The tool wrote the
+three files below and exited 0; nothing below is edited by hand. The P6 machinery
+(`382393a`) was committed before this capture existed; the gates on this capture and the
+mirror outputs land in the strictly later `AGENT-RECORD-P7` commit.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+55608 4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316 gdex_hl_top_traders_by_pnl_2026-10-25.json   (the venue's payload, verbatim)
+9080  3c79b46c7b300c63b6aa14e00c5d07d4c355618f7224fdf92543d2c7b9417504 capture_BOARD_2026-10-25.json
+1686  e158701124bfef1e7dd6b9a4c51bf2a853a10e33a6e03fa0b2d793ff3979d3b9 MANIFEST_BOARD_2026-10-25.json
+```
+
+**The measured known answer (A3 predicted; measured here; they agree, so S22 is not
+triggered):** observed ms **1792906235038** (UTC date 2026-10-25); window `week`; **30**
+rows; `actor_on_board` **false**; `boards_listing_actor` **[]** (the actor is on none of
+the four windows). Row 1 is `0x5b5d5120…c060`, week pnl `10599150.8316670004`, account
+value `231722858.8703080118`; row 30 is `0xbfce143a…c732`, week pnl `1112000.0`, account
+value `1113000.0`. Every number in the capture is the payload's own string; the runner's
+C6 compares them byte for byte.
+
+**Venue-side honesty, stated:** the payload's `week` list is the venue's displayed figure
+for each address and nothing here checks any of those thirty against the chain. On
+2026-10-15 (`trader_record` PREREG) 43 of 84 addresses on this venue's four boards
+diverged displayed-vs-realized-closed; that finding is why the status on every venue row
+reads `self_reported`, and why the chain check of these rows is rung 3 (2026-11-18), not
+today.
+
+**The verified row's known answer (unchanged from A3, now against this capture):** 3 run
+files (roots `14ffd9c7…c9c`, `2b5a846b…fc38`, `8777b0a1…ee95`), 2 chain hashes, settled
+pairs `{PAPER: 1, LIVE: 1}`, `realized_paper_usd` = 0.087640, `realized_live_usd` =
+−0.035183, `fees_live_usd` = 0.032383, `gaps_bps` = [+0.06189842…, +0.06191298…] (open,
+close); the board run holds 2 events, 0 disputes, 0 `cryptographically_signed`. The run
+file root, the mirror files and their sha256 are pasted into the SCOREBOARD after the P7
+run, never predicted here.
