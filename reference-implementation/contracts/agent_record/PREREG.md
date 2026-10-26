@@ -1593,3 +1593,79 @@ now at 9.47 bps per pair against 18.64 bps of fees per pair (A8).
 the Day-4 "fees as recorded" cell above reads 0.032227; the committed Day-4 capture carries
 **0.032200** (0.016141 + 0.016059); 0.032227 was the synthetic P9a figure. The corrected cells
 (0.020957, −0.078637) and every other number in the table are unchanged.
+
+### A7.3 — 2026-10-26 — the real paper stop-fork capture (Day 5), pinned before its gate: three forks fired before the live control, and the tape has a 5 h 26 min hole that this machine caused
+
+**One tape, six forks, the same watcher as Day 4** (`watch_stop_forks.py --open-capture
+capture_LIVE_2026-10-26_pv_e9e6406179d94a4f.json --live-stop-bps 30 --fork-bps
+10,20,30,50,100 --gate-hours 5 --poll-seconds 5`, started at ms ~1792989716000, 40 s after
+the open fill). It wrote the files below and exited 0; nothing is edited by hand.
+
+**What the tape says (R27/R28, marks as the watcher made them):**
+
+| fork | exit | ms | mid | adverse bps at exit | gross paper PnL |
+|---|---|---|---|---|---|
+| 10 | stop | 1793001787875 | 79870.5 | 12.4422 | −0.013930 |
+| 20 | stop | 1793001851618 | 79807.5 | 20.3201 | −0.022750 |
+| 30 (live control) | stop | 1793002236889 | 79714.5 | 31.9495 | −0.035770 |
+| 50 | gate | 1793024138271 | 79941.5 | 3.5638 | −0.003990 |
+| 100 | gate | 1793024138271 | 79941.5 | 3.5638 | −0.003990 |
+| gate_only | gate | 1793024138271 | 79941.5 | 3.5638 | −0.003990 |
+
+The control's REAL gross (A7.2: (79639.0 − 79970.0) × 0.00014 = −0.046340) is worse than its
+paper fork by **0.010570 USD** = exactly the R38 close-latency cost. Worst adverse excursion
+on the non-null tape rows: 43.20 bps; best favourable: 49.08 bps (the position was up to
+about 49 bps in profit before it fell; no fork takes profit, by design).
+
+**The hole, disclosed in full.** The tape holds **6723 rows, 3906 of them null**, in ONE span:
+from ms **1793004589036** to **1793024133270**, every poll failed for 5 h 26 min. The watcher
+never stopped (its largest wall-clock gap between rows is 16 s) but it could not see a mid,
+so it could not mark the gate at the declared **gate_ms 1793007676331**; by its R28 rule it
+marked the gate at the first poll with a mid at or after the gate, **1793024138271 — 4 h 34
+min late**. The cause is this machine, not the venue: Windows' own network log
+(Microsoft-Windows-NetworkProfile/Operational) records **Network Disconnected at 08:49:57Z**
+and **Network Connected at 14:15:37Z** on 2026-10-26, matching the hole's ends to the second;
+no sleep or power event exists in that window. The venue traded throughout: its 1-minute
+candles over the hole are pinned (`hl_candleSnapshot_BTC_1m_1793024304212.json`, 327
+candles). From them: **before the declared gate the price never went below the open** (min
+low 80160.0 at 1793005380000, 23.8 bps ABOVE the open fill), so the 50, 100 and gate_only
+forks were truly untriggered at the declared gate; the candle containing the declared gate
+closed at **80483.0**, 64.1 bps above the open, so a tape with no hole would have exited
+those three forks at a gross of about **+0.0718 USD**, not −0.003990. After the declared gate
+the price fell to a low of 79430.0 (67.5 bps adverse, at 1793021760000); 50 bps was first
+crossed on a candle low at 1793021700000, 100 bps never.
+
+**What stands and what does not.** The LIVE pair is untouched (closed at 1793002263508, two
+hours before the hole). The 10, 20 and 30 bps marks are untouched (all before the hole) and
+their R29 comparison stands: forward day 2 of 3, and for the second day running the tighter
+forks lost less than the control (10 → −0.013930, 20 → −0.022750, 30 → −0.035770). The 50,
+100 and gate_only marks are recorded exactly as the watcher made them (the tape is the only
+mark, R28; nothing is re-marked from candles) but are **declared unusable for R29 today**:
+their exits are 4 h 34 min late through this machine's fault, and the candles show the sign
+would have been the opposite. R29's three-day count for those three forks restarts; for 10,
+20 and 30 it continues. This is a recorded miss (daily rule item 10): the tool path that
+failed is the watcher's dependence on this machine's uplink.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+  4548  a3895739684d42d35a476d2d271dbf57c4ae5b99880c497c3407c663f71d802c  forks_LIVE_2026-10-26_pv_e9e6406179d94a4f.json
+249390  52d8045260a584056eaaab3ed96caf63855cdb0fd4808be5ccc80fb2382944f6  watch_LIVE_2026-10-26_pv_e9e6406179d94a4f.jsonl   (the tape, 6723 rows, 3906 null)
+ 25101  ab5a1e177ba3a8b02f236beeea6ce93767186fad8dd0eb09c674b986525677c4  hl_allMids_1793001787875.json                      (payload at the 10 bps trigger)
+ 25045  873cec243ba57ed0f7675a806164b1a24bbe6ef1d1ef60a025317bc7fefe9b73  hl_allMids_1793001851618.json                      (payload at the 20 bps trigger)
+ 25061  3f5c38ec67faccf29d1e0333b103fcd99ac6eaf8a5e478333abb08f4345b9e31  hl_allMids_1793002236889.json                      (payload at the 30 bps trigger, the live control)
+ 25192  1cdec3912a8d1884a72e117aa736c8c60c574cc0341fe4c1992b846705bee5e8  hl_allMids_1793024138271.json                      (payload at the late gate mark)
+ 44126  92a71d8c4a4da1352c88291ad104b839894be63c9d9b638425070664d661d276  hl_candleSnapshot_BTC_1m_1793024304212.json        (the venue's 1 m candles over the hole, 327)
+  4123  6c33fd38b4a50e6483275a009be4737163313a363259a552fa283384a487f5e5  hl_historicalOrders_1793002418670.json             (the chain's record of today's close: Limit 75833.0, tif Ioc, reduceOnly — the R26 price did not rest)
+```
+
+**Known answer for the fifteen-event run (produced once, before P9d's gate, through the
+unmodified engine):** `run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri`, 15 events (2 intent, 4
+fill, 1 realized, 2 gap, 6 paper stop fork), 2 `cryptographically_signed`, 0 disputes, root
+**5215bc902440f8fcd925ec964d34fc699af5bb8ec3b7b9c06692e4b44ecc4e02**, LF sha256
+**a5d0793cd576f91571a0c447298d3461bd56079610f0014fc03b3f95e2898b60**; `--verify` reloads 15
+events, every signature and inclusion proof verified. The adapter accepted the late gate
+mark because it is a poll at or after `gate_ms` with a mid (R28 as written); P9d gates assert
+the hole and the late mark as facts, and the next amendment that touches the watcher must
+make a gate mark later than `gate_ms` by more than one poll interval a declared, visible
+condition rather than a silent one.
