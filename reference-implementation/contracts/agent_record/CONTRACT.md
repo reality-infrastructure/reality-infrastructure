@@ -276,3 +276,63 @@ reference-implementation/
   close preview is impossible at 60 s expiry); Day 5 weekly review (one chart from the
   signed log, one limiting-factor sentence, next 50th-percentile date); rung 2 = the board
   mirror nightly with `--run-file` naming the record as of each observation.
+
+
+## DONE report (Day 5, the settled pair and the week-one review: the venue's stop that never rested, 2026-10-26)
+
+- **Planned (PREREG A6, 2026-10-25 evening, before any code):** the same unit, the open
+  unchanged except ONE field — `slPrice` on the open preview, 30 bps by R32 — so the venue
+  would rest a stop and fire it on its mark price, removing the whole hand path from the
+  trigger; R34 pre-registered the pass line (latency < 10 000 ms, |cost| < 5 bps) against
+  Day 4's 144 090 ms / 18.75 bps; forks, gate and hands unchanged. The weekly items: one
+  chart of realized PnL net of fees from the signed log, one limiting-factor sentence, next
+  week's 50th-percentile date, and the fee mechanics check before week two.
+- **Implemented (P9a, before the pair):** the capture tool's `--stop-close` mode, the
+  adapter's R1-stop fields and S32, 26 offline gates. **Then, after the chain answered
+  (P9b, P9c, P9d):** 24 pair gates, the P9c fee-rule correction in the tool (`fee_usd` =
+  the chain's `fee` alone, `builder_fee_usd` beside it, S39) with 5 fee gates and two
+  synthetic P9a expectations re-pointed (disclosed), 18 fork and run gates.
+- **Taken:** one settled LIVE pair on the operator's go ("go, fresh preview, execute").
+  Open 79970.0 (tx 0x1837ce1e…ea288) with `terms.slPrice 79730` on the executed preview.
+  **The venue rested no stop** — open orders empty at +11 s, +23 s, +86 s; the account's
+  whole order history holds no trigger order (A7, pinned). A7 was written and pushed while
+  the position was open and before any close, under the operator's word "A7, Day-4 path":
+  the close fell back to A4 R26 under the A5 watched control. The control fired at 31.95
+  bps (mid 79714.5) at ms 1793002236889; the R26 order (P 79650) filled at 79639.0 (tx
+  0xca0698b6…1197) 26 619 ms later, 9.47 bps / 0.010570 USD against the trigger mid.
+  **Realized −0.078334 USD, LOSS** by the R11 arithmetic the committed capture carries
+  (gross −0.04634 = venue closedPnl exactly; fees 0.031994); **−0.067163 USD corrected per
+  A8** (chain fees 0.020823). Gaps +0.0625 / −1.8210 bps (the close filled better than the
+  mid). Forks on gross: 10 → −0.013930, 20 → −0.022750, 30 → −0.035770, 50 / 100 / gate_only → −0.003990 at a gate mark 4 h 34 min late (the tape's 5 h 26 min hole, this machine's network; unusable for R29 today, A7.3). Run file
+  `run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri` (sha256 a5d0793c…8b60), root
+  5215bc90…4e02, fifteen events, two cryptographically_signed, zero disputes. Position
+  flat, about 19.83 USDC in the perp account.
+- **The week-one review (in the doc, Week one tab):** the chart (Days 2-5, live figures
+  corrected per A8: +0.087640 paper; −0.023876, −0.078637, −0.067163 live; three live pairs
+  −0.169676 USD, of which fees 0.062856). The limiting factor: the exit — every live pair
+  closed by a hand after its trigger, 18.75 bps on Day 4 and 9.47 bps on Day 5, while every
+  entry landed within 0.7 bps of the mid. Next week's 50th-percentile date: 2026-11-04,
+  rung 2 (the board mirror nightly). Fee line measured: 9.32 bps per leg, 18.64 per pair.
+  Size for week two: one unit (three live pairs, three losses; not positive out of sample).
+- **Tested:** Day-5 gates `42 passed`; fee gates `5 passed`; full suite
+  `976 passed` (+49 new, 0 removed, 2 synthetic expectations re-pointed
+  and disclosed); frozen-path diff empty; `--verify` OK on all six run files; Day 1-4 run
+  files byte-untouched.
+- **Committed:** `d62bd4c` (A6) → `eb39180` (P9a) → `6c1d20e` (A7) → `7eab9fa` (A7.1) →
+  `e567b77` (A8) → `9fdc517` (A7.2) → `1d914cd` (P9b) → `0e118e4` (P9c) → `a970fa9` (A7.3) →
+  this `AGENT-RECORD-P9d` commit; every amendment strictly before the code or gate that
+  consumes it. Push status is stated in the P9d session report.
+- **Honest note:** the day's variable could not be tested: a preview field the venue
+  accepts and echoes does nothing on the chain, and the record now says so with the chain's
+  own order history. Two corrections landed on the record today, both found by measuring:
+  the fee rule had counted the builder fee twice on every live leg (Days 3 and 4 restated,
+  nothing regenerated), and the R26 "limit" price was never the resting limit — the chain
+  recorded both the Day-4 and Day-5 closes as immediate-or-cancel orders at the mark minus
+  5 %, filled at the book. The hand path was five times faster today than on Day 4 and
+  still cost 9.5 bps; the exit remains the limiting factor. Three live pairs, three losses,
+  all under two dimes; the record is the asset.
+- **Next (Day 6, 2026-10-27, week two's first day):** one settled pair on the Day-4 close
+  path as the control at one unit (forward day 3 of 3 for the six forks — the first R29
+  promote-or-discard reading), under the corrected fee rule; read-only measurement of which
+  gdex path, if any, can rest a trigger order on the L1, pre-registered as Day 7's candidate
+  only if something rests; rung 2 on 2026-11-04.

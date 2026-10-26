@@ -175,7 +175,10 @@ def test_exactly_one_pinned_board_capture_and_record_files_untouched():
     assert today[:3] == [p.name for p in RECORD_AT_OBSERVATION]
     # The record has grown since the observation (Day 4's own pair, A4.2 / A5.1); the
     # committed board files stay the render over the three files they name.
-    assert today[3:] == ["run_LIVE_2026-10-25_pv_aca51be96df9478c.ri"]
+    # P9d (disclosed): the record grew again on Day 5; the board run still names the
+    # record AS OF its observation (the first three files), untouched.
+    assert today[3:] == ["run_LIVE_2026-10-25_pv_aca51be96df9478c.ri",
+                         "run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri"]
     pins = {
         "run_LIVE_2026-10-25_pv_aca51be96df9478c.ri":
             "4c03441d4c6224fb8fc2358eea2b5819ed34bd98dca0fa3cec38c3766ec80d1b",

@@ -276,4 +276,206 @@ def test_day5_expired_preview_is_a_probe_not_a_record():
     assert not list(_FIX.glob("capture_*pv_f7a0778488bb468e*"))
     assert "pv_f7a0778488bb468e" not in OPEN_TEXT + CLOSE_TEXT
 
+from rights_events.adapters.agent_fork import FORK_CLAIMANT, parse_events as parse_forks  # noqa: E402
 
+FORK_CAP = _FIX / f"forks_LIVE_{DAY}_{OPEN_PV}.json"
+TAPE = _FIX / f"watch_LIVE_{DAY}_{OPEN_PV}.jsonl"
+RUN_FILE = _FIX / f"run_LIVE_{DAY}_{OPEN_PV}.ri"
+FORK_TEXT = FORK_CAP.read_text(encoding="utf-8")
+GATE_MARK_MS = 1793024138271          # the first poll WITH a mid at/after gate_ms (A7.3)
+HOLE = (1793004589036, 1793024133270, 3906)
+CANDLES = _FIX / "hl_candleSnapshot_BTC_1m_1793024304212.json"
+# =====================================================================================
+# P9d — A7.3: the real paper stop-fork capture (pinned a970fa9, before this block) and the
+# fifteen-event Day-5 run file. The numbers are the A7.3 known answers. The tape has a
+# 5 h 26 min hole (this machine's network, disclosed in A7.3); the gate mark is 4 h 34 min
+# after the declared gate_ms and is asserted here as the fact, with the venue's candles.
+# =====================================================================================
+
+RUN_ROOT = "5215bc902440f8fcd925ec964d34fc699af5bb8ec3b7b9c06692e4b44ecc4e02"
+RUN_SHA = "a5d0793cd576f91571a0c447298d3461bd56079610f0014fc03b3f95e2898b60"
+TAPE_ROWS, TAPE_NULLS = 6723, 3906
+
+FORK_PINS = {
+    FORK_CAP.name: "a3895739684d42d35a476d2d271dbf57c4ae5b99880c497c3407c663f71d802c",
+    TAPE.name: "52d8045260a584056eaaab3ed96caf63855cdb0fd4808be5ccc80fb2382944f6",
+    "hl_allMids_1793001787875.json":
+        "ab5a1e177ba3a8b02f236beeea6ce93767186fad8dd0eb09c674b986525677c4",
+    "hl_allMids_1793001851618.json":
+        "873cec243ba57ed0f7675a806164b1a24bbe6ef1d1ef60a025317bc7fefe9b73",
+    "hl_allMids_1793002236889.json":
+        "3f5c38ec67faccf29d1e0333b103fcd99ac6eaf8a5e478333abb08f4345b9e31",
+    "hl_allMids_1793024138271.json":
+        "1cdec3912a8d1884a72e117aa736c8c60c574cc0341fe4c1992b846705bee5e8",
+    "hl_candleSnapshot_BTC_1m_1793024304212.json":
+        "92a71d8c4a4da1352c88291ad104b839894be63c9d9b638425070664d661d276",
+    "hl_historicalOrders_1793002418670.json":
+        "6c33fd38b4a50e6483275a009be4737163313a363259a552fa283384a487f5e5",
+}
+
+# fork -> (exit_reason, exit_ms, exit_mid, gross)
+FORK_ANSWERS = {
+    "10": ("stop", 1793001787875, "79870.5", "-0.013930"),
+    "20": ("stop", 1793001851618, "79807.5", "-0.022750"),
+    "30": ("stop", 1793002236889, "79714.5", "-0.035770"),
+    "50": ("gate", 1793024138271, "79941.5", "-0.003990"),
+    "100": ("gate", 1793024138271, "79941.5", "-0.003990"),
+    "gate_only": ("gate", 1793024138271, "79941.5", "-0.003990"),
+}
+
+
+@pytest.mark.parametrize("name,sha", sorted(FORK_PINS.items()))
+def test_day5_fork_pinned_inputs_unchanged(name, sha):
+    assert _lf_sha(_FIX / name) == sha
+
+
+def test_day5_fork_file_names_the_tape_and_the_pinned_open_leg():
+    doc = json.loads(FORK_TEXT)
+    assert doc["kind"] == "agent_record_fork_capture" and doc["complete"] is True
+    assert doc["tape"]["file"] == TAPE.name
+    assert doc["tape"]["sha256"] == hashlib.sha256(TAPE.read_bytes()).hexdigest()
+    assert doc["tape"]["rows"] == TAPE_ROWS and doc["tape"]["null_rows"] == TAPE_NULLS
+    assert doc["open"]["capture"] == OPEN_CAP.name
+    assert doc["open"]["capture_sha256"] == PINS[OPEN_CAP.name]
+    assert doc["open"]["fill_event_id"] == f"agent_record:fill:live:{OPEN_PV}:open"
+    assert doc["rules"]["live_stop_bps"] == 30 and doc["rules"]["gate_ms"] == GATE_MS
+    assert doc["gate"]["ms"] == GATE_MARK_MS > GATE_MS           # the late mark (A7.3)
+    assert doc["live_trigger"]["ms"] == 1793002236889
+
+
+def test_day5_tape_is_what_the_fork_file_says():
+    rows = [json.loads(line) for line in TAPE.read_text(encoding="utf-8").splitlines()]
+    assert len(rows) == TAPE_ROWS and sum(1 for r in rows if r["mid"] is None) == TAPE_NULLS
+    by_ms = {r["ms"]: r["mid"] for r in rows}
+    for key, (_reason, ms, mid, _gross) in FORK_ANSWERS.items():
+        assert by_ms[ms] == mid, key
+    mids = [Decimal(r["mid"]) for r in rows if r["mid"] is not None]
+    worst = max((OPEN_PX - m) / OPEN_PX * 10000 for m in mids)
+    assert Decimal("43.20") < worst < Decimal("43.21")
+    for key, (reason, ms, _m, _g) in FORK_ANSWERS.items():
+        if reason != "stop":
+            continue
+        before = [Decimal(r["mid"]) for r in rows if r["mid"] is not None and r["ms"] < ms]
+        assert all((OPEN_PX - m) / OPEN_PX * 10000 < Decimal(key) for m in before), key
+
+
+def test_day5_fork_payloads_match_their_marks():
+    doc = json.loads(FORK_TEXT)
+    for key, f in doc["forks"].items():
+        payload = json.loads((_FIX / f["payload_file"]).read_text(encoding="utf-8"))
+        assert Decimal(payload["BTC"]) == Decimal(f["exit_mid_usd"]), key
+        assert _lf_sha(_FIX / f["payload_file"]) == f["payload_sha256"]
+
+
+def test_day5_fork_known_answer():
+    events = parse_forks(FORK_TEXT)
+    assert [e.claim["fork"] for e in events] == ["10", "100", "20", "30", "50", "gate_only"]
+    assert all(e.ep_type is EPType.SELF_ASSERTED and e.claimant == FORK_CLAIMANT
+               and e.claim["mode"] == "PAPER" and e.observed_date == DAY
+               and e.prior_event_refs == (f"agent_record:fill:live:{OPEN_PV}:open",)
+               for e in events)
+    by = {e.claim["fork"]: e.claim for e in events}
+    for key, (reason, ms, mid, gross) in FORK_ANSWERS.items():
+        c = by[key]
+        assert c["exit_reason"] == reason and c["exit_ms"] == ms, key
+        assert c["exit_mid_usd"] == Decimal(mid) and c["gross_paper_pnl_usd"] == Decimal(gross), key
+        assert c["triggered"] is (reason == "stop"), key
+    assert by["30"]["is_live_control"] and sum(1 for c in by.values() if c["is_live_control"]) == 1
+    assert by["30"]["adverse_bps_at_exit"] == Decimal("31.94948105539577341503063649")
+    assert by["10"]["adverse_bps_at_exit"] == Decimal("12.44216581217956733775165687")
+    # R29 material, forward day 2 of 3 for 10/20/30: tighter lost less than the control again.
+    control = by["30"]["gross_paper_pnl_usd"]
+    assert by["10"]["gross_paper_pnl_usd"] > by["20"]["gross_paper_pnl_usd"] > control
+    # The control's REAL gross (A7.2) is worse than its paper fork by the R38 latency cost.
+    live_gross = (Decimal("79639.0") - OPEN_PX) * Decimal("0.00014")
+    assert live_gross == Decimal("-0.046340") and control - live_gross == Decimal("0.010570")
+    assert parse_forks(FORK_TEXT) == events
+
+
+# --- R30: the Day-5 run is fifteen events, two signed, in ONE log ----------------------
+
+def _day5_run():
+    return runner.ingest_captures([OPEN_TEXT, CLOSE_TEXT, FORK_TEXT])
+
+
+def test_day5_run_is_fifteen_events_two_signed_zero_disputes():
+    pipeline, events, indices = _day5_run()
+    assert len(events) == len(pipeline.event_log) == 15
+    assert not [e for e in events if e.event_type is EventType.DISPUTE]
+    signed = [e for e in events if e.ep_type is EPType.CRYPTOGRAPHICALLY_SIGNED]
+    assert sorted(e.event_id for e in signed) == [
+        f"agent_record:fill:live:{OPEN_PV}:close", f"agent_record:fill:live:{OPEN_PV}:open"]
+    assert len([e for e in events if e.event_id.startswith("agent_record:fork:")]) == 6
+    for e in events:
+        for ref in e.prior_event_refs:
+            assert ref in indices                               # S10 / C4
+    assert runner._all_inclusions_verify(pipeline)
+    assert pipeline.event_log.root(len(pipeline.event_log)).hex() == RUN_ROOT
+
+
+def test_day5_committed_run_file_is_the_run(tmp_path):
+    pipeline, _e, _i = _day5_run()
+    fresh = tmp_path / "fresh.ri"
+    pipeline.save(fresh)
+    assert fresh.read_bytes() == RUN_FILE.read_bytes()
+    assert _lf_sha(RUN_FILE) == RUN_SHA
+    ok, report = runner.verify_run(RUN_FILE)
+    assert ok, report
+    assert "reloaded 15 events" in report and report.endswith(RUN_ROOT)
+
+
+def test_day5_runner_main_ok(tmp_path, capsys):
+    out = tmp_path / "run.ri"
+    assert runner.main(["--capture", str(OPEN_CAP), "--capture", str(CLOSE_CAP),
+                        "--capture", str(FORK_CAP), "--out", str(out)]) == 0
+    text = capsys.readouterr().out
+    assert "AGENT-RECORD RUN: OK" in text
+    assert "2 gap, 2 cryptographically_signed, 6 paper stop fork" in text
+    assert "Realized live PnL (pv_e9e6406179d94a4f): -0.078334 USD, LOSS" in text
+
+
+def test_day1_to_5_run_files_untouched_by_day5_pair():
+    pins = {
+        "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri":
+            "598761ff5f99fea49ddcee34721a8c35711b7896deea752cabd784ecb6141699",
+        "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri":
+            "8abb84a25d0809ae6bd56b383c41e2ae9e9951c25a3be697ac88e8f53a4dd13d",
+        "run_LIVE_2026-10-24_pv_e1849abce514440c.ri":
+            "126afbe5a4bb5116162919c6cd47cedcaa41d55805475ceb1b4167de13c9559a",
+        "run_BOARD_2026-10-25.ri":
+            "3d4f13d611d0383bdd6af71a4285e5aa4a6d1cb2a77b968f5ac5eb9c09b8d1ab",
+        "run_LIVE_2026-10-25_pv_aca51be96df9478c.ri":
+            "4c03441d4c6224fb8fc2358eea2b5819ed34bd98dca0fa3cec38c3766ec80d1b",
+    }
+    for name, sha in pins.items():
+        assert _lf_sha(_FIX / name) == sha
+
+
+def test_day5_tape_hole_and_the_venue_candles_as_disclosed():
+    """A7.3: one null span of 3906 rows (this machine's network outage), the gate marked at
+    the first mid after it; the venue's own 1 m candles over the hole show no adverse
+    crossing before the declared gate and the gate candle closing above the open."""
+    rows = [json.loads(line) for line in TAPE.read_text(encoding="utf-8").splitlines()]
+    nulls = [r["ms"] for r in rows if r["mid"] is None]
+    assert (nulls[0], nulls[-1], len(nulls)) == HOLE
+    idx = {r["ms"]: i for i, r in enumerate(rows)}
+    assert all(rows[i]["mid"] is None for i in range(idx[HOLE[0]], idx[HOLE[1]] + 1))
+    assert max(rows[i + 1]["ms"] - rows[i]["ms"] for i in range(len(rows) - 1)) < 20000
+    after = [r for r in rows if r["ms"] >= GATE_MS and r["mid"] is not None]
+    assert after[0]["ms"] == GATE_MARK_MS and after[0]["mid"] == "79941.5"
+    candles = json.loads(CANDLES.read_text(encoding="utf-8"))
+    assert len(candles) == 327
+    before = [c for c in candles if c["t"] < GATE_MS]
+    assert min(Decimal(c["l"]) for c in before) == Decimal("80160.0") > OPEN_PX
+    gate_candle = [c for c in candles if c["t"] <= GATE_MS < c["t"] + 60000][0]
+    assert Decimal(gate_candle["c"]) == Decimal("80483.0")
+    assert min(Decimal(c["l"]) for c in candles) == Decimal("79430.0")      # after the gate
+
+
+def test_day5_the_chain_recorded_the_close_as_ioc_inside_the_band():
+    hist = json.loads((_FIX / "hl_historicalOrders_1793002418670.json").read_text(encoding="utf-8"))
+    close = [r for r in hist if r["order"]["oid"] == 586037357410]
+    assert {r["status"] for r in close} == {"open", "filled"}
+    assert all(r["order"]["tif"] == "Ioc" and r["order"]["reduceOnly"] is True for r in close)
+    assert all(Decimal(r["order"]["limitPx"]) == Decimal("75833.0") for r in close)   # not 79650
+    assert not any(r["order"]["isTrigger"] for r in hist)

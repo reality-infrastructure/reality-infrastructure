@@ -893,3 +893,123 @@ Day-5 pair (R43).
 
 **Correction to the block above (appended 2026-10-26, with P9c):** the Day-4 "fees recorded"
 cell reads 0.032227; the committed capture carries **0.032200**. The corrected figures stand.
+
+
+## Day 5 (2026-10-26): the settled LIVE pair under A6/A7, the paper forks, the fee correction, the week-one review — evidence (P9d)
+
+### Gates — `python -m pytest -q tests/test_agent_record_day5_live_gates.py tests/test_agent_record_fee_gates.py`
+
+```
+47 passed in 0.79s
+```
+
+(42 Day-5 gates: 12 pinned-input gates, the pair as 24 gates in P9b, 18 fork/run gates in
+this commit; 5 fee gates in P9c.) All agent-record gates — `python -m pytest -q tests/ -k agent`:
+
+```
+254 passed, 722 deselected in 5.30s
+```
+
+Full suite — `python -m pytest -q`:
+
+```
+976 passed in 56.48s
+```
+
+Frozen-path diff (`git diff --stat eb39180 -- ri_core`): empty.
+
+### Runner, end to end — `python -m rights_events.agent_record --capture …_pv_e9e6406179d94a4f.json --capture …_pv_e9e6406179d94a4f_close.json --capture forks_LIVE_2026-10-26_pv_e9e6406179d94a4f.json --out run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri`
+
+```
+Sim-to-real gap (pv_e9e6406179d94a4f, open leg): 0.06252383721293743239610101351 bps (live 79970.0 vs paper 79969.5, cost sign +1, shadow lag 1888 ms, live fee 0.016030 USD)
+Sim-to-real gap (pv_e9e6406179d94a4f, close leg): -1.821047541899792149401252127 bps (live 79639.0 vs paper 79624.5, cost sign -1, shadow lag 2040 ms, live fee 0.015964 USD)
+Paper stop fork        10: triggered, exit by stop at mid 79870.5 (adverse 12.44216581217956733775165687 bps), gross -0.013930 USD
+Paper stop fork        20: triggered, exit by stop at mid 79807.5 (adverse 20.32012004501688133049893710 bps), gross -0.022750 USD
+Paper stop fork        30 (live control): triggered, exit by stop at mid 79714.5 (adverse 31.94948105539577341503063649 bps), gross -0.035770 USD
+Paper stop fork        50: untriggered, exit by gate at mid 79941.5 (adverse 3.563836438664499187195198199 bps), gross -0.003990 USD
+Paper stop fork       100: untriggered, exit by gate at mid 79941.5 (adverse 3.563836438664499187195198199 bps), gross -0.003990 USD
+Paper stop fork gate_only: untriggered, exit by gate at mid 79941.5 (adverse 3.563836438664499187195198199 bps), gross -0.003990 USD
+Realized live PnL (pv_e9e6406179d94a4f): -0.078334 USD, LOSS (open 79970.0, close 79639.0, size 0.00014, fees 0.031994, venue closedPnl -0.04634)
+
+Event log root: 5215bc902440f8fcd925ec964d34fc699af5bb8ec3b7b9c06692e4b44ecc4e02
+Run file:       rights_events/fixtures/agent_record/run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri (32864 bytes)
+
+Checks:
+  PASS  C1 adapter produced 15 events: 2 intent, 4 fill, 1 realized, 0 dispute, 2 gap, 2 cryptographically_signed, 6 paper stop fork
+  PASS  C2 all 15 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+
+AGENT-RECORD RUN: OK
+```
+
+### Stranger's check — `--verify` on every run file on the record
+
+```
+run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri: RESULT: OK
+run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri: RESULT: OK
+run_LIVE_2026-10-24_pv_e1849abce514440c.ri: RESULT: OK
+run_BOARD_2026-10-25.ri: RESULT: OK
+run_LIVE_2026-10-25_pv_aca51be96df9478c.ri: RESULT: OK
+run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri: RESULT: OK
+```
+
+`VERIFY run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri: reloaded 15 events, all signatures
+re-verified, all inclusion proofs verified; event-log root 5215bc90…4e02`. Run file LF
+sha256 `a5d0793cd576f91571a0c447298d3461bd56079610f0014fc03b3f95e2898b60`, byte-identical
+to a fresh run of the three pinned captures (gate).
+
+### Known answers (PREREG A7.1 / A7.2 / A7.3 / A8), as committed
+
+- Open 79970.0 (fee 0.016030 by R11; chain fee 0.010433), shadow 79969.5, gap +0.0625 bps,
+  lag 1888 ms. The executed preview carried `terms.slPrice 79730`; **no stop rested** (A7).
+- Close 79639.0 (fee 0.015964 by R11; chain fee 0.01039), closedPnl −0.04634, shadow
+  79624.5, gap −1.8210 bps (the fill better than the mid), lag 2040 ms.
+- Realized **−0.078334 USD, LOSS** as the capture carries it (R11); **−0.067163 USD corrected
+  (A8)**; reconciles to the venue's closedPnl at 0.000001 either way.
+- R38 close latency **26 619 ms, 9.4713 bps, 0.010570 USD** (Day 4: 144 090 ms, 18.75 bps,
+  0.021070 USD). The R34 pass line (< 10 000 ms, < 5 bps) was for a venue-side stop that did
+  not exist; by the hand path it is not met, as expected.
+- Forks on gross: 10 → −0.013930, 20 → −0.022750, 30 (control) → −0.035770, 50 / 100 /
+  gate_only → −0.003990 at a gate mark 4 h 34 min late (unusable for R29, A7.3).
+- Fifteen events, two signed, zero disputes, root 5215bc90…4e02.
+
+### The day's bit
+
+The venue's `slPrice` on the open preview does nothing on the chain. The field is accepted
+and echoed; no trigger order is ever sent to the L1 (open orders empty at +11, +23, +86 s;
+the account's whole order history has no trigger order). Retired as a candidate. The exit
+remains the limiting factor: 9.47 bps today by a hand that was five times faster than on
+Day 4, against 18.64 bps of fees per pair. The week's second bit, found by the fee check:
+the record had counted the builder fee twice; three live pairs lost 0.169676 USD net of
+fees, not 0.203397.
+
+### Disclosed
+
+- A7 was written and pushed while the position was open and before any close (the case A6
+  did not foresee); the close then followed A4 R26 under the operator's word.
+- The chain records both the Day-4 and the Day-5 "R26 limit" closes as immediate-or-cancel
+  orders at the mark minus 5 % (76355.0, 75833.0), filled at the book; the price sent never
+  rested. The Day-5 gate asserts the fill 11 USD BELOW the price sent as the fact; the Day-4
+  gate's "fills at or above P" is left as it was and is now known to have passed by luck.
+- The fee rule (R11) double-counted the builder fee on every live leg; corrected under A8
+  (Day 3 −0.035183 → −0.023876, Day 4 −0.089880 → −0.078637), nothing regenerated; the tool
+  fixed under P9c after the pair; two synthetic P9a expectations re-pointed; A8's own table
+  had printed the Day-4 "as recorded" fees as 0.032227 (the capture carries 0.032200),
+  appended as a note.
+- The fork tape has a 5 h 26 min hole caused by this machine's network (Windows' log:
+  disconnected 08:49:57Z, connected 14:15:37Z); the gate forks' marks are late by 4 h 34 min
+  and declared unusable for R29 today; the venue's candles over the hole are pinned and show
+  the opposite sign at the declared gate (+0.0718 gross). Recorded as a miss (item 10).
+- The expired first preview of the day (pv_f7a0778488bb468e) is pinned as a probe and is
+  in no capture.
+- One pre-existing board directory gate re-pointed to the record that grew by one more run
+  file (the board run still names the record as of its observation).
+
+### Carried forward (environment, not rules)
+
+Node 20.18 stays (the gdex mark and open-order tools still fail with ERR_REQUIRE_ESM;
+neither is on any path used). The watcher's gate rule needs a declared condition for a
+gate mark later than `gate_ms` by more than one poll (A7.3, next amendment that touches the
+watcher). No gdex path known to rest a trigger order on the L1; to be measured read-only
+before it is a candidate (A7 R40).
