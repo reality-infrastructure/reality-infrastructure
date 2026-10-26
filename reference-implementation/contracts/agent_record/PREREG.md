@@ -1299,3 +1299,118 @@ a separate dated amendment, not a mid-day change.
 **Daily rule check:** (1) fifteen signed rows, two chain-signed · (2) graded by the chain
 when the venue fills the stop · (3) code in this repo, record in this log, agent under the
 operator's account. One variable, declared before the code.
+
+### A7 — 2026-10-26 — the venue did not rest the stop: A6's variable is untestable through the gdex preview's `slPrice`; today's pair settles on the Day-4 path (A4 R26 close at the A5 30 bps control), written after the open fill and before any close
+
+**Why this amendment exists, and when.** The A6 open was taken exactly as pre-registered
+(R32 poll, S31 check, the operator's go "go, fresh preview, execute"): `pv_e9e6406179d94a4f`
+(`terms.slPrice 79730` from mid 79972.5 at poll ms 1792989645709; `terms.price 79973`, 0.06
+bps from the mid), executed as `op_624fd12e648c4767` (submitted → accepted → filled), chain
+fill **Open Long 0.00014 BTC at 79970.0**, ms **1792989676331**, oid **585901308572**, fee
+0.010433 + builderFee 0.005597. The position is open. **No resting stop exists on the L1.**
+This amendment is written while the position is open and unprotected, before any close is
+taken, under the operator's word "A7, Day-4 path" (2026-10-26). It changes ONE thing: the
+close mechanism falls back to the path A4 and A5 pre-registered and Day 4 executed. Nothing
+else moves.
+
+**The measurement (reads only, every one pinned verbatim):**
+
+- `frontendOpenOrders` under the actor's wallet, read at ms 1792989687082 (11 s after the
+  fill) and 1792989699231 (23 s): both `[]`. Read again at 1792989762639 (86 s): `[]`
+  (printed, same bytes). `openOrders`: `[]`. `gdex_positions` (asOf 1792989744978):
+  `openOrders.count 0`.
+- `historicalOrders` under the actor's wallet (ms 1792989762381, 10 rows = every order this
+  account ever sent): **no row has `isTrigger: true`.** The venue never received a trigger
+  order. The gdex preview echoed `slPrice` in its terms and sent only the market open.
+- The same payload shows how the venue recorded the account's "market" and "limit" orders:
+  today's open went to the L1 as `Limit` px **83972.0** (= 79973 × 1.05, the mark plus 5 %);
+  Day 4's open as px 84561.0; Day 4's R26 close, which the hand placed at **80070** through
+  `place_perp_order {isMarket: false, reduceOnly: true}`, is recorded by the chain as `Limit`
+  px **76355.0** (consistent with the mark minus 5 %, NOT the 80070 sent). The A4.2 fill at
+  80110.0 is unchanged; what changes is the understanding: the venue's record says the R26
+  price was not the resting limit, so the Day-4 close was an immediate-or-cancel order inside
+  a 5 % band, filled at the book. Recorded here as the chain reports it; A4/A4.2 are not
+  rewritten, and the Day-5 close under this amendment is placed the same way so the two days
+  compare.
+- Earlier today, one preview on the first go (`pv_f7a0778488bb468e`, poll ms 1792989570063,
+  mid 79999.5, slPrice 79750, S31 passed) expired unexecuted while the operator's second go
+  was in flight; it is pinned as a probe and is absent from the record, as Day 4's two were.
+
+```
+ 1305  ba6cc3e8b947edc2215438ebc9cf01780937f47cf88d554b77341ccd52b37e9a  gdex_preview_pv_f7a0778488bb468e.json       (expired unexecuted, probe)
+25128  331f0bd3fa9dbb342a43bc2fd9001a27b537eb5510594ff96a7662d1b421da53  hl_allMids_1792989570063.json               (its R32 poll)
+    2  4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945  hl_frontendOpenOrders_1792989687082.json    ([] at +11 s)
+    2  4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945  hl_frontendOpenOrders_1792989699231.json    ([] at +23 s)
+ 3437  935415709d7607ac092b40038dafa49f15b0ade0b25312813cc5b5122100e5ac  hl_historicalOrders_1792989762381.json      (no trigger order, ever)
+```
+
+**What A6 said and what holds.** A6 pre-registered S35 (a resting order whose trigger differs
+from `slPrice`) and S34 (a refused execute) but not the case the chain produced: an accepted
+execute with no resting order at all. `select_resting_stop` refuses on zero rows by design
+(P9a), so the `--stop-close` capture cannot and will not be written for this pair. R34 cannot
+be read. Under A6 as written the position would sit without any stop until the five-hour
+gate; the operator's objective (lose fast, minimal drawdown) and the daily rule's item 10
+(a failed tool path is data) are better served by this amendment than by silence.
+
+**Decision rules (govern today's close; written before it):**
+
+- R37 (the close). The close is A4 R26 under A5 R27, unchanged from Day 4: the watcher
+  (`watch_stop_forks.py`, already running on the Day-5 open leg since ms ~1792989700000 with
+  the same six forks and the 30 bps live control) prints `TRIGGER live`; on it, under the
+  operator's word "A7, Day-4 path", the close preview `gdex_preview_trade {perp_close, BTC}`
+  (no size, A2.2) is saved verbatim, the `--live --preview-json <close preview> --open-capture
+  <open capture>` poller is started, then `place_perp_order {coin BTC, isLong false, isMarket
+  false, reduceOnly true, size 0.00014, price P}` with `P = floor(markPx × 0.999 / 10) × 10`
+  from the close preview's `markPx`, inside the preview's window. One attempt (S25). If the
+  control has not fired by the gate (ms 1793007676331), the same close at the gate (R26 gate
+  close, standing go). The close capture is `capture_LIVE_2026-10-26_pv_e9e6406179d94a4f_close.json`
+  in the Day-4 `--live` mode; its intent is the close preview (R1-close, `order_type market`
+  as the preview reports), not a stop.
+- R38 (the day's bit, recorded as a miss on the variable). The A6 variable is scored **"not
+  testable through gdex preview slPrice"**: the field is accepted and echoed but no trigger
+  order reaches the L1. This retires `slPrice`-on-the-preview as a candidate. The R34 line in
+  the SCOREBOARD reads "not measurable: no resting order" with the three empty reads and the
+  order history as its evidence. The Day-4 path's own close latency is measured again today
+  (A4.2's method: trigger ms on the tape → fill ms; cost bps against the trigger mid) and
+  published as the second observation of the limiting factor, with its sign.
+- R39 (forks). Unchanged: Day 5 is forward day 2 of 3 under R29 for the same six forks on
+  the same tape; the 30 bps fork is the live control and today its paper fill IS compared to
+  the real R26 fill, as on Day 4. No promotion today.
+- R40 (the next candidate, not today). A stop that actually rests on the L1 needs a path
+  that submits a trigger order; gdex's `place_perp_order` offers none ("without TP/SL") and
+  `gdex_manage_position` previews only an immediate close. The next amendment measures,
+  read-only first, which gdex path (if any) rests a trigger order on the L1, before it is a
+  candidate. A stop-LIMIT (A6's fallback) is moot until something rests.
+
+**Hands.** The open was the operator's (done). The close is the operator's standing word
+"A7, Day-4 path" for exactly the R37 close (one attempt at the trigger, or at the gate);
+the capture tools only observe. No other submission is covered.
+
+**Files, pins, gates.** `hl_allMids_1792989645709.json` (the executed open's R32 poll),
+`gdex_preview_pv_e9e6406179d94a4f.json`, `capture_LIVE_2026-10-26_pv_e9e6406179d94a4f.json`
++ MANIFEST, `hl_userFillsByTime_1792989678024.json`, `hl_allMids_1792989678219.json` → **A7.1**
+(the open leg, pinned next, before any gate); the close preview, close capture + MANIFEST,
+its fills and mids payloads → **A7.2**; `watch_LIVE_2026-10-26_<pv>.jsonl`,
+`forks_LIVE_2026-10-26_<pv>.json` and the trigger/gate payloads → **A7.3**; then
+`AGENT-RECORD-P9b` (gates on the real Day-5 pair and forks, the fifteen-event
+`run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri`, SCOREBOARD evidence, DONE). The P9a
+`--stop-close` mode and its 26 offline gates stay as shipped (nothing is removed); no gate
+on a Day-5 stop capture is written because none exists.
+
+**Known-answer commitment (structural):** fifteen events (nine for the pair + six forks),
+two `cryptographically_signed`, one `realized:live` reconciling to the venue's `closedPnl`
+at 0.000001 USD, zero disputes unless a fill deviates more than 50 bps from its quote or a
+shadow lags more than 5000 ms; the realized figure and the close latency published with
+their signs.
+
+**STOP conditions (added):** S36 the control fires before this amendment is committed → no
+hand (A6 R35 still governs) until the commit lands, then R37 · S37 the close preview or
+`place_perp_order` is refused → one retry of the PREVIEW only (a preview submits nothing, as
+A4.2), never of the order (S25); a refused order is reported and the gate close is the
+fallback · S38 the chain shows a resting trigger order at any later read → S33 applies (it is
+cancelled by hand before DONE and recorded), and R38's wording is corrected on the record.
+
+**Daily rule check:** (1) fifteen signed rows, two chain-signed · (2) graded by the chain's
+close fill today · (3) code in this repo, record in this log, agent under the operator's
+account. Item 10: the failed tool path (gdex preview `slPrice` → no L1 trigger order) is
+recorded here as the week's miss for Day 5's review.
