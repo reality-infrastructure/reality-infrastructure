@@ -1523,3 +1523,68 @@ later day does not reconcile to `fee` alone → STOP, re-measure.
 
 **Daily rule check:** this amendment adds no row and builds nothing; it is the weekly item,
 done with reads, and a correction on the record.
+
+### A7.2 — 2026-10-26 — the real LIVE CLOSE capture (Day 5), pinned before its gate: the 30 bps control fired and the R37 (A4 R26) close followed, one order, one attempt
+
+Taken in one run of `capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_871269204129463e.json --actor-id
+0x9f97…b7f23 --control-wallet 0xa629…5b92 --open-capture
+rights_events/fixtures/agent_record/capture_LIVE_2026-10-26_pv_e9e6406179d94a4f.json
+--poll-seconds 180`, started BEFORE the close was submitted. The tool wrote the files below
+and exited 0; nothing below is edited by hand.
+
+**What fired (A5 R27, measured by the watcher on the one tape):** the live control crossed
+30 bps at ms **1793002236889**, mid **79714.5**, adverse **31.94948105539577341503063649 bps**
+(payload `hl_allMids_1793002236889.json`, pinned in A7.3 with the rest of the tape). The paper
+forks 10 and 20 had already exited (ms 1793001787875 at 79870.5; ms 1793001851618 at 79807.5).
+Earlier in the watch the position had been up to about 27 bps in profit on the mid; no fork
+takes profit, by design (one variable).
+
+**How the close was submitted (R37 = A4 R26, under the operator's word "A7, Day-4 path"):**
+`gdex_preview_trade {kind: perp_close, coin: BTC}` (no size, A2.2) succeeded on the first call
+→ `pv_871269204129463e` (perp_close, reduce-only market sell, 0.00014 BTC, positionSize
+0.00014, isFullClose, **markPx 79738**, created **1793002242072**, expires 1793002302072, no
+warnings). Saved verbatim; the poller started; then `place_perp_order {coin: BTC, isLong:
+false, isMarket: false, reduceOnly: true, size: "0.00014", price: "79650"}` — P = floor(79738
+× 0.999 / 10) × 10 = **79650** exactly as R26 declares — returned `isSuccess: true`. It crossed
+the book as a taker and filled at **79639.0**, 11 USD BELOW the limit sent (the chain records
+the order as an immediate-or-cancel inside the venue's 5 % band, as A7 disclosed for Day 4; the
+price sent did not rest), 38.6 s before the preview expired. S25 and S37 not reached: one
+order, one attempt. After the fill: position flat, `frontendOpenOrders []` — S33 is satisfied
+trivially (no stop ever rested; nothing to cancel).
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+ 3668  212cf5c95340a07f7e85518861960f001eacab8b7d459dd38b39068bb28c7f88  capture_LIVE_2026-10-26_pv_e9e6406179d94a4f_close.json
+ 4460  badd2e9c23336fb38f6ba7181b2e6014c17703eb6737c32b5bba56cc6cbe5b5e  MANIFEST_LIVE_2026-10-26_pv_e9e6406179d94a4f_close.json
+  899  384ee8838b3a5977d3fe632f2a4ec7a4ed708ad39a1b332c1a78af2accb5d2e5  gdex_preview_pv_871269204129463e.json          (the close intent, verbatim)
+  350  c52f63b09de2c03283e2b2347758abb21e67bba1f92ba35109548eeb4070f088  hl_userFillsByTime_1793002265325.json          (the chain's close fill, verbatim)
+25092  d5c27099c224949846d90c10f8000ce0ba1363423141da95b88b885446fa75ff  hl_allMids_1793002265548.json                  (the close shadow, verbatim)
+```
+
+The close capture's `closes.sha256` = `599eaeec…3aa7cd` = A7.1's pin of the open capture
+(S17 holds); `closes.intent_id = pv_e9e6406179d94a4f`, `closes.size = 0.00014`,
+`closes.fill_fee_usd = 0.016030` (the R11 figure, as the tool computed it — A8 R42/R43).
+
+**Known answer (as the capture reads; gates may assert these):** live fill **79639.0** ×
+0.00014 (Close Long, taker, `crossed: true`), `fee_usd` **0.015964** (R11: 0.01039 +
+builderFee 0.005574; the chain's own total is **0.01039**, A8), oid **586037357410**, tid
+10042635077240, fill ms **1793002263508**, tx `0xca0698b6…1197`; `closedPnl` **−0.04634** =
+(79639.0 − 79970.0) × 0.00014 exactly; shadow **79624.5** at ms 1793002265548 (allMids, paper,
+fee 0); the close gap **−1.8210 bps** with `cost_sign −1` (the live sell filled ABOVE the mid
+observed 2040 ms later: the fill was better than the shadow), shadow lag **2040 ms**; realized
+LIVE PnL (R11 arithmetic) **−0.078334 USD, LOSS**, fees 0.031994, reconciling to the venue's
+closedPnl at 0.000001; one `cryptographically_signed` event. **Corrected per A8 R41 (the
+chain's `fee` alone, both legs): fees 0.020823, realized −0.067163 USD, LOSS** — the figure
+the week-one review plots.
+
+**R38, the limiting factor measured again (the second observation):** trigger ms
+1793002236889 (mid 79714.5) → fill ms 1793002263508: close latency **26 619 ms**; cost against
+the trigger mid (79714.5 − 79639.0) / 79714.5 × 10000 = **9.4713 bps**, **0.010570 USD** on
+the unit. Day 4 was 144 090 ms, 18.75 bps, 0.021070 USD. Of the 26.6 s, 5.2 s was the close
+preview and 21.4 s the order path; the fill price was 11 USD under the R26 limit sent, which
+the venue's record explains (A7: the order did not rest). The R34 pass line (< 10 000 ms and
+< 5 bps) is NOT met by the hand path, as expected; it was pre-registered for a venue-side
+stop, which did not exist today. Stated plainly: the close path remains the limiting factor,
+now at 9.47 bps per pair against 18.64 bps of fees per pair (A8).

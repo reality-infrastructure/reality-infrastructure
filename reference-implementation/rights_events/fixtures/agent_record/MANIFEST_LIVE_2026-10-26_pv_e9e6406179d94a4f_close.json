@@ -1,0 +1,93 @@
+{
+  "fixture": "capture_LIVE_2026-10-26_pv_e9e6406179d94a4f_close.json",
+  "status": "LIVE",
+  "leg": "close",
+  "bytes": 3668,
+  "sha256": "212cf5c95340a07f7e85518861960f001eacab8b7d459dd38b39068bb28c7f88",
+  "generator": "capture_from_gdex_preview.py",
+  "closes": {
+    "capture": "capture_LIVE_2026-10-26_pv_e9e6406179d94a4f.json",
+    "sha256": "599eaeece1d2799547064ecc23906b7f5f56866a9b6520fd5d621cb9af3aa7cd"
+  },
+  "source": {
+    "intent": {
+      "what": "GDEX preview: exact executable terms for an explicit trade intent, bound to GDEX managed custody; submitted by the operator's own hand, never by this tool.",
+      "gdex_mcp_tool": "@gemachdao/gdex-mcp-server: gdex_preview_trade",
+      "custody_backend": "https://trade-api.gemach.io/v1",
+      "payload_verbatim_file": "gdex_preview_pv_871269204129463e.json",
+      "payload_sha256": "384ee8838b3a5977d3fe632f2a4ec7a4ed708ad39a1b332c1a78af2accb5d2e5",
+      "preview_created_ms": 1793002242072,
+      "preview_expires_ms": 1793002302072,
+      "quote_source": "hyperliquid metaAndAssetCtxs",
+      "quote_as_of_ms": 1793002242072,
+      "quote_as_of_rule": "createdAt (the close preview reports no priceAsOf; its markPx is taken as of the preview's creation)",
+      "observed_date": "2026-10-26"
+    },
+    "live_fill": {
+      "what": "The fill the HyperLiquid L1 recorded under the actor's wallet: a chain event carrying its transaction hash(es) and the chain's fee.",
+      "api": "https://api.hyperliquid.xyz/info {\"type\": \"userFillsByTime\", \"user\": \"0x9f976123e7c48952be487664b8130aad144b7f23\", \"startTime\": 1793002242072}",
+      "payload_origin": "live POST https://api.hyperliquid.xyz/info {\"type\": \"userFillsByTime\", \"user\": \"0x9f976123e7c48952be487664b8130aad144b7f23\", \"startTime\": 1793002242072}",
+      "payload_verbatim_file": "hl_userFillsByTime_1793002265325.json",
+      "payload_sha256": "c52f63b09de2c03283e2b2347758abb21e67bba1f92ba35109548eeb4070f088",
+      "payload_observed_ms": 1793002265325,
+      "association": {
+        "rule": "coin == intent.market, dir == expected, created_ms <= time <= expires_ms + max_fill_after_expiry_ms, one oid, sizes sum exactly to intent.size",
+        "expected_dir": "Close Long",
+        "window_ms": [
+          1793002242072,
+          1793002362072
+        ],
+        "rows_matched": 1,
+        "oid": 586037357410,
+        "tx_hashes": [
+          "0xca0698b6303037accb800447638eca020961009bcb33567e6dcf4408ef341197"
+        ]
+      },
+      "fee_rule": "sum of fee + builderFee over the matched rows, USDC",
+      "observed_date": "2026-10-26"
+    },
+    "shadow_fill": {
+      "what": "Simulated fill of the intent's size at the HyperLiquid mid at the instant the live fill was observed. Self-asserted; not a chain event.",
+      "api": "https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_origin": "live POST https://api.hyperliquid.xyz/info {\"type\": \"allMids\"}",
+      "payload_verbatim_file": "hl_allMids_1793002265548.json",
+      "payload_sha256": "d5c27099c224949846d90c10f8000ce0ba1363423141da95b88b885446fa75ff",
+      "observed_ms": 1793002265548,
+      "observed_date": "2026-10-26"
+    }
+  },
+  "dispute_semantics": {
+    "quote_price_usd": "79738",
+    "live_fill_price_usd": "79639.0",
+    "live_deviation_bps": "12.41566129072713135518824149",
+    "live_dispute_expected": false,
+    "shadow_fill_price_usd": "79624.5",
+    "shadow_deviation_bps": "14.23411673229827685670571120",
+    "shadow_dispute_expected": false,
+    "max_quote_to_fill_bps": "50"
+  },
+  "sim_to_real_gap": {
+    "formula": "(live - paper) / paper * 10000 * cost_sign, Decimal; cost_sign +1 when the agent buys, -1 when it sells; positive = live cost more than paper",
+    "live_price_usd": "79639.0",
+    "paper_price_usd": "79624.5",
+    "cost_sign": -1,
+    "gap_bps": "-1.821047541899792149401252127",
+    "shadow_lag_ms": 2040,
+    "max_shadow_lag_ms": 5000,
+    "stale_dispute_expected": false
+  },
+  "realized_live_pnl": {
+    "formula": "(close_fill - open_fill) * size * dir - (open_fee + close_fee), Decimal, fees from the chain",
+    "open_price_usd": "79970.0",
+    "close_price_usd": "79639.0",
+    "size": "0.00014",
+    "dir": 1,
+    "fees_usd": "0.031994",
+    "realized_pnl_usd": "-0.078334",
+    "bucket": "LOSS",
+    "venue_closed_pnl_usd": "-0.04634",
+    "recon_difference_usd": "0.000000",
+    "max_pnl_recon_usd": "0.000001",
+    "recon_dispute_expected": false
+  }
+}
