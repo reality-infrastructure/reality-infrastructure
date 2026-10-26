@@ -870,3 +870,23 @@ difference between the 10 and 30 bps forks". That difference is 0.036610 − 0.0
 (0.013160 USD). The numbers in the block are right; the comparison sentence was wrong. The
 block is not rewritten (append-only); the Day-4 DONE report in CONTRACT.md carries the same
 sentence and the same correction applies.
+
+### Correction to every LIVE fee figure above (appended 2026-10-26, with PREREG A8 — the week-one fee mechanics check)
+
+The chain's `userFills` field `fee` is "the total fee, inclusive of builderFee" (the venue's
+own documentation; and the account's balance moved by `fee` alone on the Day-5 open:
+19.896976 → 19.885703 = 0.010433 + 0.00084 unrealized). The R11 rule `fee_usd = Σ(fee +
+builderFee)` therefore counted the builder fee twice on every LIVE leg. The committed
+captures, run files and gates are not rewritten (R42); the corrected figures are:
+
+| day | pair | fees recorded | fees corrected | realized recorded | realized corrected |
+|---|---|---|---|---|---|
+| 3 (2026-10-24) | pv_e1849abce514440c | 0.032383 | 0.021076 | −0.035183 | −0.023876 |
+| 4 (2026-10-25) | pv_aca51be96df9478c | 0.032227 | 0.020957 | −0.089880 | −0.078637 |
+| 5 open (2026-10-26) | pv_e9e6406179d94a4f | 0.016030 | 0.010433 | — | — |
+
+Signs unchanged. Measured fee line for week two: 4.32 bps exchange taker (4.5 bps less the
+referral's 4 %) + 5.00 bps builder, inside one charge of 9.32 bps per leg, 18.64 bps per
+pair, on this unit. Pins: `hl_referral_1792990054144.json`, `hl_userFees_1792990054415.json`,
+`hl_userFills_1792990054686.json` (shas in PREREG A8). The tool's fix is `P9c`, after the
+Day-5 pair (R43).

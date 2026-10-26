@@ -1444,3 +1444,82 @@ gap **+0.0625 bps** (live above paper), shadow lag **1888 ms**; one `cryptograph
 event. Realized distance from the fill to the unrested `slPrice`: (79970.0 − 79730) /
 79970.0 × 10000 = **30.01 bps** (published per R32 as a measurement of the quote only; no
 stop rested).
+
+### A8 — 2026-10-26 — the week-one fee mechanics check: the chain's `fee` already includes `builderFee`; the record's fee rule double-counted the builder fee on every LIVE leg (Days 3, 4 and the Day-5 open); corrected on the record, the tool to follow, no run file regenerated
+
+**Why (the weekly item, done on Day 5 as the daily list requires).** "Fee mechanics check
+before week two, so the builder and referral line is real, not assumed." It was assumed. The
+R11 fee rule (PREREG: `fee_usd = Σ(fee + builderFee if present)`) treated the chain's two
+fields as additive. They are not.
+
+**The measurement (reads only, pinned verbatim, under `rights_events/fixtures/agent_record/`):**
+
+```
+  386  c755854953cea7037a731862499e0b346fba9469dac4b6054d486b9124e321a7  hl_referral_1792990054144.json   (referredBy 0x1bd38cf3…6d9d9, code 3647SDFHJS924KAS; cumVlm 56.27)
+ 2884  7320cb9198129d9b5e5f96ddfe3313821e6810313165148a635b6d538b5e5402  hl_userFees_1792990054415.json   (feeSchedule cross 0.00045, add 0.00015; userCross 22.6 / 22.48 / 11.19 on 10-24 / 10-25 / 10-26)
+ 1721  4c6b1baf2944db295358aad7e261d78572db558a57b272cfc8f29021ecf9cc6b  hl_userFills_1792990054686.json  (every LIVE fill on the record, five rows)
+```
+
+- The venue's own documentation of `userFills` (hyperliquid.gitbook.io, info endpoint,
+  fetched 2026-10-26): `fee` is "the total fee, inclusive of builderFee below"; `builderFee`
+  "is optional and will not be present if 0".
+- The account's own balance says the same. Before the Day-5 open, `clearinghouseState`
+  accountValue was **19.896976**. After the fill (gdex_positions asOf 1792989744977, with
+  unrealizedPnl −0.00084 on the new position) it was **19.885703**. The difference,
+  **0.011273**, equals the fill's `fee` 0.010433 + 0.00084 exactly. Had the builder fee been
+  charged on top, the difference would have been 0.016870. The chain debited `fee` once.
+- Decomposition of every LIVE fill (notional = px × 0.00014): `fee − builderFee` is 4.32 bps
+  of notional on each row = the schedule's taker 4.5 bps × 0.96 (the referral's 4 % discount);
+  `builderFee` is 5.00 bps on each row (the builder's own charge, inside `fee`). All-in taker
+  cost per leg **9.32 bps**, per settled pair **18.64 bps** of notional.
+- `maxBuilderFee` queried against the referrer address returns 0, so the builder's address is
+  not the referrer's and is not known from the chain's reads; the builder's share is known
+  from the fill rows themselves. Nothing here was changed on the account.
+
+**Corrected realized figures (closedPnl − `fee` per leg; the venue's `closedPnl` is gross
+and unchanged; every input is already pinned):**
+
+| day | pair | closedPnl | fees as recorded (double-counted) | fees corrected | realized as recorded | realized corrected |
+|---|---|---|---|---|---|---|
+| 3 (2026-10-24) | pv_e1849abce514440c | −0.0028 | 0.032383 | **0.021076** | −0.035183 | **−0.023876** |
+| 4 (2026-10-25) | pv_aca51be96df9478c | −0.05768 | 0.032227 | **0.020957** | −0.089880 | **−0.078637** |
+| 5 open (2026-10-26) | pv_e9e6406179d94a4f | — | 0.016030 (open leg) | **0.010433** | — | — |
+
+The sign of every day is unchanged. The Day-2 paper pair (+0.087640, fee model "none")
+is unaffected. The P8d "cost of the close latency" (0.021070, a price difference) is
+unaffected. The A4.2/A4.1/A7.1 known answers are left as written and are read, from this
+amendment on, as "fee_usd as the tool computed it under R11" — the tool's arithmetic was
+deterministic and is reproducible; its rule was wrong.
+
+**Decision rules:**
+
+- R41 (fee semantics, from now on). `fee_usd` of a LIVE leg = Σ `fee` over the matched rows
+  (the chain's total), and the builder's share is carried beside it as `builder_fee_usd` =
+  Σ `builderFee` (a component of `fee_usd`, never added to it). The capture MANIFEST's
+  `fee_rule` string says so. The adapter's realized rule (closedPnl − fees, reconciled to the
+  venue at 0.000001) is unchanged in form; its input is corrected.
+- R42 (what is regenerated: nothing). The Day 3 and Day 4 run files, captures and MANIFESTs
+  stay byte-identical; their gates keep asserting the figures as committed. The correction
+  lives here, in the SCOREBOARD's appended correction block, and in the week-one review's
+  chart, which plots the corrected figures and labels them so. The corrected figures become
+  the week-two baseline.
+- R43 (when the tool changes). The code change is `AGENT-RECORD-P9c`, strictly after today's
+  pair is settled, pinned and gated (P9b) — not between the open and the close of a live
+  position. Today's close capture is taken with the tool as it stands (R11 arithmetic) so the
+  Day-5 pair is internally consistent with Days 3-4; its corrected figure is published in the
+  same SCOREBOARD block as the others. P9c then: the tool's two `fee` sums (open and close
+  live legs) and the `fee_rule` strings, the adapter unchanged unless a gate shows otherwise,
+  and gates that assert R41 on the pinned Day-3/4/5 payloads (known answers: 0.021076,
+  0.020957, 0.010433) beside the existing gates, which keep asserting the committed captures.
+- R44 (the referral line). The account trades under referral code 3647SDFHJS924KAS
+  (referrer 0x1bd38cf3155fcb4719592ae5dd5c966e9736d9d9); the 4 % taker discount is real and
+  measured (4.32 vs 4.5 bps). The builder line is real and measured (5.00 bps per leg, inside
+  `fee`). The week-two fee assumption is therefore **9.32 bps per leg, 18.64 bps per pair**,
+  taker both legs, on this unit.
+
+**STOP conditions:** S39 a LIVE fill row whose `fee` < `builderFee` → the semantics have
+changed; STOP and re-measure before any capture · S40 the account-value arithmetic on a
+later day does not reconcile to `fee` alone → STOP, re-measure.
+
+**Daily rule check:** this amendment adds no row and builds nothing; it is the weekly item,
+done with reads, and a correction on the record.
