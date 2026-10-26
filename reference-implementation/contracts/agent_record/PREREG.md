@@ -1414,3 +1414,33 @@ cancelled by hand before DONE and recorded), and R38's wording is corrected on t
 close fill today · (3) code in this repo, record in this log, agent under the operator's
 account. Item 10: the failed tool path (gdex preview `slPrice` → no L1 trigger order) is
 recorded here as the week's miss for Day 5's review.
+
+### A7.1 — 2026-10-26 — the real LIVE OPEN capture (Day 5), pinned before its gate: the A6 open, which rested no stop
+
+Taken in one run of `capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_e9e6406179d94a4f.json --actor-id
+0x9f97…b7f23 --control-wallet 0xa629…5b92 --poll-seconds 120`, started BEFORE
+`gdex_execute_trade {pv_e9e6406179d94a4f, userApproved: true}` (op_624fd12e648c4767, submitted
+1792989673151, accepted 1792989676546, state `filled`). The tool wrote the files below and
+exited 0; nothing is edited by hand. The open preview carried `terms.slPrice 79730` (R32 from
+mid 79972.5 at poll ms 1792989645709); the venue rested nothing for it (A7).
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+ 3097  599eaeece1d2799547064ecc23906b7f5f56866a9b6520fd5d621cb9af3aa7cd  capture_LIVE_2026-10-26_pv_e9e6406179d94a4f.json     (the open leg)
+ 3672  44bd5d974f1a11cf7fcf8db3f2725b8c1204ebabada3a67aecd33b29f59ea0a3  MANIFEST_LIVE_2026-10-26_pv_e9e6406179d94a4f.json
+ 1319  03838020725611ad2005a01b8028cbe26d87b1aa573ff28c6d4071d98b96886f  gdex_preview_pv_e9e6406179d94a4f.json                (the open intent, verbatim)
+25116  89654bf548751b5d2d13a7130a57dd0a12df96dbbc33a6b02a8d8c50d51bd4c3  hl_allMids_1792989645709.json                        (the R32 poll before the preview)
+  342  d691628eab76b4183f273bce33d2a7d8b74d4c109cc6fde9a032c3c0231afac4  hl_userFillsByTime_1792989678024.json                (the chain's open fill, verbatim)
+25124  41422626b33ca62f2fe0d0ea0b5160d971953547f9af23223ee9b5ed9c9218b6  hl_allMids_1792989678219.json                        (the open shadow, verbatim)
+```
+
+**Known answer (as the capture reads; gates may assert these):** live fill **79970.0** ×
+0.00014 (Open Long, taker, `crossed: true`), fee **0.016030** USDC (0.010433 + builderFee
+0.005597), oid 585901308572, tid 283136802985978, fill ms **1792989676331**, tx
+`0x1837ce1e…ea288`; shadow **79969.5** at ms 1792989678219 (allMids, paper, fee 0); the open
+gap **+0.0625 bps** (live above paper), shadow lag **1888 ms**; one `cryptographically_signed`
+event. Realized distance from the fill to the unrested `slPrice`: (79970.0 − 79730) /
+79970.0 × 10000 = **30.01 bps** (published per R32 as a measurement of the quote only; no
+stop rested).
