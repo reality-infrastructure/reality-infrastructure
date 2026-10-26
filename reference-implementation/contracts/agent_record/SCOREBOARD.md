@@ -890,3 +890,6 @@ referral's 4 %) + 5.00 bps builder, inside one charge of 9.32 bps per leg, 18.64
 pair, on this unit. Pins: `hl_referral_1792990054144.json`, `hl_userFees_1792990054415.json`,
 `hl_userFills_1792990054686.json` (shas in PREREG A8). The tool's fix is `P9c`, after the
 Day-5 pair (R43).
+
+**Correction to the block above (appended 2026-10-26, with P9c):** the Day-4 "fees recorded"
+cell reads 0.032227; the committed capture carries **0.032200**. The corrected figures stand.

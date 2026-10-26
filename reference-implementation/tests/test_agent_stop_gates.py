@@ -164,14 +164,19 @@ def test_stop_close_capture_shape_and_known_answer(tmp_path):
     assert closes["capture"] == OPEN_CAP.name and closes["intent_id"] == PV
     assert closes["fill_price_usd"] == "80522.0" and closes["fill_fee_usd"] == "0.016141"
     assert live["fill_id"] == f"live:{PV}:close" and live["intent_id"] == f"{PV}:stop"
-    assert live["fee_usd"] == "0.016086" and live["dir"] == "Close Long"
+    # P9c (A8 R41): fee_usd is the chain's `fee` alone; builderFee is carried as a component.
+    assert live["fee_usd"] == "0.010470" and live["builder_fee_usd"] == "0.005616"
+    assert live["dir"] == "Close Long"
     assert doc["association"]["oid_rule"].endswith("(S32)")
     m = json.loads(man.read_text(encoding="utf-8"))
     assert m["close_mechanism"] == "venue resting stop (PREREG A6)"
     assert m["source"]["intent"]["resting_order_as_reported"] == _resting()
     assert m["source"]["live_fill"]["association"]["resting_oid"] == OID
     r = m["realized_live_pnl"]
-    assert r["fees_usd"] == "0.032227" and r["realized_pnl_usd"] == "-0.066807"
+    # the pinned Day-4 open leg keeps its R11 figure (0.016141, A8 R42); the synthetic
+    # close leg is R41: 0.016141 + 0.010470 = 0.026611; -0.03458 - 0.026611 = -0.061191
+    assert r["fees_usd"] == "0.026611" and r["realized_pnl_usd"] == "-0.061191"
+    assert m["source"]["live_fill"]["fee_rule"].startswith("sum of fee over the matched rows")
     assert r["bucket"] == "LOSS" and r["recon_dispute_expected"] is False
     assert m["stop"]["sl_price_usd"] == "80280"
     assert m["stop"]["resting_to_fill_ms"] == 3600 * 1000 - 1500
@@ -199,7 +204,7 @@ def test_stop_close_pair_through_adapter_and_runner(tmp_path):
     assert len([e for e in all_events if e.ep_type is EPType.CRYPTOGRAPHICALLY_SIGNED]) == 2
     realized = [e for e in all_events if e.claimant == LIVE_PNL_CHECK]
     assert len(realized) == 1
-    assert realized[0].claim["realized_pnl_usd"] == Decimal("-0.066807")
+    assert realized[0].claim["realized_pnl_usd"] == Decimal("-0.061191")
     assert realized[0].claim["venue_closed_pnl_usd"] == Decimal("-0.03458")
     for e in all_events:
         for ref in e.prior_event_refs:
@@ -318,3 +323,22 @@ def test_a6_probe_pins_unchanged():
     assert not any("No TP/SL" in w for w in probe["warnings"])
     mids = json.loads((_FIX / "hl_allMids_1792939972916_probe.json").read_text(encoding="utf-8"))
     assert _tool().stop_price(mids["BTC"], 30, 1) == Decimal(probe["terms"]["slPrice"])
+
+
+# =====================================================================================
+# P9c — A8 R41 / S39: the chain's `fee` is the whole fee; builderFee is its component.
+# =====================================================================================
+
+def test_p9c_s39_fee_below_builder_fee_is_refused(tmp_path):
+    with pytest.raises(SystemExit, match="S39"):
+        _build(tmp_path, fills=[_fill(fee="0.001000", builderFee="0.005616")])
+    assert not list(tmp_path.glob("capture_*"))
+
+
+def test_p9c_fee_rule_string_names_r41(tmp_path):
+    _t, _cap, man = _build(tmp_path)
+    m = json.loads(man.read_text(encoding="utf-8"))
+    assert m["source"]["live_fill"]["fee_rule"] == (
+        "sum of fee over the matched rows, USDC (the chain's total, inclusive of "
+        "builderFee; builder_fee_usd = sum of builderFee, a component — A8 R41)")
+

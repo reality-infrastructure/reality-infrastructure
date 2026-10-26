@@ -715,7 +715,13 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
     # --- aggregate the fill rows (R11): one order, sizes summing to the intent ---
     total_sz = sum((_d(r["sz"]) for r in rows), Decimal(0))
     live_px = sum((_d(r["px"]) * _d(r["sz"]) for r in rows), Decimal(0)) / total_sz
-    fee = sum((_d(r["fee"]) + _d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    # A8 R41: the chain's `fee` is "the total fee, inclusive of builderFee"; the builder's
+    # share is carried beside it as a component, never added to it.
+    fee = sum((_d(r["fee"]) for r in rows), Decimal(0))
+    builder_fee = sum((_d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    if any(_d(r["fee"]) < _d(r.get("builderFee", "0")) for r in rows):
+        raise SystemExit("a fill row's fee is below its builderFee (A8 S39: the semantics "
+                         "have changed); no capture is written.")
     tokens = sorted({r.get("feeToken") for r in rows})
     if tokens != ["USDC"]:
         raise SystemExit(f"fee token(s) {tokens} are not USDC; no capture is "
@@ -819,6 +825,7 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
             "price_usd": _fmt(live_px),
             "size": size,
             "fee_usd": _fmt(fee),
+            "builder_fee_usd": _fmt(builder_fee),
             "fee_token": "USDC",
             "tx_hashes": tx_hashes,
             "tids": tids,
@@ -902,7 +909,7 @@ def build_live(preview_json: Path, actor_id: str, control_wallet: str | None,
                     "oid": int(rows[-1]["oid"]),
                     "tx_hashes": tx_hashes,
                 },
-                "fee_rule": "sum of fee + builderFee over the matched rows, USDC",
+                "fee_rule": "sum of fee over the matched rows, USDC (the chain's total, inclusive of builderFee; builder_fee_usd = sum of builderFee, a component — A8 R41)",
                 "observed_date": fill_date,
             },
             "shadow_fill": {
@@ -1103,7 +1110,13 @@ def build_stop_close(preview_json: Path, actor_id: str, control_wallet: str | No
 
     total_sz = sum((_d(r["sz"]) for r in rows), Decimal(0))
     live_px = sum((_d(r["px"]) * _d(r["sz"]) for r in rows), Decimal(0)) / total_sz
-    fee = sum((_d(r["fee"]) + _d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    # A8 R41: the chain's `fee` is "the total fee, inclusive of builderFee"; the builder's
+    # share is carried beside it as a component, never added to it.
+    fee = sum((_d(r["fee"]) for r in rows), Decimal(0))
+    builder_fee = sum((_d(r.get("builderFee", "0")) for r in rows), Decimal(0))
+    if any(_d(r["fee"]) < _d(r.get("builderFee", "0")) for r in rows):
+        raise SystemExit("a fill row's fee is below its builderFee (A8 S39: the semantics "
+                         "have changed); no capture is written.")
     tokens = sorted({r.get("feeToken") for r in rows})
     if tokens != ["USDC"]:
         raise SystemExit(f"fee token(s) {tokens} are not USDC; no capture is "
@@ -1196,6 +1209,7 @@ def build_stop_close(preview_json: Path, actor_id: str, control_wallet: str | No
             "price_usd": _fmt(live_px),
             "size": size,
             "fee_usd": _fmt(fee),
+            "builder_fee_usd": _fmt(builder_fee),
             "fee_token": "USDC",
             "tx_hashes": tx_hashes,
             "tids": tids,
@@ -1292,7 +1306,7 @@ def build_stop_close(preview_json: Path, actor_id: str, control_wallet: str | No
                     "resting_oid": resting_oid,
                     "tx_hashes": tx_hashes,
                 },
-                "fee_rule": "sum of fee + builderFee over the matched rows, USDC",
+                "fee_rule": "sum of fee over the matched rows, USDC (the chain's total, inclusive of builderFee; builder_fee_usd = sum of builderFee, a component — A8 R41)",
                 "observed_date": fill_date,
             },
             "shadow_fill": {

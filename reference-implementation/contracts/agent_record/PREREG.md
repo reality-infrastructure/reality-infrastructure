@@ -1588,3 +1588,8 @@ the venue's record explains (A7: the order did not rest). The R34 pass line (< 1
 < 5 bps) is NOT met by the hand path, as expected; it was pre-registered for a venue-side
 stop, which did not exist today. Stated plainly: the close path remains the limiting factor,
 now at 9.47 bps per pair against 18.64 bps of fees per pair (A8).
+
+**A8 correction (appended 2026-10-26, with P9c, found by the P9c gate on the pinned payloads):**
+the Day-4 "fees as recorded" cell above reads 0.032227; the committed Day-4 capture carries
+**0.032200** (0.016141 + 0.016059); 0.032227 was the synthetic P9a figure. The corrected cells
+(0.020957, −0.078637) and every other number in the table are unchanged.
