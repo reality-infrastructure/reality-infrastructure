@@ -1832,3 +1832,48 @@ covering in one motion: a fresh `perp_open` preview with no `slPrice` → `gdex_
 → the A9 watcher on the open leg → the A4 R26 reduce-only close at the A5 30 bps control or
 at the gate → A9.1 / A9.2 / A9.3 pins → P10b. No go in this session so far; nothing has
 been previewed.
+
+### A9.1 — 2026-10-27 — the real LIVE OPEN capture (Day 6), pinned before its gate
+
+**The go.** The operator's word "go" (2026-10-27, after the A9.4 report), covering the A9
+plan in one motion: fresh `perp_open` preview with no `slPrice`, execute, the A9 watcher,
+the A4 R26 close at the A5 30 bps control or at the gate, the pins. The capture tool
+`capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_65cbfed9bef849b6.json --actor-id
+0x9f97…b7f23 --control-wallet 0xa629…5b92 --poll-seconds 180` was started BEFORE the open
+was submitted. The open: preview `pv_65cbfed9bef849b6` (perp_open BTC long market, size
+0.00014, 1x cross, notional 11.17 from `notionalUsd 11.1718` = the unit × the 05:03Z mid,
+quote = mark 79774, `slPrice ""`, warning "No TP/SL attached.", created 1793078257763,
+expires 1793078317763) executed by `gdex_execute_trade {previewId, userApproved: true}` →
+`op_245ba1b78c5f40c5` submitting 1793078280219, accepted 1793078283873 (`preSzi "0"`,
+`isSuccess true`). The tool wrote the files below and exited 0; nothing is edited by hand.
+
+| File | Bytes | sha256 |
+|---|---|---|
+| `gdex_preview_pv_65cbfed9bef849b6.json` (saved verbatim from the tool's reply) | 1330 | `3d1a913dc627c662455c697c26e72e761301eb6119268cb3951e088b0902dac6` |
+| `capture_LIVE_2026-10-27_pv_65cbfed9bef849b6.json` | 3132 | `6030a8366417297a04297be4cd3fdedf8f44d3d058ff452c4e8cf7efe9018fc7` |
+| `MANIFEST_LIVE_2026-10-27_pv_65cbfed9bef849b6.json` | 3768 | `cc21e165125719c17b20ec11c44a6270d61707c7b9a5d82059847f62602884c5` |
+
+**The chain's row (HL `userFillsByTime`):** Open Long 0.00014 BTC at **79776.0**, time
+1793078284458, oid 586957255598, tid 526956891053973, tx
+`0xec47b0242615cdb9edc1044773c8a50201e80009c118ec8b90105b76e519a7a4`, `fee 0.010408`
+(the chain's total, R41) with `builderFee 0.005584` inside it, closedPnl 0, startPosition 0.
+Fill 4239 ms after the execute's submitting mark; 0.25 bps from the quote (tolerance 50).
+Shadow (allMids at 1793078288367, lag 3909 ms, tolerance 5000): 79775.5. **Gap +0.0627
+bps** ((79776.0 − 79775.5) / 79775.5 × 10 000 × (+1)). Account value 19.829363 → 19.818577
+after the fill (the fee and the mark's drift on the unit). Position: 0.00014 BTC long,
+entry 79776.0. The `fee_usd` in the capture is `0.010408` and `builder_fee_usd` `0.005584`
+(P9c, S39 passed): the first open leg captured under the corrected fee rule.
+
+**Known answers committed to before the gate (P10b):** `live_fill.price_usd 79776.0`,
+`fee_usd 0.010408`, `builder_fee_usd 0.005584`, `shadow_fill.price_usd 79775.5`, gap
+`+0.0627` bps (to four places), lag 3909 ms, four events on the open leg (one
+cryptographically_signed), zero disputes.
+
+**The watcher** (`watch_stop_forks.py --open-capture capture_LIVE_2026-10-27_pv_65cbfed9bef849b6.json
+--live-stop-bps 30 --fork-bps 10,20,30,50,100 --gate-hours 5 --poll-seconds 5`, the A9/P10
+build) started at ms ~1793078330000, about 45 s after the fill, and printed `WATCH
+pv_65cbfed9bef849b6: open fill 79776.0 at ms 1793078284458, dir 1, live stop 30 bps, forks
+['10', '100', '20', '30', '50', 'gate_only'], gate ms 1793096284458`. The 30 bps control
+line is 79536.7; the gate is 2026-10-27T10:18:04.458Z. The close follows A4 R26 at the
+control's trigger or at the gate, by the hand, under the same go.
