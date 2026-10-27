@@ -1877,3 +1877,11 @@ pv_65cbfed9bef849b6: open fill 79776.0 at ms 1793078284458, dir 1, live stop 30 
 ['10', '100', '20', '30', '50', 'gate_only'], gate ms 1793096284458`. The 30 bps control
 line is 79536.7; the gate is 2026-10-27T10:18:04.458Z. The close follows A4 R26 at the
 control's trigger or at the gate, by the hand, under the same go.
+
+**A9.1 addendum (same day, before the gate): the two chain payloads the tool pinned beside
+the open leg, left out of the A9.1 commit by the hand and added here unchanged:**
+
+```
+  342  9d17c030a7171b616cd71584b5ed14e92005fbbbba570f388555ccfb385d7ab6  hl_userFillsByTime_1793078288044.json   (the chain's row, polled at 1793078288044)
+25183  30998b3bf420b394700149b1d0d328264cecdbdeedee99aeceeacd9e26cdaf47   hl_allMids_1793078288367.json           (the shadow mid at 1793078288367)
+```
