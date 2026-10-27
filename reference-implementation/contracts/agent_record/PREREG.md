@@ -1885,3 +1885,58 @@ the open leg, left out of the A9.1 commit by the hand and added here unchanged:*
   342  9d17c030a7171b616cd71584b5ed14e92005fbbbba570f388555ccfb385d7ab6  hl_userFillsByTime_1793078288044.json   (the chain's row, polled at 1793078288044)
 25183  30998b3bf420b394700149b1d0d328264cecdbdeedee99aeceeacd9e26cdaf47   hl_allMids_1793078288367.json           (the shadow mid at 1793078288367)
 ```
+
+### A9.5 — 2026-10-27 — the watcher died with its host session while the position was open; declared, segmented and restarted under the same gate, before any close
+
+**What was found (05:39Z, on resuming the session).** The A9.1 watcher's process is gone
+(no `watch_stop_forks` process on the machine); its tape
+`watch_LIVE_2026-10-27_pv_65cbfed9bef849b6.jsonl` ends at row 220, ms 1793079467718
+(05:37:47.718Z), with zero null rows and a longest poll gap of 5730 ms: the uplink never
+failed, the process stopped. The previous session's shell (the watcher's parent) ended
+at about that time; the cause is the hand's choice of launcher, not the network and not
+the venue. No forks file exists (the watcher writes one only on a trigger or the gate),
+so nothing fired before the death. The chain at 05:39Z: position 0.00014 BTC long, entry
+79776.0, exactly one fill since the open (the open), no resting orders, mid 79829.5. The
+control line 79536.7 and the gate ms 1793096284458 are unchanged (both derive from the
+pinned open capture, not from the tape).
+
+**Why the marks survive.** R28 marks a fork at the FIRST poll whose mid crosses its line.
+No line was crossed before the death: the segment's minimum mid is 79706.5 against the
+10 bps line 79696.224. For the gap between the last segment row and the restart's first
+row the tape has no rows at all (not null rows, so R45's `longest_null_span` cannot see
+it); the venue's own 1 m candles over the gap are pinned below and their lows are the
+fact. If every candle low over the gap is above the 10 bps line, no fork crossed during
+the gap either, and the restarted tape's first crossing of any line is the same first
+crossing a continuous tape would have recorded: every mark is valid as marked, and the
+R29 usability of 10/20/30 is unaffected. If any candle low over the gap is at or below a
+fork's line, that fork's mark is unusable for R29 today (S45, below), declared here.
+
+**Procedure (in this order, nothing else touched):**
+1. The dead tape is moved aside unchanged as
+   `watch_LIVE_2026-10-27_pv_65cbfed9bef849b6.segment1.jsonl` (its sha256 pinned in the
+   as-executed block) so the watcher, which refuses to start over an existing tape, can
+   start; no row is edited, dropped or merged.
+2. The watcher is restarted with the A9.1 command verbatim
+   (`--open-capture capture_LIVE_2026-10-27_pv_65cbfed9bef849b6.json --live-stop-bps 30
+   --fork-bps 10,20,30,50,100 --gate-hours 5 --poll-seconds 5`), as a Windows scheduled
+   task (`schtasks`, run once, on demand) so that it is not a child of any session; its
+   stdout goes to `watcher_LIVE_2026-10-27_pv_65cbfed9bef849b6.log` beside the tape. The
+   new tape is the one the forks file names (R28: every distance marked against ONE tape);
+   the segment is context, pinned with it in A9.3.
+3. The chain's `candleSnapshot` (BTC, 1 m) from the minute of the segment's last row to
+   the minute of the restart's first row is fetched once and pinned verbatim as
+   `hl_candleSnapshot_BTC_1m_<fetch_ms>.json`; its lows are compared with the 10/20/30/50/
+   100 bps lines in the as-executed block.
+4. The gap is declared on the record as `segment1.last_ms → tape.first_ms` with its length
+   in ms, in A9.3 and in the SCOREBOARD's Disclosed list, and the P10b gates assert it
+   (segment sha, segment min mid above the 10 bps line, candle lows over the gap, the
+   restarted tape's first row after the segment's last).
+
+**STOP condition (added):** S45 a candle low over the gap at or below a fork's line → that
+fork (and every tighter fork) is unusable for R29 today, declared in A9.3 and the forks'
+claims are read with that note; the LIVE pair is unaffected. A watcher death AFTER a
+trigger or at the gate is governed by R45/S43 as written (the forks file exists then).
+
+**Carried forward:** the launcher. A watcher started as a session's child dies with the
+session; from Day 7 the watcher is always started detached (the scheduled-task form
+above), named in the day's amendment before the open.
