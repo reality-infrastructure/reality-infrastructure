@@ -1669,3 +1669,109 @@ mark because it is a poll at or after `gate_ms` with a mid (R28 as written); P9d
 the hole and the late mark as facts, and the next amendment that touches the watcher must
 make a gate mark later than `gate_ms` by more than one poll interval a declared, visible
 condition rather than a silent one.
+
+### A9 — 2026-10-27 — Day 6 (week two, day one): the watcher declares a late gate; the pair repeats the Day-4 path at one unit under the corrected fee rule; the first R29 reading is fixed before the data
+
+**Why this amendment (seven-rules R1, the carried-forward item of A7.3).** Day 5's fork tape
+had a 5 h 26 min hole caused by this machine's uplink, and the watcher marked the gate 4 h 34
+min late without saying so: the forks file looked like every other forks file, and only a
+hand reading the tape found it. A7.3 named the fix as the next amendment that touches the
+watcher. This is that amendment, written at 04:3x Z on 2026-10-27 while the position is flat,
+before any code. The ONE variable in the tool today is the gate's lateness as a declared,
+visible, machine-checked condition. The pair itself changes nothing from Day 5's fallback path
+(A7 R37 = A4 R26 under A5 R27), now under the corrected fee rule (A8 R41, tool P9c), and the
+forks are declared below before the open (R29).
+
+**Rules (added):**
+
+- R45 (the watcher's gate rule — the one variable). R28 is unchanged: the gate mark is still
+  the first poll at or after `gate_ms` that carries a mid, and a null marks nothing. New, in
+  the forks file: `gate.late_ms = gate.ms − gate_ms`; `gate.late = (late_ms > 2 × poll_seconds
+  × 1000)` — two poll intervals, one for the sleep and one for the fetch timeout (Day 4's gate
+  mark was 4255 ms after `gate_ms` with 5 s polls: on time under this rule; Day 5's was
+  16 461 940 ms: late); `tape.longest_null_span = {from_ms, to_ms, rows}` — the longest run of
+  consecutive null rows on the tape (`{null, null, 0}` when there is none); every fork that
+  exits by gate carries `gate_late_ms = gate.late_ms` and `usable_for_r29 = not gate.late`;
+  every fork that exits by stop carries `gate_late_ms = null` and `usable_for_r29 = true`;
+  `live_trigger.after_null_rows` = the number of consecutive null rows immediately before the
+  control's trigger poll (0 when the previous poll had a mid), so a trigger seen late through
+  a hole says so; `rules.gate_late_rule = "A9 R45: late if gate.ms - gate_ms > 2 * poll_seconds
+  * 1000"` marks a forks file written under this rule. The watcher prints `GATE LATE <ms>
+  late_ms=<n> longest_null_rows=<n>` before its `GATE reached` line whenever `gate.late` is
+  true. Nothing about the forks' marks, the triggers or the tape format changes.
+- R46 (the adapter and the runner read the declaration; older files read as written). For a
+  fork capture that carries `rules.gate_late_rule`, the adapter recomputes `late_ms`, `late`
+  and every fork's `usable_for_r29` from `gate.ms`, `gate_ms`, `poll_seconds` and
+  `exit_reason`, refuses on any disagreement or absence (S41), and carries `gate_late_ms`,
+  `gate_late`, `usable_for_r29` and `tape_longest_null_span` in each fork's claim. A fork
+  capture WITHOUT the key is read exactly as before (R28 as written, A5): the Day-4 and Day-5
+  run files regenerate byte-identically from their committed captures (asserted by gate;
+  nothing on the record is regenerated or re-marked, A8 R42's discipline). The runner's fork
+  line ends with ` — GATE LATE, unusable for R29` for a gate-exited fork whose claim says so.
+- R47 (the pair, unchanged from the Day-5 fallback). Open: `gdex_preview_trade {kind:
+  perp_open, coin: BTC, side: long, size: 0.00014, leverage 1x cross}` with NO `slPrice` (the
+  field does nothing on the chain, A7; retired), preview saved verbatim, executed on the
+  operator's go naming the previewId (or "go, fresh preview, execute" in one motion, as on
+  Day 5, since a preview lives 60 s); the capture tool `--live` observes the chain. Close: A4
+  R26 (`place_perp_order {isLong: false, isMarket: false, reduceOnly: true, size: 0.00014,
+  price: floor(markPx × 0.999 / 10) × 10}` inside a fresh `perp_close` preview's window) under
+  the A5 R27 30 bps live control marked by the A9 watcher on the allMids tape, on the
+  operator's STANDING term-bounded go given before the open; the chain records it as an
+  immediate-or-cancel inside the venue's band (A7) and the gate asserts the fill as the fact,
+  not "at or above P". Fees by R41 (P9c: `fee_usd` = the chain's `fee`, `builder_fee_usd`
+  beside it). Each leg pinned before its gate: A9.1 (open), A9.2 (close), A9.3 (forks).
+- R48 (the forks, declared before the open). 10, 20, 30 (the live control), 50, 100 bps and
+  `gate_only`; poll 5 s; gate 5 h. Day 6 is forward day 3 of 3 for 10, 20 and 30; forward
+  day 1 of 3 for 50, 100 and `gate_only` (their count restarted by A7.3).
+- R49 (the first R29 reading — the criterion fixed now, not after the close). A fork is a
+  CANDIDATE at the close of Day 6 iff its gross paper PnL beat the control's gross on each of
+  Days 4, 5 and 6 and each of its three marks is usable (`usable_for_r29` true; Days 4 and 5
+  are usable for 10 and 20: stop exits, before any hole). The control's figure in that
+  comparison is its own paper fork's gross on the same tape (Day 4: −0.036610; Day 5:
+  −0.035770), so the hand's close latency — a property of the hand, not of the distance —
+  does not enter; the control's REAL gross is printed beside it every day (Day 4: −0.057680;
+  Day 5: −0.046340) and both readings agree on Days 4 and 5 (10 and 20 beat the control under
+  either). This is a clarification of R28's phrase "the live gross", declared before Day 6's
+  data. If more than one fork qualifies, the candidate carried to Day 7 is the one with the
+  greatest three-day cumulative gross, not the tightest by assumption. A candidate becomes
+  Day 7's live control only by a dated amendment (A10) written before Day 7's open, as Day 7's
+  one variable; no candidate → the control stays 30 bps. Size does not change on any outcome
+  (north star rule 2: three live pairs, three losses; week two at one unit).
+- R50 (the resting-trigger measurement, read-only, A7 R40). While flat, inventory the gdex
+  MCP tool schemas and docs for any path that places a trigger (stop or take-profit) order
+  on the L1 — tool names and parameters only; nothing is placed, previewed or executed for
+  this. The inventory is recorded in A9.4 as it is found. It becomes Day 7's candidate ONLY
+  if a path exists on paper AND its first real test is pre-registered as its own amendment
+  with its own go (a resting order is a submit, A2 R15). If the gdex MCP server is
+  unreachable, A9.4 records that and the measurement waits.
+- R51 (size and account). 0.00014 BTC at 1x cross, the Day-1 unit; the actor wallet
+  `0x9f976123e7c48952be487664b8130aad144b7f23`; the account held 19.829363 USDC, flat, with
+  no open orders at 2026-10-27T04:31Z (preflight).
+
+**STOP conditions (added):** S41 an A9 forks file whose declared `late_ms`, `late`,
+`usable_for_r29` or `tape_longest_null_span` fields are absent or disagree with the adapter's
+recomputation → `AdapterError`, no run file · S42 the gdex MCP server unreachable when the
+operator says go → no preview, no pair today; the miss is recorded (daily rule item 10) with
+the connection error verbatim; S25 governs any refused execute (no second attempt) · S43 the
+watcher prints `GATE LATE` on Day 6 → the gate-exited forks are unusable for R29 by the file
+itself (declared, not a stop); the LIVE pair is unaffected; the day's bit is reduced to the
+stop-exited forks · S44 the control's trigger poll follows a null span of more than two rows
+(`live_trigger.after_null_rows > 2`) → the hand still closes by R27 at that poll, and A9.2
+records the trigger's true lateness beside the R38 latency; the pair stands. A4, A5, A7 and
+A8 STOPs continue to govern.
+
+**Known answers for the P10 gates (synthetic tapes, before any real capture):** with
+`gate_ms = G` and 5 s polls, a tape whose first at-or-after-gate mid is at `G + 3000` gives
+`late_ms 3000`, `late false`, every gate fork `usable_for_r29 true`; a tape with mids at
+`G − 5000`, nulls at `G + 5000`, `G + 10000`, `G + 15000` and a mid at `G + 20000` gives
+`late_ms 20000`, `late true`, `longest_null_span {G + 5000, G + 15000, 3}`, every gate fork
+`usable_for_r29 false`, every stop fork `usable_for_r29 true`, and the watcher's `GATE LATE`
+line; the same document with `late` flipped, or with the key present and the fields absent,
+is refused (S41); the Day-4 and Day-5 committed forks files (no key) still parse and their
+run files regenerate to the committed shas (`run_LIVE_2026-10-25…`: root `c805f124…05d9`;
+`run_LIVE_2026-10-26…`: root `5215bc90…4e02`, sha `a5d0793c…8b60`).
+
+**Order of commits today:** this amendment → P10 (watcher, adapter, runner print, synthetic
+gates) → the pair (A9.1, A9.2, A9.3 pins, each before its gate) → P10b (gates on the real
+pair and forks, the run file, SCOREBOARD evidence, the five-gate DONE report) → push. A9.4
+(the read-only inventory, R50) lands whenever the gdex MCP server answers, flat only.
