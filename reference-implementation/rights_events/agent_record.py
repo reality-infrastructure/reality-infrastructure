@@ -181,7 +181,9 @@ def main(argv: list[str] | None = None) -> int:
         print(f"Paper stop fork {c['fork']:>9}{' (live control)' if c['is_live_control'] else ''}: "
               f"{'triggered' if c['triggered'] else 'untriggered'}, exit by {c['exit_reason']} at "
               f"mid {c['exit_mid_usd']} (adverse {c['adverse_bps_at_exit']} bps), gross "
-              f"{c['gross_paper_pnl_usd']} USD")
+              f"{c['gross_paper_pnl_usd']} USD"
+              + (" -- GATE LATE, unusable for R29"
+                 if c.get("gate_late") and c["exit_reason"] == "gate" else ""))
     for e in realized:
         label = "live" if e.claim["mode"] == "LIVE" else "paper"
         print(f"Realized {label} PnL ({e.claim['open_intent_id']}): "

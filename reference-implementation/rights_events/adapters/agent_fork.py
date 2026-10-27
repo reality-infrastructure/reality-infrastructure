@@ -36,6 +36,8 @@ FORK_CLAIMANT = "paper-simulator"
 FORK = "paper-stop-fork"
 GATE_ONLY = "gate_only"
 _EXIT_REASONS = ("stop", "gate")
+GATE_LATE_RULE = "A9 R45: late if gate.ms - gate_ms > 2 * poll_seconds * 1000"
+LATE_POLLS = 2
 # The public source behind a declared exit mark source (a declared constant, not an
 # invention); a document may also carry its own `source_url`.
 _SOURCE_URLS = {"hyperliquid allMids": "https://api.hyperliquid.xyz/info"}
@@ -156,6 +158,53 @@ def parse_events(document_text: str) -> list[RightsEvent]:
     if tape_rows <= 0 or tape_nulls < 0 or tape_nulls > tape_rows:
         raise AdapterError("tape.rows / tape.null_rows are inconsistent")
 
+    # PREREG A9 R45/R46: a forks file written under the late-gate rule declares the
+    # gate's lateness; the adapter recomputes the declaration and refuses a disagreement
+    # (S41). A file without the key is read exactly as before (R28 as written).
+    a9 = "gate_late_rule" in rules
+    gate_late_ms = gate_late = null_span = trigger_after_nulls = None
+    if a9:
+        if rules.get("gate_late_rule") != GATE_LATE_RULE:
+            raise AdapterError(f"rules.gate_late_rule is not {GATE_LATE_RULE!r} (S41)")
+        poll_seconds = _require_int(rules, "poll_seconds", "rules")
+        if poll_seconds <= 0:
+            raise AdapterError("rules.poll_seconds must be positive (S41)")
+        gate = doc.get("gate")
+        if not isinstance(gate, dict):
+            raise AdapterError("an A9 fork capture has no gate object (S41)")
+        gate_mark_ms = _require_int(gate, "ms", "gate")
+        gate_late_ms = _require_int(gate, "late_ms", "gate")
+        gate_late = _require_bool(gate, "late", "gate")
+        if gate_late_ms != gate_mark_ms - gate_ms:
+            raise AdapterError(f"gate.late_ms {gate_late_ms} != gate.ms - rules.gate_ms "
+                               f"{gate_mark_ms - gate_ms} (S41)")
+        if gate_late is not (gate_late_ms > LATE_POLLS * poll_seconds * 1000):
+            raise AdapterError(f"gate.late {gate_late} disagrees with late_ms {gate_late_ms} "
+                               f"and {LATE_POLLS} polls of {poll_seconds} s (S41)")
+        span = tape.get("longest_null_span")
+        if not isinstance(span, dict):
+            raise AdapterError("tape.longest_null_span missing on an A9 fork capture (S41)")
+        span_rows = _require_int(span, "rows", "tape.longest_null_span")
+        if span_rows < 0 or span_rows > tape_nulls:
+            raise AdapterError("tape.longest_null_span.rows exceeds tape.null_rows (S41)")
+        if span_rows == 0:
+            if span.get("from_ms") is not None or span.get("to_ms") is not None:
+                raise AdapterError("an empty null span must have null from_ms/to_ms (S41)")
+        else:
+            span_from = _require_int(span, "from_ms", "tape.longest_null_span")
+            span_to = _require_int(span, "to_ms", "tape.longest_null_span")
+            if not fill_ms <= span_from <= span_to <= gate_mark_ms:
+                raise AdapterError("tape.longest_null_span lies outside the tape (S41)")
+        null_span = {"from_ms": span.get("from_ms"), "to_ms": span.get("to_ms"),
+                     "rows": span_rows}
+        trig = doc.get("live_trigger")
+        if trig is not None:
+            if not isinstance(trig, dict):
+                raise AdapterError("live_trigger must be an object (S41)")
+            trigger_after_nulls = _require_int(trig, "after_null_rows", "live_trigger")
+            if trigger_after_nulls < 0 or trigger_after_nulls > tape_nulls:
+                raise AdapterError("live_trigger.after_null_rows is inconsistent (S41)")
+
     forks = doc.get("forks")
     if not isinstance(forks, dict) or not forks:
         raise AdapterError("Document has no non-empty forks object")
@@ -202,6 +251,24 @@ def parse_events(document_text: str) -> list[RightsEvent]:
         else:
             if triggered or exit_ms < gate_ms:
                 raise AdapterError(f"{fctx}: a gate exit is untriggered and at or after the gate")
+        a9_fields = {}
+        if a9:
+            usable = _require_bool(f, "usable_for_r29", fctx)
+            if usable is not (reason == "stop" or not gate_late):
+                raise AdapterError(f"{fctx}.usable_for_r29 {usable} disagrees with exit_reason "
+                                   f"{reason!r} and gate.late {gate_late} (S41)")
+            if reason == "stop":
+                if f.get("gate_late_ms") is not None:
+                    raise AdapterError(f"{fctx}.gate_late_ms must be null on a stop exit (S41)")
+            else:
+                if _require_int(f, "gate_late_ms", fctx) != gate_late_ms or exit_ms != gate_mark_ms:
+                    raise AdapterError(f"{fctx}: a gate exit must sit on the gate mark with its "
+                                       f"late_ms (S41)")
+            a9_fields = {"gate_late_ms": None if reason == "stop" else gate_late_ms,
+                         "gate_late": gate_late, "usable_for_r29": usable,
+                         "tape_longest_null_span": null_span}
+            if is_control and trigger_after_nulls is not None:
+                a9_fields["live_trigger_after_null_rows"] = trigger_after_nulls
         gross = (exit_mid - open_fill) * size * direction
         if _decimal(f.get("gross_paper_pnl_usd"), f"{fctx}.gross_paper_pnl_usd") != gross:
             raise AdapterError(f"{fctx}.gross_paper_pnl_usd != recomputed {gross}")
@@ -241,6 +308,7 @@ def parse_events(document_text: str) -> list[RightsEvent]:
                 "payload_file": payload_file,
                 "payload_sha256": payload_sha,
                 "mode": "PAPER",
+                **a9_fields,
             },
             ep_type=EPType.SELF_ASSERTED,
             source_url=source_url,

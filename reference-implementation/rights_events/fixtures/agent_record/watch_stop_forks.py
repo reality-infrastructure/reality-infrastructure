@@ -16,6 +16,12 @@ Outputs, beside the open capture:
 Prints `TRIGGER live <ms> <mid> <adverse_bps>` once when the control fires (and keeps
 running to the gate so the wider forks and gate_only are marked), `TRIGGER gate <ms> <mid>`
 at the gate, then exits 0.
+
+PREREG A9 R45 (2026-10-27): the gate's lateness is declared, not silent. The forks file
+carries `gate.late_ms`, `gate.late` (more than two poll intervals after `gate_ms`),
+`tape.longest_null_span`, `usable_for_r29` and `gate_late_ms` on every fork,
+`live_trigger.after_null_rows`, and `rules.gate_late_rule`; the watcher prints
+`GATE LATE <ms> late_ms=<n> longest_null_rows=<n>` before `GATE reached` when late.
 """
 from __future__ import annotations
 
@@ -32,6 +38,8 @@ from pathlib import Path
 
 HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 GATE_ONLY = "gate_only"
+GATE_LATE_RULE = "A9 R45: late if gate.ms - gate_ms > 2 * poll_seconds * 1000"
+LATE_POLLS = 2
 
 
 def _sha(b: bytes) -> str:
@@ -89,8 +97,11 @@ def new_state(open_doc: dict, live_stop_bps: int, fork_bps: list[int],
             "poll_seconds": None,
             "exit_mark_source": "hyperliquid allMids",
             "fee_model": "none (paper fork; compare to the live control's gross)",
+            "gate_late_rule": GATE_LATE_RULE,
         },
-        "tape": {"file": None, "sha256": None, "rows": 0, "null_rows": 0},
+        "tape": {"file": None, "sha256": None, "rows": 0, "null_rows": 0,
+                 "longest_null_span": {"from_ms": None, "to_ms": None, "rows": 0},
+                 "null_run": {"from_ms": None, "to_ms": None, "rows": 0}},
         "forks": forks,
         "live_trigger": None,
         "gate": None,
@@ -98,32 +109,53 @@ def new_state(open_doc: dict, live_stop_bps: int, fork_bps: list[int],
     }
 
 
+def is_late(late_ms: int, poll_seconds: int) -> bool:
+    """R45: a gate mark more than two poll intervals after gate_ms is late."""
+    return late_ms > LATE_POLLS * int(poll_seconds) * 1000
+
+
 def mark(state: dict, ms: int, mid: Decimal | None) -> list[str]:
     """Pure: apply one poll to the fork state. Returns the fork keys that fired on
-    this poll (first crossing only, R28). A null mid marks nothing."""
+    this poll (first crossing only, R28). A null mid marks nothing, but it is counted
+    (R45): the current null run and the longest null span live in state["tape"]."""
     fired: list[str] = []
+    tape = state["tape"]
+    run = tape["null_run"]
     if mid is None:
+        if run["rows"] == 0:
+            run["from_ms"] = ms
+        run["to_ms"], run["rows"] = ms, run["rows"] + 1
+        if run["rows"] > tape["longest_null_span"]["rows"]:
+            tape["longest_null_span"] = dict(run)
         return fired
+    after_null_rows = run["rows"]
+    tape["null_run"] = {"from_ms": None, "to_ms": None, "rows": 0}
     o = state["open"]
     bps = adverse_bps(Decimal(o["fill_price_usd"]), mid, int(o["dir"]))
-    at_gate = ms >= state["rules"]["gate_ms"]
+    gate_ms = state["rules"]["gate_ms"]
+    at_gate = ms >= gate_ms
+    late_ms = ms - gate_ms if at_gate else None
+    late = is_late(late_ms, state["rules"]["poll_seconds"]) if at_gate else None
     for key, f in state["forks"].items():
         if f["triggered"]:
             continue
-        hit = (f["stop_bps"] is not None and bps >= Decimal(f["stop_bps"])) or at_gate
-        if hit:
-            f.update({"triggered": f["stop_bps"] is not None and bps >= Decimal(f["stop_bps"]),
+        stopped = f["stop_bps"] is not None and bps >= Decimal(f["stop_bps"])
+        if stopped or at_gate:
+            f.update({"triggered": stopped,
                       "exit_ms": ms, "exit_mid_usd": str(mid), "adverse_bps_at_exit": str(bps),
-                      "exit_reason": "stop" if (f["stop_bps"] is not None
-                                                and bps >= Decimal(f["stop_bps"])) else "gate",
+                      "exit_reason": "stop" if stopped else "gate",
                       "gross_paper_pnl_usd": str((mid - Decimal(o["fill_price_usd"]))
-                                                 * Decimal(o["size"]) * int(o["dir"]))})
+                                                 * Decimal(o["size"]) * int(o["dir"])),
+                      "gate_late_ms": None if stopped else late_ms,
+                      "usable_for_r29": True if stopped else not late})
             fired.append(key)
             if f["is_live_control"] and state["live_trigger"] is None:
                 state["live_trigger"] = {"ms": ms, "mid": str(mid), "adverse_bps": str(bps),
-                                         "reason": f["exit_reason"]}
+                                         "reason": f["exit_reason"],
+                                         "after_null_rows": after_null_rows}
     if at_gate and state["gate"] is None:
-        state["gate"] = {"ms": ms, "mid": str(mid), "adverse_bps": str(bps)}
+        state["gate"] = {"ms": ms, "mid": str(mid), "adverse_bps": str(bps),
+                         "late_ms": late_ms, "late": late}
     return fired
 
 
@@ -207,6 +239,10 @@ def main(argv: list[str] | None = None) -> int:
                 save_state(final=False)
             if state["gate"] is not None and all(f.get("exit_ms") for f in state["forks"].values()):
                 save_state(final=True)
+                if state["gate"]["late"]:
+                    print(f"GATE LATE {state['gate']['ms']} late_ms={state['gate']['late_ms']} "
+                          f"longest_null_rows={state['tape']['longest_null_span']['rows']}",
+                          flush=True)
                 print(f"GATE reached at ms {ms}; tape rows {rows} (null {nulls}); "
                       f"forks file {forks_path.name}", flush=True)
                 return 0
