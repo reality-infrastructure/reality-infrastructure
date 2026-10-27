@@ -1775,3 +1775,60 @@ run files regenerate to the committed shas (`run_LIVE_2026-10-25…`: root `c805
 gates) → the pair (A9.1, A9.2, A9.3 pins, each before its gate) → P10b (gates on the real
 pair and forks, the run file, SCOREBOARD evidence, the five-gate DONE report) → push. A9.4
 (the read-only inventory, R50) lands whenever the gdex MCP server answers, flat only.
+
+### A9.4 — 2026-10-27 — the read-only resting-trigger inventory (R50), and the preflight re-run after a connection drop, both while flat
+
+**Inventory (R50; the gdex MCP server answered at 2026-10-27T05:03Z; tool schemas and the
+`gdex-perp-trading` and `gdex-limit-orders` skill docs read; nothing previewed, placed or
+executed for this):**
+
+- `gdex_preview_trade {kind: perp_open}` carries `slPrice` and `tpPrice`. Measured on Day 5
+  (A7): accepted, echoed in `terms`, no trigger order ever reached the L1. Retired.
+- `open_perp_position {coin, isLong, isMarket, price, size, leverage, reduceOnly, tpPrice,
+  slPrice}` ('' to skip) → the SDK's `hlCreateOrder` → the backend's `/hl/create_order`, which
+  the docs describe as "place market and limit orders with TP/SL". This is the ONLY path on
+  paper that names a stop on a HyperLiquid order. Unmeasured: whether the preview/execute
+  flow's `slPrice` already went through this same endpoint (if so, Day 5 has shown it rests
+  nothing), and whether the tool loads `@gdexsdk/hyper-liquid-trader` (Node ≥ 20.19,
+  `ERR_REQUIRE_ESM` on this machine, A2.3). Its first real test is a submit (A2 R15): its own
+  amendment, its own go, Day 7 at the earliest (R50's second clause).
+- `place_perp_order` is "without TP/SL" by its own description; `isMarket: false` goes to
+  `/hl/place_order`, which the backend accepts only with `reduceOnly: true` — the A4 R26 close
+  path. No trigger.
+- `gdex_manage_position {action: close | reduce}` previews a reduce-only exit. No trigger.
+- `update_order {triggerPrice, lossPercent, profitPercent}`, `limit_buy`, `limit_sell` are the
+  spot limit-order service (`/v1/limit_buy`, `/v1/limit_sell`, `/v1/update_order`:
+  chain-scoped token orders with 64-hex order ids), not HyperLiquid. Not a path.
+- `hl_outcome_*` are outcome markets. Not a perp trigger.
+- A doc search for `trigger`, `isTrigger`, `triggerPx`, `tpsl`, `orderType` returns no
+  HyperLiquid trigger-order field anywhere in the gdex docs: the venue's native trigger order
+  type is not exposed by gdex except as `tpPrice` / `slPrice` on `hlCreateOrder`.
+
+**Finding:** exactly one path exists on paper (`open_perp_position` → `hlCreateOrder` with
+`slPrice`). It becomes a Day-7 candidate only by its own pre-registered first test with its
+own go; it is not today's variable and nothing about today's pair changes.
+
+**Also seen, no action:** `gdex_status` lists `op_021607a50d744e4e` (Day 4's open, A4.1,
+filled 2026-10-25) as a pending `perp_open` in state `accepted` — the MCP server's local
+store never advanced it; the chain is flat and this record carries its fill. Stale, not a
+Day-6 action.
+
+**Preflight re-run at 05:03Z (daily rule item 1), after this session's connection dropped
+between P10's push and the pair** — no Day-6 file exists on disk, no watcher process is
+running, and the chain shows no fill after Day 5's close at ms 1793002263508:
+
+| Check | Result |
+|---|---|
+| branch vs origin | even at `f506427` |
+| frozen-path diff (`git diff --stat 5bbae46 -- ri_core`; also vs `6c5b1cf`) | empty |
+| full suite | `1001 passed in 38.47s` |
+| `--verify` on the six run files (five `agent_record`, one `agent_board`) | `RESULT: OK` ×6 |
+| clearinghouseState at ms 1793077388069 | 19.829363 USDC, no position, `frontendOpenOrders []` |
+| allMids BTC at 05:03:08Z | 79798.5 |
+| gdex MCP (S42) | `api: ok`, session age 6041 min, policy null |
+
+The pair (R47) waits on the operator's standing term-bounded go, given before the open and
+covering in one motion: a fresh `perp_open` preview with no `slPrice` → `gdex_execute_trade`
+→ the A9 watcher on the open leg → the A4 R26 reduce-only close at the A5 30 bps control or
+at the gate → A9.1 / A9.2 / A9.3 pins → P10b. No go in this session so far; nothing has
+been previewed.
