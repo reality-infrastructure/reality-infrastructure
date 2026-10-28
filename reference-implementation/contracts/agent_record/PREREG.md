@@ -1960,3 +1960,97 @@ rows and min mid `79706.5`; the restarted tape's first `ms` is `1793079772496` a
 greater than the segment's last `1793079467718`; the gap is `304778` ms; the candle file
 has 7 candles with min low `79807.0`; the forks file's `tape.file` names the restarted
 tape, not the segment; `rules.gate_ms` is `1793096284458` in the forks file.
+
+### A9.6 — 2026-10-28 04:1x Z (Day 6, still open; local evening 2026-10-27) — the control fired and the gate passed with no hand present: declared a MISS on the gate, before the late close
+
+**What was found (04:06Z, on the operator's question "day 7 today?").** The A9.5 watcher
+ran to the gate and exited cleanly; its log holds `TRIGGER live 30 1793095822591 79531.5
+30.648…` (10:10:22.591Z) and `GATE reached at ms 1793096289085` (10:18:09.085Z, 4627 ms
+after `gate_ms` 1793096284458: not late by R45); the forks file
+`forks_LIVE_2026-10-27_pv_65cbfed9bef849b6.json` is complete (`complete: true`, 3162 tape
+rows, 678 null rows in ONE span 1793090984927 → 1793094390900, 56 min 46 s, this machine's
+uplink again; the control's trigger poll followed 0 null rows, S44 not triggered). The chain
+at 1793160383881 (04:06:23.881Z, 2026-10-28): the position is STILL OPEN — 0.00014 BTC long,
+entry 79776.0, exactly one fill since the open (the open), no resting orders, unrealized
++0.17668 USD, funding since open 0.003224 USD, account value 19.992411. The five-hour gate
+was passed **64 099 423 ms (17 h 48 min 19 s)** before this was seen.
+
+**Why (the cause, named).** The watcher observes; it submits nothing (S7). R27/R26 close
+the pair by the operator's hand at the control's trigger poll, and the hand was not at the
+keyboard at 10:10Z or at 10:18Z: the session that held the hand had ended (A9.5 restarted
+the watcher detached at 05:42Z and nothing kept a hand present for the trigger five hours
+later). The cause is the hand's absence — not the network (the trigger poll followed a mid),
+not the venue, not the tool. A9.5 fixed the watcher's survival and left the hand's
+survival unfixed; this amendment names it.
+
+**Declared (daily rule item 10; the record says what happened):**
+
+- D1. Day 6 is a **MISS on the gate**. The pair will still settle (one intent, one outcome,
+  one signature on each leg) but its close lies OUTSIDE the five-hour gate; it is recorded as
+  a settled pair with `gate breached` written on it here, in the SCOREBOARD, in the DONE
+  report and in the Standing row. Its realized PnL goes on the signed log exactly as the
+  chain grades it, sign stated, and is **not evidence for the method**: the close is not
+  the R27 close, and whatever the chain returns between 10:10Z and the fill is the market
+  moving while nobody was there. A positive number, if one lands, is luck and is labeled so.
+- D2. R38 (the close latency, the limiting factor) is measured as always, trigger ms
+  1793095822591 → the close fill ms: today's figure is the hand's absence in milliseconds
+  and is printed beside Days 4 and 5 without averaging (daily rule item 6).
+- D3. The R49 reading is unaffected by the hand, by design (A9 R49: the control's figure is
+  its own paper fork's gross on the same tape, so the hand's latency does not enter). From
+  the forks file as written: 10 → −0.013370 (stop, 1793083559476, 79680.5), 20 → −0.024430
+  (stop, 1793083844566, 79601.5), 30 (control) → −0.034230 (stop, 1793095822591, 79531.5),
+  50 / 100 / gate_only → −0.030310 (gate, 1793096289085, 79559.5, `usable_for_r29 true`).
+  Three forward days for 10, 20 and 30, every mark a stop exit and usable (Day 4: 10
+  −0.011410, 20 −0.023450, control −0.036610; Day 5: 10 −0.013930, 20 −0.022750, control
+  −0.035770; Day 6 above): **10 and 20 both beat the control on each of the three days; both
+  qualify.** Three-day cumulative gross: 10 → **−0.038710**; 20 → −0.070630; control
+  −0.106610. **The candidate carried to Day 7 is 10 bps** (the greatest cumulative, R49).
+  50, 100 and gate_only beat the control today (−0.030310 vs −0.034230): forward day 1 of 3
+  for them. Nothing is promoted by this amendment; 10 bps becomes Day 7's live control only
+  by A10, written before Day 7's open, as Day 7's one variable. Size does not change.
+
+**Rules (added):**
+
+- R52 (the late close, now). The close follows A4 R26 verbatim on the operator's go of
+  04:0xZ ("go and finish day 6"): `gdex_preview_trade {kind: perp_close, coin: BTC}` (no
+  size, A2.2), saved verbatim; the capture tool `--live --preview-json <that> --open-capture
+  capture_LIVE_2026-10-27_pv_65cbfed9bef849b6.json --poll-seconds 180` started BEFORE the
+  order; then `place_perp_order {coin: BTC, isLong: false, isMarket: false, reduceOnly:
+  true, size: "0.00014", price: floor(markPx × 0.999 / 10) × 10}` inside the preview's
+  60 s window; one order, one attempt (S25, S37); the chain records it as an
+  immediate-or-cancel inside the venue's band (A7) and the gate asserts the fill as the
+  fact. Fees by R41. Pinned as A9.2; the forks as A9.3; gated in P10b with the run file.
+- R53 (how the record reads a pair closed outside the gate). The run file is built exactly
+  as Day 5's (open capture, close capture, forks capture: fifteen events, two signed); the
+  adapter is not taught about the gate for the LIVE close (no code touched today, A8 R42's
+  discipline); the breach is carried by this amendment, by a P10b gate that asserts
+  `close fill_time_ms > gate_ms` as the fact, and by the SCOREBOARD. The week-two tally
+  prints Day 6 on its own line marked "outside the gate (miss)"; no average includes it.
+- R54 (carried forward, binding on Day 7: the hand's survival). No open on any day without
+  a hand committed to the trigger and the gate: the day's amendment names, before the open,
+  the gate clock in Z and local time and how the watcher's `TRIGGER live` line reaches the
+  hand (the session that holds the hand stays alive to the gate, or an alarm the operator
+  has set; the mechanism is named in A10, not here). If no hand can be present through the
+  gate, the pair is not opened that day and the miss is recorded (item 10) rather than the
+  gate. A watcher that survives (A9.5) and a hand that does not is this day's lesson, in one
+  sentence: the exit is the limiting factor, and the exit is a person.
+
+**STOP conditions (added):** S46 the chain at the close preview shows anything other than
+exactly one open position of 0.00014 BTC long at entry 79776.0 and no resting order → no
+order; declare, re-measure · S47 the close preview's `positionSize` ≠ `0.00014` or
+`isFullClose` false → no order (S25 governs: no second attempt). A4, A5, A7, A8, A9 and A9.5
+STOPs continue to govern.
+
+**Known answers for the P10b gates (committed to before the close):** the close capture's
+`closes.sha256` = A9.1's pin `6030a836…8fc7`; the close fill's `fill_time_ms` >
+`gate_ms` 1793096284458 (the breach, asserted as the fact) and > the trigger ms
+1793095822591 by more than 60 000 000 ms; one Close Long fill, `crossed: true`, one oid, size
+0.00014; the forks file's `complete: true`, `rules.gate_late_rule` present, `gate.late
+false`, `gate.late_ms 4627`, `tape.rows 3162`, `tape.null_rows 678`, `tape.longest_null_span
+{1793090984927, 1793094390900, 678}`, `live_trigger.after_null_rows 0`, the six fork
+answers of D3 and every `usable_for_r29 true`; the run as fifteen events, two signed, zero
+disputes; the R49 reading of D3 (candidate 10 bps, cumulative −0.038710).
+
+**Order from here:** this amendment (pushed while the position is open, before any close) →
+the close under R52 → A9.2 (close pins) → A9.3 (forks, tape, log, trigger payloads) → P10b
+(gates, run file, SCOREBOARD evidence, the five-gate DONE report with the miss on it) → push.
