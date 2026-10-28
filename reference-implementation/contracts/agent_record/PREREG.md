@@ -2129,3 +2129,79 @@ the absence; the sign is the market's, not the hand's). Day 4: 144 090 ms, 18.75
 34.3 s inside the preview window today, about 20 s were the hand saving the preview and
 starting the poller and about 14 s the order path. Stated plainly: the exit remains the
 limiting factor, and today the exit was absent.
+
+### A9.3 — 2026-10-28 (Day 6's forks, pinned 04:2xZ) — the real paper stop-fork capture (Day 6), pinned before its gate: one restarted tape, six forks, the control fired at 30.65 bps with no hand present, the gate on time; the first R29 reading
+
+Written by the A9.5-restarted watcher (`watch_stop_forks.py`, the A9.1 command verbatim,
+PID 32616) on the one tape it polled from its restart to the gate; the files below are the
+watcher's own output and the chain payloads it saved at each mark; nothing is edited by
+hand. The dead first segment and the candles over the restart gap were pinned in A9.5.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+  5245  8ecab5997e2497b1fbc0997e849625852046688d63865bc51a1bcf1fc12daf66  forks_LIVE_2026-10-27_pv_65cbfed9bef849b6.json
+123090  349e114f446bd397b4035ae4a3f55b2e046ad1c901b7a6ade18cdd62addca704  watch_LIVE_2026-10-27_pv_65cbfed9bef849b6.jsonl     (the restarted tape, 3162 rows)
+   708  2074687db18e4ad8e599aa9bf8736bc42a7346367959a6c673ec8b5798a8c55b  watcher_LIVE_2026-10-27_pv_65cbfed9bef849b6.log      (the watcher's stdout; CRLF on disk, LF sha)
+ 25296  2a7e630f7d6fa2167436391e2f6d66a5ff1e4dbb9eddf1edda707f76c2bdfc4b  hl_allMids_1793083559476.json                        (fork 10's mark)
+ 25275  22ce1f758b3bfcc654ba8b1f1e1b8ee4f50bdf29cd6f19c685e37e7b1773af70  hl_allMids_1793083844566.json                        (fork 20's mark)
+ 25336  bbd32f2a283f8cb802bb740e2487075716ca20bf5f7e2ed8c72488917723aae7  hl_allMids_1793095822591.json                        (the control's trigger)
+ 25286  542a5161717c2495402745fec301c2aca2dd7f879c918be9461062e03b93714b  hl_allMids_1793096289085.json                        (the gate mark)
+  7931  04352f357af2814fa7bda8f3c3395a2f8acf45c5dc56a05c765dcf325de4c125  hl_candleSnapshot_BTC_1m_1793160927883.json          (the venue's 1 m candles over the null hole, fetched once at 04:15Z, verbatim)
+```
+
+**The tape (restarted, R28/R45):** 3162 rows from ms **1793079772496** (05:42:52Z, mid
+79834.5; A9.5: 304 778 ms after the dead segment's last row, the gap covered by candles) to
+**1793096289085** (the gate mark); **678 null rows in ONE span** 1793090984927 →
+1793094390900 (08:49:44Z → 09:46:30Z, **56 min 46 s**; the tape's `longest_null_span`),
+the rows immediately around it carrying 79829.5 and 79688.5; longest poll gap 25 033 ms;
+on the non-null rows min mid 79491.5, max 80031.5 (worst adverse 35.66 bps, best 32.03 bps
+in favour, no fork takes profit by design). The null rows are polls that returned no mid:
+this machine's uplink, the third day it has done this (Days 5, 6). `rules.gate_late_rule`
+present; `gate.ms 1793096289085`, `gate.late_ms 4627`, **`gate.late false`** (R45: under
+two poll intervals); `live_trigger.after_null_rows 0` (S44 not triggered); `complete: true`.
+
+**The hole and the marks (the venue's candles, pinned above):** 59 one-minute candles from
+t 1793090940000 through 1793094420000 (the minute of the first null row through the minute
+of the last); **min low 79653.0**, max high 79873.0. The 10 bps line (79696.224) was crossed
+inside the hole, but fork 10 had already been marked at 01:45Z, before the hole (R28: a
+mark is the FIRST crossing; nothing re-marks). The 20, 30, 50 and 100 lines were NOT reached
+inside the hole, so the control's trigger at 10:10:22Z — 23 min 52 s after the hole ended,
+after 0 null rows — is the first crossing of 30 bps a continuous tape would have recorded,
+and the gate forks' marks are usable (`usable_for_r29 true` on every fork, as the file
+says).
+
+| fork | exit | ms | exit mid | adverse bps at exit | gross paper PnL USD | usable_for_r29 |
+|---|---|---|---|---|---|---|
+| 10 | stop | 1793083559476 (06:45:59Z) | 79680.5 | 11.97101885278780585639791416 | **−0.013370** | true |
+| 20 | stop | 1793083844566 (06:50:44Z) | 79601.5 | 21.87374649017248295226634577 | −0.024430 | true |
+| 30 (live control) | stop | 1793095822591 (10:10:22Z) | 79531.5 | 30.64831528279181708784596871 | −0.034230 | true |
+| 50 | gate | 1793096289085 (10:18:09Z) | 79559.5 | 27.13848776574408343361411953 | −0.030310 | true |
+| 100 | gate | 1793096289085 | 79559.5 | 27.13848776574408343361411953 | −0.030310 | true |
+| gate_only | gate | 1793096289085 | 79559.5 | 27.13848776574408343361411953 | −0.030310 | true |
+
+**The control's real gross beside its paper fork (R49, printed every day):** the paper fork
+−0.034230; the REAL gross **+0.165340** (A9.2) — the two disagree by 0.199570 USD, which is
+not the hand's latency but the hand's absence (A9.6): 18 h of market between the trigger
+and the fill. On Days 4 and 5 the real gross was worse than the paper fork by exactly the
+close latency; today it is better by luck. R49 was written so that this does not enter the
+reading, and it does not.
+
+**The first R29 reading (A9 R49, three forward days, as committed in A9.6 D3):** 10 and 20
+beat the control's paper fork on each of Days 4, 5 and 6 with every mark a stop exit and
+usable; both qualify. Three-day cumulative gross: **10 → −0.038710** (−0.011410, −0.013930,
+−0.013370); 20 → −0.070630; control → −0.106610. **The candidate carried to Day 7 is 10
+bps.** 50, 100 and gate_only beat the control today (−0.030310 vs −0.034230): forward day 1
+of 3 for them. Nothing is promoted by this amendment; 10 bps becomes Day 7's live control
+only by A10, written before Day 7's open, as Day 7's one variable, under R54's hand rule.
+Three days, three times the tightest stop lost the least on a tape that went adverse every
+day; the reading says nothing yet about a day that goes the other way.
+
+**Known answers for the P10b gates (committed to here):** the pins above; the forks file
+names the restarted tape (`tape.file`), `tape.rows 3162`, `tape.null_rows 678`,
+`tape.longest_null_span {1793090984927, 1793094390900, 678}`, `rules.gate_ms
+1793096284458`, `rules.poll_seconds 5`, `gate.late_ms 4627`, `gate.late false`,
+`live_trigger {1793095822591, 79531.5, after_null_rows 0}`; the six rows of the table;
+every mark's mid is the tape's row at that ms and each stop is a first crossing; the candle
+file has 59 candles with min low 79653.0, above the 20 line and below the 10 line; the
+segment's last row 1793079467718 precedes the tape's first row.
