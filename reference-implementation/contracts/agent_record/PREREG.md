@@ -2315,3 +2315,131 @@ pinned, with `gate_ms` in Z and local, the launcher's PID, the alarm named) → 
 detached → the hand present to the trigger or the gate → the close by R26 → A10.2 (close
 pinned) → at the gate A10.3 (forks pinned) → P11 (gates, run file, SCOREBOARD evidence, the
 five-gate DONE report) → push → Standing row.
+
+### A11 — 2026-10-28 (written 05:0xZ, local 2026-10-27 midnight, flat) — Day 7's ONE variable is changed before the open: the exit is automated (the machine submits the close at the trigger or the gate); the live control STAYS 30 bps and A10's R55 (the 10 bps control) is deferred to Day 8; the open is scheduled
+
+**Why this amendment (seven-rules R1, R6, R7; A10 superseded in part, before anything ran).**
+After A10 was pushed the operator said (05:0xZ): "it needs to be automatic because I'm
+getting up a little later tomorrow". The record's limiting factor is the exit, and on every
+live day the exit was a person: 144 090 ms (Day 4), 26 619 ms (Day 5), 64 985 665 ms with
+nobody present (Day 6). Making the exit a machine attacks that factor directly; promoting
+the 10 bps stop at the same time would change two things at once (R6: one rung at a time)
+and the record could not tell which one paid. Asked to choose, the operator chose
+"Automated exit, control stays 30 bps" and "Open 13:00Z (08:00 CDT), laptop kept awake".
+This amendment makes those two decisions the rules of Day 7. It is written while flat (the
+04:43Z preflight of A10 stands: origin even at 8ec7f85, then b5eff48 after A10; frozen diff
+empty; 1044 passed; seven run files verify; 19.970509 USDC; no position; no resting order),
+before any preview, before any code.
+
+**What changes on the record, said plainly.** Until today every order on this record was
+submitted by the operator's hand and the capture tool only observed (CONTRACT, A2 R15, S7).
+From today the close — and, because the operator is asleep at the open, the open — is
+submitted by the machine: this Claude Code session, acting under the operator's own GDEX
+account (`acct_8c48b321e89c`, actor wallet `0x9f976123e7c48952be487664b8130aad144b7f23`)
+through the same gdex MCP path the hand used (`gdex_preview_trade`, `gdex_execute_trade`,
+`place_perp_order`), on a standing go the operator gives tonight whose terms are written
+here and nowhere else. The rule "the gdex connection stays read-only; execution is the
+operator's hand" is retired by this amendment, by the operator's word. The three-part rule
+holds: the agent runs under the operator's account, the code is in the operator's repo, the
+record is the operator's log. The capture tool and the watcher still observe only (S7
+unchanged for them): the executor is the session, and every order it submits is pinned
+with its preview and its chain fill exactly as the hand's were.
+
+**A10 superseded in part.** R55 (the 10 bps live control) is DEFERRED to Day 8 by its own
+amendment (A12, before Day 8's open); the R49 candidate stands and is not re-earned. R56
+(the hand present from the go through the gate) is REPLACED by R61 below. R57 is replaced
+by R62. R58 is replaced by R63. R59 stands. S48, S49, S50, S51 are replaced by S52-S55.
+A10's known answers that name the control as 10 are withdrawn; the control is 30, as on
+Days 4, 5 and 6.
+
+**Rules (added):**
+
+- R60 (the one variable: the machine submits the exit). The executor is this session. On the
+  watcher's first `TRIGGER live 30` line, or on its `GATE reached` line, the executor
+  performs A4 R26 verbatim with no hand: `gdex_preview_trade {kind: perp_close, coin: BTC}`
+  (no size, A2.2) → the preview saved verbatim → the capture tool `--live --preview-json
+  <close preview> --open-capture <open capture> --poll-seconds 180` started → `place_perp_order
+  {coin: BTC, isLong: false, isMarket: false, reduceOnly: true, size: "0.00014", price:
+  floor(markPx × 0.999 / 10) × 10}` inside the preview's 60 s window; one order, one attempt
+  (S25, S37). The trigger reaches the executor through a file watch on the watcher's log
+  (`watcher_LIVE_<day>_<pv>.log`), re-armed every 30 minutes until the gate; a watch that
+  expires is re-armed before anything else is done. R38 is measured as always: trigger ms →
+  close fill ms, bps against the trigger mid.
+- R61 (the open, scheduled; the standing go). The open runs at **13:00Z on 2026-10-28
+  (08:00 CDT)**, started by a one-shot in-session schedule that fires within 2 minutes of
+  that clock; the gate is the open fill + 5 h, about **18:00Z (13:00 CDT)**; `gate_ms` is the
+  watcher's `WATCH` line and is pinned in A11.1 in Z and local time. The operator's standing
+  go, given tonight in reply to this amendment, covers EXACTLY: one `perp_open` preview of
+  BTC long 0.00014 at 1x cross with no slPrice (R47), executed within its 60 s window if and
+  only if the preflight of R64 is clear; one watcher started detached (the A9.5 launcher,
+  PID pinned in A11.1); one close by R60; nothing else — no second preview after a refused
+  or expired one (S25: the miss is recorded), no size other than 0.00014, no market other
+  than BTC, no order while a position or a resting order is on the chain other than the one
+  this pair opened. The go expires at the gate. The sequence at 13:00Z: R64 preflight →
+  `gdex_preview_trade` → the preview saved verbatim → the capture tool `--live` started →
+  `gdex_execute_trade` naming the previewId → the open capture → A11.1 pinned and pushed →
+  the watcher detached → the log watch armed → R60 at the trigger or the gate → A11.2 (close)
+  → A11.3 (forks) → P11 → push → the Standing row.
+- R62 (the forks, unchanged from A9 R48/R49). 10, 20, 30 (the live control), 50, 100 bps and
+  `gate_only`; poll 5 s; gate 5 h. Forward counts continue as A9.6 D3 left them: the 10 and
+  20 bps forks already qualify over Days 4-6; Day 7 is forward day 2 of 3 for 50, 100 and
+  `gate_only`. The 10 bps candidate is carried to Day 8 by A12. The control's real gross is
+  printed beside its paper fork as every day; today the difference is the MACHINE's latency.
+- R63 (the pass line for the variable, fixed before the data). The exit WORKED today iff the
+  pair closes inside the gate (close fill ms ≤ gate_ms + 10 000, R45's two polls) AND R38's
+  latency is below the fastest hand on the record, **26 619 ms** (Day 5), with its cost in bps
+  below **9.4713**. It FAILED iff either does not hold. Expected, stated now: the machine's
+  path is preview (about 1 s) + save + start the poller + one order (about 14 s of the Day-6
+  close's 34 s were the order path): the expectation is 15 000-40 000 ms, so the pass line
+  is a real test, not a formality. One day is one bit; nothing else moves on it.
+- R64 (the preflight at 13:00Z and the environment named). Before the preview: the chain
+  shows no position and no resting order; the account value is within 0.01 USDC of
+  19.970509 plus or minus nothing (no fill since the Day-6 close); `gdex_status` says `api
+  ok`; the branch is even with origin at this amendment or later and the tree is clean. Any
+  failure → S42: no preview, the miss recorded. Environment named now: the laptop stays on
+  AC with the lid open; its power plan already never sleeps and never hibernates on AC
+  (`powercfg`: Sleep after 0, Hibernate after 0, Balanced scheme, PowerOnline true at
+  04:58Z) — nothing changed; this Claude Code session stays open in its terminal; the in-
+  session schedule and the file watch die with the session (session-only, not on disk) and
+  that is the named residual risk of R65.
+- R65 (the residual risk, named, and the operator's backstop). If this session is not alive
+  at 13:00Z, nothing opens: that is a miss, recorded on waking (item 10), not a loss. If the
+  session dies AFTER the open, the detached watcher keeps marking the forks but nobody
+  closes: the Day-6 room again. The operator's backstop is their own alarm at the gate's
+  local time (13:00 CDT) and, on waking, the A9.6 procedure first: read the tape's last row
+  and the chain; if the position is open past the trigger or the gate, close by hand by
+  R26 and declare the miss before pinning anything. This machine's uplink has produced a
+  null hole on three consecutive days (56 min 46 s yesterday); a trigger seen through a hole
+  is handled by S55.
+
+**STOP conditions (added):** S52 the R64 preflight fails in any part at 13:00Z → no preview,
+no pair; the miss recorded with the failing check verbatim · S53 the open preview's terms
+are not exactly `perp_open BTC long 0.00014 leverage 1 cross slPrice ""` → no execute (the
+go does not cover it); the preview pinned as a probe, the miss recorded · S54 the execute
+is refused, expires or returns anything but a filled open → no second attempt (S25); what
+came back is pinned; if a position nevertheless exists on the chain it is closed by R60
+immediately and the day is recorded as a miss with a settled pair · S55 the control's
+trigger poll follows a null span of more than two rows (`live_trigger.after_null_rows >
+2`) → the executor still closes at that poll and A11.2 records the trigger's true lateness
+beside R38 (S44) · S56 the file watch is found expired and un-armed with a `TRIGGER live`
+or `GATE reached` line already in the log → the executor closes by R60 at once and A11.2
+records the detection delay as part of R38 (the latency is the machine's, measured
+honestly) · S42, S46, S47, S25, S37 and the A4, A5, A7, A8, A9, A9.5, A9.6 STOPs continue
+to govern.
+
+**Known answers for the P11 gates (committed to before the open):** the executed open
+preview has `kind perp_open`, `terms.slPrice ""`, `size "0.00014"`, `leverage 1`,
+`marginMode cross`; the open fill's `time` lies within [1793192400000 − 120 000,
+1793192400000 + 300 000] (13:00Z ± the schedule's tolerance and the 60 s window); the forks
+file has `rules.live_stop_bps 30`, `forks.30.is_live_control true`, `rules.gate_late_rule`
+present; the close capture's `closes.sha256` = A11.1's pin of the open capture; the close
+fill's `time` ≤ `gate_ms` + 10 000 (inside the gate — the Day-6 breach does not repeat) or
+the day is recorded as a miss; R38 latency and bps printed with R63's verdict WORKED or
+FAILED; the pair as nine events, the run as fifteen, two signed, zero disputes; the seven
+previous run files byte-identical; the executor's every submit has a preview pinned
+verbatim and a chain fill with its tx hash (A2 R15 holds for the machine as it did for the
+hand).
+
+**Order from here:** this amendment (pushed tonight, flat) → the operator's standing go in
+reply, quoted in A11.1 → the schedule armed → 13:00Z: R64 → R61 → A11.1 → the watcher → the
+watch → R60 → A11.2 → A11.3 → P11 → push → Standing row.
