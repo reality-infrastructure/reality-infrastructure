@@ -2499,3 +2499,51 @@ operator chooses the clock, not asked for afterwards.
 **Order from here:** this entry committed and pushed (flat) → the Standing row (Day 7: miss,
 no go) → memory → on the operator's word, A12 (new clock, go quoted inside it, R60 exit) or
 Day 7 stands as the miss and Day 8 opens under A12's own terms.
+
+### A12 — 2026-10-28 13:4xZ (08:4x CDT), flat — Day 7's open re-clocked under the operator's standing go, given in the operator's own words after the A11.1 miss; everything else of A11 stands
+
+**The go, verbatim (the operator, in reply to the A11.1 report, 2026-10-28 13:3xZ):**
+> "I'm giving you the standing go right now"
+
+The go is the standing go of A11 R61 and covers EXACTLY what R61 says it covers: one
+`perp_open` preview of BTC long 0.00014 at 1x cross with no slPrice (R47), executed within its
+60 s window if and only if the R64 preflight is clear; one watcher started detached (PID
+pinned in A12.1); one close by R60 (the machine submits the exit at the first `TRIGGER live
+30` line or at `GATE reached`); nothing else. No second preview after a refused or expired
+one (S25), no size other than 0.00014, no market other than BTC, no order while any other
+position or resting order is on the chain. The go expires at the gate.
+
+**What changes from A11 (one thing: the clock).** R61's 13:00Z clock expired unused (A11.1).
+Under this amendment the open runs **immediately after this amendment is pushed and no later
+than 14:15Z (09:15 CDT)**; the gate is the open fill + 5 h, so it lands between about 18:45Z
+and 19:15Z (13:45–14:15 CDT), in daylight; `gate_ms` is the watcher's `WATCH` line and is
+pinned in A12.1 in Z and local. The one-shot schedule of R61 is spent and is not re-armed;
+the executor is this session, acting now, with the operator awake and present (R65's backstop
+is the operator themself today: their alarm at the gate's local time, and the A9.6 procedure
+first on any doubt).
+
+**What does not change.** R60 (the automated exit: the one variable), R62 (forks 10, 20, 30
+live control, 50, 100, `gate_only`; poll 5 s; gate 5 h; Day 7 is forward day 2 of 3 for 50,
+100 and `gate_only`; the 10 bps candidate stays carried to Day 8), R63 (WORKED iff inside the
+gate AND R38 latency < 26 619 ms AND cost < 9.4713 bps; expected 15 000–40 000 ms), R59 (one
+unit), the A11 STOPs S52–S56, and every earlier STOP named in A11. A11.1 stands as the record
+of the 13:00Z miss; if this pair settles inside the gate Day 7 is a settled day with a miss
+on its first clock, recorded on both lines.
+
+**The R64 preflight, re-run at 13:39:06Z, every check green:** HL `clearinghouseState`
+`accountValue 19.970509`, no position; `frontendOpenOrders []`; BTC mid 80793.5;
+`gdex_status` `api ok` (the same two stale `accepted` perp_open operations, no action);
+branch `contract/agent-record` at `0f708dd` (A11.1) = origin; tree clean except the
+untracked `puct_193.pdf`. The capture tool runs with `--poll-seconds 180` for both legs;
+the watcher with the A9.1 command verbatim and `--live-stop-bps 30`.
+
+**Known answers for the P11 gates (committed to before the open):** as A11, except the open
+fill's `time` lies within [this amendment's push time, 1793196900000] (≤ 14:15Z); the
+forks file has `rules.live_stop_bps 30` and `forks.30.is_live_control true`; the close
+fill's `time` ≤ `gate_ms` + 10 000 or the day is a miss on its second clock too.
+
+**Order from here:** this amendment pushed → `gdex_preview_trade` → the preview saved
+verbatim → the capture tool `--live` started → `gdex_execute_trade` → the open capture →
+A12.1 pinned and pushed (shas, `gate_ms`, the watcher's PID) → the watcher detached → the
+log watch armed (30-min re-arm) → R60 at the trigger or the gate → A12.2 (close) → A12.3
+(forks) → P11 → push → Standing row.
