@@ -2205,3 +2205,113 @@ names the restarted tape (`tape.file`), `tape.rows 3162`, `tape.null_rows 678`,
 every mark's mid is the tape's row at that ms and each stop is a first crossing; the candle
 file has 59 candles with min low 79653.0, above the 20 line and below the 10 line; the
 segment's last row 1793079467718 precedes the tape's first row.
+
+### A10 — 2026-10-28 (written 04:5xZ, local evening 2026-10-27, flat) — Day 7 (week two, day two): the 10 bps stop becomes the live control (the R49 candidate, the ONE variable); the hand is committed through the gate before the open (R54), to tomorrow morning's clock
+
+**Why this amendment (seven-rules R1: attack the limiting factor; R5/R6: promote only on a
+held-out bench, one rung at a time).** The record has three forward days (Days 4, 5, 6) on
+which the 10 bps paper fork beat the 30 bps control's own paper fork on the same tape with
+every mark a stop exit: cumulative gross 10 → −0.038710, 20 → −0.070630, control → −0.106610
+(A9 R49, read in A9.6 D3 and gated in P10b). R49 said the candidate becomes the live control
+only by this amendment, written before Day 7's open, as Day 7's one variable. Day 6 also
+showed that the exit is a person: the control fired into an empty room (A9.6) and R54 now
+forbids an open without a hand committed through the gate. This amendment does both things
+and nothing else. It is written while flat (preflight at 04:43Z: origin even at 8ec7f85,
+frozen diff empty, 1044 passed, seven run files verify, 19.970509 USDC, no position, no
+resting order, no fill since the Day-6 close, gdex MCP api ok), before any preview or code.
+No code is touched: the watcher takes `--live-stop-bps`, the fork adapter reads
+`rules.live_stop_bps` from the file and the runner prints the control from the claim.
+
+**The decision (the operator's, 2026-10-28 04:5xZ: "let's attack the limiting factor and
+open tomorrow morning, write A10 to that clock").** The pair is not opened tonight. An open
+now would put the gate at about 05:00 CDT with the trigger free to land at any minute of
+the five hours before it: the Day-6 room. The pair opens tomorrow morning local, in daylight,
+with the hand present from the go to the gate.
+
+**Rules (added):**
+
+- R55 (the one variable: the live control is 10 bps). The watcher runs with `--live-stop-bps
+  10 --fork-bps 10,20,30,50,100 --gate-hours 5 --poll-seconds 5`; the forks file carries
+  `rules.live_stop_bps 10` and `forks.10.is_live_control true`; 30 bps is a PAPER fork from
+  today (`forks.30.is_live_control false`). R27 is unchanged in form: the hand closes by A4 R26
+  at the control's trigger poll — now the first poll whose mid is 10 bps or more adverse to
+  the open fill — or at the gate. The control line is `open_fill × (1 − 0.0010)`, printed in
+  the watcher's `WATCH` line. Nothing else about the pair changes: the open by R47 (no
+  slPrice), the close by R26, the fees by R41, the unit by R51.
+- R56 (the hand's commitment through the gate — R54 satisfied before the open). The go is
+  given between **12:30Z and 14:30Z on 2026-10-28 (07:30–09:30 CDT)**; the gate is the open
+  fill + 5 h and therefore lands no later than **19:30Z (14:30 CDT)**; the exact `gate_ms` is
+  the watcher's `WATCH` line and is pinned in A10.1 in Z and local time. How the trigger
+  reaches the hand, all three at once: (1) the operator is at the keyboard from the go
+  through the gate — this is the commitment; (2) the session that holds the hand stays alive
+  through the gate and reads the watcher's log on every poll (a file watch on
+  `watcher_LIVE_<day>_<pv>.log`, reporting a `TRIGGER live` line within one poll interval);
+  (3) a backstop alarm set by the operator on their own device at the gate's local time
+  before the go is given, named in A10.1. The watcher starts detached by the A9.5 launcher
+  (PowerShell `Start-Process` of `python.exe`, working directory the fixtures folder, window
+  hidden, stdout → the log, from a shell that then exits; checked alive after its parent has
+  exited), named in A10.1 with its PID. If (2) dies, (1) reads the log directly and closes by
+  R26 — the hand does not need the session; the watcher is restarted only if its process is
+  gone (the A9.5 procedure: segment, candles, restart under the same gate).
+- R57 (the forks and the forward counts under the new control). Six forks as before: 10
+  (the live control), 20, 30, 50, 100, `gate_only`, marked on one tape by R28/R45. Because
+  the control changed, every fork's R29 count restarts today against the new control's
+  paper fork: Day 7 is forward day 1 of 3 for 20, 30, 50, 100 and `gate_only`. The next
+  reading is at the close of Day 9 under the R49 criterion with the control's figure = the
+  10 bps paper fork's gross on the same tape; a looser fork qualifies only by beating it on
+  each of three days with every mark usable. The old control's paper fork (30) is printed
+  beside the new control every day so the switch stays legible on the record.
+- R58 (what the variable is judged on today — the pass line, fixed before the data). The
+  Day-7 bit is the live control's REAL gross (A4 R26 fill vs the open fill) beside (a) its
+  own paper fork's gross (the R38 latency cost, as every day) and (b) the 30 bps paper
+  fork's gross on the same tape (what the old control would have taken today, by paper).
+  The variable PAID today iff real gross(10, live) ≥ paper gross(30) on this tape; it COST
+  iff the reverse. One day is one bit; nothing is promoted or demoted on it (R57). Expected,
+  stated now: a 10 bps stop has fired on every tape so far (Days 4, 5, 6: 01 h 27 min, 00 h
+  35 min, 01 h 28 min after the open), so the expected shape of today is a stop exit of
+  about −0.011 to −0.014 gross, less the hand's latency, less 0.021 of fees; the open
+  question the 50/100/`gate_only` forks keep measuring is whether no stop at all would do
+  better over three days. R38 is measured as always (trigger ms → fill ms, bps against the
+  trigger mid) and printed beside Days 4, 5 and 6, never averaged.
+- R59 (size and account). 0.00014 BTC at 1x cross, the Day-1 unit; week two at one unit
+  (north star rule 2: the signed log is not positive out of sample for a week; Day 6's gain
+  is outside the gate and counts for nothing here). The account at preflight: 19.970509 USDC,
+  flat, no open orders, at 2026-10-28T04:43Z. The gdex status shows two stale `accepted`
+  perp_open operations (Day 4's and Day 6's filled opens, as A9.4 found for Day 4): no
+  action.
+
+**STOP conditions (added):** S48 the hand must leave before the gate → the position is
+closed by R26 immediately, before leaving, with no trigger; the pair settles inside the gate
+and is recorded as "closed early by the hand's departure" (exit reason `hand`, not `stop`
+or `gate`); the forks file still marks every fork to the gate; the day's R58 reading is
+void and says so · S49 no go inside the 12:30Z–14:30Z window → no pair today; the miss is
+recorded (daily rule item 10); a go outside the window is valid only if it names, in the go
+itself, that the hand is committed through the gate it implies · S50 the session that holds
+the hand dies while the position is open → the hand reads the watcher's log directly; the
+watcher is NOT restarted unless its process is gone (then A9.5); the close follows R26 at
+the first `TRIGGER live` line or at the gate · S51 the control's trigger poll follows a null
+span of more than two rows (`live_trigger.after_null_rows > 2`) → the hand still closes at
+that poll and A10.2 records the trigger's true lateness (S44 carried) · S42 (gdex MCP
+unreachable at the go → no pair, the miss recorded), S46/S47 (the chain at the close
+preview), S25/S37 (one order, one attempt), A4, A5, A7, A8, A9, A9.5 and A9.6 STOPs continue
+to govern.
+
+**Known answers for the P11 gates (committed to before the open):** the executed open
+preview has `slPrice ""` and `size "0.00014"` at `leverage 1` (R47); the forks file has
+`rules.live_stop_bps 10`, `rules.gate_late_rule` present, `forks.10.is_live_control true`,
+`forks.30.is_live_control false`, exactly one control; the runner's fork line reads
+`Paper stop fork        10 (live control): …` and the 30 line carries no `(live control)`;
+the fork adapter accepts the file with no code change (S41 recomputes the A9 fields as
+before); the open fill ms + 18 000 000 = `gate_ms`, and `gate_ms` falls in [45 000 000 ms,
+52 200 000 ms] after 2026-10-28T00:00Z (12:30Z + 5 h … 14:30Z + 5 h) unless S49's named
+exception applies; the close fill ms ≤ `gate_ms` + 2 × 5000 (the pair settles inside the
+gate, or S48's `hand` exit) — the Day-6 breach does not repeat; the pair as nine events, the
+run as fifteen, two signed, zero disputes; R58's comparison printed with its sign; the
+previous seven run files byte-identical.
+
+**Order from here:** this amendment (pushed tonight, flat) → tomorrow 12:30Z–14:30Z: preflight
+re-run (item 1) → the go → open preview (R47) → execute → capture tool `--live` → A10.1 (open
+pinned, with `gate_ms` in Z and local, the launcher's PID, the alarm named) → the watcher
+detached → the hand present to the trigger or the gate → the close by R26 → A10.2 (close
+pinned) → at the gate A10.3 (forks pinned) → P11 (gates, run file, SCOREBOARD evidence, the
+five-gate DONE report) → push → Standing row.
