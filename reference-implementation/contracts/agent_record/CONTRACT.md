@@ -336,3 +336,56 @@ reference-implementation/
   promote-or-discard reading), under the corrected fee rule; read-only measurement of which
   gdex path, if any, can rest a trigger order on the L1, pre-registered as Day 7's candidate
   only if something rests; rung 2 on 2026-11-04.
+
+## DONE report (Day 6, week two's first day: the settled pair that closed outside the gate, and the first R29 reading, 2026-10-27)
+
+- **Planned (PREREG A9, 2026-10-27, before any code):** the watcher declares a late gate
+  (R45/R46) and the adapter refuses a declaration that disagrees (S41), both reading older
+  files exactly as written; the pair unchanged from the Day-5 fallback at one unit under the
+  corrected fee rule (R47, R51); the six forks with 10/20/30 on forward day 3 of 3 and the
+  first R29 reading's criterion fixed before the data (R49); the read-only resting-trigger
+  inventory (R50). Daily rule item 1 was run twice (A9 and, after a connection drop, A9.4).
+- **Implemented (P10, before the pair):** `watch_stop_forks.py` gate.late_ms / gate.late,
+  tape.longest_null_span, usable_for_r29 per fork, live_trigger.after_null_rows, the
+  `GATE LATE` line; `adapters/agent_fork.py` S41; the runner's fork line; 25 gates; both
+  committed tapes replayed through the new pure mark() reproduce every committed exit.
+  **Then, after the chain answered (P10b):** 43 gates on the real captures and the run file.
+  No code touched after P10 (R53).
+- **Taken:** one settled LIVE pair on the operator's go. Open 79776.0 (tx 0xec47b024…a7a4,
+  fee 0.010408). The watcher died with its host session at row 220 and was restarted
+  detached under the same gate (A9.5, declared and pushed while open). **The 30 bps control
+  fired at 10:10:22Z (mid 79531.5) and the gate passed at 10:18:09Z with no hand present**
+  — the watcher observes and the session holding the hand had ended. Declared a MISS on
+  the gate before any close (A9.6, pushed while open). The late close under R52 (A4 R26) on
+  the go "go and finish day 6": one reduce-only order at 80890, filled as a taker at 80957.0
+  (tx 0x3c12dbd5…d54a, fee 0.010562) at 04:13Z 2026-10-28, 18 h 3 min after the trigger.
+  **Realized +0.144370 USD, GAIN — outside the gate, by luck, not evidence for the method**
+  (the control's own paper fork took −0.034230; the market rose 1425.5 USD while nobody
+  watched). Gaps +0.0627 / +0.0618 bps. Forks on gross: 10 → −0.013370, 20 → −0.024430,
+  30 → −0.034230, 50 / 100 / gate_only → −0.030310, every mark usable (gate on time, 4627
+  ms). **The first R29 reading (R49):** 10 and 20 beat the control on Days 4, 5 and 6;
+  cumulative 10 → −0.038710, 20 → −0.070630, control → −0.106610; the candidate carried to
+  Day 7 is 10 bps; nothing promoted. Run file `run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri`
+  (sha256 63b27168…b5cd), root 38d30373…1a87, fifteen events, two cryptographically_signed,
+  zero disputes. Position flat, 19.970509 USDC in the perp account.
+- **Tested:** Day-6 live gates `43 passed`; with the P10 gates `68 passed`; agent-record
+  gates `322 passed`; full suite `1044 passed` (+43 new, 0 removed, 1 pre-existing board
+  directory gate re-pointed and disclosed); frozen-path diff empty; `--verify` OK on all
+  seven run files; Day 1-5 run files byte-untouched.
+- **Committed:** `85a2a06` (A9) → `f506427` (P10) → `9bee327` (A9.4) → `f1ba0ab` (A9.1) →
+  `f999900` (A9.1 addendum) → `495e59c` (A9.5) → `f1d8bbc` (A9.5 addendum) → `aa663f8`
+  (A9.6) → `90649c4` (A9.2) → `c2933bc` (A9.3) → this `AGENT-RECORD-P10b` commit; every
+  amendment strictly before the code or gate that consumes it. Push status is stated in the
+  P10b session report.
+- **Honest note:** the day is a miss on the gate, and the record says so on every line the
+  number appears on. The watcher's survival was fixed in the morning (A9.5) and the hand's
+  was not; the control fired into an empty room and the first positive live pair on the
+  record is the result of 18 hours nobody was there for. R54 is the lesson as a rule: no
+  open without a hand committed through the gate, the mechanism named before the open. The
+  reading the day was for came in anyway, because R49 keeps the hand out of it: three
+  forward days, the tightest stop lost the least each time. The uplink dropped for the third
+  day in a row; the venue's candles filled the hole each time and changed no mark.
+- **Next (Day 7, 2026-10-28):** A10 before the open, ONE variable — the R49 candidate (10 bps
+  as the live control) — under R54 (the hand committed through the gate, the mechanism
+  named), the watcher started detached (A9.5 launcher), the Day-4 close path at one unit;
+  the fork population and forward counts as A10 declares them; rung 2 on 2026-11-04.

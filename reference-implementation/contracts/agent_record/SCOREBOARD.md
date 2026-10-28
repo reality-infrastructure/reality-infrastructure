@@ -1013,3 +1013,225 @@ neither is on any path used). The watcher's gate rule needs a declared condition
 gate mark later than `gate_ms` by more than one poll (A7.3, next amendment that touches the
 watcher). No gdex path known to rest a trigger order on the L1; to be measured read-only
 before it is a candidate (A7 R40).
+
+## Day 6 (2026-10-27, week two's first day): the settled LIVE pair under A9, closed OUTSIDE the five-hour gate (a miss, A9.6), the paper forks on the restarted tape, the first R29 reading — evidence (P10b)
+
+### Commit ordering (the proof)
+
+```
+85a2a06  AGENT-RECORD-A9     Day 6 pre-registered: R45/R46 late gate, R47 pair unchanged, R48 forks, R49 the R29 criterion, R50 inventory, S41-S44
+f506427  AGENT-RECORD-P10    the watcher declares a late gate; adapter S41; runner GATE LATE line; 25 synthetic gates; 1001 passed
+9bee327  AGENT-RECORD-A9.4   the read-only resting-trigger inventory (R50); preflight re-run after a connection drop, flat
+f1ba0ab  AGENT-RECORD-A9.1   the real LIVE OPEN capture pinned before its gate (79776.0, tx 0xec47b024…a7a4)
+f999900  AGENT-RECORD-A9.1   addendum: the two chain payloads beside the open leg, pinned
+495e59c  AGENT-RECORD-A9.5   the watcher died with its host session; declared, segmented, restarted detached under the same gate
+f1d8bbc  AGENT-RECORD-A9.5   addendum: the as-executed launcher, the segment pin, the gap's candles, the P10b known answers
+aa663f8  AGENT-RECORD-A9.6   the control fired and the gate passed with NO HAND PRESENT: a MISS on the gate, declared before the late close (D1-D3, R52-R54, S46/S47)
+90649c4  AGENT-RECORD-A9.2   the real LIVE CLOSE capture pinned before its gate: the late close under R52 (80957.0, tx 0x3c12dbd5…d54a)
+c2933bc  AGENT-RECORD-A9.3   the real paper stop-fork capture pinned before its gate: the restarted tape, six forks, the first R29 reading
+<this>   AGENT-RECORD-P10b   43 gates on the real captures + the fifteen-event run file + this evidence + DONE (the miss on it)
+```
+
+Every amendment strictly before the code or gate that consumes it; A9.5 and A9.6 written
+and pushed while the position was open and before any close. No code was touched after
+P10 (R53: the adapter is not taught about the gate; the breach is carried by amendment,
+gate and this evidence).
+
+### The daily list, applied
+
+1 preflight (A9.4, 05:03Z: origin even at f506427, frozen diff empty, 1001 passed, six run
+files verify, flat at 19.829363) · 2 prereg before anything new (A9 before P10; A9.5 and
+A9.6 before the close) · 3 one settled pair — one intent, one outcome, one signature on each
+leg — **closed OUTSIDE the five-hour gate (the miss, A9.6 D1)** · 4 pins before gates
+(A9.1, A9.5, A9.2, A9.3) · 5 run + `--verify` + venue closedPnl reconciled at 0.000000 ·
+6 gaps +0.0627 / +0.0618 bps and fees 0.010408 / 0.010562 published, never averaged ·
+7 size unchanged (one unit, 0.00014 BTC at 1x) · 8 this evidence + DONE + push · 9 Standing
+row · **10 the miss recorded (A9.6): the control fired at 10:10:22Z and the gate passed at
+10:18:09Z with no hand present; cause = the hand's absence, not the network or the venue.**
+
+### The operator's own hand (what was submitted, in order)
+
+1. 2026-10-27 ~05:17Z, the go covering the A9 plan: `gdex_preview_trade` perp_open BTC long
+   0.00014 at 1x cross, no slPrice → `pv_65cbfed9bef849b6` → `gdex_execute_trade` →
+   op_245ba1b78c5f40c5 → chain fill **79776.0** at ms 1793078284458 (A9.1).
+2. The A9/P10 watcher started on the open leg (control 79536.7, gate ms 1793096284458 =
+   10:18:04Z); it died with the session at row 220 and was restarted detached at 05:42Z
+   (A9.5, PID 32616). It ran to the gate and exited cleanly. **No hand was present at the
+   trigger (10:10:22Z) or the gate (10:18:09Z).**
+3. 2026-10-28 04:0xZ (local evening 2026-10-27), on the go "go and finish day 6" after A9.6
+   was pushed: `gdex_preview_trade {kind: perp_close, coin: BTC}` → `pv_6ea7c2ad3e754726`
+   (markPx 80976) → the capture tool polling → `place_perp_order {isLong false, isMarket
+   false, reduceOnly true, size 0.00014, price 80890}` (R26: floor(80976 × 0.999 / 10) × 10)
+   → `isSuccess true` → chain fill **80957.0** at ms 1793160808256, a taker 67 USD above the
+   price sent (the price never rests, A7). One order, one attempt. Position flat, nothing
+   resting, account 19.970509.
+
+### Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`
+
+Listed in PREREG A9.1 (3 + 2), A9.5 (2), A9.2 (5) and A9.3 (8); every one of the twenty is
+re-hashed by a gate in `tests/test_agent_record_day6_live_gates.py`. The run file:
+
+```
+34042  63b27168429f77bebd82a17444deae06c87ecf207aa9d850dccfad534677b5cd  run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri
+```
+
+### Gates — `python -m pytest -q tests/test_agent_record_day6_live_gates.py tests/test_agent_record_day6_gates.py`
+
+```
+68 passed in 0.62s
+```
+
+(43 Day-6 live gates: 11 on the open leg, the segment and the gap's candles; 13 on the close
+leg — the pins, the verbatim payloads, R52 as declared, **the breach asserted as the fact**
+(fill 64 523 798 ms after gate_ms, 64 985 665 ms after the trigger), R38, the A9.2 known
+answer, the fee line and the account's own arithmetic, the pair as nine events; 19 on the
+forks and the run — the pins, the A9 declaration with an on-time gate, the tape re-read,
+every trigger payload, the watcher's log in order with no GATE LATE line, the candles over
+the hole, the A9.3 known answer, **the first R29 reading**, the run as fifteen events, the
+committed run file byte-identical to a fresh run and verifying, the runner's lines, Day 1-5
+run files untouched. 25 P10 gates from before the pair.) All agent-record gates —
+`python -m pytest -q tests/ -k agent`:
+
+```
+322 passed, 722 deselected in 2.19s
+```
+
+Full suite — `python -m pytest -q`:
+
+```
+1044 passed in 28.32s
+```
+
+(+43 today, 0 removed; one pre-existing board directory gate re-pointed at the record that
+grew by one more run file, as on Days 4 and 5 — disclosed below.) Frozen-path diff
+(`git diff --stat 5bbae46 -- ri_core`): empty.
+
+### Runner, end to end — `python -m rights_events.agent_record --capture …_2026-10-27_pv_65cbfed9bef849b6.json --capture …_2026-10-28_pv_65cbfed9bef849b6_close.json --capture forks_LIVE_2026-10-27_pv_65cbfed9bef849b6.json --out run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri`
+
+```
+Sim-to-real gap (pv_65cbfed9bef849b6, open leg): 0.06267588420003635201283602108 bps (live 79776.0 vs paper 79775.5, cost sign +1, shadow lag 3909 ms, live fee 0.010408 USD)
+Sim-to-real gap (pv_65cbfed9bef849b6, close leg): 0.06176080041997344285581941142 bps (live 80957.0 vs paper 80957.5, cost sign -1, shadow lag 294 ms, live fee 0.010562 USD)
+Paper stop fork        10: triggered, exit by stop at mid 79680.5 (adverse 11.97101885278780585639791416 bps), gross -0.013370 USD
+Paper stop fork        20: triggered, exit by stop at mid 79601.5 (adverse 21.87374649017248295226634577 bps), gross -0.024430 USD
+Paper stop fork        30 (live control): triggered, exit by stop at mid 79531.5 (adverse 30.64831528279181708784596871 bps), gross -0.034230 USD
+Paper stop fork        50: untriggered, exit by gate at mid 79559.5 (adverse 27.13848776574408343361411953 bps), gross -0.030310 USD
+Paper stop fork       100: untriggered, exit by gate at mid 79559.5 (adverse 27.13848776574408343361411953 bps), gross -0.030310 USD
+Paper stop fork gate_only: untriggered, exit by gate at mid 79559.5 (adverse 27.13848776574408343361411953 bps), gross -0.030310 USD
+Realized live PnL (pv_65cbfed9bef849b6): 0.144370 USD, GAIN (open 79776.0, close 80957.0, size 0.00014, fees 0.020970, venue closedPnl 0.16534)
+
+Event log root: 38d30373d605b94bdccfb42d4ead5177d2e5e06395ed315cd04e3bb32ad01a87
+Run file:       rights_events/fixtures/agent_record/run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri (34042 bytes)
+
+Checks:
+  PASS  C1 adapter produced 15 events: 2 intent, 4 fill, 1 realized, 0 dispute, 2 gap, 2 cryptographically_signed, 6 paper stop fork
+  PASS  C2 all 15 inclusion proofs verify against the root
+  PASS  C3 saved run reloads; every signature re-verifies; root unchanged
+  PASS  C4 every prior_event_ref resolves inside this run's own log
+
+AGENT-RECORD RUN: OK
+```
+
+No `GATE LATE` line: the gate mark was 4627 ms after `gate_ms`, under two polls (R45). The
+runner does not know the close came 18 h later — by design (R53); the line above it is
+true and the breach is written here, in A9.6 and in the gate.
+
+### Stranger's check — `--verify` on every run file on the record
+
+```
+run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri: RESULT: OK
+run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri: RESULT: OK
+run_LIVE_2026-10-24_pv_e1849abce514440c.ri: RESULT: OK
+run_BOARD_2026-10-25.ri: RESULT: OK
+run_LIVE_2026-10-25_pv_aca51be96df9478c.ri: RESULT: OK
+run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri: RESULT: OK
+run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri: RESULT: OK
+```
+
+`VERIFY run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri: reloaded 15 events, all signatures
+re-verified, all inclusion proofs verified; event-log root 38d30373…1a87`. Run file LF
+sha256 `63b27168429f77bebd82a17444deae06c87ecf207aa9d850dccfad534677b5cd`, byte-identical
+to a fresh run of the three pinned captures (gate).
+
+### Known answers (PREREG A9.1 / A9.5 / A9.6 / A9.2 / A9.3), as committed
+
+- Open **79776.0** (chain fee 0.010408 with builderFee 0.005584 inside it, R41 — the first
+  open leg captured under the corrected rule), shadow 79775.5, gap +0.0627 bps, lag 3909 ms;
+  the preview carried no slPrice (R47).
+- The watcher died with its host session at tape row 220 (zero nulls, max poll gap 5730 ms:
+  the process, not the uplink) and was restarted detached 304 778 ms later; the venue's
+  candles over the gap have min low 79807.0, above every fork line (A9.5, S45 not
+  triggered).
+- The control fired at **10:10:22Z, mid 79531.5, 30.648 bps**, after 0 null rows; the gate
+  mark at 10:18:09Z, `late_ms 4627`, **not late** (R45). The restarted tape: 3162 rows, 678
+  null rows in ONE span of 56 min 46 s (this machine's uplink, the third day). **No hand was
+  present at either** (A9.6).
+- Close **80957.0** (the late close, R52, taken 04:13Z 2026-10-28): chain fee 0.010562
+  (builderFee 0.005666 inside), closedPnl 0.16534, shadow 80957.5, gap +0.0618 bps, lag
+  294 ms. Realized **+0.144370 USD, GAIN**, fees 0.020970; reconciles to the venue at
+  0.000000; the account 19.829363 → 19.970509 = +0.141146 after 0.003224 of funding.
+  **Outside the gate, by luck: not evidence for the method** (A9.6 D1).
+- R38 close latency **64 985 665 ms (18 h 3 min 5.7 s), −179.24 bps, −0.199570 USD** against
+  the trigger mid (the market's sign, not the hand's). Day 4: 144 090 ms / 18.75 bps /
+  0.021070 USD; Day 5: 26 619 ms / 9.47 bps / 0.010570 USD. Printed, never averaged.
+- Forks on gross: 10 → −0.013370, 20 → −0.024430, 30 (control) → −0.034230, 50 / 100 /
+  gate_only → −0.030310 at an on-time gate mark; every mark usable for R29.
+- **The first R29 reading (R49):** 10 and 20 beat the control's paper gross on each of Days
+  4, 5 and 6 with every mark a stop exit; both qualify; three-day cumulative 10 → −0.038710,
+  20 → −0.070630, control → −0.106610. **Candidate carried to Day 7 = 10 bps.** 50 / 100 /
+  gate_only: forward day 1 of 3. Nothing promoted here; A10 before Day 7's open.
+- Fifteen events, two signed, zero disputes, root 38d30373…1a87.
+
+### The week-two tally (R53: each pair on its own line; no average includes a miss)
+
+| day | pair | realized LIVE PnL net of chain fees (USD) | gate |
+|---|---|---|---|
+| Day 6, 2026-10-27 | pv_65cbfed9bef849b6 | +0.144370 | **outside the gate (miss)** |
+
+Week one (Days 3-5, corrected per A8): −0.023876, −0.078637, −0.067163 = −0.169676, all
+inside the gate. Pairs inside the gate in week two so far: none.
+
+### The day's bit
+
+The exit is a person. A9.5 made the watcher survive its host; nothing made the hand survive
+it, and the control fired into an empty room. The first positive LIVE pair on the record is
+therefore a miss on the gate and says nothing about the method; it is labeled so wherever
+it appears. The reading that the day was for came in regardless, because R49 was written to
+keep the hand out of it: three forward days, three times the tightest stop lost the least,
+10 bps is the Day-7 candidate. R54 is the lesson in rule form: no open without a hand
+committed through the gate, the mechanism named before the open.
+
+### Disclosed
+
+- The pair settled outside the five-hour gate: declared before the close (A9.6, pushed while
+  the position was open), carried by a gate that asserts the breach as the fact, and marked
+  on every line this number appears on.
+- The capture tool names the close files by the UTC day it observed them (`…2026-10-28…`);
+  the pair is Day 6 and the run file carries the pair's day. Nothing renamed.
+- The first watcher died with the session that launched it (A9.5); its 220-row tape is
+  pinned as segment 1, unchanged, and the restart is a second tape; the 304 778 ms between
+  them is covered by the venue's candles. The A9.5 commit's as-executed block landed in an
+  addendum (f1d8bbc) because the edit had failed before the hand committed.
+- The restarted tape has a 56 min 46 s null hole (this machine's uplink, the third day in a
+  row: Days 5, 6); the control's trigger poll followed a mid, and the candles over the hole
+  show no 20/30/50/100 crossing inside it (the 10 line was crossed inside it, after fork 10
+  had already been marked). The tape's longest poll gap was 25 033 ms.
+- gdex MCP `get_hl_open_orders` and `get_mark_price` fail with ERR_REQUIRE_ESM;
+  `get_hl_clearinghouse_state`, `gdex_positions`, `gdex_preview_trade` and
+  `place_perp_order` worked; the HL info API was the read for every chain fact.
+- One pre-existing board directory gate re-pointed to the record that grew by one more run
+  file (`test_agent_record_day4_gates.py`; the board run still names the record as of its
+  observation; board files byte-unchanged).
+- The run file was written by the runner from the three pinned captures after A9.3 and is
+  committed with this block; the gate asserts it byte-identical to a fresh run.
+
+### Carried forward (environment, not rules)
+
+**R54 binds Day 7:** the day's amendment (A10) names, before the open, the gate clock in Z
+and local time and how the watcher's `TRIGGER live` line reaches the hand (a session that
+stays alive to the gate, or an alarm the operator sets); without a hand committed through
+the gate, no open that day. The watcher starts detached by the A9.5 launcher, named before
+the open. Day 7's ONE variable is A10's decision; the R49 candidate is the 10 bps control
+(the R50 resting-stop path is unmeasured and would be a second variable). Node 20.18 stays.
+This machine's uplink has produced a null hole on three consecutive days; the venue's
+1-minute candles are the read that fills a hole's context. Rung 2 (the board mirror
+nightly) keeps its 50th-percentile date, 2026-11-04.
