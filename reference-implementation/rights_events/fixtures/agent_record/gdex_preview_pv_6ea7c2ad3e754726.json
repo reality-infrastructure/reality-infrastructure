@@ -1,0 +1,27 @@
+{
+  "previewId": "pv_6ea7c2ad3e754726",
+  "accountRef": "acct_8c48b321e89c",
+  "custody": "GDEX managed custody: GDEX holds the trading wallets; this machine holds the session key that authorizes trades.",
+  "kind": "perp_close",
+  "createdAt": 1793160773911,
+  "expiresAt": 1793160833911,
+  "notionalUsd": 11.33664,
+  "summary": "Close 0.00014 of long BTC (position 0.00014) with a reduce-only market sell",
+  "terms": {
+    "coin": "BTC",
+    "dex": "",
+    "positionSide": "long",
+    "closeSide": "sell",
+    "isLong": false,
+    "positionSize": "0.00014",
+    "size": "0.00014",
+    "remainingSize": "0",
+    "isFullClose": true,
+    "markPx": "80976",
+    "priceSource": "hyperliquid metaAndAssetCtxs",
+    "reduceOnly": true
+  },
+  "binding": "fc0bb7db93a390851dd3c9777b14ce47aa7eb092f6b3ec8d489d2830c78e579b",
+  "warnings": [],
+  "exit": "Reduce-only: cannot flip the position."
+}

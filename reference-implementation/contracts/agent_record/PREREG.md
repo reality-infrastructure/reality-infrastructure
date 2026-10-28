@@ -2054,3 +2054,78 @@ disputes; the R49 reading of D3 (candidate 10 bps, cumulative −0.038710).
 **Order from here:** this amendment (pushed while the position is open, before any close) →
 the close under R52 → A9.2 (close pins) → A9.3 (forks, tape, log, trigger payloads) → P10b
 (gates, run file, SCOREBOARD evidence, the five-gate DONE report with the miss on it) → push.
+
+### A9.2 — 2026-10-28 (Day 6's close, taken 04:12Z–04:13Z) — the real LIVE CLOSE capture, pinned before its gate: the late close under A9.6 R52, one order, one attempt, outside the five-hour gate, a GAIN by luck
+
+Taken in one run of `capture_from_gdex_preview.py --live --preview-json
+rights_events/fixtures/agent_record/gdex_preview_pv_6ea7c2ad3e754726.json --open-capture
+rights_events/fixtures/agent_record/capture_LIVE_2026-10-27_pv_65cbfed9bef849b6.json
+--actor-id 0x9f97…b7f23 --control-wallet 0xa629…5b92 --poll-seconds 180`, started at about
+ms 1793160794000 (`nohup`, detached), BEFORE the order was submitted. The tool wrote the
+files below and exited 0; nothing below is edited by hand. The tool names a capture by the
+UTC day of its observation, so the close files carry **2026-10-28** while the pair is Day 6
+(2026-10-27); the run file is named by the pair's day.
+
+**The state at the preview (S46, S47):** `get_hl_clearinghouse_state` at 1793160759180:
+one position, BTC 0.00014 long, entry 79776.0, unrealized +0.168, cumFunding sinceOpen
+0.003224, account value 19.983731; `gdex_positions` at 1793160773902: open orders `count
+0`, the same position. S46 and S47 clear.
+
+**How the close was submitted (A9.6 R52 = A4 R26, on the go "go and finish day 6"):**
+`gdex_preview_trade {kind: perp_close, coin: BTC}` (no size, A2.2) → `pv_6ea7c2ad3e754726`
+(perp_close, reduce-only market sell, 0.00014 BTC, positionSize 0.00014, isFullClose,
+**markPx 80976**, created **1793160773911**, expires 1793160833911, no warnings), saved
+verbatim; the poller started; then `place_perp_order {coin: BTC, isLong: false, isMarket:
+false, reduceOnly: true, size: "0.00014", price: "80890"}` — P = floor(80976 × 0.999 / 10) ×
+10 = **80890** exactly as R26 declares — returned `isSuccess: true`. It crossed the book as
+a taker and filled at **80957.0**, 67 USD ABOVE the limit sent (the sell took the bid; as on
+Days 4 and 5 the price sent did not rest, A7), 34 345 ms after the preview's creation and
+25 655 ms before its expiry. S25 and S37 not reached: one order, one attempt. After the
+fill (`gdex_positions` at 1793160921095): `allPositions []`, open orders `count 0`, account
+value **19.970509**.
+
+**Pinned inputs (LF bytes · sha256), all under `rights_events/fixtures/agent_record/`:**
+
+```
+ 3693  f7b70590b6931ce45f4f955827c4f77804191e0b8d66c5c306335d8a1d96ad9f  capture_LIVE_2026-10-28_pv_65cbfed9bef849b6_close.json
+ 4554  800ac8c1d6af8073b7ab0c7796580660e807129005fb59d2d776945f3872dbfd  MANIFEST_LIVE_2026-10-28_pv_65cbfed9bef849b6_close.json
+  889  9dd476cc93c5a706191ea0a3420b64536256124108fad1e059b5abacaef2c810  gdex_preview_pv_6ea7c2ad3e754726.json          (the close intent, verbatim)
+  351  9b298ee47261b83bc212b6ff4d183c4a7727c7ab2805e366e5c6e5be93a65660  hl_userFillsByTime_1793160808202.json          (the chain's close fill, verbatim)
+25428  495c32c04ef0de7099b4223b6fb6321f370f21304837c73d49d99032a5f7e0ea  hl_allMids_1793160808550.json                  (the close shadow, verbatim)
+```
+
+The close capture's `closes.sha256` = `6030a836…8fc7` = A9.1's pin of the open capture (S17
+holds); `closes.intent_id = pv_65cbfed9bef849b6`, `closes.size = 0.00014`,
+`closes.fill_fee_usd = 0.010408` (the chain's fee alone, R41).
+
+**Known answer (as the capture reads; gates may assert these):** live fill **80957.0** ×
+0.00014 (Close Long, taker, `crossed: true`), `fee_usd` **0.010562** with `builder_fee_usd`
+0.005666 inside it (R41; 9.32 bps and 5.00 bps of the leg's notional, the week-two line),
+oid **587895209198**, tid 982982197832076, fill ms **1793160808256**, tx `0x3c12dbd5…d54a`;
+`closedPnl` **0.16534** = (80957.0 − 79776.0) × 0.00014 exactly; shadow **80957.5** at ms
+1793160808550 (allMids, paper, fee 0); the close gap **+0.0618 bps** with `cost_sign −1`
+(the live sell filled 0.5 USD BELOW the mid observed 294 ms later: live cost more than
+paper, by half a tick), shadow lag **294 ms**; realized LIVE PnL (R11 arithmetic under R41)
+**+0.144370 USD, GAIN**, fees 0.020970, reconciling to the venue's closedPnl at 0.000000;
+one `cryptographically_signed` event. The account's own arithmetic (S40): 19.829363 (flat,
+A9 R51) → 19.970509 (flat) = **+0.141146** = 0.144370 − 0.003224 of funding paid over the
+22 h 55 min the position was held; funding is outside R11 and is stated beside the figure,
+not folded into it.
+
+**What this number is (A9.6 D1, stated on the record):** a GAIN **outside the gate, by
+luck**. The 30 bps control fired at 79531.5 (10:10:22Z); the R27 close would have taken
+about −0.034 gross (the control's own paper fork, −0.034230) less the hand's latency. No
+hand was present; the market then rose 1425.5 USD per BTC while nobody watched, and the late
+close took +0.165340 gross. The first positive LIVE pair on the record is a miss on the gate
+and is **not evidence for the method**; the week-two tally prints it on its own line marked
+"outside the gate (miss)" (R53) and no average includes it.
+
+**R38, the limiting factor measured (the third observation, D2):** trigger ms 1793095822591
+(mid 79531.5) → fill ms 1793160808256: close latency **64 985 665 ms (18 h 3 min 5.7 s)**;
+cost against the trigger mid (79531.5 − 80957.0) / 79531.5 × 10000 = **−179.2372 bps**,
+**−0.199570 USD** on the unit (negative: the market moved in the position's favour during
+the absence; the sign is the market's, not the hand's). Day 4: 144 090 ms, 18.75 bps,
+0.021070 USD; Day 5: 26 619 ms, 9.4713 bps, 0.010570 USD. Printed, never averaged. Of the
+34.3 s inside the preview window today, about 20 s were the hand saving the preview and
+starting the poller and about 14 s the order path. Stated plainly: the exit remains the
+limiting factor, and today the exit was absent.
