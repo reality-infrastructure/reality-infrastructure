@@ -2443,3 +2443,59 @@ hand).
 **Order from here:** this amendment (pushed tonight, flat) → the operator's standing go in
 reply, quoted in A11.1 → the schedule armed → 13:00Z: R64 → R61 → A11.1 → the watcher → the
 watch → R60 → A11.2 → A11.3 → P11 → push → Standing row.
+
+### A11.1 — 2026-10-28 13:00Z (08:00 CDT) — the scheduled open did NOT run: the standing go was never given; the miss recorded (daily rule item 10); nothing submitted
+
+**What fired, in order.** The one-shot in-session schedule of R61 fired at 12:58:38.585Z
+(within R61's 2-minute tolerance of 13:00Z). The executor's first act was the check R61
+puts before everything else: is the operator's standing go recorded in this section? It is
+not. The operator's last message in the session before the schedule fired is at 05:37:30Z
+(a question about the three interview transcripts); A11 was pushed at about 05:1xZ asking
+for the go "in reply, quoted in A11.1"; no reply containing a go exists, and no A11.1 was
+written before this one. The memory note written with A11 said the same thing in advance:
+"STANDING GO: see A11.1 (must be quoted there before the open; without it, no open)".
+
+**The R64 preflight, run anyway at 12:59:24Z so the record shows what the room looked like
+(read-only, every check green):**
+
+| check | result |
+|---|---|
+| HL `clearinghouseState` 0x9f97…7f23 | `accountValue 19.970509`, `withdrawable 19.970509`, `assetPositions []` |
+| HL `frontendOpenOrders` | `[]` |
+| HL `allMids` BTC | 80731.5 |
+| `gdex_status` | `api ok`; the same two stale `accepted` perp_open operations as A10 R59 (Day 4's and Day 6's filled opens); no action |
+| branch | `contract/agent-record` at `0097628` (A11) = `origin/contract/agent-record` `0097628`; tree clean except the untracked `puct_193.pdf`, which is not part of the record |
+| laptop | awake, on AC, this session alive (the schedule fired) |
+
+**The decision (R61, S49's spirit carried into A11).** The go the open needed was the
+operator's and it was not given. R61 says the go "covers EXACTLY" the 13:00Z open and that
+it is "given tonight in reply to this amendment"; the machine has no authority to submit an
+order outside it. So: **no `gdex_preview_trade`** (nothing probed, S53 does not arise), **no
+`gdex_execute_trade`**, **no watcher**, **no tape**, **no forks**. The schedule is spent (a
+one-shot). Position flat, 19.970509 USDC, as at the Day-6 close.
+
+**What this does to the record.**
+- Day 7 (2026-10-28) is a MISS on the daily rule unless a pair is opened later today under a
+  new amendment (A12) that names the new clock, quotes the go verbatim, and puts the gate in
+  daylight with the exit covered by R60. The 13:00Z clock cannot be reused: R61's terms
+  expired with it.
+- The forward counts of A9 R49 do not advance: a day with no tape is not a forward day. The
+  50, 100 and `gate_only` forks stay at forward day 1 of 3 (Day 6); the 10 bps candidate
+  stays the candidate; nothing is promoted or demoted. A10 R55 stays deferred.
+- R63's pass line (the automated exit under 26 619 ms and 9.4713 bps) is untested today;
+  the bit the day was for was not taken. One day, zero bits.
+- The A11 machinery itself worked as far as it was allowed to: the schedule fired on time,
+  the executor read the record before touching the venue, the preflight was green, and the
+  only missing input was the one the amendment said it would not proceed without.
+
+**Honest note.** This is the mirror of Day 6. Day 6 had a pair and no hand at the exit. Day 7
+had a hand's machinery at the exit and no word at the entry. The record now says plainly that
+the machine does not open on its own judgement of the operator's intent, even when every
+other light is green, and that this costs a day when the word is not given. The rule that
+prevented a loss of control here (no open without the recorded go) is the rule worth keeping;
+the thing to fix is the hand-off: the go has to be written into the amendment the moment the
+operator chooses the clock, not asked for afterwards.
+
+**Order from here:** this entry committed and pushed (flat) → the Standing row (Day 7: miss,
+no go) → memory → on the operator's word, A12 (new clock, go quoted inside it, R60 exit) or
+Day 7 stands as the miss and Day 8 opens under A12's own terms.
