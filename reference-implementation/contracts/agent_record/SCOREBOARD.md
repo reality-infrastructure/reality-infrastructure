@@ -1186,9 +1186,10 @@ to a fresh run of the three pinned captures (gate).
 | day | pair | realized LIVE PnL net of chain fees (USD) | gate |
 |---|---|---|---|
 | Day 6, 2026-10-27 | pv_65cbfed9bef849b6 | +0.144370 | **outside the gate (miss)** |
+| Day 7, 2026-10-28 | — (pv_d67efff104914944, a probe, never filled) | — | **MISS on both clocks: no go at 13:00Z (A11.1); the go given, the gateway refused the session, 403 SESSION_ORIGIN_DENIED (A12.1)** |
 
 Week one (Days 3-5, corrected per A8): −0.023876, −0.078637, −0.067163 = −0.169676, all
-inside the gate. Pairs inside the gate in week two so far: none.
+inside the gate. Pairs inside the gate in week two so far: none (Day 6 outside the gate, Day 7 no pair).
 
 ### The day's bit
 
@@ -1235,3 +1236,28 @@ the open. Day 7's ONE variable is A10's decision; the R49 candidate is the 10 bp
 This machine's uplink has produced a null hole on three consecutive days; the venue's
 1-minute candles are the read that fills a hole's context. Rung 2 (the board mirror
 nightly) keeps its 50th-percentile date, 2026-11-04.
+
+## Day 7 (2026-10-28) — MISS on both clocks: no pair, nothing on the chain (A11.1, A12.1)
+
+Recorded under daily-rule item 10 (a day without a settled pair, and a tool path that
+failed, go into the log as data). Written 2026-10-29 06:1xZ, flat, after A13.
+
+| clock | what happened | evidence |
+|---|---|---|
+| 13:00Z (08:00 CDT), the A11 R61 scheduled open | The one-shot fired 12:58:38Z; the standing go A11 required "in reply, quoted in A11.1" was absent (the operator's last message 05:37:30Z). R64 preflight run read-only and green (19.970509, no position, no orders, BTC mid 80731.5, api ok, even with origin at 0097628). No preview, no execute, no watcher. | A11.1, commit `0f708dd` |
+| 13:4xZ (08:4x CDT), the A12 re-clock under the go given 13:3xZ | Preview `pv_d67efff104914944` on exact terms (BTC long 0.00014 1x cross, slPrice "", markPx 80838; one input correction disclosed: notionalUsd 11.311 → VALIDATION_ERROR "Order too small", 11.72 floors to 0.00014). `gdex_execute_trade` **REJECTED by GDEX's gateway before the venue**: `AUTH_FAILED / SESSION_ORIGIN_DENIED`, 403, `submission rejected`; the MCP session 8000 min old. One attempt (S54, S25). Chain at 13:42:49Z: 19.970509, no position, no resting order, no fill since 13:40Z. Capture poller (PID 32221) started and stopped, no capture written. | A12, `eb75c17`; A12.1, `cf1fbfd`; `gdex_preview_pv_d67efff104914944.json` sha256 `60d99c59…8d41` (a probe) |
+
+**Consequences on the record:** R63 (the automated exit) untested; the R49 forward counts
+do not advance (50/100/gate_only stay day 1 of 3); the 10 bps candidate carried, then
+retired as the daily variable by A13 R69c; zero bits toward the day's question.
+
+**The day's bit (not the one the day was for):** the automated path depends on the gdex
+session key's standing with the gateway, which the hand's path never showed (Days 3–6 went
+through the same session and were accepted; at 5.6 days old it was refused at the origin
+check). A13 makes the sign-in item 1 of preflight (R69b) and puts the go in the night-before
+amendment (R69a).
+
+**Week-two tally after Day 7:** Day 6 +0.144370 outside the gate (miss), Day 7 no pair
+(miss). Pairs inside the gate in week two: none. Week one (Days 3–5, corrected per A8):
+−0.169676, all inside the gate.
+
