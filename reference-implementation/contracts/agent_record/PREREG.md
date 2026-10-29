@@ -2743,3 +2743,54 @@ verbatim → the capture tool `--live` started → `gdex_execute_trade` → the 
 A13.1 pinned and pushed (shas, `gate_ms`, the watcher's PID, the session ages) → the watcher
 detached → the log watch armed (30-min re-arm) → R60 at the trigger or the gate → A13.2
 (close) → A13.3 (forks) → P11 → push → Standing row → memory.
+
+### A13.1 — 2026-10-29 06:1xZ (01:1x CDT), flat — the R66 refresh was REFUSED by the gateway (the same 403 as A12.1); R66's mechanism re-presented the denied session and is corrected to the key-file sign-in; the server version disclosed and held; one sign-in by the corrected mechanism, else S57
+
+**As executed, in order (all times Z; every response saved verbatim beside the previews by
+the P11a client, `gdex_<tag>_<ms>.json`).**
+1. 06:08:02.849Z — `gdex_status` (before): `api ok`; `acct_8c48b321e89c`, control
+   `0xA629…5b92`, managed evm `0x9f97…7f23`, **`sessionAgeMinutes 8985`**; the same two stale
+   `accepted` perp_open operations (Day 4, Day 6; no action). File
+   `gdex_status_before_1793254082849.json`.
+2. 06:08:06.222Z — `gdex_connect {accountRef acct_8c48b321e89c}` (R66 as written) →
+   **REFUSED, verbatim:** `{"error": {"message": "Request origin denied (code
+   SESSION_ORIGIN_DENIED)", "code": "AUTH_FAILED", "submission": "rejected", "retryable":
+   true, "httpStatus": 403, "next": "Sign in again (fresh session key), then repeat the
+   call. Reconcile any earlier uncertain write first."}}`. File
+   `gdex_connect_1793254086222.json` (no secret in it; checked for 64-hex strings: none).
+3. 06:08:09.512Z — `gdex_status` (after): unchanged, `sessionAgeMinutes 8985`. File
+   `gdex_status_after_1793254089512.json`.
+4. 06:08:15.659Z — the chain (HL info API, saved `hl_preflight_1793254095659.json`):
+   `accountValue 19.970509`, `assetPositions []`, `frontendOpenOrders []`, BTC mid 80224.5.
+   Flat, nothing resting. Branch `contract/agent-record` at `81464fd` (P11a) = origin.
+
+**What the refusal says, and the correction.** The `accountRef` form of `gdex_connect`
+"refreshes the session of an already connected account": it presents the existing session
+key to the gateway, and that is the key the gateway has refused twice (A12.1 at 8000 min,
+now at 8985 min). The server's own `next` names the fix: a fresh session key, which is the
+`keyFile` form of `gdex_connect` (sign in from the control-wallet key file on this machine).
+R66 named the wrong form. It is corrected here, before the act: **the sign-in of R66 is
+`gdex_connect {keyFile}`**, the key file being a local file derived by a script from the
+account record in `~/.gdex/accounts/` into the shape the tool documents (`{ control: {
+privateKey } }`), written and read on this machine only; no key value is printed, logged,
+pinned or enters the conversation (the derivation script prints the file's path and the key
+NAMES, never values). The go's "one sign-in" is this one; the accountRef refresh above was
+the attempt R66 prescribed and is disclosed as the mechanism error of the day, as A12.1
+disclosed its `notionalUsd` floor.
+
+**The server version, disclosed and held.** The binary the session's MCP entry and the P11a
+client both run is the npx-cached `@gemachdao/gdex-mcp-server` **5.0.0**; npm's latest is
+5.1.0. Every order on this record (Days 3–6) and both refusals went through 5.0.0. The
+version is NOT changed today (R6: one variable; today's is the fresh session key). If the
+key-file sign-in is also refused on 5.0.0, the day's finding is that the refusal is not the
+session's age, and a read-only `gdex_status` on 5.1.0 (no sign-in) is the inventory for
+Day 9's amendment, which decides whether the version is Day 9's variable.
+
+**STOP (sharpened):** S57 applies to the key-file sign-in: refused or errored → no preview,
+no order, the error pinned, the miss recorded, the day's work is the gateway. S60 gains:
+if the sign-in returns an account whose managed evm wallet is not `0x9f97…7f23` (a different
+actor than the record's), no preview; the response pinned. The known answers of A13 stand
+(`sessionAgeMinutes` after the sign-in < 10; open fill ≤ 07:30Z).
+
+**Order from here:** this entry pushed → the key file derived locally → `gdex_connect
+{keyFile}` once → `gdex_status` (after) → if clear, the A13 order resumes at the preview.
