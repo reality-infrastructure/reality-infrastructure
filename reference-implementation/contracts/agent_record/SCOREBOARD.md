@@ -1291,3 +1291,19 @@ environment line (A13 R70) is unblocked: it needs no gdex session.
 **Week-two tally after Day 8:** Day 6 +0.144370 outside the gate (miss), Day 7 no pair,
 Day 8 no pair. Pairs inside the gate in week two: none.
 
+## P11b — the environment's tape is live (A13 R70, Day 8's environment item), 06:24Z
+
+The live line stopped at S57; the environment line does not need a gdex session and ran.
+
+| item | as executed | evidence |
+|---|---|---|
+| The declared set | `metaAndAssetCtxs` fetched 06:20:24Z and pinned (`hl_metaAndAssetCtxs_1793254824422.json`, 72323 B, sha256 `d7a6f053…e7c9`); the 100 M USD 24 h-notional floor leaves **six coins: BTC, ETH, HYPE, ZEC, SOL, NEAR** (PUMP at 72.1 M is the first below it). A13 R70's "top 20" is trimmed to these by the floor, as it said it would be. | gate `test_declared_set_is_the_six_coins_named_in_the_amendment` |
+| The tape writer | `tape_mids.py` (P11b `3950149`): one `allMids` poll per 5 s, one `{"ms","mids"}` row per poll with every declared coin's mid as the venue printed it, null on an outage, one file per UTC day rolling at 00:00Z, the file's sha printed on exit; observes only; independent of the pair-day watcher (R28: the stop forks keep their own tape). 7 gates, 1051 suite. | `tests/test_agent_tape_gates.py` |
+| Started detached | PowerShell `Start-Process` of `python.exe -I tape_mids.py --coins BTC,ETH,HYPE,ZEC,SOL,NEAR --poll-seconds 5 --hours 0`, working directory the fixtures folder, window hidden, stdout → `tape_MIDS_2026-10-29.log`; **PID 14084, started 06:24:34Z, first row ms 1793255074661** (BTC 80022.5, ETH 2313.25, HYPE 78.9905, ZEC 1245.45, SOL 100.005, NEAR 4.4596); alive after its parent shell exited. | the log's `TAPE` line |
+| Not committed while it grows | `tape_MIDS_<date>.jsonl` and its log stay untracked until a day closes; each closed day file is pinned (rows, null rows, longest null span, sha256) in that day's amendment, as the watcher's tapes were. | A14 onward |
+
+The stdio client gained an explicit `GDEX_MCP_SERVER_CMD` override (default unchanged) so a
+locally installed server version, if Day 9's amendment names one, is run by name and not by
+accident. The read-only status on 5.1.0 remains undone: fetching that version was denied by
+the tool's permission classifier twice; it is the operator's act.
+
