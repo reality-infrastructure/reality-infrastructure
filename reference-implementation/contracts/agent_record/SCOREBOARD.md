@@ -1322,3 +1322,5 @@ the tool's permission classifier twice; it is the operator's act.
 limiting factor by R72 today: **the sensor** (the laptop), then **the hand** (no pair inside
 the gate since Day 5). The live line's next variable is unchanged: server 5.1.0, the
 operator's act, then A14's go.
+
+| The VPS unit (A13.4) | On the operator's word ("ops/poo_tape_vps.sh") the unit was installed and started: `poo-tape.service` active, MainPID 952995, 17:41:44Z; the deployed `tape_mids.py` byte-identical to the repo's (sha256 `95dc0b2a…f131d`); first row ms 1793295705612 with all six mids. The pull path tested once (`ops/poo_tape_pull.sh 2026-10-29` → 6 rows into `vps/`, untracked until pinned). From Day 9 the VPS file is the tape of record; the laptop's is the redundant copy; Day 8's two partial files are both pinned in A14. | A13.4; the VPS's `/root/poo/tape/poo-tape.log` |

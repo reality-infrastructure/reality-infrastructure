@@ -2977,3 +2977,25 @@ the only info queries it posts are the two; no exchange endpoint).
 two ops scripts, SCOREBOARD) → push → the Standing row (both tabs) → memory → A14 tonight
 (the go for Day 9 in the operator's words, the server-5.1.0 variable, F1/F2/F3 parameters,
 TOL, c per leg kind, the Day-8 tape files pinned at 00:00Z).
+
+### A13.4 — 2026-10-29 17:4xZ (12:4x CDT), flat — the VPS tape unit installed on the operator's word (R71 executed); the pull path tested; the tape of record for Day 9 named
+
+**The operator's word (2026-10-29 17:3xZ, verbatim):** "ops/poo_tape_vps.sh". The executor ran
+the script as the operator's act. What the VPS answered, verbatim in the run: the unit
+`poo-tape.service` enabled and **active, MainPID 952995, ActiveEnterTimestamp 17:41:44Z**;
+`/root/poo/tape_mids.py` sha256 `95dc0b2a9d469c2936f5a2671ac2e3b90222cc4354d05904bb6831c326bf131d`,
+byte-identical to the repo's `tape_mids.py` at P11b `3950149` (the same sha on this machine);
+the `TAPE` line `coins=BTC,ETH,HYPE,ZEC,SOL,NEAR poll_seconds=5 start_ms=1793295705607
+out_dir=/root/poo/tape`; the first row ms 1793295705612 (BTC 80893.5, ETH 2340.35, HYPE
+94.906, ZEC 1345.15, SOL 101.195, NEAR 4.51495). The pull path then ran once:
+`ops/poo_tape_pull.sh 2026-10-29` copied the VPS day file (6 rows at that instant) into
+`fixtures/agent_record/vps/`, which stays untracked until a day's file is pinned.
+
+**Consequences:** from Day 9 (2026-10-30, 00:00Z) the tape of record is the VPS file
+`tape_MIDS_<date>.jsonl` under `/root/poo/tape`, pulled by the laptop and pinned by sha in
+that day's amendment; the laptop's file is the redundant copy, pinned beside it. For Day 8
+both files are partial (the VPS from 17:41:44Z, the laptop from 06:24:34Z with its null span
+and its 6 h 57 min hole) and A14 pins both with their coverage; neither is called the tape
+of record for Day 8. R64's liveness line (R71) reads the VPS file from Day 9. Nothing on the
+chain; no rule changed; the two items still the operator's: the 5.1.0 inventory (A13.2) and
+the Day 9 go (A14).
