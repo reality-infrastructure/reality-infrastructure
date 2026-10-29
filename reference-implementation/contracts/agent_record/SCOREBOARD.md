@@ -1307,3 +1307,18 @@ locally installed server version, if Day 9's amendment names one, is run by name
 accident. The read-only status on 5.1.0 remains undone: fetching that version was denied by
 the tool's permission classifier twice; it is the operator's act.
 
+
+## A13.3 / P11c — the Day-8 tape died with the laptop; restarted; the sensor's move to the VPS declared (the operator's act); the ablation history pinned; the academy applied as R71–R75, 17:xxZ
+
+| item | as executed | evidence |
+|---|---|---|
+| The laptop's tape | 2 517 rows from 06:24:34Z; last mids at **08:49:40Z** (1 653 good rows, 2 h 25 min); **864 null rows 08:49:40Z–10:02:05Z** (72 min, no network); the process gone at 10:02Z — the System log: clean shutdown `6006` at 10:02:20Z, boot 15:45:44Z, unclean reboot `Kernel-Power 41` at 16:37:47Z (and one at 04:12:16Z before the tape). Restarted detached **16:59:09Z, PID 12156, first row ms 1793293148212**; the day file now carries a 6 h 57 min hole beside the null span; pinned at 00:00Z in A14. | `tape_MIDS_2026-10-29.jsonl` (untracked until pinned), `tape_MIDS_2026-10-29_restart2.log` |
+| The sensor's host (R71) | The VPS (`root@66.135.15.102`, up 75 days, Python 3.12.3, hood's feed already there) becomes the tape of record's host via the systemd unit `poo-tape`. The executor's one install attempt was refused by its permission classifier ("Unauthorized Persistence") and NOT worked around; the install is the operator's: `bash rights_events/fixtures/agent_record/ops/poo_tape_vps.sh`; the pull: `ops/poo_tape_pull.sh`. | `ops/poo_tape_vps.sh` sha256 `f8d8e769…42e2e`; `ops/poo_tape_pull.sh` sha256 `cc46744c…c12dc` |
+| The ablation history (P11c) | `backfill_hl.py` (sha256 `42070e02…168`): per declared coin the venue's 15m `candleSnapshot` over 52 requested days (served: **4 993 candles**, first `t` 1788800400000, last `T` 1793294099999, 0 gaps, 52.01 d) and the hourly `fundingHistory` (**4 pages, 1 248 prints = 52 × 24, 0 gaps, 0 dupes**), every payload pinned verbatim; one manifest with bytes, sha and summaries, fetched 17:00:40Z (ms 1793293240584), rebuilt from the pinned bytes after the hour rule was corrected (the venue stamps prints a few ms after the hour; the first rule counted that jitter as 1 232 gaps). 4.6 MB pinned. | `backfill_MANIFEST_1793293240584.json` sha256 `5de0a489…a59c`; `hl_candleSnapshot_<coin>_15m_1793293240584.json` ×6; `hl_fundingHistory_<coin>_<startMs>.json` ×24 |
+| Gates | `tests/test_agent_backfill_gates.py`: 16 — the manifest covers exactly the six coins; per coin the candle bytes match the pinned sha and are 4 993 contiguous 15m candles of that coin over ≥ 51.9 d; per coin the funding pages match their shas and are 1 248 hourly prints, 0 gaps, 0 dupes; a skipped candle is a gap; ms jitter is not a gap and a missing hour is; the tool posts only the two info queries. | `python -m pytest -q tests/test_agent_backfill_gates.py` → 16 passed; full suite **1067 passed** |
+| The academy applied | R71 the sensor's host; R72 the limiting factor by a fixed six-step rule (read today: the sensor, then the hand); R73 the answer term from this record's own live legs; R74 the ladder with a group of 12 and the kill; R75 the objective line from fills; S63, S64; the layer-by-layer table. | A13.3 |
+
+**Week-two tally after A13.3:** unchanged (Day 6 outside the gate, Days 7–8 no pair). The
+limiting factor by R72 today: **the sensor** (the laptop), then **the hand** (no pair inside
+the gate since Day 5). The live line's next variable is unchanged: server 5.1.0, the
+operator's act, then A14's go.
