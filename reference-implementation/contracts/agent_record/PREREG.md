@@ -2850,3 +2850,130 @@ declared coin's mid per poll) is the next act after this entry, in its own P com
 read) → the Day 8 line in SCOREBOARD's tally → Standing row → memory → the environment's
 Day-8 item (P11b, the multi-coin tape row) → Day 9's amendment names the gateway variable
 on the operator's word.
+
+### A13.3 — 2026-10-29 17:1xZ (12:1x CDT), flat — the Day-8 tape died with this laptop (72 min of nulls, then the machine shut down; two unclean reboots in 13 h); restarted, and the sensor moved to the VPS as the operator's act; the ablation history pinned (P11c); the academy (Batman) applied to this record as five rules, each the smallest that closes a gap the hood build already paid for
+
+**What the tape of Day 8 shows (the laptop's `tape_MIDS_2026-10-29.jsonl`, read at 16:5xZ,
+untracked until the day closes):** 2 517 rows from 06:24:34Z; the last row with mids at
+**08:49:40Z** (ms 1793263780242, 1 653 good rows = 2 h 25 min of coverage); then **864 null
+rows in one span, 08:49:40Z–10:02:05Z** (72 min: this machine had no network, R45 rows
+written); then nothing: the process was gone at 10:02Z. The Windows System log says why:
+`EventLog 6006` (clean shutdown) at **10:02:20Z** (05:02 CDT), boot at 15:45:44Z, and
+`Kernel-Power 41` (an unclean reboot) at **16:37:47Z**; a second `Kernel-Power 41` at
+04:12:16Z the same night, before the tape started. PID 14084 now belongs to another
+program. The tape was restarted detached at **16:59:09Z, PID 12156, first row ms
+1793293148212** (BTC 81178.5, ETH 2351.15, HYPE 96.3255, ZEC 1344.25, SOL 101.795, NEAR
+4.59485), appending to the same day file; the day's file therefore carries a 6 h 57 min hole
+(10:02Z–16:59Z) beside the 72-min null span, and both are pinned when the day closes (A14).
+
+**The finding (the sensor):** this is the second time in five days the laptop has killed the
+environment's only tape (A7.3: the fork tape's 5 h 26 min hole; today: 72 min of nulls, a
+shutdown, two crashes). Hood's review rule names "the sensor" before anything else when the
+feed is stale, and hood's feed runs on the VPS for exactly this reason; the laptop pulls
+ledgers. The same applies here from today.
+
+**Rules (added; numbering continues from A13 R70 / S62):**
+
+- R71 (the sensor's host). The tape of record runs on the VPS (`root@66.135.15.102`, the
+  machine that runs hood's feed; up 75 days at 16:59Z; Python 3.12.3) as the systemd unit
+  `poo-tape` (the same `tape_mids.py`, the same six coins, `--out-dir /root/poo/tape`,
+  `Restart=always`; observation only, no key, no order). Installing it is the OPERATOR's
+  act: `bash rights_events/fixtures/agent_record/ops/poo_tape_vps.sh` (sha256
+  `f8d8e769…42e2e`), because the executor's permission classifier refused to install a
+  service on a remote machine ("Unauthorized Persistence"; one attempt, disclosed, not
+  worked around). The laptop's tape keeps running as the redundant copy. Each day's
+  amendment pins BOTH files (rows, null rows, longest null span, holes, sha) and names the
+  tape of record = the one with the longer good coverage; the paper population marks against
+  the tape of record only. Pull: `ops/poo_tape_pull.sh` (sha256 `cc46744c…c12dc`) copies the
+  VPS day files into `fixtures/agent_record/vps/`; the laptop pulls, never pushes. R64
+  preflight gains one line: the tape of record's last row is younger than 60 s, else the
+  environment line is a miss for the day and R72 names the sensor.
+- R72 (the limiting factor by a fixed rule; hood `rhc/academy/review.py` applied). The Day-12
+  review (and every weekly review after) prints the FIRST of these that holds, and the
+  review's sentence may add words but not change the factor: (1) **the sensor** — the tape
+  of record has a null span or a hole longer than 15 min in the last 24 h, or its last row
+  is older than 60 s at the review; (2) **the hand / the gateway** — no pair settled inside
+  the five-hour gate in the last 7 days; (3) **the search** — no fork of the population beat
+  both controls (C0, C1) on the last forward day; (4) **sim-to-real** — a candidate exists
+  and its live residual (R74) is outside tolerance; (5) **the group** — a candidate holds and
+  its group at the current rung is not full; (6) **capital** — a group holds and the rung is
+  not climbed: the operator's signature is the factor. Read today: (1) holds (the sensor);
+  (2) also holds (no pair inside the gate since Day 5). Time goes to (1) first, then (2).
+- R73 (the answer term: what the venue does to OUR fill; hood `rhc/academy/answer.py`
+  applied). A paper fork's net is never the path's net at the mid. It is path net − c_open −
+  c_close − fees − funding, where c is the venue's measured answer to THIS record's own
+  legs, not the quiet mid's resting spread: for each leg kind (open at mark; close at the
+  stop trigger; close at the gate) c is the mean realized gap of this record's LIVE legs of
+  that kind over the quoted mid, as a prior worth PRIOR_N = 10 legs centred on the l2Book
+  half-spread read at the trigger (R70), updated by every live leg and by nothing else. On
+  the record so far the close at the trigger has cost far more than any mid suggests: Day 4
+  fired at 32 bps and filled at 51 bps (19 bps answered, 26 619 ms); Day 5's close cost
+  9.47 bps. A14 tabulates c per leg kind from every LIVE run file (Days 3–6) before the
+  first replay, and the population's replay uses those numbers. No proposer of families
+  (the executor included) sees or tunes c; it is computed from fills.
+- R74 (the ladder with counts, and the kill; hood `rhc/academy/rungs.py` applied to the
+  north star's rungs 1 → 4 → 16 units). A cell = one family with its one declared parameter.
+  A cell reaches rung 1 (one unit, live) only as a CANDIDATE under R70's pass line. A rung's
+  GROUP = 12 settled live pairs at that size (at one pair a day, a group is about 12 trading
+  days: the price of one bit at a rung is time, and at one unit about 12 × 11.7 USD ×
+  (30 bps + 18.64 bps + c) ≈ 1 USD in the worst case, stated so no one mistakes it for
+  conviction). The residual per pair = real net − the paper fork's net for that exact entry
+  on the tape of record (the robot's gap). CLIMB one rung when the group is full, its mean
+  net is positive, and the mean |residual| is inside TOL (A14 declares TOL in bps before the
+  first candidate; 10 bps is the executor's proposal). KILL when, after at least 6 pairs,
+  mean net + 1.96 σ/√n < 0, or the mean |residual| exceeds 2 × TOL; a killed cell is
+  discarded in the amendment and its parameter is never re-entered. Nothing climbs on a
+  partial group, a sign, or a day.
+- R75 (the bank: the objective line; hood `rhc/academy/bank.py` applied). From Day 9 the
+  SCOREBOARD's tally carries one line computed from fills only: realized USD net of every
+  fee and funding from settled pairs, divided by deposited capital (19.970509 USD at
+  16:5xZ), divided by days with a settled pair. The venue's board mark is shown beside it
+  (A3's mirror) and never scored. The last human job is this line (panel 15:47–16:52); the
+  machine keeps the discipline (R59, S62).
+
+**The academy, layer by layer, against this record (what each hood layer is here, built or
+not, and the gap R71–R75 close; the mapping is the operator's ask of 2026-10-29 16:5xZ):**
+
+| hood layer | here | state today | what A13.3 does |
+|---|---|---|---|
+| the sensor at the point of contact (`rhc/feed.py`, VPS, subscription) | `tape_mids.py`, laptop, 5 s poll | died twice in five days | R71: VPS host, both files pinned, preflight liveness |
+| the pinned record (`tools/snapshot.py`, sha) | day files + the 15m/52d backfill pinned by sha (P11c) | built today | P11c: six coins, 4 993 candles and 1 248 hourly funding prints each, 0 gaps, one manifest |
+| the arena (`rhc/academy/arena.py`: every strategy on every launch, fit + held-out later) | the R70 marker: F1/F2/F3 and C0/C1 on the tape, 15m history = the curriculum, forward days = held-out | not built; A14 fixes the parameters, then the code | the ordering is kept: parameters in the amendment, then the replay, nothing in-sample counts |
+| the answer term (`answer.py`: p per family from OUR fills) | c per leg kind from OUR live legs: the venue's answer is latency and spread, not a pull | measured on 5 live legs, not yet applied to any fork | R73 |
+| the residual (`residual.py`: real − predicted per leg) | real net − the paper fork's net for the same entry (R58 already compared the 30 fork against the live control) | per-leg gaps published since Day 3 | R74 names it and gives it a tolerance |
+| the ladder (`rungs.py`: six rungs, group of 12, UCB kill) | rungs 1/4/16 units, no count until now | "one unit until positive for a week" | R74: group of 12, climb and kill rules |
+| the bank (`bank.py`: realized USD per unit capital per day, fills only) | the tally | sums only | R75 |
+| the strategist (DeepSeek proposes three cells, paced by 50 launches per universe) | the proposer of families (today the executor, in the amendment), paced by forward days | F1–F3 declared by hand in A14 | no rule: a proposer other than the executor is not needed until the first forward week is read (2026-11-06) |
+| the review (`review.py`: the limiting factor by rule) | the Day-5 / Day-12 review | Day 5 named the factor by judgment | R72 |
+| the release (`release.py`: the record as a dataset) | the signed log itself | — | none this week |
+| the human gate (`prereg/`, `promote.py`) | this PREREG, the go, the operator's signature | identical | none |
+| the identity layer (`rhc/identity.py`: scripted vs genuine) | no analogue: a perp CLOB does not answer a 12 USD order by pulling liquidity; the venue's answer is small and measurable (R73), which is why the limiting factor here is the sensor and the hand, not the counterparty | — | none; stated so it is not built |
+
+**The first principle, as it binds here:** Batman learns at the rate it acts, not the rate
+it watches (HL-11). The population learns from the tape (watching); only the live unit
+measures the venue's answer (R73) and the residual (R74). So the live line opens every day
+even as a control (R70: C1 opens the unit when no fork fires), and no day without a pair
+adds a bit on the live line, whatever the tape says.
+
+**STOP conditions (added):** S63 the tape of record's last row is older than 60 s at
+preflight, or the VPS is unreachable → the environment line is a miss, the laptop's copy is
+the day's record, R72 names the sensor. S64 any number in R73 or R74 is tuned after a
+replay has been read → the replay is discarded and re-run under the amendment's numbers.
+
+**Known answers (P11c; the fetch ran at 17:00:40Z and its summaries were read before this
+was written; the gates enforce what the bytes say):** six coins, `candleSnapshot` 15m,
+4 993 candles each (the venue serves ~5 000 for 52 requested days), first `t`
+1788800400000, last `T` 1793294099999, 0 gaps, `interval_ok`; `fundingHistory` 4 pages each,
+1 248 prints = 52 × 24, 0 gaps under the rounded-hour rule, 0 dupes; the manifest
+`backfill_MANIFEST_1793293240584.json` rebuilt from the pinned bytes (`rebuilt: true`)
+after the first summary counted the venue's ms jitter (…000043, …000029) as 1 232 gaps per
+coin — the rule was wrong, the bytes were not fetched twice. The tool observes only (gate:
+the only info queries it posts are the two; no exchange endpoint).
+
+**Not done today, disclosed:** the VPS unit is not installed (R71: the operator's act); the
+5.1.0 inventory on the live line is still the operator's act (A13.2); the marker is A14's.
+
+**Order from here:** this amendment → P11c (the tool, the 16 gates, the pinned bytes, the
+two ops scripts, SCOREBOARD) → push → the Standing row (both tabs) → memory → A14 tonight
+(the go for Day 9 in the operator's words, the server-5.1.0 variable, F1/F2/F3 parameters,
+TOL, c per leg kind, the Day-8 tape files pinned at 00:00Z).
