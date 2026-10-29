@@ -2565,3 +2565,181 @@ log watch armed (30-min re-arm) → R60 at the trigger or the gate → A12.2 (cl
 **What the record learned (one bit, not the one the day was for).** The automated path has a dependency the hand's path never showed: the gdex session key's standing with GDEX's gateway. Every earlier order on this record (Days 3–6) went through the same MCP session and was accepted; today the same session, 5.6 days old, was refused at the origin check before any venue call. R63 (the machine's exit latency) is untested; the R29 forward counts do not advance; the 10 bps candidate stays carried. Whether a fresh sign-in and one more preview/execute is allowed TODAY is the operator's decision by its own amendment (A13: the sign-in named as the operator's act, the go quoted again, the clock, the gate in daylight) — not the executor's. Without it, Day 7 stands as the miss and the sign-in is the first item of Day 8's preflight.
 
 **Order from here:** this entry pushed → Standing row → memory → the operator's word on A13 or Day 8.
+
+### A13 — 2026-10-29 06:0xZ (01:0x CDT), flat — Day 8 (week two, day three): the go quoted; the sign-in named as this session's act under the operator's word; the attempt's clock; the path disclosed; three rule changes for week two (the go lives in the night-before amendment, the sign-in is preflight item 1, the daily variable moves from the exit to the entry); the environment pre-registered before any tape is read
+
+**The go, verbatim (the operator, 2026-10-29 06:0xZ, in reply to the Week-two plan and the
+list of what Day 7 still owed):**
+> "Read all three transcripts and complete all of the following how they would: Still owed
+> today, in order: A13 in PREREG, the Day 7 line in SCOREBOARD's week-two tally, then the
+> sign-in and the one attempt. The gdex MCP server did not connect this session, so the
+> sign-in is a real first act, not a formality."
+
+The three transcripts (Noam Brown; Beren Millidge, John Schulman, Charlie O'Neill; Elon Musk,
+all with Dwarkesh Patel) were read end to end by the executor before this amendment was
+written. The go covers EXACTLY: one sign-in (R66), one `perp_open` preview of BTC long
+0.00014 at 1x cross with no slPrice (R47), executed within its 60 s window iff the R64
+preflight is clear, one watcher started detached, one close by R60 (the machine submits the
+exit at the first `TRIGGER live 30` line or at `GATE reached`), nothing else. No second
+preview after a refused or expired one (S25), no second sign-in today (S57), no size other
+than 0.00014, no market other than BTC, no order while any other position or resting order
+is on the chain. The go expires at the gate.
+
+**The lines from the transcripts that bind today (their words, with the minute):**
+- Musk 20:42: "I just repeatedly tackle the limiting factor. Whatever the limiting factor is
+  on speed, I'm going to tackle that." The limiting factor on this record is that a pair
+  does not run: Day 6 had no hand at the exit, Day 7 no word at the entry and then no
+  standing at the gateway. R66–R69 work only there.
+- Musk 2:12:20: "the most aggressive deadline I can think of that could be achieved with 50%
+  probability. Which means that it'll be late half the time." Every date below is that kind.
+- Musk 2:16:12: "I'll take drastic action only when I conclude that success is not in a set
+  of possible outcomes." The stop ladder as the daily variable is retired (R69c) on that
+  conclusion: a stop cannot make a zero-edge entry positive net of fees.
+- Brown 19:08: "We don't actually have good measurements saying, 'This 10,000 agents led to
+  a 2x speedup'." No fork is called an edge without the count behind it (R70, the pass line).
+- Panel 1:28:22 (Millidge): "the model is learning to reward hack the judge, and that's why
+  it collapses. But this is really a problem with the judge." The judge here is the chain's
+  mid at the exit less the measured fee and gap; two controls, not one (R70).
+- Panel 12:20 (Millidge): "You can't gain any new bits from just thinking. But when the
+  objective is well specified and there is this data sitting around…" The data sitting
+  around is every HyperLiquid mid and candle, free; the environment is built from it (R70).
+- Panel 1:04:23 (Millidge): "If the model can't get it in 128 rollouts, it's very unlikely to
+  get signal to progress. This is why in RL we need curricula." The ladder: beat the fee on
+  gross, beat the random-entry control net, stay positive out of sample (R70).
+- Brown 1:03:57: "If you're in a world where they can operate effectively over three months,
+  but the model release cycle is every two months, then you don't have a way to evaluate the
+  models at the full length of their capabilities." The release cycle here is the daily
+  amendment; no episode outlives the five-hour gate (R70).
+- Musk 1:24:20: "You can do millions of simulated robots in the simulated world. You use the
+  tens of thousands of robots in the real world to close the simulation to reality gap." The
+  live unit is the real robot; it publishes the gap at the current size (R69c, R70).
+- Panel 45:03 (O'Neill): "if it improved on CursorBench, they would deploy the new model
+  every five hours. If it didn't, they would throw that version out." Promotion only on a
+  held-out bench at a fixed cadence; losers discarded in the amendment (R70).
+- Brown 10:57: "baking in as little structure as we could and give the agents very primitive
+  tools." One tape, one marker, one scoreboard, one PREREG (R70).
+- Musk 2:42:14: "We make a little fab and see what happens. Make our mistakes at a small
+  scale and then make a big one." One unit all week (S62).
+
+**Rules (added; numbering continues from A11 R65 / S56):**
+
+- R66 (the sign-in: this session's act, under the operator's word). Before any preview the
+  executor refreshes the gdex session of the connected account with `gdex_connect
+  {accountRef acct_8c48b321e89c}` (the control-wallet key file on this machine; no secret
+  enters the record or the conversation). `gdex_status` is read before and after and the
+  `sessionAgeMinutes` of both are pinned in A13.1 (before: 8980 min at 06:03Z, the session
+  A12.1 was refused on). The sign-in happens once today; a refusal or error is S57. The
+  rule retired in A11 (the gdex connection read-only, execution the operator's hand) stays
+  retired; A2 R15 holds for the machine's orders exactly as for the hand's.
+- R67 (the path, disclosed). This session's MCP client never connected to the gdex server
+  (`CONNECT_TIMEOUT` at session start, 30 000 ms). The executor therefore drives the SAME
+  server binary (`npx -y @gemachdao/gdex-mcp-server`, the entry in `~/.claude.json`, the same
+  `~/.gdex` account store) over its stdio JSON-RPC interface from a small client script,
+  `gdex_stdio_client.py`, shipped beside the capture tool in the P11a commit that follows
+  this amendment and BEFORE any preview (the probe copy that confirmed the server starts and
+  listed its 154 tools, read-only: `tools/list` and `gdex_status` only, sha256 (LF)
+  `391ac4ce6c295a541ab6eb563ae487d31683d2529bb14c5282915027a523c77a`). The tools, their
+  arguments and the terms are identical to the hand's path (Days 3–6) and to A12.1's; every
+  call's verbatim response is saved beside the previews. The capture tool and the watcher
+  still only observe. If the stdio path itself fails before the preview (the server will not
+  start, or `gdex_status` is not `api ok`), that is S57 as well.
+- R68 (the clock). The open runs immediately after the P11a push and no later than
+  **07:30Z (02:30 CDT) 2026-10-29**; the gate is the open fill + 5 h, so it lands between
+  about 11:10Z and 12:30Z (06:10–07:30 CDT), before or at dawn. The operator is awake at the
+  go; the executor (this session) is the hand through the gate under R60, with the file
+  watch on the watcher's log re-armed every 30 min. R65 stands: the schedule and the watch
+  die with the session; the operator's backstop is an alarm at the gate's local time, set on
+  their own device before the open, and on waking the A9.6 procedure first (read the tape's
+  last row and the chain; if past the control or the gate with the position open, close by
+  R26 by hand). `gate_ms` is the watcher's `WATCH` line and is pinned in A13.1 in Z and local.
+- R69 (three rule changes for week two, each the smallest that removes a hand-off that lost
+  a day):
+  - (a) The go lives in the night-before amendment. When R60 is in force the hand needed
+    through the gate is the executor's, so A9.6 R54 ("no open without a hand committed
+    through the gate") is satisfied by the go written into the day's amendment with its
+    window, the night before, in the operator's words. No go is asked for in the morning;
+    a day whose amendment carries no go has no pair, and the miss is recorded (item 10).
+  - (b) The sign-in is item 1 of preflight. R64 gains one line: `sessionAgeMinutes` under
+    1 440 (24 h), else `gdex_connect {accountRef}` first and the refreshed age pinned. A
+    gateway refusal with a fresh session is a finding, not a retry (S58).
+  - (c) From Day 9 the daily variable moves from the exit to the entry. The stop is a fixed
+    30 bps exit inside every fork and on the live unit (R62 unchanged: 10, 20, 30, 50, 100,
+    `gate_only` keep printing, since they cost nothing); A10 R55 (the 10 bps live control)
+    is RETIRED, one day short of its third forward day, because a stop cannot make a
+    zero-edge entry positive net of the 18.64 bps fee line; the R49/R57 stop counts are
+    recorded and promote nothing. Today's pair (Day 8) is the Day-4 path unchanged (30 bps
+    control, R26 close by R60): the variable under test today is still R63, the machine's
+    exit, untested since A11.
+- R70 (the environment, pre-registered before any tape is read; code and captures in later
+  commits; the day-by-day in the doc's "Week two" tab). One tape, one marker, one scoreboard,
+  this PREREG. Nothing in this rule counts in-sample; only forward days count.
+  - Tape: the watcher's `allMids` poll (already every coin) writes every DECLARED coin's mid
+    per row from Day 8 on; the declared set = HyperLiquid core perps with 24 h notional ≥
+    100 000 000 USD at the day's amendment, named by coin in that amendment (today, from
+    `metaAndAssetCtxs` at 05:5xZ: BTC, ETH, HYPE, ZEC, SOL, NEAR, PUMP, XRP, kPEPE, ENA, XMR,
+    LIT, WLD, PONS, XPL, UNI, VVV, SUI, INIT, ZRO are the top 20 by notional; the floor
+    trims that list in A14). The live unit runs only BTC (the contract's market).
+  - Backfill, as the venue serves it: `candleSnapshot` returns about 5 000 candles per
+    interval (measured 2026-10-29: 1m → 3.5 days, 5m → 17 days, 15m → 52 days, 1h → 120
+    days). The ablation history is therefore 15-minute candles over 52 days plus hourly
+    `fundingHistory`, pinned verbatim per coin; the 1-minute tape accumulates from today.
+    "90 days of 1-minute candles" is not available and is not claimed.
+  - Families (each ONE variable with a stated mechanism and ONE declared parameter fixed in
+    A14 before the replay; no grid): F1 funding-rate extreme (mechanism: crowded carry
+    reverts; enter against the sign of an hourly funding print beyond a declared percentile
+    of the 52-day history); F2 reversion after a large move with volume (mechanism:
+    liquidation overshoot; enter against a 15-minute return beyond a declared multiple of the
+    52-day 15-minute σ when that candle's notional is above a declared multiple of its
+    median); F3 continuation after a breakout (mechanism: stop cascades; enter with a close
+    beyond the declared-length high/low). Exit for every fork: the fixed 30 bps stop or the
+    five-hour gate, whichever first (R62's marker, unchanged).
+  - Two controls, both marked on the same tape with the same exit: C0 no-entry (net 0) and
+    C1 random-time entry (one uniformly random entry minute per coin per day, direction drawn
+    to match the family's direction mix). A long fork beating C0 in an up week is beta, not
+    edge; a fork must beat BOTH.
+  - The pass line, declared with the population size in it: a fork is a CANDIDATE iff (i)
+    its daily net beats both controls on k consecutive forward days, k = ⌈log₂ N⌉ + 2 with N
+    the number of forks alive that day (N = 6 → k = 5; N = 20 → k = 7), AND (ii) its mean net
+    over its own forward episodes clears 2σ/√n on those episodes. A fork that fails (i) on any
+    day restarts its count; a fork that trails both controls for k days is DISCARDED in the
+    amendment. Expected false candidates under the null ≈ N / 2ᵏ ≤ 1/4.
+  - The marker's cost per paper leg: half the level-2 spread read from `l2Book` at the
+    trigger poll (the book pinned verbatim with the mark), never the resting 0.06 bps of a
+    quiet mid; the fee line of A8 (9.32 bps/leg); funding charged hourly for the hold.
+  - Effective n is measured, not assumed: the scoreboard prints the cross-fork correlation of
+    daily net; the episode count claimed is the effective one.
+  - Episodes are five hours or shorter; the gate is the ceiling on every hold, paper or live.
+  - The live unit: Days 8–10 on the Day-4 path (R69c); from Day 11 its entry is the
+    population's best paper fork, labelled UNPROMOTED, if that fork's signal fires inside the
+    day's go window, else C1 opens the unit at the window's random minute; a pair always
+    settles, and the fallback is itself a control reading.
+  - Dates (50th percentile, Musk 2:12:20): environment live 2026-10-31; first forward week
+    read 2026-11-06; first live candidate, if one qualifies, 2026-11-13; first sized week
+    2026-12-01. Late half the time; the record says so.
+
+**STOP conditions (added):** S57 the sign-in (R66) or the stdio path (R67) fails → no preview,
+no order, the day's work is the gateway (the error pinned), the miss recorded. S58 the
+execute is refused or revised with a fresh session → one attempt (S25, S54), what came back
+pinned, no second sign-in today, the miss recorded; a refusal with a fresh session is the
+day's finding. S59 this session dies with the position open → the operator on waking runs
+A9.6 first (tape, chain, close by R26 by hand if past the control or the gate); the watcher
+is restarted only if its process is gone. S60 any position or resting order on the chain at
+preflight → no open. S61 the gateway refuses twice in the week → the live line's only
+variable becomes the session path; nothing else moves on that line. S62 one unit all week,
+whatever the sign of any day (R59; Musk 2:42:14).
+
+**Known answers for the P11 gates (committed to before the sign-in):** `gdex_status`
+`sessionAgeMinutes` after R66 < 10; the open fill's `time` within [the P11a push,
+1793259000000] (≤ 07:30Z); size 0.00014, long, BTC, `slPrice ""`; the forks file has
+`rules.live_stop_bps 30` and `forks.30.is_live_control true`; the close fill's `time` ≤
+`gate_ms` + 10 000, else the day is a miss and the breach is asserted as the fact (A9.6
+R53); R63 unchanged: WORKED iff inside the gate AND R38 latency < 26 619 ms AND cost <
+9.4713 bps (expected 15 000–40 000 ms on the stdio path, the same backend).
+
+**Order from here:** this amendment pushed → the Day 7 line in SCOREBOARD's tally (its own
+commit) → P11a (the stdio client shipped, no behaviour change to any frozen path) pushed →
+R64 preflight with R66 (the sign-in; ages pinned) → `gdex_preview_trade` → the preview saved
+verbatim → the capture tool `--live` started → `gdex_execute_trade` → the open capture →
+A13.1 pinned and pushed (shas, `gate_ms`, the watcher's PID, the session ages) → the watcher
+detached → the log watch armed (30-min re-arm) → R60 at the trigger or the gate → A13.2
+(close) → A13.3 (forks) → P11 → push → Standing row → memory.
