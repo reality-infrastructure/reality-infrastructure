@@ -129,7 +129,7 @@ def rebuild_manifest(path: Path) -> int:
             entry["funding"] = {"files": f["files"], **funding_summary(pages)}
         print(f"{coin}: candles {entry['candles']} | funding {entry['funding']}", flush=True)
     m["rebuilt"] = True
-    path.write_text(json.dumps(m, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(m, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
     print(f"MANIFEST {path.name} sha256={_sha(path.read_bytes())}", flush=True)
     return 0
 
