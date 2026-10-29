@@ -22,7 +22,14 @@ import threading
 import time
 from pathlib import Path
 
-SERVER_CMD = ["npx.cmd" if sys.platform == "win32" else "npx", "-y", "@gemachdao/gdex-mcp-server"]
+import os
+import shlex
+
+# The server command: the ~/.claude.json entry by default; GDEX_MCP_SERVER_CMD overrides it
+# (e.g. a locally installed version the day's amendment names), never silently.
+SERVER_CMD = (shlex.split(os.environ["GDEX_MCP_SERVER_CMD"], posix=False)
+              if os.environ.get("GDEX_MCP_SERVER_CMD")
+              else ["npx.cmd" if sys.platform == "win32" else "npx", "-y", "@gemachdao/gdex-mcp-server"])
 
 
 class Server:
