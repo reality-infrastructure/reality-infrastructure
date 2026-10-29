@@ -1187,9 +1187,10 @@ to a fresh run of the three pinned captures (gate).
 |---|---|---|---|
 | Day 6, 2026-10-27 | pv_65cbfed9bef849b6 | +0.144370 | **outside the gate (miss)** |
 | Day 7, 2026-10-28 | — (pv_d67efff104914944, a probe, never filled) | — | **MISS on both clocks: no go at 13:00Z (A11.1); the go given, the gateway refused the session, 403 SESSION_ORIGIN_DENIED (A12.1)** |
+| Day 8, 2026-10-29 | — (no preview) | — | **MISS (S57): the sign-in refused twice by GDEX's gateway, 403 SESSION_ORIGIN_DENIED, on the session refresh and on a fresh control-key sign-in (A13.1, A13.2); nothing on the chain** |
 
 Week one (Days 3-5, corrected per A8): −0.023876, −0.078637, −0.067163 = −0.169676, all
-inside the gate. Pairs inside the gate in week two so far: none (Day 6 outside the gate, Day 7 no pair).
+inside the gate. Pairs inside the gate in week two so far: none (Day 6 outside the gate, Days 7 and 8 no pair).
 
 ### The day's bit
 
@@ -1260,4 +1261,33 @@ amendment (R69a).
 **Week-two tally after Day 7:** Day 6 +0.144370 outside the gate (miss), Day 7 no pair
 (miss). Pairs inside the gate in week two: none. Week one (Days 3–5, corrected per A8):
 −0.169676, all inside the gate.
+
+## Day 8 (2026-10-29) — MISS (S57): the gateway refused the sign-in twice; no preview, nothing on the chain (A13, A13.1, A13.2)
+
+Recorded under daily-rule item 10, written 06:1xZ (01:1x CDT), flat, before the day's own
+clock (A13 R68, open ≤ 07:30Z) had run out, because S57 had already fired.
+
+| step | what happened | evidence |
+|---|---|---|
+| A13 pushed first | Day 8 pre-registered flat: the go quoted, the three transcripts read, R66–R70, S57–S62, the week-two rule changes, the environment pre-registered before any tape is read. | A13 `ef732cf` |
+| Day 7 line | The miss of Day 7 entered in this tally (item 10). | P11.0 `7502f5d` |
+| P11a | The stdio client for the same gdex server binary shipped before any preview (A13 R67). | `81464fd`, `gdex_stdio_client.py` |
+| 06:08:06Z sign-in, form 1 | `gdex_connect {accountRef}` (the session refresh) → 403 AUTH_FAILED / SESSION_ORIGIN_DENIED; session 8985 min before and after. Chain flat (19.970509, no orders, BTC mid 80224.5). | A13.1 `c107d2b`; `gdex_connect_1793254086222.json` |
+| 06:10:21Z sign-in, form 2 | `gdex_connect {keyFile}` (a fresh control-key sign-in, the form the server's own `next` names) → the byte-identical 403. Session 8988 min after. Chain at 06:12:00Z: flat, no orders, no fills in 3 h, BTC mid 80143.5. | A13.2; `gdex_connect_keyfile_1793254221059.json`, `hl_postcheck_1793254320280.json` |
+| Inventory | A read-only `gdex_status` on server 5.1.0 (no sign-in) was denied by the tool's permission classifier (fetching a package version not on this machine). Not run; the operator's act. | A13.2 step 4 |
+
+**The day's bit:** the refusal is not the session's age. A fresh control-key sign-in on the
+same binary (5.0.0) that every accepted order on this record went through is refused at
+the gateway's origin check with the same error as the 8000-minute session. Three refusals
+in 17 hours on three request shapes (execute, refresh, fresh sign-in). Day 9's amendment
+names ONE variable on the operator's word: the server binary 5.1.0 first (read-only
+status, then one sign-in if allowed), the session's MCP client path second.
+
+**Consequences:** R63 untested a second day; week two has no pair inside the gate after
+three days (Day 6 outside, Days 7–8 no pair); S61 in sight (the gateway has refused on two
+days of the week: the live line's only variable is the session path until it passes). The
+environment line (A13 R70) is unblocked: it needs no gdex session.
+
+**Week-two tally after Day 8:** Day 6 +0.144370 outside the gate (miss), Day 7 no pair,
+Day 8 no pair. Pairs inside the gate in week two: none.
 

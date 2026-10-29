@@ -1,0 +1,19 @@
+{
+  "arguments": {},
+  "raw": {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": [
+        {
+          "text": "{\n  \"api\": \"ok\",\n  \"accounts\": [\n    {\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"walletAddress\": \"0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92\",\n      \"managedWallets\": {\n        \"evm\": \"0x9f976123e7c48952be487664b8130aad144b7f23\",\n        \"solana\": \"FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp\"\n      },\n      \"source\": \"generated\",\n      \"sessionAgeMinutes\": 8988,\n      \"policy\": null\n    }\n  ],\n  \"pendingOperations\": [\n    {\n      \"opId\": \"op_245ba1b78c5f40c5\",\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"kind\": \"perp_open\",\n      \"state\": \"accepted\"\n    },\n    {\n      \"opId\": \"op_021607a50d744e4e\",\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"kind\": \"perp_open\",\n      \"state\": \"accepted\"\n    }\n  ],\n  \"capabilities\": {\n    \"spot\": \"Unified-USDC wallet: buy with USDC / sell to USDC on Ethereum, Optimism, BSC, Sonic, Base, Arbitrum, Solana\",\n    \"perp\": \"Hyperliquid perps incl. builder DEXes (dex:COIN): open market/limit with leverage (cross margin on core perps, isolated on builder-DEX / isolated-only markets), close/reduce\",\n    \"outcomes\": \"Use the hl_outcome_* tools (not yet in the preview/execute flow)\"\n  },\n  \"policyFile\": \"C:\\\\Users\\\\newce\\\\.gdex/policies/<accountRef>.json (edited by the user, never by the agent)\",\n  \"next\": \"Ready: gdex_preview_trade, then gdex_execute_trade. Fund the managed wallets to trade.\"\n}",
+          "type": "text"
+        }
+      ]
+    }
+  },
+  "received_ms": 1793254230734,
+  "response_text": "{\n  \"api\": \"ok\",\n  \"accounts\": [\n    {\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"walletAddress\": \"0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92\",\n      \"managedWallets\": {\n        \"evm\": \"0x9f976123e7c48952be487664b8130aad144b7f23\",\n        \"solana\": \"FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp\"\n      },\n      \"source\": \"generated\",\n      \"sessionAgeMinutes\": 8988,\n      \"policy\": null\n    }\n  ],\n  \"pendingOperations\": [\n    {\n      \"opId\": \"op_245ba1b78c5f40c5\",\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"kind\": \"perp_open\",\n      \"state\": \"accepted\"\n    },\n    {\n      \"opId\": \"op_021607a50d744e4e\",\n      \"accountRef\": \"acct_8c48b321e89c\",\n      \"kind\": \"perp_open\",\n      \"state\": \"accepted\"\n    }\n  ],\n  \"capabilities\": {\n    \"spot\": \"Unified-USDC wallet: buy with USDC / sell to USDC on Ethereum, Optimism, BSC, Sonic, Base, Arbitrum, Solana\",\n    \"perp\": \"Hyperliquid perps incl. builder DEXes (dex:COIN): open market/limit with leverage (cross margin on core perps, isolated on builder-DEX / isolated-only markets), close/reduce\",\n    \"outcomes\": \"Use the hl_outcome_* tools (not yet in the preview/execute flow)\"\n  },\n  \"policyFile\": \"C:\\\\Users\\\\newce\\\\.gdex/policies/<accountRef>.json (edited by the user, never by the agent)\",\n  \"next\": \"Ready: gdex_preview_trade, then gdex_execute_trade. Fund the managed wallets to trade.\"\n}",
+  "sent_ms": 1793254230100,
+  "tool": "gdex_status"
+}

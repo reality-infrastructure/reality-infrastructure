@@ -2794,3 +2794,59 @@ actor than the record's), no preview; the response pinned. The known answers of 
 
 **Order from here:** this entry pushed → the key file derived locally → `gdex_connect
 {keyFile}` once → `gdex_status` (after) → if clear, the A13 order resumes at the preview.
+
+### A13.2 — 2026-10-29 06:1xZ (01:1x CDT), flat — the key-file sign-in was REFUSED too (the same 403 on a fresh control-key sign-in); S57: no preview, no order, Day 8's live line is a MISS recorded before the day's clock; the finding: the refusal is not the session's age; the 5.1.0 inventory not run (denied by the tool's permission classifier), left to the operator
+
+**As executed, in order (all times Z; responses saved verbatim beside the previews).**
+1. 06:10:21.059Z — `gdex_connect {keyFile <the local control-key file>}` (R66 as corrected
+   by A13.1) → **REFUSED, verbatim, identical to A12.1 and A13.1 step 2:** `{"error":
+   {"message": "Request origin denied (code SESSION_ORIGIN_DENIED)", "code": "AUTH_FAILED",
+   "submission": "rejected", "retryable": true, "httpStatus": 403, "next": "Sign in again
+   (fresh session key), then repeat the call. Reconcile any earlier uncertain write
+   first."}}`. File `gdex_connect_keyfile_1793254221059.json` (checked: no 64-hex string in
+   it). The local key file was removed after the call; the account record in `~/.gdex` is
+   untouched.
+2. 06:10:25.927Z — `gdex_status` (after): unchanged, the same account, managed evm
+   `0x9f97…7f23`, **`sessionAgeMinutes 8988`**, the same two stale operations. File
+   `gdex_status_after_keyfile_1793254225927.json`.
+3. 06:12:00.280Z — the chain (saved `hl_postcheck_1793254320280.json`): `accountValue
+   19.970509`, `assetPositions []`, `frontendOpenOrders []`, `userFillsByTime` over the last
+   3 h `[]`, BTC mid 80143.5. **Nothing reached the venue. Flat.**
+4. The A13.1 inventory (a read-only `gdex_status` on server 5.1.0, no sign-in) was
+   attempted as `npx -y @gemachdao/gdex-mcp-server@5.1.0` and **was denied by the tool's
+   permission classifier** ("Code from External": fetching a package version not on this
+   machine). Not run. It is the operator's act if they want it before Day 9's amendment.
+
+**The decision (S57).** The sign-in failed twice by the two forms the tool offers; the go
+covered one sign-in and it is spent. No preview, no execute, no watcher, no tape, no forks.
+**Day 8's live line is a MISS**, recorded now (daily rule item 10), before its own clock
+(R68: ≤ 07:30Z) had run out, because the rule that decides it has already fired. Position
+flat, 19.970509 USDC.
+
+**What the record learned (the day's one bit).** The gateway's refusal is NOT the session's
+age: a fresh sign-in from the control key, on the same server binary (5.0.0) that was
+accepted for every order on Days 3–6, is refused at the origin check before any venue call,
+with the same error as the 8000-minute session. Three refusals in 17 hours (A12.1 at 13:42Z
+on 10-28; A13.1 at 06:08Z; here at 06:10Z) on three request shapes (execute, refresh, fresh
+sign-in). What changed between the last accepted order (A9.2 close, 04:13Z 10-28) and the
+first refusal (13:42Z 10-28) is on GDEX's side or in what this binary presents as its
+origin; the record cannot tell which from here. The two candidates, each ONE variable for
+Day 9's amendment, in the order the record would try them: (i) the server binary 5.1.0
+(the version that has shipped since; a read-only `gdex_status` first, then one sign-in
+only if the amendment allows it); (ii) the session's MCP client path instead of the stdio
+client (the same binary, the same request; R67's path is the less likely cause since the
+error is byte-identical to A12.1's, which came through the MCP client). The operator
+decides; nothing is tried today (S57, S61 in sight: the gateway has now refused on two
+days of the week; the live line's only variable is the session path until it passes).
+
+**Consequences on the record.** R63 (the automated exit) is untested for a second day; the
+R49/R57 stop counts stay where A13 R69c left them (retired as the variable; recorded);
+week two has no pair inside the gate after three days (Day 6 outside the gate, Days 7 and
+8 no pair). The environment line (R70) is NOT blocked by any of this: it runs on the public
+HyperLiquid API and needs no gdex session; its Day-8 item (the watcher writing every
+declared coin's mid per poll) is the next act after this entry, in its own P commit.
+
+**Order from here:** this entry pushed (with the three saved responses and the chain
+read) → the Day 8 line in SCOREBOARD's tally → Standing row → memory → the environment's
+Day-8 item (P11b, the multi-coin tape row) → Day 9's amendment names the gateway variable
+on the operator's word.

@@ -1,0 +1,22 @@
+{
+  "arguments": {
+    "keyFile": "C:\\Users\\newce/.gdex/accounts/acct_8c48b321e89c.control.keyfile.json"
+  },
+  "raw": {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": [
+        {
+          "text": "{\n  \"error\": {\n    \"message\": \"Request origin denied (code SESSION_ORIGIN_DENIED)\",\n    \"code\": \"AUTH_FAILED\",\n    \"submission\": \"rejected\",\n    \"retryable\": true,\n    \"httpStatus\": 403,\n    \"next\": \"Sign in again (fresh session key), then repeat the call. Reconcile any earlier uncertain write first.\"\n  }\n}",
+          "type": "text"
+        }
+      ],
+      "isError": true
+    }
+  },
+  "received_ms": 1793254225867,
+  "response_text": "{\n  \"error\": {\n    \"message\": \"Request origin denied (code SESSION_ORIGIN_DENIED)\",\n    \"code\": \"AUTH_FAILED\",\n    \"submission\": \"rejected\",\n    \"retryable\": true,\n    \"httpStatus\": 403,\n    \"next\": \"Sign in again (fresh session key), then repeat the call. Reconcile any earlier uncertain write first.\"\n  }\n}",
+  "sent_ms": 1793254225171,
+  "tool": "gdex_connect"
+}
