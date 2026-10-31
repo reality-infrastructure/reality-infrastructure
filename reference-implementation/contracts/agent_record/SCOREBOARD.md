@@ -1449,3 +1449,14 @@ the go (a hand-off), then search (P12).
 | Next | P12.2 `forward.py` on the VPS beside the tape (the operator installs); first forward day = the rest of 2026-11-01, recorded as partial. |
 
 **Income row (R81), 2026-10-31 after P12.1:** 19.97 USD × 1 pair/day × no measured net edge = **0 USD a day against 165**. Forward forks alive from 11-01: 6 (F4 × 6 coins) + 2 controls; k = 5. Families killed tonight: 3 of 4.
+
+### P12.2 — the forward marker built and smoke-tested; the VPS install is the operator's act
+
+| item | evidence |
+|---|---|
+| Built | `marker/forward.py` `6fd373b8…681c76`; F4 + C1 only (R84); entries only on a FRESH tape (the smoke tick's stale-tape entry defect found and fixed); `signals_`/`marks_`/`l2book/` pins; 23 gates; **1090 passed**. |
+| Smoke tick | against the pulled 10-30 tape: 28 leaders polled, today voided (S72), no entry; `C1_missed` recorded for the minute that passed stale. |
+| Install (operator) | `SEED=<P12.2 sha> bash rights_events/fixtures/agent_record/ops/poo_marker_vps.sh` (`90c3550a…`); pull `ops/poo_marker_pull.sh` (`e1352715…`). |
+| First forward day | the rest of 2026-11-01, PARTIAL; k = 5 counts from the first full day. S74, S75 added. |
+
+**Income row (R81), 2026-10-31 after P12.2:** 0 USD a day against 165; forward forks alive 6 + 2 controls once the unit is live; the operator's install is the next act.

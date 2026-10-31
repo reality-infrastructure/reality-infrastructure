@@ -3726,3 +3726,51 @@ the trigger (pinned verbatim), run the exit rule on the streaming mids, append
 `marks_<date>.jsonl` beside the tape. Installed as the operator's act (`poo-marker.service`,
 the A13.4 pattern). The first forward day is whatever remains of 2026-11-01 after the unit is
 live; a partial day is recorded as partial, not as a day.
+
+### P12.2 — 2026-10-31 08:3xZ (03:3x CDT), flat — the FORWARD marker built and smoke-tested (one tick against the pulled, stale tape: the day voided under S72, no entry opened); the VPS install is the operator's act; what the first forward day will and will not be
+
+**Built:** `marker/forward.py` — every tick: new tape rows since the last offset (two day
+files, rollover-safe), the 28 leaders' `userFillsByTime` since the last poll → F4 signals
+(every signal written to `signals_<date>.jsonl`, taken or not), one open episode per fork,
+entries at the newest FRESH tape mid with `l2Book`'s half-spread at that moment (payload
+pinned under `out/l2book/`, its sha on the row), exits on the streaming mids at 30 bps against
+or 5 h, the second leg's half-spread the same way, C1's one minute per coin per day from the
+seed passed in, `marks_<entry-date>.jsonl`, `marker_state.json` across restarts. Forward
+rows carry `in_sample: false`, `trigger_latency_ms` (entry row − signal time: the trigger-time
+gap the Day-8 plan asked for), `seed`, and funding 0 at write time — the hourly prints are
+applied at the day's pin (A17) from `fundingHistory`, disclosed on the row. Only F4 and C1 are
+marked (R84). Gates: 23 (S73 now covers `forward.py`; the forward-families constant is
+asserted). Full suite 1090.
+
+**Smoke test (one tick, `--once`, against `fixtures/agent_record/vps/` whose newest row is
+2026-10-30):** the leaders were polled (28 calls, ~10 s), the tape was read to the end of the
+10-30 file, **today was voided (`S72 tape stale > 6 min`) and no entry opened.** The first
+run of the tick before the fix DID open a C1 episode at yesterday's last mid — a stale-tape
+entry; the guard (`fresh`: newest row within six minutes) was added and the C1 minute that
+passes during a stale spell is recorded as `C1_missed`, never fired late. The defect and the
+fix are in the commit; no number was read from the smoke run.
+
+**The VPS install (the operator's act, like A13.4):**
+```
+SEED=<this amendment's commit sha> bash rights_events/fixtures/agent_record/ops/poo_marker_vps.sh
+```
+installs `poo-marker.service` beside `poo-tape.service` (reads `/root/poo/tape`, writes
+`/root/poo/marker/out`), prints the four deployed files' sha256 (to be quoted in P12.2's
+acceptance line), the unit's MainPID and start time, and the first log lines. The pull:
+`bash rights_events/fixtures/agent_record/ops/poo_marker_pull.sh 2026-11-01`.
+
+**What the first forward day is:** whatever remains of 2026-11-01 (UTC) after the unit is
+active. It is recorded as PARTIAL with its start time; R85's k = 5 count starts on the first
+FULL day (2026-11-02 if the unit is live before 00:00Z 11-02). C1's seed for 11-01 is this
+amendment's commit sha, recorded on every row; the seed changes only at a dated amendment.
+
+**STOP (added):** S74 the marker's `tick_error` rows exceed 10 in a day → the day is void and
+the error is the day's finding. S75 a `marks_` row with `spread_source` containing
+`unavailable` on both legs is counted at the proxy and flagged; more than 20 % of a day's
+rows flagged → that day is void for the spread-dependent reading (the book, not the search,
+binds).
+
+**Order:** this amendment pushed → the operator runs the install with `SEED=<its sha>` →
+P12.2's acceptance (the shas, MainPID, start time, the first `signals_` rows) in P12.2.1 →
+Day 11's live unit as A15.1 (13:20Z preflight, 14:08:00Z open) → A17 on 2026-11-02 reads the
+partial day and pins it.

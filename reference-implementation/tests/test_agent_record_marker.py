@@ -173,7 +173,7 @@ def test_candidate_needs_k_consecutive_days_and_2sigma():
 
 
 # ----------------------------------------------------------------------------- S73
-@pytest.mark.parametrize("name", ["marker.py", "replay.py"])
+@pytest.mark.parametrize("name", ["marker.py", "replay.py", "forward.py"])
 def test_s73_no_venue_write_path(name):
     src = (_MK_DIR / name).read_text(encoding="utf-8")
     assert not re.search(r"execute_trade|gdex_execute|place_perp_order|open_perp_position|close_perp_position|mcp__gdex", src)
@@ -185,3 +185,9 @@ def test_families_pinned_as_declared():
     assert FAM["families"]["F3"]["parameter"] == {"lookback_candles": 96}
     assert FAM["families"]["F4"]["parameter"]["min_open_notional_usd"] == 10000
     assert FAM["pass_line"]["N"] == 24 and mk.k_for(24) == 7
+
+
+def test_forward_marks_only_f4_and_c1_after_p12_1():
+    src = (_MK_DIR / "forward.py").read_text(encoding="utf-8")
+    assert 'FORWARD_FAMILIES = ("F4", "C1")' in src
+    assert "import marker" not in src  # loaded by path, like the replay
