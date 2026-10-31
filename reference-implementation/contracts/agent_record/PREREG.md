@@ -2999,3 +2999,113 @@ and its 6 h 57 min hole) and A14 pins both with their coverage; neither is calle
 of record for Day 8. R64's liveness line (R71) reads the VPS file from Day 9. Nothing on the
 chain; no rule changed; the two items still the operator's: the 5.1.0 inventory (A13.2) and
 the Day 9 go (A14).
+
+### A14 — 2026-10-31 06:1xZ (01:1x CDT), flat — Day 10 (week two, day five): Day 9 recorded as a miss after the fact; the preflight run and green; the first full day of the tape of record pinned; the laptop copy retired; the limiting factor read by R72 = the hand (the gateway); the one probe this session may run and the one the operator must; no pair today (no go in the operator's words)
+
+**The operator's word (2026-10-31 05:5xZ, verbatim):** "what are the results of today's proof
+of outcome . Run the checklists and solve the binding contraint:" followed by a paste of the
+doc's "Every day, in order" list (the three-part rule, the ten steps, the two weekly items,
+the Standing paragraph of 2026-10-25) and the seven operating rules. Nothing in those words
+is a go for an open: the words name the checklists and the binding constraint. Under R69a
+(the go lives in the night-before amendment, quoted) **no pair is opened today on these
+words** (S66 below).
+
+**Day 9 (2026-10-30) = MISS, recorded here, after the fact (daily rule item 10).** Between
+A13.4 (2026-10-29 17:4xZ) and this amendment nothing was committed on any branch, no
+amendment was written, no sign-in was attempted, no preview, no order, no marker (P12). The
+5.1.0 inventory A13.2 left to the operator was not run. The VPS tape ran the whole day (below).
+Week-two tally after Day 9: Day 6 outside the gate, Days 7, 8 and 9 no pair; four days without
+a settled pair inside the gate.
+
+**The preflight (daily rule item 1), run 05:57Z–06:0xZ, every part green:**
+- branch `contract/agent-record` even with origin at `d487719`; the tree clean of tracked
+  changes (untracked: the tape day files, pinned below, and a stray `puct_193.pdf` at the
+  repo root, not this contract's);
+- frozen-path `git diff --stat contract/trading-frame -- ri_core/ rights_events/schema.py
+  rights_events/policy.py rights_events/pipeline.py rights_events/replay.py` empty;
+- full suite `1067 passed in 103.15s`;
+- the seven run files `--verify` → `RESULT: OK` each (BOARD 10-25; LIVE 10-24, 10-25, 10-26,
+  10-27; PAPER 10-23 and 10-23 both); tracked fixtures byte-identical to HEAD;
+- the chain: the managed wallet `0x9f976123e7c48952be487664b8130aad144b7f23`
+  `clearinghouseState` accountValue **19.970509**, no position, `openOrders` 0,
+  `userFillsByTime` since 2026-10-28 00:00Z → 0 fills, `userNonFundingLedgerUpdates` since
+  2026-10-26 → 0; the control wallet `0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92` 0.0 (never
+  funded, as on Day 1);
+- `gdex_status` through this session's own MCP client (the first time the client has answered
+  since Day 7): `api ok`; account `acct_8c48b321e89c`, sessionAgeMinutes 11858; two
+  `pendingOperations` of kind `perp_open` in state `accepted` (`op_245ba1b78c5f40c5`,
+  `op_021607a50d744e4e`) in the server's local store; the chain shows no fill for either
+  (0 fills since 10-28), so they are the store's memory of refused or stale attempts, not
+  positions; they are left alone (nothing is cancelled or retried on them);
+- the sensor (R71 liveness line, S63): `poo-tape.service` on `root@66.135.15.102` active,
+  MainPID 952995 since 2026-10-29 17:41:44Z; `/root/poo/tape/tape_MIDS_2026-10-31.jsonl`
+  growing (4 048 rows at 05:58:49Z, last row ms 1793426329626 with all six mids).
+
+**The tape files pinned (R71; the Day-8 partial files and Day 9's first full day):**
+
+| file | host | rows | first → last (Z) | null rows / longest null run | gaps > 15 s | sha256 |
+|---|---|---|---|---|---|---|
+| `vps/tape_MIDS_2026-10-29.jsonl` | VPS (partial, from the unit's start) | 4 183 | 17:41:45 → 23:59:59 | 2 / 1 | 0 (max 6.5 s) | `44ae6cee6b511567a18c1d5394fa86e874a3be082f1115781beb532fbe7fcb60` |
+| `vps/tape_MIDS_2026-10-30.jsonl` | **VPS, the tape of record, Day 9, the first full day** | 15 874 | 00:00:04 → 23:59:57 | 0 / 0 | 0 (max 10.4 s) | `5471b89695e07ef2f0e66c7997a748a53cd2fae520c23859a33d211f2ed8c94a` |
+| `tape_MIDS_2026-10-29.jsonl` | laptop (partial; A13.3's file, the redundant copy) | 3 916 | 06:24:34 → 19:14:45 | 864 / 864 (08:50:10 → 10:02:05) | 2 (08:49:45 → 08:50:10, 25 s; 10:02:05 → 16:59:02, 6 h 57 min) | `9aecca9aa516d259a4eee873eaf8bb1c953489d175c1abdafc58c3a4805574ff` |
+
+Pulled by `ops/poo_tape_pull.sh 2026-10-29 2026-10-30` at 05:59Z; the shas are the pull's
+own printout and this machine's `sha256sum`. A full day at 5 s would be 17 280 rows; the VPS
+served 15 874 (mean cadence 5.44 s: the venue's answer time rides on the 5 s sleep, as the
+writer is built). All six declared coins are present on every non-null row.
+
+- **R76 (amends R71): the laptop copy is retired.** The laptop's writer (PID 12156, restarted
+  16:59:09Z on 10-29) wrote its last row at 19:14:45Z on 10-29 and no such process exists at
+  05:59Z 10-31; there is no laptop file for 10-30 or 10-31. The VPS is the sole sensor from
+  this amendment; its day file is pinned at 00:00Z + one pull in the next amendment; the
+  laptop copy is not restarted (a second copy on a host that has died three times is not
+  redundancy). The two laptop logs (`tape_MIDS_2026-10-29.log`, `_restart2.log`) are pinned
+  beside the file.
+
+**The limiting factor, read by R72's six-step rule (sensor > hand/gateway > search > sim-to-
+real > group > capital):** the sensor is closed (the first full day with 0 null rows and no
+gap over 15 s on the host of record). **The hand is binding.** No live leg has been accepted
+since the Day-6 close (2026-10-28 04:12Z); three refusals `403 SESSION_ORIGIN_DENIED` on Days
+7–8 on three request shapes, all through server binary 5.0.0 (the npx cache's copy, dated
+2026-10-20); the inventory of a newer binary never ran on Day 9. Today the registry's latest
+is **5.2.1** (5.1.0 is superseded); the cache still holds 5.0.0 only. Nothing else is worked
+today (the marker P12 is "search", third in the order, and waits).
+
+**The probes (one attempt each, S25/S54 discipline: no retry, no second shape):**
+- **R77 (i), this session's act:** `gdex_connect {accountRef: "acct_8c48b321e89c"}` through
+  this session's own MCP client, on the cached binary. This is the path A13 named as (ii) and
+  never tried for a sign-in: Day 7's execute went through it (refused); Day 8's two sign-ins
+  went through the stdio client (refused) because the session's client had timed out. Run
+  immediately after this amendment is committed, at 06:2xZ. Known answers: **ACCEPTED** (an
+  accountRef returned, sessionAgeMinutes reset near 0 on the next `gdex_status`) → the
+  refusal belonged to the stdio path or to those days, the hand is unblocked on 5.0.0, A14.1
+  records it and names the Day-11 night-before clock; **REFUSED 403 SESSION_ORIGIN_DENIED** →
+  the fourth refusal, two paths × three shapes, the binary 5.0.0 the one factor common to all
+  four → S65.
+- **R77 (ii), the operator's act (the executor's fetch of a newer binary was DENIED twice today
+  by its permission classifier, "Code from External", as on Day 8; not worked around):** in
+  this terminal, as `!` commands, from `reference-implementation`:
+  `$env:GDEX_MCP_SERVER_CMD="npx.cmd -y @gemachdao/gdex-mcp-server@5.2.1"` then
+  `python rights_events/fixtures/agent_record/gdex_stdio_client.py call gdex_status '{}'`
+  (read-only, the inventory), then, if `api ok`,
+  `python rights_events/fixtures/agent_record/gdex_stdio_client.py call gdex_connect '{"accountRef":"acct_8c48b321e89c"}'`
+  (one sign-in). Known answers as in (i). If 5.2.1 signs in, the session's own client must run
+  the same binary before any order: the `gdex` entry in `~/.claude.json` gets the version
+  pinned (`@gemachdao/gdex-mcp-server@5.2.1`), the operator's edit (the file holds credentials;
+  the executor is denied there), and the session restarted; recorded in A14.2.
+
+**STOP conditions:**
+- **S65:** R77 (i) refused and R77 (ii) not run by the day's clock (23:59Z) → no sign-in, no
+  preview, no order; Day 10's live line is a MISS, recorded in A14.1 with the refusal verbatim.
+- **S66:** a sign-in accepted today does NOT open a pair today. The go for an open is absent
+  from the operator's words quoted above; the open needs the night-before go (R69a) quoted in
+  A15 with its clock, the R60 automated exit and the 30 bps control (R69c). The accepted
+  sign-in is the pair's precondition, not the pair.
+- **S67:** the session's MCP client times out on R77 (i) (as on Day 8) → recorded, not retried
+  through the stdio client on 5.0.0 (that path is already refused twice); R77 (ii) stands.
+
+**Known answer for the week:** if neither probe is accepted by Day 11, S61 (the gateway
+refused on two or more days of the week) has held for a full week on this venue path and the
+week review (Day 12) must name the venue's gateway, not the operator's hand, as the limiting
+factor; the venue's own API through the managed wallet is not this record's path (the control
+wallet signs for GDEX only), so no alternative path exists under the ownership rule.
