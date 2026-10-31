@@ -1,0 +1,134 @@
+{
+  "what": "A15 R78 proof: gdex_status and gdex_accounts through THIS Claude Code session's own MCP client after the operator pinned the gdex entry in ~/.claude.json to @gemachdao/gdex-mcp-server@5.2.1 and restarted the session",
+  "called_at_utc": "2026-10-31T06:45:16Z",
+  "path": "this session's MCP client (mcp__gdex__*), not the stdio client, not the probe script; payloads as the tool returned them (key order preserved, re-serialized with indent 2)",
+  "calls": [
+    {
+      "tool": "gdex_status",
+      "arguments": {},
+      "result": {
+        "api": "ok",
+        "accounts": [
+          {
+            "accountRef": "acct_8c48b321e89c",
+            "walletAddress": "0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92",
+            "managedWallets": {
+              "evm": "0x9f976123e7c48952be487664b8130aad144b7f23",
+              "solana": "FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp"
+            },
+            "source": "generated",
+            "sessionAgeMinutes": 5,
+            "policy": null
+          }
+        ],
+        "pendingOperations": [
+          {
+            "opId": "op_245ba1b78c5f40c5",
+            "accountRef": "acct_8c48b321e89c",
+            "kind": "perp_open",
+            "state": "accepted"
+          },
+          {
+            "opId": "op_021607a50d744e4e",
+            "accountRef": "acct_8c48b321e89c",
+            "kind": "perp_open",
+            "state": "accepted"
+          }
+        ],
+        "capabilities": {
+          "spot": "Unified-USDC wallet: buy with USDC / sell to USDC on Ethereum, Optimism, BSC, Sonic, Base, Arbitrum, Solana",
+          "perp": "Hyperliquid perps incl. builder DEXes (dex:COIN): open market/limit with leverage (cross margin on core perps, isolated on builder-DEX / isolated-only markets), close/reduce",
+          "outcomes": "Use the hl_outcome_* tools (not yet in the preview/execute flow)"
+        },
+        "policyFile": "C:\\Users\\newce\\.gdex/policies/<accountRef>.json (edited by the user, never by the agent)",
+        "next": "Ready: gdex_preview_trade, then gdex_execute_trade. Fund the managed wallets to trade."
+      }
+    },
+    {
+      "tool": "gdex_accounts",
+      "arguments": {},
+      "result": {
+        "accounts": [
+          {
+            "accountRef": "acct_8c48b321e89c",
+            "walletAddress": "0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92",
+            "managedWallets": {
+              "evm": "0x9f976123e7c48952be487664b8130aad144b7f23",
+              "solana": "FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp"
+            },
+            "source": "generated",
+            "sessionAgeMinutes": 5
+          }
+        ]
+      }
+    }
+  ],
+  "client_process_evidence": {
+    "read_at_utc": "2026-10-31T06:46Z",
+    "how": "Win32_Process (Get-CimInstance) command lines and parent chain, read from the same session shell; the shell's own ancestry walked to its claude.exe",
+    "this_session": [
+      {
+        "pid": 27420,
+        "name": "claude.exe",
+        "started_utc": "2026-10-31T06:44:32Z",
+        "ppid": 26076,
+        "note": "the ancestor of the shell that ran this read (powershell 25716 <- cmd 27952 <- claude 27420 <- powershell 26076 <- WindowsTerminal 21280)"
+      },
+      {
+        "pid": 20132,
+        "ppid": 27420,
+        "started_utc": "2026-10-31T06:44:34Z",
+        "cmd": "cmd.exe /d /s /c \"npx -y @gemachdao/gdex-mcp-server@5.2.1\""
+      },
+      {
+        "pid": 23080,
+        "ppid": 20132,
+        "started_utc": "2026-10-31T06:44:34Z",
+        "cmd": "node.exe npx-cli.js -y @gemachdao/gdex-mcp-server@5.2.1"
+      },
+      {
+        "pid": 30164,
+        "ppid": 23080,
+        "started_utc": "2026-10-31T06:44:36Z",
+        "cmd": "cmd.exe /d /s /c gdex-mcp-server"
+      },
+      {
+        "pid": 29540,
+        "ppid": 30164,
+        "started_utc": "2026-10-31T06:44:36Z",
+        "cmd": "node C:\\Users\\newce\\AppData\\Local\\npm-cache\\_npx\\46e894932c43c359\\node_modules\\@gemachdao\\gdex-mcp-server\\dist\\index.js"
+      }
+    ],
+    "npx_cache": [
+      {
+        "hash": "46e894932c43c359",
+        "package_json_version": "5.2.1",
+        "package_json_mtime_utc": "2026-10-31T06:38:43Z",
+        "note": "the directory the probe fetched (A14.2); this session's server runs from it"
+      },
+      {
+        "hash": "22b4fc628a9ffef2",
+        "package_json_version": "5.0.0",
+        "package_json_mtime_utc": "2026-10-20T13:36:44Z",
+        "note": "the old binary; five OTHER claude.exe sessions on this machine (started 05:54, 05:55, 06:26, 06:37, 06:38Z, other repos) still run unpinned servers from it"
+      }
+    ],
+    "claude_json_gdex_entry": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "-y",
+        "@gemachdao/gdex-mcp-server@5.2.1"
+      ],
+      "env": {}
+    }
+  },
+  "chain_at_06_48_12Z": {
+    "source": "api.hyperliquid.xyz clearinghouseState + openOrders, managed 0x9f976123e7c48952be487664b8130aad144b7f23",
+    "accountValue": "19.970509",
+    "withdrawable": "19.970509",
+    "assetPositions": 0,
+    "openOrders": 0
+  },
+  "note": "the gdex_status payload carries no version field; the binary is proved by the process tree + the cache directory's package.json, not by the payload"
+}

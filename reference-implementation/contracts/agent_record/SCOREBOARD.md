@@ -1393,3 +1393,20 @@ hand is unblocked on 5.2.1 as of 06:40:15Z; the next pair is Day 11's under A15 
 night-before go, the restarted client's `gdex_status` on 5.2.1 quoted, R60 exit, 30 bps
 control). Day 10's live line = MISS (no clock was pre-registered); Day 10's build = the
 gateway finding and the fix, pinned.
+
+### A15 — R78 satisfied: the restarted session's own client is on 5.2.1 (06:45:16Z); Day 11 pre-registered to the standing rules; the go and clock awaited in the operator's words
+
+| item | evidence |
+|---|---|
+| The operator's act | `~/.claude.json` gdex args now `["-y", "@gemachdao/gdex-mcp-server@5.2.1"]`; the session restarted (claude.exe PID 27420, 06:44:32Z). |
+| The proof | `gdex_status {}` through this session's own MCP client at 06:45:16Z → `api ok`, `sessionAgeMinutes 5` (the probe's 06:40:15Z sign-in, same account store), the two stale `perp_open` ops still `accepted`; `gdex_accounts` the same. The payload has no version field: the process tree (claude.exe 27420 → `npx -y @gemachdao/gdex-mcp-server@5.2.1` 20132 → … → node 29540 serving `_npx/46e894932c43c359/…/dist/index.js`) and that cache directory's `package.json` `"version": "5.2.1"` prove the binary. Pinned: `session_5.2.1_status_20261031T064516Z.json` sha256 `0aeab64e3e85c4603ff46b9038e44f5d62addf03ed32d631b057e726226b26f2`. |
+| Also seen | five other claude.exe sessions on this machine run unpinned servers that resolved to the cached 5.0.0 (`npx -y` reused the cache for eleven days) — the mechanism behind the 5.0.0 refusals, not this record's sessions; no action. |
+| Chain | 06:48:12Z HL direct: accountValue 19.970509, 0 positions, 0 open orders. Flat; nothing submitted. |
+| Rules | R78 satisfied for PID 27420; R80 the process-tree check after any restart; S66 holds for Day 10 (MISS); Day 11 frame: R69a go in A15.1 (S68: none by 23:59Z 11-01 → MISS), R70 C1 random-minute entry (P12 unbuilt), R60 exit with the cookie re-sign named as the untested link, R69c 30 bps, S69 restart rule; DST ends 07:00Z 11-01 (CDT → CST), clocks in Z. |
+| What remains the operator's | the go and its window, in their words. |
+
+**Week-two tally after A15:** five days (6–10), zero settled pairs inside the gate; the hand
+is unblocked AND the executor's own client is on 5.2.1 as of 06:45:16Z, so R60 is available;
+the next pair is Day 11's (2026-11-01) under A15.1 — a C1 control episode at the window's
+drawn minute, 30 bps, R60 exit — the moment the go is given. The limiting factor by R72:
+the go (a hand-off), then search (P12).

@@ -3214,3 +3214,158 @@ entered the terminal (the server read the key file itself). Nothing on the chain
 - `ops/gdex_probe_521.sh` is kept as the operator's probe of any future binary
   (`GDEX_PROBE_VERSION=<v>`); the first run's wrong check is in its history, the corrected
   check is the pinned sha above.
+
+### A15 — 2026-10-31 06:45Z (01:45 CDT), flat — R78 SATISFIED: this session's own MCP client runs server binary 5.2.1 (`gdex_status` quoted; the process tree and the cache's `package.json` pinned); Day 11 (2026-11-01, week two, day six) pre-registered to the rules already in force (R69a night-before go, R70's C1 entry, R60 exit, R69c 30 bps control); the go and its clock are NOT yet in the operator's words — no open until A15.1 quotes them
+
+**What the operator did between A14.2 and this amendment (their act, not the executor's):**
+the `gdex` entry in `~/.claude.json` now reads `"args": ["-y", "@gemachdao/gdex-mcp-server@5.2.1"]`
+(the one entry read, 06:45Z; nothing else in that file was read), and the Claude Code session
+was restarted: this session's `claude.exe` is PID 27420, started 06:44:32Z, and its MCP
+launcher (PID 20132, 06:44:34Z) carries `npx -y @gemachdao/gdex-mcp-server@5.2.1` on its
+command line. The operator's words on return: "I'm back to run: I will run the restarted
+client's own gdex_status and quote it in A15 as the proof the session is on 5.2.1, then write
+Day 11's amendment to the go and clock you give" — the executor's own closing line of A14.2
+handed back as the instruction; it contains no go and no clock.
+
+**The proof (this session's own client — `mcp__gdex__gdex_status`, not the stdio client, not
+the probe script — called 06:45:16Z), verbatim:**
+
+```json
+{
+  "api": "ok",
+  "accounts": [
+    {
+      "accountRef": "acct_8c48b321e89c",
+      "walletAddress": "0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92",
+      "managedWallets": {
+        "evm": "0x9f976123e7c48952be487664b8130aad144b7f23",
+        "solana": "FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp"
+      },
+      "source": "generated",
+      "sessionAgeMinutes": 5,
+      "policy": null
+    }
+  ],
+  "pendingOperations": [
+    { "opId": "op_245ba1b78c5f40c5", "accountRef": "acct_8c48b321e89c", "kind": "perp_open", "state": "accepted" },
+    { "opId": "op_021607a50d744e4e", "accountRef": "acct_8c48b321e89c", "kind": "perp_open", "state": "accepted" }
+  ],
+  "capabilities": {
+    "spot": "Unified-USDC wallet: buy with USDC / sell to USDC on Ethereum, Optimism, BSC, Sonic, Base, Arbitrum, Solana",
+    "perp": "Hyperliquid perps incl. builder DEXes (dex:COIN): open market/limit with leverage (cross margin on core perps, isolated on builder-DEX / isolated-only markets), close/reduce",
+    "outcomes": "Use the hl_outcome_* tools (not yet in the preview/execute flow)"
+  },
+  "policyFile": "C:\\Users\\newce\\.gdex/policies/<accountRef>.json (edited by the user, never by the agent)",
+  "next": "Ready: gdex_preview_trade, then gdex_execute_trade. Fund the managed wallets to trade."
+}
+```
+
+`gdex_accounts {}` in the same minute → the same account, `sessionAgeMinutes 5`. That age is
+the session A14.2's probe created at 06:40:15Z: the restarted client reads the same account
+store the probe signed into, so the 5.2.1 cookie is already in place for this client — no
+sign-in was made by this amendment (R79's one `gdex_connect` belongs to the five minutes
+before the open, not to tonight).
+
+**The payload carries no version field, so the binary is proved by the process tree, read
+from this shell at 06:46Z (Win32_Process command lines and parent ids), not by the payload
+and not from memory:** this shell's own ancestry is powershell 25716 → cmd 27952 →
+**claude.exe 27420** (06:44:32Z) → powershell 26076 → WindowsTerminal 21280. The child of
+27420 is PID 20132 `cmd /d /s /c "npx -y @gemachdao/gdex-mcp-server@5.2.1"` (06:44:34Z) →
+23080 `node npx-cli.js -y @gemachdao/gdex-mcp-server@5.2.1` → 30164 `cmd /c gdex-mcp-server`
+→ **29540 `node …\npm-cache\_npx\46e894932c43c359\node_modules\@gemachdao\gdex-mcp-server\dist\index.js`**
+(06:44:36Z). The cache directory `46e894932c43c359` is the one the operator's probe fetched
+(A14.2; its `package.json` mtime 06:38:43Z) and that `package.json` reads `"version":
+"5.2.1"`. The old directory `22b4fc628a9ffef2` reads `"5.0.0"` (2026-10-20). Both payloads,
+the process table, the cache versions, the `~/.claude.json` entry and the chain reading are
+pinned in `session_5.2.1_status_20261031T064516Z.json` (sha256
+`0aeab64e3e85c4603ff46b9038e44f5d62addf03ed32d631b057e726226b26f2`).
+
+**Also seen, no action:** five OTHER `claude.exe` sessions on this machine (other repos;
+started 05:54, 05:55, 06:26, 06:37 and 06:38Z) each run an UNPINNED `npx -y
+@gemachdao/gdex-mcp-server` that resolved to the cached 5.0.0 — `npx -y` with no version
+reused the cache and never asked the registry. That is the mechanism by which an unpinned
+entry sat on 5.0.0 for eleven days while the venue's backend moved, and it is why R78 pins
+by version. Those sessions are not this record's and nothing is done to them here. The two
+stale `perp_open` operations remain in the server's local store (A14, A14.2).
+
+**Chain at 06:48:12Z (HyperLiquid direct, managed `0x9f97…7f23`):** accountValue 19.970509,
+withdrawable 19.970509, 0 positions, 0 open orders. Flat. Nothing submitted tonight.
+
+**Consequences and rules:**
+- **R78 is satisfied for THIS session (PID 27420).** R60 — the automated exit by this
+  session — is available for the first time since A11 named it. The limiting factor by R72
+  therefore moves, as A14.2 said it would, from the hand to **search** (the marker, P12,
+  unbuilt) the moment the go is given; until the go it is the go itself (a hand-off, R69a's
+  reason for existing).
+- **R80 (the session check):** after any restart of this session, and before its first GDEX
+  call of the day, the executor re-reads the process tree (the fixture's `how`: the shell's
+  ancestry to its `claude.exe`, that process's `gdex-mcp-server` launcher's command line, the
+  served `dist/index.js` path's cache directory and that directory's `package.json` version)
+  and quotes the result in the day's amendment. A session whose server is not 5.2.1 or later
+  makes no GDEX call; the hand (R26) is the fallback for any open position.
+- **S66 holds for Day 10:** no pair today; Day 10's live line is a MISS (A14.2). This
+  amendment is Day 11's night-before frame, written on Day 10's clock.
+
+**Day 11 (2026-11-01, week two, day six) — pre-registered now, everything except the go and
+its clock, which only the operator's words can supply:**
+- **The go (R69a).** It lives in A15.1, quoted verbatim in the operator's words, with its
+  window [not before, not after] in Z. Nothing in this amendment is a go. **S68:** no go in
+  the operator's words by 2026-11-01 23:59Z → Day 11's live line = MISS, recorded in the
+  SCOREBOARD by this executor (daily item 10), no open.
+- **The clock.** The operator's; A15.1 pins it in Z and local. **Local time changes during
+  Day 11:** US daylight time ends 2026-11-01 at 02:00 CDT = 07:00Z; from then the operator's
+  zone is CST (UTC−6). The record's clocks are in Z; a local time in the go is read against
+  the zone in force at that instant and the Z value is what A15.1 pins (so "08:00" on Day 11
+  is 14:00Z, not 13:00Z).
+- **The entry (R70's live-unit rule from Day 11).** The population's best paper fork does not
+  exist (P12 is unbuilt; no forward day has been read), so R70's fallback applies: **C1 opens
+  the unit at the window's random minute.** One uniformly random minute inside the go window,
+  drawn by the executor in A15.1 BEFORE the open, with the draw reproducible by a stranger:
+  `random.seed(<the sha of the commit this amendment lands in>)`, `randrange(window_minutes)`,
+  the seed and the result pinned in A15.1. Direction long (the unit's direction on every
+  settled day; there is no family mix to match yet), size 0.00014 BTC (the unit; S62), cross,
+  `slPrice ""` (A7: the venue rests no stop), through THIS session's client:
+  `gdex_preview_trade {kind: perp_open, coin: BTC, side: long, size: "0.00014"}` → the
+  preview saved verbatim → the capture tool `--live` started → `gdex_execute_trade` → the
+  open capture pinned (A15.2 with `gate_ms`, the watcher's PID, the session ages). The
+  fallback is itself a control reading (R70): Day 11's live line is a C1 episode.
+- **Preflight (R64 + R69b + R79), before the window opens:** daily item 1 (branch even with
+  origin, frozen-path diff empty, full suite green, the run files `--verify` OK, tracked
+  fixtures byte-identical); the chain flat (S60: any position or resting order → no open);
+  R80 (the process tree quoted); `gdex_status` api ok with `sessionAgeMinutes` < 1 440;
+  then ONE `gdex_connect {accountRef: "acct_8c48b321e89c"}` within the five minutes before
+  the open, the refreshed age pinned (R79). A gateway refusal with that fresh session on
+  5.2.1 → S58: one attempt, what came back pinned, no second sign-in, the day's finding.
+- **The exit (R60, unchanged since A11):** the watcher's first `TRIGGER live 30` line or its
+  `GATE reached` line → `gdex_preview_trade {kind: perp_close, coin: BTC}` (no size) → the
+  preview saved verbatim → `gdex_execute_trade` by this session, no hand; the 30 bps control
+  (R69c); the log watch re-armed every 30 min (R68). The hand's close (R26) is the fallback
+  at the gate, and S59 if this session dies with the position open (the operator on waking
+  runs A9.6 first). **The one untested link of the exit path:** the venue's cookie idles out
+  after 30 minutes (R79) and a five-hour hold will cross that; the vendor's claim is that
+  `accountRef` tools re-sign on their own when the cookie is stale. Known answer: the close's
+  `gdex_preview_trade` is accepted without a 403. If it answers 403, S58 applies to the
+  close: one attempt, pinned, the hand closes by R26 at once, and the day's finding is the
+  re-sign claim failing in practice.
+- **Known answers, committed before the open:** `gdex_status` api ok on 5.2.1; `gdex_connect`
+  accepted, `sessionAgeMinutes 0`; the open preview and execute accepted (no
+  `SESSION_ORIGIN_DENIED` — the A12.1 refusal does not recur on 5.2.1); the open fill's
+  `time` inside the go window and within 120 s of the drawn minute; size 0.00014, long, BTC,
+  `slPrice ""`; the forks file has `rules.live_stop_bps 30` and `forks.30.is_live_control
+  true`; the close fill's `time` ≤ `gate_ms` + 10 000, else the day is a miss and the breach
+  is asserted as the fact (A9.6 R53); R63 unchanged: WORKED iff inside the gate AND R38
+  latency < 26 619 ms AND cost < 9.4713 bps.
+- **STOP conditions in force:** S25/S54 (one attempt), S58, S59, S60, S62 (one unit all
+  week), S68 (above), and **S69:** this session restarts between the open and the close →
+  R80 before any call; if the restarted server is not 5.2.1+, the hand closes by R26.
+- **The second line (the paper population, P12):** not pre-registered here. It is Day 11's
+  build if, after the go, the limiting factor reads search; it gets its own dated P-amendment
+  before any code (daily item 2), with R70's families, controls and pass line as written.
+- **Order from here:** this amendment pushed (with the SCOREBOARD row and the Standing row) →
+  the operator's go and clock, in their words → **A15.1** (the go verbatim, the window in Z
+  and local, the C1 minute drawn and pinned with its seed, preflight green, R80 quoted, the
+  R79 sign-in's age) pushed BEFORE the open → the open at the drawn minute → A15.2 (the open
+  capture, `gate_ms`, the watcher detached) → R60 at the trigger or the gate → A15.3 (the
+  close, the fills, the gap per leg, venue closedPnl reconciled) → run + `--verify` →
+  SCOREBOARD → Standing row → memory. No step is skipped; the miss, if any, is recorded on
+  the clock it missed.
