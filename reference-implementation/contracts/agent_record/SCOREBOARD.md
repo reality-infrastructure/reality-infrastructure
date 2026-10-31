@@ -1460,3 +1460,15 @@ the go (a hand-off), then search (P12).
 | First forward day | the rest of 2026-11-01, PARTIAL; k = 5 counts from the first full day. S74, S75 added. |
 
 **Income row (R81), 2026-10-31 after P12.2:** 0 USD a day against 165; forward forks alive 6 + 2 controls once the unit is live; the operator's install is the next act.
+
+### A16.1 / P12.2.1 — the target confirmed (5 000 USD a month); the forward marker LIVE on the VPS
+
+| item | evidence |
+|---|---|
+| The target | "Yes the monthly target for me is $5,000 USD" (the operator, 07:2xZ) → R81 denominator 165 USD/day. |
+| The install (on the operator's word) | `poo-marker.service` active, MainPID 1198200, 07:28:55Z; four deployed shas = the repo's (forward.py `6fd373b8…81c76`); seed `37ee0a55…c42ad`; first tick: tape fresh, both day files read to the end, 28 leaders polled, no void, no signal yet. Script defect (apostrophe in the usage message) fixed and committed. |
+| The alarms | Google Calendar refused the executor (no permission); the operator sets 08:00 and 13:08 CST on their own device. |
+| Days | 2026-10-31 = PARTIAL forward day from 07:29Z; 2026-11-01 = first FULL day; k = 5 → earliest candidate 2026-11-05. |
+| Open | the capital at the first passed rung; R83 (GDEX vs HyperLiquid direct). |
+
+**Income row (R81), 2026-10-31 after A16.1:** 19.97 USD × 1 pair/day × no measured net edge = **0 USD a day against 165** (the target now the operator's number). Forward forks alive: 6 + 2 controls, LIVE since 07:28:55Z.

@@ -3774,3 +3774,47 @@ binds).
 P12.2's acceptance (the shas, MainPID, start time, the first `signals_` rows) in P12.2.1 →
 Day 11's live unit as A15.1 (13:20Z preflight, 14:08:00Z open) → A17 on 2026-11-02 reads the
 partial day and pins it.
+
+### A16.1 / P12.2.1 — 2026-10-31 07:3xZ (02:3x CDT), flat — the target CONFIRMED in the operator's words (5 000 USD a month); the forward marker INSTALLED on the VPS on the operator's word and accepted (shas, PID, start time, first state); the alarms could not be set by the executor and remain the operator's; two items still open (the capital at the first rung, R83)
+
+**The operator's words (2026-10-31 07:2xZ):** "I need you to execute this for me: [the three
+acts of the P12.2 report, pasted] Yes the monthly target for me is $5,000 USD". So:
+- **The target is 5 000 USD a month = about 165 USD a day** — A16's assumption is now the
+  operator's number; R81's denominator is fixed at 165 until the operator changes it.
+- The VPS install was delegated to the executor in those words (as the tape's was on Day 8,
+  A13.4 R71): executed below.
+- The alarms: the executor tried to place them on the operator's Google Calendar (two events
+  with popup reminders, 08:00 and 13:08 CST) and was **refused** ("The caller does not have
+  permission"); the in-session clocks of A15.1 stand but cannot ring if the session dies.
+  **The alarms are the operator's act, on their own device: 08:00 CST and 13:08 CST.**
+- Still open, in the operator's words when they have them: the capital they will commit at
+  the first rung a fork passes; R83 (GDEX as the venue, or HyperLiquid direct).
+
+**P12.2.1 — the install, executed 07:28:45Z–07:28:55Z through `ops/poo_marker_vps.sh`:** one
+defect in the script found by bash on the first run (an apostrophe inside the `${SEED:?…}`
+usage message opened a quote; line 12), fixed, syntax-checked, re-run; the fix is in this
+commit. Accepted:
+
+| item | value |
+|---|---|
+| `poo-marker.service` | enabled, **active**, MainPID **1198200**, ActiveEnterTimestamp **2026-10-31 07:28:55 UTC** |
+| `/root/poo/marker/forward.py` | sha256 `6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76` = the repo's |
+| `/root/poo/marker/marker.py` | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` = the repo's (P12.1) |
+| `/root/poo/marker/families.json` | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` = the repo's |
+| `/root/poo/marker/leaders_2026-11-01.json` | `5315ffc84b1fba8deadf5b022791ebbb54a5459451fe120301665f424d3a350f` = the repo's |
+| seed | `37ee0a556814e53273db164e3b074bac29bc42ad` (the P12.2 commit) on the command line and in the state |
+| first tick (07:29Z) | tape fresh (newest row ms 1793431768599 = 07:29:28Z, all six mids), offsets read to the end of `tape_MIDS_2026-10-30` (2 240 081 B) and `-10-31` (717 170 B), the 28 leaders polled (`last_fill_poll_ms` 1793431736869), no open episode, no C1 fired yet (all six drawn minutes for 10-31 are later than 07:29Z), `void_days` empty, no `signals_` row yet (no qualifying leader open in the first minute) |
+| `poo-tape.service` | still active beside it |
+
+**Consequence for the calendar of days (corrects P12.2):** forward marking began at 07:28:55Z
+on 2026-10-31, so **2026-10-31 is the PARTIAL day** (recorded as partial from 07:29Z) and
+**2026-11-01 is the first FULL forward day**. R85's k = 5 count starts on 11-01; the earliest
+day a fork can be a CANDIDATE is therefore **2026-11-05** (R70's 50th-percentile estimate of
+11-06/11-13 stands as the estimate; the record will say which it was). A17 on 2026-11-01
+morning pins the partial day's `marks_2026-10-31.jsonl` and `signals_2026-10-31.jsonl` by
+`ops/poo_marker_pull.sh` and reads nothing from it but the sensor's health.
+
+**Order from here:** this amendment pushed → the operator's alarms (their device) → 13:20Z
+A15.2 preflight → 14:0xZ the R79 sign-in → 14:08:00Z the open → A15.3 → R60 → A15.4 →
+A17 (the first pull of the marker's files, with the Day 11 run) → the operator's words on
+the capital and R83 whenever they come.

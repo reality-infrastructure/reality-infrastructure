@@ -9,7 +9,7 @@ set -euo pipefail
 HERE="$(cd "$(dirname "$0")/.." && pwd)"
 VPS=root@66.135.15.102
 SSH="ssh -o IdentitiesOnly=yes -o ConnectTimeout=20 -i $HOME/.ssh/id_ed25519"
-: "${SEED:?SEED=<amendment commit sha> is required (C1's seed, recorded on every row)}"
+: "${SEED:?SEED=<amendment commit sha> is required (the C1 seed, recorded on every row)}"
 $SSH $VPS 'mkdir -p /root/poo/marker/out'
 for f in forward.py marker.py families.json leaders_2026-11-01.json; do
   scp -o IdentitiesOnly=yes -i "$HOME/.ssh/id_ed25519" -q "$HERE/marker/$f" "$VPS:/root/poo/marker/$f"
