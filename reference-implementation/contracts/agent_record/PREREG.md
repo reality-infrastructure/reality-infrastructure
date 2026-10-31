@@ -3629,3 +3629,100 @@ any code path that could reach `gdex_execute_trade` is a gate failure.
 `marker.py` + gates (P12) → `replay.py` run once, its rows and table pinned, deletions
 recorded (P12.1) → the VPS unit (P12.2, the operator's act) → Day 11's live unit as A15.1 →
 A17 reads the first forward day on 2026-11-02.
+
+### P12.1 — 2026-10-31 07:5xZ (02:5x CDT), flat — THE MARKER BUILT (21 gates, 1088 suite) and the IN-SAMPLE REPLAY RUN ONCE: F1, F2 and F3 are DELETED (each at or below random entries on gross, all below both controls on net); F4 goes forward on 16 episodes (no reading); S70 corrected to the quantity it meant and satisfied; the finding that matters for the objective: the exit-plus-fee structure costs 20.64 bps an episode and GDEX's builder fee is 10.0 of the 18.64 bps fee line
+
+**What was built (no frozen path touched; frozen-path diff empty; full suite 1088 passed in
+34 s, 21 of them new in `tests/test_agent_record_marker.py`):**
+
+| file (under `rights_events/fixtures/agent_record/marker/`) | sha256 |
+|---|---|
+| `marker.py` — the exit rule, costs, funding, the four families' signals, C1, the pass line | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` |
+| `replay.py` — tonight's harness (15-minute closes as the path; stops read at closes only; spread 1.0 bps proxy; every row `in_sample: true`) | `0c932a40c9d46e55e67c390ab084d2e945e051d0078dd1fc954ba74d82444649` |
+| `families.json` — the four parameters, byte-pinned before the run | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` |
+| `leaders_2026-11-01.json` — the F4 list: month top 30 → 28 kept (two dropped for negative all-time PnL: `0xdd53c529` −18.3 M, `0x0b8aa35c` −16.4 M) | `5315ffc84b1fba8deadf5b022791ebbb54a5459451fe120301665f424d3a350f` |
+| `funding_MANIFEST_2026-10-31.json` — hourly funding for ETH, HYPE, ZEC, SOL, NEAR (4 pages, 1 287 rows each) fetched through P11c's unchanged `backfill_hl.fetch_funding_pages`; BTC's are P11c's | `af6e682168a49ffc16517d0c45051721c914e2f460078f20acbc70d37164525d` |
+| `leader_fills/userFillsByTime_<addr>_1793430548063.json` × 28 — the venue's public fill history per kept leader, verbatim (47 219 fills) | per file, in the commit |
+| `replay_2026-10-31/replay_rows.jsonl` — 2 050 episodes | `cfd300eda70cb5a9497a35457085fdfc3bd15401926004315da1b7abe971d947` |
+| `replay_2026-10-31/replay_summary.json` — per fork, per family, the verdicts | `25602726c277edbd98076a7c471a1b14bee40ff36470ed72065ba518ea7e1e2f` |
+
+Two defects found by the gates before the run and fixed before the run: the module loader
+had to register the marker in `sys.modules` (dataclasses with deferred annotations), and the
+stop comparison needed a float tolerance (100 → 99.7 is 29.9999999999997 bps; exactly 30.0
+must fire). Neither touched a number. The replay's seed is the P12.0 commit's sha
+`c6942308fe3d962f5a0730ffbb5bf9d0ffe380db`.
+
+**The replay, 53 UTC days (2026-09-08 → 2026-10-30), six coins, in-sample, counts for
+nothing:**
+
+| family | n | gross mean (bps) | net mean (bps) | stop-first rate | mean hold | vs C0 (0) | vs C1 | verdict (P12.0's rule) |
+|---|---|---|---|---|---|---|---|---|
+| **C1 random entry** | 316 | **−3.62** | −24.16 | 0.63 | — | — | — | the control |
+| F1 funding ≥ p95, against | 879 | −3.96 | −24.29 | 0.63 | 170 min | below | below | **DELETED** |
+| F2 3σ move + 3× volume, against | 323 | −8.33 | −28.93 | 0.69 | 134 min | below | below | **DELETED** |
+| F3 24 h breakout, with | 516 | −17.84 | −38.58 | 0.79 | 118 min | below | below | **DELETED** |
+| F4 leader opens ≥ 10 k USD | 16 | +22.46 | +2.04 | 0.44 | 217 min | above | above | **KEEP, forward** (n = 16 is not a reading) |
+
+Per coin, no family was positive on net anywhere except F2:ETH (+7.70 on 52 episodes, one
+coin out of six, the kind of cell a grid would have promoted; it is not) and F4:BTC (+5.04 on
+7). F1's gross is indistinguishable from random (−3.96 vs −3.62): the funding percentile
+carries no information at this horizon. F3 is worse than random by 14 bps gross: breakouts
+on 15-minute closes in these six coins reverted inside five hours more often than they ran.
+
+**S70 — corrected and satisfied.** P12.0 wrote S70 as "C1's mean within 2σ/√n of zero" but
+C1 pays the cost line every episode, so its NET mean is expected near −20.64, not zero; the
+quantity S70 meant is C1's **gross** mean (random entries have no gross edge). On gross: C1
+−3.62 bps with 2σ/√n = 14.20 → within. The harness is read. The replay code's `S70` field
+reports the net-based test as written (`within: false`) with this note beside it; the
+pre-registration error is the record's, disclosed here, and S70 reads on gross from now on.
+
+**F4's sixteen episodes (the only survivor), listed so the smallness is visible:** 10 of 16
+are one leader's (`0x218a65e2`, 554 qualifying opens in its history), 8 ended at the gate
+with +4.6 to +107.5 bps, 7 stopped at −50 to −110 bps, direction short in 14 of 16. Gross
++22.46 bps a episode with a 2σ/√n far wider than that. It goes forward because P12.0 said a
+family above both controls on n ≥ 10 goes forward; it is not evidence of anything yet.
+Forward it has 28 leaders polled every minute on the 1-minute tape with the book's real
+half-spread — a different and harder test than this replay.
+
+**The finding for the objective (A16's Mechanism A), in numbers the operator can act on:**
+- **The structure costs 20.64 bps an episode before any entry is chosen** (9.32 bps fee +
+  1.0 bps spread, twice), and the 30 bps stop fired first in 63–79 % of episodes with a mean
+  hold of 2–3 h. A family must carry > 20.6 bps of gross edge per five-hour episode to be
+  positive; the three mechanics-only families carried −4 to −18. Random carries −3.6.
+- **GDEX's builder fee is 10.0 of the 18.64 bps per pair.** Read from the record's own pinned
+  live fills: each leg's `fee` 0.010433 USD on 11.20 USD notional = 9.32 bps, of which
+  `builderFee` 0.005597 USD = **5.00 bps per leg** is the builder's (GDEX), and 4.32 bps per
+  leg is HyperLiquid's own taker fee. Routing the SAME unit to HyperLiquid directly (the
+  operator's own API wallet, taker) would make the fee line 8.64 bps per pair; resting maker
+  orders would make it about 3 bps. That is the single largest known cost in the table and it
+  is a venue choice, not an edge. It is also the contract's venue (the Arena is GDEX's
+  product, the agent is under the operator's GDEX account), so **changing it is the
+  operator's decision, not the executor's: R83 below asks for it in their words.**
+- Pairs per day cannot be raised without an entry that is positive after costs: four random
+  pairs a day lose four times 24 bps.
+
+**Rules:**
+- **R83 (the venue question, for the operator's words).** Does the live unit have to route
+  through GDEX for the record to serve the objective? If the answer is "the record's rows are
+  the product and the venue may be HyperLiquid directly", the fee line halves and the marker's
+  cost line falls to 9.64 bps (taker) — the one change tonight's replay says is worth more
+  than any entry family tested. If the answer is "GDEX is the venue", the 10 bps builder fee
+  is the price of the Arena and every family must clear it. No change is made until the
+  answer is in the operator's words; Day 11's pair runs on GDEX as A15.1 says.
+- **R84 (the deletions bind for the week).** F1, F2, F3 with these parameters are not marked
+  forward and are not re-parameterised (S71). A new mechanism enters only by a dated
+  amendment with its one parameter fixed before its replay (P12.3 names the next three
+  candidates; none is replayed tonight).
+- **R85 (N alive).** Forward forks alive from 2026-11-01: F4 × 6 coins = 6 (plus C0, C1) →
+  **k = ⌈log₂ 6⌉ + 2 = 5** consecutive forward days beating both controls, and the 2σ/√n
+  clause. The scoreboard prints N and k every day.
+- **R81 (the income row), updated:** 19.97 USD × 1 pair/day × (net edge: none measured;
+  the only forward hypothesis is F4 at n = 16) = **0 USD a day against 165**.
+
+**Next (P12.2, the forward marker on the VPS beside the tape):** `forward.py` — every
+minute: read the tape's newest rows, poll the 28 leaders' `userFillsByTime` since the last
+poll, mark F4 and C1 entries at the tape mid with the book's half-spread from `l2Book` at
+the trigger (pinned verbatim), run the exit rule on the streaming mids, append
+`marks_<date>.jsonl` beside the tape. Installed as the operator's act (`poo-marker.service`,
+the A13.4 pattern). The first forward day is whatever remains of 2026-11-01 after the unit is
+live; a partial day is recorded as partial, not as a day.

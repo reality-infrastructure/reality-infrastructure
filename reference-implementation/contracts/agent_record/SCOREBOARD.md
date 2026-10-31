@@ -1436,3 +1436,16 @@ the go (a hand-off), then search (P12).
 | Open, the operator's | the target if not 5 000 USD/month; the capital at the first passed rung; F4's filter. |
 
 **Income row (R81), 2026-10-31:** 19.97 USD × 1 pair/day × negative net edge = **0 USD a day against 165**. Forward forks alive: 0 (the marker is unbuilt; P12 starts now).
+
+### P12.1 — the marker built and the in-sample replay run once: F1, F2, F3 DELETED; F4 forward on 16 episodes; the structure costs 20.64 bps an episode and 10.0 of the 18.64 bps fee line is GDEX's builder fee
+
+| item | evidence |
+|---|---|
+| Built | `marker/marker.py` `acf754f9…1d5f0b`, `replay.py` `0c932a40…444649`, `families.json` `db01aa33…02974` (pinned before the run), `leaders_2026-11-01.json` (28 of 30), funding for 5 coins (40 pages via P11c's tool), 28 leaders' fill histories (47 219 fills); 21 gates; **1088 passed in 34 s**; frozen-path diff empty. |
+| Replay (53 days, 6 coins, in-sample, counts for nothing) | gross / net mean bps: **C1 −3.62 / −24.16** (n 316); F1 −3.96 / −24.29 (879) **DELETED**; F2 −8.33 / −28.93 (323) **DELETED**; F3 −17.84 / −38.58 (516) **DELETED**; F4 +22.46 / +2.04 (16) KEEP forward, not a reading. Seed `c6942308…e380db`. Rows `cfd300ed…71d947`, summary `25602726…ea1e2f`. |
+| S70 | corrected to C1's GROSS mean: −3.62 within 2σ/√n 14.20 → the harness is read. |
+| The finding | 20.64 bps an episode before any entry; stop-first 63–79 %; **builderFee = 5.00 bps/leg of the 9.32** (pinned live fills: fee 0.010433, builderFee 0.005597 on 11.20 USD) → GDEX takes 10.0 of 18.64 bps per pair; HL direct taker ≈ 8.64, maker ≈ 3. |
+| Rules | R83 the venue question (the operator's words; nothing changes until then; Day 11 runs on GDEX per A15.1); R84 deletions bind for the week; R85 N = 6 → k = 5. |
+| Next | P12.2 `forward.py` on the VPS beside the tape (the operator installs); first forward day = the rest of 2026-11-01, recorded as partial. |
+
+**Income row (R81), 2026-10-31 after P12.1:** 19.97 USD × 1 pair/day × no measured net edge = **0 USD a day against 165**. Forward forks alive from 11-01: 6 (F4 × 6 coins) + 2 controls; k = 5. Families killed tonight: 3 of 4.
