@@ -1,0 +1,21 @@
+{
+  "arguments": {
+    "accountRef": "acct_8c48b321e89c"
+  },
+  "raw": {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": [
+        {
+          "text": "{\n  \"accountRef\": \"acct_8c48b321e89c\",\n  \"walletAddress\": \"0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92\",\n  \"managedWallets\": {\n    \"evm\": \"0x9f976123e7c48952be487664b8130aad144b7f23\",\n    \"solana\": \"FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp\"\n  },\n  \"source\": \"generated\",\n  \"sessionAgeMinutes\": 0,\n  \"next\": \"Pass this accountRef to trading tools. Fund the managed wallets (not the control wallet) to trade.\"\n}",
+          "type": "text"
+        }
+      ]
+    }
+  },
+  "received_ms": 1793428817020,
+  "response_text": "{\n  \"accountRef\": \"acct_8c48b321e89c\",\n  \"walletAddress\": \"0xA62993eB48DdCF74e2Ac5CBEeDE580BE0C915b92\",\n  \"managedWallets\": {\n    \"evm\": \"0x9f976123e7c48952be487664b8130aad144b7f23\",\n    \"solana\": \"FxZCzc7ik1MhkDMgvxrxogvFSNsfCFAkYBfL9rJ8PVpp\"\n  },\n  \"source\": \"generated\",\n  \"sessionAgeMinutes\": 0,\n  \"next\": \"Pass this accountRef to trading tools. Fund the managed wallets (not the control wallet) to trade.\"\n}",
+  "sent_ms": 1793428815410,
+  "tool": "gdex_connect"
+}

@@ -1376,3 +1376,20 @@ commands (status, then one sign-in) and the `~/.claude.json` pin if 5.2.1 is acc
 inside the gate. The limiting factor by R72: the sensor closed (first full VPS day, 0 nulls);
 **the hand (the venue's gateway) binding**; the registry's 5.2.1 binary is the one
 unobserved variable and it is the operator's to fetch.
+
+### A14.2 — the sign-in ACCEPTED on binary 5.2.1 (the operator's act, 06:40:15Z); the cause was the venue's backend change of 2026-10-28
+
+| item | evidence |
+|---|---|
+| The cause | `GemachDAO/gdex-skill` CHANGELOG: "Every sign-in and trade failed with 403 `SESSION_ORIGIN_DENIED` after backend PR #382 (deployed 2026-10-28)"; fix commit `8d3759b` 2026-10-30 22:32Z; released 5.2.0 (22:44Z) and 5.2.1 (2026-10-31 02:27Z). The record's five refusals (Days 7, 8, 10) are all this. |
+| The operator's probe | `ops/gdex_probe_521.sh` (sha256 `93e14b440438ec880d580b0991dc987b0e9a97837305dbb1aa9372f13a8f197c`): npx fetched 5.2.1 into the cache at 06:38:43Z on Node v20.18.0; `gdex_status` → `api ok` twice (06:38:35Z `194d86a8…1cf648`, 06:40:07Z `8827416f…1337c`); **`gdex_connect {accountRef}` at 06:40:15Z → ACCEPTED, sessionAgeMinutes 0** (`probe_5.2.1_connect_20261031T064007Z.json` sha256 `6f15457ca0b8c1e3120cfd9a078a907e40f308f097a32926e0330af84bceba61`). |
+| Before it | two `$env:` attempts in the Git Bash `!` prompt fell through to 5.0.0 (06:2xZ): one status, one refresh → the fifth 403 on 5.0.0, the operator's hand, stdio path. |
+| What remains the operator's | the `~/.claude.json` pin (`@gemachdao/gdex-mcp-server@5.2.1`) and the session restart (R78); until then the session's own client is on 5.0.0 and R60 is unavailable. |
+| Rules | R78 binary of record 5.2.1+; R79 the 30 min / 8 h cookie and the re-sign before the open; S66 holds (no pair today, no pre-registered clock); Node 20.18 stands for Day 11. |
+| Chain | flat; nothing submitted. |
+
+**Week-two tally after A14.2:** five days (6–10), zero settled pairs inside the gate; the
+hand is unblocked on 5.2.1 as of 06:40:15Z; the next pair is Day 11's under A15 (the
+night-before go, the restarted client's `gdex_status` on 5.2.1 quoted, R60 exit, 30 bps
+control). Day 10's live line = MISS (no clock was pre-registered); Day 10's build = the
+gateway finding and the fix, pinned.

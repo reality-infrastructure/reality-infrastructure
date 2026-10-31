@@ -3143,3 +3143,74 @@ control only if a sign-in has been accepted on 5.2.1 by then; without one, Day 1
 a MISS on the same finding and the Day-12 week review names the venue's gateway as the week's
 limiting factor (A14's known answer for the week). Nothing on the chain; no code touched; the
 environment line's tape of record runs on the VPS.
+
+### A14.2 — 2026-10-31 06:40Z (01:40 CDT), flat — R77 (ii) ACCEPTED: the sign-in passes the gateway on server binary 5.2.1 (the operator's act); the cause named by the vendor's own changelog; the hand is unblocked; the session's client must be re-pinned before any order; S66 holds (no pair today)
+
+**The cause, from the vendor's record (read 06:2xZ from the registry and the public repo
+`GemachDAO/gdex-skill`, not from memory):** the CHANGELOG's entry "Fixed (backend browser-
+session hardening)" reads, verbatim: "**Every sign-in and trade failed with 403
+`SESSION_ORIGIN_DENIED`** after backend PR #382 (deployed 2026-10-28). The client now sends
+`X-Gdex-Client: web` and an allow-listed `Origin` (default `https://gdex.pro`, configurable
+with `origin`), captures the `gdex_session` cookie set by sign-in and sends it on every later
+call, and signs `GET /v1/user` and private `/v1/agents/*` requests with the session key … The
+cookie idles out after 30 minutes and expires after 8 hours; a session key saved before
+2026-10-28 needs a new sign-in. MCP server: `gdex_connect` stores the cookie with the account;
+tools using `accountRef` restore it and sign in again when it is stale." The fix is commit
+`8d3759b` (2026-10-30 22:32Z, "fix(auth): support backend browser sessions
+(SESSION_ORIGIN_DENIED) (#67)"), released as **5.2.0** at 22:44Z and **5.2.1** at
+2026-10-31 02:27Z. So every refusal this record logged (Day 7 execute, Day 8 refresh and
+key-file sign-in, Day 10 refresh ×2) was the venue's backend change of 2026-10-28 meeting a
+client (5.0.0) that predates it: not the session's age, not the path, not the hand. The
+5.1.0 binary A13.2 named would NOT have fixed it (5.1.0 is 2026-10-19; the fix is 5.2.0).
+The GDEX docs served by the 5.0.0 server do not mention the code (searched 06:1xZ).
+
+**What the operator's hand ran (R77 (ii), through `ops/gdex_probe_521.sh`, sha256
+`93e14b44…f197c`, the one-line form of A14's two commands, because the `!` prompt is Git Bash
+and the `$env:` form failed twice at 06:2xZ, each time falling through to the cached 5.0.0
+binary: the second of those was a fifth 403 on 5.0.0 through the stdio path, by the
+operator's hand, recorded here and not counted against R77):**
+
+| step | at (Z) | server | answer | payload pinned (sha256) |
+|---|---|---|---|---|
+| status (read-only), first run | 06:38:35 | 5.2.1 fetched by npx into the cache (`46e894932c43c359`, 06:38:43Z) on Node v20.18.0, no engine refusal | `api ok`, sessionAgeMinutes 11896, the two stale `perp_open` ops still `accepted` in the local store | `probe_5.2.1_status_20261031T063835Z.json` `194d86a8…1cf648` |
+| (sign-in skipped) | — | — | the script's check read the unescaped text; corrected to the escaped form; the status re-run | — |
+| status (read-only), second run | 06:40:07 | 5.2.1 | `api ok`, sessionAgeMinutes 11897 | `probe_5.2.1_status_20261031T064007Z.json` `8827416f…1337c` |
+| **`gdex_connect {accountRef: "acct_8c48b321e89c"}`** | **06:40:15** (sent_ms 1793428815410) | **5.2.1** | **ACCEPTED**: accountRef `acct_8c48b321e89c`, control `0xA629…5b92`, managed evm `0x9f97…7f23`, **sessionAgeMinutes 0**, "Pass this accountRef to trading tools" | `probe_5.2.1_connect_20261031T064007Z.json` `6f15457c…ceba61` |
+
+The known answer of A14 R77 (ii) came true: ACCEPTED on the current binary. No secret
+entered the terminal (the server read the key file itself). Nothing on the chain
+(a sign-in is not an order).
+
+**Consequences and rules:**
+- **R78 (the binary of record):** from this amendment every GDEX call of this record goes
+  through `@gemachdao/gdex-mcp-server@5.2.1` or later, pinned by version: the stdio client's
+  default command and the session's own MCP client both. The session's client still launches
+  the unpinned `npx -y @gemachdao/gdex-mcp-server`, which resolves to the cached 5.0.0 — the
+  `gdex` entry in `~/.claude.json` is the operator's edit (the file holds credentials; the
+  executor is denied there): change the args string `"@gemachdao/gdex-mcp-server"` to
+  `"@gemachdao/gdex-mcp-server@5.2.1"` and restart the Claude Code session. Until that
+  restart the session's client cannot pass the gateway and R60 (the automated exit) is not
+  available; **no open is pre-registered until A15 quotes the restarted session's own
+  `gdex_status` on 5.2.1.**
+- **R79 (the session's life):** the vendor's cookie idles out after 30 min and expires after
+  8 h; `accountRef` tools re-sign when stale. A15's preflight item 1 (R69b) therefore reads
+  the restarted client's `gdex_status`, then one `gdex_connect {accountRef}` within the five
+  minutes before the open; the automated close at the trigger or the gate is expected to
+  re-sign on its own (the vendor's claim), and A15 names that as the one untested link of the
+  exit path, with the hand's close (R26) as the fallback at the gate.
+- **Node:** 5.2.1 declares `engines node >=22` and ran on 20.18.0 for status and sign-in
+  without refusal. The Day-4 decision (Node stays 20.18) stands for Day 11; the vendor's note
+  ("on Node 20 the Hyperliquid client has no WebSocket") touches the server's own HL reads,
+  which this record does not use (the record reads HL directly). Revisit only if a tool path
+  fails on it.
+- **S66 holds:** no pair today. The go is not in the operator's words of this day
+  ("how can we get the sign in working? should I do it manually? Can we fix this now?" at
+  06:2xZ, verbatim, is the go for the probe, which ran). Day 10's live line stays a MISS
+  (S65 is lifted for the sign-in but not for the pair: there was no pre-registered clock).
+- **Week-two reading:** the limiting factor named by R72 moves from the hand to **search**
+  (the marker, P12) the moment the session restarts on 5.2.1 and A15's go is given; until
+  the restart, the hand still binds (the executor's client is on 5.0.0).
+- The two stale `perp_open` operations in the local store are left untouched (A14).
+- `ops/gdex_probe_521.sh` is kept as the operator's probe of any future binary
+  (`GDEX_PROBE_VERSION=<v>`); the first run's wrong check is in its history, the corrected
+  check is the pinned sha above.
