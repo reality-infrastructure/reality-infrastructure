@@ -1410,3 +1410,14 @@ is unblocked AND the executor's own client is on 5.2.1 as of 06:45:16Z, so R60 i
 the next pair is Day 11's (2026-11-01) under A15.1 — a C1 control episode at the window's
 drawn minute, 30 bps, R60 exit — the moment the go is given. The limiting factor by R72:
 the go (a hand-off), then search (P12).
+
+### A15.1 — the go given: window 14:00–15:00Z 2026-11-01 (08:00–09:00 CST); C1 minute drawn = 14:08:00Z; four in-session clocks set
+
+| item | evidence |
+|---|---|
+| The go, verbatim | "The go is given: open window 14:00Z to 15:00Z 2026-11-01" (the operator, 2026-10-31 06:5xZ). Covers one long 0.00014 BTC open inside the window through this session's client + its R60 close; expires 15:00:00Z unused → MISS. |
+| The draw | `random.seed('ef46830e6b00789af206b6f5750cc40b3e1fc0d3'); randrange(60)` → **8** → open at **14:08:00Z = 08:08 CST**; gate ≈ 19:08Z (13:08 CST). DST ends 07:00Z 11-01, so the window is CST. |
+| The clocks | one-shots in this session (die with it): `16e00e08` 13:20Z preflight/A15.2; `6e346c56` 14:01Z sign-in + open at 14:08Z/A15.3; backstops `b66225f6` 12:20Z and `e7e2256d` 13:01Z, one hour early on purpose (every job checks `date -u` first). |
+| Operator's backstop | alarms at 08:00 CST (session alive?) and 13:08 CST (the gate; hand close by R26 if open). |
+| Order | A15.1 → A15.2 (preflight, pushed before the window) → sign-in → open 14:08Z → A15.3 → R60 → A15.4 → run + verify → SCOREBOARD → Standing row → memory. |
+| Chain | flat (06:48:12Z); nothing submitted. |

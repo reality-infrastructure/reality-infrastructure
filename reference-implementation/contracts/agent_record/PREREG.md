@@ -3369,3 +3369,68 @@ its clock, which only the operator's words can supply:**
   close, the fills, the gap per leg, venue closedPnl reconciled) → run + `--verify` →
   SCOREBOARD → Standing row → memory. No step is skipped; the miss, if any, is recorded on
   the clock it missed.
+
+### A15.1 — 2026-10-31 06:58Z (01:58 CDT), flat — the go GIVEN in the operator's words; the window [14:00Z, 15:00Z) 2026-11-01 = [08:00, 09:00) CST; the C1 minute drawn = 14:08:00Z (seed `ef46830e6b…c0d3`, `randrange(60)` = 8); four in-session clocks set; the order amended (preflight and the sign-in move to A15.2 on Day 11's morning)
+
+**The go, verbatim (the operator, 2026-10-31 06:5xZ, in reply to the A15 report):**
+> "The go is given: open window 14:00Z to 15:00Z 2026-11-01"
+
+**What it covers (R69a, in R61's shape) — exactly this and nothing else:** ONE open — long
+0.00014 BTC perp on HyperLiquid via GDEX, cross, `slPrice ""` (A7) — submitted inside
+[14:00:00Z, 15:00:00Z) on 2026-11-01 through THIS session's own client (R78/R80), and the R60
+close of that position by this session at the 30 bps trigger (R69c) or the five-hour gate,
+with the hand's R26 close as the fallback (S59). The go expires at 15:00:00Z unused: no open
+fill by then → Day 11's live line = MISS on its clock (S68 reads on the window as it read on
+the day), no second window today, the miss recorded (daily item 10).
+
+**The window in local time:** US daylight time ends 2026-11-01 02:00 CDT = 07:00Z, so the
+window is **08:00–09:00 CST** (UTC−6), not CDT (checked with `zoneinfo America/Chicago`:
+06:59Z → 01:59 CDT, 07:00Z → 01:00 CST, 14:00Z → 08:00 CST).
+
+**The draw (R70's C1 fallback, A15), reproducible by a stranger:**
+```
+python -c "import random; random.seed('ef46830e6b00789af206b6f5750cc40b3e1fc0d3'); print(random.randrange(60))"
+→ 8
+```
+The seed is the full sha of the commit A15 landed in (`ef46830`), as A15 said; Python 3.12,
+and `str` seeding is Python's version-2 algorithm, stable across Python 3. Minute 8 of a
+60-minute window → **the open is submitted at 14:08:00Z = 08:08 CST**, `gdex_execute_trade`
+inside [14:08:00Z, 14:10:00Z] (A15's known answer: the fill's `time` within 120 s of the drawn
+minute). The gate = the open fill's `time` + 5 h ≈ **19:08Z = 13:08 CST**. Direction long,
+size 0.00014 (S62, one unit), the live stop 30 bps, the forks file `rules.live_stop_bps 30`
+and `forks.30.is_live_control true` (A15's known answers, unchanged).
+
+**The clocks (in-session one-shot schedules; R65: they live only in this session's memory,
+nothing on disk, and they die with the session):**
+
+| job | local (cron) | = Z | does |
+|---|---|---|---|
+| `16e00e08` | 07:20 CST 11-01 | 13:20Z | A15.2 preflight: daily item 1, chain flat (S60), R80 process tree, `gdex_status` on this session's client; A15.2 pushed; no sign-in, no order |
+| `b66225f6` | 06:20 CST 11-01 | 12:20Z | backstop for the above, one hour EARLY on purpose |
+| `6e346c56` | 08:01 CST 11-01 | 14:01Z | R79 one `gdex_connect {accountRef}` (age pinned), the preview, the capture tool `--live`, `gdex_execute_trade` at 14:08:00Z (one attempt), A15.3, R60 armed |
+| `e7e2256d` | 07:01 CST 11-01 | 13:01Z | backstop for the above, one hour EARLY on purpose |
+
+Why the backstops are an hour early and not late: the scheduler runs on the machine's local
+clock and the DST change falls between now and the window; if it misreads the offset the
+error is one hour, and an early firing is harmless (every job's first step is `date -u`,
+and a job that wakes early re-creates itself for the right local minute and stops), while a
+late one would open past the drawn minute or past the window. A job fires only while this
+session is idle; the executor stays idle through the window.
+
+**The operator's backstop (R65, S59):** an alarm on their own device at 14:00Z (08:00 CST)
+to confirm this session is alive, and one at the gate 19:08Z (13:08 CST). If the session is
+dead at 14:08Z nothing opens and the miss is recorded; if the position is open past the
+control or the gate with the session dead, the A9.6 procedure first (tape, chain), then the
+hand closes by R26.
+
+**Order amended from A15:** A15 said A15.1 would also carry preflight green, R80 and the R79
+sign-in's age. Those are Day 11's morning acts — preflight belongs before the window, the
+sign-in within the five minutes before the open (R79) — so they move: **A15.1 (tonight: the
+go, the window, the draw, the clocks) → A15.2 (13:20Z: preflight, chain, R80, `gdex_status`;
+pushed before the window) → the sign-in at 14:0xZ (its age pinned in A15.3) → the open at
+14:08:00Z → A15.3 (the open capture, `gate_ms`, the watcher's PID; pushed) → R60 at the
+trigger or the gate → A15.4 (the close, the fills from HL `userFillsByTime`, the `allMids`
+shadow, the gap per leg, the fee, venue closedPnl reconciled) → the run file through the
+unmodified engine + `--verify` → SCOREBOARD → Standing row → memory.** Known answers and STOP
+conditions as in A15. The chain was flat at 06:48:12Z (A15); nothing has been submitted;
+no code touched.
