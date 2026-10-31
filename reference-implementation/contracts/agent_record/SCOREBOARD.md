@@ -1421,3 +1421,18 @@ the go (a hand-off), then search (P12).
 | Operator's backstop | alarms at 08:00 CST (session alive?) and 13:08 CST (the gate; hand close by R26 if open). |
 | Order | A15.1 → A15.2 (preflight, pushed before the window) → sign-in → open 14:08Z → A15.3 → R60 → A15.4 → run + verify → SCOREBOARD → Standing row → memory. |
 | Chain | flat (06:48:12Z); nothing submitted. |
+
+### A16 / P12.0 — the objective restated by the operator (income at a job's level from THIS line); the arithmetic; the program; the marker pre-registered
+
+| item | evidence |
+|---|---|
+| The objective, verbatim | "I'm telling you now we have to do it with this. It is mandatory and we must use everything from the three interviews to make it happen fast. We can also start with here. PPG is out right now. the holder accounts don't work" (the operator, 2026-10-31 07:0xZ). |
+| Mechanism A (own trading) | measured net edge per pair after fees ≈ −60 bps on 11 USD notional (Days 3–5); capital at 1x for 165 USD/day: 82 500 (1 pair × 20 bps), 20 600 (4 × 20), 8 300 (4 × 50); none at today's edge. Order of attack: edge → pairs/day → capital. |
+| Mechanism B (fees) | `hl_builder_referral` platform aggregate read 07:1xZ: 59 users, 32 traders, 1.35 M copy vol, 6.03 M order vol, 4 576 USD builder rewards lifetime. Cannot pay a salary in weeks; the 6–12-month line. |
+| Mechanism C (leaders) | month top 30: ROI 26–598 %, accounts 6–207 M USD; day leader −500 USD all-time; a month top-10 −18 M all-time. Survivorship; tested for free as family F4, never funded blind. Pinned `hl_top_traders_by_pnl_1793430256616.json`. |
+| The program | 1 search first (P12: 24 forks + 2 controls), 2 delete tonight (in-sample replay kills, promotes nothing), 3 reality grades (k = 7 forward days vs both controls), 4 pairs/day before size, 5 dates: 11-06 first read, 11-08/11-13 first candidate, 12-01 first 4-unit week, 165 USD/day not before 2027-Q1 in the good case. |
+| Rules | R81 the income row on every push (today **0 USD/day against 165**); R82 build hours to the marker first. Unchanged: daily rule, ladder, no leverage, one attempt, gate, fee line, controls, single writer. |
+| P12.0 | F1 funding ≥ p95 against; F2 3σ 15m move with 3× median notional against; F3 24 h breakout with; F4 leader opens ≥ 10 k USD (month top 30, all-time > 0, ≥ 1 M USD, fixed for the week); C0, C1 (seeded by the commit sha); costs 9.32 bps + half-spread (replay: 1.0 bps proxy, disclosed); N = 24, k = 7; S70–S73. |
+| Open, the operator's | the target if not 5 000 USD/month; the capital at the first passed rung; F4's filter. |
+
+**Income row (R81), 2026-10-31:** 19.97 USD × 1 pair/day × negative net edge = **0 USD a day against 165**. Forward forks alive: 0 (the marker is unbuilt; P12 starts now).

@@ -3434,3 +3434,198 @@ shadow, the gap per leg, the fee, venue closedPnl reconciled) → the run file t
 unmodified engine + `--verify` → SCOREBOARD → Standing row → memory.** Known answers and STOP
 conditions as in A15. The chain was flat at 06:48:12Z (A15); nothing has been submitted;
 no code touched.
+
+### A16 — 2026-10-31 07:2xZ (02:2x CDT), flat — THE OBJECTIVE RESTATED BY THE OPERATOR: income at the level of a job must come from THIS line, fast, with everything from the three interviews; the arithmetic of the two mechanisms from the record's own numbers and the venue's; the program; what does and does not change
+
+**The operator's words, verbatim (2026-10-31 07:0xZ, after the A15.1 report and the executor's
+recommendation to put the hours into PPG):**
+> "is there a faster way we can start printing money. I need to make at least as much money as a 9-5 job from this while building"
+> "I'm telling you now we have to do it with this. It is mandatory and we must use everything from the three interviews to make it happen fast. We can also start with here. PPG is out right now. the holder accounts don't work"
+
+The executor raised the concern once (the record has no measured edge and one unit of 11 USD
+cannot pay a salary; PPG held the only positive live line). The operator reaffirmed. By the
+seventh operating rule (the human keeps the objective, the machine keeps the discipline) the
+objective is now: **income at a job's level from this line**, and the machine's job is the
+fastest honest path to it. Nothing below is tuned on the book that grades it.
+
+**The arithmetic (every number from the record or read from the venue tonight; the one
+assumption is the target).** Assumed target: 5 000 USD a month ≈ **165 USD a day**; the
+operator corrects it in their own words if it is wrong.
+
+*Mechanism A — the operator's own trading, graded by the chain.* Daily net = capital ×
+pairs/day × net edge per pair. The record's measured net edge per pair after fees: Day 3
+−0.035183, Day 4 −0.089880, Day 5 −0.067163 (corrected), Day 6 +0.144370 outside the gate
+(luck, not evidence) — on 11 USD of notional per pair: **negative, about −60 bps per pair
+including the 18.64 bps fee line (A8)**. Capital needed at 1x for 165 USD a day, if a fork
+is found that holds a net edge forward:
+
+| pairs/day | net edge per pair (after 18.64 bps fees) | capital at 1x |
+|---|---|---|
+| 1 | 20 bps | 82 500 USD |
+| 4 | 20 bps | 20 600 USD |
+| 4 | 50 bps | 8 300 USD |
+| 1 | the record's measured edge today (negative) | no amount of capital |
+
+The order of attack follows from the table: **net edge per pair first** (it is the only
+factor at zero or below), **pairs per day second** (cycle time, the Musk lever the north star
+already names), **capital third** (the operator's hand; sized by the record's ladder 1 → 4 →
+16 units on consecutive positive held-out weeks, never on conviction). Leverage is not a row:
+the north star forbids it and the fee line makes it a faster way to zero.
+
+*Mechanism B — fees from others' volume (the Arena).* Read tonight from the venue
+(`hl_builder_referral`, the platform aggregate): GDEX's whole HyperLiquid copy-trading
+business to date is **59 unique users, 32 traders copied, 1.35 M USD copy volume, 6.03 M USD
+order volume, 4 576 USD of builder rewards lifetime** (≈ 7.6 bps effective). Owning all of
+that flow would pay 4 576 USD once. Fees cannot pay a salary in weeks on this venue's current
+base; the Arena remains the 6–12-month ownership outcome the north star describes, and the
+record being built is its hook. It is not the fast line.
+
+*Mechanism C — copying traders who already have the edge.* Read tonight from the venue's
+leaderboard (`get_hl_top_traders_by_pnl`, 30 rows per window, pinned with this amendment):
+the month's top 30 made 26 %–598 % ROI on accounts of 6 M–207 M USD (median 34 M); but the
+day leader (793 M USD account, +43 M on the day) is **−500 USD all-time**, and a month top-10
+member is **−18 M all-time**. The list is survivorship and whales; copying it blind is
+conviction, not evidence. It IS the cheapest entry hypothesis the record can test for free:
+their fills are public on HyperLiquid (`userFillsByTime` for any address), so "enter when a
+leader opens, exit by our rule" is a family the marker can mark on our tape against the same
+two controls as every other. That is **F4** in P12.0.
+
+**The program — the three interviews applied to THIS objective, in the order of the limiting
+factor (R72):**
+1. **Search is the limiting factor from the moment the go was given (A15), and search is
+   free.** Noam Brown: the currency is bits per day, and bits come from many cheap parallel
+   evaluations against the real grader, not from one expensive bet. Tonight: **P12, the
+   marker** — 4 families × 6 coins = 24 paper forks plus two controls on the tape of record,
+   every one with the fixed 30 bps / five-hour exit, costs charged at the fee line plus the
+   book's half-spread. The live unit becomes one row among 26, not the whole record.
+2. **Delete before you build (Musk's algorithm).** The 52-day 15-minute backfill (P11c) and
+   the leaders' public fill history replay all four families tonight — **in-sample, counts
+   for nothing, promotes nothing** — and any family whose in-sample mean net is negative
+   against both controls is DELETED before it costs a forward day. Expected: at least one of
+   the four dies tonight. The ones that survive earn forward days from 2026-11-01.
+3. **Reality is the only grader (Schulman / Millidge / O'Neill).** The reward is the chain's
+   settled outcome; the environment is the tape plus the venue; the held-out bench is the
+   forward days; the pass line is N-aware (R70: k = ⌈log₂ N⌉ + 2 consecutive forward days
+   beating BOTH controls, and 2σ/√n). With N = 24, k = 7. A fork that passes is a CANDIDATE
+   and the live unit takes its entry UNPROMOTED (R70) — one rung. Two positive held-out
+   weeks at one unit → 4 units; two more → 16. The capital for each rung is the operator's
+   hand and is named in their words at the rung, not before.
+4. **Cycle time, not bet size (the north star).** When a candidate exists, pairs per day
+   rises before size does: the gate stays five hours, so the ceiling is ~4 pairs a day per
+   coin, and six coins are already on the tape. Four pairs a day at one unit costs 0.075 USD
+   a day in fees and quadruples the bits.
+5. **50th-percentile dates, written down (Musk).** First forward week read 2026-11-06 (R70);
+   first candidate, if one exists, 2026-11-08 at the earliest (k = 7 from 11-01) and
+   2026-11-13 by R70's own estimate; first 4-unit week 2026-12-01 (R70); **first week at
+   165 USD a day: not before 2027-Q1 even in the good case**, because it needs a candidate
+   that survives four held-out weeks AND the capital in the table funded. The record says
+   so; late half the time.
+
+**What does not change:** the daily rule (three parts), the ten daily steps, the sizing
+ladder, no leverage, one attempt per order, the gate, the fee line as charged, the controls,
+the live unit's one settled pair a day (tomorrow's is A15.1's), the single-writer rule.
+
+**What changes (two rules):**
+- **R81 (the objective's row).** The SCOREBOARD's week-two tally gains one line, updated at
+  every push: *income line = capital × pairs/day × net edge per pair (forward, after fees), in
+  USD a day, against the target*. Today: 19.97 × 1 × (negative) = **0 USD a day against 165**.
+  The row is the honest distance; it never moves on a paper number.
+- **R82 (the search budget).** From P12 on, the day's build hours go to the marker and its
+  forks first (the limiting factor), the live unit's pair second (the hand's drill and the
+  rung's proof), anything else third. The operator keeps PPG out by their word; the record
+  does not argue it again.
+
+**The operator's open items, in their words when they have them:** (i) the target number if
+not 5 000 USD a month; (ii) the capital they will commit at the first rung a fork passes
+(the table turns it into a date); (iii) whether F4's leader list may include accounts with
+negative all-time PnL (default: no — the family takes the month top 30 filtered to all-time
+PnL > 0 and account value ≥ 1 M USD, fixed for the forward week at the amendment).
+
+### P12.0 — 2026-10-31 07:3xZ (02:3x CDT), flat — THE MARKER pre-registered before any code (daily item 2; A13 R70 made concrete): four families with ONE fixed parameter each, two controls, costs, the pass line with N = 24, what tonight's in-sample replay may and may not do, the gates, the files
+
+**What P12 is.** A pure-Python marker over the tape of record (the VPS `tape_MIDS_*.jsonl`,
+1-minute mids for the six declared coins BTC, ETH, HYPE, ZEC, SOL, NEAR) and, for tonight's
+kill test only, over the pinned 52-day 15-minute backfill (P11c). For every (family, coin)
+fork it marks paper episodes: an entry at the tape mid of the first row at or after the
+signal, an exit at the first row where the mid has moved 30 bps against the entry OR at
+entry + 5 h, whichever first (R62's marker, R69c's stop). It writes one row per episode and
+one line per fork per day. It submits nothing, signs nothing but the operator's own
+`self_asserted` PAPER rows (the Day 2 pattern), touches no frozen path.
+
+**The families (R70's F1–F3 with their parameters fixed HERE, before the replay; F4 added by
+A16). One parameter each; no grid; the parameter is never changed on the book that grades it:**
+- **F1 funding extreme.** Signal: an hourly funding print whose absolute value is at or above
+  the **95th percentile** of that coin's absolute hourly funding over the 52-day history
+  (`fundingHistory`, pinned per coin). Direction: against the sign (positive funding → short).
+  Mechanism: crowded carry reverts.
+- **F2 reversion after a large move with volume.** Signal: a 15-minute candle whose
+  close-to-close return is beyond **3.0 σ** of that coin's 52-day 15-minute returns AND whose
+  notional (`v × c`) is above **3.0 ×** that coin's 52-day median 15-minute notional.
+  Direction: against the move. Mechanism: liquidation overshoot.
+- **F3 continuation after a breakout.** Signal: a 15-minute close beyond the prior
+  **96-candle (24 h)** high or low. Direction: with the break. Mechanism: stop cascades.
+- **F4 follow the leaders (A16, Mechanism C).** The list: the venue's month top 30 by PnL as
+  pinned tonight (`hl_top_traders_by_pnl_1793430256616.json`), filtered to all-time PnL > 0
+  and account value ≥ 1 M USD, fixed for the forward week at this amendment (survivorship
+  guard: the list changes only at a weekly amendment, never mid-week). Signal: a fill on
+  HyperLiquid's public `userFillsByTime` for a listed address with `dir` "Open Long" or
+  "Open Short" in a declared coin, size ≥ **10 000 USD** notional. Direction: the leader's.
+  Mechanism: information the leader has and the record does not. Forward: polled every
+  minute with the tape; replay: the venue serves each address's fill history (≤ 2 000
+  fills), which is the kill test's input.
+- **Controls (R70).** C0 no-entry (net 0 every day). C1 random-time entry: one uniformly
+  random entry minute per coin per day, seeded by the day's amendment commit sha
+  (A15.1's method), direction drawn to match the family mix of that day (long share =
+  the share of long signals among F1–F4 that day; 0.5 when none fired).
+
+**Costs per paper leg (R70):** the fee line 9.32 bps (A8); plus the book's half-spread read
+from `l2Book` at the trigger poll in forward marking (pinned verbatim with the mark); in
+tonight's REPLAY there is no book, so a **fixed 1.0 bps per leg proxy** is charged and
+disclosed as such on every replay row — the replay therefore understates cost and may only
+kill, never promote. Funding charged hourly for the hold from the pinned `fundingHistory`.
+
+**The pass line (R70, N written in):** N = 24 forks (4 × 6) → **k = ⌈log₂ 24⌉ + 2 = 7**
+consecutive forward days beating BOTH C0 and C1 on daily net, AND mean net over the fork's
+own forward episodes > 2σ/√n. A fork that trails both controls for 7 days is DISCARDED in the
+amendment. Expected false candidates under the null ≈ 24 / 2⁷ ≈ 0.19. Effective n is the
+measured cross-fork correlation of daily net, printed on the scoreboard.
+
+**Tonight's replay (P12.1) — what it may and may not do, committed before it runs:** it runs
+F1–F4 over the 52-day 15-minute backfill (and F4 over the leaders' fill history) with the
+fixed parameters above. It is **in-sample. It counts for nothing. It promotes nothing.** Its
+one permitted act is deletion (Musk): a family whose in-sample mean net across its six coins
+is below BOTH controls' is DELETED before Day 11's forward marking and the deletion is
+recorded with its numbers. Known answers: at least one family dies; F4's replay n is small
+(≤ 2 000 fills per address, a handful of declared-coin opens); C1's replay mean is within
+2σ/√n of zero (if it is not, the replay harness is wrong and nothing is read from it).
+
+**Forward marking (P12.2) from 2026-11-01 00:00Z:** the marker runs on the VPS beside the
+tape writer (the same unit model as `poo-tape.service`, installed as the operator's act like
+A13.4), reading the day's tape file and the leaders' fills, writing
+`marks_<date>.jsonl` beside the tape; pulled and pinned daily with the tape (A14's path).
+The first forward day read is 2026-11-01's, in A17 on 2026-11-02.
+
+**Gates (offline, no network, in `tests/test_agent_record_marker.py`):** the exit rule on
+synthetic paths (stop first / gate first / stop exactly at 30.0 bps); each family's signal on
+a hand-built fixture (one true positive, one near miss per family); costs per leg as declared;
+C1's seed → the same minute twice; the pass-line arithmetic for N = 6, 20, 24; a replay row
+carries `in_sample: true` and `spread_proxy_bps: 1.0`; a forward row carries `l2Book`'s
+pinned sha; the frozen-path diff stays empty.
+
+**Files:** `rights_events/fixtures/agent_record/marker/marker.py` (the marker),
+`replay.py` (tonight's harness), `families.json` (the four parameters above, byte-pinned),
+`leaders_2026-11-01.json` (the F4 list after the filter, with the leaderboard's sha),
+`replay_2026-10-31/` (the replay's rows and its one summary table), `marks_<date>.jsonl`
+(forward). Nothing under `ri_core/` or the frozen paths is touched.
+
+**STOP conditions:** S70 the replay's C1 mean is not within 2σ/√n of zero → the harness is
+wrong; nothing is read; fixed before anything else. S71 a parameter is changed after a
+number has been seen → the family is DISCARDED for the week (not re-parameterised). S72 the
+marker misses more than 60 consecutive tape rows on a forward day → that day is void for
+every fork (the sensor, not the search, binds; R72). S73 nothing in P12 submits an order:
+any code path that could reach `gdex_execute_trade` is a gate failure.
+
+**Order:** this amendment pushed → `families.json` + `leaders_2026-11-01.json` pinned →
+`marker.py` + gates (P12) → `replay.py` run once, its rows and table pinned, deletions
+recorded (P12.1) → the VPS unit (P12.2, the operator's act) → Day 11's live unit as A15.1 →
+A17 reads the first forward day on 2026-11-02.
