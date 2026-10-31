@@ -1324,3 +1324,55 @@ the gate since Day 5). The live line's next variable is unchanged: server 5.1.0,
 operator's act, then A14's go.
 
 | The VPS unit (A13.4) | On the operator's word ("ops/poo_tape_vps.sh") the unit was installed and started: `poo-tape.service` active, MainPID 952995, 17:41:44Z; the deployed `tape_mids.py` byte-identical to the repo's (sha256 `95dc0b2a…f131d`); first row ms 1793295705612 with all six mids. The pull path tested once (`ops/poo_tape_pull.sh 2026-10-29` → 6 rows into `vps/`, untracked until pinned). From Day 9 the VPS file is the tape of record; the laptop's is the redundant copy; Day 8's two partial files are both pinned in A14. | A13.4; the VPS's `/root/poo/tape/poo-tape.log` |
+
+## Day 9 (2026-10-30) — MISS, unrecorded on the day; Day 10 (2026-10-31) — A14 + A14.1: preflight green, the tape of record's first full day pinned, the fourth 403 through the session's own client (S65)
+
+Run on 2026-10-31 05:57Z–06:1xZ (00:57–01:1x CDT) from `reference-implementation` on
+`contract/agent-record`. The operator's word, verbatim: "what are the results of today's proof
+of outcome . Run the checklists and solve the binding contraint:" + the doc's daily list and
+the seven rules. No go for an open in those words (A14 S66).
+
+### Commit ordering (the proof)
+
+```
+d487719  AGENT-RECORD-A13.4  (Day 8, 17:4xZ)                                 ← nothing after it on 2026-10-30
+fd9fbd8  AGENT-RECORD-A14    Day 9 miss recorded; preflight; tape pins; R76/R77; S65-S67   (before the probe)
+<this>   AGENT-RECORD-A14.1  the probe's answer verbatim (403, fourth); this evidence
+```
+
+### The daily list, applied
+
+| item | today | evidence |
+|---|---|---|
+| 1 preflight | origin even at `d487719`; frozen-path diff **empty**; **1067 passed in 103.15s**; seven run files `--verify` → `RESULT: OK`; tracked fixtures byte-identical; chain flat (managed `0x9f97…7f23` accountValue **19.970509**, 0 positions, 0 open orders, 0 fills since 10-28, 0 ledger updates since 10-26); `gdex_status` `api ok` through the session's own client (sessionAgeMinutes 11858; two `perp_open` ops `accepted` in the local store, none on the chain); VPS `poo-tape.service` active, MainPID 952995, the 10-31 file growing (4 048 rows at 05:58:49Z) | A14 |
+| 2 prereg first | A14 (`fd9fbd8`) before the probe; A14.1 after it | git log |
+| 3 one settled pair | **none** (Day 9: nothing attempted; Day 10: S66, no go in the operator's words, and S65, no accepted sign-in) | A14, A14.1 |
+| 4 pins | `vps/tape_MIDS_2026-10-30.jsonl` **15 874 rows, 00:00:04Z → 23:59:57Z, 0 null rows, 0 gaps > 15 s (max 10.4 s)**, sha256 `5471b89695e07ef2f0e66c7997a748a53cd2fae520c23859a33d211f2ed8c94a` — the tape of record's first full day; `vps/tape_MIDS_2026-10-29.jsonl` 4 183 rows from 17:41:45Z, 2 null rows, sha `44ae6cee…fcb60`; laptop `tape_MIDS_2026-10-29.jsonl` 3 916 rows, 864-row null run 08:50:10Z → 10:02:05Z, hole 10:02:05Z → 16:59:02Z, last row 19:14:45Z, sha `9aecca9a…574ff` (+ its two logs) | A14 table |
+| 5 run + verify | no new run file (no pair); the seven existing verify | item 1 |
+| 6 gap | none to record (no leg) | — |
+| 7 size | one unit, unchanged | — |
+| 8 evidence, DONE, push | this section; A14 pushed (`fd9fbd8` = origin), A14.1 pushed after | git log |
+| 9 Standing row | Week two tab, 2026-10-31 (Days 9 and 10) | doc |
+| 10 the miss | **Day 9 = MISS** (no commit, no sign-in, no pair, the 5.1.0 inventory not run); **Day 10 live line = MISS under S65 unless the operator runs R77 (ii)** | A14, A14.1 |
+
+### The probe (A14 R77 (i)), 06:06Z, one attempt
+
+`gdex_connect {accountRef: "acct_8c48b321e89c"}` through this session's own MCP client, binary
+5.0.0 → `403 AUTH_FAILED / SESSION_ORIGIN_DENIED` ("Request origin denied"), `submission:
+rejected`, `retryable: true`, `next: Sign in again (fresh session key)`. Not retried. The
+fourth refusal: Day 7 execute (session client), Day 8 accountRef refresh and key-file sign-in
+(stdio client), Day 10 accountRef refresh (session client). Three shapes, two paths, three
+days, one binary.
+
+### What the executor could not do today (not worked around)
+
+The read-only `gdex_status` through the registry's current binary (5.2.1) via
+`gdex_stdio_client.py` with `GDEX_MCP_SERVER_CMD` — **DENIED twice by the auto-mode permission
+classifier ("Code from External")**, as on Day 8. R77 (ii) gives the operator the two `!`
+commands (status, then one sign-in) and the `~/.claude.json` pin if 5.2.1 is accepted.
+
+**Week-two tally after Day 10 (A14.1):** Day 6 +0.144370 outside the gate (miss); Days 7, 8,
+9 no pair; Day 10 no pair (S65 pending the operator's R77 (ii)). Five days, zero settled pairs
+inside the gate. The limiting factor by R72: the sensor closed (first full VPS day, 0 nulls);
+**the hand (the venue's gateway) binding**; the registry's 5.2.1 binary is the one
+unobserved variable and it is the operator's to fetch.

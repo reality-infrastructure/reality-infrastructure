@@ -3109,3 +3109,37 @@ refused on two or more days of the week) has held for a full week on this venue 
 week review (Day 12) must name the venue's gateway, not the operator's hand, as the limiting
 factor; the venue's own API through the managed wallet is not this record's path (the control
 wallet signs for GDEX only), so no alternative path exists under the ownership rule.
+
+### A14.1 — 2026-10-31 06:06Z (01:06 CDT), flat — R77 (i) REFUSED: the fourth 403 SESSION_ORIGIN_DENIED, now through this session's own MCP client; the binary 5.0.0 is the one factor common to all four; S65 in force unless the operator runs R77 (ii)
+
+**The probe, one attempt, at 06:06Z, through this session's own MCP client (the A14 R77 (i)
+path), on the cached binary 5.0.0:** `gdex_connect {accountRef: "acct_8c48b321e89c"}`. The
+gateway's answer, verbatim:
+
+```
+{"error": {"message": "Request origin denied (code SESSION_ORIGIN_DENIED)",
+           "code": "AUTH_FAILED", "submission": "rejected", "retryable": true,
+           "httpStatus": 403,
+           "next": "Sign in again (fresh session key), then repeat the call. Reconcile any earlier uncertain write first."}}
+```
+
+Not retried (S25/S54). The server's own `next` (a fresh session key) is what A13.2 already
+tried on Day 8 through the key-file sign-in, refused with the byte-identical 403.
+
+**The reading (the known answer that came true):** four refusals on four distinct requests
+across three days, two client paths (this session's MCP client; the stdio client) and three
+request shapes (execute, accountRef refresh ×2, key-file sign-in), all through server binary
+5.0.0. The session's age, the path and the shape are eliminated; the binary (or the gateway's
+treatment of it since 2026-10-28) is the one factor common to all four. The inventory of the
+registry's current binary (5.2.1) is the next observation and it is the operator's act
+(R77 (ii)): the executor's fetch of it was refused twice today by its permission classifier
+and is not worked around.
+
+**Consequences:** S65 is in force. Day 10's live line is a MISS unless the operator runs R77
+(ii) before 23:59Z and it is accepted; an accepted 5.2.1 sign-in is recorded in A14.2 with
+the `~/.claude.json` pin (the operator's edit) and does not open a pair today (S66). The
+Day-11 night-before amendment (A15) names the go, the clock, the R60 exit and the 30 bps
+control only if a sign-in has been accepted on 5.2.1 by then; without one, Day 11 opens as
+a MISS on the same finding and the Day-12 week review names the venue's gateway as the week's
+limiting factor (A14's known answer for the week). Nothing on the chain; no code touched; the
+environment line's tape of record runs on the VPS.
