@@ -1490,3 +1490,16 @@ the go (a hand-off), then search (P12).
 | The first run (01:44–01:47Z) | Pipeline held to the push: gates, channel, health, reader, pins all good. Push refused 403 (Claude GitHub App not installed for the repo); Gmail "Precondition check failed"; phone notification delivered. A17.1 (ebef9df2) lost with the container; re-run after the operator installs the app. Two protocol defects fixed (git archive from the root; frozen paths). |
 
 | The decision (01:5xZ) | "we'll let everything run without github for right now" -> READ-AND-REPORT mode this week: the routine reads, pins, commits locally, puts the full amendment in its run log, notifies the phone; subject carries READ, UNPUSHED (replay pending); the laptop replays each A17.<j> onto the branch later from the same channel files. Not DONE under rule 8 until replayed. |
+
+### A17.1 — Day 11 (2026-11-01) read: every fork net-negative, run 0 of k = 5; live leg MISS; READ, UNPUSHED (replay pending)
+
+| item | evidence |
+|---|---|
+| Preflight | HEAD `8d12d8f7`; frozen shas hold (marker `acf754f9…`, forward `6fd373b8…`, families `db01aa33…`); **29 passed**. |
+| Channel | `vps/poo-files` `5fb508f8`; 15/15 shas match; manifest 02:07:02Z, both services active, tape 3 s fresh, no void day → health holds. |
+| 11-01 reading | 59 episodes, 44 stop-first, 4 036 F4 signals; every fork net-negative; best F4:BTC +9.24 gross / −9.53 net on 6; sum −2 060.4 bps; cost 18.7–21.1 bps an episode; funding excluded (API unreachable). |
+| Pass line | run 0 of k = 5 on all six F4 forks; earliest candidate 2026-11-05. |
+| Pins | marks `42331680…`, signals `bc5dfd3b…` (= the first run's), manifest `d634bae7…`, marker_state `236f3f3f…`. |
+| Live leg | Day 11 (2026-11-01): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-02 after A17.1:** 0 USD a day against 165. Forward forks alive 6 + 2 controls; 1 full forward day. Nothing on the chain. Not DONE until replayed (push refused by design this week).

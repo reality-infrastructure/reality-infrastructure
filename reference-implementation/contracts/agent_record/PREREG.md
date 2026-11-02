@@ -3927,3 +3927,94 @@ review inside A17.6. The income row (R81): **0 USD a day against 165.** Nothing 
 **A17 — the first run of the routine, 01:44:17Z–01:47:42Z (cloud session cse_01PnKde6WVGgdLyv8xtMtpDJ), reality's grade of the pipeline:** the clone, the checkout, the frozen hashes, the 29 gates (after `pip install pytest`), the channel at f1e402e, the health (manifest 01:34:44Z, both services active, tape 2 s fresh, every file's sha equal to the manifest's), the reader (the same table as above), the pins (marks `42331680…`, signals `bc5dfd3b…`, manifest `7ea400fb…`) — all held. Then two walls, neither the routine's: **the push was refused, HTTP 403, "Claude doesn't have GitHub access to reality-infrastructure/reality-infrastructure for your organization"** — the Claude GitHub App is not installed for the repository (reads work through the public clone; writes need the app); and **Gmail refused the send and a draft with "Precondition check failed"**. The routine did not force, rebase or route around either; it sent a phone notification instead (delivered). Its A17.1 commit (ebef9df2) therefore exists only in the reclaimed container and is NOT on the branch; the next run recreates it from the same channel files (the reader is deterministic). Two defects in this protocol surfaced and are fixed in this commit: `git archive` run from `reference-implementation/` archives only that subtree (the first extraction came out empty), and the frozen-file paths were written relative to the wrong directory. The routine's own three answers, from the day's numbers (recorded here because the commit was lost): the limiting factor is cost against gross (every fork paid 18.7–21.1 bps an episode and none grossed that much; the best, F4:BTC, +9.24 gross and −9.53 net on 6); reality rewards net bps after fees, the sum over the 59 episodes was −2 060.4; the smallest bets are the free forward days to 11-05. **The operator's two acts that unblock the week (in addition to the three above):** install the Claude GitHub App for the repository (https://github.com/apps/claude/installations/select_target) and reconnect the Gmail connector (https://claude.ai/customize/connectors). Until the first is done the routine can read and report but cannot write the record, and under rule 8 (unpushed = not done) every day is a reported MISS of the pipeline, not of the market.
 
 **The operator's decision, 2026-11-02 01:5xZ, in their words: "we'll let everything run without github for right now."** So the Claude GitHub App is not installed this week and the routine's push is refused by design. The week runs in READ-AND-REPORT mode (protocol step 7 amended): the routine reads, pins, writes its amendment, commits locally, puts the complete amendment and SCOREBOARD text in its final message so the run log on claude.ai holds it, and notifies the operator's phone; the subject carries `READ, UNPUSHED (replay pending)`. Nothing is lost: the channel keeps every day's files on `vps/poo-files` (and the VPS keeps the originals), the reader is deterministic, and a laptop session replays each `A17.<j>` onto the branch from the same files with the same pins when the operator is back or the app is installed. Under rule 8 those days are not DONE until replayed; the record says so on each. The sensor routine is unaffected (it never writes). The routine's first run under the amended protocol is re-triggered tonight on 11-01 so that A17.1's text exists in a run log.
+
+### A17.1 — 2026-11-02 02:15Z, flat — Day 11 (2026-11-01) read by the routine: 59 episodes, every fork net-negative (sum −2 060.4 bps), run 0 of k = 5 everywhere; live leg MISS; READ, UNPUSHED (replay pending)
+
+**Clock.** `date -u` = Mon Nov 2 02:12:33 UTC 2026. D-1 = 2026-11-01 = **Day 11** (Day N = 2026-10-21 + N), the first FULL forward day. Pass-line days: 2026-11-01 only. This is the routine's first run under READ-AND-REPORT (the A17 decision); it recreates the A17.1 lost with the first run's container (ebef9df2) from the same channel files.
+
+**Preflight.** `git status --porcelain` empty; HEAD = `origin/contract/agent-record` = `8d12d8f757ef113c75142d598b08166f925c041d`. Frozen shas, before:
+
+| file | sha256 | holds |
+|---|---|---|
+| `marker/marker.py` | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` | yes |
+| `marker/forward.py` | `6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76` | yes |
+| `marker/families.json` | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` | yes |
+
+Gates: `pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py -q` → **29 passed in 0.18 s** (23 + 6), after `pip install -q pytest`.
+
+**The channel.** `vps/poo-files` at `5fb508f88814b9b73137185903d97b551a0e0f2b` ("poo-vps day files 2026-11-02T02:07:04Z"), extracted from the repository root to `/tmp/poo`; 15 files, every sha256 equal to the manifest's (0 mismatches).
+
+| manifest field | value | test | holds |
+|---|---|---|---|
+| `generated_at` | 2026-11-02T02:07:02Z | within 2 h of 02:12:33Z (5 min) | yes |
+| `poo_tape` | active | active | yes |
+| `poo_marker` | active | active | yes |
+| `tape_newest_mtime` | 2026-11-02T02:06:59Z | within 10 min of `generated_at` (3 s) | yes |
+| `void_days` (marker_state) | [] | 2026-11-01 not in it | yes |
+
+Health HOLDS. The day is not void.
+
+**The reading (the reader's markdown, verbatim).**
+
+**Forward day 2026-11-01** - episodes 59, N alive 6 -> k = 5; marker.py `acf754f9...`
+
+| fork | n | mean gross bps | mean net bps | stop-first | sum net bps |
+|---|---|---|---|---|---|
+| C1:BTC | 1 | -30.12 | -48.89 | 100% | -48.9 |
+| C1:ETH | 1 | -1.33 | -20.41 | 0% | -20.4 |
+| C1:HYPE | 1 | -31.94 | -50.70 | 100% | -50.7 |
+| C1:NEAR | 1 | -30.37 | -51.51 | 100% | -51.5 |
+| C1:SOL | 1 | -30.19 | -48.94 | 100% | -48.9 |
+| C1:ZEC | 1 | -33.69 | -53.13 | 100% | -53.1 |
+| F4:BTC | 6 | +9.24 | -9.53 | 33% | -57.2 |
+| F4:ETH | 10 | -20.14 | -39.22 | 70% | -392.2 |
+| F4:HYPE | 17 | -22.34 | -41.36 | 88% | -703.1 |
+| F4:NEAR | 7 | -5.50 | -25.04 | 86% | -175.3 |
+| F4:SOL | 7 | -21.00 | -39.88 | 71% | -279.2 |
+| F4:ZEC | 6 | -10.46 | -29.97 | 67% | -179.8 |
+
+| fork | run of days beating C0 and C1 | k | 2-sigma clause | candidate |
+|---|---|---|---|---|
+| F4:BTC | 0 | 5 | no | no |
+| F4:ETH | 0 | 5 | no | no |
+| F4:HYPE | 0 | 5 | no | no |
+| F4:NEAR | 0 | 5 | no | no |
+| F4:SOL | 0 | 5 | no | no |
+| F4:ZEC | 0 | 5 | no | no |
+
+Health: poo-tape active, poo-marker active, tape newest 2026-11-02T02:06:59Z, manifest 2026-11-02T02:07:02Z, void_days [], this day void: False
+Signals: {'F4_signal': 4036}
+
+From the JSON run (same inputs): 2σ/√n per F4 fork — BTC 29.49, ETH 13.97, HYPE 16.26, NEAR 54.37, SOL 25.74, ZEC 32.02 bps; `proxy_rows` 0 and `funding_applied` false on every fork. Cost per episode (mean gross − mean net) 18.74–21.14 bps across the 12 rows.
+
+**Funding.** `curl -s -m 10 https://api.hyperliquid.xyz/info` failed (exit 56, HTTP 000) from this environment. **The net numbers above exclude funding (disclosed, not estimated).**
+
+**Pins** (copied into `rights_events/fixtures/agent_record/vps/`, sha256 re-checked after the copy):
+
+| record file | source on `vps/poo-files` | sha256 |
+|---|---|---|
+| `vps/manifest_2026-11-01.json` | `manifest.json` | `d634bae73e89e1c24694b9cbfdc90e947e1c8a32d8d5817bf9d58f8e07687815` |
+| `vps/marker_state_2026-11-01.json` | `marker/marker_state.json` | `236f3f3f5753c68669ef00566643be80d98c5cc48ff039beaeb83b4673e8dd97` |
+| `vps/marks_2026-11-01.jsonl` | `marker/marks_2026-11-01.jsonl` | `423316808a9fa19193e0887cdb3ee3a4893cbb4cfa3a900504512ce5df1608d8` |
+| `vps/signals_2026-11-01.jsonl` | `marker/signals_2026-11-01.jsonl` | `bc5dfd3b302cb8cfb2f0ee7945d35e5f02fec33a3364d3e70b31c9c89f771f50` |
+
+The marks and signals shas equal those the first run read at 01:44Z (`42331680…`, `bc5dfd3b…`): the day's files did not move between the two reads. The manifest and marker_state differ from the first run's (manifest `7ea400fb…` then) because both are rewritten hourly; the pins here are the ones read at 02:12Z.
+
+**The live leg.** Day 11 (2026-11-01): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat.
+(No `capture_LIVE_2026-11-01_*.json` on the branch; the only amendment touching 11-01 is A17, which records the MISS.)
+
+**The three questions, from Day 11's numbers.**
+
+1. *What is the one thing limiting you right now?* Cost against gross: every row paid 18.7–21.1 bps an episode and no fork grossed enough to cover it; the best, F4:BTC, made +9.24 gross and −9.53 net on 6. Behind that, the live line is limited by the same stage as Days 7–11, no hand at the gate, so nothing reaches the chain. One day of forward record is too little to tell an edge from noise (2σ/√n is 14–54 bps on every fork).
+2. *What does reality actually reward, as opposed to what your dashboard rewards?* Net bps after fees and (when it can be applied) funding, summed over every episode: on Day 11 that is −2 060.4 bps over 59 episodes, with 44 of 59 hitting the stop first. Signal count (4 036) and gross on the best coin are dashboard numbers; they paid nothing. A settled live pair is the only income reality has counted, and there were none.
+3. *What is the smallest sequence of bets that lets reality grade you early and cheaply?* The free forward days 11-02 through 11-05 on the frozen marker, read the same way each morning, which reach k = 5 on 11-05 at no cost. No live bet is warranted by this reading; the live leg only with a hand (R88) at the minimum size already registered.
+
+**The k countdown.** Days of FULL forward record: 1 (2026-11-01). Days to 2026-11-05: 3 (11-02, 11-03, 11-04, then 11-05 is the earliest day a fork can be a CANDIDATE). Every F4 fork has a run of 0; a fork needs 5 consecutive days beating C0 and C1 from here.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+**STOPs hit:** none. (S81 applies in its READ-AND-REPORT form: the push is refused by design this week; see below.)
+
+**What was not verified.** Funding (API unreachable). That the marks file for 11-01 is final: episodes opened late on 11-01 close after midnight, and the file's mtime is 2026-11-02T01:15:48Z; it was unchanged between 01:44Z and 02:12Z. The C0 rows are not in the reader's table (the pass line references them; this reading cannot show them). The laptop and VPS beyond what the channel publishes. The Proof of Outcome doc row: no Claude Docs connector is attached to this cloud session, so the "Week two" Standing-log row (artifact Afx6qWREyHwtiMHznyXqff) was NOT written. The email: sent after this commit through the Gmail connector; its outcome is in the run log and the final message (the commit precedes the send). Frozen shas re-checked after the commit.
+
+**Status: READ, UNPUSHED (replay pending).** Committed locally on `contract/agent-record`; the push is expected to be refused (403, Claude GitHub App not installed, the operator's decision of 2026-11-02). Under rule 8 this day is not DONE until the laptop replays it onto the branch from the same channel files.
