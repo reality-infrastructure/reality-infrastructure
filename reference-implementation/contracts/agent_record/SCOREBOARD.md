@@ -1503,3 +1503,5 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 11 (2026-11-01): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-02 after A17.1:** 0 USD a day against 165. Forward forks alive 6 + 2 controls; 1 full forward day. Nothing on the chain. Not DONE until replayed (push refused by design this week).
+
+| The GitHub App (02:11Z, on the operator's authorization) | Installed for the one repository (installation 177678167); the routine's third run PUSHED A17.1 = 1cd28590 -> Day 11 DONE; its "READ, UNPUSHED" label superseded; Gmail still refuses (operator reconnects); Docs connector not surfaced; next fire 00:40Z 11-03. |

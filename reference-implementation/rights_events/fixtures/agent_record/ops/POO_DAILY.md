@@ -128,10 +128,12 @@ push is rejected because the branch moved, `git pull --rebase` is forbidden; ins
 again from the new head (re-run steps 1–5 on top of it) and push. If the push fails for any other
 reason the day is NOT done: email the exact error.
 
-**The operator's decision of 2026-11-02 ("we'll let everything run without github for right
-now"):** the Claude GitHub App is not installed for the repository, so the push WILL be refused
-with a 403 this week. That is expected, not a defect, and you do not spend time on it. The day
-then runs in READ-AND-REPORT mode: commit locally exactly as above (so the sha exists), then put
+**GitHub access (2026-11-02 02:11Z):** the Claude GitHub App is installed for this one
+repository on the reality-infrastructure organization (installation 177678167, on the operator's
+words "I'm authorizing you to do so"), so the push is expected to succeed and the day is DONE
+only when it does. **Fallback, READ-AND-REPORT mode** (the operator's earlier decision "we'll let
+everything run without github for right now", kept for any day the push is refused): commit
+locally exactly as above (so the sha exists), then put
 the COMPLETE text of your amendment and your SCOREBOARD section, verbatim, in your final message
 (the run log on claude.ai keeps it; the laptop replays it onto the branch later), label the day
 `READ, UNPUSHED (replay pending)` in the subject line, and go on to steps 8 and 9. The channel
