@@ -1472,3 +1472,17 @@ the go (a hand-off), then search (P12).
 | Open | the capital at the first passed rung; R83 (GDEX vs HyperLiquid direct). |
 
 **Income row (R81), 2026-10-31 after A16.1:** 19.97 USD × 1 pair/day × no measured net edge = **0 USD a day against 165** (the target now the operator's number). Forward forks alive: 6 + 2 controls, LIVE since 07:28:55Z.
+
+### A17 / P13 — Day 11 MISS recorded; the operator away for the week; the automated day built (VPS → GitHub channel, frozen-marker reader, cloud routine); the venue leg only with a hand
+
+| item | evidence |
+|---|---|
+| Day 11 (11-01) | MISS — the go expired unused; the clocks died with their session (R65); flat; fifth day with zero settled pairs, same stage each time (no hand at the gate). |
+| The hand's host | 16 Wi-Fi drops in 14 days, 12 not rejoined for 1–19 h; power/adapter settings changed; watchdog written; task registration and Remote Control = the operator's acts. |
+| The channel | `vps/poo-files` orphan branch, hourly :07 cron on the VPS (`ops/poo_publish_vps.sh` `51db6c2a…21a6`); first pushes 8361749, f1e402e; both services active at 01:34Z. |
+| The reader | `ops/poo_forward_read.py`, offline, frozen marker imported by path; gates S76–S80 (+1) → 6 passed; **suite 1096 passed in 50.94 s**; frozen shas unchanged. |
+| The routine | `ops/POO_DAILY.md`, daily 00:40Z, model claude-opus-5-5, writ R87; sensor check every 6 h; A17.1 = its first run on 11-01. |
+| 11-01 through the reader (health only) | 59 episodes, 44 stop / 15 gate, 4 036 F4 signals, all forks net-negative, F4:BTC gross +9.24 / net −9.53 on 6; run 0 of k = 5 everywhere; nothing void; funding 0 at write time (disclosed). |
+| Rules / STOPs | R86 channel, R87 writ, R88 standing go; S81 push/branch, S82 two sensor alerts void the week. |
+
+**Income row (R81), 2026-11-02 after A17:** 0 USD a day against 165. Forward forks alive 6 + 2 controls, first full day on the branch. Nothing on the chain.

@@ -3818,3 +3818,108 @@ morning pins the partial day's `marks_2026-10-31.jsonl` and `signals_2026-10-31.
 A15.2 preflight → 14:0xZ the R79 sign-in → 14:08:00Z the open → A15.3 → R60 → A15.4 →
 A17 (the first pull of the marker's files, with the Day 11 run) → the operator's words on
 the capital and R83 whenever they come.
+
+### A17 / P13 — 2026-11-02 01:5xZ (19:5x CST 11-01), flat — Day 11 was a MISS (unrecorded until now); the operator is away for the week and asked for "7 days of automatic execution and checking" under the seven rules and the three questions; the automated day is built: the VPS publishes its day files to GitHub hourly, a frozen-marker READER produces the day's reading, a cloud routine executes POO_DAILY.md once a day and emails the operator; the venue leg stays on the laptop and runs only with a hand
+
+**Day 11 (2026-11-01), recorded under rule 10:** the go of A15.1 (open 14:08:00Z) expired unused.
+The session that held the four clocks ended before the window (R65: they die with the session);
+no A15.2 preflight, no sign-in, no open, no close reached the branch; nothing reached the venue;
+flat. The cause is the same stage as Days 7–10: **no hand at the gate.** This is the fifth
+consecutive day on which the live line produced zero settled pairs.
+
+**The operator's words (2026-11-01 evening CST):** "I need to be able to work on proof of outcome
+as a remote-control cloud session instead of as a computer terminal session … I'll be out of town
+this week"; "it's more so that the wifi is getting disconnected"; "Can we setup 7 days of automatic
+execution and checking?"; "execute this daily:" followed by the seven rules (pasted, now the head of
+`ops/POO_DAILY.md`) and the three questions: *What is the one thing limiting you right now. What
+does reality actually reward, as opposed to what your dashboard rewards. And what is the smallest
+sequence of bets that lets reality grade you early and cheaply.*
+
+**What was measured on the laptop before building (the host the hand lives on):** 16 Wi-Fi
+disconnects in 14 days (11 "disconnected by the driver", 5 "operation state change"), 12 of them
+not rejoined for 1–19 hours, four at exactly 03:49 local (the router re-keys; event 11004 then
+the Intel Netwtw14 driver's 7021 burst); sleep was never entered in the week; the lid closed →
+sleep; on battery the Wi-Fi power-saving level was medium; NordVPN's kill switch is off. Changed
+on the laptop (recorded here because it is the hand's host, not the record's code): Wi-Fi
+power saving on battery → maximum performance, network kept alive in standby, lid → do nothing,
+unattended sleep → never, Intel roaming aggressiveness → lowest, MIMO power save → off; a
+reconnect watchdog script written (`C:\Users\newce\wifi-watchdog\watchdog.ps1`, rejoins the
+profile every minute when offline, restarts the adapter after three failed rounds). Its
+registration as a scheduled task and the Remote Control server are **the operator's acts** (the
+executor's permission classifier refused persistence, correctly).
+
+**P13 — the automated day, three layers, each reachable without the laptop except the last:**
+
+1. **The channel (VPS → GitHub).** `/root/poo/publish.sh` on the VPS (byte-identical copy:
+   `ops/poo_publish_vps.sh`, sha256 `51db6c2a…21a6`) copies the tape, the marker's `signals_`,
+   `marks_`, `marker_state.json`, leaders and families, writes `manifest.json` (services'
+   `is-active`, the tape's newest mtime, every file's bytes and sha256) and commits to the
+   **orphan branch `vps/poo-files`** of this repository, hourly at :07 UTC (cron), as `poo-vps`
+   through the VPS's existing GitHub key (authenticates as P9428). First pushes 8361749
+   (01:34:01Z) and f1e402e (01:34:46Z, after the state-file path fix). Read-only on `/root/poo`;
+   no venue path. The two services were `active` at 01:34Z; the VPS itself is at 1.9 GB RAM with
+   4.2 GB of swap in use and 20 services — it cannot host anything more this week.
+2. **The READER** `ops/poo_forward_read.py` (stdlib, offline, no clock, no randomness, imports the
+   FROZEN `marker.py` by path and nothing else): per fork n / mean gross / mean net / stop-first /
+   sum net from `marks_<day>.jsonl`; the pass line through `marker.is_candidate`,
+   `mean_clears_2sigma`, `k_for` (N alive 6 → k = 5); health from the manifest and `void_days`;
+   sha256 pins of every file it read. It reads; it decides nothing. Gates S76–S80 (+ one void-day
+   gate) in `tests/test_agent_record_forward_read.py`: **6 passed; suite 1096 passed in 50.94 s.**
+   Frozen-file shas unchanged: marker.py `acf754f9…`, forward.py `6fd373b8…`, families.json
+   `db01aa33…`.
+3. **The cloud routine** (claude.ai scheduled agent, under the operator's account, model
+   claude-opus-5-5): daily at **00:40Z** it clones this repo, checks out `contract/agent-record`,
+   and executes `ops/POO_DAILY.md` to the letter: preflight (hashes, gates), fetch the channel,
+   health, the reader on D-1 with the pass-line days since 11-01, pin the day files under
+   `vps/`, the live-leg line (MISS unless a capture dated D-1 exists), the amendment `A17.<j>`
+   with the three answers and the R81 row, SCOREBOARD, commit, push, one Standing-log row in the
+   doc, one email to the operator. A second routine every 6 h reads only the manifest and
+   emails `POO SENSOR` if the tape or the marker is down or stale; it never commits. The
+   routine's permissions are the file's: no frozen file, no rule, no seed, no family, no venue,
+   no other branch, no force, no averaging across days.
+
+**What the first full forward day (2026-11-01) looks like through the reader — read here for the
+sensor's health only; A17.1 (the routine's first run) is the reading of record:** 59 episodes
+(44 stop / 15 gate), 4 036 F4 signals, every fork net-negative, F4:BTC the only positive gross
+(+9.24 on 6, net −9.53), run of days beating C0 and C1 = 0 for all six, nothing voided, both
+services active, tape fresh. Funding is 0 on forward rows at write time; the pin that applies the
+hourly prints needs the HyperLiquid API, which the cloud may not reach — the routine discloses,
+never estimates.
+
+**The three answers, tonight, from the record:**
+1. *The limiting factor* is the hand at the gate: five days, zero settled pairs, every miss at the
+   same stage (a session that died, a gateway that refused, a laptop that dropped). Not the edge,
+   not the marker, not the venue. The week attacks only that: the day runs without a hand, and
+   the hand's host is made to reconnect.
+2. *Reality rewards* settled pairs with fills, net of the 18.64 bps, graded by the chain; it has
+   paid the record −0.08 to +0.14 USD a pair on four pairs. *The dashboard rewards* amendments:
+   the record grew 17 amendments and 1 096 gates while the income row stayed at 0 and the pair
+   count at 4. The routine is held to one commit a day and one email; its score is pairs and
+   forward days, not words.
+3. *The smallest sequence of bets:* (a) tonight, one manual run of the routine on 11-01 — reality
+   grades the pipeline by 02:30Z; (b) seven daily runs, each a bit on whether the automated day
+   holds (the sensor, the channel, the push); (c) the forward forks' k = 5 read on 2026-11-05, free;
+   (d) one live unit through the laptop under a standing go, when and only when the operator
+   says so in their words — the only bet that costs money, and the last.
+
+**Rules added:**
+**R86 (the channel).** The reading of record for a forward day is what `vps/poo-files` held at the
+routine's fetch, pinned by sha256 in that day's amendment; the VPS's own files outrank the branch
+only when the amendment says they differ. **R87 (the routine's writ).** The cloud routine may write
+one `A17.<j>` amendment, its SCOREBOARD section, and the pinned day files per day, on
+`contract/agent-record` only; everything else is outside its writ and a defect if touched.
+**R88 (the standing go).** No venue open happens this week unless the operator writes a standing
+go naming the days, the size (one unit, 0.00014 BTC), the C1 minute rule and the R60 exit; the
+routine never holds that go, only a session on the laptop with the client can.
+
+**STOPs:** S81 the routine's push fails or the branch has a commit it did not expect → the day is
+recorded by email only and the next run starts from the new head. S82 two consecutive `POO SENSOR`
+alerts without a `recovered` → the forward week is void from the first alert's day and the week's
+finding is the sensor.
+
+**Order from here:** this amendment pushed → the two routines created and the daily one run once
+by hand on 11-01 (A17.1 is its product, not this session's) → the operator's three acts before
+leaving (register the watchdog task; pause Windows Update; start `claude remote-control --name
+poo-laptop` at the capitalized repo path and answer one message from the phone) → the operator's
+words on R88 if they want the live leg this week → A17.2 … A17.7 by the routine → the Friday
+review inside A17.6. The income row (R81): **0 USD a day against 165.** Nothing on the chain.
