@@ -40,10 +40,13 @@ Answer from the day's numbers and the record, in plain sentences, no more than t
   `manifest.json`, `tape/tape_MIDS_<day>.jsonl`, `marker/marks_<day>.jsonl`,
   `marker/signals_<day>.jsonl`, `marker/marker_state.json`, `marker/poo-marker.log.tail`.
 - Pinned copies live under `rights_events/fixtures/agent_record/vps/`.
-- Frozen (never modified by you; verify by sha256 before and after):
-  `marker/marker.py` acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b,
-  `marker/forward.py` 6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76,
-  `marker/families.json` db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974.
+- Frozen (never modified by you; verify by sha256 before and after; paths from `reference-implementation/`):
+  `rights_events/fixtures/agent_record/marker/marker.py` acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b,
+  `rights_events/fixtures/agent_record/marker/forward.py` 6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76,
+  `rights_events/fixtures/agent_record/marker/families.json` db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974.
+- Tools in the cloud session: `pytest` is not preinstalled; `python -m pip install -q pytest` first
+  (PyPI is reachable; the HyperLiquid API is not). The phone notification tool (PushNotification)
+  reaches the operator even when Gmail does not.
 
 ## The calendar
 
@@ -70,8 +73,11 @@ laptop's). Anything else failing → STOP: record the failure as the day's findi
 email. Do not fix code.
 
 **2. Fetch the channel.**
-`git fetch origin vps/poo-files` and extract it OUTSIDE the repo:
-`mkdir -p /tmp/poo && git archive origin/vps/poo-files | tar -x -C /tmp/poo`.
+`git fetch origin vps/poo-files` and extract it OUTSIDE the repo, running `git archive` FROM THE
+REPOSITORY ROOT (from a subdirectory it archives only that subtree and `/tmp/poo` comes out empty;
+the first run lost two minutes to this):
+`mkdir -p /tmp/poo && (cd "$(git rev-parse --show-toplevel)" && git archive origin/vps/poo-files | tar -x -C /tmp/poo)`.
+Verify every file's sha256 against the manifest's list before reading anything.
 Read `/tmp/poo/manifest.json`. Health holds when ALL of: `generated_at` within 2 h of now;
 `poo_tape` and `poo_marker` both `active`; `tape_newest_mtime` within 10 min of `generated_at`;
 D-1 not in `marker/marker_state.json` `void_days`. If health does not hold, the day's finding is
@@ -120,7 +126,11 @@ never force-push, never rebase, never delete history. Never fix a failing gate b
 `Co-Authored-By: Claude <noreply@anthropic.com>`. Push to `origin contract/agent-record`. If the
 push is rejected because the branch moved, `git pull --rebase` is forbidden; instead fetch, start
 again from the new head (re-run steps 1–5 on top of it) and push. If the push fails for any other
-reason the day is NOT done: email the exact error.
+reason the day is NOT done: email the exact error. A 403 saying "Claude doesn't have GitHub
+access to reality-infrastructure/reality-infrastructure" means the Claude GitHub App is not
+installed for the repository: nothing you do fixes it; report it (step 9) with the unpushed
+commit sha and stop. The operator installs the app at
+https://github.com/apps/claude/installations/select_target.
 
 **8. The doc.** If the Claude Docs connector is available, add one Standing-log row to the
 Proof of Outcome doc (artifact Afx6qWREyHwtiMHznyXqff, the "Week two" tab): date, what shipped,
@@ -130,6 +140,9 @@ the commit sha, the honest sign. If it refuses, say so in the email and move on.
 `POO Day <N> (<D-1>): <one line>` (or `POO SENSOR …` when health failed). Under 300 words:
 the three answers first, then the fork table, the pass-line table, the health line, the live-leg
 line, the commit sha and the branch, and anything that failed or was not verified. No attachments.
+If Gmail refuses (the first run got "Precondition check failed" on send and on draft), send the
+same text, trimmed to fit, as a PushNotification to the operator's phone, and say in the
+amendment that the email failed. One channel must carry the day; silence is not an option.
 
 **10. Friday review.** On the run of 2026-11-07 (reading Day 16, 11-06) add to the amendment a
 Week-two review: one limiting-factor sentence, the next 50th-percentile date for a candidate,
