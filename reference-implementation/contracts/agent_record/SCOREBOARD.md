@@ -1488,3 +1488,5 @@ the go (a hand-off), then search (P12).
 **Income row (R81), 2026-11-02 after A17:** 0 USD a day against 165. Forward forks alive 6 + 2 controls, first full day on the branch. Nothing on the chain.
 
 | The first run (01:44–01:47Z) | Pipeline held to the push: gates, channel, health, reader, pins all good. Push refused 403 (Claude GitHub App not installed for the repo); Gmail "Precondition check failed"; phone notification delivered. A17.1 (ebef9df2) lost with the container; re-run after the operator installs the app. Two protocol defects fixed (git archive from the root; frozen paths). |
+
+| The decision (01:5xZ) | "we'll let everything run without github for right now" -> READ-AND-REPORT mode this week: the routine reads, pins, commits locally, puts the full amendment in its run log, notifies the phone; subject carries READ, UNPUSHED (replay pending); the laptop replays each A17.<j> onto the branch later from the same channel files. Not DONE under rule 8 until replayed. |

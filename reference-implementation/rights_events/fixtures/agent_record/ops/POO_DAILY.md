@@ -126,11 +126,17 @@ never force-push, never rebase, never delete history. Never fix a failing gate b
 `Co-Authored-By: Claude <noreply@anthropic.com>`. Push to `origin contract/agent-record`. If the
 push is rejected because the branch moved, `git pull --rebase` is forbidden; instead fetch, start
 again from the new head (re-run steps 1–5 on top of it) and push. If the push fails for any other
-reason the day is NOT done: email the exact error. A 403 saying "Claude doesn't have GitHub
-access to reality-infrastructure/reality-infrastructure" means the Claude GitHub App is not
-installed for the repository: nothing you do fixes it; report it (step 9) with the unpushed
-commit sha and stop. The operator installs the app at
-https://github.com/apps/claude/installations/select_target.
+reason the day is NOT done: email the exact error.
+
+**The operator's decision of 2026-11-02 ("we'll let everything run without github for right
+now"):** the Claude GitHub App is not installed for the repository, so the push WILL be refused
+with a 403 this week. That is expected, not a defect, and you do not spend time on it. The day
+then runs in READ-AND-REPORT mode: commit locally exactly as above (so the sha exists), then put
+the COMPLETE text of your amendment and your SCOREBOARD section, verbatim, in your final message
+(the run log on claude.ai keeps it; the laptop replays it onto the branch later), label the day
+`READ, UNPUSHED (replay pending)` in the subject line, and go on to steps 8 and 9. The channel
+files stay on `vps/poo-files` and the reader is deterministic, so the replay reproduces your
+numbers and pins byte for byte. If one day the push succeeds, the day is DONE as written.
 
 **8. The doc.** If the Claude Docs connector is available, add one Standing-log row to the
 Proof of Outcome doc (artifact Afx6qWREyHwtiMHznyXqff, the "Week two" tab): date, what shipped,
