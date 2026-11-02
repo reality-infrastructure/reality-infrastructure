@@ -1,0 +1,283 @@
+{
+  "what": "F4 leader list for the forward week starting 2026-11-01 (P12.0): the venue's month top 30 by PnL filtered to all-time PnL > 0 and accountValue >= 1 000 000 USD; fixed until the next weekly amendment",
+  "source": "hl_top_traders_by_pnl_1793430256616.json",
+  "source_sha256": "26f1bb8e92be7f632a595669f5fc19c6dab83313b9d36d0d7b825ca0a282fa4a",
+  "filter": {
+    "allTime_pnl_gt": 0,
+    "accountValue_gte": 1000000
+  },
+  "n_month_top": 30,
+  "n_kept": 28,
+  "leaders": [
+    {
+      "address": "0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+      "accountValue": 207097702.008747,
+      "month_pnl": 124849431.766248,
+      "month_roi": 0.6967747499,
+      "allTime_pnl": 216563067.258747,
+      "allTime_roi": 0.5838161125,
+      "kept": true
+    },
+    {
+      "address": "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+      "accountValue": 172772894.711489,
+      "month_pnl": 100357927.26078199,
+      "month_roi": 0.619935741,
+      "allTime_pnl": 163597995.481489,
+      "allTime_roi": 0.9815859227,
+      "kept": true
+    },
+    {
+      "address": "0x659ddde484fd9dc313917d5de92a52b6a74a9d63",
+      "accountValue": 50846291.2588,
+      "month_pnl": 51336059.4888,
+      "month_roi": 5.9751704682,
+      "allTime_pnl": 51336059.4888,
+      "allTime_roi": 5.6156143443,
+      "kept": true
+    },
+    {
+      "address": "0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf",
+      "accountValue": 112509528.91289298,
+      "month_pnl": 28528002.925779007,
+      "month_roi": 0.2615609034,
+      "allTime_pnl": 75875718.61289296,
+      "allTime_roi": 0.3112416004,
+      "kept": true
+    },
+    {
+      "address": "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+      "accountValue": 48673539.978975,
+      "month_pnl": 27808418.739014,
+      "month_roi": 0.397994759,
+      "allTime_pnl": 154410801.558975,
+      "allTime_roi": 2.3038367798,
+      "kept": true
+    },
+    {
+      "address": "0xdd53c5297309130ab5fe5623dc905752e3342b13",
+      "accountValue": 48266526.256289,
+      "month_pnl": 25867898.741795,
+      "month_roi": 0.5457520513,
+      "allTime_pnl": -18283664.143711,
+      "allTime_roi": -0.1997119161,
+      "kept": false
+    },
+    {
+      "address": "0x45d26f28196d226497130c4bac709d808fed4029",
+      "accountValue": 66773293.58842,
+      "month_pnl": 22366336.513637,
+      "month_roi": 0.7386400568,
+      "allTime_pnl": 65601408.26842,
+      "allTime_roi": 1.392031044,
+      "kept": true
+    },
+    {
+      "address": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+      "accountValue": 107176414.408443,
+      "month_pnl": 22177964.310866,
+      "month_roi": 0.3305233546,
+      "allTime_pnl": 217969902.258443,
+      "allTime_roi": 2.1594717683,
+      "kept": true
+    },
+    {
+      "address": "0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae",
+      "accountValue": 31761880.755275,
+      "month_pnl": 22170760.108074002,
+      "month_roi": 0.7413994073,
+      "allTime_pnl": 8236880.363579,
+      "allTime_roi": 0.1923250427,
+      "kept": true
+    },
+    {
+      "address": "0xb695651daa495f59dd2725c6fe98322d8b51a92d",
+      "accountValue": 37560196.855298,
+      "month_pnl": 21421779.454125,
+      "month_roi": 0.5270667204,
+      "allTime_pnl": 12785544.425298,
+      "allTime_roi": 0.2548199439,
+      "kept": true
+    },
+    {
+      "address": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+      "accountValue": 91510021.834071,
+      "month_pnl": 20860992.877301,
+      "month_roi": 0.1812656844,
+      "allTime_pnl": 42930647.164071,
+      "allTime_roi": 0.4263473534,
+      "kept": true
+    },
+    {
+      "address": "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+      "accountValue": 35887094.234681,
+      "month_pnl": 19618525.137221,
+      "month_roi": 0.7994419475,
+      "allTime_pnl": 16830389.224681,
+      "allTime_roi": 0.5504137203,
+      "kept": true
+    },
+    {
+      "address": "0xdf954bbe619273a56e0cfa90dad8382195dc7d72",
+      "accountValue": 53427502.68348199,
+      "month_pnl": 16277036.005543001,
+      "month_roi": 0.5237678901,
+      "allTime_pnl": 4853111.093481999,
+      "allTime_roi": 0.0896351101,
+      "kept": true
+    },
+    {
+      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "accountValue": 43604652.940513,
+      "month_pnl": 16218571.702440998,
+      "month_roi": 0.8643786718,
+      "allTime_pnl": -16363281.979487,
+      "allTime_roi": -0.1824302968,
+      "kept": false
+    },
+    {
+      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "accountValue": 88006149.51748098,
+      "month_pnl": 15571455.48711,
+      "month_roi": 0.2139424062,
+      "allTime_pnl": 8300463.097480999,
+      "allTime_roi": 0.0770392101,
+      "kept": true
+    },
+    {
+      "address": "0x024294c53a69c1e6b39810b3fac87385752fffa1",
+      "accountValue": 27477634.405539,
+      "month_pnl": 15193718.520884,
+      "month_roi": 1.2987231051,
+      "allTime_pnl": 10477679.815539,
+      "allTime_roi": 0.6163357531,
+      "kept": true
+    },
+    {
+      "address": "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
+      "accountValue": 27062213.203165,
+      "month_pnl": 12764175.963728,
+      "month_roi": 0.8873649258,
+      "allTime_pnl": 4894486.023165,
+      "allTime_roi": 0.1349444479,
+      "kept": true
+    },
+    {
+      "address": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+      "accountValue": 14195546.331767,
+      "month_pnl": 11608324.514593,
+      "month_roi": 0.3935248399,
+      "allTime_pnl": 14713469.421767,
+      "allTime_roi": 0.4011222616,
+      "kept": true
+    },
+    {
+      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
+      "accountValue": 41619911.97231901,
+      "month_pnl": 10358407.694317,
+      "month_roi": 0.8897831425,
+      "allTime_pnl": 6699413.192319,
+      "allTime_roi": 0.1199675231,
+      "kept": true
+    },
+    {
+      "address": "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+      "accountValue": 32177284.255214,
+      "month_pnl": 10171409.412173001,
+      "month_roi": 0.6271884455,
+      "allTime_pnl": 5680535.055214001,
+      "allTime_roi": 0.2135800512,
+      "kept": true
+    },
+    {
+      "address": "0x218a65e21eddeece7a9df38c6bbdd89f692b7da2",
+      "accountValue": 10826307.498605,
+      "month_pnl": 9914258.742112,
+      "month_roi": 0.7543466931,
+      "allTime_pnl": 9469599.018605,
+      "allTime_roi": 0.7405355534,
+      "kept": true
+    },
+    {
+      "address": "0xd47587702a91731dc1089b5db0932cf820151a91",
+      "accountValue": 18378045.791105,
+      "month_pnl": 9158312.93358,
+      "month_roi": 0.3505551629,
+      "allTime_pnl": 69329777.99499398,
+      "allTime_roi": 0.4415576278,
+      "kept": true
+    },
+    {
+      "address": "0x3a98be4692cae9eee26ecf73b4be7b8961ebf4b8",
+      "accountValue": 8993200.590908,
+      "month_pnl": 8905593.450908,
+      "month_roi": 101.6537402192,
+      "allTime_pnl": 8905593.450908,
+      "allTime_roi": 101.6537402192,
+      "kept": true
+    },
+    {
+      "address": "0xca4903c207a0df58bf37d4bc8bbc5210726f53c8",
+      "accountValue": 17713915.334988,
+      "month_pnl": 8847513.844128,
+      "month_roi": 0.7386842262,
+      "allTime_pnl": 8349007.364987999,
+      "allTime_roi": 0.6246962107,
+      "kept": true
+    },
+    {
+      "address": "0x49e96e255ba418d08e66c35b588e2f2f3766e1d0",
+      "accountValue": 33081131.686302,
+      "month_pnl": 8275446.8846970005,
+      "month_roi": 0.3454858522,
+      "allTime_pnl": 14351408.576302,
+      "allTime_roi": 0.3492154696,
+      "kept": true
+    },
+    {
+      "address": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+      "accountValue": 21591696.7081,
+      "month_pnl": 8261702.892762,
+      "month_roi": 0.3612400899,
+      "allTime_pnl": 56153761.7281,
+      "allTime_roi": 1.4040279259,
+      "kept": true
+    },
+    {
+      "address": "0xba5d9cc840745aeeeeedac5712e32f13ab8ea352",
+      "accountValue": 6023759.001776,
+      "month_pnl": 7023397.555652,
+      "month_roi": 1.6418569437,
+      "allTime_pnl": 556040.291776,
+      "allTime_roi": 0.0435023265,
+      "kept": true
+    },
+    {
+      "address": "0x4ba3979955f52158c0e4e3378b18985475182ce2",
+      "accountValue": 23475689.483298,
+      "month_pnl": 6727024.600114,
+      "month_roi": 0.3513051465,
+      "allTime_pnl": 6911636.783298,
+      "allTime_roi": 0.3644598975,
+      "kept": true
+    },
+    {
+      "address": "0xe81309ec9b79309e4d108ae3a92d1aa618cd6d74",
+      "accountValue": 22655619.796131,
+      "month_pnl": 6201120.185206,
+      "month_roi": 0.3767731161,
+      "allTime_pnl": 6321330.316131,
+      "allTime_roi": 0.3869028226,
+      "kept": true
+    },
+    {
+      "address": "0x9aa589355bf745db9784c8ef3c646360f11b58af",
+      "accountValue": 10853291.172106,
+      "month_pnl": 5783140.140496,
+      "month_roi": 0.5320201307,
+      "allTime_pnl": 1647971.392106,
+      "allTime_roi": 0.1098257962,
+      "kept": true
+    }
+  ]
+}

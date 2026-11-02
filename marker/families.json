@@ -1,0 +1,17 @@
+{
+  "what": "P12.0 — the four families' ONE fixed parameter each, byte-pinned before the replay; changed only by a dated amendment, never after a number has been seen (S71)",
+  "declared_coins": ["BTC", "ETH", "HYPE", "ZEC", "SOL", "NEAR"],
+  "exit": {"stop_bps": 30.0, "gate_ms": 18000000},
+  "costs": {"fee_bps_per_leg": 9.32, "replay_spread_proxy_bps_per_leg": 1.0, "forward_spread": "half the l2Book spread at the trigger poll, pinned verbatim"},
+  "families": {
+    "F1": {"name": "funding extreme", "parameter": {"abs_funding_percentile": 95}, "direction": "against the sign of the print", "mechanism": "crowded carry reverts"},
+    "F2": {"name": "reversion after a large move with volume", "parameter": {"return_sigma": 3.0, "notional_median_multiple": 3.0}, "direction": "against the move", "mechanism": "liquidation overshoot"},
+    "F3": {"name": "continuation after a breakout", "parameter": {"lookback_candles": 96}, "direction": "with the break", "mechanism": "stop cascades"},
+    "F4": {"name": "follow the leaders", "parameter": {"min_open_notional_usd": 10000, "list": "leaders_2026-11-01.json"}, "direction": "the leader's", "mechanism": "information the leader has and the record does not"}
+  },
+  "controls": {
+    "C0": "no entry, net 0 every day",
+    "C1": "one uniformly random entry minute per coin per day, seeded by the day's amendment commit sha + coin + date; direction long with probability = that day's long share among F1-F4 signals (0.5 when none)"
+  },
+  "pass_line": {"k": "ceil(log2 N) + 2 consecutive forward days beating BOTH controls on daily net", "and": "mean net over the fork's forward episodes > 2 sigma / sqrt(n)", "N": 24}
+}
