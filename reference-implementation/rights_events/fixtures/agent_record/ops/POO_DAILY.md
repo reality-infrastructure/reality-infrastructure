@@ -27,6 +27,15 @@ when it fails. A failed step is data; it is recorded, never dressed.
 
 Answer from the day's numbers and the record, in plain sentences, no more than three sentences each.
 
+**Question 1 is answered by R72's fixed order, never by judgment (A18 R94).** Print the first
+factor that holds and the reading that made it hold, then one sentence: (1) the sensor — the
+tape of record has a null span or a hole longer than 15 min in the last 24 h, or its last row
+is older than 60 s at the read; (2) the hand / the gateway — no pair settled inside the
+five-hour gate in the last 7 days; (3) the search — no fork beat both controls on the last
+forward day; (4) sim-to-real — a candidate exists and its live residual is outside tolerance;
+(5) the group — a candidate holds and its group at the current rung is not full; (6) capital.
+The sentence may add words; it may not change the factor.
+
 ## Where things are
 
 - Branch of record: `contract/agent-record`. The clone may land on `main`; run
@@ -96,6 +105,24 @@ Funding: forward rows carry `funding_bps` 0 at write time; applying the hourly p
 HyperLiquid API, which this environment may not reach. If `curl -s -m 10 https://api.hyperliquid.xyz/info`
 fails, say in the amendment that the net numbers exclude funding (disclosed, not estimated). Never
 estimate funding.
+
+**3b. The arena (A18, from the run of 2026-11-05 onward, reading Day 14 = 11-04).** For every
+cohort whose window has started (today: cohort `2026-11-03`, window 2026-11-04 … 11-10), the
+channel's `arena/<cohort>/` holds the VPS fills tape's pages. Build the day's capture OFFLINE
+from them and grade it through the unmodified runner:
+```
+python rights_events/fixtures/agent_record/arena/arena_capture_from_tape.py --channel-dir /tmp/poo \
+  --cohort-capture rights_events/fixtures/agent_record/arena/<cohort>/capture_ARENA_<cohort>_<cohort>.json \
+  --as-of-date <D-1> --now-ms $(date -u +%s)000 [--paper-marks vps/marks_<day>.jsonl ...]
+python -m rights_events.agent_arena --capture rights_events/fixtures/agent_record/arena/<cohort>/capture_ARENA_<cohort>_<D-1>.json \
+  --out rights_events/fixtures/agent_record/arena/<cohort>/run_ARENA_<cohort>_<D-1>.ri \
+  --arena-out rights_events/fixtures/agent_record/arena/<cohort>/arena_<cohort>_<D-1>
+```
+The run must print `AGENT-RECORD ARENA RUN: OK`; `--verify --run` must pass. The amendment
+carries the counts (FULL / PARTIAL / NONE / REFUSED), the ranked rows (address, fills, net
+with funding), the RECORD row, and the page file shas from the manifest. If `arena/` is
+missing from the channel or its newest `pages_index.jsonl` line is older than 2 h, the arena
+day is VOID (S85): say so, grade nothing, and go on. Never fetch the API from the cloud.
 
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1

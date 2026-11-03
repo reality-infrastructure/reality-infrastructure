@@ -1532,3 +1532,17 @@ the go (a hand-off), then search (P12).
 | STOPs | S83–S86 added. |
 
 **Income row (R81), 2026-11-03 after A18:** 0 USD a day against 165. Nothing on the chain.
+
+### P14 — the arena's code: adapter, runner, capture tool, tape builder, the VPS fills tape, the protocol lines (A18 R90–R96)
+
+| item | evidence |
+|---|---|
+| Adapter | `rights_events/adapters/agent_arena.py`: boards event (self_asserted), one settled event per address by SETTLED.md's arithmetic, coverage FULL/PARTIAL/NONE, the ranking (FULL rows only); pure, no clock, no network, no reasoning as input. |
+| Runner | `rights_events/agent_arena.py`: pages read byte-for-byte from gzip, sha-checked (S84 → REFUSED row), RECORD row from the operator's own pages + reloaded run files, PAPER rows from pinned marks, one run file, `--verify`, the arena rendered as json/md/html with one chart per cohort and one for the operator. |
+| Capture tools | `arena/capture_arena_from_hl.py` (network: boards + paged fills/funding, one HTTP body a line, gzip mtime 0); `arena/arena_capture_from_tape.py` (offline: the VPS tape's pages → the same capture schema). |
+| The fills tape | `ops/arena_fills_tape.py` (hourly, paged, append-only, budgeted), `ops/arena_tape_vps.sh` (systemd service + timer at :20, cohort files), `ops/poo_publish_vps.sh` now publishes `arena/`. |
+| Protocol | POO_DAILY.md: question 1 by R72's order (R94); step 3b the arena from the channel, VOID after 2 h (S85). |
+| Gates | `tests/test_agent_record_arena.py`: 9 (founder's arithmetic, coverage, window after observation, ranking, determinism, honeypot page, honeypot run file, end to end, R96). Full suite **1105 passed in 36.28 s**. |
+| Smoke | the real path on 3 cohort addresses + the operator: `AGENT-RECORD ARENA RUN: OK`, C1–C7 PASS. |
+
+**Income row (R81), 2026-11-03 after P14:** 0 USD a day against 165. Nothing on the chain.
