@@ -4120,3 +4120,189 @@ From the JSON run (same inputs), the pass line over 2026-11-01 and 2026-11-02, p
 **STOPs hit:** none.
 
 **What was not verified.** Funding (API unreachable). That `marks_2026-11-02.jsonl` is final: at the read six episodes that opened on 11-02 were still open in `marker_state.json` (F4:NEAR 20:19Z, F4:ETH 20:26Z, F4:BTC 21:02Z, F4:HYPE 21:53Z, F4:SOL 22:28Z, C1:ZEC 23:25Z); when they close they will be appended to the 11-02 file, as the F4:SOL episode was to 11-01, and the next run's re-read of the pass line will include them. The C0 rows are not in the reader's table (C0 = 0 in the reader). The laptop and the VPS beyond what the channel publishes. The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message and the commit precedes them. Frozen shas re-checked after the commit.
+
+### A18 — 2026-11-03 06:4xZ (00:4x CST), flat — PREREG: THE ARENA. Proof of Outcome for any address: the venue's boards observed, every listed address graded by what settled on the chain in a window that opens after the observation, the operator's own row and the paper population in the same table under the same grader, the record anyone recomputes; the founder's document of what counts as a settled outcome; the fills of the cohort made our own input on the VPS. Written before any code or capture (the ordering is the proof)
+
+**Why now (the operator's words, 2026-11-03 ~00:30 CST).** "I want you to build the entire
+thing and don't stop until you're done because I'm going to sleep … recite the interviews
+again all three to see if you're missing anything. Then cook until it's all complete, put a
+link to the public page." The "thing" is the outsider's drill on GDEX's own sentence,
+*trading infrastructure for AI agents*, pasted the same night: agents have a way to act on
+this rail and nothing to learn from; learning needs a reward; the reward has to be the real
+outcome or the grader gets hacked; the real outcome on a trading rail is what settled on
+chain net of fees and slippage; nobody has built that record; so build it. Its eight points
+and where each stands on this record are tabled below. The drill ends where rung 3 and rung
+4 of this contract already stood (A3: "rung 3, 2026-11-18, is where all 84 addresses are
+checked"; the north star: rung 4 = the badge on GDEX's own rows). A18 pulls rung 3 forward
+to today and names the rest.
+
+**Preflight at the time of writing.** `date -u` = Tue Nov 3 06:35:36 UTC 2026. HEAD
+`e7c3d3b` = `origin/contract/agent-record`; frozen marker shas hold (A17.2's table); full
+suite **1096 passed** at 06:0xZ from the capitalized path; channel `vps/poo-files` `1aab5d4`,
+18 of 18 shas equal to the manifest, both services active, no void day. Nothing new starts
+on a dirty tree; nothing below touches `marker/`, any existing `capture_`, `run_`,
+`MANIFEST_`, `board_`, `hl_` file, any earlier amendment, rule, seed or family.
+
+**The three transcripts, re-read in full tonight (Brown; Schulman, Millidge, O'Neill;
+Musk), against the plan of 2026-11-03 00:1x CST. What the plan did not name:**
+
+| # | the transcripts say | what it changes here |
+|---|---|---|
+| 1 | Schulman: the last human job is defining the objective; "alignment is the final job", decomposed into specification and optimization. Musk: the founder writes it; the machine never edits it. | `contracts/agent_record/SETTLED.md`: ONE document, what counts as a settled outcome (R89). Drafted tonight by the executor, marked DRAFT; it binds as the operator's when the operator writes "ratified" under it; from then its sha256 is a frozen-file gate and no session edits it. |
+| 2 | Brown: a model's release cycle shorter than its task horizon cannot be evaluated at the full horizon. | The arena's out-of-sample window must be at least as long as the holding horizon it grades: positions still open at the window's end are COUNTED AND SHOWN, never netted (R91). |
+| 3 | The panel: Cursor's online loop has one user, one rollout, a variance problem; the fix was a heuristic for better-than-average. Our fix is a paired control. | Every arena row is shown beside the cohort median and the share of the cohort net-positive; our paper forks keep C0/C1 (R91). |
+| 4 | The panel: models detect tests; the grader needs planted outcomes it cannot tell from live ones. Brown: never grade the chain of thought. | R95: a tamper gate in the suite (one digit changed in a pinned fills page → the row is refused by its sha; a tampered run file → `--verify` fails). R96: no reader, grader or renderer ever takes a routine's run log, a transcript or any reasoning as input; only pinned files. |
+| 5 | Musk: vertically integrate the scarce input (TeraFab; "you can get everything except the blades"). Measured tonight: HyperLiquid's public `userFillsByTime` serves at most 2 000 fills a response and ONLY THE 10 000 MOST RECENT FILLS of an address; the rank-1 week trader prints 2 000 fills in 1.8 hours, so the public API cannot serve its week to anyone. | R93: the fills tape. The VPS fetches every cohort address's fills and funding hourly with pagination, inside the 10 000-fill horizon, and publishes them on the channel. From cohort 2 the record holds what the public API forgets. For cohort 1 the coverage is disclosed per row (FULL / PARTIAL / NONE), never estimated. |
+| 6 | Musk: 50th-percentile dates, expect to be late half the time; weekly review with no prep; drastic action only when success leaves the set of outcomes; plot the points and see whether they converge. | The dates table below; the arena page carries one chart per cohort: cumulative verified net per address per day over the window, nothing smoothed (R91). |
+| 7 | The panel: distillation is cheap for anything RL learned (a few bits); the prompt distribution must be the deployment distribution. Brown: agents are jagged; use them where they are exceptional, "checking every single data point". | The verifier checks every listed address, not a sample (R90). Distillation stays DEFERRED (R97) with its condition written: only an agent positive out of sample for a full week is distilled, tested against the forward tape, the deployment distribution. |
+| 8 | Musk: hire for traits, add domain knowledge; "a self-driving computer"; digital human emulation. The outsider: the human copy-trade board is a special case, a trader is an agent whose policy is a person. | The arena has one row type. A venue address, the operator's account and a paper fork are rows of the same table with the same columns; the status column says what the chain can and cannot say about each (R91). |
+
+**The eight points of the drill against this record, 2026-11-03:**
+
+| point | here today | A18 |
+|---|---|---|
+| 1 one action primitive, preview + execute | exists on the venue: the gdex MCP verbs; the capture tool observes them | nothing; stated |
+| 2 reality as the grader, a signed intent-and-outcome log | exists for ONE agent (Days 1–12) | the same grader applied to every address the venue lists (R90–R91) |
+| 3 a population, tiny capital | F4 ×6 + C1 on paper (P12); live one unit by rule | the forks are rows in the arena (R91) |
+| 4 sim-to-real closed by deploying | per-leg gaps since Day 3; R74; the hand binds (R88) | nothing new; the live line's rule stands |
+| 5 continual learning in the lab | R72–R75 as rules | R72 made the routine's answer (R94); distillation deferred with its condition (R97) |
+| 6 honeypots; reasoning never graded | not on this record | R95, R96 |
+| 7 authority scoped | GDEX session keys; the 403s | nothing; stated |
+| 8 the scarce input, owned and open | the public API, read only for ourselves | the fills tape (R93); the pages pinned and public |
+
+**Closed vocabulary (this amendment).** Document kinds `agent_record_arena_capture`.
+Claimants `gdex-leaderboard` (as A3), `hyperliquid-l1-fills` (the chain's fills as HyperLiquid's
+public info API serves them), `arena-grader`. Mechanisms `venue-boards-observation`,
+`settled-outcome`, `arena-ranking`. Row status `FULL` | `PARTIAL` | `NONE` | `RECORD` |
+`PAPER`. Event ids `agent_record:arena:boards:<observed_ms>`,
+`agent_record:arena:settled:<cohort_date>:<as_of_date>:<address>`,
+`agent_record:arena:ranking:<cohort_date>:<as_of_date>`. Event type `chain_assertion` only;
+no dispute mechanism is defined (a row whose status is PARTIAL or NONE is a disclosure, not a
+dispute; stated, not hidden).
+
+**Decision rules (govern the code, written before it):**
+
+- **R89 (what counts as a settled outcome; the founder's document).** `SETTLED.md` says, and
+  the code may not say otherwise: a settled outcome is a fill on the HyperLiquid L1 with a
+  transaction hash, as the venue's own public info API serves it (`userFillsByTime`), plus
+  the funding payments the L1 charged or paid in the window (`userFunding`). The verified net
+  of an address over a window [T0, T1] (milliseconds, inclusive, UTC) is
+  `Σ closedPnl(fills in window) − Σ fee(fills in window) + Σ funding.usdc(rows in window)`,
+  all Decimal from the payload's own strings, where `fee` already includes `builderFee`
+  (A8: the chain debits `fee` once). Two figures are always published: `realized_ex_funding`
+  (closedPnl − fee) and `net_with_funding`. Never: account value, unrealized PnL, a ROI, a
+  volume, any number the venue computed, any number from `portfolio`. A fill that OPENS or
+  increases a position carries closedPnl 0 and its fee counts. A position open at T1 is
+  counted in `open_at_window_end` (coins, count) and never valued.
+- **R90 (the verifier, every address, pages verbatim).** For a cohort (every unique address
+  across the four windows of ONE pinned board payload, payload order, the venue's strings
+  unchanged) and a window, the capture tool fetches `userFillsByTime` from T0 with pagination
+  (next `startTime` = last fill `time` + 1 until a response holds fewer than 2 000 fills or
+  `time` passes T1) and `userFunding` the same way; every HTTP response body is saved
+  byte-for-byte as one line of `arena/<cohort>/hl_fills_<address>.jsonl.gz` (gzip of the
+  exact bytes, one page a line) and `hl_funding_<address>.jsonl.gz`; the capture document
+  pins the sha256 of every page's raw bytes, the page count, fill count, first and last fill
+  `time`, and the request made. Coverage status per row: `NONE` = zero fills served in the
+  window; `PARTIAL` = the pages hold 10 000 fills (the API's horizon) OR the first served fill
+  is later than T0 + 24 h with a full first page; `FULL` otherwise. Nothing is estimated for a
+  PARTIAL row: its figures are the figures of the fills served, labelled as such.
+- **R91 (the arena).** One table, one row type. Columns: status; address; the venue's
+  displayed figures at observation (per window, verbatim, `self_reported`); the window; fills
+  counted; `realized_ex_funding`; `funding`; `net_with_funding`; `open_at_window_end`; the
+  first and last tx hash; the recompute command. Ranking is by `net_with_funding` over FULL
+  rows only; PARTIAL and NONE rows are listed unranked with their coverage; the operator's row
+  (status `RECORD`) carries in addition its run files, roots and every tx hash as A3's
+  verified row does; the forks' rows (status `PAPER`) carry the marks file sha and the net
+  bps of their episodes inside the window, never a USD figure. The cohort median and the
+  share of FULL rows net-positive are printed beside every row. Nothing is averaged across
+  cohorts, nothing smoothed, no window chosen after the fact: the window of cohort C observed
+  on day D is [D+1 00:00:00.000Z, D+k 23:59:59.999Z], k = 7 for cohort 1 and k = 7 for
+  every later cohort, graded daily as the days accrue (partial windows are labelled by their
+  days). Rows observed on D are graded on D+1 onward, never on D.
+- **R92 (cohorts).** Cohort 1 = the pinned payload of 2026-10-25 (`gdex_hl_top_traders_by_pnl_
+  2026-10-25.json`, sha `4caa7ef6…`, 80 unique addresses across day/week/month/allTime), window
+  2026-10-26 00:00:00.000Z … 2026-11-02 23:59:59.999Z (8 days, k = 8 because the full days
+  before today are the window; stated). Cohort 2 = a fresh payload observed today, saved
+  verbatim as `arena/gdex_hl_top_traders_by_pnl_2026-11-03.json` (NOT as a
+  `capture_BOARD_` file: A3's gate that exactly one board capture is pinned stands untouched),
+  window from 2026-11-04 00:00:00.000Z, graded daily. One cohort a week after that, Mondays.
+- **R93 (the fills tape: the scarce input, ours).** On the VPS, beside poo-tape and poo-marker,
+  `arena_fills_tape.py` runs hourly under a systemd timer: for every address of every open
+  cohort it fetches fills and funding since the last stored `time` with pagination and
+  appends new rows (deduplicated by `tid`, funding by `time`+`coin`) to
+  `/root/poo/arena/<cohort>/fills_<address>.jsonl` and `funding_<address>.jsonl`; raw pages
+  are kept as `/root/poo/arena/<cohort>/pages/<address>_<fetched_ms>.json` for the day and
+  deleted after their sha is in the day's manifest. `publish.sh` publishes `arena/` to the
+  channel; the manifest lists every file with its sha. Files older than 14 days leave the
+  channel after the record has pinned them. Budget: the info endpoint's 1 200 weight a minute;
+  the tape sleeps 1 s between requests and stops a cycle at 1 000 weight.
+- **R94 (R72 made the routine's answer).** POO_DAILY.md step 5, question 1, is answered by
+  R72's fixed order: the routine prints the first factor that holds and the reading that made
+  it hold, then one sentence. Read today by that rule: (1) the sensor does not hold (tape 3 s
+  fresh, no hole); (2) the hand holds (no pair settled inside the gate since Day 5); so the
+  factor is the hand, not cost against gross as A17.2 wrote by judgment. A17.2 is not edited.
+- **R95 (honeypot gate).** The suite holds a test that alters one digit inside a pinned fills
+  page and asserts the row is refused by its sha; one that alters a byte of a run file and
+  asserts `--verify` fails; one that recomputes the operator's cohort-1 row from the pinned
+  pages and gets the known answer below. A grader that cannot be fooled by its own fixtures
+  is the only one allowed to rank anyone.
+- **R96 (reasoning logged, never graded).** No reader, grader, renderer or gate takes a run
+  log, a transcript, a chat or any reasoning as input. Inputs are pinned files only. The
+  routine's log is kept and never read by code.
+- **R97 (deferred, with conditions).** The strategist proposes families only after the first
+  forward week is read (2026-11-06) and only through a PREREG amendment the operator signs.
+  Distillation only of an agent positive out of sample for a full week, to the cheapest model
+  that matches on the forward tape; nothing is distilled this week. The live population stays
+  at one unit under R88; nothing in A18 opens, closes or sizes anything.
+
+**Known answers (fetched tonight from `api.hyperliquid.xyz/info`, the operator's own address
+`0x9f976123e7c48952be487664b8130aad144b7f23`; pinned by the capture that follows):**
+
+| pair | open tx | close tx | closedPnl | Σ fee | closedPnl − fee |
+|---|---|---|---:|---:|---:|
+| Day 3 | `0x8402a8c3…` | `0x906ccd1d…` | −0.0028 | 0.021076 | **−0.023876** |
+| Day 4 | `0x239c825c…` | `0x19606256…` | −0.05768 | 0.020957 | **−0.078637** |
+| Day 5 | `0x1837ce1e…` | `0xca0698b6…` | −0.04634 | 0.020823 | **−0.067163** |
+| Day 6 | `0xec47b024…` | `0x3c12dbd5…` | 0.16534 | 0.020970 | **0.144370** |
+
+Days 5 and 6 equal the record (A8 corrected −0.067163; Day 6's run file 0.14437). Days 3 and 4
+equal A8's corrected restatement, not the as-captured run files (−0.035183, −0.08988), which
+stay as they were. Funding 2026-10-23 … 10-29: 31 rows, Σ −0.004185 USDC.
+
+Cohort-1 window (2026-10-26 … 11-02), the operator's row: 2 fills (Day 6's pair),
+closedPnl 0.16534, fees 0.020970, **realized_ex_funding 0.144370**, funding 23 rows
+**−0.003224**, **net_with_funding 0.141146**, open at window end: none. The reader must
+print exactly these from the pinned pages or the gate fails.
+
+Cohort 1, first 12 addresses probed tonight (the full capture follows): 7 of 12 answered
+2 000 fills a page with the first served fill days after T0 (PARTIAL by the horizon rule);
+5 of 12 answered zero fills over 8 days while the board shows them seven-figure week PnL
+(NONE: nothing settled under that address on the perp L1 in the window as the public API
+serves it; a vault, a sub-account or spot are possibilities the record does not guess at).
+
+**50th-percentile dates (Musk's rule; half will be late):** cohort 1 graded and the page
+public: **2026-11-03**. R72 in the routine: 2026-11-03. The fills tape live on the VPS:
+2026-11-03. First candidate fork (F4:NEAR, k = 5): 2026-11-06. Cohort 2 graded on its full
+window: 2026-11-11. Rung 4, the badge asked of GDEX on the evidence of two cohorts:
+2026-11-18. First copier routed through the record: 2026-12-01. Drastic action only when
+success leaves the set: if no cohort can be graded FULL for any address by 2026-11-18, the
+fills tape, not the grader, is the limiting factor and the week after goes only there.
+
+**STOP conditions (added).** S83 the info API answers anything but HTTP 200 and valid JSON
+for a page → that page is not written, the address's row is `NONE` with the error quoted; no
+partial page is ever written. S84 a page's bytes on disk do not hash to the capture's pin →
+the row is refused, the day's finding. S85 the arena's fills tape manifest on the channel is
+older than 2 h at a routine's read → the arena day is VOID as the marker's is (S72). S86 any
+figure in the arena that is not a Decimal of a pinned payload string or a sum of such →
+the run fails (the trace gate, as S20).
+
+**What is NOT built tonight, stated:** no venue signs anything (we sign our observations of
+its outcomes); no live population; no strategist; no distillation; no judge; GDEX's rung-4
+badge is asked, not built. The arena claims nothing about anyone's profit: it prints what
+the chain's public API served, with its coverage, beside what the venue displayed.
+
+**Order of commits that follow (the ordering is the proof):** this amendment and SETTLED.md
+(DRAFT) → P14 the adapter, the runner, the capture tool, the gates, the tape script and the
+R72 line in POO_DAILY.md, with the full suite green → A18.1 the captures of cohort 1 and
+cohort 2 pinned (pages, shas, counts) → A18.2 the run, the arena page, the public link, the
+income row. Then the VPS tape deployed and its first manifest read (A18.3).

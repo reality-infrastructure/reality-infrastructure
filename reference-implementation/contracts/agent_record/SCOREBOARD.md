@@ -1519,3 +1519,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 12 (2026-11-02): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-03 after A17.2:** 0 USD a day against 165. Forward forks alive 6 + 2 controls; 2 full forward days. Nothing on the chain.
+
+### A18 — PREREG: the arena (Proof of Outcome for any address), the founder's document, the fills tape
+
+| item | evidence |
+|---|---|
+| Preflight | HEAD `e7c3d3b` = origin; frozen shas hold; **1096 passed**; channel `1aab5d4` 18/18, health holds. |
+| Written before code | this amendment + `SETTLED.md` (DRAFT, R89) in their own commit; P14 code, A18.1 captures, A18.2 run and page follow in later commits. |
+| Rules | R89 settled outcome; R90 verifier with pages verbatim and coverage FULL/PARTIAL/NONE; R91 one table, one row type, ranked on FULL rows only, out of sample; R92 cohorts (10-25 payload, 80 addresses; fresh payload today); R93 the fills tape on the VPS; R94 R72 answers question 1; R95 honeypot gate; R96 reasoning never graded; R97 strategist and distillation deferred with conditions. |
+| Known answer | the operator's four pairs by closedPnl − fee: −0.023876, −0.078637, −0.067163, +0.144370; cohort-1 window row: realized 0.144370, funding −0.003224, net 0.141146. |
+| Measured tonight | `userFillsByTime`: ≤ 2 000 fills a page, only the 10 000 most recent available; rank-1 week trader = 2 000 fills per 1.8 h; 5 of the first 12 addresses serve zero fills in 8 days. |
+| STOPs | S83–S86 added. |
+
+**Income row (R81), 2026-11-03 after A18:** 0 USD a day against 165. Nothing on the chain.
