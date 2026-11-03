@@ -1505,3 +1505,17 @@ the go (a hand-off), then search (P12).
 **Income row (R81), 2026-11-02 after A17.1:** 0 USD a day against 165. Forward forks alive 6 + 2 controls; 1 full forward day. Nothing on the chain. Not DONE until replayed (push refused by design this week).
 
 | The GitHub App (02:11Z, on the operator's authorization) | Installed for the one repository (installation 177678167); the routine's third run PUSHED A17.1 = 1cd28590 -> Day 11 DONE; its "READ, UNPUSHED" label superseded; Gmail still refuses (operator reconnects); Docs connector not surfaced; next fire 00:40Z 11-03. |
+
+### A17.2 — Day 12 (2026-11-02) read: sum −948.8 bps on 79 episodes; F4:NEAR +15.59 net on 8, run 1 of k = 5; Day 11's file gained a late episode; live leg MISS
+
+| item | evidence |
+|---|---|
+| Preflight | HEAD `ad209e06`; frozen shas hold (marker `acf754f9…`, forward `6fd373b8…`, families `db01aa33…`); **29 passed**. |
+| Channel | `vps/poo-files` `c6134aa3`; 17/17 shas match; manifest 00:07:02Z, both services active, tape 3 s fresh, no void day → health holds. |
+| 11-02 reading | 79 episodes, 65 stop-first, 11 047 F4 signals; 9 of 11 rows net-negative; positive: F4:NEAR +35.26 gross / +15.59 net on 8 and C1:BTC +30.70 on 1; sum −948.8 bps; cost 18.75–21.13 bps an episode; funding excluded (API unreachable); 6 episodes from 11-02 still open. |
+| Pass line (11-01, 11-02) | F4:NEAR run 1, the rest 0, of k = 5; no 2σ clause clears (2σ/√n 24–68 bps); earliest candidate F4:NEAR 2026-11-06, others 2026-11-07. |
+| Day 11 moved | `marks_2026-11-01.jsonl` `42331680…` (59 rows, A17.1's pin) → `ed0698e5…` (60 rows): one F4:SOL episode appended at close, net +169.55; Day 11 sum now −1 890.9; runs unchanged. |
+| Pins | marks `f246094a…`, signals `ed5cbb4c…`, manifest `8906153a…`, marker_state `6de4d467…`, marks 11-01 as read `ed0698e5…`. |
+| Live leg | Day 12 (2026-11-02): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-03 after A17.2:** 0 USD a day against 165. Forward forks alive 6 + 2 controls; 2 full forward days. Nothing on the chain.
