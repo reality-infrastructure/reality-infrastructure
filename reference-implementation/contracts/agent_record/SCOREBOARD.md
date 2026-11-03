@@ -1557,3 +1557,17 @@ the go (a hand-off), then search (P12).
 | Not done | the VPS fills tape (operator's act; classifier refused the remote write). |
 
 **Income row (R81), after A18.1:** 0 USD a day against 165.
+
+### A18.2 — THE ARENA run: cohort 1 graded (8 FULL / 23 PARTIAL / 49 NONE / 0 REFUSED), the operator's RECORD row 0.073533 USD, the page public, suite 1121
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A18 `62c3acb` → P14 `bcae40c` → A18.1 `15a9659` → this. |
+| Pins before gates | A18.1 pinned 163 + 2 files; `tests/test_agent_record_arena_pins.py` 16 gates on them and on this run's outputs. |
+| Run and verify | cohort 1: 83 events, root `dda593db…`, C1–C7 PASS, `--verify` OK; cohort 2: 2 events, root `3e23db83…`. |
+| The reading | FULL 8 (median net 3 937.15 USD, 6 of 8 positive; ranks 2, 3, 5 positive only through funding), PARTIAL 23, NONE 49; RECORD 4 fills, realized 0.077207, funding −0.003674, net 0.073533 (= the corrected known answer). |
+| Suite | **1121 passed in 37.82 s**. |
+| Public page | https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd (share from its menu); inputs and page on the branch under `arena/`. |
+| Not done | the VPS fills tape (operator's act); SETTLED.md ratification (operator's act). |
+
+**Income row (R81), 2026-11-03 after A18.2:** 0 USD a day against 165. Nothing on the chain.

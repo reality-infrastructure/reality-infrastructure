@@ -1,0 +1,59 @@
+{
+  "kind": "proof_of_outcome_arena",
+  "cohort_date": "2026-11-03",
+  "as_of": "2026-11-03",
+  "window": {
+    "t0_ms": 1793750400000,
+    "t1_ms": 1794355199999,
+    "t0_date": "2026-11-04",
+    "t1_date": "2026-11-10",
+    "days": 7,
+    "started": false,
+    "complete": false
+  },
+  "statuses": {
+    "FULL": "Every fill in the window the public API holds was served; ranked.",
+    "PARTIAL": "The public API's horizon (the 10 000 most recent fills) cut the window; the figures are of the fills served; unranked.",
+    "NONE": "Zero fills served in the window: nothing settled under this address on the perp L1 as the public API serves it; unranked.",
+    "REFUSED": "A pinned page did not hash to its pin (S84); no figure is shown.",
+    "RECORD": "The operator's own account: the same grader over its own pages, beside its committed run files that re-verify offline with L1 hashes.",
+    "PAPER": "A paper fork of the contract marked on the environment tape: net basis points of its episodes inside the window, never a USD figure."
+  },
+  "venue": {
+    "name": "gdex.pro HyperLiquid PnL boards",
+    "source_url": "https://trade-api.gemach.io/v1/hl/top_traders_by_pnl",
+    "payload_file": "gdex_hl_top_traders_by_pnl_2026-11-03.json",
+    "payload_sha256": "0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c",
+    "observed_ms": 1793688589648,
+    "rows_per_window": {
+      "day": 30,
+      "week": 30,
+      "month": 30,
+      "allTime": 30
+    },
+    "addresses": 69,
+    "what_is_not_done": "No venue number is recomputed, re-ranked or corrected; each address is graded separately on the chain's fills in a window that opens after this observation."
+  },
+  "counts": {
+    "FULL": 0,
+    "PARTIAL": 0,
+    "NONE": 0,
+    "REFUSED": 0
+  },
+  "median_net_full": null,
+  "share_positive_full": null,
+  "rows": [],
+  "record_row": null,
+  "paper_rows": [],
+  "settled_rule": "SETTLED.md: realized_ex_funding = sum closedPnl - sum fee (fee includes builderFee); net_with_funding adds sum funding.usdc; positions open at the window's end are counted, never valued",
+  "arena_run": {
+    "file": "run_ARENA_2026-11-03_2026-11-03.ri",
+    "root": "3e23db83c08e3c1360d5e7a71c92e87d472a1820348ac4b4a3fd8fd8a12b5e4f",
+    "events": [
+      "agent_record:arena:boards:1793688589648",
+      "agent_record:arena:ranking:2026-11-03:2026-11-03"
+    ],
+    "record_source_url": "https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record",
+    "verify_command": "python -m rights_events.agent_arena --verify --run rights_events/fixtures/agent_record/<run file>"
+  }
+}

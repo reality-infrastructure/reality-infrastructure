@@ -1,0 +1,76 @@
+<title>Proof of Outcome Arena</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+:root { --bg:#f5f6f8; --surface:#fff; --fg:#15202b; --muted:#5b6672; --rule:#d9dee5; --accent:#0e6e7a;
+  --full-bg:#e3f3e8; --full-fg:#14532d; --partial-bg:#fdf1dc; --partial-fg:#7a4b00; --none-bg:#eef0f3; --none-fg:#44505c;
+  --refused-bg:#fbe3e3; --refused-fg:#7f1d1d; --record-bg:#e0ecfb; --record-fg:#1e3a8a; --paper-bg:#efe9fb; --paper-fg:#4c1d95;
+  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace; --body:"Segoe UI", system-ui, -apple-system, sans-serif; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --bg:#121820; --surface:#1a222c; --fg:#e6ebf0; --muted:#98a4b1; --rule:#2c3743; --accent:#5fc3cf;
+  --full-bg:#16321f; --full-fg:#a6e3b8; --partial-bg:#3a2a0e; --partial-fg:#f3c77a; --none-bg:#242e39; --none-fg:#b4bec8; --refused-bg:#3b1515; --refused-fg:#f5a3a3;
+  --record-bg:#172a4a; --record-fg:#a9c7f5; --paper-bg:#2a1f45; --paper-fg:#cdb8f7; color-scheme: dark } }
+:root[data-theme="dark"] { --bg:#121820; --surface:#1a222c; --fg:#e6ebf0; --muted:#98a4b1; --rule:#2c3743; --accent:#5fc3cf;
+  --full-bg:#16321f; --full-fg:#a6e3b8; --partial-bg:#3a2a0e; --partial-fg:#f3c77a; --none-bg:#242e39; --none-fg:#b4bec8; --refused-bg:#3b1515; --refused-fg:#f5a3a3;
+  --record-bg:#172a4a; --record-fg:#a9c7f5; --paper-bg:#2a1f45; --paper-fg:#cdb8f7; color-scheme: dark }
+body { background:var(--bg); color:var(--fg); font-family:var(--body); line-height:1.5; margin:0;
+  padding-left:max(16px, env(safe-area-inset-left,0px)); padding-right:max(16px, env(safe-area-inset-right,0px)); padding-block:24px 48px; }
+main { max-width:1120px; margin:0 auto; display:grid; gap:26px; }
+h1 { font-size:clamp(1.5rem,3.5vw,2.2rem); margin:0; letter-spacing:-0.01em; text-wrap:balance; }
+h2 { font-size:1.1rem; margin:0 0 10px; } p { margin:0; max-width:72ch; } .lead { color:var(--muted); }
+.eyebrow { font-size:.75rem; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.chip { display:inline-block; font:600 .7rem/1 var(--body); letter-spacing:.04em; padding:5px 8px; border-radius:3px; text-transform:uppercase; white-space:nowrap; }
+.chip.FULL{background:var(--full-bg);color:var(--full-fg)} .chip.PARTIAL{background:var(--partial-bg);color:var(--partial-fg)}
+.chip.NONE{background:var(--none-bg);color:var(--none-fg)} .chip.REFUSED{background:var(--refused-bg);color:var(--refused-fg)}
+.chip.RECORD{background:var(--record-bg);color:var(--record-fg)} .chip.PAPER{background:var(--paper-bg);color:var(--paper-fg)}
+.legend { display:grid; gap:8px; } .legend div { display:grid; grid-template-columns:auto 1fr; gap:12px; align-items:start; }
+.wrap { overflow-x:auto; border:1px solid var(--rule); background:var(--surface); }
+table { border-collapse:collapse; width:100%; font-size:.84rem; font-variant-numeric:tabular-nums; }
+th, td { padding:7px 9px; border-bottom:1px solid var(--rule); text-align:left; vertical-align:top; }
+th { font-weight:600; color:var(--muted); font-size:.72rem; letter-spacing:.04em; text-transform:uppercase; }
+td.num, th.num { text-align:right; font-family:var(--mono); } .mono { font-family:var(--mono); font-size:.8rem; word-break:break-all; }
+tr:last-child td { border-bottom:0; } .facts { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:12px; }
+.facts .k { font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--muted); } .facts .v { font-family:var(--mono); font-size:1.02rem; }
+.card { background:var(--surface); border:1px solid var(--rule); border-left:4px solid var(--record-fg); padding:18px; display:grid; gap:14px; }
+a { color:var(--accent); } code { font-family:var(--mono); font-size:.8rem; background:var(--none-bg); padding:1px 4px; border-radius:3px; }
+footer { color:var(--muted); font-size:.85rem; display:grid; gap:6px; } svg text { font-family:var(--mono); font-size:11px; fill:var(--muted); }
+figure { margin:0; background:var(--surface); border:1px solid var(--rule); padding:12px; } figcaption { color:var(--muted); font-size:.85rem; margin-top:6px; }
+</style>
+<main>
+  <header style="display:grid;gap:10px">
+    <div class="eyebrow">Proof of Outcome · the arena · cohort 2026-11-03 · as of 2026-11-03</div>
+    <h1>Every listed address, graded by what settled on the chain, after it was listed</h1>
+    <p class="lead">gdex.pro HyperLiquid PnL boards: 69 unique addresses across its four windows, carried verbatim from <code>gdex_hl_top_traders_by_pnl_2026-11-03.json</code>. Each is graded on its HyperLiquid L1 fills and funding in the window 2026-11-04 to 2026-11-10 (7 days), which opened after the observation. SETTLED.md: realized_ex_funding = sum closedPnl - sum fee (fee includes builderFee); net_with_funding adds sum funding.usdc; positions open at the window&#x27;s end are counted, never valued. No venue number is recomputed, re-ranked or corrected; each address is graded separately on the chain&#x27;s fills in a window that opens after this observation.</p>
+  </header>
+  <section class="legend" aria-label="What the statuses mean">
+<div><span class="chip FULL">FULL</span><p>Every fill in the window the public API holds was served; ranked.</p></div>
+<div><span class="chip PARTIAL">PARTIAL</span><p>The public API&#x27;s horizon (the 10 000 most recent fills) cut the window; the figures are of the fills served; unranked.</p></div>
+<div><span class="chip NONE">NONE</span><p>Zero fills served in the window: nothing settled under this address on the perp L1 as the public API serves it; unranked.</p></div>
+<div><span class="chip REFUSED">REFUSED</span><p>A pinned page did not hash to its pin (S84); no figure is shown.</p></div>
+<div><span class="chip RECORD">RECORD</span><p>The operator&#x27;s own account: the same grader over its own pages, beside its committed run files that re-verify offline with L1 hashes.</p></div>
+<div><span class="chip PAPER">PAPER</span><p>A paper fork of the contract marked on the environment tape: net basis points of its episodes inside the window, never a USD figure.</p></div>
+  </section>
+  <section>
+    <div class="facts">
+      <div><div class="k">counts</div><div class="v" style="font-size:.9rem">FULL 0 · PARTIAL 0 · NONE 0 · REFUSED 0</div></div>
+      <div><div class="k">median net, FULL rows (USD)</div><div class="v">None</div></div>
+      <div><div class="k">share of FULL rows net-positive</div><div class="v">None</div></div>
+      <div><div class="k">window</div><div class="v" style="font-size:.9rem">started false · complete false</div></div>
+    </div>
+  </section>
+  
+  <section>
+    <h2>The arena</h2>
+    <div class="wrap"><table>
+      <thead><tr><th>status</th><th class="num">rank</th><th>address</th><th class="num">displayed week pnl at observation</th><th class="num">fills</th><th class="num">realized ex funding (USD)</th><th class="num">funding (USD)</th><th class="num">net with funding (USD)</th><th>open at window end</th><th>coverage</th></tr></thead>
+      <tbody>
+
+      </tbody>
+    </table></div>
+  </section>
+
+
+  <footer>
+    <div>Verify this run offline: <code>python -m rights_events.agent_arena --verify --run rights_events/fixtures/agent_record/&lt;run file&gt;</code></div>
+    <div>This arena's own run: <code>run_ARENA_2026-11-03_2026-11-03.ri</code>, root <span class="mono">3e23db83c08e3c1360d5e7a71c92e87d472a1820348ac4b4a3fd8fd8a12b5e4f</span>, 2 events. Record source: <a href="https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record" rel="noopener">https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record</a>.</div>
+    <div>Source of the boards: <a href="https://trade-api.gemach.io/v1/hl/top_traders_by_pnl" rel="noopener">https://trade-api.gemach.io/v1/hl/top_traders_by_pnl</a>, sha256 <span class="mono">0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c</span>. Fills and funding: the venue's public info API, pages pinned verbatim beside the run. An independent record; not operated by or affiliated with the venue. No claim about anyone's profit is made: the table prints what the chain's public API served, with its coverage, beside what the venue displayed.</div>
+  </footer>
+</main>

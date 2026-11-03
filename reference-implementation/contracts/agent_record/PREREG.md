@@ -4353,3 +4353,93 @@ Until it runs, cohort 2 accrues no pages and the routine's step 3b reads VOID (S
 hour of delay inside the 10 000-fill horizon is lost coverage for the heavy addresses.
 
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A18.2 — 2026-11-03 07:3xZ, flat — THE ARENA RUN, cohort 1 graded: 80 addresses of the 10-25 boards on the chain's fills 10-26 … 11-02; 8 FULL rows ranked, 23 PARTIAL (the public API's horizon), 49 NONE (nothing settled under the address); the operator's RECORD row 0.073533 USD net on 4 fills under the same grader; the paper population in the same table; the page public; cohort 2 opened; the suite 1121 passed
+
+**Preflight.** HEAD `15a9659` (A18.1) = origin; frozen shas hold; suite 1105 → **1121 passed in
+37.82 s** with the 16 pin gates of `tests/test_agent_record_arena_pins.py` (every capture,
+manifest, run file and page byte for byte; every one of the 163 page files hashes to the
+manifest; the known answer; the counts; the committed run equals a fresh build; cohort 2 is
+boards-only; A3's one-board-capture gate still holds).
+
+**The run (unmodified engine, `python -m rights_events.agent_arena`):** cohort 1 → 83 events
+(1 boards self_asserted, 81 settled third_party_attested, 1 ranking; 0 disputes, 0
+cryptographically_signed, R25 as A3), root
+`dda593db906690aaad9359f8df070455f41a7d1cac2b3a2658f462582ce9c1c3`, run file
+`arena/2026-10-25/run_ARENA_2026-10-25_2026-11-03.ri` (506 696 bytes), C1–C7 PASS, `--verify`
+reloads 83 events with every signature and inclusion proof. Cohort 2 → 2 events (boards +
+an empty ranking), root `3e23db83c08e3c1360d5e7a71c92e87d472a1820348ac4b4a3fd8fd8a12b5e4f`.
+
+**The reading (cohort 1, window 10-26 … 11-02, nothing averaged, nothing estimated):**
+
+| status | rows | what it means on this record |
+|---|---:|---|
+| FULL | 8 | every fill the public API holds in the window was served; ranked |
+| PARTIAL | 23 | 18 served exactly 10 000 fills (the horizon) and 5 served a full first page days after the window opened; figures are of the fills served, unranked |
+| NONE | 49 | zero fills served in 8 days under the address as the public API serves it, while the boards show these addresses six- and seven-figure PnL; a vault, a sub-account or spot are possibilities the record does not guess at |
+| REFUSED | 0 | no pinned page failed its sha (S84) |
+
+Median net with funding of the FULL rows **3 937.15 USD**; share net-positive **0.75** (6 of 8).
+
+| rank | address | fills | realized ex funding (USD) | funding (USD) | net with funding (USD) |
+|---:|---|---:|---:|---:|---:|
+| 1 | `0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9` | 4 566 | 826 269.26 | 12 577.19 | **838 846.45** |
+| 2 | `0xfc667adba8d4837586078f4fdcdc29804337ca06` | 1 325 | −35 574.74 | 123 202.63 | **87 627.89** |
+| 3 | `0xf818fa41af44a1b42ba7433f4ec472be40a2c268` | 27 | −1 143.22 | 11 247.65 | **10 104.43** |
+| 4 | `0x856c35038594767646266bc7fd68dc26480e910d` | 1 480 | 3 473.90 | 3 546.81 | **7 020.71** |
+| 5 | `0x484bc1608211d0604bf70bae72792a56884562f8` | 277 | −268.56 | 1 122.14 | **853.58** |
+| 6 | `0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b` | 1 | 7.87 | 0 | **7.87** |
+| 7 | `0x218a65e21eddeece7a9df38c6bbdd89f692b7da2` | 356 | −194 819.13 | 162 206.02 | **−32 613.11** |
+| 8 | `0xa312114b5795dff9b8db50474dd57701aa78ad1e` | 150 | −47 202.52 | 229.05 | **−46 973.47** |
+
+(Exact Decimals in the run file and `arena_2026-10-25_2026-11-03.json`; rounded here only.)
+What the reading says in words: of the eight addresses the chain can be read in full for,
+three of the top five are net-positive only through FUNDING RECEIVED, not through closed
+trades (ranks 2, 3 and 5 have negative realized ex funding); rank 7 paid 194 819 USD in
+realized losses and collected 162 206 USD of funding. Every FULL row carries positions still
+open at the window's end (coins and sizes in the table; `xyz:` = HIP-3 perps, `@<index>` =
+spot, both L1 fills as the API serves them), counted and never valued. Of the 23 PARTIAL rows,
+the fills served alone sum to large positive and negative figures (from −772 335 to
++2 043 646 USD) that are NOT the window's figure for anyone and are printed only with their
+coverage. The boards' displayed week PnL at observation stands beside each row untouched.
+
+**The RECORD row (the operator, same grader):** FULL, 4 fills, closedPnl 0.11900, fees
+0.041793, realized_ex_funding **0.077207**, funding 27 rows **−0.003674**, net_with_funding
+**0.073533** USD, open at window end none; equals A18.1's corrected known answer exactly;
+beside it the five run files (1 PAPER, 4 LIVE settled pairs), their roots and 8 L1 hashes.
+
+**The PAPER rows (same window, net bps, never USD; entries 11-01 … 11-02 inside the window):**
+F4:NEAR 15 episodes −50.56; F4:BTC 14, −252.31; F4:ZEC 29, −257.52; F4:SOL 20, −325.84;
+F4:ETH 20, −535.86; F4:HYPE 30, −956.50; C1 controls 1–2 episodes each, all negative.
+
+**Pins (A18.2 outputs, pure functions of A18.1's pins):**
+
+| file | sha256 |
+|---|---|
+| `arena/2026-10-25/run_ARENA_2026-10-25_2026-11-03.ri` | `27c9898a33d9d6a15eafe156a72959e888f6667fa75040f514436d290a5002b5` |
+| `arena/2026-10-25/arena_2026-10-25_2026-11-03.json` | `94710e8d01bd85cab09e86cbbbdcab4f4eb830e5b081a13d53d56fbde3061619` |
+| `arena/2026-10-25/arena_2026-10-25_2026-11-03.md` | `1f155f3f0ec8053bf120db23fb06d6d41ce53fdb9e173c2dbe5edae3e5a4ad9d` |
+| `arena/2026-10-25/arena_2026-10-25_2026-11-03.html` | `870f5d83f3a190734c4f471f51ce1f84faaa1e60b60ec3d790001329d00d6a26` |
+| `arena/2026-11-03/run_ARENA_2026-11-03_2026-11-03.ri` | `8c3ec86cee48af10289f1bc0b5118cb8439ade4e39520f017ddfbe077fc086c6` |
+| `arena/2026-11-03/arena_2026-11-03_2026-11-03.json` | `b81ff9bcf975e9921baefd4f625c7906129ce3d7388856e954182d16b952bde1` |
+
+**The public page.** `arena_2026-10-25_2026-11-03.html` published as
+https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd (the artifact is private until the operator
+shares it from its Share menu; the same file and every input are public on the branch at
+https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena).
+Recompute: `python -m rights_events.agent_arena --capture rights_events/fixtures/agent_record/arena/2026-10-25/capture_ARENA_2026-10-25_2026-11-03.json --out /tmp/x.ri --arena-out /tmp/arena` reproduces the run file and the page byte for byte.
+
+**The three questions, by rule.** (1) R72's order: the sensor does not hold; the hand holds
+(no pair inside the gate since Day 5), so the factor is **the hand / the gateway**; one
+sentence: the arena now grades eighty strangers every day and this account once, on 10-28.
+(2) Reality rewards, on this cohort, funding received and positions left open past the
+window as much as closed trades: realized ex funding is negative for five of the eight FULL
+rows, and the displayed week PnL beside them is a different number about a different window.
+(3) The smallest sequence of cheap bets: cohort 2 graded daily from 11-05 by the routine
+(needs the tape), F4:NEAR's run read on 11-04 … 11-06, one live unit when a hand is present.
+
+**Not done tonight, stated:** the VPS fills tape (operator's act, A18.1); SETTLED.md is DRAFT
+until ratified; no venue signs anything; no live population; no strategist; no judge; rung 4
+is a request, not a build. The arena claims nothing about anyone's profit.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain tonight.
