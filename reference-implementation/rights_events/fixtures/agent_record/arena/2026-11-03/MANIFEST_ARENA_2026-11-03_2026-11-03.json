@@ -1,0 +1,49 @@
+{
+  "fixture": "capture_ARENA_2026-11-03_2026-11-03.json",
+  "status": "ARENA",
+  "bytes": 37585,
+  "sha256": "19c1cc1f0d3dc60a74d493084c3f0fef372d6ace5472cf6f86f7755bfa04185b",
+  "generator": "arena/capture_arena_from_hl.py",
+  "cohort_date": "2026-11-03",
+  "as_of_date": "2026-11-03",
+  "window": {
+    "t0_ms": 1793750400000,
+    "t1_ms": 1794355199999,
+    "t0_iso": "2026-11-04T00:00:00.000Z",
+    "t1_iso": "2026-11-10T23:59:59.999Z",
+    "days": 7,
+    "started": false,
+    "complete": false
+  },
+  "addresses": 69,
+  "rows_with_pages": 0,
+  "rows_with_errors": 0,
+  "files": [
+    {
+      "name": "capture_ARENA_2026-11-03_2026-11-03.json",
+      "bytes": 37585,
+      "sha256": "19c1cc1f0d3dc60a74d493084c3f0fef372d6ace5472cf6f86f7755bfa04185b"
+    },
+    {
+      "name": "gdex_hl_top_traders_by_pnl_2026-11-03.json",
+      "bytes": 56047,
+      "sha256": "0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c"
+    }
+  ],
+  "source": {
+    "venue_boards": {
+      "api": "GET https://trade-api.gemach.io/v1/hl/top_traders_by_pnl",
+      "payload_origin": "live GET https://trade-api.gemach.io/v1/hl/top_traders_by_pnl with the gdex SDK default UA at 1793688589648",
+      "payload_sha256": "0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c",
+      "user_agent_rule": "the gdex SDK default User-Agent (GdexApiClient DEFAULT_USER_AGENT); a bare client is answered HTTP 403 'Access denied: Non-browser clients not allowed' (measured 2026-10-25)"
+    },
+    "chain": {
+      "api": "https://api.hyperliquid.xyz/info",
+      "requests": [
+        "userFillsByTime",
+        "userFunding"
+      ],
+      "pages_verbatim": "one HTTP response body a line, gzip mtime 0"
+    }
+  }
+}

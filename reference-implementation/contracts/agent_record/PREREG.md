@@ -4306,3 +4306,50 @@ the chain's public API served, with its coverage, beside what the venue displaye
 R72 line in POO_DAILY.md, with the full suite green → A18.1 the captures of cohort 1 and
 cohort 2 pinned (pages, shas, counts) → A18.2 the run, the arena page, the public link, the
 income row. Then the VPS tape deployed and its first manifest read (A18.3).
+
+### A18.1 — 2026-11-03 07:05Z, flat — the captures pinned before their gates: cohort 1 (the 10-25 boards, 80 addresses + the operator, window 10-26 … 11-02) with 217 285 fills and 138 609 funding rows served in 163 files; cohort 2 (the boards observed today, 69 addresses, window 11-04 … 11-10, no fills yet); one error in A18's known-answer arithmetic found by the capture and recorded
+
+**Preflight.** HEAD `bcae40c` (P14) = origin; frozen shas hold; suite 1105 passed. Nothing below
+is read by a gate until this commit exists (the ordering is the proof).
+
+**Cohort 1 (R92), `rights_events/fixtures/agent_record/arena/2026-10-25/`:**
+
+| item | value |
+|---|---|
+| boards payload | `../../gdex_hl_top_traders_by_pnl_2026-10-25.json` (A3.1), sha `4caa7ef634ebe3bb23767f5062a4cfc57d5f1ed501e0a34552f2ce3940b19316`, observed ms 1792906235038 |
+| cohort | 80 unique addresses across day 30 / week 30 / month 30 / allTime 30 rows, payload order, strings verbatim |
+| window | 2026-10-26T00:00:00.000Z … 2026-11-02T23:59:59.999Z (t0 1792972800000, t1 1793663999999, 8 days, started, complete) |
+| capture | `capture_ARENA_2026-10-25_2026-11-03.json`, sha `1471de788d474bae26b47ef176afb7e31c66b8596d8765…` (full value in the manifest) |
+| manifest | `MANIFEST_ARENA_2026-10-25_2026-11-03.json`: 163 files, 14 741 204 bytes, every file's sha256 |
+| pages | 81 rows (80 + the operator), 0 errors (S83 never fired); every HTTP response body one line of `hl_fills_<address>.jsonl.gz` / `hl_funding_<address>.jsonl.gz` (gzip, mtime 0), sha256 of each page's raw bytes pinned in the capture |
+| served | 217 285 fills, 138 609 funding rows; by address: 49 served zero fills, 18 served exactly 10 000 (the API's horizon), 14 served some |
+| paper | `vps/marks_2026-11-01_as_read_2026-11-03.jsonl` `ed0698e5…`, `vps/marks_2026-11-02.jsonl` `f246094a…` (A17.2's pins) |
+
+**Cohort 2 (R92), `arena/2026-11-03/`:** the boards observed at ms 1793688589648 (07:29:49Z
+today; this is a fresh payload, NOT a `capture_BOARD_` file, so A3's one-capture gate stands),
+`gdex_hl_top_traders_by_pnl_2026-11-03.json` 56 047 bytes, sha
+`0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c`; 69 unique addresses (51 of
+them also in cohort 1); window 2026-11-04T00:00:00.000Z … 2026-11-10T23:59:59.999Z (t0
+1793750400000, t1 1794355199999, 7 days, not started); capture
+`capture_ARENA_2026-11-03_2026-11-03.json` sha `19c1cc1f0d3dc60a74d493084c3f0fef372d6ace5472cf6f86f7755bfa04185b`,
+manifest 2 files. No fills were fetched (the window has not opened); the operator's address
+is not on any of the four boards.
+
+**A18's known-answer paragraph for the cohort-1 window was wrong, and the capture says so.**
+A18 computed "the operator's row: 2 fills … realized_ex_funding 0.144370, funding −0.003224,
+net 0.141146" from a fetch whose start was 1793059200000 = 2026-10-27, not 10-26. The window
+as declared (10-26 00:00Z) holds FOUR of the operator's fills: Day 5's open and close are both
+on 10-26 UTC (04:41Z and 08:11Z). From the pinned pages: closedPnl −0.04634 + 0.16534 =
+0.11900; fees 0.010433 + 0.01039 + 0.010408 + 0.010562 = 0.041793; **realized_ex_funding
+0.077207**; funding 27 rows **−0.003674**; **net_with_funding 0.073533**; open at window end
+none. This is the known answer the runner must print; A18 is not edited (the error stays
+on the record as the reason the capture, not the amendment, is the pin). The four-pair table
+in A18 (closedPnl − fee per pair) is unaffected.
+
+**What the fills tape did not do.** `ops/arena_tape_vps.sh` was not run: this session's
+permission classifier refused the remote shell write. The tape (R93) is the operator's act:
+`! bash rights_events/fixtures/agent_record/ops/arena_tape_vps.sh rights_events/fixtures/agent_record/arena/2026-11-03/capture_ARENA_2026-11-03_2026-11-03.json`.
+Until it runs, cohort 2 accrues no pages and the routine's step 3b reads VOID (S85); every
+hour of delay inside the 10 000-fill horizon is lost coverage for the heavy addresses.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.

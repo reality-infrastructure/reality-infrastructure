@@ -1546,3 +1546,14 @@ the go (a hand-off), then search (P12).
 | Smoke | the real path on 3 cohort addresses + the operator: `AGENT-RECORD ARENA RUN: OK`, C1–C7 PASS. |
 
 **Income row (R81), 2026-11-03 after P14:** 0 USD a day against 165. Nothing on the chain.
+
+### A18.1 — the arena's captures pinned: cohort 1 (80 + operator, 163 files, 217 285 fills served), cohort 2 (69 addresses, window not started)
+
+| item | evidence |
+|---|---|
+| Cohort 1 | capture `1471de78…`, 163 files / 14.7 MB, 81 rows, 0 errors; served: 49 addresses zero fills, 18 at the 10 000 horizon, 14 some. |
+| Cohort 2 | payload `0cd4bb5f…` observed 07:29:49Z, 69 addresses, window 11-04 … 11-10; capture `19c1cc1f…`. |
+| Known answer corrected | the operator's cohort-1 window row is 4 fills: realized 0.077207, funding −0.003674, net 0.073533 (A18 used a 10-27 start; not edited). |
+| Not done | the VPS fills tape (operator's act; classifier refused the remote write). |
+
+**Income row (R81), after A18.1:** 0 USD a day against 165.
