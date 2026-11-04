@@ -1627,3 +1627,31 @@ the go (a hand-off), then search (P12).
 | Known answer | as of 11-03: 6 ALIVE, 0 candidate, 0 retired; runs BTC 1, SOL 1, others 0; earliest retirement read 2026-11-08. |
 
 **Income row (R81), 2026-11-04 after A21:** 0 USD a day against 165. Nothing on the chain.
+
+### A18.3 — the fills tape live and on the channel; the pipeline proven on real pages
+
+| gate | evidence |
+|---|---|
+| Deploy | operator-authorized 05:18Z; first cycle 05:19–05:26Z, 219 pages, timer active. |
+| Channel | `8793ee7` 06:07Z; 144 arena files, 0 sha mismatches; 19 of 70 addresses with fills in the first 5 h; 164 239 fills served; the window's start caught (first fill 00:00:04Z). |
+| Dry run | builder → grader on the real pages: 72 events, C1–C7 PASS, 11 FULL / 8 PARTIAL / 50 NONE at 5 h; nothing committed. |
+| Finding | F1: tape coverage by page continuity, for a later amendment. |
+
+### A20.1 — the leader screen run: 0 selected of 80; letters pinned; A20's hand letters corrected
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A20 `2b8c818` → P16 `99c1046` → this. |
+| Result | SELECTED 0 / REFUSED 80; pins `cf810f26…` `fdb495a3…`; rank 1 fails D G H. |
+| Correction | six rows' letter sets differ from A20's hand reading (fill days vs entry days; settled daily nets); the verdict holds; A20 not edited. |
+| Suite | 1146 at P16. |
+
+### A21.1 — the population ledger as of 11-03: 6 ALIVE / 0 / 0 / 0, the known answer exactly
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A21 `e394b32` → P17 `5ea5dff` → this. |
+| Result | pins `bd3d23c8…` `ee2a77ba…`; runs BTC 1, SOL 1; every pooled mean negative; earliest retirement read 2026-11-08. |
+| Suite | **1153 passed**. |
+
+**Income row (R81), 2026-11-04 after A21.1:** 0 USD a day against 165. Nothing on the chain.

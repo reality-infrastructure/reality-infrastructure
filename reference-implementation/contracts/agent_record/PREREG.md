@@ -4659,3 +4659,67 @@ No run file. Yesterday the same capture would have been graded with a 70th row.
 **Order of commits:** this → P17 (`agent_ledger.py`, `ledger/promotions.json` empty, the gates including a synthetic seven-day retirement and a synthetic candidate, POO_DAILY.md step 3d daily) → A21.1 (the ledger as of 11-03 pinned; the results against the known answer). A18.3 (the tape on the channel) is written when the channel carries it.
 
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A18.3 — 2026-11-04 06:1xZ, flat — THE FILLS TAPE LIVE ON THE VPS AND ON THE CHANNEL; the first manifest read; the offline builder and the grader run end to end on the tape's real pages (dry run, nothing committed); one finding for a later amendment
+
+**The deploy.** At 05:18Z the operator authorized the session to run `ops/arena_tape_vps.sh` ("I'm authorizing you to run it now"); the classifier allowed it on that authorization. Installed on the VPS: `/root/poo/arena/arena_fills_tape.py`, `cohorts/cohort_2026-11-03.json` (70 addresses = the 69 of the boards + the operator, t0 1793750400000), `poo-arena-tape.service` + `.timer` (hourly at :20, `Persistent=true`), the repo's `publish.sh`. First cycle 05:19:03Z … 05:26:12Z: `cohort 2026-11-03: 219 pages appended; budget left 681`. Timer `active`; service `inactive` between cycles (oneshot), as designed. The deploy's dates-table row moves from LATE to DONE 2026-11-04, one day after its 50th-percentile date.
+
+**The channel (the first manifest read, R93).** `vps/poo-files` `8793ee7` ("poo-vps day files 2026-11-04T06:07:33Z"), manifest `generated_at` 2026-11-04T06:07:03Z, `poo_arena_tape_timer: active`; 144 files under `arena/` (70 `pages_fills_`, 70 `pages_funding_`, `pages_index.jsonl` 219 lines, `tape_state.json`, `cohorts/cohort_2026-11-03.json`, the log tail), 62 577 755 bytes, **0 sha256 mismatches** against the manifest after `git archive` with `core.autocrlf=false`. Read from the pages: 19 of 70 addresses served at least one fill in the window's first five hours (00:00 … 05:26Z); 164 239 fills served in the first cycle; the heaviest address (`0xf5d81a13…`) 24 000 fills = the cycle's 12-page cap, so the hourly cycles will keep paging it; the first page of `0x5b5d5120…` (cohort 2's day-rank-1) starts at fill time 00:00:04Z: **the window's start was caught**, not lost to the horizon, despite the deploy landing five hours after the window opened.
+
+**The pipeline on real pages (dry run in the session's scratch directory; NOTHING committed, the routine owns the daily captures from 11-05).** `arena_capture_from_tape.py --as-of-date 2026-11-04` over the channel extract → capture sha `23f1afaf…`, 70 rows, 143 fills pages + 76 funding pages carried byte-for-byte; then the unmodified grader (`python -m rights_events.agent_arena`): 72 events (1 boards, 70 settled, 1 ranking), C1–C7 PASS, `AGENT-RECORD ARENA RUN: OK`; A19's frame checks passed on the real cohort (69 addresses derived = declared; window = the rule's; flags started/complete = the as-of date's). Counts five hours into the window: FULL 11, PARTIAL 8, NONE 50, REFUSED 0; share positive of FULL 1 (a five-hour partial day; nothing is read into it); the operator's RECORD row NONE (no fill today).
+
+**Finding F1 (for a later amendment, not today's).** R90's coverage rule marks a row PARTIAL when the pages hold ≥ 10 000 fills, because a single API fetch cannot see past the horizon. The TAPE pages hourly from t0, so a row with 18 369 fills served by 05:26Z (`0x024294c5…`) may hold every fill; the rule is conservative on the tape, not wrong. A later amendment may define tape coverage by PAGE CONTINUITY (each page's first `time` ≤ the previous page's last `time` + 1, from t0, no gap longer than the horizon could hide) and keep the 10 000 rule for single fetches. Written down; not changed.
+
+**Dates review after A18.3:** the fills tape DONE 2026-11-04 (late 1 day); cohort 2 graded on its full window keeps its 50th-percentile date 2026-11-11; nothing drastic.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A20.1 — 2026-11-04 06:1xZ, flat — THE LEADER SCREEN RUN on cohort 1: ZERO selected of 80, as A20 wrote; every FULL row's failing letters pinned; A20's hand-read letters corrected by the code's literal reading of A20's own definitions (A20 not edited)
+
+**The order held.** A20 `2b8c818` → P16 `99c1046` → this.
+
+**The result (cohort 2026-10-25 as of 2026-11-03, `screen_2026-10-25_2026-11-03.json` sha `cf810f2695eb854a00626ba14b82f8fc078f7cea58edc88323c1dcf6adb5ad2a`, `.md` `fdb495a39f6890a1865f8bed0e31fe49ded4cf8c3d35b4dea3e935f9a2b4349e`):** SELECTED 0, REFUSED 80, NOT_SCREENED 0. The 23 PARTIAL rows fail A; the 49 NONE rows fail A with nothing to screen; the operator's RECORD row is graded, never screened. The eight FULL rows:
+
+| address | fails | cadence/h | closes | perp share | concentration | exposure share | net bps |
+|---|---|---:|---:|---:|---:|---:|---:|
+| `0x4c6d679e…` | D G H | 27.87 | 2 897 | 0.50 | 0.53 | 1.32 | 615.94 |
+| `0xfc667adb…` | B E F H | 1 325 | 799 | 1.00 | 0.36 | 43.92 | 371.51 |
+| `0xf818fa41…` | E F H | 0.29 | 23 | 1.00 | 0.23 | 139.54 | 13 636.98 |
+| `0x856c3503…` | G H | 8.20 | 266 | 1.00 | 0.50+ | 0.71 | 139.33 |
+| `0x484bc160…` | B C E F H I | 277 | 1 | 1.00 | 0.33 | 0.99 | 7.66 |
+| `0x9794bbbc…` | C D F G | 1.00 | 1 | 0.00 | 1.00 | 0.15 | 7 582.55 |
+| `0x218a65e2…` | B E F H I | 33.9 | 356 | 1.00 | 0.19 | 0.76 | −31.97 |
+| `0xa312114b…` | E F G I | 2.22 | 57 | 1.00 | 0.97 | 0.15 | −465.86 |
+
+**The correction (A20's known answer vs the code).** The verdict (zero) and the headline reasons hold: rank 1 fails on spot share, day concentration and open inventory; the 8-of-8-days row fails on concentration and the unclosed short. The LETTER SETS differ on six rows because A20's hand reading counted "days" as days with any daily entry (funding-only days included) and used fill-only daily nets, while A20's written definitions say "days with fills" (F) and "daily net" (G: the settled daily, which carries funding). The code applies the definitions literally; the gate pins the code's letters. Rows affected: `0xfc66…` (hand B E G H; code B E F H: one fill day, four funding days), `0xf818…` (hand E H; code E F H: two fill days), `0x484b…` (+I: 7.66 bps < 18.64), `0x9794…` (+G: one day is 100% of the positive sum), `0x218a…` (hand E; code B E F H I), `0xa312…` (hand E; code E F G I). A20 is not edited; the definitions stand; the hand was wrong, the rule was not.
+
+**What a copier is sold vs what the chain says, in one row.** Rank 1's 615.94 net bps of notional is the number a board would show; the same fills say half the notional is one spot token still held at the window's end (exposure 1.32 × notional) and 53% of the positive days is one day. R104: a selection would buy only a paper copy fork by a later amendment; nothing was selected, nothing is bought.
+
+**Gates:** `tests/test_agent_record_arena_screen.py` 10 passed (pins, the known answer, rank 1's reasons, S91 on a tampered arena figure, S92 on cohort 2, a partial window screens nobody, determinism, R96, the CLI); suite **1146 passed** at P16.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A21.1 — 2026-11-04 06:1xZ, flat — THE POPULATION LEDGER as of 2026-11-03: six ALIVE, zero CANDIDATE, zero RETIRED, zero PROMOTED, exactly A21's known answer; every fork's pooled mean is negative; the first day any fork can retire is the read of 2026-11-08
+
+**The order held.** A21 `e394b32` → P17 `5ea5dff` → this. Both days of the build in prereg order: A20 → P16 → A20.1; A21 → P17 → A21.1; A18.3 between on the channel's first manifest.
+
+**The result (`ledger/ledger_2026-11-03.json` sha `bd3d23c87686e61f0f49a963e77a30c45ebbba4f4a3b2b33eb0f5dd057c29427`, `.md` `ee2a77ba4a139ecda0a37b248af66b06f1cbef481314510d81e74acc8b712f0e`; readings: 11-01 ← `marks_2026-11-01_as_read_2026-11-03.jsonl`, 11-02 ← `marks_2026-11-02_as_read_2026-11-04.jsonl`, 11-03 ← `marks_2026-11-03.jsonl`; marker `acf754f9…`; `promotions.json` `[]`):** days 3, n_alive 6, k 5.
+
+| fork | status | rung | days | episodes | mean net bps | run / k |
+|---|---|---:|---:|---:|---:|---:|
+| F4:BTC | ALIVE | 0 | 3 | 19 | −5.30 | 1 / 5 |
+| F4:ETH | ALIVE | 0 | 3 | 31 | −27.20 | 0 / 5 |
+| F4:HYPE | ALIVE | 0 | 3 | 46 | −27.70 | 0 / 5 |
+| F4:ZEC | ALIVE | 0 | 3 | 57 | −28.27 | 0 / 5 |
+| F4:SOL | ALIVE | 0 | 3 | 27 | −10.08 | 1 / 5 |
+| F4:NEAR | ALIVE | 0 | 3 | 20 | −8.08 | 0 / 5 |
+
+Equal to A21's known answer in every field it named (statuses, runs, days, k, n_alive). The sums, means and 2σ bars are the files' and are pinned by the gate.
+
+**What the ledger says in words.** Every fork's pooled mean after three forward days is below zero (the cost per episode is 18.75–20.68 bps, A17.3; gross means are small). Under R106 nothing can retire before the read of 11-08 (seven full days 11-01 … 11-07) and nothing can be a candidate before 11-07 (BTC, SOL) or 11-08 (the rest). On 11-08 the rule, not a judgment, will say which forks go: a fork retires if its mean plus its own 2σ/√n is still below both zero and its C1 control's mean. A retirement frees a slot that only the strategist's prereg can fill (R107, not before 11-06, on the operator's signature). Promotion stays an amendment (R88).
+
+**Gates:** `tests/test_agent_record_ledger.py` 7 passed (pins, the known answer, a synthetic seven-day retirement with stickiness and k falling from 3 to 2 as n_alive falls, the newest reading per day, promotion only from the file with three S95 refusals, determinism, R96, the CLI); suite **1153 passed**.
+
+**The two-day build, closed.** Day 1: the leader screen (whom a copier may follow, by rule, before the data). Day 2: the population ledger (who lives, who is a candidate, who retires, by rule, before any fork can trigger it). Between them the blade went live (A18.3). The five layers now: rail (the hand, GDEX's), grader (A18/A19), academy (the six forks + the one unit by rule), loop (candidate + retirement + promotion-by-amendment), product (the screen; rung 4 the ask by 11-18). Not built: the strategist, distillation, any live population (R97).
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
