@@ -1584,3 +1584,13 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 13 (2026-11-03): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-04 after A17.3:** 0 USD a day against 165. Nothing on the chain.
+
+### A19 — PREREG: the grader re-derives its own frame (R98–R101, S87–S89); written before code
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `83ff1ff` = origin; frozen marker/forward/families shas hold; arena gates 25 passed. |
+| Prereg before code | this amendment in its own commit; R98 cohort from the payload bytes, R99 window from the cohort date, R100 payload sha inside `build()`, R101 the boundary; known answers for six planted captures. |
+| The review | dates table: cohort 1 on time, R72 on time, the fills tape LATE 1 day (operator's command, classifier refused twice), first candidate ≥ 11-07, cohort 2 at risk until the tape. |
+
+**Income row (R81), 2026-11-04 after A19:** 0 USD a day against 165. Nothing on the chain.
