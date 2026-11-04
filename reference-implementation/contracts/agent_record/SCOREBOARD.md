@@ -1655,3 +1655,13 @@ the go (a hand-off), then search (P12).
 | Suite | **1153 passed**. |
 
 **Income row (R81), 2026-11-04 after A21.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A22 — SETTLED.md ratified; sha frozen; decisions traced to the three transcripts (R108)
+
+| gate | evidence |
+|---|---|
+| The act | the operator's words on the last line, dated 2026-11-04; nothing else changed. |
+| Frozen | sha256 `c6b590de…` in `tests/test_agent_record_settled.py` (3 gates: the sha, the ratified last line, the grader's arithmetic = the document's). |
+| Traced | Schulman (the objective is the human job), Musk (the founder writes it, the machine never edits it), Brown (fix what the grader grades against). |
+
+**Income row (R81), 2026-11-04 after A22:** 0 USD a day against 165. Nothing on the chain.

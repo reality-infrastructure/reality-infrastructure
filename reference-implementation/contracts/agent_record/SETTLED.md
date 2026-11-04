@@ -36,4 +36,4 @@ with a new name and a new ratification.
 
 7. The machine never edits this document. The operator may.
 
-Not yet ratified.
+ratified 2026-11-04 (the operator, in session at 06:3xZ: "ok ratify SETTLED.md now")
