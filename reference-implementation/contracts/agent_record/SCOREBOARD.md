@@ -1607,3 +1607,13 @@ the go (a hand-off), then search (P12).
 | Not done | the VPS fills tape (operator's command, classifier refused twice); SETTLED.md ratification. |
 
 **Income row (R81), 2026-11-04 after A19.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A20 — PREREG: the leader screen (R102–R104, S90–S92); known answer: cohort 1 selects zero; written before code
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `1d7b223` = origin; frozen shas hold; the fills tape live on the VPS at 05:26Z (first cycle 219 pages). |
+| Prereg before code | nine criteria A–I with thresholds; the eight FULL rows' failing criteria named; the PARTIAL rows fail A. |
+| What a selection buys | a PAPER copy fork on the next window by a later amendment, with controls, at an independent tape's mid after a stated latency; never live. |
+
+**Income row (R81), 2026-11-04 after A20:** 0 USD a day against 165. Nothing on the chain.
