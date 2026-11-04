@@ -1571,3 +1571,16 @@ the go (a hand-off), then search (P12).
 | Not done | the VPS fills tape (operator's act); SETTLED.md ratification (operator's act). |
 
 **Income row (R81), 2026-11-03 after A18.2:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.3 — Day 13 (2026-11-03) read: 72 episodes, −2 259.9 bps; F4:BTC and F4:SOL run 1, F4:NEAR's run broke; R72: the hand; live leg MISS
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `61c76f09`; frozen marker/forward/families shas hold; 29 passed (23 + 6). |
+| Channel | `vps/poo-files` `0d84d8c3`; 20 files sha-equal to the manifest; health holds (manifest 34 min old, tape 4 s behind it, void_days []). |
+| Day 13 | 72 episodes, 59 stop-first, sum −2 259.9 bps (F4 −2 074.8, C1 −185.1); F4:BTC +33.04 net on 4 and F4:SOL +9.44 on 6 beat C0 and C1; funding not applied (API unreachable). |
+| Pass line (11-01 … 11-03) | runs: BTC 1, SOL 1, ETH/HYPE/NEAR/ZEC 0; no 2σ clause clears; no candidate; earliest candidate 2026-11-07. |
+| Late closes | Day 12's file 79 → 85 rows (prefix-equal), sum −948.8 → −859.0; pinned as `marks_2026-11-02_as_read_2026-11-04.jsonl`. |
+| Live leg | Day 13 (2026-11-03): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-04 after A17.3:** 0 USD a day against 165. Nothing on the chain.
