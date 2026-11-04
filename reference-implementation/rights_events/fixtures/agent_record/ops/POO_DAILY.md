@@ -140,6 +140,17 @@ screened) and, for every FULL row, its failing letters. A SELECTED address buys 
 tonight: the paper copy fork needs a later amendment the operator signs (R104). On a day
 the window is not complete, do not run the screen (it screens nobody).
 
+**3d. The population ledger (A21, every run).** After the day's marks file is pinned under
+`vps/` (step 3), write the ledger as of D-1 (pure, offline; reads the newest pinned reading
+of every full forward day, the frozen marker and `ledger/promotions.json`):
+```
+python -m rights_events.agent_ledger --as-of <D-1> --out-prefix rights_events/fixtures/agent_record/ledger/ledger_<D-1>
+```
+Commit both files. The amendment prints each fork's status (ALIVE / CANDIDATE / PROMOTED /
+RETIRED), rung, days alive, run against k, and any retirement with its reason. A CANDIDATE
+is not promoted by the routine: promotion is one rung of size by an amendment the operator
+signs (R88, R106). A RETIRED fork's slot is refilled only by a PREREG amendment (R107).
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate
