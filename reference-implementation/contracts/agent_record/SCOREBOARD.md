@@ -1617,3 +1617,13 @@ the go (a hand-off), then search (P12).
 | What a selection buys | a PAPER copy fork on the next window by a later amendment, with controls, at an independent tape's mid after a stated latency; never live. |
 
 **Income row (R81), 2026-11-04 after A20:** 0 USD a day against 165. Nothing on the chain.
+
+### A21 — PREREG: the population ledger with retirement (R105–R107, S93–S95); written before any fork can trigger it
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `99c1046` (P16); frozen shas hold; suite 1146. |
+| Prereg before code | statuses ALIVE / CANDIDATE / PROMOTED / RETIRED by rule; retirement = mean + 2σ/√n below both controls after 7 days, sticky; promotion only by amendment; the slot refilled only by prereg. |
+| Known answer | as of 11-03: 6 ALIVE, 0 candidate, 0 retired; runs BTC 1, SOL 1, others 0; earliest retirement read 2026-11-08. |
+
+**Income row (R81), 2026-11-04 after A21:** 0 USD a day against 165. Nothing on the chain.
