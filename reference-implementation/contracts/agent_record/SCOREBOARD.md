@@ -1594,3 +1594,16 @@ the go (a hand-off), then search (P12).
 | The review | dates table: cohort 1 on time, R72 on time, the fills tape LATE 1 day (operator's command, classifier refused twice), first candidate ≥ 11-07, cohort 2 at risk until the tape. |
 
 **Income row (R81), 2026-11-04 after A19:** 0 USD a day against 165. Nothing on the chain.
+
+### A19.1 — the frame gates run: six planted captures refused whole, nothing committed moved, suite 1136
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A19 `ebc6ce8` → P15 `fb33cf9` → this. |
+| Known answers | all met: S87 ×3 (planted, changed figure, reordered), S88 ×4 (moved, shortened, 8 days on a later cohort, flag), S89 ×2 (byte changed, payload missing); R101 boundary as stated; CLI REFUSED, no run file. |
+| Nothing moved | cohort 2 run bytes `cmp`-equal; cohort 1 by the pins gate; 11 pins unchanged; no rendered page touched. |
+| On the real capture | a 70th address planted into cohort 2's capture → `REFUSED WHOLE: S87: 70 addresses declared, 69 derived from the payload`. |
+| Suite | **1136 passed in 64.43 s** (+15). |
+| Not done | the VPS fills tape (operator's command, classifier refused twice); SETTLED.md ratification. |
+
+**Income row (R81), 2026-11-04 after A19.1:** 0 USD a day against 165. Nothing on the chain.

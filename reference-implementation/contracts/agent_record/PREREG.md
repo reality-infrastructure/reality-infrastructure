@@ -4582,3 +4582,44 @@ Success has not left the set: cohort 2's heavy rows lose coverage each hour the 
 **What is NOT built today, stated:** nothing on the VPS (the tape is the operator's command); no change to any rendered page or pinned file; no new capture; no venue action; no grading of cohort 2 (no pages exist); no strategist, no distillation, no live population (R97).
 
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A19.1 — 2026-11-04 05:2xZ, flat — THE FRAME GATES RUN: every known answer of A19 met; six planted captures refused whole with their STOP named; both committed captures and their run files unchanged byte for byte; a 70th address planted into the real cohort-2 capture refused by the command anyone runs; suite 1136
+
+**The order held.** A19 `ebc6ce8` (prereg) → P15 `fb33cf9` (code and gates) → this. No earlier amendment, rule, pinned file or rendered page edited; `git status` clean before and after.
+
+**Known answers against the results (A19's list, in its order):**
+
+| known answer (A19) | result (P15) |
+|---|---|
+| both committed captures pass R98–R100 unchanged | PASS: `check_frame` on the pinned payloads of 10-25 (80 addresses) and 11-03 (69) reproduces each declared cohort in length, order and every value; rows per window 30/30/30/30 |
+| run files reproduced byte for byte | PASS: cohort 2 `3e23db83…` rebuilt through the new `build()` and `cmp`-equal to `run_ARENA_2026-11-03_2026-11-03.ri`; cohort 1 `27c9898a…` by the pins gate (`test_cohort_1_committed_run_file_is_the_run_and_verifies`); none of the 11 pins moved |
+| the synthetic fixture passes unchanged | PASS: 6 events, 0 refused |
+| (a) a fourth address with valid pinned pages | REFUSED WHOLE: `S87: 4 addresses declared, 3 derived from the payload` |
+| a changed displayed figure; a reordered cohort | REFUSED WHOLE: `S87: cohort.addresses[0] (0x1111…) differs from the payload's derivation`; `…addresses[1] (0x3333…)` |
+| (b) the window moved one day later | REFUSED WHOLE: `S88: window.t0_ms declared …` |
+| (c) the window shortened to 7 days on cohort 2026-10-25 | REFUSED WHOLE: `S88: window.t1_ms declared …` |
+| (d) a cohort dated 2026-11-03 declaring 8 days | REFUSED WHOLE: `S88: window.t1_ms declared … for cohort 2026-11-03` |
+| (e) one byte of the payload changed, the pin left as it was | REFUSED WHOLE: `S89: the payload's bytes hash to …`; the payload deleted → `S89: payload 'board.json' not found` |
+| (f) `complete` declared false on a closed window | REFUSED WHOLE: `S88: window.complete declared False, the rule's is True` |
+| R101's boundary | a payload, pin and cohort rewritten TOGETHER pass the run-time frame (internally consistent, 6 events); provenance stays with the pinned-file gates and the branch history, as A19 said |
+| the CLI | prints `REFUSED WHOLE: <reason>` then `AGENT-RECORD ARENA RUN: REFUSED`, exit 1, no run file written |
+| suite grows by ≥ 6 and stays green | **1136 passed in 64.43 s** (1121 + 15: `tests/test_agent_record_arena_frame.py`) |
+| R96 | the new code reads no clock, no network, no log (gate on the adapter's source) |
+
+**On the real capture, by the command anyone runs.** A copy of `capture_ARENA_2026-11-03_2026-11-03.json` with a 70th address appended (`0x4444…`, day rank 31, figures of 1), beside the pinned payload:
+```
+python -m rights_events.agent_arena --capture <copy> --out <run>
+REFUSED WHOLE: S87: 70 addresses declared, 69 derived from the payload; the capture is refused whole (R98)
+AGENT-RECORD ARENA RUN: REFUSED
+```
+No run file. Yesterday the same capture would have been graded with a 70th row.
+
+**What changed for the routine.** POO_DAILY.md step 3b: a whole refusal (S87/S88/S89) is the day's arena finding — quote the reason, grade nothing, push. The tape builder now writes `started`/`complete` from the as-of date (R99), the same function the grader recomputes; `fetched_ms` still carries the caller's clock as a fact, never as an input to a figure.
+
+**The three questions, by rule (R94).** (1) R72's order: the sensor holds (A17.3: 16 402 rows, 0 null, 10.4 s longest gap); the hand holds — no pair through the gate since Day 5, and the arena's own tape is one unrun command; the factor is the hand. (2) Reality rewards what the chain settled; today's work made the grader refuse three ways of making it reward something else. (3) The cheapest bets: the tape command (minutes, the operator's); cohort 2 graded from 11-05 by the routine; F4:BTC and F4:SOL read daily to 11-07.
+
+**Dates review (A19's table) after A19.1:** unchanged. The fills tape stays the one LATE item and the arena's limiting factor.
+
+**Not done today, stated:** nothing on the VPS; no page re-rendered; no capture taken; no venue action; cohort 2 not graded (no pages); SETTLED.md still DRAFT (the operator ratifies). The arena claims nothing about anyone's profit.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
