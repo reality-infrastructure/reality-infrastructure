@@ -127,6 +127,19 @@ with funding), the RECORD row, and the page file shas from the manifest. If `are
 missing from the channel or its newest `pages_index.jsonl` line is older than 2 h, the arena
 day is VOID (S85): say so, grade nothing, and go on. Never fetch the API from the cloud.
 
+**3c. The leader screen (A20, from the run of 2026-11-12 onward: the first run after cohort
+2's window closes on 11-10).** For every cohort whose window is COMPLETE at D-1, run the
+screen over the day's pinned arena (pure, offline):
+```
+python -m rights_events.arena_screen --capture rights_events/fixtures/agent_record/arena/<cohort>/capture_ARENA_<cohort>_<D-1>.json \
+  --arena rights_events/fixtures/agent_record/arena/<cohort>/arena_<cohort>_<D-1>.json \
+  --out-prefix rights_events/fixtures/agent_record/arena/<cohort>/screen_<cohort>_<D-1>
+```
+Commit both files and their shas. The amendment prints the counts (selected / refused / not
+screened) and, for every FULL row, its failing letters. A SELECTED address buys nothing
+tonight: the paper copy fork needs a later amendment the operator signs (R104). On a day
+the window is not complete, do not run the screen (it screens nobody).
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate

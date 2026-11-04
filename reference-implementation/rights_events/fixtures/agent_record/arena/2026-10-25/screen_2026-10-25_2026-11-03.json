@@ -1,0 +1,2973 @@
+{
+  "kind": "proof_of_outcome_leader_screen",
+  "cohort_date": "2026-10-25",
+  "as_of": "2026-11-03",
+  "window": {
+    "t0_date": "2026-10-26",
+    "t1_date": "2026-11-02",
+    "days": 8,
+    "started": true,
+    "complete": true
+  },
+  "window_complete": true,
+  "capture_file": "capture_ARENA_2026-10-25_2026-11-03.json",
+  "capture_sha256": "1471de788d474bae26b47ef176afb7e31c66b8596d8765fd9a112fe7d0514016",
+  "arena_file": "arena_2026-10-25_2026-11-03.json",
+  "arena_sha256": "94710e8d01bd85cab09e86cbbbdcab4f4eb830e5b081a13d53d56fbde3061619",
+  "criteria": {
+    "A": "coverage FULL",
+    "B": "cadence <= 30 fills per active hour",
+    "C": "closes >= 20",
+    "D": "perp share >= 0.9",
+    "E": "realized_ex_funding > 0 and net_with_funding > 0",
+    "F": "days with fills >= 5 and positive days >= days with fills - 1",
+    "G": "day concentration <= 0.5",
+    "H": "open exposure at window end <= 0.25 of notional",
+    "I": "net bps of notional >= 18.64"
+  },
+  "thresholds": {
+    "cadence_max_per_hour": "30",
+    "closes_min": 20,
+    "perp_share_min": "0.9",
+    "days_min": 5,
+    "concentration_max": "0.5",
+    "exposure_max": "0.25",
+    "net_bps_min": "18.64"
+  },
+  "counts": {
+    "SELECTED": 0,
+    "REFUSED": 80,
+    "NOT_SCREENED": 0
+  },
+  "selected": [],
+  "rows": [
+    {
+      "address": "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "D",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 4566,
+        "notional": "13619061.41563",
+        "active_hours": "163.8416027777777777777777778",
+        "cadence_per_hour": "27.86837971911794143588242417",
+        "closes": 2897,
+        "perp_notional": "6764376.31303",
+        "perp_share": "0.4966844708745363113078407484",
+        "days_with_fills": 7,
+        "positive_days": 7,
+        "max_daily_net": "445484.33743024",
+        "positive_daily_sum": "838846.44510952",
+        "day_concentration": "0.5310678015355688303308295021",
+        "open_exposure_end": "18012205.8607221514",
+        "exposure_share": "1.322573216392895624053728210",
+        "net_bps_of_notional": "615.9355769897716249116748605"
+      },
+      "settled": {
+        "fills": 4566,
+        "realized_ex_funding": "826269.25638152",
+        "funding": "12577.188728",
+        "net_with_funding": "838846.44510952"
+      }
+    },
+    {
+      "address": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "B",
+        "E",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 1325,
+        "notional": "2358683.159480",
+        "active_hours": "1",
+        "cadence_per_hour": "1325",
+        "closes": 799,
+        "perp_notional": "2358683.159480",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "44644.754753",
+        "positive_daily_sum": "123202.631473",
+        "day_concentration": "0.3623685161528708900680219158",
+        "open_exposure_end": "103584375.523396",
+        "exposure_share": "43.91618904263191428482009234",
+        "net_bps_of_notional": "371.5119236927041105089359003"
+      },
+      "settled": {
+        "fills": 1325,
+        "realized_ex_funding": "-35574.739677",
+        "funding": "123202.631473",
+        "net_with_funding": "87627.891796"
+      }
+    },
+    {
+      "address": "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "E",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 27,
+        "notional": "7409.581148",
+        "active_hours": "92.35279222222222222222222222",
+        "cadence_per_hour": "0.2923571594352203488090410020",
+        "closes": 23,
+        "perp_notional": "7409.581148",
+        "perp_share": "1",
+        "days_with_fills": 2,
+        "positive_days": 2,
+        "max_daily_net": "2359.648266",
+        "positive_daily_sum": "10104.428000",
+        "day_concentration": "0.2335261596203169541116033486",
+        "open_exposure_end": "1033952.521660",
+        "exposure_share": "139.5426409411934548935180917",
+        "net_bps_of_notional": "13636.97596149195989613851787"
+      },
+      "settled": {
+        "fills": 27,
+        "realized_ex_funding": "-1143.221800",
+        "funding": "11247.649800",
+        "net_with_funding": "10104.428000"
+      }
+    },
+    {
+      "address": "0x856c35038594767646266bc7fd68dc26480e910d",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 1480,
+        "notional": "503873.018613",
+        "active_hours": "180.4212322222222222222222222",
+        "cadence_per_hour": "8.203025673702889945035971346",
+        "closes": 266,
+        "perp_notional": "503873.018613",
+        "perp_share": "1",
+        "days_with_fills": 8,
+        "positive_days": 8,
+        "max_daily_net": "3519.913413",
+        "positive_daily_sum": "7020.713868",
+        "day_concentration": "0.5013611833753199753674963470",
+        "open_exposure_end": "359119.062156000011228",
+        "exposure_share": "0.7127173888860709978338996480",
+        "net_bps_of_notional": "139.3349833917633096615804325"
+      },
+      "settled": {
+        "fills": 1480,
+        "realized_ex_funding": "3473.900857",
+        "funding": "3546.813011",
+        "net_with_funding": "7020.713868"
+      }
+    },
+    {
+      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "B",
+        "C",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 277,
+        "notional": "1114725.979530",
+        "active_hours": "1",
+        "cadence_per_hour": "277",
+        "closes": 1,
+        "perp_notional": "1114725.979530",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "334.038508",
+        "positive_daily_sum": "999.498694",
+        "day_concentration": "0.3342060474968464541085233274",
+        "open_exposure_end": "1102498.435800",
+        "exposure_share": "0.9890308973195767104487876509",
+        "net_bps_of_notional": "7.657339334281012708712571652"
+      },
+      "settled": {
+        "fills": 277,
+        "realized_ex_funding": "-268.556567",
+        "funding": "1122.140076",
+        "net_with_funding": "853.583509"
+      }
+    },
+    {
+      "address": "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "C",
+        "D",
+        "F",
+        "G"
+      ],
+      "features": {
+        "fills": 1,
+        "notional": "10.38090924",
+        "active_hours": "1",
+        "cadence_per_hour": "1",
+        "closes": 1,
+        "perp_notional": "0",
+        "perp_share": "0",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "7.87137595",
+        "positive_daily_sum": "7.87137595",
+        "day_concentration": "1",
+        "open_exposure_end": "1.53070504208732",
+        "exposure_share": "0.1474538507849742071340949321",
+        "net_bps_of_notional": "7582.549628379180396340696646"
+      },
+      "settled": {
+        "fills": 1,
+        "realized_ex_funding": "7.87137595",
+        "funding": "0",
+        "net_with_funding": "7.87137595"
+      }
+    },
+    {
+      "address": "0x218a65e21eddeece7a9df38c6bbdd89f692b7da2",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "B",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 356,
+        "notional": "10202356.35020",
+        "active_hours": "10.50004194444444444444444444",
+        "cadence_per_hour": "33.90462646564560019879285669",
+        "closes": 356,
+        "perp_notional": "10202356.35020",
+        "perp_share": "1",
+        "days_with_fills": 2,
+        "positive_days": 0,
+        "max_daily_net": "24862.273522",
+        "positive_daily_sum": "129949.423311",
+        "day_concentration": "0.1913226922331055114842963630",
+        "open_exposure_end": "7712895.30638",
+        "exposure_share": "0.7559915613248307767386535018",
+        "net_bps_of_notional": "-31.96625256709512498909930499"
+      },
+      "settled": {
+        "fills": 356,
+        "realized_ex_funding": "-194819.126000",
+        "funding": "162206.016013",
+        "net_with_funding": "-32613.109987"
+      }
+    },
+    {
+      "address": "0xa312114b5795dff9b8db50474dd57701aa78ad1e",
+      "status": "FULL",
+      "verdict": "REFUSED",
+      "fails": [
+        "E",
+        "F",
+        "G",
+        "I"
+      ],
+      "features": {
+        "fills": 150,
+        "notional": "1008325.5894640",
+        "active_hours": "67.63708",
+        "cadence_per_hour": "2.217718446745483394611358149",
+        "closes": 57,
+        "perp_notional": "1008325.5894640",
+        "perp_share": "1",
+        "days_with_fills": 4,
+        "positive_days": 3,
+        "max_daily_net": "6041.521170",
+        "positive_daily_sum": "6222.156910",
+        "day_concentration": "0.9709689513439158833427747807",
+        "open_exposure_end": "151462.1743040",
+        "exposure_share": "0.1502115744027813514877578426",
+        "net_bps_of_notional": "-465.8561548653137911612539676"
+      },
+      "settled": {
+        "fills": 150,
+        "realized_ex_funding": "-47202.518817",
+        "funding": "229.050621",
+        "net_with_funding": "-46973.468196"
+      }
+    },
+    {
+      "address": "0xe81309ec9b79309e4d108ae3a92d1aa618cd6d74",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "427099655.74102",
+        "active_hours": "25.30899972222222222222222222",
+        "cadence_per_hour": "395.1163661051225311277337786",
+        "closes": 5608,
+        "perp_notional": "427099655.74102",
+        "perp_share": "1",
+        "days_with_fills": 2,
+        "positive_days": 2,
+        "max_daily_net": "1130868.3540900015",
+        "positive_daily_sum": "2067873.5916740033",
+        "day_concentration": "0.5468749920900778845740448399",
+        "open_exposure_end": "47090300.35868",
+        "exposure_share": "0.1102560016747803217938780258",
+        "net_bps_of_notional": "47.84939132381803736466225418"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "2087718.3962560033",
+        "funding": "-44072.540074",
+        "net_with_funding": "2043645.8561820033"
+      }
+    },
+    {
+      "address": "0x49e96e255ba418d08e66c35b588e2f2f3766e1d0",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "58917546.282275",
+        "active_hours": "72.13492361111111111111111111",
+        "cadence_per_hour": "138.6291063938920785884553338",
+        "closes": 6016,
+        "perp_notional": "58917546.282275",
+        "perp_share": "1",
+        "days_with_fills": 3,
+        "positive_days": 3,
+        "max_daily_net": "893401.689304",
+        "positive_daily_sum": "1721348.148885",
+        "day_concentration": "0.5190127806990696510054997653",
+        "open_exposure_end": "54131224.676102",
+        "exposure_share": "0.9187623737206969033976785386",
+        "net_bps_of_notional": "292.1622262811133983159908848"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "1599715.576001",
+        "funding": "121632.572884",
+        "net_with_funding": "1721348.148885"
+      }
+    },
+    {
+      "address": "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "10594006.0985310",
+        "active_hours": "7.934662222222222222222222222",
+        "cadence_per_hour": "1260.293093761885264037004446",
+        "closes": 559,
+        "perp_notional": "8084812.0542410",
+        "perp_share": "0.7631496507597882954745635842",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "495592.83572634",
+        "positive_daily_sum": "1519638.55019934",
+        "day_concentration": "0.3261254695475645500704022562",
+        "open_exposure_end": "330489219.50178627510",
+        "exposure_share": "31.19586834555560674064754279",
+        "net_bps_of_notional": "1434.432391359542560854969493"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "350011.87176034",
+        "funding": "1169626.678439",
+        "net_with_funding": "1519638.55019934"
+      }
+    },
+    {
+      "address": "0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "9990771.04709",
+        "active_hours": "4.789938333333333333333333333",
+        "cadence_per_hour": "2087.709549496635830036781963",
+        "closes": 1856,
+        "perp_notional": "6793891.88221",
+        "perp_share": "0.6800167724981395512981539192",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "251730.71456238",
+        "positive_daily_sum": "1446979.66037838",
+        "day_concentration": "0.1739697671331145867746144425",
+        "open_exposure_end": "309506742.1309154343038",
+        "exposure_share": "30.97926483072245910001134056",
+        "net_bps_of_notional": "1448.316304675843857577609651"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "45622.45553738",
+        "funding": "1401357.204841",
+        "net_with_funding": "1446979.66037838"
+      }
+    },
+    {
+      "address": "0xf02d16a272a842f8bac1d9a9e773aba1933454c6",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "47392519.75701",
+        "active_hours": "41.56009694444444444444444444",
+        "cadence_per_hour": "240.6154156321512697786790667",
+        "closes": 4667,
+        "perp_notional": "46660720.81115",
+        "perp_share": "0.9845587668768813045479199712",
+        "days_with_fills": 3,
+        "positive_days": 3,
+        "max_daily_net": "1233597.0577027299",
+        "positive_daily_sum": "1338900.9097045799",
+        "day_concentration": "0.9213505262125151327208776352",
+        "open_exposure_end": "98279561.72991521921",
+        "exposure_share": "2.073735733694099092859572324",
+        "net_bps_of_notional": "282.5131300402186773033537022"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "1219997.6749595799",
+        "funding": "118903.234745",
+        "net_with_funding": "1338900.9097045799"
+      }
+    },
+    {
+      "address": "0xb695651daa495f59dd2725c6fe98322d8b51a92d",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "15914140.803480",
+        "active_hours": "87.05213777777777777777777778",
+        "cadence_per_hour": "114.8736866810495329720921781",
+        "closes": 4857,
+        "perp_notional": "15914140.803480",
+        "perp_share": "1",
+        "days_with_fills": 5,
+        "positive_days": 5,
+        "max_daily_net": "373501.489049",
+        "positive_daily_sum": "1063711.085745",
+        "day_concentration": "0.3511305786452415496913760615",
+        "open_exposure_end": "110588880.688190",
+        "exposure_share": "6.949095276573596008244685500",
+        "net_bps_of_notional": "668.4062299564388873417277213"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "799536.740418",
+        "funding": "264174.345327",
+        "net_with_funding": "1063711.085745"
+      }
+    },
+    {
+      "address": "0xdd53c5297309130ab5fe5623dc905752e3342b13",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "2446771.982791",
+        "active_hours": "10.31979833333333333333333333",
+        "cadence_per_hour": "969.0111838425783191176700969",
+        "closes": 10000,
+        "perp_notional": "2446771.982791",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "504943.117227",
+        "positive_daily_sum": "755333.426500",
+        "day_concentration": "0.6685036031925167289018421324",
+        "open_exposure_end": "20919040.580991999828158",
+        "exposure_share": "8.549648568858439629701045944",
+        "net_bps_of_notional": "3087.060959552108677446136473"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "496986.540789",
+        "funding": "258346.885711",
+        "net_with_funding": "755333.426500"
+      }
+    },
+    {
+      "address": "0x5647249079e257329ecb6f46ed41821d3c69e7de",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "5586174.4689120",
+        "active_hours": "93.04166944444444444444444444",
+        "cadence_per_hour": "107.4787249595842675150241076",
+        "closes": 6551,
+        "perp_notional": "5586174.4689120",
+        "perp_share": "1",
+        "days_with_fills": 4,
+        "positive_days": 4,
+        "max_daily_net": "623136.199417",
+        "positive_daily_sum": "742105.879664",
+        "day_concentration": "0.8396863796566800192509517462",
+        "open_exposure_end": "7732700.1652400",
+        "exposure_share": "1.384256830550813682630876598",
+        "net_bps_of_notional": "1328.468854300817087347307466"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "724738.717486",
+        "funding": "17367.162178",
+        "net_with_funding": "742105.879664"
+      }
+    },
+    {
+      "address": "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "36714593.8304310",
+        "active_hours": "5.506676944444444444444444444",
+        "cadence_per_hour": "1815.977240155473882539666366",
+        "closes": 5268,
+        "perp_notional": "36714593.8304310",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "479214.064411",
+        "positive_daily_sum": "604465.923172",
+        "day_concentration": "0.7927892144792424553427973767",
+        "open_exposure_end": "176414578.0669940",
+        "exposure_share": "4.805026003604382889408816619",
+        "net_bps_of_notional": "164.6391421252729824832167385"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "479214.064411",
+        "funding": "125251.858761",
+        "net_with_funding": "604465.923172"
+      }
+    },
+    {
+      "address": "0x6910c590d8503a1f3ef5ea9b64a5d7c7f3b5feda",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "139665.061031",
+        "positive_daily_sum": "535328.942469",
+        "day_concentration": "0.2608957781861154819287013983",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "535328.942469",
+        "net_with_funding": "535328.942469"
+      }
+    },
+    {
+      "address": "0xd8c5228c515db3043dfa0c8cd6f22450ee9a99b0",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "56798693.57792",
+        "active_hours": "171.4229694444444444444444444",
+        "cadence_per_hour": "58.33523962633751158947015870",
+        "closes": 3371,
+        "perp_notional": "56798693.57792",
+        "perp_share": "1",
+        "days_with_fills": 8,
+        "positive_days": 7,
+        "max_daily_net": "245034.388061",
+        "positive_daily_sum": "454286.706837",
+        "day_concentration": "0.5393826946138650260397339763",
+        "open_exposure_end": "53295973.93454",
+        "exposure_share": "0.9383309822333369316739369416",
+        "net_bps_of_notional": "79.87810971841980292628965059"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "377714.062340",
+        "funding": "75983.165408",
+        "net_with_funding": "453697.227748"
+      }
+    },
+    {
+      "address": "0xd4c1f7e8d876c4749228d515473d36f919583d1d",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 8110,
+        "notional": "4453574.6888800",
+        "active_hours": "5.341526944444444444444444444",
+        "cadence_per_hour": "1518.292444154935513913858485",
+        "closes": 6708,
+        "perp_notional": "4453574.6888800",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "253456.359739",
+        "positive_daily_sum": "316503.959258",
+        "day_concentration": "0.8007999657672326583189879598",
+        "open_exposure_end": "28938257.1593580",
+        "exposure_share": "6.497759481077770050558443078",
+        "net_bps_of_notional": "710.6739672476346957408613392"
+      },
+      "settled": {
+        "fills": 8110,
+        "realized_ex_funding": "242073.151238",
+        "funding": "74430.808020",
+        "net_with_funding": "316503.959258"
+      }
+    },
+    {
+      "address": "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "83807.159425",
+        "positive_daily_sum": "259374.910614",
+        "day_concentration": "0.3231120513029159239033938276",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "259374.910614",
+        "net_with_funding": "259374.910614"
+      }
+    },
+    {
+      "address": "0x58b27998b4ff896949d5f57466b259e50ee211f3",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "34331230.73831",
+        "active_hours": "77.9181675",
+        "cadence_per_hour": "128.3397739044620113787968640",
+        "closes": 4731,
+        "perp_notional": "33521270.08105",
+        "perp_share": "0.9764074680737801193387886216",
+        "days_with_fills": 4,
+        "positive_days": 4,
+        "max_daily_net": "70358.624217",
+        "positive_daily_sum": "206991.37127664",
+        "day_concentration": "0.3399109044162379474373930990",
+        "open_exposure_end": "16930485.90218696076",
+        "exposure_share": "0.4931511494953293422957287953",
+        "net_bps_of_notional": "57.18064568526549978289821994"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "220446.61528364",
+        "funding": "-24138.421205",
+        "net_with_funding": "196308.19407864"
+      }
+    },
+    {
+      "address": "0x45d26f28196d226497130c4bac709d808fed4029",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "48818.308240",
+        "positive_daily_sum": "189942.965271",
+        "day_concentration": "0.2570156160842743927955512306",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "189942.965271",
+        "net_with_funding": "189942.965271"
+      }
+    },
+    {
+      "address": "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "29823.502539",
+        "positive_daily_sum": "173632.244417",
+        "day_concentration": "0.1717624663502883227836977641",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "173632.244417",
+        "net_with_funding": "173632.244417"
+      }
+    },
+    {
+      "address": "0x880ac484a1743862989a441d6d867238c7aa311c",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "12912749.5326380",
+        "active_hours": "46.42320138888888888888888889",
+        "cadence_per_hour": "215.4095301663844153598363845",
+        "closes": 1617,
+        "perp_notional": "9282405.7274080",
+        "perp_share": "0.7188558644265485284018178414",
+        "days_with_fills": 3,
+        "positive_days": 3,
+        "max_daily_net": "70596.56630400",
+        "positive_daily_sum": "165006.88282551",
+        "day_concentration": "0.4278401306365736536867721865",
+        "open_exposure_end": "14453566.8267610",
+        "exposure_share": "1.119325267653373273781017985",
+        "net_bps_of_notional": "127.7860167646263086599896124"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "55896.49915151",
+        "funding": "109110.383674",
+        "net_with_funding": "165006.88282551"
+      }
+    },
+    {
+      "address": "0x024294c53a69c1e6b39810b3fac87385752fffa1",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "33679920.642005",
+        "active_hours": "8.680039444444444444444444444",
+        "cadence_per_hour": "1152.068497384580497618066380",
+        "closes": 3976,
+        "perp_notional": "33679920.642005",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "56996.930540",
+        "positive_daily_sum": "171191.652924",
+        "day_concentration": "0.3329422291710893720793898303",
+        "open_exposure_end": "128368536.827331",
+        "exposure_share": "3.811426344848094338579165098",
+        "net_bps_of_notional": "43.76422860485257727873525603"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "-23794.078287",
+        "funding": "171191.652924",
+        "net_with_funding": "147397.574637"
+      }
+    },
+    {
+      "address": "0xdf954bbe619273a56e0cfa90dad8382195dc7d72",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 8255,
+        "notional": "2163272.5584780",
+        "active_hours": "10.01974888888888888888888889",
+        "cadence_per_hour": "823.8729424800399743883579250",
+        "closes": 5082,
+        "perp_notional": "2163272.5584780",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "44332.793048",
+        "positive_daily_sum": "108475.803266",
+        "day_concentration": "0.4086883130912514076316828516",
+        "open_exposure_end": "117080633.1340360",
+        "exposure_share": "54.12199802340657480147800093",
+        "net_bps_of_notional": "501.4430698567157678558643570"
+      },
+      "settled": {
+        "fills": 8255,
+        "realized_ex_funding": "44332.793048",
+        "funding": "64143.010218",
+        "net_with_funding": "108475.803266"
+      }
+    },
+    {
+      "address": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "D",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "23923979.48841916",
+        "active_hours": "17.40900194444444444444444444",
+        "cadence_per_hour": "574.4154680384303733539386801",
+        "closes": 5768,
+        "perp_notional": "20727962.5945560",
+        "perp_share": "0.8664094785982302629096270944",
+        "days_with_fills": 2,
+        "positive_days": 2,
+        "max_daily_net": "74663.9504394271",
+        "positive_daily_sum": "75927.8574094271",
+        "day_concentration": "0.9833538438575368647050827253",
+        "open_exposure_end": "39886063.270298639299040",
+        "exposure_share": "1.667200195084861112102464515",
+        "net_bps_of_notional": "31.64349785622953262074719720"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "75170.2811984271",
+        "funding": "533.558167",
+        "net_with_funding": "75703.8393654271"
+      }
+    },
+    {
+      "address": "0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "G",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "5186459.20044360",
+        "active_hours": "48.46132277777777777777777778",
+        "cadence_per_hour": "206.3501247346380385521874540",
+        "closes": 4143,
+        "perp_notional": "4745390.2610290",
+        "perp_share": "0.9149575997094751673297414189",
+        "days_with_fills": 3,
+        "positive_days": 3,
+        "max_daily_net": "36946.13590761",
+        "positive_daily_sum": "60849.45485030",
+        "day_concentration": "0.6071728333228912756644545784",
+        "open_exposure_end": "33391647.292561438652196",
+        "exposure_share": "6.438235798655359566293798763",
+        "net_bps_of_notional": "117.3236932917461704231243926"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "41930.41864830",
+        "funding": "18919.036202",
+        "net_with_funding": "60849.45485030"
+      }
+    },
+    {
+      "address": "0xba5d9cc840745aeeeeedac5712e32f13ab8ea352",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "10957.924242",
+        "positive_daily_sum": "58362.204787",
+        "day_concentration": "0.1877572014626980579564237908",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "57137.425782",
+        "net_with_funding": "57137.425782"
+      }
+    },
+    {
+      "address": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "F",
+        "H"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "7698317.6535359",
+        "active_hours": "5.0130375",
+        "cadence_per_hour": "1994.798562747635540328593193",
+        "closes": 6563,
+        "perp_notional": "7698118.6768130",
+        "perp_share": "0.9999741532199819517228502278",
+        "days_with_fills": 1,
+        "positive_days": 1,
+        "max_daily_net": "15560.506163",
+        "positive_daily_sum": "56349.11683228",
+        "day_concentration": "0.2761446325647831850455693174",
+        "open_exposure_end": "21119222.513867662066057",
+        "exposure_share": "2.743355556933589399535302527",
+        "net_bps_of_notional": "73.19666369755266163014506731"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "11938.51957928",
+        "funding": "44410.597253",
+        "net_with_funding": "56349.11683228"
+      }
+    },
+    {
+      "address": "0xd47587702a91731dc1089b5db0932cf820151a91",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "12896.970602",
+        "positive_daily_sum": "44491.168712",
+        "day_concentration": "0.2898770919119837572856609387",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "44491.168712",
+        "net_with_funding": "44491.168712"
+      }
+    },
+    {
+      "address": "0x8def9f50456c6c4e37fa5d3d57f108ed23992dae",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "13109.857167",
+        "positive_daily_sum": "43548.095283",
+        "day_concentration": "0.3010431818384886764784476693",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "43548.095283",
+        "net_with_funding": "43548.095283"
+      }
+    },
+    {
+      "address": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "18044.544142",
+        "positive_daily_sum": "43291.321557",
+        "day_concentration": "0.4168166619316864760040617117",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "43291.321557",
+        "net_with_funding": "43291.321557"
+      }
+    },
+    {
+      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "12522.083668",
+        "positive_daily_sum": "41595.639511",
+        "day_concentration": "0.3010431818144910357740887385",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "41595.639511",
+        "net_with_funding": "41595.639511"
+      }
+    },
+    {
+      "address": "0xe0ffc829349c88c159462942ad885f12130e7610",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "3307.776422",
+        "positive_daily_sum": "18202.971489",
+        "day_concentration": "0.1817162886839041183755600179",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "18202.971489",
+        "net_with_funding": "18202.971489"
+      }
+    },
+    {
+      "address": "0x99967871e6c4f9a5185abc57edede9e9540191f6",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "3891.292391",
+        "positive_daily_sum": "17122.405988",
+        "day_concentration": "0.2272631774837694030736821003",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "17122.405988",
+        "net_with_funding": "17122.405988"
+      }
+    },
+    {
+      "address": "0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "6290.414476",
+        "positive_daily_sum": "14489.676974",
+        "day_concentration": "0.4341307599394658527188778722",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "8730.736408",
+        "net_with_funding": "8730.736408"
+      }
+    },
+    {
+      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "319.212219",
+        "positive_daily_sum": "1030.929365",
+        "day_concentration": "0.3096353929155951436110271241",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "355.272195",
+        "net_with_funding": "355.272195"
+      }
+    },
+    {
+      "address": "0x03b9a189e2480d1e4c3007080b29f362282130fa",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x048b75dc11fd31bc38808478fee0c08d4cc05eb3",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x05cafe987297448f21a3c7ae0ae815fddecac655",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x13c50dcdee4bbcba71baf578b345cdd35c7928be",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x2e3d94f0562703b25c83308a05046ddaf9a8dd14",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x2ea18c23f72a4b6172c55b411823cdc5335923f4",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x2fd6e64bdce13f79dba8e430cd5a2bfea813f1c9",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x393d0b87ed38fc779fd9611144ae649ba6082109",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x3a98be4692cae9eee26ecf73b4be7b8961ebf4b8",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x493db0ed7514c975e9abcc110bd40c473b6763e3",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x4eb8d907136189a34c9b087950211b6a566f7819",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x4ec8fe22a531a96c8a846aaf5cbef73202649a80",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x85530f0ff6496c72a619f37a60f3c1a59077737f",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x88560b720239179d7f3f9e49ca934a4861593d7f",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x8cfac7c6f03e00db2f298699df96933a9694b6ab",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x8d68efbf06fb8cf932518bcb53705e674c4852dc",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xa822a9ceb6d6cb5b565bd10098abcfa9cf18d748",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xbde2ddc49a2e6827300faa6afc93d572114a60b1",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xbfce143acf73a34a1f8b2e2da64736146035c732",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xdcda2478f8f4f16fe13335f7b2795e2ce3520176",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xdfc24b077bc1425ad1dea75bcb6f8158e10df303",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0xff4cd3826ecee12acd4329aada4a2d3419fc463c",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "0",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "0",
+        "net_with_funding": "0"
+      }
+    },
+    {
+      "address": "0x2b61e63b11295c0a1dda2875ac3af00669732f6c",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "478.082013",
+        "positive_daily_sum": "1197.062833",
+        "day_concentration": "0.3993792137058188991487968117",
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-1472.114746",
+        "net_with_funding": "-1472.114746"
+      }
+    },
+    {
+      "address": "0xabdbca561f51626a217cbacdd95fcbd95b6484ac",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "-290.837309",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-2550.359985",
+        "net_with_funding": "-2550.359985"
+      }
+    },
+    {
+      "address": "0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 4242,
+        "notional": "101093251.963522",
+        "active_hours": "2.764791666666666666666666667",
+        "cadence_per_hour": "1534.292818928490693994423932",
+        "closes": 101,
+        "perp_notional": "101093251.963522",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "5378.768902",
+        "positive_daily_sum": "11008.224104",
+        "day_concentration": "0.4886136811155166504593536934",
+        "open_exposure_end": "146078241.558114",
+        "exposure_share": "1.444985087736856719481781627",
+        "net_bps_of_notional": "-4.111476176470991634192446721"
+      },
+      "settled": {
+        "fills": 4242,
+        "realized_ex_funding": "-32004.038919",
+        "funding": "-9560.210786",
+        "net_with_funding": "-41564.249705"
+      }
+    },
+    {
+      "address": "0x26b61e7ec6ccd97df9836e3358c8c92d4fa79a13",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "-3822.210195",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-44252.586752",
+        "net_with_funding": "-44252.586752"
+      }
+    },
+    {
+      "address": "0xc36af149b64a41aab6c26ea6b71c37082d9e105b",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "-4982.496228",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-54792.132657",
+        "net_with_funding": "-54792.132657"
+      }
+    },
+    {
+      "address": "0x60b081bd8ee2b0e5a2b8f17503322cf7ee7a991e",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "-7616.294572",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-71629.314512",
+        "net_with_funding": "-71629.314512"
+      }
+    },
+    {
+      "address": "0x31b1ecf848443472e34d204a134812d86ab01434",
+      "status": "NONE",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 0,
+        "notional": "0",
+        "active_hours": "1",
+        "cadence_per_hour": "0",
+        "closes": 0,
+        "perp_notional": "0",
+        "perp_share": null,
+        "days_with_fills": 0,
+        "positive_days": 0,
+        "max_daily_net": "-3734.544387",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "0",
+        "exposure_share": null,
+        "net_bps_of_notional": null
+      },
+      "settled": {
+        "fills": 0,
+        "realized_ex_funding": "0",
+        "funding": "-97921.752931",
+        "net_with_funding": "-97921.752931"
+      }
+    },
+    {
+      "address": "0x77ee3604adbdefa66a817b3cf776412a6613a018",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "63487020.7101320",
+        "active_hours": "83.90961777777777777777777778",
+        "cadence_per_hour": "119.1758497396987573507664119",
+        "closes": 1151,
+        "perp_notional": "63421805.9704520",
+        "perp_share": "0.9989727862648058980276733421",
+        "days_with_fills": 4,
+        "positive_days": 2,
+        "max_daily_net": "2784.66921208",
+        "positive_daily_sum": "5404.24976808",
+        "day_concentration": "0.5152739661529977758621907162",
+        "open_exposure_end": "31005103.538523321630401",
+        "exposure_share": "0.4883691688744683086280797407",
+        "net_bps_of_notional": "-16.66115499902863102142453994"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "-109258.957969805",
+        "funding": "3482.248722",
+        "net_with_funding": "-105776.709247805"
+      }
+    },
+    {
+      "address": "0xc179e03922afe8fa9533d3f896338b9fb87ce0c8",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 4712,
+        "notional": "2760598.39196",
+        "active_hours": "1.709829166666666666666666667",
+        "cadence_per_hour": "2755.830870043059857344422810",
+        "closes": 3086,
+        "perp_notional": "2760598.39196",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "-488.706747",
+        "positive_daily_sum": "0",
+        "day_concentration": null,
+        "open_exposure_end": "13058204.12682",
+        "exposure_share": "4.730207829161558213776740593",
+        "net_bps_of_notional": "-647.0302156344519122017144450"
+      },
+      "settled": {
+        "fills": 4712,
+        "realized_ex_funding": "9006.203605",
+        "funding": "-187625.260888",
+        "net_with_funding": "-178619.057283"
+      }
+    },
+    {
+      "address": "0xbf732ea04197942783e34730ed6e0f6099575d58",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "G",
+        "H",
+        "I"
+      ],
+      "features": {
+        "fills": 10000,
+        "notional": "29364801.208981",
+        "active_hours": "7.398626944444444444444444444",
+        "cadence_per_hour": "1351.602138489885717158405180",
+        "closes": 5736,
+        "perp_notional": "29364801.208981",
+        "perp_share": "1",
+        "days_with_fills": 1,
+        "positive_days": 0,
+        "max_daily_net": "908.437323",
+        "positive_daily_sum": "908.437323",
+        "day_concentration": "1",
+        "open_exposure_end": "15855087.486355",
+        "exposure_share": "0.5399351207426475845036635918",
+        "net_bps_of_notional": "-160.7156871947974711064457645"
+      },
+      "settled": {
+        "fills": 10000,
+        "realized_ex_funding": "-403489.1451760001",
+        "funding": "-68449.275388",
+        "net_with_funding": "-471938.4205640001"
+      }
+    },
+    {
+      "address": "0x874226b22939904f436ff0434e1fd0ab257c8427",
+      "status": "PARTIAL",
+      "verdict": "REFUSED",
+      "fails": [
+        "A",
+        "B",
+        "E",
+        "F",
+        "G",
+        "I"
+      ],
+      "features": {
+        "fills": 3780,
+        "notional": "124303304.901310",
+        "active_hours": "117.5813783333333333333333333",
+        "cadence_per_hour": "32.14794769018625922724413264",
+        "closes": 1589,
+        "perp_notional": "124303304.901310",
+        "perp_share": "1",
+        "days_with_fills": 5,
+        "positive_days": 1,
+        "max_daily_net": "43121.413165",
+        "positive_daily_sum": "43121.413165",
+        "day_concentration": "1",
+        "open_exposure_end": "26030721.732700",
+        "exposure_share": "0.2094129496666799326261248046",
+        "net_bps_of_notional": "-62.13312395444287666417210305"
+      },
+      "settled": {
+        "fills": 3780,
+        "realized_ex_funding": "-718002.5663480001",
+        "funding": "-54332.698790",
+        "net_with_funding": "-772335.2651380001"
+      }
+    }
+  ],
+  "what_a_selection_buys": "R104: a PAPER copy fork on the cohort's next window by a later amendment the operator signs, one unit, marked at the independent tape's next mid after a stated latency, with C0 and C1 controls; never at the leader's own prices; never live. Nothing here opens, sizes or signs anything.",
+  "what_is_not_claimed": "No profit, no ranking, no prediction: who passed nine written tests over one graded window, and who failed which."
+}
