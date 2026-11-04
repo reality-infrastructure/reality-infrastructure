@@ -23,10 +23,15 @@ import hashlib
 import io
 import json
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 FIXTURES = HERE.parent
+
+
+def _day(ms: int) -> str:
+    return datetime.fromtimestamp(ms / 1000, tz=timezone.utc).date().isoformat()
 
 
 def _sha(b: bytes) -> str:
@@ -112,7 +117,8 @@ def main(argv: list[str] | None = None) -> int:
     paper_files = [{"file": rel, "sha256": _sha((FIXTURES / rel).read_bytes())} for rel in a.paper_marks]
     capture = {
         **{k: base[k] for k in ("kind", "synthetic", "note", "actor", "cohort")},
-        "window": {**base["window"], "started": a.now_ms >= t0, "complete": a.now_ms > t1},
+        # R99 (A19): the flags are functions of the as-of date, as the grader recomputes them
+        "window": {**base["window"], "started": a.as_of_date >= _day(t0), "complete": a.as_of_date > _day(t1)},
         "as_of": {"as_of_date": a.as_of_date, "fetched_ms": a.now_ms,
                   "api": "https://api.hyperliquid.xyz/info",
                   "pagination": ("pages fetched hourly by the VPS fills tape (R93) with the same "

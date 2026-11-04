@@ -56,6 +56,10 @@ STATUS_PAPER = "PAPER"
 PAGE_CAP = 2000             # fills a response (measured 2026-11-03; the venue's docs agree)
 HORIZON_CAP = 10000         # only the 10 000 most recent fills are available
 LATE_START_MS = 24 * 3600 * 1000
+DAY_MS = 86_400_000
+COHORT_1_DATE = "2026-10-25"
+K_DAYS_DEFAULT = 7          # R99: the window of cohort D is [D+1, D+k] whole UTC days
+K_DAYS = {COHORT_1_DATE: 8}  # R92's stated exception: cohort 1 is the 8 full days before 11-03
 _HEX64 = frozenset("0123456789abcdef")
 _DISPLAYED = ("pnl", "roi", "vlm")
 
@@ -150,6 +154,100 @@ def _parse_window(doc: dict) -> dict:
             "complete": _require_bool(win, "complete", ctx)}
 
 
+def _date_ms(date: str, ctx: str) -> int:
+    """Midnight UTC of a YYYY-MM-DD date in milliseconds. No clock."""
+    try:
+        d = datetime.strptime(date, "%Y-%m-%d").replace(tzinfo=timezone.utc)
+    except ValueError as exc:
+        raise AdapterError(f"{ctx}: {date!r} is not a YYYY-MM-DD date") from exc
+    return int(d.timestamp() * 1000)
+
+
+def rule_window(cohort_date: str, as_of_date: str) -> dict:
+    """R99 (PREREG A19): the window of cohort D is [D+1 00:00:00.000Z, D+k 23:59:59.999Z],
+    k = 8 for cohort 2026-10-25 (R92's stated exception) and 7 for every other cohort;
+    `started` and `complete` are functions of the as-of date. Never read from a capture."""
+    _date_ms(as_of_date, "as_of.as_of_date")
+    k = K_DAYS.get(cohort_date, K_DAYS_DEFAULT)
+    t0 = _date_ms(cohort_date, "cohort.cohort_date") + DAY_MS
+    t1 = t0 + k * DAY_MS - 1
+    return {"t0_ms": t0, "t1_ms": t1, "days": k,
+            "started": as_of_date >= day_of_ms(t0), "complete": as_of_date > day_of_ms(t1)}
+
+
+def cohort_from_payload(payload: bytes) -> tuple[list[dict], dict]:
+    """R98 (PREREG A19): the ONE derivation of a cohort from the venue's payload bytes —
+    every unique address across day, week, month, allTime in that order, first appearance
+    wins, the venue's own strings as Decimals. The capture tool and the grader share it."""
+    try:
+        board = json.loads(payload.decode("utf-8"), parse_float=Decimal)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise AdapterError(f"payload is not valid JSON: {exc}") from exc
+    if not isinstance(board, dict) or board.get("isSuccess") is not True:
+        raise AdapterError("payload isSuccess != true (S83)")
+    top = board.get("topTraders")
+    if not isinstance(top, dict):
+        raise AdapterError("payload has no topTraders object (S83)")
+    rows_per_window: dict[str, int] = {}
+    out: list[dict] = []
+    index: dict[str, dict] = {}
+    for w in WINDOWS:
+        rows = top.get(w) or []
+        if not isinstance(rows, list):
+            raise AdapterError(f"payload.topTraders.{w} is not a list (S83)")
+        rows_per_window[w] = len(rows)
+        for i, r in enumerate(rows):
+            ctx = f"payload.{w}[{i}]"
+            if not isinstance(r, dict):
+                raise AdapterError(f"{ctx} is not an object (S83)")
+            addr = _require_address(r.get("ethAddress"), f"{ctx}.ethAddress")
+            perf = r.get("windowPerformances")
+            if not isinstance(perf, list):
+                raise AdapterError(f"{ctx}.windowPerformances is not a list (S83)")
+            d = None
+            for pair in perf:
+                if isinstance(pair, list) and len(pair) == 2 and pair[0] == w:
+                    d = pair[1]
+            if not isinstance(d, dict):
+                raise AdapterError(f"{ctx} lacks its {w} performance (S83)")
+            shown = {"rank": i + 1}
+            for k in _DISPLAYED:
+                shown[k] = _decimal(d.get(k), f"{ctx}.{k}")
+            entry = index.get(addr.lower())
+            if entry is None:
+                entry = {"address": addr, "first_window": w, "first_rank": i + 1,
+                         "account_value": _decimal(r.get("accountValue"), f"{ctx}.accountValue"),
+                         "displayed": {}}
+                index[addr.lower()] = entry
+                out.append(entry)
+            entry["displayed"][w] = shown
+    return out, rows_per_window
+
+
+def check_frame(boards: RightsEvent, payload: bytes) -> None:
+    """R98/R100 (PREREG A19): the payload's bytes must hash to the pin (S89) and the
+    declared cohort must equal the cohort derived from those bytes in length, order and
+    every value (S87). Either failure refuses the WHOLE capture before any page is read."""
+    c = boards.claim
+    actual = sha256_hex(payload)
+    if actual != c["payload_sha256"]:
+        raise AdapterError(f"S89: the payload's bytes hash to {actual[:16]}…, pinned "
+                           f"{c['payload_sha256'][:16]}…; the capture is refused whole (R100)")
+    derived, rpw = cohort_from_payload(payload)
+    if rpw != c["rows_per_window"]:
+        raise AdapterError(f"S87: rows_per_window declared {c['rows_per_window']}, derived "
+                           f"{rpw} from the payload; the capture is refused whole (R98)")
+    declared = c["addresses_verbatim"]
+    if len(declared) != len(derived):
+        raise AdapterError(f"S87: {len(declared)} addresses declared, {len(derived)} derived "
+                           "from the payload; the capture is refused whole (R98)")
+    for i, (a, b) in enumerate(zip(declared, derived)):
+        if a != b:
+            raise AdapterError(f"S87: cohort.addresses[{i}] ({a['address']}) differs from the "
+                               f"payload's derivation ({b['address']}); the capture is refused "
+                               "whole (R98)")
+
+
 def parse_arena_capture(document_text: str) -> tuple[dict, RightsEvent]:
     """R92: one capture -> (the parsed document, the boards event)."""
     try:
@@ -228,6 +326,13 @@ def parse_arena_capture(document_text: str) -> tuple[dict, RightsEvent]:
         raise AdapterError("Document has no as_of object")
     as_of_date = _require_str(as_of, "as_of_date", "as_of")
     _require_str(as_of, "api", "as_of")
+    rule = rule_window(cohort_date, as_of_date)
+    for k in ("t0_ms", "t1_ms", "days", "started", "complete"):
+        if window[k] != rule[k]:
+            raise AdapterError(f"S88: window.{k} declared {window[k]!r}, the rule's is "
+                               f"{rule[k]!r} for cohort {cohort_date} as of {as_of_date}; "
+                               "the capture is refused whole (R99: no window chosen after "
+                               "the fact)")
 
     event = RightsEvent(
         event_id=boards_event_id(observed_ms),

@@ -31,8 +31,8 @@ from pathlib import Path
 
 from rights_events.adapters.agent_arena import (
     FILLS_CLAIMANT, GRADER_CLAIMANT, STATUS_FULL, STATUS_NONE, STATUS_PAPER, STATUS_PARTIAL,
-    STATUS_RECORD, STATUS_REFUSED, VENUE_CLAIMANT, parse_arena_capture, ranking_event,
-    settled_event, sha256_hex,
+    STATUS_RECORD, STATUS_REFUSED, VENUE_CLAIMANT, check_frame, parse_arena_capture,
+    ranking_event, settled_event, sha256_hex,
 )
 from rights_events.adapters.common import AdapterError
 from rights_events.agent_board import record_run_files, summarize_record
@@ -106,10 +106,28 @@ def paper_rows_from_marks(doc: dict, base: Path, window: dict) -> list[dict]:
     return [{"files": used, "rows": rows}] if files else []
 
 
+def payload_path_for(capture_path: Path, boards: RightsEvent) -> Path:
+    """The pinned payload named by the capture: beside the capture, else under the fixtures root."""
+    name = boards.claim["payload_file"]
+    path = capture_path.parent / name
+    if not path.exists():
+        path = _FIXTURES / name
+    return path
+
+
 def build(capture_path: Path, run_paths: list[Path] | None = None):
-    """-> (pipeline, events, indices, doc, refused, loaded_record)."""
+    """-> (pipeline, events, indices, doc, refused, loaded_record).
+    PREREG A19: the frame is checked before any page is read — the payload's bytes against
+    the pin and the declared cohort against the cohort derived from those bytes (S87/S89);
+    the window against the rule was checked by the parser (S88). A failure raises
+    AdapterError and refuses the whole capture."""
     text = capture_path.read_text(encoding="utf-8")
     doc, boards = parse_arena_capture(text)
+    payload_path = payload_path_for(capture_path, boards)
+    if not payload_path.exists():
+        raise AdapterError(f"S89: payload {boards.claim['payload_file']!r} not found beside the "
+                           "capture or under the fixtures root; the capture is refused whole")
+    check_frame(boards, payload_path.read_bytes())
     base = capture_path.parent
     actor_id = doc["actor"]["actor_id"]
     settled: list[RightsEvent] = []
@@ -574,7 +592,15 @@ def main(argv: list[str] | None = None) -> int:
     print("the observation. Pages verbatim, sha-pinned. No venue number recomputed. No trade.")
     print("=" * 70)
     print()
-    pipeline, events, indices, doc, refused, loaded = build(capture, run_paths)
+    try:
+        pipeline, events, indices, doc, refused, loaded = build(capture, run_paths)
+    except AdapterError as exc:
+        # PREREG A19: the frame failed (S87 cohort, S88 window/flags, S89 payload bytes):
+        # the capture is refused whole; nothing is graded, no run file is written.
+        print(f"REFUSED WHOLE: {exc}")
+        print()
+        print("AGENT-RECORD ARENA RUN: REFUSED")
+        return 1
     boards = next(e for e in events if e.claimant == VENUE_CLAIMANT)
     ranking = next(e for e in events if e.claimant == GRADER_CLAIMANT)
     settled = [e for e in events if e.claimant == FILLS_CLAIMANT]
@@ -599,9 +625,7 @@ def main(argv: list[str] | None = None) -> int:
     refs_ok = all(ref in logged for e in events for ref in e.prior_event_refs)
     disputes = [e for e in events if e.event_type is EventType.DISPUTE]
     signed = [e for e in events if e.ep_type is EPType.CRYPTOGRAPHICALLY_SIGNED]
-    payload_path = capture.parent / boards.claim["payload_file"]
-    if not payload_path.exists():
-        payload_path = _FIXTURES / boards.claim["payload_file"]
+    payload_path = payload_path_for(capture, boards)
     payload_ok = payload_path.exists() and \
         hashlib.sha256(payload_path.read_bytes()).hexdigest() == boards.claim["payload_sha256"]
     checks = [
@@ -615,7 +639,8 @@ def main(argv: list[str] | None = None) -> int:
         ("C4 every prior_event_ref resolves inside this run's own log", refs_ok),
         ("C5 ranking traces: every figure is a settled event's claim value and every sum equals its addends"
          + (f" (UNTRACED: {missing[:3]})" if missing else ""), not missing),
-        ("C6 the boards payload beside the capture hashes to its pin", payload_ok),
+        ("C6 the boards payload beside the capture hashes to its pin (the echo of R100; "
+         "build() already refused the capture if not)", payload_ok),
         (f"C7 refused rows: {len(refused)} (S84)" + (f" {[r['address'][:10] for r in refused]}" if refused else ""),
          True),
     ]

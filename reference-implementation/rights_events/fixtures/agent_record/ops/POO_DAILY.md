@@ -118,7 +118,10 @@ python -m rights_events.agent_arena --capture rights_events/fixtures/agent_recor
   --out rights_events/fixtures/agent_record/arena/<cohort>/run_ARENA_<cohort>_<D-1>.ri \
   --arena-out rights_events/fixtures/agent_record/arena/<cohort>/arena_<cohort>_<D-1>
 ```
-The run must print `AGENT-RECORD ARENA RUN: OK`; `--verify --run` must pass. The amendment
+The run must print `AGENT-RECORD ARENA RUN: OK`; `--verify --run` must pass. If the runner
+refuses the capture whole (PREREG A19: S87 the cohort differs from the pinned payload's
+derivation, S88 the window or a flag is not the rule's, S89 the payload's bytes are off
+their pin), that refusal IS the day's arena finding: quote its reason, grade nothing, push. The amendment
 carries the counts (FULL / PARTIAL / NONE / REFUSED), the ranked rows (address, fills, net
 with funding), the RECORD row, and the page file shas from the manifest. If `arena/` is
 missing from the channel or its newest `pages_index.jsonl` line is older than 2 h, the arena
