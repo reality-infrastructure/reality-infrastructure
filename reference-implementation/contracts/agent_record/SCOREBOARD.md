@@ -1665,3 +1665,16 @@ the go (a hand-off), then search (P12).
 | Traced | Schulman (the objective is the human job), Musk (the founder writes it, the machine never edits it), Brown (fix what the grader grades against). |
 
 **Income row (R81), 2026-11-04 after A22:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.4 — POO SENSOR: the channel stopped at 11-04 20:07Z; Day 14 read as published (81 episodes, −1 803.7 bps) and VOID by health; Day 13 re-read −957.4; F4:NEAR run 3, F4:SOL run 2; arena VOID; R72: the sensor; live leg MISS
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `8dc6de35`; frozen marker/forward/families shas hold; 29 passed (23 + 6). |
+| Channel | `vps/poo-files` `287374eb` (20:08:57Z); 165 files sha-equal to the manifest; **health FAILS**: manifest 4 h 34 min old at the read; last tape row 274 min old; 15 null-mid rows near :20 hourly since 06:20Z. |
+| Day 14 (partial, VOID) | 81 episodes to 20:07Z, 72 stop-first, sum −1 803.7 bps (F4 −1 551.2, C1 −252.5); F4:NEAR +108.07 on 6 and F4:SOL +8.33 on 8 beat C0 and C1; 4 episodes open at the last publish; funding not applied (API unreachable). |
+| Late closes | Day 13's file 72 → 79 rows (prefix-equal), sum −2 259.9 → −957.4; F4:NEAR's 11-03 −54.10 → +35.06 (its run did not break); pinned as `marks_2026-11-03_as_read_2026-11-05.jsonl`. |
+| Ledger / arena | ledger 11-04 `9cd8c989…`: 6 ALIVE, 0 candidate; runs NEAR 3, SOL 2, others 0; earliest candidate read 2026-11-07. Arena day VOID (S85): newest page 19:23:50Z, 5 h 17 min old; graded nothing. |
+| Live leg | Day 14 (2026-11-04): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-05 after A17.4:** 0 USD a day against 165. Nothing on the chain.
