@@ -31,7 +31,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 FIXTURES = HERE.parent
 sys.path.insert(0, str(FIXTURES / "ops"))
-from arena_parts import PartsError, join as join_parts  # noqa: E402  (R110: the channel's parts)
+from arena_parts import PartsError, join as join_parts  # noqa: E402  (R110: the channel's parts; R113: alignment below)
 
 
 def _day(ms: int) -> str:
@@ -75,14 +75,68 @@ def _pages(src_dir: Path, name: str) -> list[bytes]:
     return out
 
 
-def _pins(lines: list[bytes]) -> list[dict]:
+class AlignError(Exception):
+    """S97 (A24): a page file's lines cannot be aligned with its index entries."""
+
+
+def _index(src: Path) -> dict[str, list[dict]]:
+    """pages_index.jsonl entries per page file, in append order."""
+    out: dict[str, list[dict]] = {}
+    p = src / "pages_index.jsonl"
+    if p.exists():
+        for line in p.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                e = json.loads(line)
+                out.setdefault(e["file"], []).append(e)
+    return out
+
+
+def _align(name: str, lines: list[bytes], entries: list[dict]) -> tuple[list[tuple[bytes, dict, bool]], int]:
+    """R113: pair page lines with index entries in order. A line whose sha is the entry's is the
+    page; a line whose SUFFIX of the entry's `bytes` hashes to the entry's sha is a torn fragment
+    glued to a whole page — the suffix is the page, recovered verbatim. Lines beyond the entries
+    at the end (a page in flight at publish time) are dropped and counted. Fewer lines than
+    entries, or a line that matches neither way, refuses the file (S97)."""
+    if len(lines) < len(entries):
+        raise AlignError(f"S97: {name}: {len(lines)} lines on disk, {len(entries)} index entries")
+    out = []
+    for i, (ln, e) in enumerate(zip(lines, entries)):
+        if _sha(ln) == e["sha256"]:
+            out.append((ln, e, False))
+            continue
+        n = int(e["bytes"])
+        tail = ln[-n:] if 0 < n <= len(ln) else None
+        if tail is not None and _sha(tail) == e["sha256"]:
+            out.append((tail, e, True))
+            continue
+        raise AlignError(f"S97: {name}: line {i} matches its index entry neither whole nor as a suffix "
+                         f"(line {len(ln)} bytes, entry {n} bytes, fetched {e.get('fetched')})")
+    return out, len(lines) - len(entries)
+
+
+def _raw_lines(src_dir: Path, name: str) -> list[bytes]:
+    """Every line of the page file as bytes, torn or not (R113 aligns them with the index)."""
+    data = join_parts(src_dir, name)
+    if not data:
+        return []
+    lines = data.split(b"\n")
+    if lines and lines[-1] == b"":
+        lines.pop()
+    return lines
+
+
+def _pins(pages: list[tuple[bytes, dict, bool]]) -> list[dict]:
     pins = []
-    for i, raw in enumerate(lines):
+    for i, (raw, e, recovered) in enumerate(pages):
         items = json.loads(raw.decode("utf-8"))
         times = [int(it["time"]) for it in items if isinstance(it, dict) and "time" in it]
-        pins.append({"line": i, "sha256": _sha(raw), "bytes": len(raw), "items": len(items),
-                     "first_time_ms": min(times) if times else None,
-                     "last_time_ms": max(times) if times else None})
+        pin = {"line": i, "sha256": _sha(raw), "bytes": len(raw), "items": len(items),
+               "first_time_ms": min(times) if times else None,
+               "last_time_ms": max(times) if times else None}
+        if e is not None:
+            pin["fetched"] = e["fetched"]
+            pin["recovered"] = recovered
+        pins.append(pin)
     return pins
 
 
@@ -108,20 +162,38 @@ def main(argv: list[str] | None = None) -> int:
         targets.append(actor)
     index_sha = _sha((src / "pages_index.jsonl").read_bytes()) if (src / "pages_index.jsonl").exists() else None
     rows = []
-    staged: list[tuple[Path, bytes]] = []       # S96: nothing lands in out_dir until every page file joined
+    staged: list[tuple[Path, bytes]] = []       # S96/S97: nothing lands in out_dir until every page file is read
+    index = _index(src)
+    alignment = {"files": 0, "pages": 0, "recovered_pages": 0, "dropped_trailing_lines": 0, "files_without_index": 0}
+
+    def _aligned(name: str) -> list[tuple[bytes, dict, bool]]:
+        entries = index.get(name)
+        if entries is None:                       # no index for this file: the pages as JSON lines (pre-A24 captures)
+            lines = _pages(src, name)
+            if lines:
+                alignment["files_without_index"] += 1
+            return [(ln, None, False) for ln in lines]
+        pages, dropped = _align(name, _raw_lines(src, name), entries)      # R113 aligns RAW lines (a glued line is not JSON)
+        alignment["files"] += 1
+        alignment["pages"] += len(pages)
+        alignment["recovered_pages"] += sum(1 for _, _, r in pages if r)
+        alignment["dropped_trailing_lines"] += dropped
+        return pages
+
     try:
         for addr in targets:
             al = addr.lower()
-            fills = _pages(src, f"pages_fills_{al}.jsonl")
-            funding = _pages(src, f"pages_funding_{al}.jsonl")
+            fills = _aligned(f"pages_fills_{al}.jsonl")
+            funding = _aligned(f"pages_funding_{al}.jsonl")
             fills_name = f"hl_fills_{al}.jsonl.gz"
             fund_name = f"hl_funding_{al}.jsonl.gz"
-            staged.append((out_dir / fills_name, _gz(fills)))
-            staged.append((out_dir / fund_name, _gz(funding)))
+            staged.append((out_dir / fills_name, _gz([b for b, _, _ in fills])))
+            staged.append((out_dir / fund_name, _gz([b for b, _, _ in funding])))
             rows.append({"address": addr, "fills_file": fills_name, "fills_pages": _pins(fills),
                          "funding_file": fund_name, "funding_pages": _pins(funding),
+                         "pages_recovered": sum(1 for _, _, r in fills + funding if r),
                          "source": "vps fills tape via the channel branch vps/poo-files"})
-    except PartsError as exc:
+    except (PartsError, AlignError) as exc:
         print(f"REFUSED {exc}; no capture written")
         return 2
     for path, data in staged:
@@ -135,7 +207,8 @@ def main(argv: list[str] | None = None) -> int:
                   "api": "https://api.hyperliquid.xyz/info",
                   "pagination": ("pages fetched hourly by the VPS fills tape (R93) with the same "
                                  "pagination as the HL capture tool; carried here byte-for-byte"),
-                  "tape_index_sha256": index_sha},
+                  "tape_index_sha256": index_sha,
+                  "alignment": alignment},
         "paper": {"files": paper_files},
         "rows": rows,
     }
@@ -150,7 +223,8 @@ def main(argv: list[str] | None = None) -> int:
                 "files": [{"name": n, "bytes": (out_dir / n).stat().st_size, "sha256": _sha((out_dir / n).read_bytes())} for n in files]}
     _write_lf(out_dir / f"MANIFEST_ARENA_{cohort_date}_{a.as_of_date}.json", json.dumps(manifest, indent=2) + "\n")
     print(f"capture: {out_dir / cap_name}  sha256 {manifest['sha256']}  rows {len(rows)}  "
-          f"pages {sum(len(r['fills_pages']) for r in rows)} fills / {sum(len(r['funding_pages']) for r in rows)} funding")
+          f"pages {sum(len(r['fills_pages']) for r in rows)} fills / {sum(len(r['funding_pages']) for r in rows)} funding  "
+          f"alignment {alignment}")
     return 0
 
 

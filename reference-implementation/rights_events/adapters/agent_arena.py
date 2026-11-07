@@ -374,10 +374,16 @@ def _page_pins(row: dict, key: str, ctx: str) -> list[dict]:
         pctx = f"{ctx}.{key}[{i}]"
         if not isinstance(p, dict):
             raise AdapterError(f"{pctx} must be an object")
-        out.append({"line": _require_int(p, "line", pctx),
-                    "sha256": _require_sha256(p, "sha256", pctx),
-                    "bytes": _require_int(p, "bytes", pctx),
-                    "items": _require_int(p, "items", pctx)})
+        pin = {"line": _require_int(p, "line", pctx),
+               "sha256": _require_sha256(p, "sha256", pctx),
+               "bytes": _require_int(p, "bytes", pctx),
+               "items": _require_int(p, "items", pctx)}
+        if "fetched" in p:                      # A24 R113: a tape-sourced page carries its fetch time
+            pin["fetched"] = _require_str(p, "fetched", pctx)
+            pin["fetched_ms"] = _iso_ms(pin["fetched"], pctx + ".fetched")
+        if "recovered" in p:
+            pin["recovered"] = _require_bool(p, "recovered", pctx)
+        out.append(pin)
         if out[-1]["line"] != i:
             raise AdapterError(f"{pctx}.line {out[-1]['line']} != position {i}")
     return out
@@ -505,6 +511,78 @@ def coverage(n_fills: int, pins: list[dict], first_time_ms: int | None, t0: int)
     return STATUS_FULL, "every fill in the window the API holds was served"
 
 
+def _iso_ms(iso: str, ctx: str) -> int:
+    """'YYYY-MM-DDTHH:MM:SSZ' -> ms since the epoch, UTC. No clock is read."""
+    try:
+        d = datetime.strptime(iso, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except ValueError as exc:
+        raise AdapterError(f"{ctx}: {iso!r} is not an ISO-8601 UTC second") from exc
+    return int(d.timestamp() * 1000)
+
+
+CYCLE_MS = 600_000          # pages fetched within 10 min of a cycle's first page belong to it (R114)
+
+
+def coverage_by_continuity(pins: list[dict], page_times: list[list[int]], t0: int) -> tuple[str, str, dict]:
+    """A24 R114, tape-sourced rows: NONE / PARTIAL / FULL from the tape's own continuity.
+    A cycle = consecutive pages whose `fetched_ms` lies within CYCLE_MS of the cycle's first;
+    capped = the cycle's last page holds >= PAGE_CAP items (the tape stopped before catching up).
+    B = the address's own largest gap (inside cycles, or across a boundary after an un-capped
+    cycle); G = the largest gap across a boundary after a capped cycle (the lead from t0 when the
+    first cycle is capped). PARTIAL iff G > B. Never an estimate: every number is a measured gap."""
+    if sum(len(t) for t in page_times) == 0:
+        return STATUS_NONE, ("zero fills served in the window: nothing settled under this "
+                             "address on the perp L1 as the tape served it"), {
+            "cycles": 0, "capped_cycles": 0, "post_cap_gap_ms": 0, "own_gap_ms": 0}
+    cycles: list[dict] = []
+    for pin, times in zip(pins, page_times):
+        f = pin["fetched_ms"]
+        if not cycles or f - cycles[-1]["f0"] > CYCLE_MS:
+            cycles.append({"f0": f, "times": [], "last_items": 0})
+        cycles[-1]["times"].extend(times)
+        cycles[-1]["last_items"] = pin["items"]
+    B = 0
+    G = 0
+    capped = 0
+    prev_last = None
+    prev_capped = False
+    for c in cycles:
+        ts = sorted(c["times"])
+        is_capped = c["last_items"] >= PAGE_CAP
+        if is_capped:
+            capped += 1
+        if ts:
+            for a, b in zip(ts, ts[1:]):
+                B = max(B, b - a)
+            lead = ts[0] - (prev_last if prev_last is not None else t0)
+            after_cap = is_capped if prev_last is None else prev_capped
+            if after_cap:
+                G = max(G, lead)
+            else:
+                B = max(B, lead)
+            prev_last = ts[-1]
+            prev_capped = is_capped
+    numbers = {"cycles": len(cycles), "capped_cycles": capped, "post_cap_gap_ms": G, "own_gap_ms": B}
+    if G > B:
+        return STATUS_PARTIAL, (f"the tape fell behind: {capped} capped cycles of {len(cycles)}, a gap of "
+                                f"{G / 1000:.0f} s after one of them, above the address's largest other gap "
+                                f"{B / 1000:.0f} s; fills in that gap were never served (R114)"), numbers
+    return STATUS_FULL, (f"{capped} capped cycles of {len(cycles)}; no gap after any exceeds the address's "
+                         f"own largest gap {B / 1000:.0f} s: every fill the tape could serve was served (R114)"), numbers
+
+
+def _page_times(fills: list[dict], pins: list[dict], ctx: str) -> list[list[int]]:
+    out = []
+    i = 0
+    for p in pins:
+        chunk = fills[i:i + p["items"]]
+        i += p["items"]
+        out.append([_require_int(f, "time", ctx) for f in chunk if isinstance(f, dict) and "time" in f])
+    if i != len(fills):
+        raise AdapterError(f"{ctx}: {len(fills)} fills loaded, {i} pinned across pages")
+    return out
+
+
 def settled_event(doc: dict, boards: RightsEvent, row: dict, fill_pages: list[bytes],
                   funding_pages: list[bytes], source_url: str) -> RightsEvent:
     """R89/R90: one address, its pages (already sha-checked by check_pages), one event."""
@@ -519,7 +597,12 @@ def settled_event(doc: dict, boards: RightsEvent, row: dict, fill_pages: list[by
     fills = _load_items(fill_pages, ctx + ".fills")
     funding = _load_items(funding_pages, ctx + ".funding")
     s = settle(fills, funding, t0, t1, ctx)
-    status, reason = coverage(s["fills"], fill_pins, s["first_time_ms"], t0)
+    continuity = None
+    if fill_pins and all("fetched_ms" in p for p in fill_pins):
+        status, reason, continuity = coverage_by_continuity(fill_pins, _page_times(fills, fill_pins, ctx + ".fills"), t0)
+        continuity = {**continuity, "pages_recovered": sum(1 for p in fill_pins if p.get("recovered"))}
+    else:
+        status, reason = coverage(s["fills"], fill_pins, s["first_time_ms"], t0)
     as_of_date = boards.claim["as_of_date"]
     claim = {
         "mechanism": SETTLED_OUTCOME,
@@ -534,6 +617,7 @@ def settled_event(doc: dict, boards: RightsEvent, row: dict, fill_pages: list[by
         "fills_served": sum(p["items"] for p in fill_pins),
         "coverage": status,
         "coverage_reason": reason,
+        **({"continuity": continuity} if continuity is not None else {}),
         **{k: s[k] for k in ("fills", "closed_pnl", "fees", "realized_ex_funding", "funding",
                              "funding_rows", "net_with_funding", "open_at_window_end",
                              "first_time_ms", "last_time_ms", "first_tx", "last_tx", "daily")},
