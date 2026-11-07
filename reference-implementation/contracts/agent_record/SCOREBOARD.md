@@ -1718,3 +1718,14 @@ the go (a hand-off), then search (P12).
 | Open | A17.8 the publisher's oversize rule (a / b / c put to the operator); the R105 as-of rule or the gate (i / ii); the go for Day 17. |
 
 **Income row (R81), 2026-11-07 after A17.7:** 0 USD a day against 165. Nothing on the chain.
+
+### A23 / P19 / A23.1 — a ledger's points never move (R105 amended): the ledger as of 11-03 is A21.1's again; suite 1166 / 0
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A23 `272d337` → P19 `0a22a83` → this. |
+| Rule | a ledger as of D reads each day's newest reading pinned by D + 1; a later re-pin enters later ledgers only (R105 amended; R112 gates are never rewritten to follow a reading). |
+| Known answers | 11-03: readings `as_read_11-03` / `as_read_11-04` / `marks_11-03`, NEAR run 0, `.json` + `.md` byte for byte (A21.1's pins hold); 11-04 … 11-06: the routine's readings, NEAR 3 / SOL 2, markdown byte-equal; F2 (float last digits across interpreters) recorded. |
+| Gates | ledger file 9 passed; A21's newest-reading gate amended with the rule (old assertion quoted in A23.1); **full suite 1166 passed, 0 failed**. |
+
+**Income row (R81), 2026-11-07 after A23.1:** 0 USD a day against 165. Nothing on the chain.

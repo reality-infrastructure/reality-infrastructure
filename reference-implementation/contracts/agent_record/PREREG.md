@@ -5220,3 +5220,23 @@ Hence (i).
 **50th-percentile date (Musk).** The amended module and gates land today; the routine's run of 00:40Z 11-08 produces the ledger as of 11-07 under the amended rule; A21.1's earliest-retirement read (11-08) is unchanged in rule and will read whatever the channel carries by then.
 
 **What this amendment does not do.** It does not edit any committed ledger, marks pin or the marker; it does not change the candidate, retirement or promotion rules; it does not touch the venue.
+
+### A23.1 — 2026-11-07 05:0xZ, flat — A23's code landed and its known answers met: the ledger as of 11-03 is byte-for-byte A21.1's again (F4:NEAR run 0); the ledgers as of 11-04 … 11-06 read the routine's readings (NEAR 3, SOL 2) with their markdown byte-equal; A21's newest-reading gate amended with the rule and quoted; full suite 1166 passed, 0 failed
+
+**Preflight.** HEAD before the code = `272d337` (A23 PREREG); the code = **`0a22a83`** (P19), pushed; working tree clean but for the root's `puct_193.pdf`. Frozen shas unchanged (`marker.py` `acf754f9…`, `SETTLED.md` `c6b590de…`).
+
+**The code (P19).** `rights_events/agent_ledger.py`: `read_cutoff(as_of) = as_of + 1 day`; `newest_readings` skips a reading whose as-read date is after the cutoff; the module docstring states the amended R105. Output schema unchanged (no committed ledger's bytes are affected by the module's shape; only by which files it reads). `POO_DAILY.md` step 1 now prints `python --version` (F2).
+
+**Gates.** `tests/test_agent_record_ledger.py` **9 passed**:
+- `test_known_answer_as_of_2026_11_03` — **unedited**, passes again: readings `as_read_2026-11-03` / `as_read_2026-11-04` / `marks_2026-11-03.jsonl`, F4:NEAR run 0, F4:BTC 1, F4:SOL 1, and `ledger_2026-11-03.json` / `.md` byte for byte.
+- `test_newest_reading_per_day_is_taken` — **amended with the rule, disclosed:** A21's version asserted `m["readings"]["2026-11-02"] == "marks_2026-11-02_as_read_2026-11-05.jsonl"` for a ledger as of 2026-11-03 (a re-pin dated D + 2 read into the ledger of D). Under the amended R105 the same ledger reads `…_as_read_2026-11-04.jsonl` (D + 1), and the ledger as of 2026-11-04 reads the 11-05 file. The gate now asserts both. This is the rule's change, written in A23 before the code; it is not a gate rewritten to fit a reading.
+- `test_a23_a_later_repin_enters_later_ledgers_only` — synthetic: a re-pin dated D + 2 leaves the ledger as of D byte-identical; renamed to D + 1 it is read and moves the fork's sum.
+- `test_a23_known_answers_on_the_pinned_files` — A23's table on the real pins: the readings per as-of date, F4:NEAR 3 / F4:SOL 2 for 11-04 … 11-06, and the committed markdown byte-equal for each.
+
+**Full suite:** `python -m pytest -q` → **1166 passed in 61.80 s**, 0 failed. The record is green for the first time since A17.4's re-pin.
+
+**F2 stands as recorded** (the JSON ledgers as of 11-04 … 11-06 differ from the committed files in five float last digits on CPython 3.12.2; the routine's interpreter version will be on the record from its next run).
+
+**R108.** Musk: the plotted points do not move — the ledger as of 11-03 is what it was on 11-04. Brown: A21.1's gate was not edited; the gate that encoded the superseded clause was amended by the rule, in the open.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
