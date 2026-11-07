@@ -4,7 +4,9 @@ into the pinned capture the arena runner grades — the same `agent_record_arena
 schema `capture_arena_from_hl.py` writes, without touching the network.
 
 Inputs: the extracted channel directory (`--channel-dir`, holding `arena/<cohort>/
-pages_fills_<address>.jsonl`, `pages_funding_<address>.jsonl`, `pages_index.jsonl`) and the
+pages_fills_<address>.jsonl`, `pages_funding_<address>.jsonl` — raw, or as the channel's
+line-complete parts `<name>.partNNN` joined back into the identical bytes (A17.8 R109/R110;
+a broken part set refuses the build, S96) — and `pages_index.jsonl`) and the
 cohort's own capture of its observation (`--cohort-capture`, the `capture_ARENA_<cohort>_
 <cohort>.json` written when the boards were observed: it carries the addresses verbatim, the
 payload sha and the window). Every raw page line is carried byte-for-byte into
@@ -28,6 +30,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 FIXTURES = HERE.parent
+sys.path.insert(0, str(FIXTURES / "ops"))
+from arena_parts import PartsError, join as join_parts  # noqa: E402  (R110: the channel's parts)
 
 
 def _day(ms: int) -> str:
@@ -52,10 +56,10 @@ def _write_lf(path: Path, text: str) -> bytes:
     return data
 
 
-def _pages(path: Path) -> list[bytes]:
-    if not path.exists():
-        return []
-    data = path.read_bytes()
+def _pages(src_dir: Path, name: str) -> list[bytes]:
+    """The page lines of `name` in `src_dir`: from the raw file, or from its parts joined
+    (R110). Raises PartsError (S96) on a broken part set."""
+    data = join_parts(src_dir, name)
     if not data:
         return []
     if not data.endswith(b"\n"):
@@ -89,13 +93,14 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--as-of-date", required=True)
     p.add_argument("--now-ms", type=int, required=True, help="the clock at the read (from the caller; this tool reads no clock)")
     p.add_argument("--paper-marks", action="append", default=[])
+    p.add_argument("--out-dir", type=Path, default=None, help="where the capture lands (default: this directory / <cohort>)")
     a = p.parse_args(argv)
 
     base = json.loads(a.cohort_capture.read_text(encoding="utf-8"))
     cohort_date = base["cohort"]["cohort_date"]
     t0, t1 = int(base["window"]["t0_ms"]), int(base["window"]["t1_ms"])
     src = a.channel_dir / "arena" / cohort_date
-    out_dir = HERE / cohort_date
+    out_dir = (a.out_dir if a.out_dir is not None else HERE / cohort_date)
     out_dir.mkdir(parents=True, exist_ok=True)
     actor = base["actor"]["actor_id"]
     targets = [x["address"] for x in base["cohort"]["addresses"]]
@@ -103,17 +108,24 @@ def main(argv: list[str] | None = None) -> int:
         targets.append(actor)
     index_sha = _sha((src / "pages_index.jsonl").read_bytes()) if (src / "pages_index.jsonl").exists() else None
     rows = []
-    for addr in targets:
-        al = addr.lower()
-        fills = _pages(src / f"pages_fills_{al}.jsonl")
-        funding = _pages(src / f"pages_funding_{al}.jsonl")
-        fills_name = f"hl_fills_{al}.jsonl.gz"
-        fund_name = f"hl_funding_{al}.jsonl.gz"
-        (out_dir / fills_name).write_bytes(_gz(fills))
-        (out_dir / fund_name).write_bytes(_gz(funding))
-        rows.append({"address": addr, "fills_file": fills_name, "fills_pages": _pins(fills),
-                     "funding_file": fund_name, "funding_pages": _pins(funding),
-                     "source": "vps fills tape via the channel branch vps/poo-files"})
+    staged: list[tuple[Path, bytes]] = []       # S96: nothing lands in out_dir until every page file joined
+    try:
+        for addr in targets:
+            al = addr.lower()
+            fills = _pages(src, f"pages_fills_{al}.jsonl")
+            funding = _pages(src, f"pages_funding_{al}.jsonl")
+            fills_name = f"hl_fills_{al}.jsonl.gz"
+            fund_name = f"hl_funding_{al}.jsonl.gz"
+            staged.append((out_dir / fills_name, _gz(fills)))
+            staged.append((out_dir / fund_name, _gz(funding)))
+            rows.append({"address": addr, "fills_file": fills_name, "fills_pages": _pins(fills),
+                         "funding_file": fund_name, "funding_pages": _pins(funding),
+                         "source": "vps fills tape via the channel branch vps/poo-files"})
+    except PartsError as exc:
+        print(f"REFUSED {exc}; no capture written")
+        return 2
+    for path, data in staged:
+        path.write_bytes(data)
     paper_files = [{"file": rel, "sha256": _sha((FIXTURES / rel).read_bytes())} for rel in a.paper_marks]
     capture = {
         **{k: base[k] for k in ("kind", "synthetic", "note", "actor", "cohort")},
