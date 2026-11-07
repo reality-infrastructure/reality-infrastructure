@@ -1,5 +1,3 @@
-  File "/root/poo/marker/forward.py", line 265, in main
-    append(a.out_dir / f"signals_{day_of(now_ms())}.jsonl", {"type": "tick_error", "ms": now_ms(), "error": repr(e)[:300]})
   File "/root/poo/marker/forward.py", line 104, in append
     with path.open("a", encoding="utf-8", newline="\n") as f:
 OSError: [Errno 28] No space left on device
@@ -398,3 +396,5 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-07] OPEN F4:BTC L @ 75652.5 (signal 1794084566060)
 [2026-11-07] OPEN F4:ZEC L @ 1250.55 (signal 1794084687424)
 [2026-11-07] OPEN F4:ZEC L @ 1243.45 (signal 1794084937172)
+[2026-11-07] OPEN F4:ZEC S @ 1241.95 (signal 1794086184428)
+[2026-11-07] OPEN F4:ZEC S @ 1249.65 (signal 1794088703136)
