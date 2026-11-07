@@ -5187,3 +5187,36 @@ Until A17.8, nothing is edited on the VPS.
 **50th-percentile dates (Musk; A19's table continued).** The channel carries the parts and GitHub accepts: 2026-11-07 05:00Z. The routine's run of 00:40Z 11-08 reads Days 15–17 as published and grades cohort 2 for 11-07 (step 3b). Cohort 2 graded on its full window: 2026-11-11, unchanged.
 
 **What this amendment does not do.** It does not read any page's content, grade anything, change coverage (A24 is next), change the ledger (A23 is next), or touch the venue.
+
+### A23 — 2026-11-07 04:0xZ, flat — PREREG: A LEDGER'S POINTS NEVER MOVE (R105 amended, decided on the three transcripts at the operator's word): a ledger as of D reads, for each full forward day, the newest reading pinned by the morning D is produced (as-read date ≤ D + 1); a later re-pin of an earlier day enters every later ledger and never a past one; the known-answer gate of A21.1 stands unedited; a second finding recorded (float sums differ by one digit between the routine's interpreter and the laptop's); written before any code
+
+**The decision and its trace (R108).** A17.7 recorded the failing gate: `test_known_answer_as_of_2026_11_03` expects F4:NEAR run 0 as of 11-03 (A21.1's known answer) and the ledger now prints run 2, because A17.4 pinned `marks_2026-11-03_as_read_2026-11-05.jsonl` and R105's "newest pinned reading" took it into a ledger dated two days earlier. Two options were put to the operator: (i) amend R105 so a ledger as of D reads only pins that existed when it was produced; (ii) keep R105 and rewrite the gate. The operator: "Use the three transcripts to answer".
+- *Musk:* "You can then plot the progress points … and say, are we converging to a solution or not?" A point that moves after it is plotted is not a point; the weekly review plots what was known on each day.
+- *The panel (Cursor):* the held-out bench is fixed at the moment a version is judged; what arrives later judges later versions.
+- *Brown:* the grader is what gets attacked — rewriting a gate to match the reading it failed is tuning the test on the book that judges it. Option (ii) is refused; A21.1's known answer stands, unedited.
+Hence (i).
+
+**Rules.**
+- **R105 (amended; the reading rule).** For a ledger as of D, the reading of a full forward day d (first_full_day ≤ d ≤ D) is the newest pinned `marks_<d>_as_read_<r>.jsonl` with **r ≤ D + 1** (the morning the ledger as of D is produced by the routine, 00:40Z), else `marks_<d>.jsonl` (pinned on d + 1 ≤ D + 1 by construction). A re-pin dated after D + 1 is read by every ledger as of D + 1 onward and by no ledger before. Everything else in R105 (the frozen marker, forward rows only, the promotions file, the pins) is unchanged. R106 and R107 are unchanged.
+- **R112 (what the gate pins).** A known-answer gate on a ledger as of D names the readings it read; a later pin cannot change that ledger, so the gate is never rewritten to follow a reading. A new reading of an old day is recorded by the ledger of the day it arrives.
+
+**Known answers (measured 03:5xZ on the pinned files with the rule prototyped outside the module; the code must print exactly these).**
+
+| as of | readings (per day) | F4:NEAR run | F4:SOL run | equals the committed `ledger_<as of>` |
+|---|---|---:|---:|---|
+| 2026-11-03 | 11-01 ← `as_read_2026-11-03`, 11-02 ← `as_read_2026-11-04`, 11-03 ← `marks_2026-11-03.jsonl` (the 11-05 re-pin excluded: r = 11-05 > D + 1 = 11-04) | 0 | 1 | `.json` AND `.md` byte for byte (A21.1's pins `bd3d23c8…` / `ee2a77ba…` hold) |
+| 2026-11-04 | 11-01, 11-02 as above, 11-03 ← `as_read_2026-11-05` (r = 11-05 = D + 1), 11-04 ← `marks_2026-11-04.jsonl` | 3 | 2 | `.md` byte for byte; `.json` equal except five float sums in their last digit (finding F2 below) |
+| 2026-11-05 | the same four readings (11-05 has no pinned marks) | 3 | 2 | as for 11-04 |
+| 2026-11-06 | the same four readings | 3 | 2 | as for 11-04 |
+
+- The existing gate `test_known_answer_as_of_2026_11_03` passes unedited (its assertions, including the byte comparison with the committed files).
+- New gates: a synthetic re-pin `marks_<d>_as_read_<D+2>.jsonl` with different rows is excluded from the ledger as of D and included as of D + 1; the ledger as of D is byte-identical before and after that file appears; `marks_<d>.jsonl` alone is always read; the readings field names the files read.
+- The suite is green except nothing: the failing gate of A17.7 is the one this amendment repairs by rule, not by edit.
+
+**Finding F2 (recorded, not fixed here).** Regenerating the committed `ledger_2026-11-04.json` on this laptop (CPython 3.12) under the rule the routine used gives five `sum_net_bps` / `mean_net_bps` values that differ from the committed file in their last digit (e.g. −1256.524253151108 committed, −1256.5242531511078 here; +23.051363709664095 vs +23.05136370966418). CPython 3.12 changed `sum()` of floats to compensated (Neumaier) summation; the routine's cloud interpreter version is not in the record, and the digits are consistent with naive summation on an older interpreter — P19 adds `python --version` to POO_DAILY step 1 so the next run states it. The markdown (two decimals) is identical; the JSON is interpreter-dependent in its last digit. This violates the record's determinism law across interpreters, and the fix (`math.fsum`, exact and platform-independent) changes the committed ledgers' bytes, so it is its own amendment with the operator's word on how the pinned ledgers are carried (Brown: nothing graded against is changed while a gate is open on it). Until then: ledger byte-equality gates are stated for CPython 3.12; the routine's pins are its own.
+
+**STOPs.** None new. S93–S95 unchanged.
+
+**50th-percentile date (Musk).** The amended module and gates land today; the routine's run of 00:40Z 11-08 produces the ledger as of 11-07 under the amended rule; A21.1's earliest-retirement read (11-08) is unchanged in rule and will read whatever the channel carries by then.
+
+**What this amendment does not do.** It does not edit any committed ledger, marks pin or the marker; it does not change the candidate, retirement or promotion rules; it does not touch the venue.
