@@ -13,3 +13,130 @@
 2026-11-04T17:24:01Z cohort 2026-11-03: 165 pages appended; budget left 735
 2026-11-04T18:24:09Z cohort 2026-11-03: 167 pages appended; budget left 733
 2026-11-04T19:23:50Z cohort 2026-11-03: 157 pages appended; budget left 743
+2026-11-04T20:23:42Z cohort 2026-11-03: 152 pages appended; budget left 748
+2026-11-04T21:23:43Z cohort 2026-11-03: 152 pages appended; budget left 748
+2026-11-04T22:23:30Z cohort 2026-11-03: 148 pages appended; budget left 752
+2026-11-04T23:22:28Z cohort 2026-11-03: 149 pages appended; budget left 751
+2026-11-05T00:23:45Z cohort 2026-11-03: 153 pages appended; budget left 747
+2026-11-05T01:23:53Z cohort 2026-11-03: 159 pages appended; budget left 741
+2026-11-05T02:23:46Z cohort 2026-11-03: 155 pages appended; budget left 745
+2026-11-05T03:23:42Z cohort 2026-11-03: 152 pages appended; budget left 748
+2026-11-05T04:22:44Z cohort 2026-11-03: 151 pages appended; budget left 749
+2026-11-05T05:23:45Z cohort 2026-11-03: 153 pages appended; budget left 747
+2026-11-05T06:22:41Z cohort 2026-11-03: 149 pages appended; budget left 751
+2026-11-05T07:22:35Z cohort 2026-11-03: 149 pages appended; budget left 751
+2026-11-05T08:22:37Z cohort 2026-11-03: 147 pages appended; budget left 753
+2026-11-05T09:22:37Z cohort 2026-11-03: 150 pages appended; budget left 750
+2026-11-05T10:22:31Z cohort 2026-11-03: 148 pages appended; budget left 752
+2026-11-05T11:22:29Z cohort 2026-11-03: 146 pages appended; budget left 754
+2026-11-05T12:22:35Z cohort 2026-11-03: 150 pages appended; budget left 750
+2026-11-05T13:23:54Z cohort 2026-11-03: 159 pages appended; budget left 741
+2026-11-05T14:22:49Z cohort 2026-11-03: 155 pages appended; budget left 745
+2026-11-05T15:24:40Z cohort 2026-11-03: 179 pages appended; budget left 721
+2026-11-05T16:25:35Z cohort 2026-11-03: 180 pages appended; budget left 720
+2026-11-05T17:24:07Z cohort 2026-11-03: 166 pages appended; budget left 734
+2026-11-05T18:24:16Z cohort 2026-11-03: 165 pages appended; budget left 735
+2026-11-05T19:24:15Z cohort 2026-11-03: 163 pages appended; budget left 737
+2026-11-05T20:24:03Z cohort 2026-11-03: 160 pages appended; budget left 740
+2026-11-05T21:24:09Z cohort 2026-11-03: 164 pages appended; budget left 736
+2026-11-05T22:24:00Z cohort 2026-11-03: 159 pages appended; budget left 741
+2026-11-05T23:24:07Z cohort 2026-11-03: 163 pages appended; budget left 737
+2026-11-06T00:24:05Z cohort 2026-11-03: 163 pages appended; budget left 737
+2026-11-06T01:24:24Z cohort 2026-11-03: 167 pages appended; budget left 733
+2026-11-06T02:37:13Z cohort 2026-11-03: 162 pages appended; budget left 738
+2026-11-06T03:22:56Z cohort 2026-11-03: 153 pages appended; budget left 747
+2026-11-06T04:30:09Z cohort 2026-11-03: 158 pages appended; budget left 742
+2026-11-06T05:23:54Z cohort 2026-11-03: 153 pages appended; budget left 747
+2026-11-06T06:46:53Z 2026-11-03 0xd4c1f7e8d876c4749228d515473d36f919583d1d userFillsByTime S83 URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>; nothing written
+2026-11-06T06:54:36Z cohort 2026-11-03: 154 pages appended; budget left 746
+2026-11-06T07:45:42Z 2026-11-03 0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab userFunding S83 URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>; nothing written
+2026-11-06T08:02:04Z 2026-11-03 0xf8e3128c778a828f079049eefb89a9041cb4af4d userFillsByTime S83 URLError: <urlopen error [SSL: UNEXPECTED_EOF_WHILE_READING] EOF occurred in violation of protocol (_ssl.c:1000)>; nothing written
+2026-11-06T08:03:04Z cohort 2026-11-03: 153 pages appended; budget left 747
+2026-11-06T08:23:48Z cohort 2026-11-03: 154 pages appended; budget left 746
+2026-11-06T09:25:20Z cohort 2026-11-03: 157 pages appended; budget left 743
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/arena_fills_tape.py", line 173, in main
+    run_cycle(a.root)
+  File "/root/poo/arena/arena_fills_tape.py", line 143, in run_cycle
+    fh.write(raw + b"\n")
+OSError: [Errno 28] No space left on device
+Traceback (most recent call last):
+  File "/root/poo/arena/arena_fills_tape.py", line 178, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/root/poo/arena/a2026-11-07T03:29:15Z cohort 2026-11-03: 260 pages appended; budget left 640
