@@ -1,5 +1,3 @@
-    with path.open("a", encoding="utf-8", newline="\n") as f:
-OSError: [Errno 28] No space left on device
 forward marker: 28 leaders, coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
 OSError: [Errno 28] No space left on device
 
@@ -398,3 +396,5 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-07] OPEN F4:SOL S @ 90.2465 (signal 1794040887010)
 [2026-11-07] OPEN F4:ZEC S @ 1324.85 (signal 1794041948310)
+[2026-11-07] OPEN F4:ZEC S @ 1328.85 (signal 1794042379962)
+[2026-11-07] OPEN F4:NEAR S @ 3.71765 (signal 1794043887794)
