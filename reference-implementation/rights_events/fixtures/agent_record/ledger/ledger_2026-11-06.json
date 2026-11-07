@@ -1,0 +1,421 @@
+{
+  "kind": "proof_of_outcome_population_ledger",
+  "as_of": "2026-11-06",
+  "first_full_day": "2026-11-01",
+  "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04"
+  ],
+  "readings": {
+    "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+    "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+    "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+    "2026-11-04": "marks_2026-11-04.jsonl"
+  },
+  "pins": {
+    "marks_2026-11-01_as_read_2026-11-03.jsonl": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+    "marks_2026-11-02_as_read_2026-11-04.jsonl": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+    "marks_2026-11-03_as_read_2026-11-05.jsonl": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+    "marks_2026-11-04.jsonl": "5f634d2eb12d9d453725ae414111d3ae632d3dfe4ac81ace531f92164242c660",
+    "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b",
+    "promotions.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "n_alive_at_start_of_last_day": 6,
+  "n_alive_now": 6,
+  "k": 5,
+  "counts": {
+    "ALIVE": 6,
+    "CANDIDATE": 0,
+    "PROMOTED": 0,
+    "RETIRED": 0
+  },
+  "forks": [
+    {
+      "fork": "F4:BTC",
+      "coin": "BTC",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 33,
+      "sum_net_bps": -653.8078852797835,
+      "mean_net_bps": -19.81236015999344,
+      "two_sigma_over_sqrt_n": 16.734380059500243,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 4,
+        "mean_net_bps": -11.748777576496469
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F4:ETH",
+      "coin": "ETH",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 43,
+      "sum_net_bps": -1256.524253151108,
+      "mean_net_bps": -29.22149425932809,
+      "two_sigma_over_sqrt_n": 17.314432079643392,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 4,
+        "mean_net_bps": 17.336646478994634
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F4:HYPE",
+      "coin": "HYPE",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 67,
+      "sum_net_bps": -1509.0720049306285,
+      "mean_net_bps": -22.523462760158637,
+      "two_sigma_over_sqrt_n": 24.19819891207857,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 4,
+        "mean_net_bps": -51.04396839212316
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F4:ZEC",
+      "coin": "ZEC",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 76,
+      "sum_net_bps": -2187.244426498089,
+      "mean_net_bps": -28.779531927606442,
+      "two_sigma_over_sqrt_n": 28.276138718208884,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 4,
+        "mean_net_bps": -64.1012985014575
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F4:SOL",
+      "coin": "SOL",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 36,
+      "sum_net_bps": 23.051363709664095,
+      "mean_net_bps": 0.6403156586017827,
+      "two_sigma_over_sqrt_n": 31.793314280746646,
+      "two_sigma_clears": false,
+      "run_days": 2,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 4,
+        "mean_net_bps": -53.81852102960836
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F4:NEAR",
+      "coin": "NEAR",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 4,
+      "episodes": 27,
+      "sum_net_bps": 878.4367426936077,
+      "mean_net_bps": 32.53469417383732,
+      "two_sigma_over_sqrt_n": 81.76971247883334,
+      "two_sigma_clears": false,
+      "run_days": 3,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 3,
+        "mean_net_bps": -50.75879743846385
+      },
+      "retired": null,
+      "promotion": null
+    }
+  ],
+  "history": [
+    {
+      "day": "2026-11-01",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F4:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -9.52826746683517,
+          "two_sigma_over_sqrt_n": 29.485635197857896,
+          "episodes": 6
+        },
+        "F4:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -39.22286637032565,
+          "two_sigma_over_sqrt_n": 13.971558674911744,
+          "episodes": 10
+        },
+        "F4:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -41.35776210641887,
+          "two_sigma_over_sqrt_n": 16.257864063965243,
+          "episodes": 17
+        },
+        "F4:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -29.974125649579502,
+          "two_sigma_over_sqrt_n": 32.01930682215318,
+          "episodes": 6
+        },
+        "F4:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -13.70249864491899,
+          "two_sigma_over_sqrt_n": 56.90475635526096,
+          "episodes": 8
+        },
+        "F4:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -25.04405901057225,
+          "two_sigma_over_sqrt_n": 54.371593132079674,
+          "episodes": 7
+        }
+      }
+    },
+    {
+      "day": "2026-11-02",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F4:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -15.527584358755629,
+          "two_sigma_over_sqrt_n": 22.928027749842553,
+          "episodes": 15
+        },
+        "F4:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -27.564969692897698,
+          "two_sigma_over_sqrt_n": 23.25891813359067,
+          "episodes": 21
+        },
+        "F4:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -27.26832875336234,
+          "two_sigma_over_sqrt_n": 26.05073275685136,
+          "episodes": 31
+        },
+        "F4:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -8.8800187747967,
+          "two_sigma_over_sqrt_n": 68.23867908775252,
+          "episodes": 29
+        },
+        "F4:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -15.65136813036832,
+          "two_sigma_over_sqrt_n": 37.50584135929151,
+          "episodes": 21
+        },
+        "F4:NEAR": {
+          "status": "ALIVE",
+          "run": 1,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 3.4203770773884874,
+          "two_sigma_over_sqrt_n": 55.27266426002249,
+          "episodes": 16
+        }
+      }
+    },
+    {
+      "day": "2026-11-03",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F4:BTC": {
+          "status": "ALIVE",
+          "run": 1,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -6.710330262004137,
+          "two_sigma_over_sqrt_n": 21.79155506279951,
+          "episodes": 20
+        },
+        "F4:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -28.475474028220454,
+          "two_sigma_over_sqrt_n": 18.0476268497302,
+          "episodes": 32
+        },
+        "F4:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -19.173297953064377,
+          "two_sigma_over_sqrt_n": 27.647594738038926,
+          "episodes": 47
+        },
+        "F4:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -24.030878344257584,
+          "two_sigma_over_sqrt_n": 36.77102399321555,
+          "episodes": 58
+        },
+        "F4:SOL": {
+          "status": "ALIVE",
+          "run": 1,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -1.5565450672359469,
+          "two_sigma_over_sqrt_n": 35.223316643990984,
+          "episodes": 28
+        },
+        "F4:NEAR": {
+          "status": "ALIVE",
+          "run": 2,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 10.952622912675228,
+          "two_sigma_over_sqrt_n": 57.41439729617754,
+          "episodes": 21
+        }
+      }
+    },
+    {
+      "day": "2026-11-04",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F4:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -19.81236015999344,
+          "two_sigma_over_sqrt_n": 16.734380059500243,
+          "episodes": 33
+        },
+        "F4:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -29.22149425932809,
+          "two_sigma_over_sqrt_n": 17.314432079643392,
+          "episodes": 43
+        },
+        "F4:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -22.523462760158637,
+          "two_sigma_over_sqrt_n": 24.19819891207857,
+          "episodes": 67
+        },
+        "F4:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -28.779531927606442,
+          "two_sigma_over_sqrt_n": 28.276138718208884,
+          "episodes": 76
+        },
+        "F4:SOL": {
+          "status": "ALIVE",
+          "run": 2,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.6403156586017827,
+          "two_sigma_over_sqrt_n": 31.793314280746646,
+          "episodes": 36
+        },
+        "F4:NEAR": {
+          "status": "ALIVE",
+          "run": 3,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 32.53469417383732,
+          "two_sigma_over_sqrt_n": 81.76971247883334,
+          "episodes": 27
+        }
+      }
+    }
+  ],
+  "rules": {
+    "candidate": "marker.is_candidate: trailing run of days beating C0 (0) and C1:<coin> >= k_for(n_alive) and mean > 2\u03c3/\u221an",
+    "retired": "days alive >= 7 and episodes >= 2 and mean + 2\u03c3/\u221an < min(0, C1 mean); sticky",
+    "promoted": "an entry in promotions.json only (an amendment under R88); rungs 0 paper, 1 one unit, 2 four, 3 sixteen",
+    "slot": "a retirement frees one slot, refilled only by a PREREG amendment (R107)"
+  },
+  "what_is_not_claimed": "No forecast, no profit: statuses by written rule over pinned forward days."
+}

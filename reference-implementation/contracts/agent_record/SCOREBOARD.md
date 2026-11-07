@@ -1691,3 +1691,18 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 15 (2026-11-05): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-06 after A17.5:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.6 — POO SENSOR, third day: the channel silent since 11-04 20:08:57Z; Day 16 (11-06) has no files, 0 episodes, VOID; nothing moved since A17.4; reader runs 0, ledger keeps NEAR 3 / SOL 2; arena VOID; R72: the sensor; live leg MISS; Week-two review
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `22d91909`; frozen marker/forward/families shas hold; 29 passed (23 + 6). |
+| Channel | `vps/poo-files` `287374eb` (unchanged since A17.4); 165 files sha-equal to the manifest; **health FAILS**: manifest 52 h 34 min old; last tape row 3 154 min old; no 11-05 or 11-06 tape, marks or signals. |
+| Day 16 (VOID) | 0 episodes; nothing to pin but `manifest_2026-11-06.json` `6f1211eb…` and `marker_state_2026-11-06.json` `7a53e1b6…` (byte-equal to 11-04's and 11-05's); funding not applied (API unreachable). |
+| Runs | reader (11-05, 11-06 counted empty): every run 0; ledger 11-06 `20477871…` (both absent): 6 ALIVE, 0 candidate, NEAR 3, SOL 2. Both recorded; no rule chosen. |
+| Arena | VOID (S85): newest page 11-04 19:23:50Z, 53 h 17 min old; cohort 2 three days in, graded nothing. |
+| Live leg | Day 16 (2026-11-06): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Week two:** limiting factor the sensor; no 50th-percentile candidate date can be stated (F4:NEAR's 2σ clause needs ≈ 21 more observed days if its mean held); settled live pairs 0.
+
+**Income row (R81), 2026-11-07 after A17.6:** 0 USD a day against 165. Nothing on the chain.

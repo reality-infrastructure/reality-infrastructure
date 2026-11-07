@@ -4975,3 +4975,118 @@ Counts: 6 ALIVE, 0 CANDIDATE, 0 PROMOTED, 0 RETIRED. Identical in content to the
 **R108 (the trace).** No decision is made in this amendment beyond what POO_DAILY.md prescribes. The finding is traced to Musk: "reality is the best verifier … but you can fool our ability to tell what it did with reality" — a day with no sensor is recorded VOID and empty, not read as a losing day and not read as a winning one.
 
 **What was not verified.** Funding (API unreachable). Why the channel stopped (the VPS is not reachable from this session). Whether the VPS kept recording 11-05 locally. Which run count (reader 0 / ledger 3 and 2) the record should carry across a VOID day. The arena (VOID). The C0 rows (C0 = 0 in the reader). The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message; the commit precedes them. Frozen shas re-checked after the commit.
+
+### A17.6 — 2026-11-07 00:4xZ, flat — POO SENSOR, third day: the channel has published nothing since 2026-11-04 20:08:57Z (manifest 52 h 34 min old at the read); Day 16 (2026-11-06) has no files on the channel: 0 episodes, VOID by step 2's health; every channel file byte-equal to A17.4's pins; reader runs 0, ledger keeps NEAR 3, SOL 2; arena day VOID (S85), cohort 2's window three days in and ungraded; R72 names the sensor; live leg MISS; the Week-two review
+
+**Clock.** `date -u` = Sat Nov 7 00:41:00 UTC 2026. D-1 = 2026-11-06 = **Day 16** (Day N = 2026-10-21 + N). Pass-line days as the reader takes them: 2026-11-01, 11-02, 11-03, 11-04, 11-05, 11-06.
+
+**Preflight.** `git status --porcelain` empty; HEAD = `origin/contract/agent-record` = `22d91909e04977ca9a41b427cda750b52a6c37b5`. Frozen shas, before:
+
+| file | sha256 | holds |
+|---|---|---|
+| `marker/marker.py` | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` | yes |
+| `marker/forward.py` | `6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76` | yes |
+| `marker/families.json` | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` | yes |
+
+Gates: `pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py -q` → **29 passed in 0.13 s** (23 + 6), after `pip install -q pytest`.
+
+**The channel.** `vps/poo-files` at `287374ebabdb1ccb954c703370ab5029b43bbf07` ("poo-vps day files 2026-11-04T20:08:57Z"), **the same commit A17.4 and A17.5 read**. Extracted from the repository root to `/tmp/poo`; 165 files listed in the manifest, every sha256 equal to the manifest's (0 mismatches). No commit on the channel since 20:08:57Z on 11-04: every hourly :07 publish from 21:07Z on 11-04 through 00:07Z on 11-07 (52 of them) did not arrive. There is no `marks_2026-11-05.jsonl` or `…-11-06.jsonl`, no `signals_` and no `tape_MIDS_` for either day on the channel.
+
+| manifest field | value | test | holds |
+|---|---|---|---|
+| `generated_at` | 2026-11-04T20:07:13Z | within 2 h of 00:41:00Z (52 h 34 min) | **NO** |
+| `poo_tape` | active | active | yes (as of 11-04 20:07Z) |
+| `poo_marker` | active | active | yes (as of 11-04 20:07Z) |
+| `tape_newest_mtime` | 2026-11-04T20:07:09Z | within 10 min of `generated_at` (4 s) | yes |
+| `void_days` (marker_state) | [] | 2026-11-06 not in it | yes |
+
+**Health FAILS** on `generated_at`, for the third day running. The day's finding is the sensor (S72 / S74). The reading below is produced as step 2 requires and is **VOID for 2026-11-06**: the channel holds no data for that day at all. We cannot tell from here whether the VPS stopped, the publisher stopped, or only the push to GitHub stopped; nothing on the VPS is reachable from this session.
+
+**The tape (for R72 factor 1).** The last row of the tape of record is `ms` 1793822818096 = 2026-11-04T20:06:58Z, **3 154 min (52 h 34 min) old at the read**. The 24 h before the read hold no rows on the channel: one hole of at least 24 h. R72 factor 1 holds on either reading.
+
+**Funding.** `curl -s -m 10 https://api.hyperliquid.xyz/info` failed (exit 56, HTTP 000). **The net numbers below exclude funding (disclosed, not estimated).**
+
+**The reading (the reader's markdown, verbatim; VOID for 2026-11-06 by step 2).**
+
+**Forward day 2026-11-06** - episodes 0, N alive 6 -> k = 5; marker.py `acf754f9...`
+
+| fork | n | mean gross bps | mean net bps | stop-first | sum net bps |
+|---|---|---|---|---|---|
+
+| fork | run of days beating C0 and C1 | k | 2-sigma clause | candidate |
+|---|---|---|---|---|
+| F4:BTC | 0 | 5 | no | no |
+| F4:ETH | 0 | 5 | no | no |
+| F4:HYPE | 0 | 5 | no | no |
+| F4:NEAR | 0 | 5 | no | no |
+| F4:SOL | 0 | 5 | no | no |
+| F4:ZEC | 0 | 5 | no | no |
+
+Health: poo-tape active, poo-marker active, tape newest 2026-11-04T20:07:09Z, manifest 2026-11-04T20:07:13Z, void_days [], this day void: False
+Signals: {}
+
+From the JSON run (same inputs), the pass line over 2026-11-01 … 2026-11-06 per F4 fork (11-05 and 11-06 add no episodes, so these equal A17.4's and A17.5's):
+
+| fork | episodes | mean net bps | 2σ/√n bps | run | candidate |
+|---|---|---|---|---|---|
+| F4:BTC | 33 | −19.81 | 16.73 | 0 | no |
+| F4:ETH | 43 | −29.22 | 17.31 | 0 | no |
+| F4:HYPE | 67 | −22.52 | 24.20 | 0 | no |
+| F4:NEAR | 27 | +32.53 | 81.77 | 0 | no |
+| F4:SOL | 36 | +0.64 | 31.79 | 0 | no |
+| F4:ZEC | 76 | −28.78 | 28.28 | 0 | no |
+
+**The two runs still disagree, and we record both** (as A17.5): the reader counts 11-05 and 11-06 as days with zero episodes, so every trailing run is 0; the ledger reads only pinned days and keeps F4:NEAR run 3 and F4:SOL run 2. Neither is a judgment on the forks: neither day was observed. No rule is applied here to choose between the two counts; that is for an amendment the operator signs.
+
+**Pins** (copied into `rights_events/fixtures/agent_record/vps/`, sha256 re-checked after the copy):
+
+| record file | source on `vps/poo-files` | sha256 |
+|---|---|---|
+| `vps/manifest_2026-11-06.json` | `manifest.json` (byte-equal to `vps/manifest_2026-11-05.json`) | `6f1211eb7109a2b6ba19551fa8c979b936afd4658c7fcb5fd9b855c6d68e18c1` |
+| `vps/marker_state_2026-11-06.json` | `marker/marker_state.json` (byte-equal to `vps/marker_state_2026-11-05.json`) | `7a53e1b677a1df5566ade8970e2b1ab9744b0ac1ee290d337507a5c38f93c9b4` |
+| `vps/marks_2026-11-06.jsonl` | **does not exist on the channel; not pinned** | — |
+| `vps/signals_2026-11-06.jsonl` | **does not exist on the channel; not pinned** | — |
+
+The reader's other inputs are byte-equal to their newest pins: `marks_2026-11-01` `ed0698e5…`, `marks_2026-11-02` `67a8732d…`, `marks_2026-11-03` `2136d7c0…`, `marks_2026-11-04` `5f634d2e…`, `signals_2026-11-04` `107b0547…`. No file moved since A17.4.
+
+**The arena (step 3b), cohort `2026-11-03`, window 2026-11-04 … 11-10.** `arena/2026-11-03/` is on the channel unchanged from A17.4; **its newest `pages_index.jsonl` line was fetched 2026-11-04T19:23:50Z, 53 h 17 min before the read: older than 2 h → the arena day is VOID (S85).** Graded nothing; no capture built; no run file written. The API was not fetched. Counts FULL / PARTIAL / NONE / REFUSED: not computed (VOID). Cohort 2's window is now three days in (11-04, 11-05, 11-06) with no grading of any.
+
+**The leader screen (step 3c).** Not due (cohort 2's window is not complete; first run 2026-11-12).
+
+**The population ledger (step 3d)**, as of 2026-11-06: `python -m rights_events.agent_ledger --as-of 2026-11-06 --out-prefix rights_events/fixtures/agent_record/ledger/ledger_2026-11-06` → `ledger_2026-11-06.json` `204778714bdaa8d5d910ea7499ddc8c05b02557f4c5e020cfe4c5e836cbe30d3`, `ledger_2026-11-06.md` `2b54b2902130e5041501c2a9195492f624163451dcccd2bcd79b23ba0ae36626`. Full forward days read: 4 (11-01 … 11-04); 11-05 and 11-06 absent.
+
+| fork | status | rung | days alive | run / k | retired |
+|---|---|---|---|---|---|
+| F4:BTC | ALIVE | 0 | 4 | 0 / 5 | — |
+| F4:ETH | ALIVE | 0 | 4 | 0 / 5 | — |
+| F4:HYPE | ALIVE | 0 | 4 | 0 / 5 | — |
+| F4:ZEC | ALIVE | 0 | 4 | 0 / 5 | — |
+| F4:SOL | ALIVE | 0 | 4 | 2 / 5 | — |
+| F4:NEAR | ALIVE | 0 | 4 | 3 / 5 | — |
+
+Counts: 6 ALIVE, 0 CANDIDATE, 0 PROMOTED, 0 RETIRED. Identical in content to the ledgers as of 11-04 and 11-05: no new day was read. A21.1's "first day any fork can retire is the read of 2026-11-08" needs seven days alive; with four observed days, no fork can retire on that read unless the channel returns with three more.
+
+**The live leg.** Day 16 (2026-11-06): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat.
+(No `capture_LIVE_2026-11-06_*.json` on the branch; the one amendment dated 11-06, A17.5, records no open.)
+
+**The three questions, from Day 16's numbers.**
+
+1. *What is the one thing limiting you right now?* By R72's fixed order (R94): **(1) the sensor holds** — the tape of record's last row (2026-11-04T20:06:58Z) is 3 154 min old at the read, and the last 24 h have no rows at all. The factor is the sensor: the VPS channel has been silent for 52 h, so Days 15 and 16 and cohort 2's first three days are unread.
+2. *What does reality actually reward, as opposed to what your dashboard rewards?* Reality rewards episodes that were observed and closed; on 11-06 there were zero to observe, so reality graded nothing and the reader's "run 0" is an artefact of absence, not a result. The dashboard would show a third broken day; the record shows a third blind day.
+3. *What is the smallest sequence of bets that lets reality grade you early and cheaply?* The operator restores the VPS publish (the `poo_publish` cron, the tape and marker services, the arena timer); the next run then reads whatever 11-05 … 11-07 the VPS kept. No live bet is warranted by this reading; the live leg only with a hand (R88) at the minimum size already registered.
+
+**The k countdown.** Days of forward record read: 4 full (11-01 … 11-04, the last VOID by health), plus 11-05 and 11-06 VOID and empty. 2026-11-05 has passed with no CANDIDATE. As the ledger counts: F4:NEAR run 3 needs two more observed days that beat both controls, and its pooled mean (+32.53) must clear 2σ/√n (81.77 now); F4:SOL run 2 needs three; the others need five. As the reader counts: every run is 0 and the earliest CANDIDATE is five observed days after the channel returns.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+**STOPs hit:** S72 / S74 (the sensor: the channel stale, the manifest 52 h 34 min old, third consecutive day). S85 (the arena day VOID: the newest page 53 h 17 min old).
+
+**Week-two review (step 10; the run of 2026-11-07, reading Day 16).**
+
+- *Limiting factor:* the sensor — the VPS channel has published nothing since 2026-11-04 20:08:57Z, so three of the week's six read days (11-04 VOID, 11-05 and 11-06 empty) were not observed.
+- *Next 50th-percentile date for a candidate:* none can be stated from the record. The binding clause is 2σ, not the run: F4:NEAR's pooled mean +32.53 on σ ≈ 212.4 bps clears 2σ/√n only at n ≈ 171 episodes, about 144 more, about 21 observed days at its 6.75 a day; if the mean and σ held (arithmetic on the pinned numbers, not a forecast), that is roughly 21 observed days after the channel returns, no earlier than the end of November. Every other fork's mean is below +1 bps.
+- *Settled live pairs this week:* 0.
+
+**R108 (the trace).** No decision is made in this amendment beyond what POO_DAILY.md prescribes. The finding is traced to Musk: "reality is the best verifier … but you can fool our ability to tell what it did with reality" — a day with no sensor is recorded VOID and empty, not read as a losing day and not read as a winning one.
+
+**What was not verified.** Funding (API unreachable). Why the channel stopped (the VPS is not reachable from this session). Whether the VPS kept recording 11-05 and 11-06 locally. Which run count (reader 0 / ledger 3 and 2) the record should carry across a VOID day. The arena (VOID). The C0 rows (C0 = 0 in the reader). The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message; the commit precedes them. Frozen shas re-checked after the commit.
