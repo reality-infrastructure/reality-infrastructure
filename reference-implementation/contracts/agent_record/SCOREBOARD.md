@@ -1743,3 +1743,16 @@ the go (a hand-off), then search (P12).
 | Suite | at P18 1162 + 8; at A23.1 **1166 / 0**. |
 
 **Income row (R81), 2026-11-07 after A17.8.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A24 / P20 / A24.1 — coverage by continuity; cohort 2's first graded read (as of 11-06): FULL 27 / PARTIAL 1 / NONE 41 / REFUSED 0
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A24 `a67a438` → P20 `a0e6c5f` → this. |
+| Rule | R113 a page is a line or the index-pinned suffix of a glued torn line (S97 otherwise); R114 tape-sourced rows graded on measured continuity (capped cycles, post-cap gap vs the address's own largest gap), API-sourced rows on A18's rules. |
+| Known answers | 8 910 pages aligned = the index, 14 recovered, 0 dropped; the one PARTIAL = the heaviest address, 15 capped of 58, 28 827 s vs 1 458 s; the next two heaviest FULL; cohort 1's pins unedited. |
+| The read | capture `9e62c2db…` (70 rows, 5 031 fills pages, 3 152 780 fills), run `b813b46d…` C1–C7 PASS, `--verify` OK (72 events, root `94c7a5b…`); median FULL net 270 305.76 USD, 23/27 positive; RECORD row NONE, 0 fills. |
+| Disclosed | one read as of 11-06 with per-day nets in every row, no back-dated run files; F4: the 226 MB of pinned gz pages are not on this branch (bytes = the channel's parts at `c395d8f`; rebuild documented), the operator decides A25. |
+| Suite | pins gates 4 (`test_agent_record_arena_pins_c2.py`); **full suite 1180 passed, 0 failed**. |
+
+**Income row (R81), 2026-11-07 after A24.1:** 0 USD a day against 165. Nothing on the chain.

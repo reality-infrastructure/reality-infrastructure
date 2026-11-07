@@ -5296,3 +5296,35 @@ Hence (i).
 **What was not verified.** The routine's own run on the parts (00:40Z 11-08). The 11-05 / 11-06 marks' content (read by the catch-up). Funding (not fetched).
 
 **Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+### A24.1 — 2026-11-07 05:3xZ, flat — COHORT 2's FIRST GRADED READ, from the channel's parts under R113/R114: as of 2026-11-06, 70 rows, **FULL 27 / PARTIAL 1 / NONE 41 / REFUSED 0**, every A24 known answer met (8 910 pages aligned, 14 recovered, 0 dropped; the one PARTIAL is the heaviest address: 15 capped cycles of 58, a 28 827 s gap after one against its own 1 458 s), the run verifies (72 events, root `94c7a5b…`); the catch-up done as one read with the per-day nets inside each row, not three back-dated run files; the pinned gz pages stay on the channel (F4, the operator's decision)
+
+**Preflight.** A24 `a67a438` → P20 `a0e6c5f` (full suite **1176 passed, 0 failed**) → this. Frozen shas hold.
+
+**The read.** Channel at `c395d8f` (the extraction verified in A17.8.1; pages to 2026-11-07T03:29Z). Builder: `arena_capture_from_tape.py --channel-dir <extracted> --cohort-capture capture_ARENA_2026-11-03_2026-11-03.json --as-of-date 2026-11-06 --now-ms 1794028485693` → `capture_ARENA_2026-11-03_2026-11-06.json` sha **`9e62c2db536f1331…`** (2 963 782 bytes); **alignment {files 140, pages 8 910, recovered 14, dropped 0, files without index 0}** = the index's count exactly; 70 rows; **5 031 fills pages / 3 879 funding pages; 3 152 780 fills served** (A17.8.1's reader, before R113, had 5 022 / 3 134 780: the nine recovered fills pages are 18 000 fills); every pin carries `fetched`; 9 rows had a recovered page. Runner (unmodified `agent_arena.py`, the pinned payload beside the capture): **C1–C7 PASS**, 72 events (1 boards, 70 settled, 1 ranking), `AGENT-RECORD ARENA RUN: OK`; `--verify --run` → **reloaded 72 events, all signatures re-verified, all inclusion proofs verified; root `94c7a5b…`; RESULT: OK**. 23 s to grade, 1 s to verify.
+
+**The known answers of A24, checked.**
+
+| known answer | result |
+|---|---|
+| 11 files diverge at one line; 14 pages recovered; 0 dropped; 0 refused | 14 recovered in 9 rows' files (fills + funding), 0 dropped, 0 refused (S97 not hit) |
+| FULL 27 / PARTIAL 1 / NONE 42 of 70 | **FULL 27 / PARTIAL 1 / NONE 41 + the RECORD row NONE** (the known answer counted the operator's address among the 42 NONE; the runner reports it as the RECORD row) |
+| the PARTIAL = the heaviest address, 15 capped of 58, 28 827 s vs 1 458 s | `coverage_reason`: "the tape fell behind: 15 capped cycles of 58, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)"; 960 272 fills served, 946 417 in the window |
+| the next two heaviest FULL (0 capped) | FULL, 0 capped cycles |
+| cohort 1's pins unchanged | `test_agent_record_arena_pins.py` passes unedited |
+
+**The figures (disclosed, not claimed about anyone's skill; the window is open until 11-10):** median net of the 27 FULL rows 270 305.76 USD; 23 of 27 positive (0.852). The RECORD row: 0 fills, NONE, net 0 — nothing of the operator's settled in the window (no hand, R54). PAPER rows: none (no marks files were passed; the ledger carries the forks).
+
+**Pinned (gates in `tests/test_agent_record_arena_pins_c2.py`, 4):** the six files byte for byte (`capture` `9e62c2db…`, `run` `b813b46d…`, `arena.json` `705a844b…`, `arena.md` `35221f7a…`, `arena.html` `d06edf02…`, `MANIFEST` `1ee37d7b…`), the run file re-verifies, the counts and the PARTIAL row's numbers, the alignment counts.
+
+**The catch-up, as done (disclosed).** The plan said "cohort 2 graded for 11-04, 11-05 and 11-06". Three run files dated 11-04, 11-05, 11-06 built today from the same pages would be the same settlement three times with different flags — back-dated reads pretending to be the routine's. Musk: never fool the ability to tell. So: **one read as of 11-06**, the latest full day, and every row's `daily` array carries 11-04, 11-05, 11-06 (and the open day) separately; the routine's run of 00:40Z 11-08 produces the as-of-11-07 read on the same rule. No run file is dated to a read that did not happen.
+
+**Finding F4 (the operator's decision; not decided here).** The capture's 140 pinned gz page files total **226 752 914 bytes**, the largest **73 985 743** and growing ≈ 6 MB a day; GitHub's 100 MB limit applies to the record's branch as it did to the channel. They are **not committed to `contract/agent-record`**: their bytes are the channel's parts at `c395d8f` (every page pinned by sha256 in the capture, the index by `tape_index_sha256`), and the documented command rebuilds them byte for byte. The run file verifies without them (signatures, inclusions, root). What it costs: a stranger's *rebuild* (not the verify) needs the channel branch at the named commit. Options for A25, in the operator's words: (a) the record carries cohort pages as parts too (R109 applied to `hl_*.gz`); (b) the channel at a named commit is the pages' home of record and every capture names that commit; (c) a release asset or LFS. Until then every cohort-2 read names its channel commit.
+
+**STOPs hit:** none (S96, S97 not hit; the grader refused nothing).
+
+**R108.** Brown: the grader graded what the tape served, with its gaps measured. Musk: the one PARTIAL is a measured hole, named by its numbers; no back-dated read; delete the part (no fourth file format for the pages yet). The panel: the catch-up shipped the same day the sensor returned.
+
+**Dates (Musk).** Cohort 2 graded on its full window: 2026-11-11, reachable (the routine grades daily from 11-08). Rung 4 asked of GDEX on two cohorts: 2026-11-18. First candidate fork: no date can be stated (A17.6).
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
