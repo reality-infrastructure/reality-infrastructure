@@ -1729,3 +1729,17 @@ the go (a hand-off), then search (P12).
 | Gates | ledger file 9 passed; A21's newest-reading gate amended with the rule (old assertion quoted in A23.1); **full suite 1166 passed, 0 failed**. |
 
 **Income row (R81), 2026-11-07 after A23.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.8 / P18 / A17.8.1 — the channel carries the arena's pages in parts; GitHub accepts; the channel is back
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A17.8 `c377512` → P18 `e28c9bd` → this. |
+| Rule | R109 line-complete parts ≤ 8 MiB, raw pages out of the tree; R110 the reader joins (byte-identical capture proven); R111 housekeeping; S96. |
+| Known answers | 275 parts for 140 page files, largest 8 387 065 bytes, 309 manifest files, **0 sha mismatches** from the laptop; health active ×3; reader on the real parts: 70 rows, 5 022 fills pages, 3 134 780 fills, first page sha = the index's. |
+| The push | a single ≈ 590 MB push is dropped by GitHub mid-transfer (finding); the catch-up went in 12 commits of ≤ 25 parts, all accepted: `69f8da4` … `c395d8f` by 04:41:17Z (19 min before the 50th-percentile 05:00Z). |
+| Hourly | the 05:07Z cron, unattended: `84d1cb1` pushed 05:10:03Z, 142 tail parts + 7 files, `.git` +21 MB for the hour. |
+| Finding | F3: 11 page files carry one glued torn line each from the full-disk hours; 14 pages recoverable by index suffix → A24. |
+| Suite | at P18 1162 + 8; at A23.1 **1166 / 0**. |
+
+**Income row (R81), 2026-11-07 after A17.8.1:** 0 USD a day against 165. Nothing on the chain.

@@ -5262,3 +5262,37 @@ Hence (i).
 **50th-percentile date (Musk).** Code and gates today; cohort 2's catch-up reads for 11-04, 11-05, 11-06 today under R113/R114; the routine's run of 00:40Z 11-08 grades 11-07 with them. Cohort 2 graded on its full window: 2026-11-11, unchanged.
 
 **What this amendment does not do.** It does not change the settlement arithmetic (SETTLED.md, frozen), the ranking rule, the ledger or the venue; it does not estimate any missing fill; it does not grade anything (A24.1 does, from the pins).
+
+### A17.8.1 — 2026-11-07 05:1xZ, flat — THE CHANNEL IS BACK: the parts published and accepted by GitHub (12 commits, `69f8da4` … `c395d8f`), every A17.8 known answer met (275 parts, largest 8 387 065 bytes, 309 manifest files, 0 sha mismatches, health active), the reader built cohort 2's capture from the real parts (70 rows, 5 022 fills pages, 3 134 780 fills served); two findings: a single 600 MB push is dropped by GitHub mid-transfer (the catch-up went in chunks of 25 parts), and eleven page files carry one torn line each from the full-disk hours (F3, for A24)
+
+**Preflight.** Prereg `c377512` (A17.8) → code `e28c9bd` (P18) → this. Full suite at P18: 1162 + 8 new gates passed, the one failure A23's (since repaired: 1166 / 0 at A23.1). Frozen shas hold. Repo copy and VPS copy of the publisher identical: `poo_publish_vps.sh` = `/root/poo/publish.sh` sha `53bfa42f7c93dd4b…`; `arena_parts.py` sha `f34e80d5ba0741c1…` on both.
+
+**The deploy (03:52:53Z, this session, on the operator's go).** Files copied; `/root/poo-publish` configured (`gc.auto 256`, `pack.windowMemory 64m`, `pack.threads 1`); the unpushed `9574821` dropped by `git reset --soft 287374e` (R111; 158 files stayed staged). Services untouched: `poo-tape`, `poo-marker`, `poo-arena-tape.timer` active throughout.
+
+**The first publish under R109 (the 04:07Z cron).** The splitter wrote **275 parts** for the 140 page files (the known answer, exactly), largest part **8 387 065 bytes** (`pages_fills_0xecb63caa….jsonl.part012`, as measured), 0 raw page files left in the tree, manifest `generated_at` 2026-11-07T04:07:46Z with **309 files**; committed as `7647b3f` (310 tree entries, none over 50 MB). **The push was not declined — it was dropped:** `send-pack: unexpected disconnect while reading sideband packet … the remote end hung up unexpectedly` after ~9 minutes of packing and sending ≈ 590 MB of loose objects from a box with 267 MB of RAM free. Finding: GitHub drops a slow single push of that size; it is not R109's limit (every blob under 8 MiB) but the catch-up's.
+
+**The catch-up (04:27–04:41Z, this session).** `git reset --soft 287374e; git reset`; commit 0 = the day files and the 130 raw-page deletions (adds 9, deletes 130, mods 9) → `69f8da4` **accepted**; then the 265 remaining parts in 11 commits of ≤ 25 parts each, every push accepted within 1–3 min: `7889da3` `2333d47` `64d2191` `c956ac5` `f0055d2` `cca3215` `08c8bfc` `3d436fa` `fd0c862` `ed15ff8` **`c395d8f`** (origin's head at 04:41:17Z). Intermediate heads carried a manifest naming parts not yet pushed for 12 minutes; the final head is consistent. 10 of the 275 parts had been committed with commit 0's `git add -A` before the reset of parts (hence "265 to add later"); every part is tracked at `c395d8f`: tracked 275 = tree 275.
+
+**The channel verified from this laptop (04:4xZ).** `git fetch origin vps/poo-files` → `c395d8f`; `git -c core.autocrlf=false archive | tar -x` → 310 files; every one of the manifest's **309 files sha-equal (0 mismatches, 0 missing)**; health `poo_tape active`, `poo_marker active`, `poo_arena_tape_timer active`, `tape_newest_mtime` 2026-11-07T04:07:43Z; the channel now carries `marks_2026-11-05.jsonl`, `marks_2026-11-06.jsonl`, `marks_2026-11-07.jsonl` and `tape_MIDS_2026-11-05 … 11-07` (Days 15–16 are readable; the routine's next run reads them). `pages_index.jsonl` 8 910 lines, newest fetched 2026-11-07T03:29:15Z.
+
+**The reader on the real parts (R110's proof).** `arena_capture_from_tape.py --channel-dir <extracted> --cohort-capture capture_ARENA_2026-11-03_2026-11-03.json --as-of-date 2026-11-06 --now-ms 1794026613499 --out-dir <scratch>` → `capture_ARENA_2026-11-03_2026-11-06.json` sha `511391a4020c99fd…`, **70 rows, 5 022 fills pages / 3 874 funding pages, 3 134 780 fills served**, 141 files, 224 807 883 bytes of pinned gz pages; the heaviest address `0xf5d81a13…` 498 pages / 958 272 fills, its first page's sha `826542756275e9d8…` **equal to the index's first entry for that file**. Written to the scratchpad only: nothing under `arena/2026-11-03/` moved (the catch-up reads come after A24).
+
+**Finding F3 (for A24; recorded, not fixed here).** The index lists 499 pages for `0xf5d81a13…`; the reader took 498. Aligning every page file's lines with its index entries: **11 of 140 files diverge at exactly one line each**, all fetched between 2026-11-06T13:20Z and 2026-11-07T03:24Z (the full-disk hours): the line on disk is 600–2 500 bytes longer than the index entry's `bytes` and its sha differs, consistent with a page write torn by ENOSPC (no newline) and the next hour's whole page appended to the fragment, the torn page's own index entry never written. For each such line the suffix of the index entry's length hashes to the entry's sha: the whole page is present verbatim and recoverable; today's reader drops the glued line as "torn" and loses that page (2 000 fills for the heaviest address). A24 writes the recovery rule (a page is a line, or the index-pinned suffix of a line) before any cohort-2 day is graded.
+
+**Known answers of A17.8, checked.**
+
+| known answer | result |
+|---|---|
+| 44 / 27 / 13 parts for the three heaviest pages, largest 8 387 065 | 275 parts in all; largest part 8 387 065 bytes (`…ecb63caa…part012`) |
+| join sha = raw sha | the reader's pages hash to the index's shas (first page checked by hand; 5 022 pages hashed into pins) |
+| the publish accepted by GitHub, no 50 MB warning | accepted in 12 pushes; no warning printed |
+| services untouched and active | active, active, active |
+| 50th-percentile 05:00Z | **origin head `c395d8f` at 04:41:17Z** — 19 min early |
+
+**Hourly operation (the 05:07Z cron, the dedup claim of R109).** The 05:07Z cron ran the new publisher unattended: commit `84d1cb1` "poo-vps day files 2026-11-07T05:08:35Z", **pushed at 05:10:03Z and accepted** (`origin/vps/poo-files` = `84d1cb1`); 149 files changed = 142 parts (the tail part of every page file the tape appended to in the hour, no earlier part) + 7 others (tape, marks, signals, state, manifest); `.git` 594 → 615 MB (+21 MB for the hour; the raw-page publisher added ≈ 330 MB an hour). The parts rule holds in operation: R109's dedup is measured, not assumed.
+
+**R108.** Musk: the limiting factor only — the sensor; delete the part — no gzip, no new tool on the VPS beyond one 120-line splitter; the 50th-percentile date met early. Brown: `check_pages` untouched; the pages hash to the index. Panel: shipped inside the five-hour gate; the next read (the routine's, 00:40Z 11-08) grades it.
+
+**What was not verified.** The routine's own run on the parts (00:40Z 11-08). The 11-05 / 11-06 marks' content (read by the catch-up). Funding (not fetched).
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
