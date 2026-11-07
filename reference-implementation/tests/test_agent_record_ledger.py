@@ -100,9 +100,16 @@ def test_newest_reading_per_day_is_taken(tmp_path):
         (vps / "marks_2026-11-02.jsonl").read_text(encoding="utf-8"), encoding="utf-8")
     promo = tmp_path / "promotions.json"
     promo.write_text("[]", encoding="utf-8")
+    # R105 as amended by A23: as of 11-03 the reading pinned by 11-04 (= D + 1) is the newest
+    # that existed; the 11-05 re-pin is read from the ledger as of 11-04 on. (A21's version of
+    # this gate took the 11-05 file into the ledger as of 11-03; amended with the rule, A23.)
     m = led.ledger("2026-11-03", vps, promo, coins=["AAA", "BBB"])
-    assert m["readings"]["2026-11-02"] == "marks_2026-11-02_as_read_2026-11-05.jsonl"
-    assert {r["fork"]: r for r in m["forks"]}["F4:BBB"]["episodes"] == 10
+    assert m["readings"]["2026-11-02"] == "marks_2026-11-02_as_read_2026-11-04.jsonl"
+    assert {r["fork"]: r for r in m["forks"]}["F4:BBB"]["episodes"] == 9
+    (vps / "marks_2026-11-04.jsonl").write_text((vps / "marks_2026-11-03.jsonl").read_text(encoding="utf-8"), encoding="utf-8")
+    m4 = led.ledger("2026-11-04", vps, promo, coins=["AAA", "BBB"])
+    assert m4["readings"]["2026-11-02"] == "marks_2026-11-02_as_read_2026-11-05.jsonl"
+    assert {r["fork"]: r for r in m4["forks"]}["F4:BBB"]["episodes"] == 13
 
 
 def test_promotion_only_from_the_file_and_s95(tmp_path):
@@ -142,3 +149,53 @@ def test_deterministic_reads_no_clock_and_the_cli(tmp_path, capsys):
     assert "n_alive 6, k 5" in capsys.readouterr().out
     rc = led.main(["--as-of", "11/03", "--out-prefix", str(tmp_path / "ledger_y")])
     assert rc == 1 and "LEDGER REFUSED" in capsys.readouterr().out
+
+
+# --- A23 (R105 amended, R112): a ledger's points never move -----------------------------------
+
+def test_a23_a_later_repin_enters_later_ledgers_only(tmp_path):
+    """A re-pin of day d dated D + 2 is excluded from the ledger as of D (its cutoff is D + 1),
+    included from the ledger as of D + 1 on; the ledger as of D is byte-identical before and
+    after the re-pin appears (Musk: the plotted points never move)."""
+    import datetime as dt
+    vps = _synthetic(tmp_path)
+    days = DAYS
+    d0, last = days[0], days[-1]
+    none = tmp_path / "none.json"
+    coins = ["AAA", "BBB"]
+    before = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    before_json = led.ledger_json(before)
+    assert before["readings"][d0] == f"marks_{d0}.jsonl"
+    rows = "\n".join([_row("F4:AAA", -50.0), _row("F4:BBB", -500.0), _row("C1:AAA", 1.0), _row("C1:BBB", -5.0)]) + "\n"
+    late = (dt.date.fromisoformat(last) + dt.timedelta(days=2)).isoformat()
+    (vps / f"marks_{d0}_as_read_{late}.jsonl").write_text(rows, encoding="utf-8")
+    after = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    assert led.ledger_json(after) == before_json                      # excluded: the point did not move
+    assert led.read_cutoff(last) < late
+    # a re-pin dated exactly D + 1 (the morning the ledger is produced) IS read
+    ok = (dt.date.fromisoformat(last) + dt.timedelta(days=1)).isoformat()
+    (vps / f"marks_{d0}_as_read_{late}.jsonl").rename(vps / f"marks_{d0}_as_read_{ok}.jsonl")
+    with_repin = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    assert with_repin["readings"][d0] == f"marks_{d0}_as_read_{ok}.jsonl"
+    bbb_after = next(r for r in with_repin["forks"] if r["fork"] == "F4:BBB")["sum_net_bps"]
+    bbb_before = next(r for r in before["forks"] if r["fork"] == "F4:BBB")["sum_net_bps"]
+    assert bbb_after < bbb_before
+
+
+def test_a23_known_answers_on_the_pinned_files():
+    """A23's table: the readings each ledger as of D reads from the real pins, and the runs."""
+    m3 = led.ledger("2026-11-03")
+    assert list(m3["readings"].values()) == ["marks_2026-11-01_as_read_2026-11-03.jsonl",
+                                             "marks_2026-11-02_as_read_2026-11-04.jsonl",
+                                             "marks_2026-11-03.jsonl"]
+    for as_of in ("2026-11-04", "2026-11-05", "2026-11-06"):
+        m = led.ledger(as_of)
+        assert list(m["readings"].values()) == ["marks_2026-11-01_as_read_2026-11-03.jsonl",
+                                                "marks_2026-11-02_as_read_2026-11-04.jsonl",
+                                                "marks_2026-11-03_as_read_2026-11-05.jsonl",
+                                                "marks_2026-11-04.jsonl"]
+        runs = {r["fork"]: r["run_days"] for r in m["forks"]}
+        assert runs["F4:NEAR"] == 3 and runs["F4:SOL"] == 2
+        # the committed markdown is byte-identical; the JSON differs only in float last digits (F2, recorded in A23)
+        md = (LEDGER / f"ledger_{as_of}.md").read_bytes().replace(b"\r\n", b"\n")
+        assert led.render_markdown(m).encode("utf-8") == md

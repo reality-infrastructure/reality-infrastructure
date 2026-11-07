@@ -1,7 +1,9 @@
 """THE POPULATION LEDGER (PREREG A21, R105–R107): every fork's status, rung, days alive,
-run and 2σ bar, with retirement, as a pure function of the pinned marks files (the newest
-pinned reading of each FULL forward day), the frozen marker (k_for, is_candidate,
-mean_clears_2sigma, DECLARED) and a pinned promotions file that only an amendment edits.
+run and 2σ bar, with retirement, as a pure function of the pinned marks files (for each FULL
+forward day, the newest reading pinned by the morning the ledger is produced: as-read date
+<= as_of + 1, A23's amendment of R105 — a later re-pin enters later ledgers, never a past
+one), the frozen marker (k_for, is_candidate, mean_clears_2sigma, DECLARED) and a pinned
+promotions file that only an amendment edits.
 
 Statuses, evaluated day by day in date order on the data up to each day (R106):
   CANDIDATE  the marker's is_candidate holds with k = k_for(n_alive at the day's start)
@@ -20,6 +22,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import datetime as _dt
 import hashlib
 import importlib.util
 import json
@@ -57,16 +60,25 @@ def sha256_file(p: Path) -> str:
     return hashlib.sha256(p.read_bytes()).hexdigest()
 
 
+def read_cutoff(as_of: str) -> str:
+    """R105 (A23): the morning the ledger as of `as_of` is produced = as_of + 1 day."""
+    return (_dt.date.fromisoformat(as_of) + _dt.timedelta(days=1)).isoformat()
+
+
 def newest_readings(vps_dir: Path, first_day: str, as_of: str) -> dict[str, Path]:
-    """R105: for each FULL forward day in [first_day, as_of] the newest pinned reading:
-    marks_<day>_as_read_<date>.jsonl with the latest date, else marks_<day>.jsonl."""
+    """R105 (as amended by A23): for each FULL forward day in [first_day, as_of] the newest
+    pinned reading that existed by the morning the ledger is produced:
+    marks_<day>_as_read_<date>.jsonl with the latest date <= as_of + 1, else marks_<day>.jsonl
+    (pinned on day + 1 <= as_of + 1 by construction). A re-pin dated later is read by the
+    ledgers from that date on and by no earlier one: a ledger's points never move."""
     out: dict[str, Path] = {}
+    cutoff = read_cutoff(as_of)
     for p in sorted(vps_dir.glob("marks_*.jsonl")):
         m = re.match(r"^marks_(\d{4}-\d{2}-\d{2})(?:_as_read_(\d{4}-\d{2}-\d{2}))?\.jsonl$", p.name)
         if not m:
             continue
         day, read = m.group(1), m.group(2) or ""
-        if day < first_day or day > as_of:
+        if day < first_day or day > as_of or read > cutoff:
             continue
         cur = out.get(day)
         if cur is None:

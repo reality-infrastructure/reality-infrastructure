@@ -73,6 +73,7 @@ The sentence may add words; it may not change the factor.
 **0. Clock.** `date -u`. Compute D-1 and the day number. Nothing else reads the clock.
 
 **1. Preflight.**
+Print `python --version` first and quote it in the amendment (A23 finding F2: float sums in the ledger JSON differ in their last digit between interpreters; the routine's version must be on the record).
 `git status --porcelain` empty; `git rev-parse HEAD` equals `origin/contract/agent-record`;
 the three frozen sha256 above hold; then
 `python -m pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py -q`
