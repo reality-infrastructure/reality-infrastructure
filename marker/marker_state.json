@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794035156954,
+ "last_fill_poll_ms": 1794038778609,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -9,43 +9,9 @@
   "2026-11-04": 2317738,
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
-  "2026-11-07": 458892
+  "2026-11-07": 556212
  },
  "open": {
-  "F4:ETH": {
-   "family": "F4",
-   "coin": "ETH",
-   "direction": -1,
-   "entry_ms": 1794017370994,
-   "entry_px": 2249.15,
-   "signal_ms": 1794017322552,
-   "signal": {
-    "leader": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
-    "leader_px": 2248.5,
-    "leader_sz": 17.6886,
-    "leader_notional": 39772.8171
-   },
-   "entry_spread_bps": 0.22229632099669625,
-   "entry_spread_source": "l2Book:b580861ad9953e748cf5afc8ec65eee9d6198c76c6346b852020622ef5b3f6bc",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:ZEC": {
-   "family": "F4",
-   "coin": "ZEC",
-   "direction": -1,
-   "entry_ms": 1794017507501,
-   "entry_px": 1360.45,
-   "signal_ms": 1794017510416,
-   "signal": {
-    "leader": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
-    "leader_px": 1362.5,
-    "leader_sz": 12.84,
-    "leader_notional": 17494.5
-   },
-   "entry_spread_bps": 0.36701288215266425,
-   "entry_spread_source": "l2Book:7eb5dc8a10e286f41566f2cb948a7aab51178e13b3bef22d17cef2d401b62d4a",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:HYPE": {
    "family": "F4",
    "coin": "HYPE",
@@ -95,6 +61,40 @@
    },
    "entry_spread_bps": 0.06577952020417963,
    "entry_spread_source": "l2Book:eee7dbfb06bcd9349519b54a72e323864845256ceeeb13757c11093ff1544366",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:ETH": {
+   "family": "F4",
+   "coin": "ETH",
+   "direction": -1,
+   "entry_ms": 1794035503025,
+   "entry_px": 2246.55,
+   "signal_ms": 1794035454083,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 2246.8,
+    "leader_sz": 5.2044,
+    "leader_notional": 11693.24592
+   },
+   "entry_spread_bps": 0.22257339357632944,
+   "entry_spread_source": "l2Book:87fe34f1d515beace9a8f9945216a9b9a59ff5a109fa4030266aa335853bae6a",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:ZEC": {
+   "family": "F4",
+   "coin": "ZEC",
+   "direction": -1,
+   "entry_ms": 1794038152719,
+   "entry_px": 1323.95,
+   "signal_ms": 1794038132976,
+   "signal": {
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 1325.0,
+    "leader_sz": 10.0,
+    "leader_notional": 13250.0
+   },
+   "entry_spread_bps": 0.37785754770417174,
+   "entry_spread_source": "l2Book:eac74d6ae6399d96d70ccea2c930ff6b33a7ab1d82399fdfce8958304b0cfe33",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -68013,6 +68013,56 @@
    -1,
    1,
    1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
    1,
    -1
   ]
