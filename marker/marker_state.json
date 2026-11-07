@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794031602173,
+ "last_fill_poll_ms": 1794035156954,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -9,26 +9,9 @@
   "2026-11-04": 2317738,
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
-  "2026-11-07": 363221
+  "2026-11-07": 458892
  },
  "open": {
-  "F4:BTC": {
-   "family": "F4",
-   "coin": "BTC",
-   "direction": 1,
-   "entry_ms": 1794014125458,
-   "entry_px": 75891.5,
-   "signal_ms": 1794014071797,
-   "signal": {
-    "leader": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
-    "leader_px": 75892.0,
-    "leader_sz": 0.23097,
-    "leader_notional": 17528.77524
-   },
-   "entry_spread_bps": 0.0658835310937325,
-   "entry_spread_source": "l2Book:7c505b0d4fd20c391eba9c9f468a9214c30c6dab07e254f02914572bab7d0e08",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:ETH": {
    "family": "F4",
    "coin": "ETH",
@@ -95,6 +78,23 @@
    },
    "entry_spread_bps": 0.055623230486245755,
    "entry_spread_source": "l2Book:70f8fb8a423132f83d01181a833e6488e23b5b037c1f71e49658adbeb644cd0f",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:BTC": {
+   "family": "F4",
+   "coin": "BTC",
+   "direction": 1,
+   "entry_ms": 1794032298780,
+   "entry_px": 76006.5,
+   "signal_ms": 1794032297488,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 76006.0,
+    "leader_sz": 0.2293,
+    "leader_notional": 17428.1758
+   },
+   "entry_spread_bps": 0.06577952020417963,
+   "entry_spread_source": "l2Book:eee7dbfb06bcd9349519b54a72e323864845256ceeeb13757c11093ff1544366",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -67972,6 +67972,48 @@
    -1,
    -1,
    -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
    -1
   ]
  },
