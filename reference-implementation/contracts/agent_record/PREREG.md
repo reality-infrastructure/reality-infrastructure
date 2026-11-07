@@ -5090,3 +5090,67 @@ Counts: 6 ALIVE, 0 CANDIDATE, 0 PROMOTED, 0 RETIRED. Identical in content to the
 **R108 (the trace).** No decision is made in this amendment beyond what POO_DAILY.md prescribes. The finding is traced to Musk: "reality is the best verifier … but you can fool our ability to tell what it did with reality" — a day with no sensor is recorded VOID and empty, not read as a losing day and not read as a winning one.
 
 **What was not verified.** Funding (API unreachable). Why the channel stopped (the VPS is not reachable from this session). Whether the VPS kept recording 11-05 and 11-06 locally. Which run count (reader 0 / ledger 3 and 2) the record should carry across a VOID day. The arena (VOID). The C0 rows (C0 = 0 in the reader). The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message; the commit precedes them. Frozen shas re-checked after the commit.
+
+### A17.7 — 2026-11-07 03:2xZ, flat — THE SENSOR'S CAUSE FOUND AND THE PUBLISH REPO REBUILT (the operator's act through this session, their words quoted): the channel's silence since 11-04 20:08:57Z had two causes in sequence — GitHub's 100 MB file limit rejected every hourly push from 21:07Z 11-04 (one arena fills page at 104.34 MB), then the VPS disk filled to 100 % (the publish repo's `.git` at 5.4 GB from hourly re-commits of the arena pages) and by 11-06 ~08:03Z every service died on ENOSPC; the repo rebuilt on `287374e` (5.4 GB freed; tape, marker active again; the VPS kept marks for 11-05, 11-06, 11-07), the day files recommitted as `9574821`, the push STILL REJECTED by two pages now 326.83 MB and 201.19 MB; the publisher's oversize rule is the operator's (A17.8); Day 17 preflight: the full suite shows ONE failing gate, the ledger known answer as of 11-03, moved by R105's "newest reading"; live leg not yet opened
+
+**Clock.** `date -u` = 2026-11-07T03:10:33Z at the preflight. Today = **Day 17** (Day N = 2026-10-21 + N). The routine's A17.6 (00:41Z) read Day 16; this amendment is the laptop session's, on the operator's words "Pull up the results of Proof of Outcome week two before we build", "also run this: [the ten steps and the seven rules]", then "execute the following: 1. Rebuild the publish repo".
+
+**Preflight (step 1).** `git status --porcelain` = one untracked file at the repository root (`puct_193.pdf`, not the record's); HEAD = `origin/contract/agent-record` = `2c2ddd4e728d64a105f7326c7cfb28d199df8805` after a fast-forward of 3 (A17.4–A17.6). Frozen shas hold: `marker.py` `acf754f973729eb9…`, `forward.py` `6fd373b87800398f…`, `families.json` `db01aa33c2c00e15…`, `SETTLED.md` `c6b590de2289de69…`. Full suite from the capitalized path: **1155 passed, 1 failed in 61.84 s** — `tests/test_agent_record_ledger.py::test_known_answer_as_of_2026_11_03`. The routine's 29-gate preflight (marker + forward_read only) cannot see this gate; it has been failing since A17.4 pinned `marks_2026-11-03_as_read_2026-11-05.jsonl` (see "The known-answer finding").
+
+**The cause, read on the VPS over ssh (read-only), two stages.**
+
+| when (UTC) | evidence | what it means |
+|---|---|---|
+| 11-04 20:15:00Z | `publish.log` line 98: `pushed 287374e` | the last push the channel received |
+| 11-04 21:07Z (the next hourly run) | `publish.log` line 102: `remote: error: File arena/2026-11-03/pages_fills_0xf5d81a135f756ca16544e53c20fc20643ec3ad53.jsonl is 104.34 MB; this exceeds GitHub's file size limit of 100.00 MB` → `GH001` → `! [remote rejected] vps/poo-files -> vps/poo-files (pre-receive hook declined)` | **stage 1:** the arena fills tape's page for the heaviest address crossed GitHub's hard limit; every push after it was declined (four more end in `the remote end hung up unexpectedly`). The VPS kept committing locally: `/root/poo-publish` held commits to `5af25d4` (11-06 06:59:25Z) that never reached the channel. |
+| by 11-06 08:03:16Z | `/root/poo-publish/.git/index.lock` 0 bytes, mtime 08:03:16Z; `df -h /` = 52 G, 51 G used, **0 available, 100 %**; `.git` = 5.4 GB; `git count-objects` "garbage found: tmp_obj_mgM7G8" | **stage 2:** the hourly `git add -A` of ~1 GB of changed arena pages filled the disk (the pages are append-only jsonl; git stores a new blob each hour); git died mid-write and left the lock; from 00:07Z 11-07 every run logged `fatal: Unable to create '.git/index.lock': File exists` then `nothing new`. |
+| 11-06 → 11-07 | `poo-tape.log`: 172 × `OSError: [Errno 28] No space left on device`; `poo-marker.log`: 285 ×; `journalctl`: `status=120`, restart counters **5 588** (poo-tape) and **2 914** (poo-marker); `poo-arena-tape.service` failed the same way; `/var/log/journal` truncated | every observation process crash-looped on ENOSPC; the tape ran in fragments (rows per day: 11-04 16 424, 11-05 15 735, 11-06 **6 040**, 11-07 520 at 02:23Z). |
+
+Disk by directory before the act: `/srv` 23 G (pmresearch, another line, active), `/root` 9.4 G (of which `/root/poo-publish/.git` 5.4 G, `/root/poo` 1.1 G), `/opt` 6.6 G (reo-research-swarm logs 4.2 G, active), `/usr` 5.2 G, `/var` 2.1 G (journal 825 M), `/swapfile` 5.6 G. Memory: 1 962 MB total, 108 MB free, swap 1.7 GB used, load 10.
+
+**What the VPS kept (not yet on the channel).** `/root/poo/marker/out/`: `marks_2026-11-04.jsonl` 97 rows (the channel's pin has 81: 16 late closes), `marks_2026-11-05.jsonl` **101 rows**, `marks_2026-11-06.jsonl` **62 rows**, `marks_2026-11-07.jsonl` 4 rows (02:30Z); `signals_2026-11-05.jsonl` 3.49 MB, `signals_2026-11-06.jsonl` 1.34 MB. Days 15 and 16, read VOID and empty by A17.5/A17.6, exist on the VPS and will be read as published once the channel carries them; their marks were produced from a fragmentary tape (11-06 at 37 % of a full day's rows) and the reading must disclose that.
+
+**The act (the operator's words: "execute the following: 1. Rebuild the publish repo … Delete /root/poo-publish/.git (5.4 GB of hourly re-commits) and re-create it as a fresh orphan vps/poo-files, same content. The channel's old history stays on GitHub.").** Executed 03:06–03:08Z by this session over ssh, after `pgrep git` found no process:
+
+```
+rm -rf /root/poo-publish/.git                      # 0 -> 3.1 GB free
+git init -q; git config user.name poo-vps; git config user.email poo-vps@66.135.15.102
+git remote add origin git@github.com:reality-infrastructure/reality-infrastructure.git
+git fetch -q --depth 1 origin vps/poo-files        # 287374e, 78 MB; the parent kept so the channel's history is never force-pushed
+git update-ref refs/heads/vps/poo-files FETCH_HEAD; git symbolic-ref HEAD refs/heads/vps/poo-files; git reset -q
+```
+
+Departure from the words as written, disclosed: not a new orphan root but a shallow child of `287374e`, because A17.1–A17.6 pin channel commits by sha and a force-push would have orphaned those pins; content identical. Result at 03:08:32Z: HEAD `287374e`, 158 day files uncommitted in the working tree, `.git` 78 MB, **2.8 GB free**; `poo-tape` and `poo-marker` **active** (their restart loop recovered on its own once writes succeeded; tape writing at 03:08:31Z, signals at 03:07:28Z). No service was restarted, stopped or edited; nothing under `/root/poo` was touched; nothing outside the publish repo was deleted.
+
+**The 03:07Z cron ran during the rebuild** (`git add -A` at 03:08:40Z held a live lock; this session did not remove it). It committed the 158 files as **`9574821` "poo-vps day files 2026-11-07T03:10:26Z"** and pushed; GitHub declined again at ~03:17Z:
+
+```
+remote: error: File arena/2026-11-03/pages_fills_0xf5d81a135f756ca16544e53c20fc20643ec3ad53.jsonl is 326.83 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: File arena/2026-11-03/pages_fills_0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00.jsonl is 201.19 MB; this exceeds GitHub's file size limit of 100.00 MB
+remote: error: GH001: Large files detected. ...  ! [remote rejected] vps/poo-files -> vps/poo-files (pre-receive hook declined)
+```
+
+Two more pages are over GitHub's 50 MB warning (80.35 MB, 90.94 MB); four files are over 50 MB on the VPS. `.git` is 329 MB after the one commit; 2.5 GB free. **Every hourly run will now commit and be declined, adding the hour's changed pages to `.git`** — the disk refills in days, not hours, but it refills. The channel is therefore still dark: `origin/vps/poo-files` = `287374e`.
+
+**The publisher's rule is not written here (R87: the routine's writ; R108: the human keeps the objective).** The choice changes what the channel carries, i.e. what the arena grader can grade against (Brown: fix what the grader grades against), so it is the operator's, to be quoted in **A17.8** before any code. The options as put to the operator, with their consequences:
+(a) gzip every page and split at 90 MB into parts with per-part shas in the manifest, the reader joining them — the heavy addresses stay FULL; code in the publisher and the tape reader;
+(b) pages over 95 MB stay on the VPS, listed in the manifest as oversize, the row graded PARTIAL by disclosure — smallest change, the two heaviest addresses lose FULL;
+(c) gzip only — may not hold (326 MB of jsonl compresses to roughly 40–60 MB, uncertain).
+Until A17.8, nothing is edited on the VPS.
+
+**The known-answer finding (preflight).** `test_known_answer_as_of_2026_11_03` expects F4:NEAR run 0 as of 11-03 (A21.1's known answer, read on 11-04 from `marks_2026-11-03.jsonl` as pinned by A17.3: −54.10 on 4). The ledger now reads **run 2**, because A17.4 pinned `marks_2026-11-03_as_read_2026-11-05.jsonl` (seven late closes; NEAR's 11-03 → +35.06) and R105 takes "the newest pinned reading per full forward day" regardless of the `--as-of` date. So a ledger "as of D" is not frozen: a later pin of an earlier day moves it, and the committed `ledger_2026-11-03.json/.md` no longer equal what the code produces for that date. The code is unchanged (sha pinned); the rule, as written, allows this. The gate did its job. **No fix is applied here.** The choice is the operator's by R108 (Brown: never tune the rule on the book that judges it; Musk: the founder writes it): either (i) R105 is amended so a ledger as of D reads only pins that existed on D (the ledger becomes a frozen daily record and the test holds), or (ii) R105 stands and the known-answer gate is rewritten to pin the inputs it reads rather than a date, with A21.1's figure recorded as superseded. Either is a dated amendment first. Until then the suite reports 1155 + 1 and the failing gate is named in every preflight.
+
+**The live leg (step 3).** Not opened: no go in the operator's words for Day 17 (R88), the hand not committed through a gate (R54). The sign-in path of record is binary 5.2.1 (R78). If a go is given tonight, Day 17's open follows R69a/R70/R60/R69c unchanged.
+
+**The three questions, from today's reading.**
+1. *Limiting factor* (R72 order, R94): **(1) the sensor still holds** — the channel is dark until the publisher can push; the tape and marker are alive again as of 03:08Z.
+2. *What reality rewards:* on 11-05 and 11-06 reality closed 163 marked episodes on the VPS that the record has not seen; the dashboard said "empty", reality said "unpublished". The difference is the sensor's, not the forks'.
+3. *Smallest sequence:* A17.8 (the publisher's rule, the operator's words) → one publish that GitHub accepts → the routine's next run reads Days 15–17 as published, with the tape's fragmentation disclosed → the ledger gains the days A21.1 needs for its first retirement read.
+
+**STOPs hit:** S72 / S74 (the sensor: channel still at `287374e`). No new STOP written.
+
+**R108 (the trace).** Musk: attack the limiting factor and nothing else — this amendment touched only the sensor, and only the part the operator named. Brown: the grader's inputs (what the channel carries) are not changed without the operator's word. Schulman panel: the two "empty" days were a sim-to-real gap of the sensor, recorded as such.
+
+**What was not verified.** Funding (API unreachable from the cloud; not fetched here). The 11-05/11-06 marks' content (not read; they are read when published). Why `rm -rf .git` of 5.4 GB freed only 3.1 GB (other writers on the box; not investigated). Whether `poo-arena-tape` succeeds at its 03:20Z timer with the disk free. The Proof of Outcome doc row (step 9) and the memory file are written after this commit.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.

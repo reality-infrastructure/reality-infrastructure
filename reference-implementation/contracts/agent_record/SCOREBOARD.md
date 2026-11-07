@@ -1706,3 +1706,15 @@ the go (a hand-off), then search (P12).
 **Week two:** limiting factor the sensor; no 50th-percentile candidate date can be stated (F4:NEAR's 2σ clause needs ≈ 21 more observed days if its mean held); settled live pairs 0.
 
 **Income row (R81), 2026-11-07 after A17.6:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.7 — the sensor's cause found (GitHub 100 MB limit from 11-04 21:07Z, then the VPS disk at 100 %); the publish repo rebuilt on the operator's word; tape and marker alive again; the push still rejected by two oversize arena pages (rule = A17.8, the operator's); preflight: suite 1155 + 1 failing known-answer gate (ledger as of 11-03 moved under R105)
+
+| gate | evidence |
+|---|---|
+| Preflight | HEAD `2c2ddd4e`; frozen marker/forward/families/SETTLED shas hold; full suite **1155 passed, 1 failed** (`test_known_answer_as_of_2026_11_03`: F4:NEAR run 2 ≠ 0, the 11-05 re-pin of 11-03 under R105). |
+| Cause | stage 1 `publish.log` l.102: page 104.34 MB > 100 MB, `GH001`, push declined from 11-04 21:07Z; stage 2 disk 52 G / 0 free at 11-06 ~08:03Z, `.git` 5.4 GB, stale `index.lock`; ENOSPC ×172 (tape) ×285 (marker); restarts 5 588 / 2 914. |
+| The act | operator: "execute … 1. Rebuild the publish repo"; `rm -rf .git` → shallow child of `287374e` (history kept, no force-push); 0 → 2.8 GB free; `poo-tape`, `poo-marker` active 03:08Z; nothing else deleted or restarted. |
+| Result | cron 03:07Z committed `9574821` (158 files) and was declined again: 326.83 MB + 201.19 MB pages; `origin/vps/poo-files` still `287374e`; the VPS holds marks 11-05 (101 rows), 11-06 (62), 11-07 (4). |
+| Open | A17.8 the publisher's oversize rule (a / b / c put to the operator); the R105 as-of rule or the gate (i / ii); the go for Day 17. |
+
+**Income row (R81), 2026-11-07 after A17.7:** 0 USD a day against 165. Nothing on the chain.
