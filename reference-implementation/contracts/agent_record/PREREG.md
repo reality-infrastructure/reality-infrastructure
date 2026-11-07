@@ -5154,3 +5154,36 @@ Until A17.8, nothing is edited on the VPS.
 **What was not verified.** Funding (API unreachable from the cloud; not fetched here). The 11-05/11-06 marks' content (not read; they are read when published). Why `rm -rf .git` of 5.4 GB freed only 3.1 GB (other writers on the box; not investigated). Whether `poo-arena-tape` succeeds at its 03:20Z timer with the disk free. The Proof of Outcome doc row (step 9) and the memory file are written after this commit.
 
 **Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+### A17.8 — 2026-11-07 04:0xZ, flat — PREREG: THE CHANNEL CARRIES THE ARENA'S PAGES IN PARTS (the publisher's oversize rule, decided on the three transcripts at the operator's word: "Use the three transcripts to answer the following two decisions", then "Go shipped everything for today"): every arena page file is published as line-complete parts of at most 8 MiB, the raw file no longer in the tree; the reader joins the parts into the identical bytes; the grader, the per-page shas and every pinned run untouched; the publish repo's housekeeping fixed; written before any code
+
+**The decision and its trace (R108).** Three options were put to the operator in A17.7 (gzip + split; skip over 95 MB and grade PARTIAL by disclosure; gzip only). Measured on the VPS at 03:3xZ: `gzip -1` compresses the pages 3.9× (351 293 977 → 89 586 444 bytes; 216 215 336 → 55 170 512), and the heaviest page grows ≈ 25 MB raw a day, so **gzip alone crosses GitHub's 100 MB limit before cohort 2's window closes on 11-10**. Skipping the heaviest addresses blinds the record exactly where the public API forgets fastest — the reason R93 exists. Hence the parts, and with one change from A17.7's wording, disclosed: **no gzip.** Git stores each blob zlib-compressed and, once packed, as a delta against its neighbours; an append-only raw part deltas to the bytes appended, a gzipped part does not. The gzip step is the part to delete.
+- *Musk:* "I'm constantly addressing the limiting factor" — the limiting factor is the sensor, and only the sensor is touched here. The algorithm's step two, delete the part: gzip deleted; the raw file in the tree deleted; the channel's dedup comes from immutability, not from a tool.
+- *Brown:* the grader is what gets attacked, so what it grades against is fixed first — `check_pages` (S84), the per-page sha pins and the runner are **not edited**; the reader produces byte-identical pages from parts, proven by a gate that hashes the join against the raw file.
+- *Musk:* "you can fool our ability to tell what it did with reality" — a page that the channel cannot carry is a blind spot the record would print as FULL coverage; the parts keep the ability to tell.
+- *The panel (Cursor):* ship inside the five-hour gate and let the next read grade it — the publish, the push, the routine's next run.
+
+**Rules.**
+- **R109 (the parts).** `publish.sh` (repo copy `ops/poo_publish_vps.sh`) no longer copies `arena/<cohort>/pages_fills_<address>.jsonl` and `pages_funding_<address>.jsonl` raw. For each such file it writes, into `arena/<cohort>/`, the parts `pages_<kind>_<address>.jsonl.partNNN` (NNN from `000`, three digits), each the longest run of whole lines that fits in **8 388 608 bytes (8 MiB)**, greedy in file order (a streaming splitter in `publish.sh`, `python3 -I`, reading the file once; a single line longer than the limit is a part by itself, never broken). Because the page files are append-only (R93), every part but the last of a file is byte-identical from one publish to the next and git stores it once. `pages_index.jsonl`, `tape_state.json`, the cohort files and everything outside `arena/` publish whole, as before. The manifest lists every part with its sha256 like any other file. Raw page files already in the publish tree are removed from the tree (`git rm`); the channel's history keeps them.
+- **R110 (the reader).** `arena_capture_from_tape.py` reads a page file as: the raw file if it exists (the pinned cohort-1 and cohort-2 captures and the suite's fixtures), else its parts sorted by NNN and joined. The joined bytes are the raw bytes; `_pages` then splits them into lines exactly as before, so every page's sha, `bytes` and `items` pin is unchanged and the capture it writes is byte-identical to the one it would write from the raw file. The grader (`rights_events/agent_arena.py`, `rights_events/adapters/agent_arena.py`) is not edited.
+- **R111 (the publish repo's housekeeping).** In `/root/poo-publish`: `gc.auto 256`, `pack.windowMemory 64m`, `pack.threads 1`; `git gc --auto -q` after every push. The branch is only ever fast-forwarded (A17.7). The local commit `9574821` (03:10:26Z, never pushed, carries the two blobs over 100 MB) is dropped with `git reset --soft 287374e` before the first parts commit, so the first push carries no oversize blob; disclosed here, done once.
+- **S96 (the reader refuses a broken part set).** A part that does not end in `\n` and is not the last part of its file, a part number missing from the sequence `000 … N`, or a raw file AND parts both present, refuses that page file: the reader stops with the reason and writes no capture. A refusal is the day's arena finding (as S87–S89).
+
+**Known answers (the code must print these; measured 03:3xZ–03:5xZ on the VPS pages as they stood, so the part counts are lower bounds for later hours).**
+
+| page file | bytes | lines (pages) | parts at 8 MiB | largest part |
+|---|---:|---:|---:|---:|
+| `pages_fills_0xf5d81a13…` | 351 293 977 | 499 | 44 | 8 352 813 |
+| `pages_fills_0xecb63caa…` | 216 215 336 | 318 | 27 | 8 387 065 |
+| `pages_fills_0xfc667adb…` | 101 062 394 | 164 | 13 | 8 386 963 |
+
+- Joining a file's parts in order gives bytes whose sha256 equals the raw file's (the simulation hashed the lines as it assigned them; the gate does it on real files).
+- Synthetic gate: four lines of 5 000 000 bytes → four parts; appending a fifth line leaves parts 000–003 byte-identical and adds `004`; `_pages` from parts == `_pages` from raw, line for line; a part with its final newline removed (not last) → S96; a missing `001` → S96; raw + parts → S96.
+- The first publish under R109 is accepted by GitHub (no blob over 100 MB; GitHub's 50 MB warning does not fire). The channel's new head and the manifest's `generated_at` are recorded in A17.8.1 with the count of files (140 page files → the sum of their parts, plus `pages_index.jsonl`, `tape_state.json`, the cohort file, tape, marker).
+- `poo-tape`, `poo-marker`, `poo-arena-tape.timer` are not touched and stay active.
+
+**STOPs.** S96 above. S72 / S74 remain the sensor's STOPs: if the push is still declined after R109, the day's finding stays the sensor and the operator is told.
+
+**50th-percentile dates (Musk; A19's table continued).** The channel carries the parts and GitHub accepts: 2026-11-07 05:00Z. The routine's run of 00:40Z 11-08 reads Days 15–17 as published and grades cohort 2 for 11-07 (step 3b). Cohort 2 graded on its full window: 2026-11-11, unchanged.
+
+**What this amendment does not do.** It does not read any page's content, grade anything, change coverage (A24 is next), change the ledger (A23 is next), or touch the venue.
