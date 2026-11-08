@@ -1769,3 +1769,17 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 17 (2026-11-07): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-08 after A17.10:** 0 USD a day against 165. Nothing on the chain.
+
+### A26 / P21 / A26.1 — torn lines and void days by rule; Days 15–17 read and pinned as served; 11-06 and 11-07 VOID by the marker's own mark; pass line over 11-01 … 11-05: F4:SOL run 3/5, no candidate
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A26 `d00d999` (rules R115–R117, S98, known answers measured on the channel at `8ac89a3`) → P21 `292e009` → this. |
+| Rule | R115 a day-file line is a row, the row-suffix of a glued torn line (fragment counted, its row lost, never reconstructed) or an in-flight tail, else S98 refuses the file; R116 a day the marker voided (S72 mark) is disclosed and counted for nothing (reader now; ledgers as of 2026-11-08 on); R117 a pin dated ≥ 11-08 enters only the ledgers from its date. |
+| Known answers | 19 glued lines (marks 11-06 line 40; signals 11-06 ×15; signals 11-07 ×3) all read as the row behind the fragment, 0 in-flight, 0 refusals; VOID = 11-06 (1 mark), 11-07 (3 marks); Day 15: 101 episodes, sum −1 958.5 bps, F4:SOL +143.9 on 15; pass line 11-01 … 11-05: F4:SOL run 3/5 (mean +3.27, 2σ/√n 32.54, n 51), every other fork run 0, no candidate; `ledger("2026-11-07")` = A17.10's markdown byte for byte. |
+| Pins | `marks_2026-11-05_as_read_2026-11-08` `603bb6e0…`, `marks_2026-11-06_as_read_2026-11-08` `f321c94e…`, `marks_2026-11-07_as_read_2026-11-08` `6e4a56d6…` (48 lines: 45 + 3 void), `signals_2026-11-05` `82ae16e4…`, `signals_2026-11-06` `6467375e…`; channel bytes unchanged. |
+| Disclosed | 11-06: 61 episodes −2 137.5 bps, one lost episode (F4:BTC head), counted for nothing; 11-07: 45 episodes −362.4 bps (5 closed after the routine's pin), counted for nothing; the as-of-11-07 ledger stands as plotted (counted a voided day); F1 `marks_2026-11-04` 97 lines on the channel vs 81 pinned, not re-pinned tonight. |
+| Suite | A23's synthetic re-pin gate moved into A23's date domain (original lines quoted, assertions unchanged); + 11 + 8 gates; **full suite 1198 passed, 0 failed**. |
+| Live leg | Day 18 (2026-11-08) not opened; no go in the operator's words (R88); flat. |
+
+**Income row (R81), 2026-11-08 after A26.1:** 0 USD a day against 165. Nothing on the chain.

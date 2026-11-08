@@ -5532,3 +5532,91 @@ Every one of the 19 unparsable lines is the same shape as A17.8.1's F3: a row cu
 **50th-percentile date (Musk).** P21 (code and gates) and A26.1 (the readings of 11-05, 11-06, 11-07 pinned as served, `_as_read_2026-11-08`) tonight by 06:30Z; the routine's run of 00:40Z 11-09 reads Day 18 (11-08) without refusing and writes the ledger as of 11-08 over 11-01 … 11-05 and 11-08 (six days, 11-06 and 11-07 void). The k countdown under R116: F4:SOL's run is 3 through 11-05; 11-08 and 11-09 beating both controls would make 5 on the ledger as of 11-09 (produced 11-10 00:40Z), but its 2σ clause is +3.27 against 32.54 — no CANDIDATE date can be stated from the record. Cohort 2 graded on its full window: 2026-11-11, unchanged.
 
 **What this amendment does not do.** It does not touch `marker/` (frozen), SETTLED.md, the arena's grader, any pinned run or ledger file, any earlier amendment or the venue. It reconstructs no lost row, estimates no funding, drops no day by hand and repairs no file. It opens nothing: Day 18's live leg is a hand's act under R54/R88, not this amendment's.
+
+### A26.1 — 2026-11-08 05:0xZ (23:0x CST 11-07), flat — A26's CODE LANDED AND ITS KNOWN ANSWERS MET (P21 `292e009`): the reader reads every one of the 19 glued lines of Days 16–17 as the whole row behind a lost fragment and refuses nothing; Days 15, 16 and 17 read from the channel at `8ac89a3` and pinned as served (`_as_read_2026-11-08`); 11-06 and 11-07 are VOID by the marker's own mark and counted for nothing; the pass line over 11-01 … 11-05 through the frozen marker: F4:SOL run 3 of 5, no candidate anywhere; the ledger as of 11-07 renders A17.10's byte for byte; full suite 1198 passed, 0 failed; live leg not opened
+
+**Order (the proof).** A26 `d00d999` (the rules, pushed 04:5xZ) → P21 `292e009` (the code, the gates, the routine's instructions) → this amendment (the readings and the pins). No file under `marker/` changed: `marker.py` `acf754f9…`, `forward.py` `6fd373b8…`, `families.json` `db01aa33…` hold. No channel file was altered by a byte; every pin below is the sha256 of the file as the channel served it.
+
+**P21, what landed.**
+- `ops/poo_forward_read.py`: `read_day_lines(path, kind)` is R115 (row / row-suffix of a glued line from the leftmost `{` that parses / in-flight last line / else `Refused`, S98; in a marks file an object is an episode or a void mark or S98); `read()` removes void days from the pass line's days before the frozen `is_candidate` (R116) and reports `pass_line_days`, `void_days_by_row`, `void_marks`, `void_day_disclosure` (per-fork n and sum of the rows counted for nothing) and `alignment` per file; `health.day_void` is true by state or by row and says which; the markdown names a void day in its first line; the CLI prints `REFUSED S98 <file> line <n>` and exits 1 on a file R115 cannot read. `read_jsonl` kept as a name for A17's callers.
+- `rights_events/agent_ledger.py`: loads the reader by path (one line rule, one place); `R116_EFFECTIVE = R117_EFFECTIVE = "2026-11-08"`; `newest_readings` admits a pin dated ≥ 11-08 only when its date ≤ as-of, earlier pins by A23's cutoff (R117); `ledger()` excludes void days from `days` for as-of ≥ 11-08 and writes `void_days_excluded` (present only when non-empty, so every ledger as of ≤ 11-07 renders as pinned); the markdown gains a `Void days (R116 …)` line only then; S98 refuses the ledger.
+- `ops/POO_DAILY.md`: step 1's gate count; step 2 (void by row as well as by state); step 3 (the reader's refusal is the reading; never repair, never drop a day by hand; quote the pass-line-days line); step 3d (R116 / R117).
+- Gates: `tests/test_agent_record_torn_void.py` 11 (R115 ×5 incl. the CLI's REFUSED and nothing written, R116 reader ×1, R116 ledger ×1 with the before/after effective date, S98 in the ledger ×1, R117 ×2 incl. the as-of-11-07 byte-for-byte); `tests/test_agent_record_torn_void_pins.py` 8 (5 pins, R115 alignment known answers, the Day-15 reading and pass line, the ledger on the real pins). One existing gate amended: `test_a23_a_later_repin_enters_later_ledgers_only` exercised A23's admission with re-pins dated 11-09 and 11-10, which R117 now governs; its dates moved to October (the original lines are quoted in the gate), its assertions unchanged. Every other gate untouched. **Full suite 1198 passed, 0 failed** (1180 + 11 + 8 − 1 parametrisation).
+
+**The channel read.** `origin/vps/poo-files` at `8ac89a3` ("poo-vps day files 2026-11-08T04:09:12Z"); `manifest.json` + `marker/` extracted with `core.autocrlf=false`; the 22 `marker/` files checked against the manifest: 0 mismatches. Manifest `generated_at` 2026-11-08T04:08:26Z, `poo_tape` active, `poo_marker` active, `tape_newest_mtime` 04:08:24Z, `void_days` `["2026-11-06"]`. Manifest sha `f3e77447…`, state sha `7cc6bda8…` (the routine pinned 11-07's at 00:42Z; these are disclosed, not re-pinned).
+
+**R115 alignment, as the reader printed it (rows / void marks / torn fragments [lines] / lost rows / in-flight)** — every A26 known answer met:
+
+| file | rows | void marks | torn fragments | lost rows | in-flight |
+|---|---:|---:|---|---:|---:|
+| `marks_2026-11-05.jsonl` | 101 | 0 | 0 | 0 | 0 |
+| `marks_2026-11-06.jsonl` | 61 | 1 (line 33, ms 1793963973103) | 1 [40] | 1 | 0 |
+| `marks_2026-11-07.jsonl` | 45 | 3 | 0 | 0 | 0 |
+| `signals_2026-11-05.jsonl` | 17 017 | — | 0 | 0 | 0 |
+| `signals_2026-11-06.jsonl` | 6 582 | — | 15 [4273 … 6560] | 15 | 0 |
+| `signals_2026-11-07.jsonl` | 2 168 | — | 3 [41, 120, 204] | 3 | 0 |
+
+The row recovered behind line 40 of 11-06 is the F4:ETH episode A26 named (entry 1793970496995, `cost_bps` 19.08811424608106, net −60.19); the fragment's head is `{"coin":"BTC"…` and its episode is lost. Two F4:ETH rows share that entry tick and six rows share its exit tick 1793974035631 (the gate exits fired together when the tape returned): disclosed, nothing inferred. The channel's 11-05 signals (17 017 rows, no fragment) show the tearing confined to the full-disk hours of 11-06 and 11-07 before 03:07Z.
+
+**Day 15 (2026-11-05) — the reading, verbatim from the reader (record view: newest pinned readings for 11-01 … 11-04, the channel's files for 11-05 … 11-07).** 101 episodes, N alive 6 → k = 5; funding 0 at write time (disclosed, not estimated).
+
+| fork | n | mean gross bps | mean net bps | stop-first | sum net bps |
+|---|---:|---:|---:|---:|---:|
+| C1:BTC | 1 | −34.82 | −53.59 | 100% | −53.6 |
+| C1:ETH | 1 | +88.04 | +68.96 | 0% | +69.0 |
+| C1:HYPE | 1 | −30.66 | −50.32 | 100% | −50.3 |
+| C1:NEAR | 1 | −37.04 | −58.91 | 100% | −58.9 |
+| C1:SOL | 1 | +36.69 | +17.94 | 0% | +17.9 |
+| C1:ZEC | 1 | +88.49 | +69.09 | 0% | +69.1 |
+| F4:BTC | 16 | −12.53 | −31.35 | 88% | −501.6 |
+| F4:ETH | 13 | +4.06 | −15.05 | 77% | −195.6 |
+| F4:HYPE | 20 | +0.60 | −18.20 | 90% | −364.1 |
+| F4:NEAR | 4 | −36.99 | −57.12 | 100% | −228.5 |
+| F4:SOL | 15 | +28.37 | +9.59 | 80% | +143.9 |
+| F4:ZEC | 27 | −10.17 | −29.84 | 93% | −805.7 |
+
+`Pass-line days (R116): 2026-11-01, 2026-11-02, 2026-11-03, 2026-11-04, 2026-11-05; void by the marker's own mark, counted for nothing: 2026-11-06 (1 marks, 61 episodes, sum −2137.5 bps), 2026-11-07 (3 marks, 45 episodes, sum −362.4 bps)`
+
+| fork | run of days beating C0 and C1 | k | 2σ clause | candidate | mean net bps | 2σ/√n | n |
+|---|---:|---:|---|---|---:|---:|---:|
+| F4:BTC | 0 | 5 | no | no | −23.58 | 16.05 | 49 |
+| F4:ETH | 0 | 5 | no | no | −25.93 | 18.90 | 56 |
+| F4:HYPE | 0 | 5 | no | no | −21.53 | 21.56 | 87 |
+| F4:NEAR | 0 | 5 | no | no | +20.97 | 71.89 | 31 |
+| F4:SOL | 3 | 5 | no | no | +3.27 | 32.54 | 51 |
+| F4:ZEC | 0 | 5 | no | no | −29.06 | 23.29 | 103 |
+
+Health: poo-tape active, poo-marker active, this day void: False (by state False, by row False). Signals 11-05: F4_signal 16 842, poll_failure 144, tick_error 31. The channel view (the routine's way, the channel's own 11-01 … 11-04 files, 11-04 at 97 rows) gives the same runs and the same void days.
+
+**Day 16 (2026-11-06) — VOID by the marker's own mark (line 33, 11:19:33Z; also in the state's `void_days`), disclosed, counted for nothing.** 61 episodes, sum −2 137.5 bps, one lost episode: C1:BTC −54.5 (1), C1:NEAR −52.1 (1), F4:BTC +92.5 on 6 (stop-first 33%), F4:ETH −230.9 on 9, F4:HYPE −578.7 on 12, F4:NEAR −165.4 on 3, F4:SOL −125.1 on 6, F4:ZEC −1 023.4 on 23. Signals: F4_signal 6 390, poll_failure 52, tick_error 140.
+
+**Day 17 (2026-11-07) — VOID by the marker's own mark (three rows 02:23:31Z … 02:30:14Z; NOT in the state's `void_days`), disclosed, counted for nothing.** 45 episodes on the channel at 04:09Z (40 at the routine's 00:42Z pin: five closed after it), sum −362.4 bps: the six C1 rows −51.4, −51.6, −15.9, −49.7, −50.2, −50.9; F4:BTC −103.5 on 5, F4:ETH −92.2 on 5, F4:HYPE +204.4 on 5, F4:NEAR −31.0 on 2, F4:SOL +16.4 on 5, F4:ZEC −86.7 on 17. Signals: F4_signal 2 139, poll_failure 12, tick_error 17.
+
+**Pins (sha256 of the file as served; LF, the channel's own bytes):**
+
+| record file | source on `vps/poo-files` `8ac89a3` | lines | sha256 |
+|---|---|---:|---|
+| `vps/marks_2026-11-05_as_read_2026-11-08.jsonl` | `marker/marks_2026-11-05.jsonl` | 101 | `603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126` |
+| `vps/marks_2026-11-06_as_read_2026-11-08.jsonl` | `marker/marks_2026-11-06.jsonl` | 62 | `f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4` (= A17.10's `f321c94e…`) |
+| `vps/marks_2026-11-07_as_read_2026-11-08.jsonl` | `marker/marks_2026-11-07.jsonl` | 48 | `6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0` |
+| `vps/signals_2026-11-05.jsonl` | `marker/signals_2026-11-05.jsonl` | 17 017 | `82ae16e4a2412ec6a22016e0266931170a17b4e8679eca9e1f21b84bf368987c` |
+| `vps/signals_2026-11-06.jsonl` | `marker/signals_2026-11-06.jsonl` | 6 582 | `6467375eb36f2154efa2e86dfc18cb06575fcbd2153e41e86c7c4c6a7669970a` (= A17.10's `6467375e…`) |
+
+Not re-pinned: `signals_2026-11-07.jsonl` (byte-equal to the routine's pin `9735b88d…`); `marks_2026-11-04.jsonl` (97 lines on the channel against the 81 pinned at A17.4: 16 episodes closed after 20:07Z 11-04; known since A17.10; A26 named 11-05 … 11-07 only, so its re-pin is a later act under R117 and is recorded here as **F1**).
+
+**The ledger.** `ledger("2026-11-07")` after these pins renders `ledger_2026-11-07.md` byte for byte and reads no 11-05 (R117; gated). Preview as of 2026-11-08 on the record's pins (written to the scratchpad, **not committed** — the routine writes the committed as-of-11-08 ledger tomorrow with 11-08 in it): days 5 (11-01 … 11-05), `Void days (R116 …): 2026-11-06 (1 marks, 61 episodes not counted), 2026-11-07 (3 marks, 45 episodes not counted)`; six ALIVE; F4:SOL run 3/5, mean +3.27 on 51, days alive 5; F4:NEAR mean +20.97 on 31, run 0; every other fork negative, run 0. The as-of-11-07 ledger (A17.10) stands as plotted and is disclosed in A26 as having counted a voided day.
+
+**Live leg.** Day 18 (2026-11-08) is today in UTC: not opened; no go in the operator's words (R88); nothing reached the venue; flat. Day 17's MISS stands as A17.10 wrote it.
+
+**The three questions, from tonight's numbers.**
+1. *The one thing limiting us* was the reader; it is no longer. By R72's fixed order the next factor is the sensor's own record of itself: the state's `void_days` lost a day to the full disk, and the marker wrote one lost row. Both are now disclosed by rule; the tape has had no hole since 03:07Z 11-07.
+2. *What reality rewards:* on the five whole forward days, one fork (F4:SOL) beat both controls three days running at a mean of +3.27 bps against a 2σ bar of 32.54 — nothing clears; the two torn days netted −2 137.5 and −362.4 bps and count for nothing because the sensor, not the search, was broken. The dashboard's HEALTHY line at 00:42Z is replaced by the marker's own word.
+3. *The smallest sequence of bets:* none at the venue. The next grade is the routine's at 00:40Z 11-09: it reads Day 18 without refusing, writes the first ledger under R116, and the record either extends F4:SOL's run to 4 or breaks it. One bit, no capital.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+**STOPs.** S72 applied by R116 to 11-06 and 11-07 (the marker's rows). S98 not hit on any file. S84 / S85 / S87–S89 / S96 / S97 not touched.
+
+**R108 (the trace).** Brown: no gate was rewritten to pass — the A23 gate keeps every assertion and quotes its old lines; the failing reader was not patched around but given a written rule with its own refusal. Musk: the plotted points did not move — the as-of-11-07 ledger is byte-identical and gated; the limiting factor alone was attacked (no arena change, no venue change tonight); the 50th-percentile date (06:30Z) met at 05:0xZ. The panel: the judge was fixed, not the data — zero channel bytes changed, the lost row stays lost, the void days stay void.
+
+**What was not verified.** Funding (not fetched; every net above excludes it). Whether the lost F4:BTC episode of 11-06 would have changed any number (the day is void regardless). The routine's run of 00:40Z 11-09 on this code (tomorrow). The marker's `void_days` on the VPS (read-only from here; the row rules, not the state). The Proof of Outcome doc row and the memory follow this push.
