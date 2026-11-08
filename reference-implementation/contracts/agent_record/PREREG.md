@@ -5653,3 +5653,28 @@ Not re-pinned: `signals_2026-11-07.jsonl` (byte-equal to the routine's pin `9735
 **What this amendment allows tonight:** the re-pin of (1) and the gate amendment it forces, recorded as A27.1. Nothing else: no page copied, no order, no routine edited.
 
 **What was not verified.** The 11-04 late rows' funding (API not fetched). Whether the 2026-11-11 archive fits GitHub's repository guidance after cohort 3 (a later decision, measured then). The operator's go (absent in words).
+
+### A27.1 — 2026-11-08 05:1xZ (23:1x CST 11-07), flat — A27's ONE ACT DONE: `marks_2026-11-04` re-pinned as served (97 rows, `e973d784…`), its known answers met (the as-of-11-07 ledger byte-identical; as of 11-08 on the record's pins F4:SOL +3.55 on 53, run 3/5, no candidate), the A26.1 pins gate amended with its old line quoted; full suite 1199 passed, 0 failed; nothing else touched
+
+**The act.** `vps/marks_2026-11-04_as_read_2026-11-08.jsonl` ← the channel's `marker/marks_2026-11-04.jsonl` at `8ac89a3` (byte-equal to the channel's head at the act), 97 lines, 0 void marks, 0 torn lines, sha256 `e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2`; the 81-line pin of A17.4 (`marks_2026-11-04.jsonl`) is untouched and is the file's exact prefix. Under R117 the new pin is read by ledgers as of 2026-11-08 and later only.
+
+**Known answers (A27 (1)) met.** `ledger("2026-11-07")` renders `ledger_2026-11-07.md` byte for byte (checked by `cmp` and by the gate). The ledger as of 2026-11-08 on the record's pins, before the routine adds 11-08 (written to the scratchpad, not committed): days 5 (11-01 … 11-05), `Void days (R116 …)` 11-06 and 11-07, six ALIVE, no candidate:
+
+| fork | n | mean net bps | run / k |
+|---|---:|---:|---|
+| F4:BTC | 50 | −21.43 | 0 / 5 |
+| F4:ETH | 62 | −26.93 | 0 / 5 |
+| F4:HYPE | 91 | −19.02 | 0 / 5 |
+| F4:ZEC | 104 | −28.19 | 0 / 5 |
+| F4:SOL | 53 | +3.55 | 3 / 5 |
+| F4:NEAR | 32 | +18.61 | 0 / 5 |
+
+Exactly A27's numbers. The 16 late episodes of 11-04 moved F4:SOL from +3.27 on 51 to +3.55 on 53 and F4:NEAR from +20.97 on 31 to +18.61 on 32; no run changed.
+
+**The gate.** `tests/test_agent_record_torn_void_pins.py`: the new pin's sha added to `PINS`; `test_r116_r117_the_ledger_on_the_real_pins` now asserts the as-of-11-07 ledger still reads `marks_2026-11-04.jsonl` (R117) and the as-of-11-08 ledger reads the re-pin; its A26.1 line `assert sol["run_days"] == 3 and sol["episodes"] == 51 and sol["days_alive"] == 5` is quoted in place and replaced by 53 and the mean +3.55 (the rule under test did not change; the book did). **Full suite 1199 passed, 0 failed.**
+
+**The other three verdicts stand as A27 wrote them, with nothing done tonight:** no page copied (the archive is dated 2026-11-11), no order (the go is the operator's written word, absent), the routine not touched (its 00:40Z 11-09 run is the point).
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+**R108.** Musk: the snapshot taken on 11-05 stands and the complete book is plotted from 11-08 (points never move); Brown: the evaluation now matches what happened on 11-04; the panel: sixteen bits counted that were not.

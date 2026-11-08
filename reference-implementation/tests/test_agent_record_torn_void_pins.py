@@ -23,6 +23,7 @@ _VPS = _FIX / "vps"
 _READER = _FIX / "ops" / "poo_forward_read.py"
 
 PINS = {
+    "marks_2026-11-04_as_read_2026-11-08.jsonl": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",   # A27 (1): the whole day, 97 rows
     "marks_2026-11-05_as_read_2026-11-08.jsonl": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
     "marks_2026-11-06_as_read_2026-11-08.jsonl": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
     "marks_2026-11-07_as_read_2026-11-08.jsonl": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
@@ -120,11 +121,16 @@ def test_r116_r117_the_ledger_on_the_real_pins():
     m07 = led.ledger("2026-11-07")
     assert m07["days"] == ["2026-11-01", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-07"]      # A17.10's, unchanged
     assert m07["readings"]["2026-11-07"] == "marks_2026-11-07.jsonl" and "2026-11-05" not in m07["readings"]
+    assert m07["readings"]["2026-11-04"] == "marks_2026-11-04.jsonl"                 # R117: the 11-08 re-pin is not read as of 11-07
     m08 = led.ledger("2026-11-08")
     assert m08["days"][:5] == DAYS[:5] and "2026-11-06" not in m08["days"] and "2026-11-07" not in m08["days"]
     assert m08["readings"]["2026-11-05"] == NEWEST["2026-11-05"] and m08["readings"]["2026-11-07"] == NEWEST["2026-11-07"]
+    assert m08["readings"]["2026-11-04"] == "marks_2026-11-04_as_read_2026-11-08.jsonl"   # A27 (1): the 97-row book from 11-08 on
     assert set(m08["void_days_excluded"]) == {"2026-11-06", "2026-11-07"}
     assert m08["void_days_excluded"]["2026-11-07"] == {"void_marks": 3, "episodes_not_counted": 45}
     sol = next(r for r in m08["forks"] if r["fork"] == "F4:SOL")
     if m08["days"] == DAYS[:5]:                       # until the routine pins 2026-11-08
-        assert sol["run_days"] == 3 and sol["episodes"] == 51 and sol["days_alive"] == 5
+        # A27 (1) amended this line; A26.1 wrote `assert sol["run_days"] == 3 and sol["episodes"] == 51 and sol["days_alive"] == 5`
+        # on the 81-row 11-04 pin; the rule under test did not change, the book did (16 late episodes, 2 of them SOL).
+        assert sol["run_days"] == 3 and sol["episodes"] == 53 and sol["days_alive"] == 5
+        assert sol["mean_net_bps"] == pytest.approx(3.55, abs=0.005)

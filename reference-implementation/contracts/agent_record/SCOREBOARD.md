@@ -1783,3 +1783,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 18 (2026-11-08) not opened; no go in the operator's words (R88); flat. |
 
 **Income row (R81), 2026-11-08 after A26.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A27 / A27.1 — the four open items decided on the three transcripts; 11-04 re-pinned whole (97 rows); A25 dated 2026-11-11; the go stays the operator's; the routine left alone
+
+| gate | evidence |
+|---|---|
+| Prereg before the act | A27 `d9145ef` (the verdicts, each traced to Brown, Musk and the panel by file and timestamp) → this. |
+| (1) 11-04 re-pin | `vps/marks_2026-11-04_as_read_2026-11-08.jsonl` `e973d784…`, 97 rows (16 late, 0 void, 0 torn); the 81-row pin untouched and its exact prefix; as-of-11-07 ledger byte-identical (R117); as of 11-08: F4:SOL +3.55 on 53 run 3/5, F4:NEAR +18.61 on 32, no candidate. |
+| (2) A25 | archive cohort 2's pages once on the record branch on 2026-11-11 after the full-window grade (gz, split under 90 MB with per-part shas, pushes of ≤ 25 files, decompressed shas = the capture's pins); until then the channel sha is the pointer. Measured: 296 parts, 1 280.8 MB raw on the channel; 11 801 pages, 1 251.3 MB pinned as of 11-07. |
+| (3) live leg | the transcripts do not give the go (Schulman 15:47: defining the objective is the human's job; the operator's seventh rule); it stays R88's written word; Day 18 not opened; flat. |
+| (4) routine | left alone (Musk 2:15:14: no advance preparation); the 00:40Z 11-09 run is the first under R116; its reading or refusal is A17.11. |
+| Suite | the A26.1 pins gate amended with its old line quoted; **full suite 1199 passed, 0 failed**. |
+
+**Income row (R81), 2026-11-08 after A27.1:** 0 USD a day against 165. Nothing on the chain.
