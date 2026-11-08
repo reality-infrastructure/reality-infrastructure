@@ -185,6 +185,20 @@ files. The amendment prints the rows (rank within class, trades, win rate, bigge
 record row not graded (pages not on the branch). ROI is never computed. If it prints `AI BOARD REFUSED` (S102, a page
 off its pin), quote the reason, write nothing, go on.
 
+**3g. The call ledger (A35, every run, after 3f).** Resolve yesterday's calls against the channel's tape, write the
+board, then register today's calls before their windows (the tape dir is the channel extract's `tape/`; the
+commit sha is the branch head you start from; the time is `date -u +%s`000):
+```
+python -m rights_events.call_ledger resolve --day <D-1> --tape-dir /tmp/poo/tape
+python -m rights_events.call_ledger board --day <D-1>
+python -m rights_events.call_ledger register --day <D> --registered-ms $(date -u +%s)000 --commit-sha $(git rev-parse HEAD) --tape-dir /tmp/poo/tape
+```
+Commit `calls/ledger/calls_<D>.jsonl`, `calls/ledger/resolved_<D-1>.json`, `calls/board/board_<D-1>.json|.md`,
+`calls/board/board_latest.json`. The amendment prints the board's two numbers per leg (RESOLVED, LOSS RATE; GAP for a
+live leg) and the registration counts. Never edit a leg file; never re-register a call; if `CALL LEDGER REFUSED`
+(S104, a tape file off its earlier pin), quote it and write nothing. MARKET calls come only from the newest pinned
+capture under `calls/captures/` (R144); the routine does not fetch markets.
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate
