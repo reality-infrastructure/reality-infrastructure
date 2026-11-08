@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794099956574,
+ "last_fill_poll_ms": 1794103583629,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -10,60 +10,9 @@
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
   "2026-11-07": 2088937,
-  "2026-11-08": 106602
+  "2026-11-08": 204346
  },
  "open": {
-  "F4:HYPE": {
-   "family": "F4",
-   "coin": "HYPE",
-   "direction": 1,
-   "entry_ms": 1794084516301,
-   "entry_px": 76.8755,
-   "signal_ms": 1794084499341,
-   "signal": {
-    "leader": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
-    "leader_px": 76.857,
-    "leader_sz": 195.0,
-    "leader_notional": 14987.115
-   },
-   "entry_spread_bps": 0.06506053883169326,
-   "entry_spread_source": "l2Book:4af57bb3c3abebff2e35f5e2c763a7a6678be8032060f77958f603ddda89ebb2",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:ETH": {
-   "family": "F4",
-   "coin": "ETH",
-   "direction": 1,
-   "entry_ms": 1794084590063,
-   "entry_px": 2227.85,
-   "signal_ms": 1794084548489,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 2228.0,
-    "leader_sz": 10.6395,
-    "leader_notional": 23704.806
-   },
-   "entry_spread_bps": 0.2244316269046593,
-   "entry_spread_source": "l2Book:b5c3c2e56cecaa23ea195c215855f6032c15789d928c4115704c6a43799701ee",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:BTC": {
-   "family": "F4",
-   "coin": "BTC",
-   "direction": 1,
-   "entry_ms": 1794084590063,
-   "entry_px": 75652.5,
-   "signal_ms": 1794084566060,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 75646.0,
-    "leader_sz": 0.19205,
-    "leader_notional": 14527.8143
-   },
-   "entry_spread_bps": 0.06609166914510425,
-   "entry_spread_source": "l2Book:f938c408fb266ede8e7e3264e6e15433a657f33ec999d6d76876cc704223ca81",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:NEAR": {
    "family": "F4",
    "coin": "NEAR",
@@ -81,38 +30,38 @@
    "entry_spread_source": "l2Book:33cc491c14a1d1e1b2be984a60c1fd84f5860b41c459bc4c300b636eb351d5fc",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
-  "F4:ZEC": {
+  "F4:BTC": {
    "family": "F4",
-   "coin": "ZEC",
+   "coin": "BTC",
    "direction": 1,
-   "entry_ms": 1794097232371,
-   "entry_px": 1252.85,
-   "signal_ms": 1794097204153,
+   "entry_ms": 1794103092291,
+   "entry_px": 75731.5,
+   "signal_ms": 1794103058177,
    "signal": {
     "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 1251.7,
-    "leader_sz": 9.67,
-    "leader_notional": 12103.939
+    "leader_px": 75731.0,
+    "leader_sz": 0.41672,
+    "leader_notional": 31558.62232
    },
-   "entry_spread_bps": 0.39905822259431356,
-   "entry_spread_source": "l2Book:4b969c7b6ced00c7b43fa54e05a86ae3c030485335bb4552e9528820d799d1c8",
+   "entry_spread_bps": 0.06602272502195256,
+   "entry_spread_source": "l2Book:172850854fe29ccca9cc7422c6ac80dd34c8482ad13d416517002348998d8ba1",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
-  "F4:SOL": {
+  "F4:ETH": {
    "family": "F4",
-   "coin": "SOL",
+   "coin": "ETH",
    "direction": 1,
-   "entry_ms": 1794099328748,
-   "entry_px": 89.3575,
-   "signal_ms": 1794099290247,
+   "entry_ms": 1794103370480,
+   "entry_px": 2232.25,
+   "signal_ms": 1794103370561,
    "signal": {
     "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 89.351,
-    "leader_sz": 151.16,
-    "leader_notional": 13506.29716
+    "leader_px": 2232.3,
+    "leader_sz": 8.6732,
+    "leader_notional": 19361.18436
    },
-   "entry_spread_bps": 0.055934981178145916,
-   "entry_spread_source": "l2Book:5d537c7a20910201818c23007b95c1e0f3b7572b82346820a22fcb3ef61e5ba0",
+   "entry_spread_bps": 0.22397921472866944,
+   "entry_spread_source": "l2Book:29d78d99c3beee7a0adc713718d11f119b79891319811d25844535bb99258c79",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -356,6 +305,11 @@
    "minute": 1361,
    "direction": -1,
    "long_share": 0.4156686626746507
+  },
+  "2026-11-08:ZEC": {
+   "minute": 103,
+   "direction": 1,
+   "long_share": 0.5980392156862745
   }
  },
  "void_days": [
@@ -69645,7 +69599,58 @@
    -1,
    -1,
    -1,
-   1
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1
   ]
  },
  "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
