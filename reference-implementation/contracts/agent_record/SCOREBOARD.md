@@ -1823,3 +1823,15 @@ the go (a hand-off), then search (P12).
 | Suite | 7 gates in `tests/test_agent_record_ai_board.py`; **full suite 1213 passed, 0 failed** (1214 with the committed-board gate). |
 
 **Income row (R81), 2026-11-08 after A29.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A30 / A31 / A32 / A33 — gaps 2–5 of the signed-in survey, executed as the transcripts say: the limit measured and written, the inverse fork pre-registered, the Solana settled-outcome document drafted, the copier's own grade pre-registered with its registry opened
+
+| gate | evidence |
+|---|---|
+| Gap 2 (A30) | measured on `pages_index.jsonl` at `8ac89a3`: 70 addresses, 140.7 pages and 14.4 MB a cycle (346 MB a day), median address 0 MB (46 of 70 empty), p90 51.6 MB, max 383.9 MB, two addresses = 51 % of bytes; bytes pinned verbatim are the limit, not requests; R128 cohort size unchanged; R129 the census class pre-registered, not adopted (the operator's, with the 11-11 archive). |
+| Gap 3 (A31) | F5 = the inverse of F4 (R130), decided forward or deleted by P12.1's rule on the pinned signals of 11-01 … 11-05 against the tape at a named commit (R131, P24 dated 2026-11-09); forward needs `families_v2.json` and the VPS restart, the operator's act (R132); `marker/` untouched. |
+| Gap 4 (A32) | `contracts/agent_record/SETTLED_SOLANA.md` DRAFT (R133): round trips in SOL from pinned JSON-RPC transactions, never USD, never a venue figure; six open questions for the operator; ratification by 2026-11-18. |
+| Gap 5 (A33) | `arena/copiers.json` opened empty; R134 entry only by the owner's written word, by amendment; R135 graded as the RECORD row, class `COPIER`, in the arena, feed and board, no venue figure read; P25 dated 2026-11-09. |
+| Nothing changed | the VPS, `marker/`, SETTLED.md, the grader, the feed, the board. |
+
+**Income row (R81), 2026-11-08 after A33:** 0 USD a day against 165. Nothing on the chain.

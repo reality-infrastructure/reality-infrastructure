@@ -5841,3 +5841,58 @@ Population days read 11-01 … 11-05 (the 11-08 re-pins admitted), 11-06 and 11-
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
 
 **What was not verified.** Whether the venue's board will take a row without ROI (the operator's conversation). Cohort 2's record row (pages off the branch until 11-11). The routine's first step-3f run.
+
+### A30 — 2026-11-08 06:1xZ (00:1x CST), flat — GAP 2 OF THE SIGNED-IN SURVEY, EXECUTED AS THE TRANSCRIPTS SAY: THE MEASURED LIMIT WRITTEN DOWN. The board is 48 237 addresses; the arena grades the four windows' 30 (80 and 69 unique). The binding limit is bytes pinned verbatim, not requests; the numbers; the rule for cohort size (R128); the census instrument pre-registered as a weaker evidence class the operator decides (R129); nothing changed on the VPS
+
+**The trace (R108).** The panel `2026-schulman-millidge-oneill.md @ 1:18:22`: "models learn one bit per episode when you RL." The operator's third rule: "40 closes is 40 bits … Score all of them." Musk `2026-musk.md @ 2:13:05`: "Physics will limit how fast you can do certain things." Brown `2026-brown.md @ 30:27`–`30:34`: "we do get bottlenecked by certain limitations that are not bottlenecks of intelligence… It's having the GPUs to run those experiments." Here the GPU is bytes on a channel. The transcripts' instruction for a limit is to measure it and write it, not to wish it away.
+
+**Measured (the channel at `8ac89a3`, `arena/2026-11-03/pages_index.jsonl`, 12 523 entries, 89 hourly cycles 2026-11-04T05 … 11-08T04; the tape's constants `MAX_REQUESTS` 900 a cycle, `MAX_PAGES_PER_ADDRESS` 12, `FILL_PAGE_CAP` 2 000, `SLEEP_S` 0.7; the API's own limit 1 200 weight a minute).**
+
+| quantity | value |
+|---|---|
+| addresses in cohort 2 | 70 (69 listed + the record) |
+| pages a cycle, mean | 140.7 (of a 900 budget) |
+| bytes a cycle, mean | 14.4 MB; 346 MB a day; 1 281 MB over 89 h |
+| fills pages per address per cycle | median 0.89, p90 1.43, max 6.54 |
+| fills bytes per address over 89 h | median 0.00 MB (46 of 70 serve only empty pages), p75 3.41, p90 51.6, max 383.9 |
+| share of all fills bytes in the two heaviest addresses | 51 % |
+| the channel's `arena/` tonight | 297 files, 1 286.5 MB |
+| the record's own storage of cohort 2's pages | none on the branch (A27 (2): one archive on 11-11, gz ≈ 300 MB and growing) |
+
+**What the numbers say.** By requests the hourly cycle could carry about 630 addresses at the p90 rate (900 / 1.43) and about 140 at the heaviest address's rate; the API would allow far more (72 000 requests an hour). By bytes the channel carries 346 MB a day for 70 addresses, half of it two addresses; at that rate one month of cohort 2 is ≈ 10 GB in a git history, above what GitHub will hold for long. **Bytes pinned verbatim are the limit**, and they are the limit because SETTLED.md 1 and R91 make every page a verbatim pin, which is what lets a stranger recompute the grade. Scoring the whole board of 48 237 addresses at even one small page each would be ≈ 2 000 requests an hour (2.2 × the self-imposed budget, within the API's) and, at 100 KB a page, ≈ 4.8 GB a day of pins: not on this channel, not on any git channel.
+
+**Rules.**
+- **R128 (cohort size).** A daily cohort is the venue's four windows of 30 as served (today 80 and 69 unique) — unchanged — and the tape keeps `MAX_PAGES_PER_ADDRESS` 12 a cycle, so a heavy address goes PARTIAL by R114 rather than starving the rest; the measured limit is re-read in every Musk dates review and this table is the baseline.
+- **R129 (the census, a weaker evidence class, pre-registered and not adopted).** To score every address on the board daily, the instrument would be one `userFillsByTime` page per address per day whose bytes are NOT pinned: the VPS computes fills counted, Σ `closedPnl`, Σ `fee` and the page's sha256, keeps those four numbers, and discards the page. That row is re-fetchable from the API only inside its 10 000-fill horizon and never re-verifiable from the record's own bytes; it is therefore a different class of evidence from the arena's (`CENSUS`, never `FULL`), it would need its own line in SETTLED.md, and SETTLED.md is the operator's. Cost if adopted: ≈ 48 237 requests a day (the self-imposed budget raised from 900 to ≈ 2 100 a cycle, inside the API's 72 000 an hour) and ≈ 10 MB a day of rows. Decision: the operator's, with the 11-11 archive; nothing runs until a dated amendment says so.
+
+**Known answers.** The table above is reproducible from `pages_index.jsonl` at `8ac89a3` by the arithmetic stated (per address: Σ bytes and Σ pages over the entries whose `request.type` is `userFillsByTime`; per cycle: group by `fetched` hour).
+
+### A31 — 2026-11-08 06:1xZ, flat — GAP 3, PRE-REGISTERED: THE INVERSE FORK (F5), one variable, one rung: the same leader signal as F4, the opposite direction, the same exit and costs; its in-sample replay on the pinned forward days decides forward or deleted by P12.1's rule (P24, dated 2026-11-09); forward marking needs the VPS marker to carry a second families file, the operator's act; nothing in `marker/` changes
+
+**The trace (R108).** Brown `2026-brown.md @ 16:38`–`16:45`: "just say, 'Okay, just fork yourself,' and then have both copies work on this thing and then merge back together… the context is just forked." The venue sells "Inverse copy trade" on every leader; the population has no such copy. The panel `@ 1:01:23`–`1:01:28`: "the effort to climb each successive rung grows kind of exponentially" — one variable, one rung. Musk `@ 2:12:20`: a deadline "at the 50th percentile."
+
+**Rules.**
+- **R130 (F5, the inverse of F4).** Family F5 "against the leaders": the same trigger as F4 (a kept leader's fill opening ≥ 10 000 USD of notional, the list `leaders_2026-11-01.json` as pinned), direction = −(the leader's), one fork per declared coin F5:<coin>, the same exit (stop 30 bps adverse, gate 18 000 000 ms), the same costs (fee 9.32 bps a leg, forward spread = half the l2Book spread at the trigger poll). One parameter, none tuned (S71).
+- **R131 (what decides forward or deleted).** P24 replays F5 over the pinned F4 signals of 11-01 … 11-05 (`vps/signals_<day>.jsonl` as pinned; the days 11-06 and 11-07 void) against the tape of record at a named channel commit (the tape day files' sha256 pinned in P24, bytes on the channel as A27 (2)), marking exits by the marker's rule. P12.1's deletion rule applies verbatim: a family is DELETED when it is "at or below random entries on gross" and "below both controls on net"; otherwise it goes forward with no reading. The replay is in-sample for the rule's existence and is disclosed as such; it never produces a pass line.
+- **R132 (forward).** If F5 goes forward, `marker/families.json` stays frozen; a new file `families_v2.json` (F4 + F5 + the controls) is pinned by amendment and the VPS marker is restarted on it — the operator's act, the command written in P24; N alive becomes 12 and `k_for(12)` applies to every fork from that day; the ledger and the board gain F5 rows under the same rules.
+
+**Known answers for P24 (written before the replay).** The replay's F5 episode count per coin equals F4's signal count on those days that opened an episode (the same triggers); F5's gross per episode is not −(F4's gross) because the exits differ; nothing else is predicted. 50th-percentile date: P24 on 2026-11-09; forward from the first full day after the operator's restart.
+
+### A32 — 2026-11-08 06:1xZ, flat — GAP 4, THE NEXT RUNG DRAFTED, NOT CLIMBED: `SETTLED_SOLANA.md`, the settled-outcome document for the venue's Solana copy board, written as a DRAFT tonight for the operator to ratify by 2026-11-18; no Solana grader, tape or cohort exists until it is ratified
+
+**The trace (R108).** Schulman `2026-schulman-millidge-oneill.md @ 15:47`–`15:55`: "the last job for humans… is defining the objective and deciding what we actually want." The document is the human's; the machine drafts the questions. The panel `@ 1:01:23`–`1:01:28` on the cost of each rung; the panel `@ 32:54`–`32:59`: "relax on the realism axis a little bit and find some methods that actually work, and then try to get back to realism later" — the draft says where Solana's settlement is less clean than HyperLiquid's (token accounting, partial sells, airdrops) instead of pretending otherwise.
+
+**Rule R133.** `contracts/agent_record/SETTLED_SOLANA.md` is a DRAFT with the same force as SETTLED.md's draft had under R89: it binds only when the operator writes `ratified <date>` on its last line; until then no Solana address is graded, no Solana tape runs and no cohort is captured. The machine never edits it after ratification. Its open questions (section 6) are the operator's to answer or strike.
+
+### A33 — 2026-11-08 06:1xZ, flat — GAP 5, PRE-REGISTERED: THE COPIER'S OWN GRADE. Any managed wallet whose owner submits it is graded exactly as the record's row (the same pages, the same arithmetic, the same coverage words) as a `COPIER` row in the arena, the feed and the board; the venue's copier Stats are never read; the registry `arena/copiers.json` opened empty tonight; the code (P25) dated 2026-11-09
+
+**The trace (R108).** The panel `2026-schulman-millidge-oneill.md @ 45:11`–`45:22`: "If you use some kind of superficial signal, like did they accept the edit, that might get reward-hacked in some way." The venue's Stats tab (total PnL, ROI, win rate, 24H / 7D / 30D) is computed by the party that earns the fee. Musk `2026-musk.md @ 52:10`: "Reality is the best verifier." Brown `@ 1:16:00`–`1:16:19`: "a perfect match between evaluation and real-world deployment" — a copier's grade on the copier's own fills is that match.
+
+**Rules.**
+- **R134 (who is graded).** An address enters `arena/copiers.json` only by a dated amendment quoting its owner's written request to the operator (the owner's word, not the venue's list); each entry carries the address, the date, and the owner's chosen label; nothing else about the owner is recorded.
+- **R135 (how).** From the next cohort capture after its entry, a copier address is fetched by the fills tape beside the cohort and graded by the arena with the RECORD row's arithmetic and coverage words, as class `COPIER`; the feed carries it with status by R119 and the board with the record's columns (R124). No venue figure about the copier is read, ever. Removal is by the owner's written word, by amendment; the rows already pinned never move.
+- **R136 (the operator's copier wallets).** The operator's HyperLiquid managed wallet is already the RECORD row; their Solana managed wallet is graded only under SETTLED_SOLANA.md once ratified (A32).
+
+**Known answers for P25.** With an empty registry every output is byte-identical to today's; with one synthetic copier entry the arena, feed and board each gain exactly one row of class `COPIER` with the record's arithmetic. 50th-percentile date: P25 on 2026-11-09.
+
+**Income row (R81), after A30–A33:** 0 USD a day against 165. Nothing on the chain.
