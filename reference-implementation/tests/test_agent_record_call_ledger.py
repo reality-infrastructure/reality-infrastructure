@@ -124,8 +124,7 @@ def test_r138_r139_resolution_bits_and_the_board(tmp_path):
     tape2 = tmp_path / "tape2"
     shutil.copytree(tape, tape2)
     p2 = tape2 / f"tape_MIDS_{D}.jsonl"
-    p2.write_text("".join(l + "
-" for l in p2.read_text(encoding="utf-8").splitlines() if f'"ms": {d0 + 10 * cl.BAR_MS + 3000}' not in l), encoding="utf-8")
+    p2.write_text("".join(l + chr(10) for l in p2.read_text(encoding="utf-8").splitlines() if f'"ms": {d0 + 10 * cl.BAR_MS + 3000}' not in l), encoding="utf-8")
     ledger2 = tmp_path / "ledger2"
     shutil.copytree(ledger, ledger2)
     (ledger2 / f"resolved_{D}.json").unlink()
@@ -186,4 +185,11 @@ def test_the_committed_register_if_present():
     l2 = [r["side"] for r in sorted(by["L2_market_favorite"], key=lambda r: (r["resolve_at_ms"], int(r["subject"])))]
     assert l2 == ["NO", "NO", "YES", "NO", "YES", "NO", "YES", "NO", "NO"]
     assert all(r["registered_ms"] + cl.BAR_LEAD_MS <= r["window_start_ms"] for r in by["L1_bar_continuation"])
-    assert not any(r["status"] in ("LATE", "DUPLICATE") for r in rows)
+    # A35 wrote "0 LATE" for the register; R137 writes LATE rows (never resolved), so the register carries them:
+    # the 00:00 … 07:00 bars (8 x 6 = 48 per bar leg) and the 10 markets expired before 06:57Z + 300 s (A35.1 correction)
+    late = {}
+    for r in rows:
+        if r["status"] == "LATE":
+            late[r["leg"]] = late.get(r["leg"], 0) + 1
+    assert late == {"L1_bar_continuation": 48, "CB_bar_coinflip": 48, "L2_market_favorite": 10, "CM_market_coinflip": 10}
+    assert not any(r["status"] == "DUPLICATE" for r in rows) and len(rows) == 326
