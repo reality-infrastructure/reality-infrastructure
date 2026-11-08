@@ -1835,3 +1835,14 @@ the go (a hand-off), then search (P12).
 | Nothing changed | the VPS, `marker/`, SETTLED.md, the grader, the feed, the board. |
 
 **Income row (R81), 2026-11-08 after A33:** 0 USD a day against 165. Nothing on the chain.
+
+### A34 — the three signatures on the three transcripts at the operator's word: SETTLED_SOLANA.md ratified (six open questions answered), the census decided as its own ratified weaker class (SETTLED_CENSUS.md), a standing go for Days 19–25 (the hand opens and closes; Day 19 minute 14:43:00Z)
+
+| gate | evidence |
+|---|---|
+| Solana | ratified line in the operator's words; sha `b99d88ec0a67f59c…` frozen by `tests/test_agent_record_settled_docs.py`; nothing runs under it until its own amendments. |
+| Census | SETTLED_CENSUS.md ratified; CENSUS-WHOLE / CENSUS-CUT never FULL / PARTIAL / NONE, never ranked or averaged with arena rows; sha `af76778b7325b859…`; P26 (the VPS process) dated 11-09, the operator's act. |
+| The go | standing under R88, Days 19–25, one unit 0.00014 BTC long, window 14:00–15:00Z (08:00–09:00 CST), Day 19 minute 43 (seed 69d25044…945a) → open 14:43:00Z, exit at 30 bps or the 19:43Z gate; the hand submits both legs, R60's automated exit suspended (this session submits no orders); no fill by 15:00Z = MISS. |
+| Suite | + 5 gates; full suite green. |
+
+**Income row (R81), 2026-11-08 after A34:** 0 USD a day against 165. Nothing on the chain.
