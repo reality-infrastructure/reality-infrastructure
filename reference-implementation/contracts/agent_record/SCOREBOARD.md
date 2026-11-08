@@ -1796,3 +1796,17 @@ the go (a hand-off), then search (P12).
 | Suite | the A26.1 pins gate amended with its old line quoted; **full suite 1199 passed, 0 failed**. |
 
 **Income row (R81), 2026-11-08 after A27.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A28 / P22 / A28.1 — THE COPIER'S GRADE: one machine-readable row a day for every address on the boards; cohort 2026-10-25 KEEP 7 / DROP 51 / UNDECIDED 23, cohort 2026-11-03 70 OPEN; on the arena page
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A28 `182c0f4` → P22 `a39debc` → this. The operator: "Build it exactly as the three transcripts say build it." |
+| Rule | R118 a pure function of the newest pinned arena + screen per cohort and SETTLED.md's sha (S99 otherwise); R119 KEEP / DROP / UNDECIDED on completed windows, OPEN on open ones (the panel @ 45:03); R120 the run across listings, no badge; R121 displayed pnl at listing beside verified net, fills, tx hashes, screen verdict; R122 dated pins + `feed_latest.json` byte-equal (S100) + the page. |
+| Known answers | cohort 1: KEEP 6 listed + the record row, DROP 2 FULL ≤ 0 + 49 NONE, UNDECIDED 23; `0x9794bbbc…` displayed 144 136 485.66 vs verified 7.87 on 1 fill; cohort 2: 70 OPEN, not screened until 11-10; 51 addresses in both; seven runs of 1. All met by the code from the pins. |
+| The feed | `arena/feed/feed_2026-11-07.json` `2d2619f3…` (151 rows), `.md` `355be4c1…`, `feed_latest.json` = the dated json; endpoint = the public repository's raw path to `feed_latest.json`. |
+| The page | https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd version 2 (`1794116055-e4e8`), section `#copiers-grade`; private until shared. |
+| Routine | POO_DAILY step 3e from the run of 00:40Z 11-09. |
+| Suite | 8 gates in `tests/test_agent_record_arena_feed.py`; **full suite green (1205 + the committed-feed gate)**. |
+
+**Income row (R81), 2026-11-08 after A28.1:** 0 USD a day against 165. Nothing on the chain.

@@ -5709,3 +5709,45 @@ Exactly A27's numbers. The 16 late episodes of 11-04 moved F4:SOL from +3.27 on 
 **50th-percentile dates (Musk).** P22 and A28.1 tonight by 06:30Z: `feed_2026-11-07.json` (the newest arena as-of is 11-07) and the page section. The routine's run of 00:40Z 11-09 writes `feed_2026-11-08`. Cohort 2's first KEEP / DROP rows and runs of 2: the feed of 2026-11-11, after the full-window grade. The Solana rung: its settled-outcome document pre-registered by 2026-11-18, not before.
 
 **What this amendment does not do.** It does not grade anything new (the arena does), recompute any number, average across cohorts, set a badge threshold, touch SETTLED.md or `marker/`, open the Solana rung, or open anything at the venue.
+
+### A28.1 — 2026-11-08 05:3xZ (23:3x CST 11-07), flat — THE COPIER'S GRADE IS LIVE (P22 `a39debc`): the feed as of 2026-11-07 written and pinned from the two cohorts' newest arena outputs — cohort 2026-10-25 KEEP 7 (six listed addresses and the record row) / DROP 51 / UNDECIDED 23, cohort 2026-11-03 70 OPEN — every A28 known answer met; `feed_latest.json` byte-equal to the dated pin; the arena page republished with the same table (version 2); the routine writes it daily from tomorrow (step 3e); full suite green
+
+**Order (the proof).** A28 `182c0f4` (rules, known answers, the trace) → P22 `a39debc` (code, gates, routine step 3e) → this (the first feed and the page). Day 4 of the arena build, the operator's words: "build this now as part of day 4 arena as well: Build it exactly as the three transcripts say build it."
+
+**P22, what landed.** `rights_events/arena_feed.py` (`newest_outputs`, `status_for`, `feed`, `render_markdown`, `render_html_section`, `write_feed`, `check_latest`, CLI `python -m rights_events.arena_feed --as-of D`): a pure function of the newest `arena_<cohort>_<as_of>.json` and `screen_<cohort>_<as_of>.json` per cohort directory and SETTLED.md's sha (R118), S99 refusals (an arena newer than the feed's as-of, no `settled_rule`, no `arena_run.root`, no `window.complete`, a screen whose `arena_sha256` or `arena_file` is not the arena file's), R119 statuses in Decimal on the arena's own strings, R120 runs, R121 fields, R122 pins with `feed_latest.json` byte-equal (S100). One reading recorded here that A28's words did not spell: a row whose coverage is **REFUSED** (S84, a page off its pin, no figure) takes **UNDECIDED** with the reason "a statement about the pins, not the leader" — the sensor's failure, never the leader's verdict; zero rows are affected today. `POO_DAILY.md` gained step 3e. Gates: `tests/test_agent_record_arena_feed.py`, 8 (R119 statuses and R121 fields on a complete and an open window, the record row, paper rows excluded; R120 runs KEEP/UNDECIDED/KEEP → 2 and … DROP/KEEP → 1 with OPEN ignored; S99 ×4 and the CLI's `FEED REFUSED` writing nothing; R122 write + S100 + the HTML section without scripts; no network/clock/randomness in the source; the known answers on the real pins; `feed_latest` = the newest dated pin, live from this commit). **Full suite 1205 passed before the feed existed (1 gate skipped), all passing with it.**
+
+**The feed as of 2026-11-07 (the newest arena as-of), `arena/feed/`:**
+
+| file | sha256 |
+|---|---|
+| `feed_2026-11-07.json` (151 rows, 200 016 bytes) | `2d2619f3f488b489b879e306abe061a6da228506124768072898ad7795d01905` |
+| `feed_2026-11-07.md` | `355be4c1e45dd393e92f7f7bdb3d69b3681394c3e5aeb8179d5acb690986a51c` |
+| `feed_latest.json` (byte-equal to the dated json, S100 checked) | `2d2619f3…` |
+
+SETTLED.md `c6b590de…` written into the feed. Endpoint (R122): `https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena/feed/feed_latest.json`.
+
+**Cohort 2026-10-25** (arena as of 11-03 `94710e8d…`, window 10-26 … 11-02 complete, screen as of 11-03): 81 rows. **KEEP 7 / DROP 51 / UNDECIDED 23 / OPEN 0**; coverage FULL 8 / PARTIAL 23 / NONE 49. The six KEEP addresses and the record row, each with run 1:
+
+| address | displayed pnl at listing | verified net (USD) | fills | screen |
+|---|---:|---:|---:|---|
+| `0x4c6d679e…` | 888 644.200097 | 838 846.44510952 | 4 566 | REFUSED D,G,H |
+| `0xfc667adb…` | 21 403 353.4083350003 | 87 627.891796 | 1 325 | REFUSED B,E,F,H |
+| `0xf818fa41…` | 9 129 790.9764009994 | 10 104.428000 | 27 | REFUSED E,F,H |
+| `0x856c3503…` | 391 677.04715 | 7 020.713868 | 1 480 | REFUSED G,H |
+| `0x484bc160…` | 414 296.2781529999 | 853.583509 | 277 | REFUSED B,C,E,F,H,I |
+| `0x9794bbbc…` | 144 136 485.6583960056 | 7.87137595 | 1 | REFUSED C,D,F,G |
+| `0x9f976123…` (RECORD) | — | 0.073533 | 4 | not screened |
+
+DROP: the two FULL negatives (`0x218a65e2…` −32 613.109987; `0xa312114b…` −46 973.468196) and the 49 NONE rows — among them `0x6910c590…` (displayed 3 102 560.41, 0 fills, 535 328.94 of funding only), `0x7fdafde5…` (486 074.01, 0 fills), `0x45d26f28…` (833 901.70, 0 fills): the status says nothing settled; the funding figure stands beside it as SETTLED.md counts it. UNDECIDED: the 23 PARTIAL rows, the API's horizon. KEEP is a statement that the window closed with every fill seen and a positive net; it is not a badge (R120 sets no threshold) and every KEEP row was REFUSED by the screen's nine criteria.
+
+**Cohort 2026-11-03** (arena as of 11-07 `…`, window 11-04 … 11-10 open, no screen): 70 rows, all **OPEN**, interim coverage FULL 27 / PARTIAL 1 / NONE 41, `not screened (window open until 2026-11-10)`. Across cohorts: 51 addresses listed in both; `cohorts_completed` 1 for every cohort-1 address; seven runs of 1 (the six KEEP and the record row), every other run 0. Exactly A28's known answers.
+
+**The page (R122).** The arena page https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd republished as version 2 (id `1794116055-e4e8`) with the section `#copiers-grade` (both cohorts' tables, the status legend, the endpoint) placed before the footer; the cohort-1 arena, the operator's row and the paper population unchanged. The page stays private until the operator shares it.
+
+**50th-percentile date (Musk).** A28 wrote 06:30Z for P22 + A28.1; met at 05:3xZ. Next: the routine's run of 00:40Z 11-09 writes `feed_2026-11-08` (step 3e); cohort 2's first KEEP / DROP rows and the first runs of 2 come with the feed of 2026-11-11.
+
+**R108 (the trace, as built).** Musk `@ 52:10` "Reality is the best verifier" → every number in the feed is the arena's, copied, none recomputed. The panel `@ 45:03` → KEEP / DROP by the deploy-or-throw-out rule, UNDECIDED where the sensor, not the leader, fell short. The panel `@ 45:11` → the displayed pnl at listing stands in the same row as the verified net. Musk `@ 20:42` → one feature, nothing else: no Solana rung, no badge threshold (Schulman `@ 15:47`: the operator's or the venue's). Musk `@ 1:46:49` → it is on the page, not in a deck.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+**What was not verified.** Funding for cohort 2's open window (the arena's figures as of 11-07 exclude nothing the tape served; the window is open). Whether the venue will read the endpoint (the repository is public; the page is private). The routine's first step-3e run (tomorrow).
