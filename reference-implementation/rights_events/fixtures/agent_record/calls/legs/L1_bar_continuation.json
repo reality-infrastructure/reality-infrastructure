@@ -1,0 +1,33 @@
+{
+ "type": "BAR",
+ "coins": [
+  "BTC",
+  "ETH",
+  "HYPE",
+  "ZEC",
+  "SOL",
+  "NEAR"
+ ],
+ "bar_seconds": 3600,
+ "print": "SETTLED_CALLS.md 3a: the tape of record, open = first row at/after HH:00:00Z within 600 s, close = first row at/after HH+1:00:00Z within 600 s",
+ "registration": "all bars of day D whose open is at least 1 800 s after the registration time, registered once at the start of D by the routine (or by a laptop session before the bars open)",
+ "horizon": "inside the day (SETTLED_CALLS.md 4)",
+ "mode": "PAPER",
+ "size": "none (paper)",
+ "leg": "L1_bar_continuation",
+ "rule": "for each coin and each registered bar of day D: UP if day D-1's tape close (the first row at/after D 00:00:00Z) is above day D-1's tape open (the first row at/after D-1 00:00:00Z), DOWN if below, no call for that coin if equal or if either row is missing",
+ "parameter": {
+  "lookback": "the previous UTC day, one fixed parameter"
+ },
+ "control": "CB_bar_coinflip",
+ "burn_in": {
+  "rule": "PAPER until (i) at least 5 full days resolved and (ii) the leg's loss rate is below its control's on k_for(N legs alive) consecutive days (the frozen marker's k_for; N counts the legs on the board); then LIVE at the venue's minimum size by a dated amendment naming the account",
+  "why": "the panel @ 1:18:28: when the pass rate is low the episode teaches almost nothing; a leg must beat a coin flip before a fill is spent on it"
+ },
+ "kill": {
+  "rule": "RETIRED, sticky, when the leg's loss rate is at or above its control's plus 0.05 on 5 consecutive resolved days, or when it resolves fewer than 10 calls on 3 consecutive days; written before the first call (A35), never edited after a number is seen (S71)",
+  "why": "Musk @ 2:16:12: drastic action only when success leaves the set of outcomes; the set is written here"
+ },
+ "mechanism": "continuation of the previous day's direction; a frozen rule chosen for its simplicity, not for any reading of the data (S71)",
+ "frozen_by": "PREREG A35, 2026-11-08; changed only by a dated amendment and never after a number has been seen (S71)"
+}

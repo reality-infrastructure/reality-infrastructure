@@ -1,0 +1,29 @@
+{
+ "type": "MARKET",
+ "coins": [
+  "BTC",
+  "ETH",
+  "HYPE",
+  "ZEC",
+  "SOL",
+  "NEAR"
+ ],
+ "template": "template:binaryPrice",
+ "print": "SETTLED_CALLS.md 3b: the tape of record's mid at the market's `time` (first row at/after within 60 s) against `threshold`; the deployer's settlement is the print of record where pinned",
+ "registration": "every active binaryPrice market on a declared coin in the pinned capture whose expiry is at least 300 s after the registration time and inside the call's day",
+ "horizon": "inside the day (SETTLED_CALLS.md 4)",
+ "mode": "PAPER",
+ "size": "none (paper)",
+ "leg": "CM_market_coinflip",
+ "rule": "for each qualifying market: YES or NO by a seeded draw, seed = sha256(registering_commit_sha + ':' + outcomeId), YES iff the first byte is even",
+ "parameter": {},
+ "control": null,
+ "burn_in": {
+  "rule": "never LIVE: a control"
+ },
+ "kill": {
+  "rule": "never retired: a control"
+ },
+ "mechanism": "the bench",
+ "frozen_by": "PREREG A35, 2026-11-08; changed only by a dated amendment and never after a number has been seen (S71)"
+}

@@ -1,0 +1,29 @@
+{
+ "type": "BAR",
+ "coins": [
+  "BTC",
+  "ETH",
+  "HYPE",
+  "ZEC",
+  "SOL",
+  "NEAR"
+ ],
+ "bar_seconds": 3600,
+ "print": "SETTLED_CALLS.md 3a: the tape of record, open = first row at/after HH:00:00Z within 600 s, close = first row at/after HH+1:00:00Z within 600 s",
+ "registration": "all bars of day D whose open is at least 1 800 s after the registration time, registered once at the start of D by the routine (or by a laptop session before the bars open)",
+ "horizon": "inside the day (SETTLED_CALLS.md 4)",
+ "mode": "PAPER",
+ "size": "none (paper)",
+ "leg": "CB_bar_coinflip",
+ "rule": "for each coin and each registered bar of day D: UP or DOWN by a seeded draw, seed = sha256(registering_commit_sha + ':' + coin + ':' + bar_start_iso), UP iff the first byte is even",
+ "parameter": {},
+ "control": null,
+ "burn_in": {
+  "rule": "never LIVE: a control"
+ },
+ "kill": {
+  "rule": "never retired: a control"
+ },
+ "mechanism": "the bench (the panel @ 45:03: it is kept only to be beaten)",
+ "frozen_by": "PREREG A35, 2026-11-08; changed only by a dated amendment and never after a number has been seen (S71)"
+}

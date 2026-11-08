@@ -1,0 +1,33 @@
+{
+ "type": "MARKET",
+ "coins": [
+  "BTC",
+  "ETH",
+  "HYPE",
+  "ZEC",
+  "SOL",
+  "NEAR"
+ ],
+ "template": "template:binaryPrice",
+ "print": "SETTLED_CALLS.md 3b: the tape of record's mid at the market's `time` (first row at/after within 60 s) against `threshold`; the deployer's settlement is the print of record where pinned",
+ "registration": "every active binaryPrice market on a declared coin in the pinned capture whose expiry is at least 300 s after the registration time and inside the call's day",
+ "horizon": "inside the day (SETTLED_CALLS.md 4)",
+ "mode": "PAPER",
+ "size": "none (paper)",
+ "leg": "L2_market_favorite",
+ "rule": "for each qualifying market: the side whose captured mid price is higher (YES if equal)",
+ "parameter": {
+  "favorite": "the higher-priced side at capture, one fixed parameter"
+ },
+ "control": "CM_market_coinflip",
+ "burn_in": {
+  "rule": "PAPER until (i) at least 5 full days resolved and (ii) the leg's loss rate is below its control's on k_for(N legs alive) consecutive days (the frozen marker's k_for; N counts the legs on the board); then LIVE at the venue's minimum size by a dated amendment naming the account",
+  "why": "the panel @ 1:18:28: when the pass rate is low the episode teaches almost nothing; a leg must beat a coin flip before a fill is spent on it"
+ },
+ "kill": {
+  "rule": "RETIRED, sticky, when the leg's loss rate is at or above its control's plus 0.05 on 5 consecutive resolved days, or when it resolves fewer than 10 calls on 3 consecutive days; written before the first call (A35), never edited after a number is seen (S71)",
+  "why": "Musk @ 2:16:12: drastic action only when success leaves the set of outcomes; the set is written here"
+ },
+ "mechanism": "the crowd's price as the call; a frozen rule chosen for its simplicity (S71)",
+ "frozen_by": "PREREG A35, 2026-11-08; changed only by a dated amendment and never after a number has been seen (S71)"
+}
