@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794117965523,
+ "last_fill_poll_ms": 1794121594703,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -10,43 +10,9 @@
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
   "2026-11-07": 2088937,
-  "2026-11-08": 590655
+  "2026-11-08": 688304
  },
  "open": {
-  "F4:BTC": {
-   "family": "F4",
-   "coin": "BTC",
-   "direction": 1,
-   "entry_ms": 1794103092291,
-   "entry_px": 75731.5,
-   "signal_ms": 1794103058177,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 75731.0,
-    "leader_sz": 0.41672,
-    "leader_notional": 31558.62232
-   },
-   "entry_spread_bps": 0.06602272502195256,
-   "entry_spread_source": "l2Book:172850854fe29ccca9cc7422c6ac80dd34c8482ad13d416517002348998d8ba1",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:ETH": {
-   "family": "F4",
-   "coin": "ETH",
-   "direction": 1,
-   "entry_ms": 1794103370480,
-   "entry_px": 2232.25,
-   "signal_ms": 1794103370561,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 2232.3,
-    "leader_sz": 8.6732,
-    "leader_notional": 19361.18436
-   },
-   "entry_spread_bps": 0.22397921472866944,
-   "entry_spread_source": "l2Book:29d78d99c3beee7a0adc713718d11f119b79891319811d25844535bb99258c79",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:ZEC": {
    "family": "F4",
    "coin": "ZEC",
@@ -62,23 +28,6 @@
    },
    "entry_spread_bps": 0.4026251157552701,
    "entry_spread_source": "l2Book:d096d34a7f10b501b40dfc7992f40bcc6ead10d8a3f009591b306abc4fe06308",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:SOL": {
-   "family": "F4",
-   "coin": "SOL",
-   "direction": 1,
-   "entry_ms": 1794114197338,
-   "entry_px": 89.1905,
-   "signal_ms": 1794114149143,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 89.16,
-    "leader_sz": 112.16,
-    "leader_notional": 10000.185599999999
-   },
-   "entry_spread_bps": 0.056059782151954236,
-   "entry_spread_source": "l2Book:5de15ceaa6cb1cd53ad8a7a85754bc527d6c34ccd3d246ee8b085b9e7141f339",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
   "F4:HYPE": {
@@ -111,6 +60,55 @@
    },
    "entry_spread_bps": 0.22355860588833035,
    "entry_spread_source": "l2Book:5d9cd680650efdb32d67a73b8cb3bd78714e5056d0189818da54a21d3f01d8fc",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "C1:HYPE": {
+   "family": "C1",
+   "coin": "HYPE",
+   "direction": 1,
+   "entry_ms": 1794118102054,
+   "entry_px": 77.2075,
+   "signal_ms": 1794118080000,
+   "signal": {
+    "minute": 368,
+    "long_share": 0.3107142857142857
+   },
+   "entry_spread_bps": 0.06476054787454424,
+   "entry_spread_source": "l2Book:3652284b2626bad1bc2704dd20f413f91a6b79394cc2979f2eb9ed64420de415",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:BTC": {
+   "family": "F4",
+   "coin": "BTC",
+   "direction": -1,
+   "entry_ms": 1794121310222,
+   "entry_px": 75843.5,
+   "signal_ms": 1794121272826,
+   "signal": {
+    "leader": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+    "leader_px": 75843.0,
+    "leader_sz": 0.85829,
+    "leader_notional": 65095.28847
+   },
+   "entry_spread_bps": 0.06592783539138058,
+   "entry_spread_source": "l2Book:8532e91c0587c46d87b1759bd91e3423541e1a2558a4be984943f1d5e5ef8e4f",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:ETH": {
+   "family": "F4",
+   "coin": "ETH",
+   "direction": 1,
+   "entry_ms": 1794121521025,
+   "entry_px": 2233.95,
+   "signal_ms": 1794121498744,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 2234.0,
+    "leader_sz": 5.2023,
+    "leader_notional": 11621.9382
+   },
+   "entry_spread_bps": 0.22381879630230994,
+   "entry_spread_source": "l2Book:06af70fffd523de1e357087051a6ec473bccb04a9bc854fef58d02e0154276c0",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -364,6 +362,11 @@
    "minute": 325,
    "direction": 1,
    "long_share": 0.30228136882129275
+  },
+  "2026-11-08:HYPE": {
+   "minute": 368,
+   "direction": 1,
+   "long_share": 0.3107142857142857
   }
  },
  "void_days": [
@@ -70142,6 +70145,44 @@
    1,
    -1,
    1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
    1,
    1,
    1
