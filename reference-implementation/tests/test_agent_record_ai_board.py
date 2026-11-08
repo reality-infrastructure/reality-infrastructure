@@ -157,7 +157,7 @@ def test_known_answers_on_the_real_pins():
     assert r["pins"]["fills_pages"] == ["28c2f8c641f490078c9861e41fdd9fd20bdf0649decc34ee9c1de6a5e807df9b"]
     assert m["record_not_graded"] == [{"cohort_date": "2026-11-03", "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
                                        "reason": "pages not on the branch (A27 (2): archived at the window's close)",
-                                       "fills_file": "hl_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz", "pins": 0}]
+                                       "fills_file": "hl_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz", "pins": 74}]   # 74 pinned (empty) pages, measured at A29.1
     assert [x["capture"][13:23] for x in m["record_outside_windows"]] == ["2026-10-24", "2026-10-24", "2026-10-25", "2026-10-25"]
     assert m["population"]["days"] == ["2026-11-01", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05"]
     assert set(m["population"]["void_days_excluded"]) == {"2026-11-06", "2026-11-07"}

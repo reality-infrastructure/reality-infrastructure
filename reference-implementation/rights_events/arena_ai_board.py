@@ -321,7 +321,8 @@ def _row_cells(r: dict) -> list[str]:
     wr = f"{r['win_rate']:.4f} ({r['wins']}/{r['trades']})" if r["trades"] else "—"
     return [rk, r["model"] + (" · " + r["address"] if r.get("address") else "") + (f" · window {r['window']['t0_date']} … {r['window']['t1_date']}" if r.get("window") else ""),
             _f(r["total_pnl"]) + unit, r["roi"], wr, _f(r["biggest_win"]) + (unit if r["biggest_win"] is not None else ""),
-            _f(r["biggest_loss"]) + (unit if r["biggest_loss"] is not None else ""), str(r["trades"]), _f(r["fees"]) + unit]
+            _f(r["biggest_loss"]) + (unit if r["biggest_loss"] is not None else ""), str(r["trades"]),
+            (f"{r['fees']:.2f}" if isinstance(r["fees"], float) else str(r["fees"])) + unit]
 
 
 def render_markdown(m: dict) -> str:
