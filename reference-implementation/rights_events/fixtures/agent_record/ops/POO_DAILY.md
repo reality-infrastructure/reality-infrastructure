@@ -76,8 +76,8 @@ The sentence may add words; it may not change the factor.
 Print `python --version` first and quote it in the amendment (A23 finding F2: float sums in the ledger JSON differ in their last digit between interpreters; the routine's version must be on the record).
 `git status --porcelain` empty; `git rev-parse HEAD` equals `origin/contract/agent-record`;
 the three frozen sha256 above hold; then
-`python -m pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py -q`
-must pass (23 + 6 gates). If you run the whole suite instead, exactly one failure is known and
+`python -m pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py tests/test_agent_record_torn_void.py -q`
+must pass (23 + 6 + 11 gates). If you run the whole suite instead, exactly one failure is known and
 allowed and must be named: `test_shipped_artifacts_match_live_machine` (its paths are the
 laptop's). Anything else failing → STOP: record the failure as the day's finding (step 5), push,
 email. Do not fix code.
@@ -92,13 +92,21 @@ Read `/tmp/poo/manifest.json`. Health holds when ALL of: `generated_at` within 2
 `poo_tape` and `poo_marker` both `active`; `tape_newest_mtime` within 10 min of `generated_at`;
 D-1 not in `marker/marker_state.json` `void_days`. If health does not hold, the day's finding is
 the sensor (S72 / S74), the reading below is still produced but marked VOID for that day, and
-the email subject starts with `POO SENSOR`.
+the email subject starts with `POO SENSOR`. A26 (R116): the day is ALSO void when its marks file
+carries the marker's own `{"type":"void"}` row — the reader prints this (`this day void … by row`);
+the state's `void_days` is derived and has lost entries to a full disk, the row decides.
 
 **3. Read.** Run the reader twice (markdown for the amendment, JSON for the pins):
 ```
 python -I rights_events/fixtures/agent_record/ops/poo_forward_read.py --dir /tmp/poo --day <D-1> --days <2026-11-01 … D-1> --n-alive 6
 python -I rights_events/fixtures/agent_record/ops/poo_forward_read.py --dir /tmp/poo --day <D-1> --days <2026-11-01 … D-1> --n-alive 6 --json
 ```
+A26 (R115): the reader reads a glued torn line as the whole row behind the fragment (the fragment's
+row is lost and never reconstructed), drops a torn LAST line as in-flight, and prints the alignment
+counts per file; if it prints `REFUSED S98 <file> line <n>` and exits 1, that refusal IS the day's
+reading: quote it, pin the file as served, compute nothing, never repair a line, never drop a day
+from `--days` by hand. A26 (R116): days the marker voided are removed from the pass line by the
+reader itself and disclosed (`Pass-line days … void by the marker's own mark`); quote that line.
 Copy the files the reader pinned into the record so the pins are checkable:
 `marks_<D-1>.jsonl`, `signals_<D-1>.jsonl` → `rights_events/fixtures/agent_record/vps/`;
 `manifest.json` → `vps/manifest_<D-1>.json`; `marker_state.json` → `vps/marker_state_<D-1>.json`.
@@ -147,6 +155,10 @@ of every full forward day, the frozen marker and `ledger/promotions.json`):
 ```
 python -m rights_events.agent_ledger --as-of <D-1> --out-prefix rights_events/fixtures/agent_record/ledger/ledger_<D-1>
 ```
+A26: from the ledger as of 2026-11-08 on, a day whose newest pinned reading carries a void mark is
+listed under `Void days (R116…)` and counted for nothing (R116); a laptop re-pin
+`marks_<day>_as_read_<date>.jsonl` dated 2026-11-08 or later is read by the ledgers as of that date
+and later only (R117). The ledger as of 2026-11-07 renders as A17.10 pinned it.
 Commit both files. The amendment prints each fork's status (ALIVE / CANDIDATE / PROMOTED /
 RETIRED), rung, days alive, run against k, and any retirement with its reason. A CANDIDATE
 is not promoted by the routine: promotion is one rung of size by an amendment the operator

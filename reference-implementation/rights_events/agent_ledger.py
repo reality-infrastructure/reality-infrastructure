@@ -12,6 +12,13 @@ Statuses, evaluated day by day in date order on the data up to each day (R106):
   PROMOTED   an entry in promotions.json (never automatic; one rung only by amendment, R88)
   ALIVE      otherwise
 
+A26: marks lines are read by R115 (the reader's `read_day_lines`: a row, the row-suffix of a
+glued torn line, or an in-flight tail; else the file is refused, S98). R116: for ledgers as of
+2026-11-08 and later, a day whose newest reading carries the marker's own void mark (S72) is
+disclosed and counted for nothing (not in `days`). R117: a pin `_as_read_<date>` dated
+2026-11-08 or later is read by the ledgers as of `<date>` and later only; earlier pins keep
+A23's cutoff. Ledgers as of 2026-11-07 and before render exactly as they did.
+
 No clock. No network. No reasoning as input (R96). Nothing opens, sizes or signs.
 
 Usage:
@@ -45,6 +52,19 @@ INITIAL_RUNG = 0
 STATUS_ALIVE, STATUS_CANDIDATE, STATUS_PROMOTED, STATUS_RETIRED = "ALIVE", "CANDIDATE", "PROMOTED", "RETIRED"
 LEDGER_KIND = "proof_of_outcome_population_ledger"
 _DAY = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+READER = _FIXTURES / "ops" / "poo_forward_read.py"
+R116_EFFECTIVE = "2026-11-08"   # A26: ledgers as of this day and later count a voided day for nothing
+R117_EFFECTIVE = "2026-11-08"   # A26: pins dated this day and later enter only the ledgers from their date
+
+
+def load_reader(path: Path = READER):
+    """The reader's R115 line rule, loaded by path like the marker (one rule, one place)."""
+    spec = importlib.util.spec_from_file_location("poo_forward_read_r115", path)
+    m = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    sys.modules[spec.name] = m
+    spec.loader.exec_module(m)
+    return m
 
 
 def load_marker(path: Path = MARKER):
@@ -70,7 +90,9 @@ def newest_readings(vps_dir: Path, first_day: str, as_of: str) -> dict[str, Path
     pinned reading that existed by the morning the ledger is produced:
     marks_<day>_as_read_<date>.jsonl with the latest date <= as_of + 1, else marks_<day>.jsonl
     (pinned on day + 1 <= as_of + 1 by construction). A re-pin dated later is read by the
-    ledgers from that date on and by no earlier one: a ledger's points never move."""
+    ledgers from that date on and by no earlier one: a ledger's points never move.
+    R117 (A26): a pin dated >= 2026-11-08 is admitted only when its date <= as_of (the routine's
+    run that produces the ledger as of D precedes any pin dated D + 1)."""
     out: dict[str, Path] = {}
     cutoff = read_cutoff(as_of)
     for p in sorted(vps_dir.glob("marks_*.jsonl")):
@@ -78,7 +100,10 @@ def newest_readings(vps_dir: Path, first_day: str, as_of: str) -> dict[str, Path
         if not m:
             continue
         day, read = m.group(1), m.group(2) or ""
-        if day < first_day or day > as_of or read > cutoff:
+        if day < first_day or day > as_of:
+            continue
+        admitted = (read <= as_of) if read >= R117_EFFECTIVE else (read <= cutoff)
+        if not admitted:
             continue
         cur = out.get(day)
         if cur is None:
@@ -90,16 +115,19 @@ def newest_readings(vps_dir: Path, first_day: str, as_of: str) -> dict[str, Path
     return dict(sorted(out.items()))
 
 
+def _day_rows(p: Path, reader) -> tuple[list[dict], list[dict]]:
+    """(forward rows, void marks) of a pinned marks file under R115; S98 refuses the ledger."""
+    try:
+        all_rows, voids, _align = reader.read_day_lines(p, "marks")
+    except reader.Refused as exc:
+        raise AdapterError(str(exc)) from exc
+    rows = [r for r in all_rows
+            if not r.get("in_sample", False) and r.get("family") in (FORWARD_FAMILY, CONTROL_FAMILY)]
+    return rows, voids
+
+
 def _rows(p: Path) -> list[dict]:
-    rows = []
-    for line in p.read_text(encoding="utf-8").splitlines():
-        if not line.strip():
-            continue
-        r = json.loads(line)
-        if r.get("in_sample", False) or r.get("family") not in (FORWARD_FAMILY, CONTROL_FAMILY):
-            continue
-        rows.append(r)
-    return rows
+    return _day_rows(p, load_reader())[0]
 
 
 def ledger(as_of: str, vps_dir: Path = VPS_DIR, promotions_path: Path = PROMOTIONS,
@@ -110,9 +138,14 @@ def ledger(as_of: str, vps_dir: Path = VPS_DIR, promotions_path: Path = PROMOTIO
     mk = load_marker(marker_path)
     coins = list(coins if coins is not None else mk.DECLARED)
     forks = [f"{FORWARD_FAMILY}:{c}" for c in coins]
+    reader = load_reader()
     readings = newest_readings(vps_dir, first_day, as_of)
-    days = list(readings)
-    rows_by_day = {d: _rows(p) for d, p in readings.items()}
+    parsed = {d: _day_rows(p, reader) for d, p in readings.items()}
+    # R116 (A26): from the ledger as of 2026-11-08 on, a day the marker voided counts for nothing
+    void_excluded = ({d: {"void_marks": len(v), "episodes_not_counted": len(r)}
+                      for d, (r, v) in parsed.items() if v} if as_of >= R116_EFFECTIVE else {})
+    days = [d for d in readings if d not in void_excluded]
+    rows_by_day = {d: parsed[d][0] for d in days}
     promotions = json.loads(promotions_path.read_text(encoding="utf-8")) if promotions_path.exists() else []
     if not isinstance(promotions, list):
         raise AdapterError("promotions.json must be a list")
@@ -217,6 +250,8 @@ def ledger(as_of: str, vps_dir: Path = VPS_DIR, promotions_path: Path = PROMOTIO
         "as_of": as_of,
         "first_full_day": first_day,
         "days": days,
+        # R116: present only when a day was excluded, so ledgers as of <= 2026-11-07 render as pinned
+        **({"void_days_excluded": void_excluded} if void_excluded else {}),
         "readings": {d: p.name for d, p in readings.items()},
         "pins": {**{p.name: sha256_file(p) for p in readings.values()},
                  "marker.py": sha256_file(marker_path),
@@ -247,6 +282,11 @@ def render_markdown(m: dict) -> str:
     out = [f"# Population ledger as of {m['as_of']} (PREREG A21)", ""]
     out.append(f"Full forward days read: {len(m['days'])} ({m['days'][0] if m['days'] else '—'} … {m['days'][-1] if m['days'] else '—'}); "
                f"n_alive {m['n_alive_now']}; k {m['k']}; counts {m['counts']}.")
+    if m.get("void_days_excluded"):
+        out.append("")
+        out.append("Void days (R116, the marker's own S72 mark; disclosed, counted for nothing): " + ", ".join(
+            f"{d} ({v['void_marks']} marks, {v['episodes_not_counted']} episodes not counted)"
+            for d, v in m["void_days_excluded"].items()) + ".")
     out.append("")
     out.append("| fork | status | rung | days alive | episodes | sum net bps | mean net bps | 2σ/√n | run | k | C1 episodes | C1 mean | retired | promotion |")
     out.append("|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---|---|")

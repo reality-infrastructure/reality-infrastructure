@@ -158,24 +158,28 @@ def test_a23_a_later_repin_enters_later_ledgers_only(tmp_path):
     included from the ledger as of D + 1 on; the ledger as of D is byte-identical before and
     after the re-pin appears (Musk: the plotted points never move)."""
     import datetime as dt
-    vps = _synthetic(tmp_path)
-    days = DAYS
+    # A26 (R117): pins dated 2026-11-08 or later enter only the ledgers from their own date, so A23's
+    # admission (as-read <= as-of + 1) is exercised on days before it. The gate's original lines were
+    # `vps = _synthetic(tmp_path)` / `days = DAYS` (2026-11-01 … 11-08, re-pins dated 11-09 and 11-10),
+    # and the assertion that follows was quoted unchanged; the dates moved, the rule under test did not.
+    days = [f"2026-10-0{i}" for i in range(1, 9)]
+    vps = _synthetic(tmp_path, days)
     d0, last = days[0], days[-1]
     none = tmp_path / "none.json"
     coins = ["AAA", "BBB"]
-    before = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    before = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins, first_day=d0)
     before_json = led.ledger_json(before)
     assert before["readings"][d0] == f"marks_{d0}.jsonl"
     rows = "\n".join([_row("F4:AAA", -50.0), _row("F4:BBB", -500.0), _row("C1:AAA", 1.0), _row("C1:BBB", -5.0)]) + "\n"
     late = (dt.date.fromisoformat(last) + dt.timedelta(days=2)).isoformat()
     (vps / f"marks_{d0}_as_read_{late}.jsonl").write_text(rows, encoding="utf-8")
-    after = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    after = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins, first_day=d0)
     assert led.ledger_json(after) == before_json                      # excluded: the point did not move
     assert led.read_cutoff(last) < late
     # a re-pin dated exactly D + 1 (the morning the ledger is produced) IS read
     ok = (dt.date.fromisoformat(last) + dt.timedelta(days=1)).isoformat()
     (vps / f"marks_{d0}_as_read_{late}.jsonl").rename(vps / f"marks_{d0}_as_read_{ok}.jsonl")
-    with_repin = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins)
+    with_repin = led.ledger(last, vps_dir=vps, promotions_path=none, coins=coins, first_day=d0)
     assert with_repin["readings"][d0] == f"marks_{d0}_as_read_{ok}.jsonl"
     bbb_after = next(r for r in with_repin["forks"] if r["fork"] == "F4:BBB")["sum_net_bps"]
     bbb_before = next(r for r in before["forks"] if r["fork"] == "F4:BBB")["sum_net_bps"]
