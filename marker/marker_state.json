@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794135972956,
+ "last_fill_poll_ms": 1794139546749,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -10,77 +10,9 @@
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
   "2026-11-07": 2088937,
-  "2026-11-08": 1073109
+  "2026-11-08": 1168704
  },
  "open": {
-  "F4:BTC": {
-   "family": "F4",
-   "coin": "BTC",
-   "direction": -1,
-   "entry_ms": 1794121310222,
-   "entry_px": 75843.5,
-   "signal_ms": 1794121272826,
-   "signal": {
-    "leader": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
-    "leader_px": 75843.0,
-    "leader_sz": 0.85829,
-    "leader_notional": 65095.28847
-   },
-   "entry_spread_bps": 0.06592783539138058,
-   "entry_spread_source": "l2Book:8532e91c0587c46d87b1759bd91e3423541e1a2558a4be984943f1d5e5ef8e4f",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:ETH": {
-   "family": "F4",
-   "coin": "ETH",
-   "direction": 1,
-   "entry_ms": 1794121521025,
-   "entry_px": 2233.95,
-   "signal_ms": 1794121498744,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 2234.0,
-    "leader_sz": 5.2023,
-    "leader_notional": 11621.9382
-   },
-   "entry_spread_bps": 0.22381879630230994,
-   "entry_spread_source": "l2Book:06af70fffd523de1e357087051a6ec473bccb04a9bc854fef58d02e0154276c0",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:SOL": {
-   "family": "F4",
-   "coin": "SOL",
-   "direction": -1,
-   "entry_ms": 1794123747065,
-   "entry_px": 89.1665,
-   "signal_ms": 1794123688966,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 89.135,
-    "leader_sz": 169.8,
-    "leader_notional": 15135.123000000001
-   },
-   "entry_spread_bps": 0.05607487116825124,
-   "entry_spread_source": "l2Book:ab401522e7d1bc4a6e878ea24a246f755070b4150cd946344c34d69ed4cd4533",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:HYPE": {
-   "family": "F4",
-   "coin": "HYPE",
-   "direction": -1,
-   "entry_ms": 1794132385209,
-   "entry_px": 76.9375,
-   "signal_ms": 1794132361233,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 76.967,
-    "leader_sz": 371.78,
-    "leader_notional": 28614.791259999998
-   },
-   "entry_spread_bps": 0.06499372810462456,
-   "entry_spread_source": "l2Book:ae72e6b59705d54790a31805f52c9cb498515a0493bcbe7d94e9e5916a2bf890",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:ZEC": {
    "family": "F4",
    "coin": "ZEC",
@@ -96,6 +28,40 @@
    },
    "entry_spread_bps": 0.39712481632941127,
    "entry_spread_source": "l2Book:0b4ff94142e921d81d327982df28d3dae8710801bd366e99041f11365ae768dc",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:SOL": {
+   "family": "F4",
+   "coin": "SOL",
+   "direction": -1,
+   "entry_ms": 1794136949468,
+   "entry_px": 89.7285,
+   "signal_ms": 1794136896393,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 89.77,
+    "leader_sz": 153.93,
+    "leader_notional": 13818.2961
+   },
+   "entry_spread_bps": 0.9470066234755091,
+   "entry_spread_source": "l2Book:28b702a6e3c9b823f2842cc25b251ce808db67a0a2e1b357e8c1839b38aee694",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:HYPE": {
+   "family": "F4",
+   "coin": "HYPE",
+   "direction": -1,
+   "entry_ms": 1794137018935,
+   "entry_px": 77.4185,
+   "signal_ms": 1794136975910,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 77.425,
+    "leader_sz": 191.26,
+    "leader_notional": 14808.305499999999
+   },
+   "entry_spread_bps": 0.0645732034123564,
+   "entry_spread_source": "l2Book:401997e463041103d728e8f84a1f72794fc0bb7c5ea1c608a4f02d566103fc57",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -70421,6 +70387,64 @@
    -1,
    1,
    1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
    -1
   ]
  },
