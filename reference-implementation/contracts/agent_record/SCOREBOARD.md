@@ -1756,3 +1756,16 @@ the go (a hand-off), then search (P12).
 | Suite | pins gates 4 (`test_agent_record_arena_pins_c2.py`); **full suite 1180 passed, 0 failed**. |
 
 **Income row (R81), 2026-11-07 after A24.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.10 — Day 17 (2026-11-07): the reader refuses the day (torn lines, void rows); cohort 2 as of 11-07 FULL 27 / PARTIAL 1 / NONE 41; ledger six ALIVE, F4:SOL run 3/5; live leg MISS
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `57b2f85`; frozen shas hold; 29 passed (23 + 6). |
+| Channel | `fd07d9b`, 324 files, 0 sha mismatches; health holds (manifest 33 min old, tape and marker active, `void_days` ["2026-11-06"]); three 45-min tape holes 11-07 00:22Z → 03:07Z; marker wrote three S72 void rows into 11-07's marks. |
+| Reader | **exit 1, no reading**: JSONDecodeError on `marks_2026-11-06` line 40; also torn `signals_2026-11-07` lines 41/120/204 and `KeyError: 'family'` on the void rows. Code not fixed, no day dropped. Disclosed outside the reader: 40 episodes on 11-07, sum −434.2 bps (funding excluded). |
+| Arena | capture `8bfb3abd…` (70 rows, 11 801 pages, 14 recovered), run `9c4ca046…` C1–C7 PASS, `--verify` OK (root `e0306f0e…`); FULL 27 / PARTIAL 1 / NONE 41 / REFUSED 0; RECORD row NONE, 0 fills. |
+| Ledger | as of 11-07 (`d9d673c0…`): 6 ALIVE, 0 CANDIDATE; runs SOL 3, HYPE 1, NEAR 0 (from 3), others 0; 11-05/11-06 unpinned. |
+| Live leg | Day 17 (2026-11-07): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-08 after A17.10:** 0 USD a day against 165. Nothing on the chain.

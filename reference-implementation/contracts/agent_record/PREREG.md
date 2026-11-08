@@ -5328,3 +5328,143 @@ Hence (i).
 **Dates (Musk).** Cohort 2 graded on its full window: 2026-11-11, reachable (the routine grades daily from 11-08). Rung 4 asked of GDEX on two cohorts: 2026-11-18. First candidate fork: no date can be stated (A17.6).
 
 **Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+### A17.10 — 2026-11-08 00:4xZ, flat — Day 17 (2026-11-07): THE READER REFUSES THE DAY: the channel is healthy by step 2's four tests, but `poo_forward_read.py` stops on a torn line (JSONDecodeError) in `marks_2026-11-06.jsonl` and in `signals_2026-11-07.jsonl`, and 11-07's marks carry three marker `void` rows (S72) that the reader cannot parse either; no pass line computed; code not fixed; cohort 2 graded as of 11-07 (FULL 27 / PARTIAL 1 / NONE 41 / REFUSED 0, `--verify` OK); ledger as of 11-07: six ALIVE, F4:SOL run 3/5; R72 names the sensor (three 45-min tape holes on 11-07 before 03:07Z); live leg MISS
+
+**Clock.** `date -u` = Sun Nov 8 00:42:08 UTC 2026. D-1 = 2026-11-07 = **Day 17** (Day N = 2026-10-21 + N). Pass-line days as step 3 prescribes: 2026-11-01, 11-02, 11-03, 11-04, 11-05, 11-06, 11-07.
+
+**Preflight.** `python --version` = **Python 3.11.18**. `git status --porcelain` empty; HEAD = `origin/contract/agent-record` = `57b2f85c154aadfba8b914ded5ebd6264b8b1a34`. Frozen shas, before and after:
+
+| file | sha256 | holds |
+|---|---|---|
+| `marker/marker.py` | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` | yes |
+| `marker/forward.py` | `6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76` | yes |
+| `marker/families.json` | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` | yes |
+
+Gates: `pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py -q` → **29 passed in 0.11 s** (23 + 6), after `pip install -q pytest`.
+
+**The channel.** `vps/poo-files` at `fd07d9bf9cb479fa87761726280fbec90b98c1b5` ("poo-vps day files 2026-11-08T00:09:14Z"); the hourly commits are arriving again (`85f8ae2` 22:09Z, `bc64a32` 23:09Z, `fd07d9b` 00:09Z). Extracted from the repository root to `/tmp/poo` (1.3 GB); **324 files in the manifest, every sha256 equal to the manifest's (0 missing, 0 mismatches)**; 292 of them under `arena/` (1 317 370 270 bytes, largest part 8 387 065).
+
+| manifest field | value | test | holds |
+|---|---|---|---|
+| `generated_at` | 2026-11-08T00:08:26Z | within 2 h of 00:42:08Z (33 min 42 s) | yes |
+| `poo_tape` | active | active | yes |
+| `poo_marker` | active | active | yes |
+| `poo_arena_tape_timer` | active | (not a step-2 test) | — |
+| `tape_newest_mtime` | 2026-11-08T00:08:21Z | within 10 min of `generated_at` (5 s) | yes |
+| `void_days` (marker_state) | ["2026-11-06"] | 2026-11-07 not in it | yes |
+
+**Health holds** by step 2's four tests. Two facts beside it, recorded and not ruled on: (a) `marks_2026-11-07.jsonl` lines 2–4 are marker rows `{"type":"void","reason":"S72 tape stale > 6 min"}` at 02:23:31Z, 02:29:48Z and 02:30:14Z on 11-07, while `marker_state.json` does not list 11-07 in `void_days`; (b) `signals_2026-11-07.jsonl` counts F4_signal 2 136, poll_failure 12, tick_error 17, and **3 torn lines** (lines 41, 120, 204).
+
+**The tape (for R72 factor 1).** Rows in the 24 h before the read (from 2026-11-07T00:42:08Z): 14 670; 29 of them null or short of six coins. **Holes longer than 15 min: 11-07 00:22:11Z → 01:07:12Z (45.0 min), 01:22:16Z → 02:07:09Z (44.9 min), 02:22:04Z → 03:07:11Z (45.1 min)**; none after 03:07:11Z. Last row 2026-11-08T00:07:01Z, 85 s before `tape_newest_mtime`, 35 min before the read (the channel publishes hourly). Torn tape lines: 18 in `tape_MIDS_2026-11-06`, 3 in `…-11-07`, 0 in `…-11-08`. R72 factor 1 holds on the holes.
+
+**Funding.** `curl -s -m 10 https://api.hyperliquid.xyz/info` failed (exit 56, HTTP 000). **The net numbers below exclude funding (disclosed, not estimated).**
+
+**The reading.** Both prescribed runs (markdown and `--json`, `--days 2026-11-01 … 2026-11-07 --n-alive 6`) **exit 1 and print no reading**:
+
+```
+File ".../ops/poo_forward_read.py", line 51, in read_jsonl
+    return [json.loads(l) for l in p.read_text(encoding="utf-8").splitlines() if l.strip()]
+json.decoder.JSONDecodeError: Expecting ':' delimiter: line 1 column 92 (char 91)
+```
+
+The first failure is `marker/marks_2026-11-06.jsonl` line 40 (962 bytes, torn; 11-06 is in `void_days`). Had that day not stopped it, the reader would stop again on `signals_2026-11-07.jsonl` line 41 (torn), and `read()` indexes `r["family"]`, which the three `void` rows of `marks_2026-11-07.jsonl` do not carry (`KeyError: 'family'`, reproduced with the reader's own `read_jsonl` on the pinned file). The reader has no rule for a torn line or a void row; A24's R113 gave one to the arena's pages only. **No pass line is computed today.** We did not edit the reader, drop a day from `--days`, or repair a line: each would be choosing the window or fixing code (step 6). The reader amendment is the operator's.
+
+Disclosed, not the reader's output and not a pass line: the reader's own `fork_table` over the 40 forward rows of the pinned `marks_2026-11-07.jsonl` (the three void rows set aside; 25 of 40 stop-first; sum −434.2 bps):
+
+| fork | n | mean gross bps | mean net bps | stop-first | sum net bps |
+|---|---|---|---|---|---|
+| C1:BTC | 1 | −32.60 | −51.37 | 100% | −51.4 |
+| C1:ETH | 1 | −32.47 | −51.55 | 100% | −51.6 |
+| C1:NEAR | 1 | −30.76 | −49.67 | 100% | −49.7 |
+| C1:SOL | 1 | −31.45 | −50.20 | 100% | −50.2 |
+| C1:ZEC | 1 | −31.09 | −50.93 | 100% | −50.9 |
+| F4:BTC | 4 | −5.66 | −24.43 | 25% | −97.7 |
+| F4:ETH | 4 | −6.27 | −25.36 | 25% | −101.4 |
+| F4:HYPE | 4 | +50.19 | +31.39 | 50% | +125.6 |
+| F4:NEAR | 2 | +3.83 | −15.49 | 50% | −31.0 |
+| F4:SOL | 4 | +21.45 | +2.70 | 25% | +10.8 |
+| F4:ZEC | 17 | +14.51 | −5.10 | 82% | −86.7 |
+
+**Pins** (copied into `rights_events/fixtures/agent_record/vps/`, sha256 re-checked after the copy; the reader pinned nothing because it stopped, so these are the day's channel files as step 3 names them):
+
+| record file | source on `vps/poo-files` | sha256 |
+|---|---|---|
+| `vps/marks_2026-11-07.jsonl` | `marker/marks_2026-11-07.jsonl` (43 lines: 40 rows + 3 void) | `1a4cf300d8545eda34c2d162225c3047e6aa0eb33171913051374764460e781d` |
+| `vps/signals_2026-11-07.jsonl` | `marker/signals_2026-11-07.jsonl` (2 168 lines, 3 torn, pinned as served) | `9735b88df58e5035525386cb4ccb2a67d57c4aa0557d93cc2a3350c9a5cd041a` |
+| `vps/manifest_2026-11-07.json` | `manifest.json` | `71ef2560f5dee0b9e812ca05bfb4469481df154a6a36276ab069562b10c8c182` |
+| `vps/marker_state_2026-11-07.json` | `marker/marker_state.json` | `21a6103a5cad381a50ed7a2fdd9fb40118b8105ebaa240577f85538cf23f7bbf` |
+
+Not pinned (step 3 pins D-1 only), on the channel for the record: `marks_2026-11-05.jsonl` (101 lines, intact), `marks_2026-11-06.jsonl` (62 lines, line 40 torn, `f321c94e…`), `signals_2026-11-06.jsonl` (15 torn lines, `6467375e…`). The channel's marks for 11-01, 11-02, 11-03 are byte-equal to their newest pins; `marks_2026-11-04.jsonl` is now 97 lines against the pinned 81 (the pin is its exact prefix: 16 episodes closed after the channel stopped at 20:07Z on 11-04).
+
+**The arena (step 3b), cohort `2026-11-03`, window 2026-11-04 … 11-10.** Newest `pages_index.jsonl` line fetched 2026-11-07T23:22:20Z, 1 h 20 min before the read: not VOID. Index `eb2114a7…`, cohort file `b09ca058…`. `arena_capture_from_tape.py --channel-dir /tmp/poo --cohort-capture capture_ARENA_2026-11-03_2026-11-03.json --as-of-date 2026-11-07 --now-ms 1794098528000` → `capture_ARENA_2026-11-03_2026-11-07.json` **`8bfb3abdaaa7a467d8d803ad15f01a64daf3d51c0f3dd4ffe9d5299838964308`**; 70 rows; alignment {files 140, pages 11 801, recovered 14, dropped 0, files without index 0}; 6 522 fills pages / 5 279 funding pages; 3 269 003 fills served. Runner (unmodified): C1–C7 PASS, 72 events, **`AGENT-RECORD ARENA RUN: OK`**; `--verify --run` → reloaded 72 events, all signatures and inclusion proofs verified, root `e0306f0e3ee810588e5db3b04f165f87c72b952de1b74a2ac983219f8681d005`, **RESULT: OK**. No paper marks passed (as A24.1).
+
+**Counts: FULL 27 / PARTIAL 1 / NONE 41 / REFUSED 0.** Median net of FULL rows 563 742.34 USD; 24 of 27 net-positive. The window is open until 11-10; these are disclosed, not claimed about anyone's skill.
+
+| rank | address | fills | net with funding (USD) |
+|---:|---|---:|---:|
+| 1 | `0x49e96e255ba418d08e66c35b588e2f2f3766e1d0` | 26 450 | 7 894 016.21 |
+| 2 | `0x024294c53a69c1e6b39810b3fac87385752fffa1` | 86 570 | 4 568 317.74 |
+| 3 | `0xfc667adba8d4837586078f4fdcdc29804337ca06` | 276 445 | 4 447 502.72 |
+| 4 | `0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36` | 96 421 | 3 257 967.46 |
+| 5 | `0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d` | 131 606 | 2 824 285.71 |
+| 6 | `0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00` | 682 562 | 2 179 969.43 |
+| 7 | `0xda3768e9299e1fd81708ec030dac5ea37125f7b5` | 6 657 | 1 809 791.41 |
+| 8 | `0x5b5d51203a0f9079f8aeb098a6523a13f298c060` | 87 988 | 1 736 507.61 |
+| 9 | `0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f` | 146 794 | 1 010 641.43 |
+| 10 | `0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae` | 36 620 | 933 071.40 |
+| 11 | `0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85` | 24 214 | 878 613.40 |
+| 12 | `0xdd53c5297309130ab5fe5623dc905752e3342b13` | 7 748 | 846 933.41 |
+| 13 | `0xd4c1f7e8d876c4749228d515473d36f919583d1d` | 146 007 | 599 458.97 |
+| 14 | `0x023a3d058020fb76cca98f01b3c48c8938a22355` | 65 377 | 563 742.34 |
+| 15 | `0x4c78a97cef589b01bb91dbf893fffa14243d2444` | 13 123 | 510 783.15 |
+| 16 | `0x7fdafde5cfb5465924316eced2d3715494c517d1` | 225 012 | 474 432.11 |
+| 17 | `0x880ac484a1743862989a441d6d867238c7aa311c` | 10 665 | 300 741.76 |
+| 18 | `0xdf954bbe619273a56e0cfa90dad8382195dc7d72` | 114 867 | 202 920.29 |
+| 19 | `0xb695651daa495f59dd2725c6fe98322d8b51a92d` | 3 | 155 218.71 |
+| 20 | `0x45d26f28196d226497130c4bac709d808fed4029` | 140 | 142 910.11 |
+| 21 | `0x4ba3979955f52158c0e4e3378b18985475182ce2` | 54 | 86 265.45 |
+| 22 | `0xca4903c207a0df58bf37d4bc8bbc5210726f53c8` | 113 | 60 216.16 |
+| 23 | `0xba5d9cc840745aeeeeedac5712e32f13ab8ea352` | 7 144 | 7 192.94 |
+| 24 | `0xa312114b5795dff9b8db50474dd57701aa78ad1e` | 5 | 385.27 |
+| 25 | `0x13c50dcdee4bbcba71baf578b345cdd35c7928be` | 157 | −3.78 |
+| 26 | `0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05` | 1 | −22 763.83 |
+| 27 | `0x9aa589355bf745db9784c8ef3c646360f11b58af` | 18 845 | −392 555.11 |
+
+PARTIAL (unranked): `0xf5d81a135f756ca16544e53c20fc20643ec3ad53`, 1 057 415 fills served, net −59 176.71 USD — "the tape fell behind: 15 capped cycles of 78, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)". **RECORD row:** `0x9f976123e7c48952be487664b8130aad144b7f23`, NONE, 0 fills, net 0 USD.
+
+Arena files (committed): `run_ARENA_2026-11-03_2026-11-07.ri` `9c4ca04636c2be493417ed939da24fa3c4c6d4d185e8e1b77019681ce7ab8cbd`, `arena_2026-11-03_2026-11-07.json` `9d096606490ca72fce5854b30afbe94ca61f44c6a4da13e1905a96909fa7b971`, `.md` `f699c6f671cf27c8af18be421c4bf405a6f9e65db6099a77ff4c7e2b904ffa8c`, `.html` `cef5035e60582aa7190ec1323e3293fec10e50eed1df752fcb44dd20147d3185`, `MANIFEST_ARENA_2026-11-03_2026-11-07.json` `2f915ee6e85b9e1044bd5685b8c53177313d301f77c0fa255476f7a2200f54a6`. The 140 rebuilt `hl_*.jsonl.gz` page files are **not committed** (A24.1 F4, the operator's A25); their bytes are the channel's parts at `fd07d9b`, each pinned by sha256 in the capture.
+
+**The leader screen (step 3c).** Not due (cohort 2's window is not complete; first run 2026-11-12).
+
+**The population ledger (step 3d)**, as of 2026-11-07 → `ledger_2026-11-07.json` `d9d673c0c1fd6753b62e78cf96013dd40b6c4de9eff4350f7d98f242b1fbaa87`, `ledger_2026-11-07.md` `6ebb31489cb01aaa1882d94bb6e6b61e289a11e0a97eefad29c8085e28032d10`. Full forward days read: **5** (11-01, 11-02, 11-03, 11-04, 11-07); 11-05 and 11-06 have no pinned reading and are not in it.
+
+| fork | status | rung | days alive | episodes | mean net bps | 2σ/√n | run / k | retired |
+|---|---|---:|---:|---:|---:|---:|---|---|
+| F4:BTC | ALIVE | 0 | 5 | 37 | −20.31 | 15.03 | 0 / 5 | — |
+| F4:ETH | ALIVE | 0 | 5 | 47 | −28.89 | 15.91 | 0 / 5 | — |
+| F4:HYPE | ALIVE | 0 | 5 | 71 | −19.49 | 23.61 | 1 / 5 | — |
+| F4:ZEC | ALIVE | 0 | 5 | 93 | −24.45 | 25.68 | 0 / 5 | — |
+| F4:SOL | ALIVE | 0 | 5 | 40 | +0.85 | 28.75 | 3 / 5 | — |
+| F4:NEAR | ALIVE | 0 | 5 | 29 | +29.22 | 76.25 | 0 / 5 | — |
+
+Counts: 6 ALIVE, 0 CANDIDATE, 0 PROMOTED, 0 RETIRED. F4:NEAR's run went from 3 to 0 (−15.49 net on 2 on 11-07, below C0); F4:HYPE starts a run of 1. The ledger reads the three void rows without failing; the reader does not.
+
+**The live leg.** Day 17 (2026-11-07): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat.
+(No `capture_LIVE_2026-11-07_*.json` on the branch; of the eight amendments dated 11-07, none records an open: A17.7 "Not opened: no go in the operator's words for Day 17".)
+
+**The three questions, from Day 17's numbers.**
+
+1. *What is the one thing limiting you right now?* By R72's fixed order (R94): **(1) the sensor holds** — the tape of record has three holes of 45 min in the last 24 h (11-07 00:22Z → 03:07Z, the rebuild hours), and the marker itself wrote three S72 void rows at 02:23–02:30Z. The factor is the sensor: it is back since 03:07Z, but its torn lines from the full-disk hours now stop the reader, so today's pass line could not be computed.
+2. *What does reality actually reward, as opposed to what your dashboard rewards?* Reality rewards closed episodes net of cost: on 11-07, 40 episodes netted −434.2 bps (funding excluded), every C1 control lost ~50 bps on its one stop-first episode, and only F4:HYPE (+31.39 on 4) and F4:SOL (+2.70 on 4) were net-positive. A green health line is a dashboard number; the reader stopping on a torn line is what the record can actually say about the day.
+3. *What is the smallest sequence of bets that lets reality grade you early and cheaply?* An operator-signed reader amendment that gives torn lines and void rows a written rule (as R113 did for pages), written before code; the next run then reads 11-05 … 11-08 on the frozen marker. No live bet is warranted by this reading; the live leg only with a hand (R88) at the minimum size already registered.
+
+**The k countdown.** Forward days in the ledger: 5 (11-01 … 11-04, 11-07). 2026-11-05 has passed with no CANDIDATE. As the ledger counts: F4:SOL run 3 needs two more observed days that beat both controls (earliest the read of 11-10, reading 11-09) and its mean +0.85 must clear 2σ/√n 28.75; F4:HYPE run 1 needs four; the others five. As the reader counts: not computed today.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+**STOPs hit:** S72 (written by the marker into 11-07's marks, three rows; not in `void_days`). The reader's refusal is not a numbered STOP; recorded here as the day's finding. S85 not hit (arena fresh). S84 / S87–S89 / S96 / S97 not hit.
+
+**R108 (the trace).** No decision is made in this amendment beyond what POO_DAILY.md prescribes. Brown: a gate that fails is not rewritten to pass; the reader is left as it is and its refusal is the reading.
+
+**What was not verified.** Funding (API unreachable). Whether 11-07 should be VOID (the marker's rows say S72; its state says not). The reader's pass line over 11-01 … 11-07 (not computed). Whether the VPS's torn lines are only from the full-disk hours (the 11-07 torn lines are at lines 41, 120, 204 of signals, before 03:07Z by position; their timestamps cannot be parsed). Why the tape row is 85 s older than `tape_newest_mtime`. The C0 rows (C0 = 0 in the reader). The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message; the commit precedes them. Frozen shas re-checked after the commit.
