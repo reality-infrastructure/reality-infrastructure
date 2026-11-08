@@ -5978,3 +5978,21 @@ Every registered BAR call opens ≥ 1 800 s after 06:57:21Z (the first at 08:00:
 **What the board will not say.** Nothing about edge: one day of 90 bar bits and 9 market bits against two coin-flip controls is one point; the burn-in gate needs five full days and k consecutive days below the control (R142). Schulman `@ 15:47`: the operator defined the loss; the legs will be read against it and nothing else.
 
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A36 — 2026-11-08 07:2xZ (01:2x CST), flat — THE SURFACE, CHECKED AGAINST THE TRANSCRIPTS' WORDS (the operator: "Make sure we built this verbatim"): not an app; a row inside the venue's own surfaces plus one plain review table; two things on the page were not as the words say and are fixed tonight (a chart for each cohort; no colour that persuades); nothing else changes
+
+**The words, and the check.**
+
+| the transcripts say | built, as checked at 07:1xZ | fixed |
+|---|---|---|
+| Musk `2026-musk.md @ 1:09:00`: "do customer service using the apps that they already use, then you can make tremendous headway" — a row inside what the copier already uses, not a new app | the copier's grade (`feed_latest.json`), the AI board entry (`ai_board_latest.json`) and the register are served from the public repository: all three answer HTTP 200 from the public internet tonight; no app exists and none is built | — |
+| The panel `2026-schulman-millidge-oneill.md @ 21:53`: "bottlenecked by having a service which has users going through it" — a service, daily, by URL | the routine writes the feed, the board and the call board every day at 00:40Z and pushes; the URLs are fixed | — |
+| Musk `@ 2:15:48`–`2:16:03`: "plot the progress points… 'are we converging to a solution or not?'" — one table per leg per day, one chart per cohort, nothing smoothed | the arena page carried the chart for cohort 1 only; cohort 2's chart existed in its own arena file but not on the page | cohort 2's chart (cumulative net with funding by day, FULL rows, linear, nothing smoothed) added to the page as `#cohort-2-chart` |
+| Brown `2026-brown.md @ 58:40`–`58:48`: "care about the grader, understand the grader, get rid of obstacles in the way of you doing well according to the grader… Look, it's 100%" — anything rendered becomes the grader people optimise against, so nothing on the surface persuades | status chips were coloured by verdict (KEEP and FULL green, DROP and REFUSED red, PARTIAL amber) and chart lines carried one colour per address | every chip is now one neutral mark and the word carries the status; every chart line is the text colour; no colour on the page ranks or rewards anything |
+| Musk `@ 2:14:30`–`2:15:14`: "very detailed engineering reviews weekly… skip-level meetings… there can't be advanced preparation" — one review table the human reads | the call board: one row per leg with RESOLVED and LOSS RATE (GAP for a live leg), rendered by `call_ledger.render_board`; first produced by the routine at 00:40Z 11-09; no other screen | — |
+| Musk `@ 1:46:49`–`1:46:55`: "believe the conversation, not the paper" — the pitch is the venue's own board with the row graded on it | the row exists in the venue's columns (A29); whether the venue lists it is the operator's conversation | — |
+| Schulman `@ 15:47`–`15:55`: product decisions are the human's | no app is built; the page and the endpoints are the record's, the venue's acceptance and any product beyond them are the operator's | — |
+
+**What did not change.** No number, no rule, no rank, no pin. The page is a rendering of committed files; its source is not in the repository and its version is recorded here: https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd version 4 (id `1794122117-387e`).
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
