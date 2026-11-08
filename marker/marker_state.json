@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794096389688,
+ "last_fill_poll_ms": 1794099956574,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -10,41 +10,9 @@
   "2026-11-05": 2218209,
   "2026-11-06": 847781,
   "2026-11-07": 2088937,
-  "2026-11-08": 10339
+  "2026-11-08": 106602
  },
  "open": {
-  "C1:HYPE": {
-   "family": "C1",
-   "coin": "HYPE",
-   "direction": -1,
-   "entry_ms": 1794079264834,
-   "entry_px": 77.6255,
-   "signal_ms": 1794079260000,
-   "signal": {
-    "minute": 1161,
-    "long_share": 0.39027431421446385
-   },
-   "entry_spread_bps": 0.06443091395190645,
-   "entry_spread_source": "l2Book:88936f920c13fa8443357b4146a85aff3cc1055a8618789beec463ea2c548ef4",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:SOL": {
-   "family": "F4",
-   "coin": "SOL",
-   "direction": -1,
-   "entry_ms": 1794080175783,
-   "entry_px": 89.6205,
-   "signal_ms": 1794080110773,
-   "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 89.632,
-    "leader_sz": 164.68,
-    "leader_notional": 14760.59776
-   },
-   "entry_spread_bps": 0.05579080679033057,
-   "entry_spread_source": "l2Book:5f2dbe13f1d8d575978adc677a1291db00af85bb35c26a033cefcfda717eae51",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:HYPE": {
    "family": "F4",
    "coin": "HYPE",
@@ -111,6 +79,40 @@
    },
    "entry_spread_bps": 0.26795284030007765,
    "entry_spread_source": "l2Book:33cc491c14a1d1e1b2be984a60c1fd84f5860b41c459bc4c300b636eb351d5fc",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:ZEC": {
+   "family": "F4",
+   "coin": "ZEC",
+   "direction": 1,
+   "entry_ms": 1794097232371,
+   "entry_px": 1252.85,
+   "signal_ms": 1794097204153,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 1251.7,
+    "leader_sz": 9.67,
+    "leader_notional": 12103.939
+   },
+   "entry_spread_bps": 0.39905822259431356,
+   "entry_spread_source": "l2Book:4b969c7b6ced00c7b43fa54e05a86ae3c030485335bb4552e9528820d799d1c8",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:SOL": {
+   "family": "F4",
+   "coin": "SOL",
+   "direction": 1,
+   "entry_ms": 1794099328748,
+   "entry_px": 89.3575,
+   "signal_ms": 1794099290247,
+   "signal": {
+    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+    "leader_px": 89.351,
+    "leader_sz": 151.16,
+    "leader_notional": 13506.29716
+   },
+   "entry_spread_bps": 0.055934981178145916,
+   "entry_spread_source": "l2Book:5d537c7a20910201818c23007b95c1e0f3b7572b82346820a22fcb3ef61e5ba0",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -69582,7 +69584,68 @@
    1,
    -1,
    -1,
-   -1
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1
   ]
  },
  "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
