@@ -183,7 +183,9 @@ def test_the_committed_register_if_present():
     dirs = {r["subject"]: r["side"] for r in by["L1_bar_continuation"]}
     assert dirs == {"BTC": "DOWN", "ETH": "DOWN", "HYPE": "DOWN", "ZEC": "DOWN", "SOL": "DOWN", "NEAR": "UP"}
     l2 = [r["side"] for r in sorted(by["L2_market_favorite"], key=lambda r: (r["resolve_at_ms"], int(r["subject"])))]
-    assert l2 == ["NO", "NO", "YES", "NO", "YES", "NO", "YES", "NO", "NO"]
+    # sorted by (resolve time, outcomeId): 27918 YES, 27919 YES, 27920 NO, 27921 NO, 27922 NO, 28809 YES, 28810 NO, 28811 NO, 28456 NO
+    # (= A35's list, which was given in the capture's order: 28811 NO, 27922 NO, 28809 YES, 27920 NO, 27918 YES, 28810 NO, 27919 YES, 27921 NO, 28456 NO)
+    assert l2 == ["YES", "YES", "NO", "NO", "NO", "YES", "NO", "NO", "NO"]
     assert all(r["registered_ms"] + cl.BAR_LEAD_MS <= r["window_start_ms"] for r in by["L1_bar_continuation"])
     # A35 wrote "0 LATE" for the register; R137 writes LATE rows (never resolved), so the register carries them:
     # the 00:00 … 07:00 bars (8 x 6 = 48 per bar leg) and the 10 markets expired before 06:57Z + 300 s (A35.1 correction)

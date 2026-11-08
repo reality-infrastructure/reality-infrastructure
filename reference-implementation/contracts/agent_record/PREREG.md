@@ -5955,3 +5955,26 @@ Population days read 11-01 … 11-05 (the 11-08 re-pins admitted), 11-06 and 11-
 **50th-percentile dates (Musk).** P27 (code, gates, routine step 3g) and A35.1 (the first registration pinned) tonight by 08:00Z; the first board (11-08 resolved, 11-09 registered) by the routine at 00:40Z 11-09 — the results the operator asked to see by tomorrow. Leg 2 live at minimum size: after burn-in, by amendment, on a second GDEX account the operator opens — their act, not dated here.
 
 **What this amendment does not do.** It does not score any write-up, reasoning or size; it does not change SETTLED.md, `marker/`, the arena, the feed or the board; it submits nothing; it does not let a leg redefine a loss.
+
+### A35.1 — 2026-11-08 07:0xZ (01:0x CST), flat — THE FIRST CALLS ARE REGISTERED (P27 `3102efd`, P27.1 `ca8a778`): 210 calls for the rest of 2026-11-08 — L1 96 bar calls (five coins DOWN, NEAR UP, the previous day's tape direction), CB 96 by seed, L2 9 market calls (the favorite), CM 9 by seed — written at 06:57:21Z before any of their windows, with 116 LATE rows beside them, never to be resolved; the first resolution and the first board are the routine's at 00:40Z 2026-11-09; two readings corrected on the record; full suite green
+
+**Order (the proof).** A35 `d8a6ea0` (SETTLED_CALLS.md ratified, the four leg files, the market capture) → P27 `3102efd` (the code, the gates, routine step 3g) → P27.1 `ca8a778` (a gate file's import fixed) → this.
+
+**Two corrections on the record.** (1) P27 was committed while its gate file failed to import (a byte escape written by a script); P27.1 rewrote the file by hand and the suite is green; the pattern is the same as A34 / A34.1 and is now a rule for this session: gate files are written by the editor, never by a shell script. (2) A35's known answer said "0 LATE" for tonight's register; R137 as written says a late call "is written as LATE and never resolved", so the register carries LATE rows — 48 per bar leg (the 00:00 … 07:00 bars) and 10 per market leg (the markets expiring before 06:57Z + 300 s) — and the gate asserts them. The 210 REGISTERED calls are exactly A35's. (3) One reading, not a correction: under SETTLED_CALLS.md 4 (frozen) the 23:00 bar's print lands at 00:00:00.000 of the next day, after 23:59:59.999, so it resolves SLOW; a registration day counts 15 bars per coin, not 16, and tonight's 96 bar calls per leg will resolve as 90 + 6 SLOW. The document is the operator's; the executor reads it as written.
+
+**The register, pinned.** `calls/ledger/calls_2026-11-08.jsonl`, 326 rows, sha256 `0e278338492caad6b65873daf5a354f3df329491f4b5b7f72cb332fa6aced28d`; `registered_ms` 1794121041000 = 2026-11-08T06:57:21Z; `registered_sha` `3102efdda66293fea8a70d460b60912f48a8bc80` (P27). Inputs: the tape of record `tape_MIDS_2026-11-07.jsonl` sha `af165b54…` (14 763 rows) and `tape_MIDS_2026-11-08.jsonl` sha `2f8c1265…` (4 180 rows at the pull, the channel at `bf710c5`); the market capture `calls/captures/outcomes_2026-11-08.json` sha `d2e3947e…` (248 markets).
+
+| leg | REGISTERED | LATE | DUPLICATE | sides |
+|---|---:|---:|---:|---|
+| L1_bar_continuation | 96 | 48 | 0 | BTC, ETH, HYPE, ZEC, SOL DOWN (11-07 closed below its open on the tape); NEAR UP (3.7036 → 3.73495); bars 08:00 … 23:00Z |
+| CB_bar_coinflip | 96 | 48 | 0 | by seed sha256(`3102efd…` + ":" + coin + ":" + bar) |
+| L2_market_favorite | 9 | 10 | 0 | NO, NO, YES, NO, YES, NO, YES, NO, NO on outcomeIds 28811, 27922, 28809, 27920, 27918, 28810, 27919, 27921 (BTC at 08:00Z) and 28456 (BTC 75 800 at 21:00Z) |
+| CM_market_coinflip | 9 | 10 | 0 | by seed sha256(`3102efd…` + ":" + outcomeId) |
+
+Every registered BAR call opens ≥ 1 800 s after 06:57:21Z (the first at 08:00:00Z); every registered MARKET call expires ≥ 300 s after it (the first at 08:00:00Z). Nothing was resolved tonight: the prints have not happened.
+
+**What happens next without a hand (the results the operator asked for by tomorrow).** The routine's run at 00:40Z 2026-11-09 (step 3g): `resolve --day 2026-11-08` against the channel's tape files for 11-08 and 11-09 (their sha256 pinned, S104 from then on), `board --day 2026-11-08` with the two numbers per leg, then `register --day 2026-11-09` at its own time and head: by A35's known answer 132 bar calls per bar leg (bars 02:00 … 23:00) and 14 market calls per market leg from the same capture. The first point on the plot is tomorrow morning's board: four rows, RESOLVED and LOSS RATE each, the controls beside the legs. Musk `@ 2:15:48`–`2:16:03`: "you've got a snapshot of what that person said. You can then plot the progress points."
+
+**What the board will not say.** Nothing about edge: one day of 90 bar bits and 9 market bits against two coin-flip controls is one point; the burn-in gate needs five full days and k consecutive days below the control (R142). Schulman `@ 15:47`: the operator defined the loss; the legs will be read against it and nothing else.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.

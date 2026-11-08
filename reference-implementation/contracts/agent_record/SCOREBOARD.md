@@ -1846,3 +1846,17 @@ the go (a hand-off), then search (P12).
 | Suite | + 5 gates; full suite green. |
 
 **Income row (R81), 2026-11-08 after A34:** 0 USD a day against 165. Nothing on the chain.
+
+### A35 / P27 / A35.1 — THE CALL LEDGER AND THE FIRST TWO PAPER LEGS: SETTLED_CALLS.md ratified, 210 calls registered for the rest of 2026-11-08 before their windows, the first board by the routine at 00:40Z 11-09
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A35 `d8a6ea0` → P27 `3102efd` → P27.1 `ca8a778` (gate file import fixed; P27 had been committed red) → this. The operator: "execute all of the following right now … We need to see results by tomorrow." |
+| The document | SETTLED_CALLS.md ratified in the operator's words, sha `05812074…` frozen: one pre-registered call, one external print the leg does not control, one bit; BAR by the tape, MARKET by the tape's mid at the market's time, LIVE by the chain; duplicates once; horizon inside the day; the loss defined here and nowhere else. |
+| The ledger | `rights_events/call_ledger.py` register / resolve / board (R137–R140, S103–S104); legs frozen as files with burn-in and kill rules (R141–R142); live legs = graded wallets at the venue's minimum, this session submits no orders (R143); markets only from pinned captures (R144). |
+| The register | `calls/ledger/calls_2026-11-08.jsonl` `0e278338…`, 326 rows: L1 96 REGISTERED (5 coins DOWN, NEAR UP) + 48 LATE; CB 96 + 48; L2 9 (NO,NO,YES,NO,YES,NO,YES,NO,NO) + 10; CM 9 + 10; registered 06:57:21Z at sha `3102efd…`. |
+| Corrections | A35 said "0 LATE": LATE rows are written by R137 and asserted (48/48/10/10); the 23:00 bar is SLOW by SETTLED_CALLS.md 4 (15 countable bars per coin). |
+| Suite | 6 + 1 gates; **full suite green**. |
+| Tomorrow | 00:40Z: resolve 11-08, board, register 11-09 (132 + 14 per leg pair). |
+
+**Income row (R81), 2026-11-08 after A35.1:** 0 USD a day against 165. Nothing on the chain.
