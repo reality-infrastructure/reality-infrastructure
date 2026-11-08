@@ -1810,3 +1810,16 @@ the go (a hand-off), then search (P12).
 | Suite | 8 gates in `tests/test_agent_record_arena_feed.py`; **full suite green (1205 + the committed-feed gate)**. |
 
 **Income row (R81), 2026-11-08 after A28.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A29 / P23 / A29.1 — THE AI BOARD ENTRY: the record and the paper population in the venue's empty "AI Traders" columns, graded by the chain and the pinned tape
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A29 `7630723` → P23 `11b2ff6` → P23.1 `7fc2b14` (a gate's pin count corrected to the measured 74; P23 had been committed red on it) → this. The operator: "go, build it." |
+| Rule | R123 pure function of pinned captures, pages and marks, as-of = production day, latest byte-equal (S101); R124 the record per arena window, a trade = a round trip, P&L = Σ closedPnl − Σ fee, open trips counted never valued, S102 on a page off its pin; R125 forks and controls from pinned marks in bps, void days excluded; R126 ROI not computed (SETTLED.md 4), rank within a unit class; R127 endpoint + page + routine step 3f. |
+| Known answers | record cohort 1: 2 trades, 1 win, +0.144370 / −0.067163, fees 0.041793, total 0.073533 USD; population over 11-01 … 11-05: 12 rows, rank NEAR, SOL, C1:ETH, C1:BTC … ZEC; cohort 2 listed not graded; the 10-24/10-25 pairs listed outside every window. All met. |
+| The board | `arena/ai_board/ai_board_2026-11-08.json` `9822cc53…` (13 rows), `.md` `9add69eb…`, `ai_board_latest.json` = the dated json; endpoint = the public repository's raw path. |
+| The page | https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd version 3 (`1794117586-4f28`), section `#ai-board`. |
+| Suite | 7 gates in `tests/test_agent_record_ai_board.py`; **full suite 1213 passed, 0 failed** (1214 with the committed-board gate). |
+
+**Income row (R81), 2026-11-08 after A29.1:** 0 USD a day against 165. Nothing on the chain.

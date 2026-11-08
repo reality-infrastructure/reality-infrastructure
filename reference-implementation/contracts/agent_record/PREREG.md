@@ -5797,3 +5797,47 @@ DROP: the two FULL negatives (`0x218a65e2…` −32 613.109987; `0xa312114b…` 
 **50th-percentile dates (Musk).** P23 and A29.1 tonight; the routine's run of 00:40Z 11-09 writes `ai_board_2026-11-09` (step 3f). Cohort 2's record row graded with the archive of 2026-11-11. Whether the venue lists the row: the operator's conversation with the CEO, not a date of this record.
 
 **What this amendment does not do.** It does not compute a return, a rank on the venue, a skill or a badge; it does not read the live captures' fee line as the chain's; it does not touch `marker/`, SETTLED.md, the arena's grader or the feed; it opens nothing.
+
+### A29.1 — 2026-11-08 06:0xZ (00:0x CST), flat — THE AI BOARD ENTRY IS LIVE (P23 `11b2ff6`, P23.1 `7fc2b14`): the record's account and the twelve population rows in the venue's own "AI Traders" columns, as of 2026-11-08, every A29 known answer met; the record: 2 round trips, 1 win, +0.144370 / −0.067163, fees 0.041793, total 0.073533 USD over the one graded window; the population over 11-01 … 11-05 ranked NEAR, SOL, then the ETH and BTC controls, ZEC last; ROI not computed on every row; the page republished with `#ai-board`; the routine's step 3f from tomorrow; full suite 1213 passed, 0 failed
+
+**Order (the proof).** A29 `7630723` → P23 `11b2ff6` → P23.1 `7fc2b14` → this. One correction on the record: P23 was committed with its known-answer gate red on one number A29 had not stated — the count of the record's pinned (empty) pages in cohort 2's capture, 74, not 0 — the gate was corrected to the measured value in P23.1 and nothing else in it changed; the FEES cell lost a stray sign. The suite was green before the board was committed (1213) and is green with it.
+
+**P23, what landed.** `rights_events/arena_ai_board.py`: `round_trips` (a trade from `startPosition` 0 back to a zero position, P&L = Σ `closedPnl` − Σ `fee`), `record_rows` (per arena cohort: the newest capture, the record address's fills and funding page files checked line by line against the capture's pins — S102 — the window's fills and funding, TOTAL = realized ex funding + funding checked equal to the arena's record row, open trips counted never valued, cohorts without pages on the branch listed not graded), `record_outside_windows` (the live captures before every graded window, listed, never added), `population_rows` (the newest admitted readings through `agent_ledger.newest_readings`, void days excluded always, F4 and C1 rows in bps), `_rank` within a unit class, `board`, `render_markdown`, `render_html_section`, `write_board` + `check_latest` (S101), CLI `python -m rights_events.arena_ai_board --as-of D` printing `AI BOARD REFUSED` on S102. `POO_DAILY.md` step 3f (the board's as-of is the production day D, so the dated file never collides with the laptop's). Gates: `tests/test_agent_record_ai_board.py`, 7 (round trips incl. a three-fill trip and an open tail; the synthetic board end to end with a void day, a control, an ungraded cohort and a pre-window live pair; S102; S101 + the CLI writing nothing on a refusal; no network/clock/randomness; the known answers on the real pins; the committed board's latest pointer).
+
+**The board as of 2026-11-08, `arena/ai_board/`:**
+
+| file | sha256 |
+|---|---|
+| `ai_board_2026-11-08.json` (13 rows) | `9822cc53685b7be434f96ecd6bfd6894b5ed202c41213c9342c23e8a70bfe717` |
+| `ai_board_2026-11-08.md` | `9add69eb8d905589cd943cddd1b3c64e091de816b392efbae7a9a46404d08478` |
+| `ai_board_latest.json` (= the dated json, S101 checked) | `9822cc53…` |
+
+Endpoint (R127): `https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena/ai_board/ai_board_latest.json`. SETTLED.md `c6b590de…`, marker `acf754f9…`.
+
+| RANK | MODEL | TOTAL P&L | ROI % | WIN RATE | BIGGEST WIN | BIGGEST LOSS | TRADES | FEES |
+|---|---|---:|---|---:|---:|---:|---:|---:|
+| 1 of 1 | RI record · the operator's account · live · one unit · `0x9f976123…` · window 2026-10-26 … 2026-11-02 | 0.073533 USD | not computed (SETTLED.md 4) | 0.5000 (1/2) | 0.144370 USD | −0.067163 USD | 2 | 0.041793 USD |
+| 1 of 12 | F4:NEAR · paper copy fork | +595.64 bps | not computed | 0.1875 (6/32) | +915.98 | −65.61 | 32 | 634.36 |
+| 2 of 12 | F4:SOL · paper copy fork | +188.05 bps | not computed | 0.2642 (14/53) | +553.55 | −70.31 | 53 | 996.77 |
+| 3 of 12 | C1:ETH · control | +138.31 bps | not computed | 0.4000 (2/5) | +193.11 | −53.46 | 5 | 95.39 |
+| 4 of 12 | C1:BTC · control | −100.59 bps | not computed | 0.4000 (2/5) | +30.70 | −53.59 | 5 | 93.84 |
+| 5 of 12 | C1:ZEC · control | −187.31 bps | not computed | 0.2000 (1/5) | +69.09 | −100.16 | 5 | 98.14 |
+| 6 of 12 | C1:SOL · control | −197.33 bps | not computed | 0.2000 (1/5) | +17.94 | −61.70 | 5 | 95.56 |
+| 7 of 12 | C1:HYPE · control | −254.49 bps | not computed | 0.0000 (0/5) | −49.71 | −52.06 | 5 | 97.06 |
+| 8 of 12 | C1:NEAR · control | −261.51 bps | not computed | 0.0000 (0/5) | −49.79 | −58.91 | 5 | 101.04 |
+| 9 of 12 | F4:BTC · paper copy fork | −1 071.44 bps | not computed | 0.2600 (13/50) | +230.35 | −67.43 | 50 | 939.90 |
+| 10 of 12 | F4:ETH · paper copy fork | −1 669.45 bps | not computed | 0.1935 (12/62) | +327.94 | −84.28 | 62 | 1 184.13 |
+| 11 of 12 | F4:HYPE · paper copy fork | −1 730.88 bps | not computed | 0.1209 (11/91) | +438.66 | −78.91 | 91 | 1 734.98 |
+| 12 of 12 | F4:ZEC · paper copy fork | −2 931.58 bps | not computed | 0.1058 (11/104) | +917.38 | −122.33 | 104 | 2 052.46 |
+
+Population days read 11-01 … 11-05 (the 11-08 re-pins admitted), 11-06 and 11-07 void and excluded. Record rows not graded here: cohort 2026-11-03, pages not on the branch (A27 (2), the archive of 11-11; 74 pinned pages, all empty). On the record before every graded window, not on the board: the live pairs of 2026-10-24 and 2026-10-25 (four fills, tx hashes in their captures). What the board says in one line: the only row in USD is positive on two round trips; in the population two forks beat every control over five days and four forks sit below every control; nothing here is a return, a rank on the venue or a badge.
+
+**The page (R127).** https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd republished as version 3 (id `1794117586-4f28`) with `#ai-board` above `#copiers-grade`, the page navigation naming both; private until the operator shares it.
+
+**50th-percentile date (Musk).** Shipped 06:0xZ. The routine's run of 00:40Z 11-09 writes `ai_board_2026-11-09`. Cohort 2's record row with the archive of 2026-11-11.
+
+**R108 (as built).** Musk `@ 52:10`: every figure is a chain fill, a funding row or a pinned mark, and the one thing the venue's column asks for that the chain does not settle (ROI) is printed as not computed rather than invented. The panel `@ 45:11`: win rate never stands without the fee line and the biggest loss beside it. Brown `@ 16:38`: the forks and their controls are the same copy, forked, on one tape, on one board. Musk `@ 1:46:49`: the row is on the page, not in a deck.
+
+**Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+**What was not verified.** Whether the venue's board will take a row without ROI (the operator's conversation). Cohort 2's record row (pages off the branch until 11-11). The routine's first step-3f run.
