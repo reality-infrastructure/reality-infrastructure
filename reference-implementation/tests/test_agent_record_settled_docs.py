@@ -20,9 +20,7 @@ RATIFIED = 'ratified 2026-11-08 (the operator, in session at 06:1xZ: "Use the th
 
 
 def _lf(path: Path) -> bytes:
-    return path.read_bytes().replace(b"
-", b"
-")
+    return path.read_bytes().replace(b"\r\n", b"\n")
 
 
 @pytest.mark.parametrize("name,sha", sorted(FROZEN.items()))
@@ -33,8 +31,7 @@ def test_document_is_frozen_at_its_ratified_sha(name, sha):
 @pytest.mark.parametrize("name", sorted(FROZEN))
 def test_document_is_ratified_by_the_operator_on_its_last_line(name):
     text = _lf(DOCS / name).decode("utf-8")
-    last = text.rstrip("
-").splitlines()[-1]
+    last = text.rstrip("\n").splitlines()[-1]
     assert last.startswith(RATIFIED)
     assert "DRAFT — not ratified" not in text
     assert "The machine never edits this document. The operator may." in text
