@@ -1,7 +1,3 @@
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 263, in main
-    tick(a, st)
-  File "/root/poo/marker/forward.py", line 199, in tick
     append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type="F4_signal"))
   File "/root/poo/marker/forward.py", line 104, in append
     with path.open("a", encoding="utf-8", newline="\n") as f:
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-08] OPEN C1:ZEC L @ 1250.75 (signal 1794102180000)
 [2026-11-08] OPEN F4:BTC L @ 75731.5 (signal 1794103058177)
 [2026-11-08] OPEN F4:ETH L @ 2232.25 (signal 1794103370561)
+[2026-11-08] OPEN F4:SOL S @ 88.9635 (signal 1794103762735)
+[2026-11-08] OPEN F4:HYPE S @ 77.3735 (signal 1794103900246)
+[2026-11-08] OPEN F4:ZEC L @ 1241.15 (signal 1794104171474)
+[2026-11-08] OPEN F4:SOL L @ 89.2545 (signal 1794107031089)
