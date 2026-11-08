@@ -174,6 +174,17 @@ KEEP / DROP / UNDECIDED / OPEN (R119) with the run across listings (R120). Commi
 prints the per-cohort counts and any change of status or run since the previous feed. If it prints
 `FEED REFUSED` (S99), quote the reason, write nothing, go on. Never set a badge threshold here (the operator's).
 
+**3f. The AI board entry (A29, every run, after 3e).** The record's account and the paper population in the
+venue's "AI Traders" columns, from pinned pages and pinned marks only (R123–R127); the board's as-of is TODAY (the
+production day D, not D-1), so the dated file never collides:
+```
+python -m rights_events.arena_ai_board --as-of <D>
+```
+It writes `arena/ai_board/ai_board_<D>.json`, `.md` and `ai_board_latest.json` (byte-equal, S101). Commit the three
+files. The amendment prints the rows (rank within class, trades, win rate, biggest win/loss, fees, total) and any
+record row not graded (pages not on the branch). ROI is never computed. If it prints `AI BOARD REFUSED` (S102, a page
+off its pin), quote the reason, write nothing, go on.
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate
