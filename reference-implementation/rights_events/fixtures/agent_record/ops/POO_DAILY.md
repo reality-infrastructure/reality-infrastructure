@@ -164,6 +164,16 @@ RETIRED), rung, days alive, run against k, and any retirement with its reason. A
 is not promoted by the routine: promotion is one rung of size by an amendment the operator
 signs (R88, R106). A RETIRED fork's slot is refilled only by a PREREG amendment (R107).
 
+**3e. The copier's grade (A28, every run, after 3b–3d).** The feed is a pure function of the newest
+pinned arena and screen files per cohort and SETTLED.md's sha (R118); it never reads the channel or the API:
+```
+python -m rights_events.arena_feed --as-of <D-1>
+```
+It writes `arena/feed/feed_<D-1>.json`, `.md` and `feed_latest.json` (byte-equal, S100) and prints per cohort
+KEEP / DROP / UNDECIDED / OPEN (R119) with the run across listings (R120). Commit the three files. The amendment
+prints the per-cohort counts and any change of status or run since the previous feed. If it prints
+`FEED REFUSED` (S99), quote the reason, write nothing, go on. Never set a badge threshold here (the operator's).
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate
