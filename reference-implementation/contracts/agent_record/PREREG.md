@@ -6293,3 +6293,25 @@ systemctl restart poo-marker.service
 **R108 (the trace).** Rule 1: the limiting factor named in A37 is removed in the sense the operator asked: the verdict now has a book, written daily by the routine, with a forward run one restart away. Rule 2: the book is marked on the tape of record, not on the arena's own figures. Rule 3: 102 episodes in five days on the question the copier pays for, against one relisting bit a week. Rule 5: nothing is promoted; the replay is in-sample and decides nothing (R131, R147). Rule 6: one variable, and the record says that variable collapsed to one address this week. Rule 7: the go, the restart and the daily cohorts are the operator's.
 
 **Income row (R81), 2026-11-09 after A37.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A37.2 — 2026-11-09 02:4xZ (20:4x CST 11-08), flat — THE FORWARD RUN STARTED at the operator's word ("i'm authorizing you to start the forward run from here"): keep.json beside the marker on the VPS, poo-marker.service restarted at 02:40:18Z with forks F4, F6, C1; every open F4 episode carried across; the first F6 signal waits on the next qualifying open
+
+**The act, verbatim.** From the record branch at `2d260da`, over the operator's own ssh key, to `root@66.135.15.102:/root/poo/marker/` (the directory `poo_marker_vps.sh` installed on 2026-10-31):
+
+| step | evidence |
+|---|---|
+| Before | `forward.py` on the VPS `6fd373b87800398f…` = the repo's pre-A37 file at `c359b81` byte for byte; `marker.py` `acf754f9…` = the ledger's pin; `families.json` unchanged; service active since 2026-11-07 03:07:09Z, PID 2476991; state: F4:BTC, F4:ETH, F4:HYPE, F4:SOL, F4:ZEC open; seed `37ee0a55…`; void days [2026-11-06]; Python 3.12.3. |
+| Copied | `forward.py` `897bbb42d6bee5c7…` (= the repo's P28 file), `keep_2026-10-25.json` → `keep.json` `1fd9042ea694daeb…` (= the pinned list); `python3 -I -c ast.parse` OK on the VPS. |
+| Restart | `systemctl restart poo-marker.service` at 02:40:18Z; active; PID 3134020; NRestarts 0. |
+| Start line | `forward marker: 28 leaders, 6 KEEP addresses (A37), coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'F6', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a55…` |
+| State carried | the five open F4 episodes are still open after the restart; `last_fill_poll_ms` advancing (1794192162644 at 02:43Z); 32 F4 signals and 0 tick errors in the first three minutes. |
+| Routing checked on the VPS | the installed module loaded by path: KEEP 6, FORWARD_FAMILIES ('F4', 'F6', 'C1'); `families_for` → `0x484bc160…` ('F4', 'F6'), `0x4c6d679e…` ('F6',), `0x856c3503…` ('F6',), `0x9794bbbc…` ('F6',), `0xf818fa41…` ('F4', 'F6'), `0xfc667adb…` ('F4', 'F6'). |
+| First F6 signal | none by 02:43:46Z: the one KEEP address that trades (`0xfc667adb…`) last filled at 02:07:45Z, before the restart; 8 qualifying opens in its last hour by the same `userFillsByTime` call, so the next one writes the first `F6_signal` row and opens the first `F6:<coin>` episode. The routine's 00:40Z 11-10 run reads it (step 3h) and the book's ledger counts 11-09 as F6's first partial day; the first full forward day is 2026-11-10. |
+
+**Findings on the VPS, disclosed, not repaired (not this amendment's variable).** (1) The service had restarted 2 939 times before tonight (`restart counter is at 2939` in the journal at 03:07Z 11-07; `Failed with result 'exit-code'`): the marker has been dying and being restarted by systemd for days, and every death loses the tick in flight; the record never saw it because the state file carries the open episodes across. (2) `tick_error` rows: 18 on 11-07, 3 on 11-08, 2 on 11-09 before the restart, all `AttributeError("'NoneType' object has no attribute 'get'")`: a tape row whose `mids` is `null` reaches `mids.get(...)` in the exit walk; the tick aborts after the tape offsets advanced in memory, so that tick's rows are never walked for exits (an exit due on them fires on a later row) and the state is not saved that tick. Both are the marker's, pre-A37, F4's and C1's as much as F6's; a fix is its own amendment with its own gate (the row is counted, never repaired). (3) `poll_failure` rows: 12 on 11-07, 10 on 11-08, 0 on 11-09: the live poller misses opens the pages hold, which is the 189 of A37.1's known answer (2).
+
+**What did not change.** `marker.py`, `families.json`, `leaders_2026-11-01.json`, `promotions.json`, the tape, the arena tape, the seed, C1's rule, the VPS's other units. No order was submitted; the marker holds no key (S73).
+
+**R108 (the trace).** Rule 7: the restart was the operator's word, given in writing, executed as written. Rule 2: F6 is now graded forward by the tape of record, out of sample, from the next open. Rule 5: nothing is a candidate until `k_for(6) = 5` consecutive forward days beat both controls.
+
+**Income row (R81), 2026-11-09 after A37.2:** 0 USD a day against 165. Nothing on the chain.

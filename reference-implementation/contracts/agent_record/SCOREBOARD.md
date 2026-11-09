@@ -1887,3 +1887,15 @@ the go (a hand-off), then search (P12).
 | Suite | + 11 gates; 1 237 passed, 3 failed — the three (`ai_board` × 2, `arena_feed` known answers) were red at `c359b81` before this work and are the routine's run of 11-09, untouched here. |
 
 **Income row (R81), 2026-11-09 after A37.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A37.2 — THE FORWARD RUN STARTED at the operator's written word: keep.json beside the marker on the VPS, poo-marker.service restarted 02:40:18Z 2026-11-09 with forks F4, F6, C1; open F4 episodes carried across; first F6 signal waits on the next qualifying open
+
+| gate | evidence |
+|---|---|
+| The word | "i'm authorizing you to start the forward run from here" + the three commands as written in A37.1. |
+| Before | VPS `forward.py` = the pre-A37 repo file byte for byte (`6fd373b8…`); `marker.py` = the ledger's pin (`acf754f9…`); five F4 episodes open; Python 3.12.3. |
+| The act | `forward.py` `897bbb42…` and `keep.json` `1fd9042e…` copied; restart 02:40:18Z; active, PID 3134020, NRestarts 0; start line `6 KEEP addresses (A37) … forks ('F4', 'F6', 'C1')`; the five open episodes still open; routing checked on the installed module. |
+| First F6 row | none by 02:43Z (the trading KEEP address last filled 02:07Z); the routine's 00:40Z 11-10 run reads it; first full forward day 2026-11-10. |
+| Findings disclosed | the service had restarted 2 939 times before tonight; `tick_error` rows on a tape row with `mids` null lose that tick's exit walk; `poll_failure` rows explain the 189 opens the live poller missed. Pre-A37, the marker's, not repaired here. |
+
+**Income row (R81), 2026-11-09 after A37.2:** 0 USD a day against 165. Nothing on the chain.
