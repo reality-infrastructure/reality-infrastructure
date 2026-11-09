@@ -6337,3 +6337,49 @@ systemctl restart poo-marker.service
 **R108 (the trace).** Bet 1: Brown `@ 1:03:57` (horizon match), the panel `@ 32:54` and `@ 1:03:59` (the cheaper rung). Bet 2: Musk `@ 2:12:20`, `@ 2:16:12`; the panel `@ 45:03`. Bet 3: Brown `@ 1:16:19`; Musk `@ 1:46:55`, `@ 53:05`; the panel `@ 24:08`, `@ 1:06:05`. Bet 4: Musk `@ 32:59`; Brown `@ 58:48` (nothing on the surface persuades). Rule 7 throughout: the go, the hand and the link are the operator's.
 
 **Income row (R81), 2026-11-09 after A38:** 0 USD a day against 165. Nothing on the chain.
+
+### A38.1 — 2026-11-09 03:1xZ (21:1x CST 11-08), flat — THE FOUR BETS BUILT (P29 `d0a5414`): F7 replayed beside F6 and two known answers proved wrong by the tape; the kill line and the date written into the book; the record's account is the first COPIER row and Day 19's watcher is armed for 14:00Z; the Starlink reads not ready; the F7 marker's install on the VPS is one command away
+
+**Prereg before code.** A38 `d86762a` → P29 `d0a5414` → this.
+
+**Bet 1, F7 (R151).** Built: `rights_events/arena_gap.py` marks F7 at the first tape row at or after the leader's first `Close` fill on the coin after the signal; `arena_book.py` replays it over the same signals, pages and tape as F6; `marker/forward.py` opens `F7:<coin>` on every F6 signal, records KEEP leaders' closes as `KEEP_close` rows and exits F7 on them only. The first replay, entries 11-04 … 11-08, the three admitted days:
+
+| day | F6 ep | F6 net bps | F7 ep | F7 net bps | F4 ep | F4 net bps | C1 ep | C1 net bps | F6 > both | F7 > both |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|
+| 2026-11-04 | 57 | −1349.47 | 93 | −2932.08 | 91 | −1514.07 | 6 | −302.85 | no | no |
+| 2026-11-05 | 40 | 127.39 | 58 | −1370.96 | 95 | −1951.66 | 6 | −6.82 | yes | no |
+| 2026-11-08 | 5 | 187.09 | 17 | 619.09 | 46 | −944.48 | 6 | −40.24 | yes | yes |
+
+| fork | episodes | sum gross bps | sum net bps | mean | 2σ/√n | mean hold h |
+|---|---:|---:|---:|---:|---:|---:|
+| F7:BTC | 58 | 138.59 | −1058.53 | −18.25 | 12.20 | 0.40 |
+| F7:ETH | 38 | 478.32 | −306.00 | −8.05 | 25.05 | 0.82 |
+| F7:HYPE | 22 | 199.27 | −254.81 | −11.58 | 37.19 | 0.18 |
+| F7:ZEC | 48 | −1217.25 | −2207.97 | −46.00 | 31.21 | 0.54 |
+| F7:SOL | 1 | 101.67 | 81.03 | 81.03 | — | 0.13 |
+| F7:NEAR | 1 | 82.97 | 62.33 | 62.33 | — | 0.24 |
+
+F7 on admitted days: 168 episodes, gross −216.42 bps, cost 3467.52 bps, net −3683.94 bps; 32 more on void days counted for nothing; 172 signals skipped because the leader closed before the tape's next row (a hole). F6 on the same days 102 / −1035.00. F7 beat both controls 1 of 3 days, F6 2 of 3. In-sample, decides nothing (R147); funding excluded.
+
+**Two known answers were wrong, and the tape says why.** A38 (1) said F7's episode count would be ≤ F6's and (2) that F7 would pay the structure less often. The opposite: 168 against 102, and 3468 bps of cost against 2105. The one KEEP leader that trades (`0xfc667adb…`) closes within minutes: F7's mean hold is 0.13 to 0.82 h against F6's 0.20 to 2.18 h, 172 of its opens closed inside a tape hole of a few seconds, and 0 signals lacked a later close. The panel's "cheaper rung" (`@ 32:54`) assumed a leader who holds; this leader scalps, so following to the close frees the fork sooner and pays the structure more. Brown's horizon match (`@ 1:03:57`) still holds as a rule: F7 now measures what a copier of this leader would actually hold, and what it measures is that the structure eats a scalper's edge twice as fast. The arena's grade of this address (KEEP, FULL, net +5.0 M USD this window at its own size and fee tier) and a one-unit copier's grade of it are two different numbers, and only the second one pays.
+
+**Bet 2 (R152, R153).** In the book every day: `first pair 50th-percentile date 2026-11-11`; the kill test `not due (at 7 pairs or 2026-11-25)`; status by the ledger's arithmetic. As of 11-08: 0 settled pairs, ALIVE, run 0 of k 2.
+
+**Bet 3 (R154–R157).** `arena/copiers.json` holds the record's account, dated 2026-11-09, class COPIER, leg F6-live, the operator's words quoted (`"execute the all four bets starting with the smallest"`, `"The record's account becomes the first COPIER row"`). The book grades its round trips after 2026-11-09T14:00:00Z from the record's own pages on the channel (coverage NONE as of 11-08: nothing settled yet). `ops/copier_watch.py` is armed as a session cron for 13:58Z 2026-11-09: it polls the six KEEP addresses through [14:00, 15:00)Z, writes `copier/watch_2026-11-09.jsonl`, and on the first qualifying open prints the order for the hand by R156 and pushes a notification; no signal by 15:00Z prints the R155 MISS line. The hand submits both legs; this session submits no orders (R157, unchanged). Gates: `unit_size("ETH", 2154.95, 4) = 0.0047`, `("SOL", 88.24, 2) = 0.12`, `("NEAR", 4.05, 1) = 2.5`, BTC 0.00014; the stop price and gate time are pure functions of the signal.
+
+**Bet 4 (R158).** The book prints `STARLINK: not ready (0 of 7 pairs)`. Nothing is shared.
+
+**The suite.** `tests/test_agent_record_gap.py` 10 gates; 1 247 passed, the same 3 pre-existing red gates (A37.1) untouched.
+
+**The one step not done tonight: the F7 marker on the VPS.** The copy and restart that A37.2 performed for F6 was refused tonight by this session's permission classifier (two attempts, "Remote Shell Writes"). The VPS marker therefore runs A37's forward.py: F4, F6 and C1, no F7 and no `KEEP_close` rows. Until the install, F7 has no forward row and the book says so. The operator's act, from the record branch at `d0a5414`:
+```
+scp -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 reference-implementation/rights_events/fixtures/agent_record/marker/forward.py root@66.135.15.102:/root/poo/marker/forward.py
+ssh -o IdentitiesOnly=yes -i ~/.ssh/id_ed25519 root@66.135.15.102 'sha256sum /root/poo/marker/forward.py; systemctl restart poo-marker.service; sleep 15; systemctl is-active poo-marker.service; grep "forward marker:" /root/poo/marker/poo-marker.log | tail -1'
+```
+The installed file must hash to `b33b9282320a1ea2…` and the start line must read `forks ('F4', 'F6', 'F7', 'C1')`. The open F4 and F6 episodes survive the restart in the state file.
+
+**What was not verified.** The F7 replay's exits are placed at the tape's cadence (about 5 s), not at the leader's fill price; a copier's real close would differ by the spread and latency, in the direction of worse. Whether the one trading KEEP address opens inside Day 19's hour (A38 known answer 6: likely, not certain). Funding on F7's holds (short; excluded).
+
+**R108 (the trace).** Rule 2: the tape graded the panel's assumption and ours, and the record keeps the wrong answer beside the right one (Musk `@ 2:15:48`, plot the points). Rule 5: no promotion; the copier row is ALIVE at 0 pairs and dies only by R153. Rule 7: the install, the hand and the link stay the operator's.
+
+**Income row (R81), 2026-11-09 after A38.1:** 0 USD a day against 165. Nothing on the chain.

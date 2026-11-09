@@ -1899,3 +1899,17 @@ the go (a hand-off), then search (P12).
 | Findings disclosed | the service had restarted 2 939 times before tonight; `tick_error` rows on a tape row with `mids` null lose that tick's exit walk; `poll_failure` rows explain the 189 opens the live poller missed. Pre-A37, the marker's, not repaired here. |
 
 **Income row (R81), 2026-11-09 after A37.2:** 0 USD a day against 165. Nothing on the chain.
+
+### A38 / P29 / A38.1 — THE ARENA STANDS IN THE GAP: F7 (the leader's own close as the exit) replayed beside F6; the kill line and the 50th-percentile date in the book; the record's account the first COPIER row with Day 19's entry = the first F6 signal in the window; the Starlink a readiness gate
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A38 `d86762a` → P29 `d0a5414` → A38.1. The operator: "execute the all four bets starting with the smallest." |
+| Bet 1 F7 | 168 episodes on 3 admitted days, net −3683.94 bps vs F6 102 / −1035.00; F7 beat both controls 1 of 3 days (F6 2 of 3); mean hold 0.13–0.82 h; 172 signals closed inside a tape hole. Two known answers wrong: the KEEP leader scalps, so following to the close pays the structure more, not less. In-sample, decides nothing. |
+| Bet 2 | date 2026-11-11 and the R153 kill test printed by the book every day; 0 pairs, ALIVE, not due. |
+| Bet 3 | copiers.json: the record's account, 2026-11-09, class COPIER, the operator's words quoted; `ops/copier_watch.py` armed (session cron 13:58Z) for [14:00, 15:00)Z; the hand submits (R157). |
+| Bet 4 | `STARLINK: not ready (0 of 7 pairs)`; nothing shared. |
+| Not done | the F7 marker's install on the VPS: refused by this session's permission classifier twice; two commands for the operator in A38.1; the VPS runs F4/F6/C1 until then. |
+| Suite | + 10 gates; 1 247 passed, the same 3 pre-existing red gates untouched. |
+
+**Income row (R81), 2026-11-09 after A38.1:** 0 USD a day against 165. Nothing on the chain.
