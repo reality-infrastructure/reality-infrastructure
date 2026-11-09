@@ -1,8 +1,3 @@
-    return f.write(data)
-           ^^^^^^^^^^^^^
-OSError: [Errno 28] No space left on device
-
-During handling of the above exception, another exception occurred:
 
 OSError: [Errno 28] No space left on device
 
@@ -398,3 +393,8 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-09] OPEN F4:ZEC S @ 1227.9 (signal 1794214638595)
 [2026-11-09] OPEN F4:SOL L @ 86.9335 (signal 1794214776076)
 [2026-11-09] OPEN F4:ZEC S @ 1230.65 (signal 1794214960732)
+tick error: AttributeError("'NoneType' object has no attribute 'get'")
+[2026-11-09] OPEN F4:SOL L @ 86.5805 (signal 1794216231473)
+[2026-11-09] OPEN C1:ETH L @ 2108.95 (signal 1794216840000)
+[2026-11-09] OPEN F4:BTC L @ 74200.5 (signal 1794218612640)
+[2026-11-09] OPEN F4:ETH L @ 2102.75 (signal 1794218703000)
