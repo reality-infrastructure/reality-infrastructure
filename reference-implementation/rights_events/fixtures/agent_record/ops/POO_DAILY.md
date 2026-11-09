@@ -199,11 +199,13 @@ live leg) and the registration counts. Never edit a leg file; never re-register 
 (S104, a tape file off its earlier pin), quote it and write nothing. MARKET calls come only from the newest pinned
 capture under `calls/captures/` (R144); the routine does not fetch markets.
 
-**3h. The book of the verdict (A37, every run, after 3g).** The arena's KEEP set as the leader list of one paper
-fork, F6, identical to F4 in every other byte (R145). Run it over the channel extract: the completed cohort's KEEP list
-(R146; cohort 1 = `2026-10-25` until cohort 2 completes on 11-10 and is graded on 11-11, then `2026-11-03`), the
-replay of F6 over the next cohort's pinned pages for the window so far (R147, in-sample, decides nothing), the
-relisting table (R149), the book's own ledger (R148):
+**3h. The book of the verdict (A37 + A38, every run, after 3g).** The arena's KEEP set as the leader list of one paper
+fork, F6, identical to F4 in every other byte (R145), and F7 = F6 with the leader's own close as the exit (R151). Run it
+over the channel extract: the completed cohort's KEEP list (R146; cohort 1 = `2026-10-25` until cohort 2 completes on
+11-10 and is graded on 11-11, then `2026-11-03`), the replay of F6 and F7 over the next cohort's pinned pages for the
+window so far (R147, in-sample, decides nothing), the relisting table (R149), the book's ledgers for F6 and F7 (R148,
+R151), and the copier row (R153–R155, R158: the record's settled pairs after 2026-11-09 14:00Z, the kill test, the
+STARLINK line; nothing is shared by the routine, ever):
 ```
 python -m rights_events.arena_book run --as-of <D-1> --cohort <completed cohort> --next-cohort <cohort being graded> \
   --feed rights_events/fixtures/agent_record/arena/feed/feed_<D-1>.json \
@@ -212,13 +214,23 @@ python -m rights_events.arena_book run --as-of <D-1> --cohort <completed cohort>
   --endpoint https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json
 python -m rights_events.arena_book verify --manifest rights_events/fixtures/agent_record/book/MANIFEST_BOOK_<D-1>.json
 ```
-Commit `book/keep_<cohort>.json`, `book/signals_F6_*`, `book/marks_F6_*`, `book/relist_<D-1>.json`,
-`book/ledger_F6_<D-1>.json|.md`, `book/book_<D-1>.json|.md`, `book/book_latest.json`, `book/MANIFEST_BOOK_<D-1>.json`.
-The amendment prints the daily table (F6 beside F4 and C1 on the same admitted days) and the relisting table. Until the
-operator installs `marker/forward.py` and `keep.json` on the VPS and restarts `poo-marker.service`, the book's ledger
-reads six ALIVE with 0 episodes and the amendment says so in one line. If `BOOK REFUSED`, quote it and write nothing.
+Commit `book/keep_<cohort>.json`, `book/signals_F6_*`, `book/marks_F6_*`, `book/marks_F7_*`, `book/relist_<D-1>.json`,
+`book/ledger_F6_<D-1>.json|.md`, `book/ledger_F7_<D-1>.json|.md`, `book/copier_<D-1>.json`, `book/book_<D-1>.json|.md`,
+`book/book_latest.json`, `book/MANIFEST_BOOK_<D-1>.json`. The amendment prints the daily table (F6 and F7 beside F4 and
+C1 on the same admitted days), the relisting table, the copier row's line (settled pairs, status ALIVE / CANDIDATE /
+KILLED, the kill test due or not) and the STARLINK line verbatim. The marker runs with `keep.json` since 02:40Z 11-09
+(A37.2) and with F7 since A38's restart; a day with 0 forward rows is written as such. If `BOOK REFUSED`, quote it and
+write nothing. The first chain-graded pair under an arena verdict has a 50th-percentile date of **2026-11-11** (R152):
+on and after it, a day without one is written `R152: the date is missed; <n> days late` in the same words every time.
 
-**4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
+**4. The live leg (A38 R155 from Day 19, 2026-11-09).** Under the standing go of A34 the entry is the first F6 signal
+inside [14:00, 15:00)Z (a KEEP leader's qualifying open), one unit by R156, exit at 30 bps or the gate 5 h after the
+open; the hand submits both legs (R157). `ops/copier_watch.py` watches the window and writes `copier/watch_<D>.jsonl`;
+read it: an `ORDER_FOR_THE_HAND` row with a venue open on the chain = a pair to grade; an `ORDER_FOR_THE_HAND` row with no
+open on the chain = `Day N (D-1): live leg MISS — the signal fired at <time>, no hand committed through the gate (R54,
+R157); nothing reached the venue; flat.`; a `window_end` row and no order row = `Day N (D-1): live leg MISS by rule (R155):
+no KEEP leader opened inside the window; nothing reached the venue; flat.` Then, as before: look for a capture or
+amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate
 (R54); nothing reached the venue; flat.` A MISS is recorded in the same words every time. You

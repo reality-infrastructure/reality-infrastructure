@@ -1,0 +1,62 @@
+{
+ "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+ "c1_daily_net_bps": {},
+ "c1_mean_bps": 0.0,
+ "coverage": "NONE",
+ "daily_net_bps": {},
+ "entries": [
+  {
+   "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+   "amendment": "A38 R154",
+   "class": "COPIER",
+   "date": "2026-11-09",
+   "graded_as": "the RECORD row's arithmetic and coverage words (R135); pairs = round trips from startPosition 0 back to 0 after 2026-11-09T14:00:00Z (R124)",
+   "kill_line": "R153: CANDIDATE at a run of k_for(1) = 2 days beating C0 and C1 with the 2 sigma clause; KILLED at 7 settled pairs or on 2026-11-25 when mean + 2 sigma / sqrt n < min(0, C1 mean)",
+   "leg": "F6-live (A38 R155): the entry is the first F6 signal inside [14:00, 15:00)Z, one unit by R156, exit at 30 bps or the gate 5 h after the open; the hand submits both legs (R157)",
+   "owner_word": "the operator, 2026-11-09: \"execute the all four bets starting with the smallest\" and the bet's line \"The record's account becomes the first COPIER row\""
+  }
+ ],
+ "first_pair_date_50pct": "2026-11-11",
+ "first_pair_settled": null,
+ "funding": "excluded here (disclosed); the arena's RECORD row applies it",
+ "k": 2,
+ "kill_date": "2026-11-25",
+ "kill_due": false,
+ "kill_pairs": 7,
+ "leg": "F6-live (R155)",
+ "mean_net_bps": null,
+ "n_settled": 0,
+ "open_trips": [],
+ "pages": {
+  "alignment": {
+   "indexed": 0,
+   "lines": 100,
+   "lost_pages": 0,
+   "pages": 100,
+   "torn_fragments": 0,
+   "unparsed": 0
+  },
+  "fills": 0,
+  "parts": 1
+ },
+ "r155_start": "2026-11-09T14:00:00Z",
+ "registry": {
+  "file": "copiers.json",
+  "sha256": "21b23c56c1d67a005345000cf8a0f1503461b95d70a8a1951e6f9c3f77264d7c"
+ },
+ "rules": {
+  "R153": "CANDIDATE: trailing run of live-graded days beating C0 (0) and C1 >= k_for(1) = 2 and mean > 2 sigma / sqrt n; KILLED at 7 settled pairs or on 2026-11-25 when mean + 2 sigma / sqrt n < min(0, C1 mean); a killed row stays on the record",
+  "R154": "the record's account is the first COPIER row by the operator's written word of 2026-11-09",
+  "R155": "the entry is the first F6 signal inside [14:00, 15:00)Z; none = MISS by rule",
+  "R158": "STARLINK READY only when >= 7 settled pairs, not KILLED, coverage FULL; nothing shared before"
+ },
+ "run_days": 0,
+ "settled_pairs": [],
+ "starlink_line": "STARLINK: not ready (0 of 7 pairs)",
+ "starlink_pairs_needed": 7,
+ "starlink_ready": false,
+ "status": "ALIVE",
+ "sum_net_bps": 0.0,
+ "sum_net_usd": 0.0,
+ "two_sigma_over_sqrt_n": null
+}

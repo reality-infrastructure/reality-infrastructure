@@ -12,7 +12,9 @@ episodes to `marks_<entry-date>.jsonl` and every signal seen to `signals_<date>.
 
 A37 (R148): when `keep.json` sits beside this file, the arena's KEEP addresses are polled with the
 same call and their qualifying opens open `F6:<coin>` episodes exactly as F4's; C1's long share
-stays F4's alone. One variable: the list.
+stays F4's alone. One variable: the list. A38 (R151): the same signal opens `F7:<coin>`, whose only
+exit is the first tape row at or after the leader's first `Close` fill on that coin after the signal
+(no stop, no gate); every such fill is a `KEEP_close` row in `signals_<date>.jsonl`.
 
 It submits nothing. It signs nothing. It never imports or names a venue write tool (S73).
 State survives a restart through `marker_state.json`. S72: if the tape's newest row is older
@@ -68,7 +70,8 @@ def load_keep(path: Path = KEEP_FILE) -> list[str]:
 
 
 KEEP = load_keep()
-FORWARD_FAMILIES = ("F4", "F6", "C1") if KEEP else ("F4", "C1")   # F1-F3 deleted by P12.1 (R84); F6 by A37
+FORWARD_FAMILIES = ("F4", "F6", "F7", "C1") if KEEP else ("F4", "C1")   # F1-F3 deleted by P12.1 (R84); F6 by A37; F7 by A38
+KEEP_CLOSE_KEEP_MS = 8 * 86_400_000   # A38 R151: KEEP leaders' Close fills are kept eight days for F7's exit
 
 
 def families_for(addr: str, leaders=None, keep=None) -> tuple[str, ...]:
@@ -176,6 +179,13 @@ def poll_leader_opens(st: State, until_ms: int, out_dir: Path) -> list[dict]:
             opens = mk.f4_leader_opens(fills, MIN_NOTIONAL, coin, addr)
             for fam in families_for(addr):
                 sigs.extend(dict(s, family=fam) for s in opens)
+        if addr in KEEP:   # A38 R151: the leader's Close fills are F7's exit
+            for f in fills:
+                if f.get("coin") in COINS and str(f.get("dir", "")).startswith("Close"):
+                    row = {"ms": int(f["time"]), "leader": addr, "coin": f["coin"], "px": float(f["px"]),
+                           "sz": float(f["sz"]), "dir": str(f["dir"])}
+                    st.d.setdefault("keep_closes", []).append(row)
+                    append(out_dir / f"signals_{day_of(row['ms'])}.jsonl", dict(row, type="KEEP_close"))
         time.sleep(0.1)
     if failures < len(polled):
         st.d["last_fill_poll_ms"] = until_ms
@@ -205,6 +215,16 @@ def close_episode(st: State, fork: str, row_ms: int, px: float, reason: str, out
     append(out_dir / f"marks_{day_of(e['entry_ms'])}.jsonl", row)
 
 
+def leader_closed(st: State, e: dict, row_ms: int) -> bool:
+    """A38 R151: true when the episode's leader has a Close fill on its coin after the signal and at or before this row."""
+    leader = str((e.get("signal") or {}).get("leader", "")).lower()
+    sig_ms = int(e.get("signal_ms", e["entry_ms"]))
+    for c in st.d.get("keep_closes", []):
+        if str(c["leader"]).lower() == leader and c["coin"] == e["coin"] and sig_ms < int(c["ms"]) <= row_ms:
+            return True
+    return False
+
+
 def tick(a, st: State):
     t = now_ms()
     today = day_of(t)
@@ -228,9 +248,13 @@ def tick(a, st: State):
             st.d["f4_dirs_today"].setdefault(day_of(s["ms"]), []).append(s["direction"])
     pending_entries: dict[str, tuple[str, str, int, dict]] = {}
     for s in sigs:
-        fork = f"{s['family']}:{s['coin']}"
-        if fork not in st.d["open"] and fork not in pending_entries:
-            pending_entries[fork] = (s["family"], s["coin"], int(s["direction"]), s)
+        fams = (s["family"], "F7") if s["family"] == "F6" else (s["family"],)   # A38: an F6 signal opens F7 too
+        for fam in fams:
+            fork = f"{fam}:{s['coin']}"
+            if fork not in st.d["open"] and fork not in pending_entries:
+                pending_entries[fork] = (fam, s["coin"], int(s["direction"]), s)
+    # A38: forget KEEP closes older than eight days
+    st.d["keep_closes"] = [c for c in st.d.get("keep_closes", []) if t - int(c["ms"]) <= KEEP_CLOSE_KEEP_MS]
     # C1: one minute per coin per day
     for coin in COINS:
         key = f"{today}:{coin}"
@@ -258,6 +282,10 @@ def tick(a, st: State):
             if px is None:
                 continue
             px = float(px)
+            if e["family"] == "F7":   # A38 R151: the exit is the leader's own close, no stop, no gate
+                if leader_closed(st, e, ms):
+                    close_episode(st, fork, ms, px, "leader_close", a.out_dir, a.pin_dir)
+                continue
             adverse = -e["direction"] * (px - e["entry_px"]) / e["entry_px"] * 10_000.0
             if adverse >= STOP - 1e-9:
                 close_episode(st, fork, ms, px, "stop", a.out_dir, a.pin_dir)

@@ -1,5 +1,16 @@
 {
-  "what": "THE COPIER'S OWN GRADE (PREREG A33, R134-R136): managed wallets whose owners asked, in writing to the operator, to be graded exactly as the record's row (the same pages, the same arithmetic, the same coverage words), as class COPIER in the arena, the feed and the board. An address enters only by a dated amendment quoting the owner's request; removal only by the owner's written word, by amendment; rows already pinned never move. No venue figure about a copier is ever read.",
-  "opened": "2026-11-08",
-  "copiers": []
+ "what": "THE COPIER'S OWN GRADE (PREREG A33, R134-R136): managed wallets whose owners asked, in writing to the operator, to be graded exactly as the record's row (the same pages, the same arithmetic, the same coverage words), as class COPIER in the arena, the feed and the board. An address enters only by a dated amendment quoting the owner's request; removal only by the owner's written word, by amendment; rows already pinned never move. No venue figure about a copier is ever read.",
+ "opened": "2026-11-08",
+ "copiers": [
+  {
+   "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+   "date": "2026-11-09",
+   "class": "COPIER",
+   "leg": "F6-live (A38 R155): the entry is the first F6 signal inside [14:00, 15:00)Z, one unit by R156, exit at 30 bps or the gate 5 h after the open; the hand submits both legs (R157)",
+   "amendment": "A38 R154",
+   "owner_word": "the operator, 2026-11-09: \"execute the all four bets starting with the smallest\" and the bet's line \"The record's account becomes the first COPIER row\"",
+   "graded_as": "the RECORD row's arithmetic and coverage words (R135); pairs = round trips from startPosition 0 back to 0 after 2026-11-09T14:00:00Z (R124)",
+   "kill_line": "R153: CANDIDATE at a run of k_for(1) = 2 days beating C0 and C1 with the 2 sigma clause; KILLED at 7 settled pairs or on 2026-11-25 when mean + 2 sigma / sqrt n < min(0, C1 mean)"
+  }
+ ]
 }

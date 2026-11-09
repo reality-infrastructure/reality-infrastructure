@@ -1,7 +1,8 @@
 {
- "amendment": "A37",
+ "amendment": "A37, A38",
  "as_of": "2026-11-08",
  "inputs": {
+  "copiers.json": "21b23c56c1d67a005345000cf8a0f1503461b95d70a8a1951e6f9c3f77264d7c",
   "families.json": "db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974",
   "feed": {
    "file": "feed_2026-11-08.json",
@@ -110,6 +111,13 @@
     "sha256": "d82af1c4d6ad5b6dd5059fedad15a783d9e0372dc5df47cc79fbaae3f9773a8b"
    }
   ],
+  "record_pages": [
+   {
+    "bytes": 300,
+    "file": "pages_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.part000",
+    "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+   }
+  ],
   "tape": [
    {
     "file": "tape_MIDS_2026-11-04.jsonl",
@@ -151,13 +159,17 @@
  },
  "kind": "agent_record_book_manifest",
  "outputs": {
-  "book_2026-11-08.json": "fffd8b18f9792174073d46c845509b469b04e870ca030137c76a3f86324118d0",
-  "book_2026-11-08.md": "121e4034299fa09bcef5407b74f6e2eaa7fc4f68e761471f511c9057b023914d",
-  "book_latest.json": "fffd8b18f9792174073d46c845509b469b04e870ca030137c76a3f86324118d0",
+  "book_2026-11-08.json": "3b008c2067690e8e198533a5dc98c40fedc4d06224023f0b028d4b90a4c57024",
+  "book_2026-11-08.md": "26f9a1c01fb2a061d38028b6edcbfec6c9107d2e4cd84219c92c68e526190d7e",
+  "book_latest.json": "3b008c2067690e8e198533a5dc98c40fedc4d06224023f0b028d4b90a4c57024",
+  "copier_2026-11-08.json": "e4ab44bec65f90fcce33710badeabe1f3b36a5d7d01dba96c40f67229f87a1d6",
   "keep_2026-10-25.json": "1fd9042ea694daebb1081b0ead30cc9a62917844b56da1192895095e83d170f2",
-  "ledger_F6_2026-11-08.json": "ab4a22ba38feb2a500a95a13b8e81bebec0dd5a90d06f0e7ecfcdcad49fbfdf6",
-  "ledger_F6_2026-11-08.md": "3acf6edde1d20573838900fd0275cae700d06cb898500fb785bb858d8893d52c",
+  "ledger_F6_2026-11-08.json": "7539578fe6cb6ada74059d0eafa7b80a079a4b1c00a56acd368bfdd2fbb4bba0",
+  "ledger_F6_2026-11-08.md": "9b9e990502ba27d4e4931ab45d0eff3f686163df9b445cd244bc8e1928cbbc1e",
+  "ledger_F7_2026-11-08.json": "2cbe956fc5c5196de9958354cf207ca736f3fd02ee15edbcb2042729754ed14f",
+  "ledger_F7_2026-11-08.md": "b8a10a42e29c186de3adfca1e12f029abd67b92acb0e66cbb36354aa53e65fad",
   "marks_F6_2026-10-25_as_of_2026-11-08.jsonl": "d4670b2551f761c5173b24414694eb780c20f1aae0b2d4cfeae290ef0d4e8780",
+  "marks_F7_2026-10-25_as_of_2026-11-08.jsonl": "072c2e2428a957abf7abc70dc1dd8b3b473608e44ea5ccf149f39cd2561e1593",
   "relist_2026-11-08.json": "5f1f304d638a5c9de4c227572122c07ff430cafd73b68a65521c76a1b6ac2dc9",
   "signals_F6_2026-10-25_as_of_2026-11-08.jsonl": "8c791c8fad925285cd01cd9e1321fe275516e246f8c87269285cd3a25a738a55"
  },
