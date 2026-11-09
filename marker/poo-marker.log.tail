@@ -1,14 +1,3 @@
-forward marker: 28 leaders, coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
-forward marker: 28 leaders, coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
-[2026-11-07] OPEN C1:SOL S @ 90.2895 (signal 1794013740000)
-[2026-11-07] OPEN F4:BTC L @ 75891.5 (signal 1794014071797)
-OSError: [Errno 28] No space left on device
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 263, in main
-    tick(a, st)
   File "/root/poo/marker/forward.py", line 199, in tick
     append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type="F4_signal"))
   File "/root/poo/marker/forward.py", line 104, in append
@@ -398,3 +387,14 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-09] OPEN F7:ZEC S @ 1170.05 (signal 1794250657639)
 [2026-11-09] OPEN F7:ZEC S @ 1173.55 (signal 1794250892035)
+[2026-11-09] OPEN F7:ZEC S @ 1171.75 (signal 1794252991786)
+[2026-11-09] OPEN F6:BTC S @ 74859.5 (signal 1794253109032)
+[2026-11-09] OPEN F7:BTC S @ 74859.5 (signal 1794253109032)
+[2026-11-09] OPEN F7:ETH L @ 2132.05 (signal 1794253112711)
+[2026-11-09] OPEN F6:SOL L @ 86.6835 (signal 1794253113221)
+[2026-11-09] OPEN F7:SOL L @ 86.6835 (signal 1794253113221)
+[2026-11-09] OPEN F7:BTC S @ 75100.5 (signal 1794253284678)
+[2026-11-09] OPEN F6:BTC S @ 75100.5 (signal 1794253341558)
+[2026-11-09] OPEN F4:ZEC S @ 1179.95 (signal 1794253741713)
+[2026-11-09] OPEN F7:ZEC S @ 1175.05 (signal 1794254684608)
+[2026-11-09] OPEN F7:BTC S @ 74889.5 (signal 1794254697683)
