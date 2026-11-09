@@ -199,6 +199,25 @@ live leg) and the registration counts. Never edit a leg file; never re-register 
 (S104, a tape file off its earlier pin), quote it and write nothing. MARKET calls come only from the newest pinned
 capture under `calls/captures/` (R144); the routine does not fetch markets.
 
+**3h. The book of the verdict (A37, every run, after 3g).** The arena's KEEP set as the leader list of one paper
+fork, F6, identical to F4 in every other byte (R145). Run it over the channel extract: the completed cohort's KEEP list
+(R146; cohort 1 = `2026-10-25` until cohort 2 completes on 11-10 and is graded on 11-11, then `2026-11-03`), the
+replay of F6 over the next cohort's pinned pages for the window so far (R147, in-sample, decides nothing), the
+relisting table (R149), the book's own ledger (R148):
+```
+python -m rights_events.arena_book run --as-of <D-1> --cohort <completed cohort> --next-cohort <cohort being graded> \
+  --feed rights_events/fixtures/agent_record/arena/feed/feed_<D-1>.json \
+  --channel-arena-dir /tmp/poo/arena/<cohort being graded> --tape-dir /tmp/poo/tape \
+  --t0 <the next cohort's window start> --t1 <D-1> \
+  --endpoint https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json
+python -m rights_events.arena_book verify --manifest rights_events/fixtures/agent_record/book/MANIFEST_BOOK_<D-1>.json
+```
+Commit `book/keep_<cohort>.json`, `book/signals_F6_*`, `book/marks_F6_*`, `book/relist_<D-1>.json`,
+`book/ledger_F6_<D-1>.json|.md`, `book/book_<D-1>.json|.md`, `book/book_latest.json`, `book/MANIFEST_BOOK_<D-1>.json`.
+The amendment prints the daily table (F6 beside F4 and C1 on the same admitted days) and the relisting table. Until the
+operator installs `marker/forward.py` and `keep.json` on the VPS and restarts `poo-marker.service`, the book's ledger
+reads six ALIVE with 0 episodes and the amendment says so in one line. If `BOOK REFUSED`, quote it and write nothing.
+
 **4. The live leg.** Look for a capture or amendment dated D-1 that records a venue open
 (`rights_events/fixtures/agent_record/capture_LIVE_<D-1>_*.json`, or a `### A1x` heading dated D-1
 with an open). None → the line is `Day N (D-1): live leg MISS — no hand committed through the gate

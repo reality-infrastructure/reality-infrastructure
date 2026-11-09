@@ -115,14 +115,14 @@ def newest_readings(vps_dir: Path, first_day: str, as_of: str) -> dict[str, Path
     return dict(sorted(out.items()))
 
 
-def _day_rows(p: Path, reader) -> tuple[list[dict], list[dict]]:
+def _day_rows(p: Path, reader, family: str = FORWARD_FAMILY) -> tuple[list[dict], list[dict]]:
     """(forward rows, void marks) of a pinned marks file under R115; S98 refuses the ledger."""
     try:
         all_rows, voids, _align = reader.read_day_lines(p, "marks")
     except reader.Refused as exc:
         raise AdapterError(str(exc)) from exc
     rows = [r for r in all_rows
-            if not r.get("in_sample", False) and r.get("family") in (FORWARD_FAMILY, CONTROL_FAMILY)]
+            if not r.get("in_sample", False) and r.get("family") in (family, CONTROL_FAMILY)]
     return rows, voids
 
 
@@ -132,15 +132,15 @@ def _rows(p: Path) -> list[dict]:
 
 def ledger(as_of: str, vps_dir: Path = VPS_DIR, promotions_path: Path = PROMOTIONS,
            marker_path: Path = MARKER, coins: list[str] | None = None,
-           first_day: str = FIRST_FULL_DAY) -> dict:
+           first_day: str = FIRST_FULL_DAY, family: str = FORWARD_FAMILY) -> dict:
     if not _DAY.match(as_of):
         raise AdapterError(f"as_of {as_of!r} is not a YYYY-MM-DD date")
     mk = load_marker(marker_path)
     coins = list(coins if coins is not None else mk.DECLARED)
-    forks = [f"{FORWARD_FAMILY}:{c}" for c in coins]
+    forks = [f"{family}:{c}" for c in coins]
     reader = load_reader()
     readings = newest_readings(vps_dir, first_day, as_of)
-    parsed = {d: _day_rows(p, reader) for d, p in readings.items()}
+    parsed = {d: _day_rows(p, reader, family) for d, p in readings.items()}
     # R116 (A26): from the ledger as of 2026-11-08 on, a day the marker voided counts for nothing
     void_excluded = ({d: {"void_marks": len(v), "episodes_not_counted": len(r)}
                       for d, (r, v) in parsed.items() if v} if as_of >= R116_EFFECTIVE else {})
@@ -247,6 +247,7 @@ def ledger(as_of: str, vps_dir: Path = VPS_DIR, promotions_path: Path = PROMOTIO
               for s in (STATUS_ALIVE, STATUS_CANDIDATE, STATUS_PROMOTED, STATUS_RETIRED)}
     return {
         "kind": LEDGER_KIND,
+        **({"family": family} if family != FORWARD_FAMILY else {}),
         "as_of": as_of,
         "first_full_day": first_day,
         "days": days,

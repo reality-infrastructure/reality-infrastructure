@@ -188,6 +188,9 @@ def test_families_pinned_as_declared():
 
 
 def test_forward_marks_only_f4_and_c1_after_p12_1():
+    """P12.1 (R84): F1-F3 deleted. A37 (R148): F6 joins only when keep.json sits beside the marker;
+    without it the forward families are F4 and C1 exactly as before."""
     src = (_MK_DIR / "forward.py").read_text(encoding="utf-8")
-    assert 'FORWARD_FAMILIES = ("F4", "C1")' in src
+    assert 'FORWARD_FAMILIES = ("F4", "F6", "C1") if KEEP else ("F4", "C1")' in src
+    assert not (_MK_DIR / "keep.json").exists()   # the list is installed on the VPS by the operator, never committed here
     assert "import marker" not in src  # loaded by path, like the replay

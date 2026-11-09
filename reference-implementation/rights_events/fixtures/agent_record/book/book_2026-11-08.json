@@ -1,0 +1,551 @@
+{
+ "as_of": "2026-11-08",
+ "daily": [
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -302.8503706019101
+   },
+   "F4": {
+    "episodes": 91,
+    "sum_net_bps": -1514.0658981253578
+   },
+   "F6": {
+    "episodes": 57,
+    "sum_net_bps": -1349.4705325445104
+   },
+   "F6_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-04"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -6.823306375660213
+   },
+   "F4": {
+    "episodes": 95,
+    "sum_net_bps": -1951.6569871511172
+   },
+   "F6": {
+    "episodes": 40,
+    "sum_net_bps": 127.38655079542508
+   },
+   "F6_beats_both_controls": true,
+   "admitted": true,
+   "day": "2026-11-05"
+  },
+  {
+   "C1": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F4": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6": {
+    "episodes": 31,
+    "sum_net_bps": -795.8084598078078
+   },
+   "F6_beats_both_controls": false,
+   "admitted": false,
+   "day": "2026-11-06"
+  },
+  {
+   "C1": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F4": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6": {
+    "episodes": 10,
+    "sum_net_bps": 274.4930271825569
+   },
+   "F6_beats_both_controls": true,
+   "admitted": false,
+   "day": "2026-11-07"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -40.23917078144687
+   },
+   "F4": {
+    "episodes": 46,
+    "sum_net_bps": -944.4775678686627
+   },
+   "F6": {
+    "episodes": 5,
+    "sum_net_bps": 187.08510700830013
+   },
+   "F6_beats_both_controls": true,
+   "admitted": true,
+   "day": "2026-11-08"
+  }
+ ],
+ "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json",
+ "keep": {
+  "addresses": [
+   "0x484bc1608211d0604bf70bae72792a56884562f8",
+   "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9",
+   "0x856c35038594767646266bc7fd68dc26480e910d",
+   "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+   "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+   "0xfc667adba8d4837586078f4fdcdc29804337ca06"
+  ],
+  "cohort_date": "2026-10-25",
+  "excluded_record": [
+   "0x9f976123e7c48952be487664b8130aad144b7f23"
+  ],
+  "feed_as_of": "2026-11-08",
+  "feed_file": "feed_2026-11-08.json",
+  "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491",
+  "n_keep_rows": 7,
+  "what": "R146: the leader list of F6 = the arena's KEEP set of the newest completed cohort, the RECORD row excluded (the record does not follow itself), sorted; refreshed once per completed cohort",
+  "window": {
+   "complete": true,
+   "days": 8,
+   "started": true,
+   "t0_date": "2026-10-26",
+   "t0_ms": 1792972800000,
+   "t1_date": "2026-11-02",
+   "t1_ms": 1793663999999
+  }
+ },
+ "kind": "agent_record_book",
+ "ledger": {
+  "as_of": "2026-11-08",
+  "counts": {
+   "ALIVE": 6,
+   "CANDIDATE": 0,
+   "PROMOTED": 0,
+   "RETIRED": 0
+  },
+  "days": [
+   "2026-11-01",
+   "2026-11-02",
+   "2026-11-03",
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-08"
+  ],
+  "forward_rows": 0,
+  "k": 5,
+  "note": "no forward F6 row exists before the operator installs forward.py and keep.json on the VPS and restarts poo-marker.service (R148)"
+ },
+ "per_coin": [
+  {
+   "episodes": 17,
+   "fork": "F6:BTC",
+   "gates": 4,
+   "mean_net_bps": -13.21645118510799,
+   "sd_net_bps": 86.96607908726321,
+   "stops": 13,
+   "sum_gross_bps": 126.20032985316415,
+   "sum_net_bps": -224.67967014683583,
+   "two_sigma_over_sqrt_n": 42.184744696777095
+  },
+  {
+   "episodes": 23,
+   "fork": "F6:ETH",
+   "gates": 4,
+   "mean_net_bps": 4.0977798421242415,
+   "sd_net_bps": 151.4695696115793,
+   "stops": 19,
+   "sum_gross_bps": 568.9689363688575,
+   "sum_net_bps": 94.24893636885756,
+   "two_sigma_over_sqrt_n": 63.16717711007151
+  },
+  {
+   "episodes": 11,
+   "fork": "F6:HYPE",
+   "gates": 4,
+   "mean_net_bps": 88.50391539165176,
+   "sd_net_bps": 212.39535216685297,
+   "stops": 7,
+   "sum_gross_bps": 1200.5830693081693,
+   "sum_net_bps": 973.5430693081694,
+   "two_sigma_over_sqrt_n": 128.07921642779093
+  },
+  {
+   "episodes": 49,
+   "fork": "F6:ZEC",
+   "gates": 3,
+   "mean_net_bps": -35.9607893116371,
+   "sd_net_bps": 90.57462208834482,
+   "stops": 46,
+   "sum_gross_bps": -750.7186762702178,
+   "sum_net_bps": -1762.0786762702178,
+   "two_sigma_over_sqrt_n": 25.878463453812806
+  },
+  {
+   "episodes": 1,
+   "fork": "F6:SOL",
+   "gates": 0,
+   "mean_net_bps": -64.58380486083527,
+   "sd_net_bps": null,
+   "stops": 1,
+   "sum_gross_bps": -43.943804860835264,
+   "sum_net_bps": -64.58380486083527,
+   "two_sigma_over_sqrt_n": null
+  },
+  {
+   "episodes": 1,
+   "fork": "F6:NEAR",
+   "gates": 0,
+   "mean_net_bps": -51.44872913992319,
+   "sd_net_bps": null,
+   "stops": 1,
+   "sum_gross_bps": -30.808729139923187,
+   "sum_net_bps": -51.44872913992319,
+   "two_sigma_over_sqrt_n": null
+  }
+ ],
+ "readings": {
+  "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+  "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+  "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+  "2026-11-04": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+  "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+  "2026-11-06": "marks_2026-11-06_as_read_2026-11-08.jsonl",
+  "2026-11-07": "marks_2026-11-07_as_read_2026-11-08.jsonl",
+  "2026-11-08": "marks_2026-11-08.jsonl"
+ },
+ "relist": {
+  "cohort": "2026-10-25",
+  "feed_file": "feed_2026-11-08.json",
+  "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491",
+  "n_rows": {
+   "cohort": 81,
+   "next_cohort": 70
+  },
+  "new_in_next_cohort": 18,
+  "next_cohort": "2026-11-03",
+  "next_cohort_arena_as_of": "2026-11-08",
+  "next_window": {
+   "complete": false,
+   "days": 7,
+   "started": true,
+   "t0_date": "2026-11-04",
+   "t0_ms": 1793750400000,
+   "t1_date": "2026-11-10",
+   "t1_ms": 1794355199999
+  },
+  "table": [
+   {
+    "full_so_far": 1,
+    "n": 7,
+    "net_positive": 1,
+    "relisted": 5,
+    "verdict": "KEEP"
+   },
+   {
+    "full_so_far": 8,
+    "n": 51,
+    "net_positive": 6,
+    "relisted": 34,
+    "verdict": "DROP"
+   },
+   {
+    "full_so_far": 13,
+    "n": 23,
+    "net_positive": 13,
+    "relisted": 13,
+    "verdict": "UNDECIDED"
+   }
+  ],
+  "what": "R149: each verdict of the completed cohort counted as relisted / FULL / net > 0 in the next cohort's arena as of the feed's day; a statement about the verdict's forward value, not about any address"
+ },
+ "replay": {
+  "coverage": {
+   "0x484bc1608211d0604bf70bae72792a56884562f8": {
+    "alignment": {
+     "indexed": 100,
+     "lines": 100,
+     "lost_pages": 0,
+     "pages": 100,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "fills": 0,
+    "pages": 100,
+    "parts": 1,
+    "signals": 0
+   },
+   "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9": {
+    "fills": 0,
+    "note": "no pages on the channel: the sensor did not follow this address (disclosed, R147)",
+    "pages": 0,
+    "parts": 0,
+    "signals": 0
+   },
+   "0x856c35038594767646266bc7fd68dc26480e910d": {
+    "fills": 0,
+    "note": "no pages on the channel: the sensor did not follow this address (disclosed, R147)",
+    "pages": 0,
+    "parts": 0,
+    "signals": 0
+   },
+   "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b": {
+    "alignment": {
+     "indexed": 100,
+     "lines": 100,
+     "lost_pages": 0,
+     "pages": 100,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "fills": 0,
+    "pages": 100,
+    "parts": 1,
+    "signals": 0
+   },
+   "0xf818fa41af44a1b42ba7433f4ec472be40a2c268": {
+    "alignment": {
+     "indexed": 100,
+     "lines": 100,
+     "lost_pages": 0,
+     "pages": 100,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "fills": 0,
+    "pages": 100,
+    "parts": 1,
+    "signals": 0
+   },
+   "0xfc667adba8d4837586078f4fdcdc29804337ca06": {
+    "alignment": {
+     "indexed": 218,
+     "lines": 218,
+     "lost_pages": 1,
+     "pages": 218,
+     "torn_fragments": 1,
+     "unparsed": 0
+    },
+    "fills": 309166,
+    "pages": 218,
+    "parts": 15,
+    "signals": 2845
+   }
+  },
+  "disclosure": "every row in_sample: the rule (F6 = the KEEP list) was decided after cohort 1's KEEP set and cohort 2's partial grade had been seen (R147); episodes whose exit the tape had not yet printed are dropped (the marker's rule); funding excluded",
+  "family": "F6",
+  "in_sample": true,
+  "keep": {
+   "addresses": [
+    "0x484bc1608211d0604bf70bae72792a56884562f8",
+    "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9",
+    "0x856c35038594767646266bc7fd68dc26480e910d",
+    "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+    "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+    "0xfc667adba8d4837586078f4fdcdc29804337ca06"
+   ],
+   "cohort_date": "2026-10-25",
+   "excluded_record": [
+    "0x9f976123e7c48952be487664b8130aad144b7f23"
+   ],
+   "feed_file": "feed_2026-11-08.json",
+   "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491"
+  },
+  "one_variable": "the list (R145): F6 = F4 with the KEEP set as its leaders; nothing else differs",
+  "parameters": {
+   "coins": [
+    "BTC",
+    "ETH",
+    "HYPE",
+    "ZEC",
+    "SOL",
+    "NEAR"
+   ],
+   "fee_bps_per_leg": 9.32,
+   "funding": "excluded (disclosed)",
+   "gate_ms": 18000000,
+   "min_open_notional_usd": 10000.0,
+   "spread_bps_per_leg": 1.0,
+   "spread_source": "replay_proxy",
+   "stop_bps": 30.0
+  },
+  "pins": {
+   "pages": [
+    {
+     "bytes": 300,
+     "file": "pages_fills_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.part000",
+     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+    },
+    {
+     "bytes": 300,
+     "file": "pages_fills_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.part000",
+     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+    },
+    {
+     "bytes": 300,
+     "file": "pages_fills_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.part000",
+     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+    },
+    {
+     "bytes": 7913389,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part000",
+     "sha256": "4d2b8e1b2738589e3b80a40438bd30a4af9ec006fcc1927462dea3b48ab61cec"
+    },
+    {
+     "bytes": 7863774,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part001",
+     "sha256": "9bc9860d646707680634f35107610d19224fc785c6ff384f0d4be42c83480169"
+    },
+    {
+     "bytes": 7688626,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part002",
+     "sha256": "251a1d52a262551c4c00e593f833a68ce876ba79c348dab1f23c47d0132a1901"
+    },
+    {
+     "bytes": 7774268,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part003",
+     "sha256": "eac0596996d57641851c46102611ca1460e79c04ee4bd4ad34681832e3d87328"
+    },
+    {
+     "bytes": 8285904,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part004",
+     "sha256": "391a51739ca8112da92f9f133f590edb1a7aee529de510b74762510a8c3d4154"
+    },
+    {
+     "bytes": 7717664,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part005",
+     "sha256": "e1f22e0cab726604cb056a1a35a61bd5ce34f806d95cb363be6eeabb285efc40"
+    },
+    {
+     "bytes": 7820191,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part006",
+     "sha256": "5a986c6c26d518477fa1ecccd9277409efb47620dfdc09bbb3cd1852fac53cc5"
+    },
+    {
+     "bytes": 7870423,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part007",
+     "sha256": "f3e5121b136d110f9b21a18041629ee5e73f9d92950b77b33e35e6930dbcec56"
+    },
+    {
+     "bytes": 7736915,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part008",
+     "sha256": "985778639af56a14ab783f93666428ed800b6a3d50a677db270e881423c8a2e8"
+    },
+    {
+     "bytes": 8174213,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part009",
+     "sha256": "41de433a58a5daec540610094b5e1ee2efdd118bb9af665f16799e5ed870b4e0"
+    },
+    {
+     "bytes": 8386963,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part010",
+     "sha256": "613fefff799c2be2f3fa8be7bac777081466275d47073bbb9d7cdbfe3b78c8de"
+    },
+    {
+     "bytes": 8127991,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part011",
+     "sha256": "b851bf898bc97c9ad91b8a4e5a5bada8e26f63580170e24f6dc4eceb5ed33eda"
+    },
+    {
+     "bytes": 8327679,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part012",
+     "sha256": "800bb7a441741c134f87e53925e1af31c4a1dd4b5f9882d1f5a6c7e610e0fb84"
+    },
+    {
+     "bytes": 8298553,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part013",
+     "sha256": "a75387ed851e8a8dc5e542452da01d8a67a1698831719b032e2024dfeb890508"
+    },
+    {
+     "bytes": 3970316,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part014",
+     "sha256": "d82af1c4d6ad5b6dd5059fedad15a783d9e0372dc5df47cc79fbaae3f9773a8b"
+    }
+   ],
+   "pages_index": {
+    "file": "pages_index.jsonl",
+    "rows": 6802,
+    "sha256": "5f4c0d8af9b683481228c55e25cd5800a32ff3fef16e82b5533c6fffe7a5aef2"
+   },
+   "tape": [
+    {
+     "file": "tape_MIDS_2026-11-04.jsonl",
+     "rows": 16406,
+     "sha256": "f91098350194c64bb8d823cd4d1f71a861da4b69adeffcb37e3790ffbd820d65",
+     "unparsed_lines": 18
+    },
+    {
+     "file": "tape_MIDS_2026-11-05.jsonl",
+     "rows": 15692,
+     "sha256": "ffe87ffb373500e8555598af6797b5e0d82e8ba1f74e8843da7dd22656e61ae6",
+     "unparsed_lines": 43
+    },
+    {
+     "file": "tape_MIDS_2026-11-06.jsonl",
+     "rows": 5950,
+     "sha256": "2d30441e665d1c30074c415f397d6a2be933dc39a34344d8f31ddab95759b712",
+     "unparsed_lines": 91
+    },
+    {
+     "file": "tape_MIDS_2026-11-07.jsonl",
+     "rows": 14734,
+     "sha256": "af165b54817cd91d4e94fe730206dddd484beec9d3e1d3ef999a82baeab476ab",
+     "unparsed_lines": 32
+    },
+    {
+     "file": "tape_MIDS_2026-11-08.jsonl",
+     "rows": 16354,
+     "sha256": "701aabf653cdb199b4b332ac637d0c6543326c49471063bbc77f8b960db1c559",
+     "unparsed_lines": 3
+    },
+    {
+     "file": "tape_MIDS_2026-11-09.jsonl",
+     "rows": 1444,
+     "sha256": "85ccaf264c70d8113a8708117a6ed20edd4e882548c33f0142187d1217712cfe",
+     "unparsed_lines": 3
+    }
+   ]
+  },
+  "window": {
+   "t0_day": "2026-11-04",
+   "t0_ms": 1793750400000,
+   "t1_day": "2026-11-08",
+   "t1_ms": 1794182399999,
+   "tape_days": [
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-08",
+    "2026-11-09"
+   ]
+  }
+ },
+ "replay_files": {
+  "marks": "marks_F6_2026-10-25_as_of_2026-11-08.jsonl",
+  "signals": "signals_F6_2026-10-25_as_of_2026-11-08.jsonl"
+ },
+ "replay_totals": {
+  "C1_episodes": 18,
+  "C1_sum_net_bps": -349.91284775901715,
+  "F4_episodes": 232,
+  "F4_sum_net_bps": -4410.2004531451375,
+  "admitted_days": [
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-08"
+  ],
+  "days_F6_beats_both_controls": 2,
+  "episodes": 102,
+  "episodes_on_void_days_not_counted": 41,
+  "sum_cost_bps": 2105.28,
+  "sum_gross_bps": 1070.2811252592148,
+  "sum_net_bps": -1034.9988747407851,
+  "void_days": [
+   "2026-11-06",
+   "2026-11-07"
+  ]
+ },
+ "what_is_not_claimed": "No forecast, no profit, no status from the replay: F6's replay rows are in-sample for the rule's existence (R147) and decide nothing; only the forward marker's rows enter the book's ledger (R148). Funding is excluded from the replay and said so."
+}

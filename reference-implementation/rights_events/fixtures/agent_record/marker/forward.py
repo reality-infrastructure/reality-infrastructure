@@ -10,6 +10,10 @@ against or at entry + 5 h (the second leg's half-spread read the same way); fire
 random minute per coin per day (seeded by the amendment sha passed in); writes closed
 episodes to `marks_<entry-date>.jsonl` and every signal seen to `signals_<date>.jsonl`.
 
+A37 (R148): when `keep.json` sits beside this file, the arena's KEEP addresses are polled with the
+same call and their qualifying opens open `F6:<coin>` episodes exactly as F4's; C1's long share
+stays F4's alone. One variable: the list.
+
 It submits nothing. It signs nothing. It never imports or names a venue write tool (S73).
 State survives a restart through `marker_state.json`. S72: if the tape's newest row is older
 than six minutes at a tick, the UTC day is marked VOID for every fork (the sensor binds).
@@ -52,7 +56,27 @@ STOP = float(FAM["exit"]["stop_bps"])
 GATE = int(FAM["exit"]["gate_ms"])
 FEE = float(FAM["costs"]["fee_bps_per_leg"])
 MIN_NOTIONAL = float(FAM["families"]["F4"]["parameter"]["min_open_notional_usd"])
-FORWARD_FAMILIES = ("F4", "C1")   # F1-F3 deleted by P12.1 (R84)
+KEEP_FILE = HERE / "keep.json"    # A37 R148: optional; the arena's KEEP set as F6's leader list
+
+
+def load_keep(path: Path = KEEP_FILE) -> list[str]:
+    """R146/R148: the KEEP list beside the marker, or [] when absent (F6 then never fires)."""
+    if not path.exists():
+        return []
+    doc = json.loads(path.read_bytes())
+    return sorted({str(a).lower() for a in doc.get("addresses", [])})
+
+
+KEEP = load_keep()
+FORWARD_FAMILIES = ("F4", "F6", "C1") if KEEP else ("F4", "C1")   # F1-F3 deleted by P12.1 (R84); F6 by A37
+
+
+def families_for(addr: str, leaders=None, keep=None) -> tuple[str, ...]:
+    """Which families an address's opens signal: F4 if on the leader list, F6 if on the KEEP list (both when on both)."""
+    a = addr.lower()
+    leaders = [x.lower() for x in (LEADERS if leaders is None else leaders)]
+    keep = [x.lower() for x in (KEEP if keep is None else keep)]
+    return tuple(f for f, lst in (("F4", leaders), ("F6", keep)) if a in lst)
 
 
 def now_ms() -> int:
@@ -135,11 +159,12 @@ def read_new_tape_rows(tape_dir: Path, st: State, days: list[str]) -> list[tuple
 
 
 def poll_leader_opens(st: State, until_ms: int, out_dir: Path) -> list[dict]:
-    """New qualifying opens across all leaders since the last poll, as F4 signals."""
+    """New qualifying opens across all leaders (F4) and KEEP addresses (F6, A37) since the last poll."""
     start = int(st.d["last_fill_poll_ms"]) + 1
     sigs: list[dict] = []
     failures = 0
-    for addr in LEADERS:
+    polled = sorted({a.lower() for a in LEADERS} | set(KEEP))
+    for addr in polled:
         try:
             raw = post({"type": "userFillsByTime", "user": addr, "startTime": start, "endTime": until_ms})
             fills = json.loads(raw)
@@ -148,9 +173,11 @@ def poll_leader_opens(st: State, until_ms: int, out_dir: Path) -> list[dict]:
             append(out_dir / f"signals_{day_of(until_ms)}.jsonl", {"type": "poll_failure", "leader": addr, "ms": until_ms, "error": type(e).__name__})
             continue
         for coin in COINS:
-            sigs.extend(mk.f4_leader_opens(fills, MIN_NOTIONAL, coin, addr))
+            opens = mk.f4_leader_opens(fills, MIN_NOTIONAL, coin, addr)
+            for fam in families_for(addr):
+                sigs.extend(dict(s, family=fam) for s in opens)
         time.sleep(0.1)
-    if failures < len(LEADERS):
+    if failures < len(polled):
         st.d["last_fill_poll_ms"] = until_ms
     return sorted(sigs, key=lambda s: s["ms"])
 
@@ -196,13 +223,14 @@ def tick(a, st: State):
     # F4 signals since the last poll
     sigs = poll_leader_opens(st, t, a.out_dir) if newest_ms else []
     for s in sigs:
-        append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type="F4_signal"))
-        st.d["f4_dirs_today"].setdefault(day_of(s["ms"]), []).append(s["direction"])
+        append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type=f"{s['family']}_signal"))
+        if s["family"] == "F4":   # C1's long share is F4's alone (A37: one variable)
+            st.d["f4_dirs_today"].setdefault(day_of(s["ms"]), []).append(s["direction"])
     pending_entries: dict[str, tuple[str, str, int, dict]] = {}
     for s in sigs:
-        fork = f"F4:{s['coin']}"
+        fork = f"{s['family']}:{s['coin']}"
         if fork not in st.d["open"] and fork not in pending_entries:
-            pending_entries[fork] = ("F4", s["coin"], int(s["direction"]), s)
+            pending_entries[fork] = (s["family"], s["coin"], int(s["direction"]), s)
     # C1: one minute per coin per day
     for coin in COINS:
         key = f"{today}:{coin}"
@@ -257,7 +285,7 @@ def main(argv=None) -> int:
     a.pin_dir = a.out_dir / "l2book"
     st = State(a.out_dir / "marker_state.json")
     st.d["seed"] = a.seed
-    print(f"forward marker: {len(LEADERS)} leaders, coins {COINS}, forks {FORWARD_FAMILIES}, stop {STOP} bps, gate {GATE} ms, seed {a.seed}", flush=True)
+    print(f"forward marker: {len(LEADERS)} leaders, {len(KEEP)} KEEP addresses (A37), coins {COINS}, forks {FORWARD_FAMILIES}, stop {STOP} bps, gate {GATE} ms, seed {a.seed}", flush=True)
     while True:
         try:
             tick(a, st)
