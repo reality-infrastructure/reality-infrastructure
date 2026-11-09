@@ -155,19 +155,24 @@ def test_known_answers_on_the_real_pins():
     assert r["biggest_win"] == "0.144370" and r["biggest_loss"] == "-0.067163" and r["fees"] == "0.041793"
     assert r["realized_ex_funding"] == "0.077207" and r["funding"] == "-0.003674" and r["total_pnl"] == "0.073533"
     assert r["pins"]["fills_pages"] == ["28c2f8c641f490078c9861e41fdd9fd20bdf0649decc34ee9c1de6a5e807df9b"]
-    assert m["record_not_graded"] == [{"cohort_date": "2026-11-03", "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
-                                       "reason": "pages not on the branch (A27 (2): archived at the window's close)",
-                                       "fills_file": "hl_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz", "pins": 74}]   # 74 pinned (empty) pages, measured at A29.1
+    ng = m["record_not_graded"]
+    assert len(ng) == 1 and {k: ng[0][k] for k in ("cohort_date", "address", "reason", "fills_file")} == {
+        "cohort_date": "2026-11-03", "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+        "reason": "pages not on the branch (A27 (2): archived at the window's close)",
+        "fills_file": "hl_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz"}
+    assert ng[0]["pins"] >= 74   # 74 pinned (empty) pages measured at A29.1; the tape adds pages daily until the window closes (A38.2)
     assert [x["capture"][13:23] for x in m["record_outside_windows"]] == ["2026-10-24", "2026-10-24", "2026-10-25", "2026-10-25"]
-    assert m["population"]["days"] == ["2026-11-01", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05"]
+    # A29.1 measured these over the readings 11-01 … 11-05; the routine's pins of 11-08 (A17.11, R117) added the day
+    # 2026-11-08 to every board as of 11-08 and later, so the answers were re-measured at A38.2 over the six admitted days.
+    assert m["population"]["days"] == ["2026-11-01", "2026-11-02", "2026-11-03", "2026-11-04", "2026-11-05", "2026-11-08"]
     assert set(m["population"]["void_days_excluded"]) == {"2026-11-06", "2026-11-07"}
     pop = {r["fork"]: r for r in m["rows"] if r["klass"] == "bps"}
-    want = {"F4:BTC": (50, 13, 230.35, -67.43, -1071.4, 939.9), "F4:ETH": (62, 12, 327.94, -84.28, -1669.4, 1184.1),
-            "F4:HYPE": (91, 11, 438.66, -78.91, -1730.9, 1735.0), "F4:NEAR": (32, 6, 915.98, -65.61, 595.6, 634.4),
-            "F4:SOL": (53, 14, 553.55, -70.31, 188.1, 996.8), "F4:ZEC": (104, 11, 917.38, -122.33, -2931.6, 2052.5),
-            "C1:BTC": (5, 2, 30.70, -53.59, -100.6, 93.8), "C1:ETH": (5, 2, 193.11, -53.46, 138.3, 95.4),
-            "C1:HYPE": (5, 0, -49.71, -52.06, -254.5, 97.1), "C1:NEAR": (5, 0, -49.79, -58.91, -261.5, 101.0),
-            "C1:SOL": (5, 1, 17.94, -61.70, -197.3, 95.6), "C1:ZEC": (5, 1, 69.09, -100.16, -187.3, 98.1)}
+    want = {"F4:BTC": (56, 13, 230.35, -67.43, -1268.9, 1052.7), "F4:ETH": (69, 14, 327.94, -101.58, -1909.0, 1318.7),
+            "F4:HYPE": (99, 12, 438.66, -78.91, -2046.9, 1885.1), "F4:NEAR": (34, 7, 915.98, -65.61, 678.5, 673.3),
+            "F4:SOL": (63, 15, 553.55, -73.55, -41.4, 1185.2), "F4:ZEC": (117, 14, 917.38, -122.33, -2976.5, 2309.4),
+            "C1:BTC": (6, 2, 30.70, -53.59, -150.1, 112.6), "C1:ETH": (6, 2, 193.11, -53.46, 107.6, 114.5),
+            "C1:HYPE": (6, 0, -48.82, -52.06, -303.3, 115.8), "C1:NEAR": (6, 1, 190.06, -58.91, -71.4, 119.9),
+            "C1:SOL": (6, 1, 17.94, -61.70, -246.4, 114.3), "C1:ZEC": (6, 1, 69.09, -100.16, -239.5, 117.6)}
     for fork, (n, w, bw, bl, tot, fees) in want.items():
         p = pop[fork]
         assert p["trades"] == n and p["wins"] == w, fork
@@ -175,7 +180,7 @@ def test_known_answers_on_the_real_pins():
         assert p["total_pnl"] == pytest.approx(tot, abs=0.05) and p["fees"] == pytest.approx(fees, abs=0.05), fork
         assert p["control"] == fork.startswith("C1:")
     order = [r["fork"] for r in m["rows"] if r["klass"] == "bps"]
-    assert order[:4] == ["F4:NEAR", "F4:SOL", "C1:ETH", "C1:BTC"] and order[-1] == "F4:ZEC" and pop["F4:ZEC"]["rank"] == 12
+    assert order[:4] == ["F4:NEAR", "C1:ETH", "F4:SOL", "C1:NEAR"] and order[-1] == "F4:ZEC" and pop["F4:ZEC"]["rank"] == 12
     assert rec[0]["rank"] == 1 and rec[0]["rank_of"] == 1
 
 
@@ -183,5 +188,31 @@ def test_board_latest_is_the_newest_dated_pin():
     if not ab.BOARD_DIR.exists():
         pytest.skip("no board committed yet")
     name = ab.check_latest(ab.BOARD_DIR)
-    m = json.loads((ab.BOARD_DIR / name).read_text(encoding="utf-8"))
-    assert m["kind"] == ab.BOARD_KIND and ab.board_json(ab.board(m["as_of"])) == (ab.BOARD_DIR / name).read_text(encoding="utf-8").replace("\r\n", "\n")
+    committed = json.loads((ab.BOARD_DIR / name).read_text(encoding="utf-8"))
+    assert committed["kind"] == ab.BOARD_KIND
+    fresh = ab.board(committed["as_of"])
+    # The routine renders with the channel's fills files beside it; this checkout may lack a record cohort's pages
+    # (A27 (2): archived at the window's close). Then that record row is "not graded" here and present there; every
+    # other byte must agree (A38.2).
+    missing = {(x["cohort_date"], x["address"]) for x in fresh.get("record_not_graded", [])} - \
+        {(x["cohort_date"], x["address"]) for x in committed.get("record_not_graded", [])}
+    if missing:
+        committed["rows"] = [r for r in committed["rows"] if not (r.get("klass") == "USD" and (r.get("cohort_date"), r.get("address")) in missing)]
+        committed["record_not_graded"] = fresh["record_not_graded"]
+        for r in committed["rows"]:
+            if r.get("klass") == "USD":
+                r["rank_of"] = sum(1 for x in committed["rows"] if x.get("klass") == "USD" and x.get("trades", 0) >= 1)
+    def _approx(x, y, tol=1e-9):
+        """Structural equality with floats to tol: the routine renders on Python 3.11, whose sum() differs in the last digit from 3.12's."""
+        if isinstance(x, bool) or isinstance(y, bool):
+            return x == y
+        if isinstance(x, (int, float)) and isinstance(y, (int, float)):
+            return abs(float(x) - float(y)) <= tol * max(1.0, abs(float(y)))
+        if isinstance(x, dict) and isinstance(y, dict):
+            return x.keys() == y.keys() and all(_approx(x[k], y[k], tol) for k in x)
+        if isinstance(x, list) and isinstance(y, list):
+            return len(x) == len(y) and all(_approx(p, q, tol) for p, q in zip(x, y))
+        return x == y
+    fresh_doc = json.loads(ab.board_json(fresh))
+    assert _approx(fresh_doc["rows"], committed["rows"]), "the committed latest board differs from a fresh render beyond the record row this checkout cannot grade"
+    assert {k for k in set(fresh_doc) | set(committed) if not _approx(fresh_doc.get(k), committed.get(k))} <= {"record_not_graded"}

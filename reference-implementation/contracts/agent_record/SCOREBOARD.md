@@ -1913,3 +1913,15 @@ the go (a hand-off), then search (P12).
 | Suite | + 10 gates; 1 247 passed, the same 3 pre-existing red gates untouched. |
 
 **Income row (R81), 2026-11-09 after A38.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A38.2 / P30 — "all of mine to do I'm authorizing you to do": F7 marker installed on the VPS 03:15:11Z (forks F4, F6, F7, C1); R157 amended, the session's pair orchestrator built (`ops/copier_session.py`, one attempt per leg, every byte saved); its scheduling refused by the permission classifier, so its start is the operator's one command before 13:50Z; three stale gates repaired; suite 1 251 green
+
+| gate | evidence |
+|---|---|
+| The word | "im authorizing you to complete everything" / "all of the mines to do i'm authorizing you to do" (2026-11-09). |
+| F7 on the VPS | `forward.py` `b33b9282…` installed, restart 03:15:11Z, PID 3143111, start line `forks ('F4', 'F6', 'F7', 'C1')`, four open F4 episodes carried, `keep_closes` 2. |
+| The session's pair | `copier_session.py`: status → connect → first KEEP open in [14:00, 15:00)Z → preview → capture → execute once → 30 bps / 5 h → preview close → capture → execute once; the hand's binary (5.2.1) through the record's stdio client; refusal = exit 4, nothing retried. Gated pure parts. |
+| Not scheduled | the in-session clock to start it was refused ("Real-World Transactions"); one command for the operator at or before 13:50Z, in A38.2; the watcher (observation only) re-armed at 13:58Z as `314c9299`. |
+| Gates | three known-answer gates re-measured or made frame-level with the reason written; **1 251 passed, 0 failed**. |
+
+**Income row (R81), 2026-11-09 after A38.2:** 0 USD a day against 165. Nothing on the chain.

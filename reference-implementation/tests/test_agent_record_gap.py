@@ -157,6 +157,21 @@ def test_watcher_pure_functions():
     assert w.ms_of("2026-11-09", "14:00") == ag.ms_of("2026-11-09T14:00:00Z")
 
 
+# ----------------------------------------------------------------------------- A38.2 the session's pair (pure parts)
+def test_copier_session_pure_functions():
+    cs = _load("copier_session", _OPS)
+    assert cs.unit_size("BTC", 75_000.0, 5) == "0.00014"
+    assert cs.unit_size("ETH", 2_154.95, 4) == "0.0047" and cs.unit_size("SOL", 88.24, 2) == "0.12" and cs.unit_size("NEAR", 4.05, 1) == "2.5"
+    assert cs.adverse_bps(1, 100.0, 99.7) == pytest.approx(30.0) and cs.adverse_bps(-1, 100.0, 100.3) == pytest.approx(30.0)
+    assert cs.adverse_bps(1, 100.0, 100.5) < 0
+    assert cs.parse_tool_json('{"previewId": "pv_x"}') == {"previewId": "pv_x"} and cs.parse_tool_json("Error: 403") is None
+    assert cs.refused('{"error": "SESSION_ORIGIN_DENIED"}') and cs.refused("REJECTED by gateway (403)") and not cs.refused('{"previewId": "pv_x", "status": "ok"}')
+    assert cs.qualifying({"coin": "ZEC", "dir": "Open Short", "px": "1200", "sz": "10", "time": 7, "tid": 3}, L)["direction"] == -1
+    assert cs.ms_of("2026-11-09", "14:00") == ag.ms_of("2026-11-09T14:00:00Z") and cs.ACTOR == ag.RECORD_ADDRESS
+    src = (_OPS / "copier_session.py").read_text(encoding="utf-8")
+    assert src.count('"gdex_execute_trade"') == 2 and "userApproved" in src     # one open, one close, one attempt each (S54)
+
+
 # ----------------------------------------------------------------------------- the forward marker (R151)
 def test_forward_marker_has_f7_and_keep_close():
     src = (_MK_DIR / "forward.py").read_text(encoding="utf-8")
