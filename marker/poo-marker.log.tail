@@ -1,9 +1,3 @@
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 263, in main
-    tick(a, st)
-  File "/root/poo/marker/forward.py", line 245, in tick
-    st.save()
-  File "/root/poo/marker/forward.py", line 99, in save
     tmp.write_text(json.dumps(self.d, indent=1), encoding="utf-8", newline="\n")
   File "/usr/lib/python3.12/pathlib.py", line 1050, in write_text
     return f.write(data)
@@ -398,3 +392,9 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-08] OPEN F4:ZEC S @ 1232.15 (signal 1794180362540)
 [2026-11-08] OPEN F4:SOL S @ 87.3905 (signal 1794180565431)
+[2026-11-09] OPEN C1:ZEC L @ 1229.45 (signal 1794183300000)
+[2026-11-09] OPEN F4:HYPE S @ 74.634 (signal 1794184704362)
+[2026-11-09] OPEN F4:HYPE S @ 74.9085 (signal 1794185345974)
+[2026-11-09] OPEN F4:ZEC S @ 1234.15 (signal 1794186085934)
+[2026-11-09] OPEN F4:SOL S @ 87.7695 (signal 1794186289584)
+[2026-11-09] OPEN F4:ZEC S @ 1244.05 (signal 1794186300942)
