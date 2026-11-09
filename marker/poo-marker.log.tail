@@ -1,7 +1,3 @@
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 273, in <module>
     sys.exit(main())
              ^^^^^^
   File "/root/poo/marker/forward.py", line 265, in main
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-09] OPEN F4:SOL S @ 87.8445 (signal 1794188575240)
 [2026-11-09] OPEN F4:SOL L @ 87.8245 (signal 1794189220056)
 [2026-11-09] OPEN F4:ZEC L @ 1236.45 (signal 1794189601540)
+tick error: AttributeError("'NoneType' object has no attribute 'get'")
+forward marker: 28 leaders, 6 KEEP addresses (A37), coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'F6', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
+[2026-11-09] OPEN F4:ETH L @ 2146.75 (signal 1794192853281)
+[2026-11-09] OPEN F4:BTC L @ 75261.5 (signal 1794193129930)
