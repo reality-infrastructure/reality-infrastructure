@@ -1873,3 +1873,17 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 18 (2026-11-08): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-09 after A17.11:** 0 USD a day against 165. Nothing on the chain.
+
+### A37 / P28 / A37.1 — THE BOOK OF THE VERDICT: the arena's KEEP set as the leader list of one paper fork, F6, identical to F4 in every other byte; the first book written for 2026-11-08; the relisting table on the record; the forward run one restart away
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A37 `6330219` → P28 `2d260da` → A37.1. The operator: "execute this first and remove the limiting factor completely." |
+| The limiting factor | the verdict had no book: nothing acted on KEEP/DROP; F4's list predates the arena; one relisting bit a week. A37 works only there (rule 1). |
+| The book | `rights_events/arena_book.py`: keep (R146), replay (R147, in-sample, decides nothing), relist (R149), ledger (R148, six slots, k 5), run / verify (S105, `math.fsum`, every input and output pinned). `marker/forward.py` optional `keep.json` (F6 polled with the leaders; nothing fires without the file). POO_DAILY step 3h. |
+| The first book | cohort 2026-10-25's KEEP 6 over cohort 2026-11-03's pages, entries 11-04 … 11-08: 102 episodes on 3 admitted days, gross 1070.28 / cost 2105.28 / net −1035.00 bps; F6 beat both controls 2 of 3 days, F4 0 of 3; every signal from one address (`0xfc667adb…`, also on F4's list); three followed KEEP addresses settled nothing, two were not followed. `book_2026-11-08.json` `fffd8b18…`, verify OK. |
+| Relisting (R149) | KEEP 7 → 5 relisted / 1 FULL / 1 net > 0; DROP 51 → 34 / 8 / 6; UNDECIDED 23 → 13 / 13 / 13. |
+| Forward run | none yet: `keep_2026-10-25.json` → `keep.json` beside the marker and `systemctl restart poo-marker.service`, the operator's act (R132's words). Book ledger six ALIVE, 0 episodes. |
+| Suite | + 11 gates; 1 237 passed, 3 failed — the three (`ai_board` × 2, `arena_feed` known answers) were red at `c359b81` before this work and are the routine's run of 11-09, untouched here. |
+
+**Income row (R81), 2026-11-09 after A37.1:** 0 USD a day against 165. Nothing on the chain.

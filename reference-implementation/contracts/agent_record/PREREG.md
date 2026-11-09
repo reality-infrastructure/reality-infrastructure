@@ -6227,3 +6227,69 @@ The 6 SLOW per bar leg are the 23:00 bars (one per coin) as A35.1 / SETTLED_CALL
 **R108 (the trace).** Rule 1 (attack the limiting factor, nothing else: the verdict has no book). Rule 2 (reality is the only grader: the book is marked on the tape, not on the arena's own figures). Rule 3 (bits per day: a fork produces a bit a day, a relisting a bit a week). Rule 6 (one changed variable: the list). Musk `2026-musk.md @ 2:15:48`: plot the points, the one variable read day by day beside F4 and C1.
 
 **Income row (R81), 2026-11-09 after A37:** 0 USD a day against 165. Nothing on the chain.
+
+### A37.1 — 2026-11-09 02:3xZ (20:3x CST 11-08), flat — THE FIRST BOOK IS WRITTEN (P28 `2d260da`): the verdict has a book; the replay says the KEEP set of cohort 1 was, this week, one address; the relisting table is on the record; the forward run waits on the operator's restart
+
+**Prereg before code.** A37 `6330219` → P28 `2d260da` → this. The operator: "execute this first and remove the limiting factor completely."
+
+**What was built (P28).** `rights_events/arena_book.py` (`keep`, `replay`, `relist`, `ledger`, `run`, `verify`), the optional `keep.json` path in `marker/forward.py` (F6 polled with the leaders, `F6:<coin>` episodes exactly as F4's, C1's long share F4's alone, nothing fires without the file), `agent_ledger.ledger(…, family=)` with the F4 default unchanged, POO_DAILY step 3h, 11 gates in `tests/test_agent_record_book.py`, the P12.1 forward gate amended to A37's line. `marker.py`, `families.json`, `leaders_2026-11-01.json`, `promotions.json`, SETTLED.md, the grader, the feed, the AI board and the call ledger did not change.
+
+**The first book, as of 2026-11-08 (`book/book_2026-11-08.json` `fffd8b18f9792174…`, `book_latest.json` byte-equal; manifest `MANIFEST_BOOK_2026-11-08.json`, `verify` OK).** The list: cohort 2026-10-25's KEEP 7 minus the record = 6 addresses (`keep_2026-10-25.json` `1fd9042ea694daeb…`, feed `feed_2026-11-08.json` `403df8e3b59970ca…`). Entries 2026-11-04 … 2026-11-08 against tape day files 11-04 … 11-09 (`f9109835…`, `ffe87ffb…`, `2d30441e…`, `af165b54…`, `701aabf6…`, `85ccaf26…`).
+
+| address | pages | fills | F6 signals | note |
+|---|---:|---:|---:|---|
+| `0x484bc160…` | 100 | 0 | 0 | followed; nothing settled under it in the window |
+| `0x4c6d679e…` | 0 | 0 | 0 | not followed by the sensor (not relisted in cohort 2) |
+| `0x856c3503…` | 0 | 0 | 0 | not followed by the sensor (not relisted in cohort 2) |
+| `0x9794bbbc…` | 100 | 0 | 0 | followed; nothing settled under it in the window |
+| `0xf818fa41…` | 100 | 0 | 0 | followed; nothing settled under it in the window |
+| `0xfc667adb…` | 218 | 309 166 | 2 845 | one torn line recovered by R115's rule, one page lost |
+
+| day | admitted | F6 episodes | F6 net bps | F4 episodes | F4 net bps | C1 episodes | C1 net bps | F6 > both controls |
+|---|---|---:|---:|---:|---:|---:|---:|---|
+| 2026-11-04 | yes | 57 | −1349.47 | 91 | −1514.07 | 6 | −302.85 | no |
+| 2026-11-05 | yes | 40 | 127.39 | 95 | −1951.66 | 6 | −6.82 | yes |
+| 2026-11-06 | void (R116) | 31 | −795.81 | — | — | — | — | counted for nothing |
+| 2026-11-07 | void (R116) | 10 | 274.49 | — | — | — | — | counted for nothing |
+| 2026-11-08 | yes | 5 | 187.09 | 46 | −944.48 | 6 | −40.24 | yes |
+
+| fork | episodes | sum gross bps | sum net bps | mean net bps | 2σ/√n | stops | gates |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| F6:BTC | 17 | 126.20 | −224.68 | −13.22 | 42.18 | 13 | 4 |
+| F6:ETH | 23 | 568.97 | 94.25 | 4.10 | 63.17 | 19 | 4 |
+| F6:HYPE | 11 | 1200.58 | 973.54 | 88.50 | 128.08 | 7 | 4 |
+| F6:ZEC | 49 | −750.72 | −1762.08 | −35.96 | 25.88 | 46 | 3 |
+| F6:SOL | 1 | −43.94 | −64.58 | −64.58 | — | 1 | 0 |
+| F6:NEAR | 1 | −30.81 | −51.45 | −51.45 | — | 1 | 0 |
+
+Replay totals on the three admitted days: 102 episodes, gross 1070.28 bps, cost 2105.28 bps, net −1035.00 bps; 41 episodes on the void days counted for nothing. F4 on the same days 232 episodes / −4410.20 bps; C1 18 / −349.91 bps. Every row `in_sample: true`; no status, no candidate, no pass line (R147). Funding excluded.
+
+**What the replay says, in the record's words.** (1) The one variable collapsed to one address: every F6 signal this week came from `0xfc667adb…`, which is also on F4's list; the other three followed KEEP addresses settled nothing in the window and two were never followed. F6 this week is not "follow the KEEP set", it is "follow one leader with the record's exit". (2) On that one address the structure still eats the edge: gross +1070 bps against 2105 bps of cost, the same lesson as P12.1 (20.64 bps a pair). (3) F6 beat both controls on 2 of 3 admitted days while F4 beat them on 0 of 3; with 102 in-sample episodes and 2σ/√n above the mean on every coin this is a plot point (Musk `@ 2:15:48`), not a reading. (4) HYPE carried the book (+973.54 bps on 11); ZEC lost it (−1762.08 bps on 49, 46 stops in 49 episodes: a 30 bps stop on ZEC's tape fires almost every time).
+
+**Known answers, checked.** (1) held: 4 of 6 followed, the two not followed disclosed. (2) held in part: of the 2 845 F6 signals from the three shared addresses, 2 656 are also F4 signals on the channel's `signals_*.jsonl`; 189 are opens the forward poller did not record (its poll bounds and `poll_failure` rows), so the replay's page-reading sensor and the marker's live poller are not the same instrument and the book says so. (3) no sign was predicted; the replay exists. (4) held: the book's ledger as of 11-08 reads six ALIVE, 0 episodes, no run (`ledger_F6_2026-11-08.json` `ab4a22ba38feb2a5…`). (5) unchanged: daily cohorts and the Solana book are later amendments.
+
+**The arena graded by itself (R149, `relist_2026-11-08.json` `5f1f304d638a5c9d…`).**
+
+| verdict (cohort 2026-10-25) | n | relisted in 2026-11-03 | FULL so far | net > 0 |
+|---|---:|---:|---:|---:|
+| KEEP | 7 | 5 | 1 | 1 |
+| DROP | 51 | 34 | 8 | 6 |
+| UNDECIDED | 23 | 13 | 13 | 13 |
+
+18 addresses of cohort 2 were not in cohort 1. Counts only; never a status, never a rank. The table is written again by the routine every day until cohort 2's window completes on 11-10.
+
+**The forward run (R148), the operator's act.** From the record branch at `2d260da`, on the VPS:
+```
+cp rights_events/fixtures/agent_record/marker/forward.py <marker code dir>/forward.py
+cp rights_events/fixtures/agent_record/book/keep_2026-10-25.json <marker code dir>/keep.json
+systemctl restart poo-marker.service
+```
+`keep.json` sits beside `forward.py` and `marker.py`; the marker prints `6 KEEP addresses (A37)` and `forks ('F4', 'F6', 'C1')` on start. Until then the book carries no forward row and says so. The marker's state file keeps every open F4 and C1 episode across the restart.
+
+**The suite.** `tests/test_agent_record_book.py` 11 passed; `tests/test_agent_record_marker.py` 23 passed; full suite 1 237 passed, 3 failed. The three red gates were red before this work, at `c359b81`, and are untouched by it: `test_agent_record_ai_board.py::test_known_answers_on_the_real_pins` (the record's fills pages pin count read 98 against a known answer of 74 after the routine's 11-09 run), `test_agent_record_ai_board.py::test_board_latest_is_the_newest_dated_pin` (the committed `ai_board_latest.json` is not byte-equal to a re-render as of its own day), `test_agent_record_arena_feed.py::test_known_answers_on_the_pinned_arena_outputs` (`feed("2026-11-07")` refuses under S99 because an arena as of 11-08 now exists). They are the routine's run of 00:40Z 11-09 (A17.11) committing with those gates red, a finding for the record, not this amendment's to repair (A37: the feed and the AI board do not change). One gate in `test_agent_record_book.py` compares the F4 ledger to its pin with a float tolerance of 1e-9: the pinned ledger was written by Python 3.11 and 3.12's compensated `sum()` differs in the last digit; the book's own sums use `math.fsum` so its bytes do not depend on the interpreter.
+
+**What was not verified.** Whether the venue's `userFillsByTime` pages for `0xfc667adb…` are complete for the window (the arena says FULL as the API serves it; the replay takes the pages as pinned). Funding for the F6 episodes (excluded). Whether the 189 signals the poller missed are poll failures or bound effects (the signals files hold `poll_failure` rows; not counted tonight).
+
+**R108 (the trace).** Rule 1: the limiting factor named in A37 is removed in the sense the operator asked: the verdict now has a book, written daily by the routine, with a forward run one restart away. Rule 2: the book is marked on the tape of record, not on the arena's own figures. Rule 3: 102 episodes in five days on the question the copier pays for, against one relisting bit a week. Rule 5: nothing is promoted; the replay is in-sample and decides nothing (R131, R147). Rule 6: one variable, and the record says that variable collapsed to one address this week. Rule 7: the go, the restart and the daily cohorts are the operator's.
+
+**Income row (R81), 2026-11-09 after A37.1:** 0 USD a day against 165. Nothing on the chain.
