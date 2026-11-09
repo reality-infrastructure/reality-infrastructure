@@ -1,7 +1,3 @@
-  File "/root/poo/marker/forward.py", line 265, in main
-    append(a.out_dir / f"signals_{day_of(now_ms())}.jsonl", {"type": "tick_error", "ms": now_ms(), "error": repr(e)[:300]})
-  File "/root/poo/marker/forward.py", line 104, in append
-    with path.open("a", encoding="utf-8", newline="\n") as f:
 OSError: [Errno 28] No space left on device
 forward marker: 28 leaders, coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
 OSError: [Errno 28] No space left on device
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-09] OPEN F4:HYPE L @ 73.6075 (signal 1794223018364)
 [2026-11-09] OPEN F4:HYPE L @ 73.3675 (signal 1794224289086)
 [2026-11-09] OPEN F4:HYPE L @ 73.146 (signal 1794225842004)
+tick error: AttributeError("'NoneType' object has no attribute 'get'")
+[2026-11-09] OPEN F6:BTC S @ 74641.5 (signal 1794227043666)
+[2026-11-09] OPEN F7:BTC S @ 74641.5 (signal 1794227043666)
+[2026-11-09] OPEN F6:BTC S @ 74962.5 (signal 1794228595411)
