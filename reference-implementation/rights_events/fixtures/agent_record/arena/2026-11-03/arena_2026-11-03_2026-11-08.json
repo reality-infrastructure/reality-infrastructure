@@ -1,0 +1,4335 @@
+{
+  "kind": "proof_of_outcome_arena",
+  "cohort_date": "2026-11-03",
+  "as_of": "2026-11-08",
+  "window": {
+    "t0_ms": 1793750400000,
+    "t1_ms": 1794355199999,
+    "t0_date": "2026-11-04",
+    "t1_date": "2026-11-10",
+    "days": 7,
+    "started": true,
+    "complete": false
+  },
+  "statuses": {
+    "FULL": "Every fill in the window the public API holds was served; ranked.",
+    "PARTIAL": "The public API's horizon (the 10 000 most recent fills) cut the window; the figures are of the fills served; unranked.",
+    "NONE": "Zero fills served in the window: nothing settled under this address on the perp L1 as the public API serves it; unranked.",
+    "REFUSED": "A pinned page did not hash to its pin (S84); no figure is shown.",
+    "RECORD": "The operator's own account: the same grader over its own pages, beside its committed run files that re-verify offline with L1 hashes.",
+    "PAPER": "A paper fork of the contract marked on the environment tape: net basis points of its episodes inside the window, never a USD figure."
+  },
+  "venue": {
+    "name": "gdex.pro HyperLiquid PnL boards",
+    "source_url": "https://trade-api.gemach.io/v1/hl/top_traders_by_pnl",
+    "payload_file": "gdex_hl_top_traders_by_pnl_2026-11-03.json",
+    "payload_sha256": "0cd4bb5f0bb4a73a655e97b1324bfc48986df876a2fa05537417bcdc56b9650c",
+    "observed_ms": 1793688589648,
+    "rows_per_window": {
+      "day": 30,
+      "week": 30,
+      "month": 30,
+      "allTime": 30
+    },
+    "addresses": 69,
+    "what_is_not_done": "No venue number is recomputed, re-ranked or corrected; each address is graded separately on the chain's fills in a window that opens after this observation."
+  },
+  "counts": {
+    "FULL": 28,
+    "PARTIAL": 1,
+    "NONE": 40,
+    "REFUSED": 0
+  },
+  "median_net_full": "858129.87472898",
+  "share_positive_full": "0.8928571428571428571428571429",
+  "rows": [
+    {
+      "status": "FULL",
+      "rank": 1,
+      "address": "0x49e96e255ba418d08e66c35b588e2f2f3766e1d0",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 16,
+          "pnl": "2705301.8090459998",
+          "roi": "0.1044892425",
+          "vlm": "109859000.3699999899"
+        },
+        "week": {
+          "rank": 19,
+          "pnl": "6997817.6481210003",
+          "roi": "0.2634057339",
+          "vlm": "398329372.1700000167"
+        },
+        "month": {
+          "rank": 21,
+          "pnl": "10197558.5591620002",
+          "roi": "0.4344216901",
+          "vlm": "1238430836.5499997139"
+        }
+      },
+      "account_value_at_observation": "30221240.7587289996",
+      "fills": 26509,
+      "fills_served": 26509,
+      "closed_pnl": "7847187.429446",
+      "fees": "7324.748865",
+      "realized_ex_funding": "7839862.680581",
+      "funding": "61334.398974",
+      "funding_rows": 3872,
+      "net_with_funding": "7901197.079555",
+      "open_at_window_end": {
+        "xyz:AMZN": "-178.130",
+        "xyz:BABA": "-1183.447",
+        "xyz:BRENTOIL": "543.05",
+        "xyz:CL": "309.898",
+        "xyz:COIN": "-696.069",
+        "xyz:COPPER": "-27920.33",
+        "xyz:CRCL": "-110.844",
+        "xyz:CRWV": "-166.42",
+        "xyz:DELL": "-728.07",
+        "xyz:EWY": "-303.759",
+        "xyz:GOLD": "-26.4487",
+        "xyz:GOOGL": "-1007.252",
+        "xyz:HOOD": "-345.653",
+        "xyz:INTC": "-2632.1",
+        "xyz:LLY": "-14.8292",
+        "xyz:MRVL": "-144.35",
+        "xyz:MSFT": "400.001",
+        "xyz:MSTR": "-21591.928",
+        "xyz:MU": "-831.269",
+        "xyz:NFLX": "-7076.092",
+        "xyz:NVDA": "-3391.983",
+        "xyz:PURRDAT": "-61082.0",
+        "xyz:RKLB": "-706.66",
+        "xyz:SILVER": "2052.53",
+        "xyz:SNDK": "-159.498",
+        "xyz:SOXL": "-406.34",
+        "xyz:TSLA": "-22.304",
+        "xyz:TSM": "-39.260"
+      },
+      "first_tx": "0xccffbd296b36c3c6ce79044803731402019f000f0639e29870c8687c2a3a9db1",
+      "last_tx": "0xe649869ade7c1306e7c304486007c30209480080797f31d88a1231ed9d7fecf1",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 172951 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "355623.659013"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "4226999.186370"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "3313116.613995"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-1723.247877"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "7180.868054"
+        }
+      ],
+      "fills_file": "hl_fills_0x49e96e255ba418d08e66c35b588e2f2f3766e1d0.jsonl.gz",
+      "funding_file": "hl_funding_0x49e96e255ba418d08e66c35b588e2f2f3766e1d0.jsonl.gz",
+      "pages": 104,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x49e96e255ba418d08e66c35b588e2f2f3766e1d0"
+    },
+    {
+      "status": "FULL",
+      "rank": 2,
+      "address": "0x024294c53a69c1e6b39810b3fac87385752fffa1",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 4,
+          "pnl": "5469840.4806220001",
+          "roi": "0.2849468853",
+          "vlm": "74841828.5"
+        },
+        "week": {
+          "rank": 14,
+          "pnl": "7682586.4819449997",
+          "roi": "0.3328437539",
+          "vlm": "331773346.3199999928"
+        },
+        "month": {
+          "rank": 16,
+          "pnl": "18118510.9603840001",
+          "roi": "1.5022092834",
+          "vlm": "1162927664.7100000381"
+        }
+      },
+      "account_value_at_observation": "30764246.8488700017",
+      "fills": 88779,
+      "fills_served": 140319,
+      "closed_pnl": "5168041.539724",
+      "fees": "13103.680240",
+      "realized_ex_funding": "5154937.859484",
+      "funding": "22258.407347",
+      "funding_rows": 4861,
+      "net_with_funding": "5177196.266831",
+      "open_at_window_end": {
+        "xyz:AAPL": "59.72",
+        "xyz:AMD": "436.517",
+        "xyz:AMZN": "-5.636",
+        "xyz:BABA": "-9715.581",
+        "xyz:BRENTOIL": "-50203.31",
+        "xyz:CBRS": "843.12",
+        "xyz:CL": "-5745.035",
+        "xyz:COIN": "-9418.456",
+        "xyz:CRCL": "-72369.877",
+        "xyz:CRWV": "0.77",
+        "xyz:DRAM": "-168653.5",
+        "xyz:EWY": "-66.967",
+        "xyz:GOOGL": "-62159.459",
+        "xyz:HOOD": "14.0",
+        "xyz:INTC": "-185482.57",
+        "xyz:KORU": "-163613.5",
+        "xyz:LITE": "-1352.224",
+        "xyz:META": "-12488.332",
+        "xyz:MRNA": "9775.53",
+        "xyz:MRVL": "-9743.96",
+        "xyz:MSFT": "503.234",
+        "xyz:MU": "-19345.687",
+        "xyz:NATGAS": "339865.7",
+        "xyz:NBIS": "-21198.18",
+        "xyz:NVDA": "-5757.983",
+        "xyz:ORCL": "-62.974",
+        "xyz:SILVER": "-114618.73",
+        "xyz:SKHX": "-25071.852",
+        "xyz:SKHY": "58704.01",
+        "xyz:SMSN": "-1880.208",
+        "xyz:SNDK": "-19265.257",
+        "xyz:SOXL": "-134851.69",
+        "xyz:SP500": "2.890",
+        "xyz:SPCX": "-89681.12",
+        "xyz:TSLA": "2274.616",
+        "xyz:TSM": "-48.106",
+        "xyz:XYZ100": "-19.2550",
+        "xyz:ZHIPU": "-17516.321"
+      },
+      "first_tx": "0xed4a8e97782316fceec40448036bb1020275007d132635ce911339ea3726f0e7",
+      "last_tx": "0xb29ef732cf508603b4180448604a0702033200186a53a4d55667a2858e545fee",
+      "coverage_reason": "0 capped cycles of 106; no gap after any exceeds the address's own largest gap 179028 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "944905.143388"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "1515266.525793"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "2114899.631423"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-6753.557597"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "608878.523824"
+        }
+      ],
+      "fills_file": "hl_fills_0x024294c53a69c1e6b39810b3fac87385752fffa1.jsonl.gz",
+      "funding_file": "hl_funding_0x024294c53a69c1e6b39810b3fac87385752fffa1.jsonl.gz",
+      "pages": 149,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x024294c53a69c1e6b39810b3fac87385752fffa1"
+    },
+    {
+      "status": "FULL",
+      "rank": 3,
+      "address": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 9,
+          "pnl": "4298456.9353409996",
+          "roi": "0.050771163",
+          "vlm": "318411155.3799999952"
+        },
+        "week": {
+          "rank": 26,
+          "pnl": "5626149.3412219994",
+          "roi": "0.0503735659",
+          "vlm": "1207214874.9700000286"
+        },
+        "month": {
+          "rank": 10,
+          "pnl": "23001497.511367999",
+          "roi": "0.2199615976",
+          "vlm": "5588512442.6700000763"
+        }
+      },
+      "account_value_at_observation": "99118051.3449749947",
+      "fills": 296445,
+      "fills_served": 302040,
+      "closed_pnl": "5109478.1658473701",
+      "fees": "42429.60121200",
+      "realized_ex_funding": "5067048.5646353701",
+      "funding": "-33836.104487",
+      "funding_rows": 7800,
+      "net_with_funding": "5033212.4601483701",
+      "open_at_window_end": {
+        "@107": "2312.63314639",
+        "@334": "2662521.0281000001",
+        "BTC": "-247.05276",
+        "ETH": "-2008.702",
+        "HYPE": "-119924.18",
+        "NEAR": "254960.1",
+        "SOL": "6533.57",
+        "XRP": "2572155.0",
+        "ZEC": "-2114.92",
+        "io:ANTH": "629.533",
+        "xyz:AAPL": "3426.924",
+        "xyz:AMD": "-3020.393",
+        "xyz:AMZN": "111.048",
+        "xyz:ANT": "8597.56",
+        "xyz:ARM": "-3955.91",
+        "xyz:BABA": "-7856.974",
+        "xyz:BB": "-18506.7",
+        "xyz:BRENTOIL": "-111590.37",
+        "xyz:CBRS": "-5353.41",
+        "xyz:CL": "-103360.711",
+        "xyz:COIN": "-5570.883",
+        "xyz:COPPER": "-60904.48",
+        "xyz:CRCL": "-17806.639",
+        "xyz:CRWV": "-32113.23",
+        "xyz:DRAM": "-94109.1",
+        "xyz:EUR": "152284.3",
+        "xyz:EWJ": "413.064",
+        "xyz:EWY": "-4967.481",
+        "xyz:GOLD": "280.5625",
+        "xyz:GOOGL": "-15106.35",
+        "xyz:HOOD": "-11313.980",
+        "xyz:IBM": "-425.96",
+        "xyz:INTC": "-61669.46",
+        "xyz:KIOXIA": "-15953.312",
+        "xyz:LITE": "99.086",
+        "xyz:META": "-5810.569",
+        "xyz:MINIMAX": "-13054.07",
+        "xyz:MRVL": "-2873.47",
+        "xyz:MSFT": "2456.427",
+        "xyz:MSTR": "-3677.511",
+        "xyz:MU": "-6752.129",
+        "xyz:NATGAS": "504068.1",
+        "xyz:NBIS": "7446.77",
+        "xyz:NFLX": "-7936.970",
+        "xyz:NOK": "-19956.58",
+        "xyz:NVDA": "-24627.919",
+        "xyz:ORCL": "-13619.939",
+        "xyz:PLTR": "-4044.116",
+        "xyz:QCOM": "-1093.91",
+        "xyz:RKLB": "-4350.39",
+        "xyz:SILVER": "66926.10",
+        "xyz:SKHX": "-15742.263",
+        "xyz:SKHY": "24136.10",
+        "xyz:SMSN": "-6678.020",
+        "xyz:SNDK": "-1479.867",
+        "xyz:SOFTBANK": "-10595.648",
+        "xyz:SOXL": "-24551.70",
+        "xyz:SP500": "-2570.906",
+        "xyz:SPCX": "-24492.1",
+        "xyz:TSLA": "930.284",
+        "xyz:TSM": "-6056.619",
+        "xyz:XYZ100": "384.5163",
+        "xyz:ZHIPU": "-24365.410"
+      },
+      "first_tx": "0xd279aa30d07b0c38d3f3044804f9f302067800166b7e2b0a764255838f7ee623",
+      "last_tx": "0x241ec8d43dc68e7725980448604c9902035700b9d8c9ad49c7e77426fcca6861",
+      "coverage_reason": "0 capped cycles of 100; no gap after any exceeds the address's own largest gap 15385 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "814821.50428215"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "2594578.16953097"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "964502.5726973501"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "70823.65828965"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "588486.55534825"
+        }
+      ],
+      "fills_file": "hl_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.gz",
+      "funding_file": "hl_funding_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.gz",
+      "pages": 211,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xfc667adba8d4837586078f4fdcdc29804337ca06"
+    },
+    {
+      "status": "FULL",
+      "rank": 4,
+      "address": "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 2,
+          "pnl": "22930969.5837499984",
+          "roi": "0.1917262051",
+          "vlm": "55251702.1700000018"
+        },
+        "week": {
+          "rank": 3,
+          "pnl": "27056103.9620329998",
+          "roi": "0.1184778974",
+          "vlm": "191122973.0"
+        },
+        "month": {
+          "rank": 2,
+          "pnl": "113016043.0771449953",
+          "roi": "0.6792628383",
+          "vlm": "570982440.2100000381"
+        },
+        "allTime": {
+          "rank": 5,
+          "pnl": "177245351.60769701",
+          "roi": "1.0634698884",
+          "vlm": "6118518841.3400001526"
+        }
+      },
+      "account_value_at_observation": "196420249.2376970053",
+      "fills": 132826,
+      "fills_served": 164505,
+      "closed_pnl": "4194094.07053523",
+      "fees": "12787.30730960",
+      "realized_ex_funding": "4181306.76322563",
+      "funding": "661220.011853",
+      "funding_rows": 4070,
+      "net_with_funding": "4842526.77507863",
+      "open_at_window_end": {
+        "@107": "943479.27444656",
+        "@162": "17555105.1866629988",
+        "ASTER": "-2905490.0",
+        "BTC": "-2091.58704",
+        "ENA": "-40814023.0",
+        "ETH": "-32563.3989",
+        "FARTCOIN": "-17489801.4999999985",
+        "HYPE": "-1026914.27",
+        "INJ": "-22.2",
+        "LIT": "53209.0",
+        "NEAR": "-797087.4",
+        "PUMP": "-161868213.0",
+        "PURR": "-1002014.0",
+        "PURR/USDC": "985820.54394",
+        "SOL": "-222173.58",
+        "SUI": "-1852669.0",
+        "VVV": "-157607.79",
+        "WLD": "-12320186.1000000004",
+        "XMR": "-6253.496",
+        "XPL": "-43563494.0",
+        "XRP": "-11983294.0",
+        "ZEC": "-49831.74",
+        "ZRO": "-971532.4",
+        "xyz:GOLD": "-6121.3565",
+        "xyz:SILVER": "-424721.47"
+      },
+      "first_tx": "0x747cd3fd79f5c99f75f6044803623f02065400e314f8e87118457f5038f9a38a",
+      "last_tx": "0x54ec131f671118e95665044860481e02075b0005021437bbf8b4be722614f2d3",
+      "coverage_reason": "0 capped cycles of 107; no gap after any exceeds the address's own largest gap 36066 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "44612.82425692"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "1017180.64850209"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "309980.41275349"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "1920327.45770066"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1550425.43186547"
+        }
+      ],
+      "fills_file": "hl_fills_0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36.jsonl.gz",
+      "funding_file": "hl_funding_0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36.jsonl.gz",
+      "pages": 148,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36"
+    },
+    {
+      "status": "FULL",
+      "rank": 5,
+      "address": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 10,
+          "pnl": "4159638.5428070002",
+          "roi": "0.0643046343",
+          "vlm": "562746629.2599999905"
+        },
+        "week": {
+          "rank": 20,
+          "pnl": "6756837.3697509998",
+          "roi": "0.0600718592",
+          "vlm": "3237358027.7699999809"
+        },
+        "month": {
+          "rank": 8,
+          "pnl": "24838838.3303960003",
+          "roi": "0.3628697675",
+          "vlm": "12149055253.2000007629"
+        },
+        "allTime": {
+          "rank": 4,
+          "pnl": "220617026.7418479919",
+          "roi": "2.1856973642",
+          "vlm": "318236517858.5700073242"
+        }
+      },
+      "account_value_at_observation": "100049960.8418480009",
+      "fills": 821396,
+      "fills_served": 821396,
+      "closed_pnl": "4083471.90599950",
+      "fees": "239025.0070666248",
+      "realized_ex_funding": "3844446.8989328752",
+      "funding": "135536.686680",
+      "funding_rows": 15700,
+      "net_with_funding": "3979983.5856128752",
+      "open_at_window_end": {
+        "2Z": "2047580.0",
+        "@107": "24007.57134687",
+        "@142": "33.2924756478",
+        "@151": "655.352777904",
+        "@156": "5812.9024338",
+        "@162": "1630500.857496",
+        "@166": "1229681.0228640301",
+        "@188": "34291497.8422439992",
+        "@193": "81861.74347566",
+        "@194": "16653847720.9836807251",
+        "@207": "23500.68431676",
+        "@210": "542559.912109",
+        "@243": "3546819.2618930002",
+        "@272": "641.604816343",
+        "@702": "1048.90913814",
+        "@703": "613.10981396",
+        "@704": "461.54057089",
+        "@705": "2250.66811313",
+        "@706": "411.32546733",
+        "@720": "1805873.5063413501",
+        "AAVE": "-13476.13",
+        "ADA": "-1852529.0",
+        "AIXBT": "-4.0",
+        "APT": "-154367.23",
+        "ARB": "-3231488.1999999999",
+        "ASTER": "-195632.0",
+        "ATOM": "-65252.56",
+        "AVAX": "16194.1",
+        "AVNT": "-1876250.0",
+        "BCH": "-383.583",
+        "BNB": "1160.779",
+        "BTC": "-242.25308",
+        "CASHCAT": "-10830352.0",
+        "CRV": "-1751518.5",
+        "DOGE": "-48656211.0",
+        "EIGEN": "-1820980.3999999999",
+        "ENA": "-5244237.0",
+        "ETH": "-8068.4036",
+        "FARTCOIN": "7232350.7999999996",
+        "GRAM": "-358511.0",
+        "GRASS": "23488.0",
+        "HYPE": "-102988.45",
+        "JUP": "219481.0",
+        "LDO": "-2031455.7000000001",
+        "LINK": "-353764.9",
+        "LIT": "215776.0",
+        "LTC": "-12704.44",
+        "MELANIA": "2778848.2999999999",
+        "MET": "-537247.0",
+        "MON": "12795460.0",
+        "MORPHO": "54206.3",
+        "NEAR": "-27364.6",
+        "ONDO": "-67757.0",
+        "PAXG": "450.547",
+        "PENGU": "-39942780.0",
+        "PONS": "-745769.0",
+        "POPCAT": "-5858672.0",
+        "PUMP": "111596349.0",
+        "PYTH": "14283.0",
+        "SEI": "-5032170.0",
+        "SNX": "984917.0",
+        "SOL": "-136468.60",
+        "SPX": "-314071.2",
+        "STBL": "1005706.0",
+        "STRK": "-171531.8",
+        "SUI": "-453943.8",
+        "TAO": "-2251.445",
+        "TIA": "-731402.4",
+        "TRUMP": "30252.6",
+        "TRX": "4250237.0",
+        "UNI": "-275560.6",
+        "USELESS": "409667.0",
+        "VIRTUAL": "-1605029.5",
+        "VVV": "-24639.91",
+        "WIF": "-1117091.0",
+        "WLD": "-1305532.4",
+        "WLFI": "3309173.0",
+        "XLM": "-1956204.0",
+        "XPL": "-15474401.0",
+        "XRP": "-2730234.0",
+        "ZEC": "-496.36",
+        "ZRO": "593852.5",
+        "kBONK": "-202364723.0",
+        "kFLOKI": "-1792974.0",
+        "kPEPE": "-122945186.0",
+        "xyz:AAPL": "154.197",
+        "xyz:AMD": "-874.788",
+        "xyz:AMZN": "-857.362",
+        "xyz:ARM": "-608.38",
+        "xyz:ASML": "-11.094",
+        "xyz:AVGO": "-612.46",
+        "xyz:BRENTOIL": "377.57",
+        "xyz:CL": "839.231",
+        "xyz:COIN": "3276.876",
+        "xyz:CRCL": "12080.362",
+        "xyz:DRAM": "4737.8",
+        "xyz:EWY": "8678.859",
+        "xyz:GOLD": "42.5026",
+        "xyz:GOOGL": "886.525",
+        "xyz:HIMS": "-7272.26",
+        "xyz:HOOD": "-2666.192",
+        "xyz:INTC": "-5996.99",
+        "xyz:LITE": "180.053",
+        "xyz:META": "-579.998",
+        "xyz:MRVL": "-1614.06",
+        "xyz:MSFT": "-298.740",
+        "xyz:MSTR": "7049.923",
+        "xyz:MU": "-533.382",
+        "xyz:NATGAS": "-47458.8",
+        "xyz:NBIS": "5363.70",
+        "xyz:NVDA": "11643.480",
+        "xyz:ORCL": "433.868",
+        "xyz:PALLADIUM": "-3.7415",
+        "xyz:PLATINUM": "1.1403",
+        "xyz:PLTR": "-290.094",
+        "xyz:QCOM": "-490.2",
+        "xyz:RKLB": "1042.55",
+        "xyz:SILVER": "1679.37",
+        "xyz:SKHX": "594.358",
+        "xyz:SKHY": "-650.03",
+        "xyz:SNDK": "-674.356",
+        "xyz:SP500": "-1499.836",
+        "xyz:SPCX": "-5700.56",
+        "xyz:TSLA": "1605.436",
+        "xyz:TSM": "369.839",
+        "xyz:XYZ100": "-120.3506"
+      },
+      "first_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "last_tx": "0x4e05afae9552ccfb4f7f0448604da202054b00943055ebcdf1ce5b015456a6e5",
+      "coverage_reason": "0 capped cycles of 99; no gap after any exceeds the address's own largest gap 42633 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-223362.9521495627"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "965023.7029774084"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "528283.8723387682"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "926265.3401914195"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1783773.6222548418"
+        }
+      ],
+      "fills_file": "hl_fills_0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00.jsonl.gz",
+      "funding_file": "hl_funding_0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00.jsonl.gz",
+      "pages": 458,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00"
+    },
+    {
+      "status": "FULL",
+      "rank": 6,
+      "address": "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 8,
+          "pnl": "4589819.3195869997",
+          "roi": "0.1103966705",
+          "vlm": "109549393.6800000072"
+        },
+        "week": {
+          "rank": 16,
+          "pnl": "7567795.4594480004",
+          "roi": "0.1918328316",
+          "vlm": "541117544.5099999905"
+        },
+        "month": {
+          "rank": 12,
+          "pnl": "20604191.4883860014",
+          "roi": "0.800754977",
+          "vlm": "1832790311.4200000763"
+        }
+      },
+      "account_value_at_observation": "47017679.6391490027",
+      "fills": 138714,
+      "fills_served": 150897,
+      "closed_pnl": "3358259.854011",
+      "fees": "24417.096914",
+      "realized_ex_funding": "3333842.757097",
+      "funding": "98916.298430",
+      "funding_rows": 10352,
+      "net_with_funding": "3432759.055527",
+      "open_at_window_end": {
+        "AAVE": "-7382.22",
+        "ADA": "193550.0",
+        "AVAX": "-20981.62",
+        "BCH": "112.252",
+        "BNB": "1285.536",
+        "BTC": "-1322.12535",
+        "DOGE": "-985911.0",
+        "DOT": "27799.5",
+        "ENA": "508063.0",
+        "ETH": "-4890.3823",
+        "HBAR": "-769760.0",
+        "HYPE": "5766.37",
+        "LINK": "-107275.9",
+        "LTC": "-2847.94",
+        "ONDO": "-3176.0",
+        "SOL": "-37818.91",
+        "SUI": "738728.8",
+        "WLD": "-187345.9",
+        "XLM": "-173536.0",
+        "XRP": "-3968234.0",
+        "ZEC": "-1955.82",
+        "xyz:AAPL": "441.862",
+        "xyz:AMD": "168.375",
+        "xyz:AMZN": "67.204",
+        "xyz:ARM": "48.32",
+        "xyz:ASML": "27.604",
+        "xyz:AVGO": "-702.36",
+        "xyz:BABA": "-2277.579",
+        "xyz:BRENTOIL": "-117569.13",
+        "xyz:BX": "-61.9",
+        "xyz:CL": "27846.078",
+        "xyz:COIN": "-1741.884",
+        "xyz:COST": "12.8408",
+        "xyz:CRCL": "9530.998",
+        "xyz:CRWV": "330.77",
+        "xyz:CXMT": "-48218.9",
+        "xyz:DELL": "-1693.06",
+        "xyz:DKNG": "1113.18",
+        "xyz:DRAM": "-17405.1",
+        "xyz:EBAY": "-115.47",
+        "xyz:EWJ": "-768.089",
+        "xyz:EWT": "851.72",
+        "xyz:EWY": "4587.887",
+        "xyz:EWZ": "639.50",
+        "xyz:GME": "-6356.94",
+        "xyz:GOLD": "-93.8451",
+        "xyz:HIMS": "2196.32",
+        "xyz:HOOD": "1787.727",
+        "xyz:IBM": "-157.71",
+        "xyz:INTC": "3069.86",
+        "xyz:KIOXIA": "-2174.562",
+        "xyz:KORU": "800.8",
+        "xyz:LITE": "-769.878",
+        "xyz:LLY": "-214.056",
+        "xyz:META": "-9.08",
+        "xyz:MRNA": "4338.43",
+        "xyz:MRVL": "-7958.90",
+        "xyz:MSFT": "278.065",
+        "xyz:MSTR": "-1962.964",
+        "xyz:MU": "-7192.944",
+        "xyz:NATGAS": "1415554.1",
+        "xyz:NBIS": "-2843.88",
+        "xyz:NFLX": "659.259",
+        "xyz:NOW": "-2730.59",
+        "xyz:NVDA": "12501.318",
+        "xyz:ORCL": "-281.217",
+        "xyz:PLTR": "-507.632",
+        "xyz:RIVN": "1149.35",
+        "xyz:RKLB": "2109.37",
+        "xyz:SILVER": "8891.48",
+        "xyz:SKHX": "5273.886",
+        "xyz:SKHY": "-321.67",
+        "xyz:SMSN": "-16409.274",
+        "xyz:SNDK": "-1374.804",
+        "xyz:SOXL": "-62381.72",
+        "xyz:SP500": "-86.236",
+        "xyz:SPCX": "-2671.75",
+        "xyz:STRC": "4496.4",
+        "xyz:TSLA": "1452.923",
+        "xyz:TSM": "-293.895",
+        "xyz:URNM": "-101.32",
+        "xyz:USAR": "-12603.57",
+        "xyz:XLE": "-1114.76",
+        "xyz:XYZ100": "-27.4393",
+        "xyz:ZM": "-450.130"
+      },
+      "first_tx": "0xf6c2b546cfcdcc83f83c044803621202025a002c6ac0eb569a8b60998ec1a66e",
+      "last_tx": "0x4c365024ce3330ed4db00448604c1802033b000a69364fbfeffefb778d370ad7",
+      "coverage_reason": "0 capped cycles of 102; no gap after any exceeds the address's own largest gap 3569 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "724650.771620"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "1600428.158613"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "351620.718142"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "148140.187206"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "607919.219946"
+        }
+      ],
+      "fills_file": "hl_fills_0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d.jsonl.gz",
+      "funding_file": "hl_funding_0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d.jsonl.gz",
+      "pages": 147,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d"
+    },
+    {
+      "status": "FULL",
+      "rank": 7,
+      "address": "0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 1,
+          "pnl": "24080306.3182360008",
+          "roi": "0.1640552888",
+          "vlm": "25456796.2899999991"
+        },
+        "week": {
+          "rank": 2,
+          "pnl": "30069198.4961719997",
+          "roi": "0.1229202561",
+          "vlm": "116781182.25"
+        },
+        "month": {
+          "rank": 1,
+          "pnl": "135113137.649691999",
+          "roi": "0.7409063114",
+          "vlm": "283112886.6100000143"
+        },
+        "allTime": {
+          "rank": 3,
+          "pnl": "227158187.5633899868",
+          "roi": "0.6123787018",
+          "vlm": "5959767257.3999996185"
+        }
+      },
+      "account_value_at_observation": "218692821.9133900106",
+      "fills": 94752,
+      "fills_served": 153274,
+      "closed_pnl": "1936038.20924059",
+      "fees": "11676.51812570",
+      "realized_ex_funding": "1924361.69111489",
+      "funding": "821015.824774",
+      "funding_rows": 3438,
+      "net_with_funding": "2745377.51588889",
+      "open_at_window_end": {
+        "@107": "625837.17444754",
+        "@162": "17898984.3133889996",
+        "BTC": "-2354.49443",
+        "ETH": "-78029.6614",
+        "FARTCOIN": "-16071921.4999999993",
+        "HYPE": "-730372.2299999999",
+        "INJ": "-17.9",
+        "LIT": "8920.0",
+        "PUMP": "-381865579.0",
+        "PURR": "-2363779.0",
+        "PURR/USDC": "2324405.95407",
+        "SOL": "-635986.1599999999",
+        "VVV": "-42665.56",
+        "WLD": "-15269185.7999999993",
+        "XMR": "-8437.136",
+        "XPL": "-66488413.0",
+        "ZEC": "-36805.85",
+        "ZRO": "-756593.7",
+        "xyz:GOLD": "-6416.1587",
+        "xyz:META": "-3032.798",
+        "xyz:SILVER": "-346672.38"
+      },
+      "first_tx": "0x747cd3fd79f5c99f75f6044803623f02065400e314f8e87118457f5038f9a38a",
+      "last_tx": "0x143f3162c7a532b615b8044860499f020407004862a85188b807dcb586a90ca0",
+      "coverage_reason": "0 capped cycles of 108; no gap after any exceeds the address's own largest gap 21171 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "162505.27371553"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "128351.67656824"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "343420.64283640"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "1102230.02142098"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1008869.90134774"
+        }
+      ],
+      "fills_file": "hl_fills_0x5b5d51203a0f9079f8aeb098a6523a13f298c060.jsonl.gz",
+      "funding_file": "hl_funding_0x5b5d51203a0f9079f8aeb098a6523a13f298c060.jsonl.gz",
+      "pages": 158,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x5b5d51203a0f9079f8aeb098a6523a13f298c060"
+    },
+    {
+      "status": "FULL",
+      "rank": 8,
+      "address": "0xda3768e9299e1fd81708ec030dac5ea37125f7b5",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 26,
+          "pnl": "1616546.5876879999",
+          "roi": "0.0881428356",
+          "vlm": "11221412.7699999996"
+        }
+      },
+      "account_value_at_observation": "19985660.4229979999",
+      "fills": 6657,
+      "fills_served": 6657,
+      "closed_pnl": "1766058.184642",
+      "fees": "1134.261513",
+      "realized_ex_funding": "1764923.923129",
+      "funding": "34243.716941",
+      "funding_rows": 4047,
+      "net_with_funding": "1799167.640070",
+      "open_at_window_end": {
+        "xyz:AAPL": "7168.968",
+        "xyz:AMD": "-680.041",
+        "xyz:ARM": "-5.05",
+        "xyz:AVGO": "-2264.57",
+        "xyz:BE": "-1529.82",
+        "xyz:CBRS": "8139.83",
+        "xyz:CRCL": "-13448.034",
+        "xyz:CRWV": "-6352.13",
+        "xyz:DRAM": "-70871.0",
+        "xyz:EWZ": "-55586.71",
+        "xyz:GOOGL": "-9524.434",
+        "xyz:INTC": "-68902.34",
+        "xyz:IREN": "-23543.9",
+        "xyz:KIOXIA": "-1655.998",
+        "xyz:KORU": "-43362.3",
+        "xyz:LITE": "-570.477",
+        "xyz:META": "-2.660",
+        "xyz:MRNA": "3480.79",
+        "xyz:MU": "-5693.565",
+        "xyz:NBIS": "-7729.92",
+        "xyz:NET": "-2401.95",
+        "xyz:PURRDAT": "-42968.0",
+        "xyz:SKHY": "50432.28",
+        "xyz:SNDK": "-6443.31",
+        "xyz:SOXL": "-85448.83",
+        "xyz:SPCX": "-3995.06",
+        "xyz:TSLA": "-81.453"
+      },
+      "first_tx": "0x8a168e770333db288b9004480365d10206ae005c9e36f9fa2ddf39c9c237b513",
+      "last_tx": "0x944327bc19d7675895bc04483c47dc02043100a1b4da862a380bd30ed8db4143",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 13619 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "749718.429011"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "807863.963230"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "265086.612559"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-12877.591796"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-10623.772934"
+        }
+      ],
+      "fills_file": "hl_fills_0xda3768e9299e1fd81708ec030dac5ea37125f7b5.jsonl.gz",
+      "funding_file": "hl_funding_0xda3768e9299e1fd81708ec030dac5ea37125f7b5.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xda3768e9299e1fd81708ec030dac5ea37125f7b5"
+    },
+    {
+      "status": "FULL",
+      "rank": 9,
+      "address": "0xd4c1f7e8d876c4749228d515473d36f919583d1d",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 25,
+          "pnl": "1625954.945942",
+          "roi": "0.2148997972",
+          "vlm": "25253495.4199999981"
+        }
+      },
+      "account_value_at_observation": "7494385.0181140006",
+      "fills": 171199,
+      "fills_served": 171199,
+      "closed_pnl": "1132525.940557",
+      "fees": "23938.195413",
+      "realized_ex_funding": "1108587.745144",
+      "funding": "43367.164039",
+      "funding_rows": 3356,
+      "net_with_funding": "1151954.909183",
+      "open_at_window_end": {
+        "ARB": "-2898750.7000000002",
+        "AVAX": "-621.22",
+        "BNB": "-4.433",
+        "BTC": "-103.91737",
+        "DOGE": "-4643479.0",
+        "ENA": "174178.0",
+        "ETH": "-3402.1559",
+        "FARTCOIN": "-422045.2",
+        "HYPE": "-4272.21",
+        "LINK": "-7340.9",
+        "LIT": "-4656.0",
+        "LTC": "-6119.65",
+        "MON": "-2002174.0",
+        "NEAR": "110999.6",
+        "ONDO": "234046.0",
+        "PONS": "-1782071.0",
+        "PUMP": "-46692300.0",
+        "SOL": "288.72",
+        "SUI": "-63115.2",
+        "TAO": "131.547",
+        "UNI": "-56521.1",
+        "WLD": "-24464.1",
+        "WLFI": "579704.0",
+        "XMR": "-831.232",
+        "XPL": "-2776037.0",
+        "XRP": "4862.0",
+        "ZEC": "-1238.40"
+      },
+      "first_tx": "0xa2cf05cf14bdbf4ea448044803623302061c00b4afb0de204697b121d3b19939",
+      "last_tx": "0xa9f0b8027624c069ab6a0448604f420205c000e81127df3b4db9635535289a54",
+      "coverage_reason": "0 capped cycles of 97; no gap after any exceeds the address's own largest gap 16922 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-21236.353424"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "38097.266185"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "142105.920123"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "441110.693736"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "551877.382563"
+        }
+      ],
+      "fills_file": "hl_fills_0xd4c1f7e8d876c4749228d515473d36f919583d1d.jsonl.gz",
+      "funding_file": "hl_funding_0xd4c1f7e8d876c4749228d515473d36f919583d1d.jsonl.gz",
+      "pages": 137,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xd4c1f7e8d876c4749228d515473d36f919583d1d"
+    },
+    {
+      "status": "FULL",
+      "rank": 10,
+      "address": "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 5,
+          "pnl": "5445347.8680980001",
+          "roi": "0.1109837889",
+          "vlm": "109578896.849999994"
+        },
+        "week": {
+          "rank": 8,
+          "pnl": "11484549.3013400007",
+          "roi": "0.1866399729",
+          "vlm": "697982270.9299999475"
+        },
+        "month": {
+          "rank": 5,
+          "pnl": "31474484.8004519977",
+          "roi": "0.4373935468",
+          "vlm": "2337396912.2699999809"
+        },
+        "allTime": {
+          "rank": 6,
+          "pnl": "160118969.5778619945",
+          "roi": "2.3890036677",
+          "vlm": "21678882094.4899978638"
+        }
+      },
+      "account_value_at_observation": "38980487.7078619972",
+      "fills": 259815,
+      "fills_served": 294898,
+      "closed_pnl": "913664.476348",
+      "fees": "-791.841421",
+      "realized_ex_funding": "914456.317769",
+      "funding": "209272.028249",
+      "funding_rows": 6000,
+      "net_with_funding": "1123728.346018",
+      "open_at_window_end": {
+        "ASTER": "-830322.0",
+        "BTC": "-312.76131",
+        "DOGE": "2308541.0",
+        "ETH": "-3567.1374",
+        "FARTCOIN": "-4352892.2000000002",
+        "GRAM": "-1412906.0",
+        "HYPE": "-413692.96",
+        "LIT": "-839581.0",
+        "NEAR": "9233.1",
+        "ONDO": "-2745756.0",
+        "PUMP": "-353914523.0",
+        "SOL": "-9702.87",
+        "WLD": "-2470879.1",
+        "XMR": "-7666.392",
+        "XPL": "-21615746.0",
+        "XRP": "2937530.0",
+        "ZEC": "-10165.11",
+        "ZRO": "-89716.2",
+        "kPEPE": "-229167279.0",
+        "xyz:AAPL": "37349.429",
+        "xyz:BRENTOIL": "-2805.61",
+        "xyz:CL": "-2769.694",
+        "xyz:CRCL": "-48685.446",
+        "xyz:GOLD": "12.6690",
+        "xyz:GOOGL": "-6194.655",
+        "xyz:MU": "-6621.927",
+        "xyz:NVDA": "-2149.175",
+        "xyz:SILVER": "-41690.79",
+        "xyz:SKHX": "1834.979",
+        "xyz:SKHY": "83102.94",
+        "xyz:SNDK": "293.336",
+        "xyz:SP500": "785.131",
+        "xyz:SPCX": "-6339.6"
+      },
+      "first_tx": "0xd99be336e28f6171db15044803670f0204b5001c7d8280437d648e89a1833b5c",
+      "last_tx": "0xb29ef732cf508603b4180448604a0702033200186a53a4d55667a2858e545fee",
+      "coverage_reason": "0 capped cycles of 104; no gap after any exceeds the address's own largest gap 699 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "1013168.008373"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-1180730.179031"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "275316.131117"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "372130.419765"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "643843.965794"
+        }
+      ],
+      "fills_file": "hl_fills_0x7fdafde5cfb5465924316eced2d3715494c517d1.jsonl.gz",
+      "funding_file": "hl_funding_0x7fdafde5cfb5465924316eced2d3715494c517d1.jsonl.gz",
+      "pages": 199,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x7fdafde5cfb5465924316eced2d3715494c517d1"
+    },
+    {
+      "status": "FULL",
+      "rank": 11,
+      "address": "0xdd53c5297309130ab5fe5623dc905752e3342b13",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 11,
+          "pnl": "20683388.8134730011",
+          "roi": "0.3941785822",
+          "vlm": "184497145.6899999976"
+        }
+      },
+      "account_value_at_observation": "9455515.2776149996",
+      "fills": 8786,
+      "fills_served": 8786,
+      "closed_pnl": "1046286.961361",
+      "fees": "190.239964",
+      "realized_ex_funding": "1046096.721397",
+      "funding": "31395.996323",
+      "funding_rows": 2744,
+      "net_with_funding": "1077492.717720",
+      "open_at_window_end": {
+        "AERO": "-1981613.0",
+        "BTC": "-13.44642",
+        "CASHCAT": "-40433965.0",
+        "FARTCOIN": "-1570907.7999999999",
+        "GRASS": "-1591219.3999999999",
+        "HMSTR": "-10145601.0",
+        "LINK": "-47053.5",
+        "PONS": "-6463307.0",
+        "STRK": "-18242461.1999999985",
+        "VVV": "-144335.03",
+        "XPL": "-4152355.0",
+        "ZEC": "-221.15",
+        "ZRO": "-2233230.1000000002"
+      },
+      "first_tx": "0x447a036990c1096145f304480364e0021264004f2bc42833e842aebc4fc4e34b",
+      "last_tx": "0x6bf0620d06235b0b6d6a0448605081020a4500f2a12679dd0fb90d5fc52734f6",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 6921 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "271867.892494"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "343321.539591"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "69748.142573"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "162686.172774"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "229868.970288"
+        }
+      ],
+      "fills_file": "hl_fills_0xdd53c5297309130ab5fe5623dc905752e3342b13.jsonl.gz",
+      "funding_file": "hl_funding_0xdd53c5297309130ab5fe5623dc905752e3342b13.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xdd53c5297309130ab5fe5623dc905752e3342b13"
+    },
+    {
+      "status": "FULL",
+      "rank": 12,
+      "address": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 20,
+          "pnl": "10460042.2694669999",
+          "roi": "0.3347224547",
+          "vlm": "615967545.9299999475"
+        }
+      },
+      "account_value_at_observation": "19798220.2054440007",
+      "fills": 169496,
+      "fills_served": 169496,
+      "closed_pnl": "1169394.36748382",
+      "fees": "6163.45023750",
+      "realized_ex_funding": "1163230.91724632",
+      "funding": "-120309.335600",
+      "funding_rows": 5144,
+      "net_with_funding": "1042921.58164632",
+      "open_at_window_end": {
+        "@306": "10338.2750104",
+        "AAVE": "-191.37",
+        "AERO": "-543.0",
+        "ASTER": "-569.0",
+        "BTC": "-143.94031",
+        "CASHCAT": "-4298256.0",
+        "CC": "8542950.0",
+        "EIGEN": "-20399.72",
+        "ENA": "2407883.0",
+        "ETH": "-1371.9239",
+        "FARTCOIN": "-557351.5",
+        "GRAM": "-17797.0",
+        "GRASS": "-377188.8",
+        "HYPE": "93640.87",
+        "JTO": "-26386.0",
+        "KAITO": "-17273.0",
+        "LINK": "-77.5",
+        "LIT": "12007.0",
+        "MON": "-185186.0",
+        "NEAR": "-231067.3",
+        "NIL": "2599055.0",
+        "ONDO": "-3999.0",
+        "PONS": "1570290.0",
+        "PUMP": "30557451.0",
+        "SKR": "-5330735.0",
+        "SOL": "-17484.37",
+        "SUI": "20602.4",
+        "TAO": "-1703.756",
+        "UNI": "-5090.4",
+        "USELESS": "-11844337.0",
+        "VVV": "8938.34",
+        "W": "107697.9",
+        "WLD": "8020.9",
+        "XMR": "-256.449",
+        "XPL": "910481.0",
+        "XRP": "-759115.0",
+        "ZEC": "400.43",
+        "ZRO": "-7797.7",
+        "xyz:BRENTOIL": "-174409.09",
+        "xyz:CL": "-115006.428"
+      },
+      "first_tx": "0xb94daed154af94cdbac7044803622b02059b00b6efa2b39f5d165a2413a36eb8",
+      "last_tx": "0xdf03ddb35e6e3a5ae07d04486051a302053f0098f961592c82cc89061d621445",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 15045 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "692193.34009621"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "157408.23040302"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "135527.52813242"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "25428.66712980"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "32363.81588487"
+        }
+      ],
+      "fills_file": "hl_fills_0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f.jsonl.gz",
+      "funding_file": "hl_funding_0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f.jsonl.gz",
+      "pages": 140,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f"
+    },
+    {
+      "status": "FULL",
+      "rank": 13,
+      "address": "0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 15,
+          "pnl": "2762195.680962",
+          "roi": "0.1347293314",
+          "vlm": "10148782.629999999"
+        },
+        "month": {
+          "rank": 6,
+          "pnl": "25615270.2527219988",
+          "roi": "0.9999527894",
+          "vlm": "317020055.0299999714"
+        }
+      },
+      "account_value_at_observation": "34475812.7914029956",
+      "fills": 37333,
+      "fills_served": 37333,
+      "closed_pnl": "869130.59165957",
+      "fees": "6675.799800552",
+      "realized_ex_funding": "862454.791859018",
+      "funding": "76868.645471",
+      "funding_rows": 16191,
+      "net_with_funding": "939323.437330018",
+      "open_at_window_end": {
+        "@107": "94857.84076049",
+        "@272": "882.548126104",
+        "AERO": "-4232.0",
+        "APT": "-9163.96",
+        "ASTER": "-891612.0",
+        "AZTEC": "105219.0",
+        "BLUR": "-1760791.0",
+        "BNB": "-54.795",
+        "BTC": "-162.83488",
+        "CASHCAT": "-2168144.0",
+        "CFX": "-89046.0",
+        "CHIP": "-24282278.0",
+        "DYDX": "-4347.5",
+        "EIGEN": "-199579.67",
+        "ETHFI": "-3049.4",
+        "FET": "-9222187.0",
+        "FIL": "-996.4",
+        "GMX": "-14.43",
+        "GRAM": "-165093.0",
+        "GRASS": "8838.2",
+        "GRIFFAIN": "25423.0",
+        "HYPE": "-104329.27",
+        "IMX": "-249030.5",
+        "INIT": "-184011.0",
+        "JTO": "1076.0",
+        "LINEA": "-9447767.0",
+        "LINK": "3482.6",
+        "LIT": "-5397.0",
+        "MEGA": "-968580.0",
+        "MELANIA": "-52188.6",
+        "MERL": "16502.0",
+        "MINA": "1289053.0",
+        "MON": "-10541229.0",
+        "MORPHO": "-455.9",
+        "NEAR": "-438155.5",
+        "ONDO": "-59664.0",
+        "PUMP": "-346729307.0",
+        "REZ": "-17149076.0",
+        "RSR": "9249321.0",
+        "RUNE": "-189.1",
+        "SEI": "-58802.0",
+        "SKY": "-33399.0",
+        "STRK": "-68141335.2",
+        "SUPER": "-90695.0",
+        "SYRUP": "-1874512.0",
+        "TAO": "-4557.585",
+        "USELESS": "1058940.0",
+        "VIRTUAL": "-838.3",
+        "VVV": "-1405.15",
+        "WLFI": "76331.0",
+        "XPL": "-38926231.0",
+        "ZEC": "-2215.39",
+        "ZK": "-9796886.0",
+        "kPEPE": "750813.0",
+        "xyz:AMD": "-2.057",
+        "xyz:BB": "-20501.9",
+        "xyz:BMNR": "-5587.25",
+        "xyz:BOT": "-256.37",
+        "xyz:CRCL": "-28354.992",
+        "xyz:DELL": "-378.25",
+        "xyz:DRAM": "-1286.0",
+        "xyz:GOOGL": "-9320.731",
+        "xyz:INTC": "-59520.77",
+        "xyz:KORU": "4331.5",
+        "xyz:LITE": "5.433",
+        "xyz:MINIMAX": "-3115.56",
+        "xyz:MRNA": "11763.45",
+        "xyz:MRVL": "-639.97",
+        "xyz:MU": "-8247.636",
+        "xyz:PURRDAT": "-465746.0",
+        "xyz:QNT": "-37.48",
+        "xyz:RDDT": "-1095.90",
+        "xyz:SHEIN": "-5443.4",
+        "xyz:SKHY": "773.27",
+        "xyz:SNDK": "-6116.331",
+        "xyz:SNXX": "-407.4",
+        "xyz:SOXL": "-117615.28",
+        "xyz:SPCX": "-7915.29",
+        "xyz:STRC": "-55.5",
+        "xyz:ZHIPU": "-4200.09"
+      },
+      "first_tx": "0x1c6a2ca961b8e82e1de30448037388010300448efcbc0700c032d7fc20bcc218",
+      "last_tx": "0xb60e5888cc1a25a2b788044860185a0207ff006e671d447459d703db8b1dff8d",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 43723 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-45788.157584558"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "408681.51193987"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "566322.868991445"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "3855.180687493"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "6252.033295768"
+        }
+      ],
+      "fills_file": "hl_fills_0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae.jsonl.gz",
+      "funding_file": "hl_funding_0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae.jsonl.gz",
+      "pages": 102,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae"
+    },
+    {
+      "status": "FULL",
+      "rank": 14,
+      "address": "0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 28,
+          "pnl": "1517648.9958200001",
+          "roi": "0.3805389211",
+          "vlm": "6846530.5899999999"
+        }
+      },
+      "account_value_at_observation": "10224790.678297",
+      "fills": 24918,
+      "fills_served": 24918,
+      "closed_pnl": "928103.673112",
+      "fees": "2413.264118",
+      "realized_ex_funding": "925690.408994",
+      "funding": "712.885101",
+      "funding_rows": 1539,
+      "net_with_funding": "926403.294095",
+      "open_at_window_end": {
+        "GRAM": "-601594.0",
+        "GRASS": "-293939.3",
+        "MON": "-47253775.0",
+        "PONS": "-834254.0",
+        "SOL": "-21328.68",
+        "TAO": "-5209.747",
+        "VVV": "-10493.81",
+        "ZRO": "-120918.3",
+        "io:ANTH": "1.686"
+      },
+      "first_tx": "0xc8e124e4545a3b5fca5a04480963a60201a700c9ef5d5a316ca9d037135e154a",
+      "last_tx": "0xa7dfafef00f7b35da95904485f3254020b1b00d49bfad22f4ba85b41bffb8d48",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 93537 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "379562.211315"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "369239.182714"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "126406.336713"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "3405.673339"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "47789.890014"
+        }
+      ],
+      "fills_file": "hl_fills_0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85.jsonl.gz",
+      "funding_file": "hl_funding_0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85.jsonl.gz",
+      "pages": 100,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85"
+    },
+    {
+      "status": "FULL",
+      "rank": 15,
+      "address": "0x880ac484a1743862989a441d6d867238c7aa311c",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 29,
+          "pnl": "1487259.6761680001",
+          "roi": "0.3546522773",
+          "vlm": "2261233.6800000002"
+        },
+        "allTime": {
+          "rank": 12,
+          "pnl": "121451486.0114890039",
+          "roi": "1.758299276",
+          "vlm": "6734667704.5600004196"
+        }
+      },
+      "account_value_at_observation": "13283629.8014889993",
+      "fills": 11934,
+      "fills_served": 11934,
+      "closed_pnl": "635165.31564886",
+      "fees": "2761.58872590",
+      "realized_ex_funding": "632403.72692296",
+      "funding": "157452.728440",
+      "funding_rows": 2609,
+      "net_with_funding": "789856.45536296",
+      "open_at_window_end": {
+        "ETH": "-1215.0141",
+        "HYPE": "-78810.06",
+        "SOL": "-197.26",
+        "XMR": "-23337.557",
+        "ZEC": "-6507.67",
+        "ZRO": "-58.7",
+        "kPEPE": "-56299.0",
+        "xyz:GOOGL": "5.176",
+        "xyz:INTC": "8.90",
+        "xyz:MRVL": "6.8",
+        "xyz:MSFT": "5.276",
+        "xyz:NBIS": "5.00",
+        "xyz:RKLB": "32.85",
+        "xyz:TSLA": "1.0"
+      },
+      "first_tx": "0x2a8a76251f5d69d12c04044803cd170204e2000aba5088a3ce532177de5143bb",
+      "last_tx": "0xb814afe796f08e2fb98e04486049f802064700cd31f3ad015bdd5b3a55f4681a",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 51380 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "31023.53316774"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "90678.19556816"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "40029.992177"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "139010.712765"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "489114.02168506"
+        }
+      ],
+      "fills_file": "hl_fills_0x880ac484a1743862989a441d6d867238c7aa311c.jsonl.gz",
+      "funding_file": "hl_funding_0x880ac484a1743862989a441d6d867238c7aa311c.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x880ac484a1743862989a441d6d867238c7aa311c"
+    },
+    {
+      "status": "FULL",
+      "rank": 16,
+      "address": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 26,
+          "pnl": "8359023.4185229996",
+          "roi": "0.3752498223",
+          "vlm": "2110296867.0999999046"
+        }
+      },
+      "account_value_at_observation": "22256884.9749099985",
+      "fills": 80579,
+      "fills_served": 80579,
+      "closed_pnl": "710509.27749472",
+      "fees": "7396.4464874818",
+      "realized_ex_funding": "703112.8310072382",
+      "funding": "23168.707196",
+      "funding_rows": 13400,
+      "net_with_funding": "726281.5382032382",
+      "open_at_window_end": {
+        "@107": "4239.47217226",
+        "@142": "3.1912467099",
+        "@151": "73.966647333",
+        "@156": "90.8329169",
+        "@162": "22036.127658",
+        "@188": "429272.616254",
+        "@201": "424990076126.3118286133",
+        "@207": "9936.26948098",
+        "@214": "84951.31584522",
+        "@228": "557005.03432268",
+        "@258": "217420.2627686",
+        "@267": "619319.514078",
+        "@272": "14.108648197",
+        "AAVE": "1394.84",
+        "ADA": "-63531.0",
+        "AERO": "86671.0",
+        "APT": "-4103.65",
+        "ARB": "-344107.7",
+        "ASTER": "916749.0",
+        "AVAX": "4703.10",
+        "BCH": "-20.463",
+        "BNB": "744.155",
+        "BTC": "60.98247",
+        "CASHCAT": "-12179396.0",
+        "DASH": "463.24",
+        "DOGE": "912838.0",
+        "DOT": "-18499.0",
+        "ENA": "150887.0",
+        "ETC": "125.53",
+        "ETH": "1978.8646",
+        "FET": "-429817.0",
+        "FIL": "-37514.7",
+        "GRAM": "-65703.0",
+        "HBAR": "-42585.0",
+        "HYPE": "-2306.37",
+        "INJ": "10681.7",
+        "LDO": "-406060.3",
+        "LINK": "-35876.8",
+        "LTC": "-642.74",
+        "NEAR": "19716.2",
+        "ONDO": "66157.0",
+        "OP": "126842.6",
+        "PAXG": "-81.209",
+        "PENGU": "-14841951.0",
+        "PONS": "-568510.0",
+        "PUMP": "-122231297.0",
+        "S": "-352683.0",
+        "SAND": "1067841.0",
+        "SOL": "-27669.2",
+        "SPX": "-275764.4",
+        "STABLE": "-193.0",
+        "STRK": "-11932655.8999999993",
+        "TAO": "-81.945",
+        "TIA": "185207.2",
+        "TRB": "1481.59",
+        "TRUMP": "-21522.3",
+        "TRX": "231574.0",
+        "UNI": "-54292.2",
+        "VIRTUAL": "-74633.9",
+        "VVV": "12363.61",
+        "XLM": "-494555.0",
+        "XMR": "-1315.263",
+        "XPL": "-13649224.0",
+        "XRP": "-2399177.0",
+        "ZEC": "166.63",
+        "kBONK": "-5626141.0",
+        "kPEPE": "111112464.0",
+        "kSHIB": "-36454498.0"
+      },
+      "first_tx": "0xc712bf4fdf92fcddc88c04480362430204aa00357a961baf6adb6aa29e96d6c8",
+      "last_tx": "0x2741091c99e53b2428ba04486051e00205c6000234e859f6cb09b46f58e9150e",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 1648 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "253509.1294025448"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-86817.5815962973"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "90521.4710216421"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "307499.1745119556"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "161569.3448633930"
+        }
+      ],
+      "fills_file": "hl_fills_0x023a3d058020fb76cca98f01b3c48c8938a22355.jsonl.gz",
+      "funding_file": "hl_funding_0x023a3d058020fb76cca98f01b3c48c8938a22355.jsonl.gz",
+      "pages": 110,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x023a3d058020fb76cca98f01b3c48c8938a22355"
+    },
+    {
+      "status": "FULL",
+      "rank": 17,
+      "address": "0x4c78a97cef589b01bb91dbf893fffa14243d2444",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 27,
+          "pnl": "1594891.9055870001",
+          "roi": "0.1757616336",
+          "vlm": "2280539.0600000001"
+        }
+      },
+      "account_value_at_observation": "10669067.3861560002",
+      "fills": 13123,
+      "fills_served": 13123,
+      "closed_pnl": "546328.153719",
+      "fees": "1390.128878",
+      "realized_ex_funding": "544938.024841",
+      "funding": "-45404.491761",
+      "funding_rows": 1768,
+      "net_with_funding": "499533.533080",
+      "open_at_window_end": {
+        "xyz:AVGO": "-2663.15",
+        "xyz:BB": "-58147.0",
+        "xyz:BMNR": "-2876.98",
+        "xyz:CRCL": "-1829.864",
+        "xyz:CXMT": "-567730.1",
+        "xyz:MRNA": "5317.0",
+        "xyz:MSTR": "-2862.393",
+        "xyz:PURRDAT": "-93189.0",
+        "xyz:SKHX": "-13153.075",
+        "xyz:SMSN": "-39313.714"
+      },
+      "first_tx": "0x174424bd2ed5cde518bd04480362910207b800a2c9d8ecb7bb0cd00fedd9a7cf",
+      "last_tx": "0xe208bac227993e5de38204483e9f7201ff00d2a7c29c5d2f85d16614e69d1848",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 34711 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "166845.466306"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "9022.353246"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "260428.261136"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "74487.071379"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-11249.618987"
+        }
+      ],
+      "fills_file": "hl_fills_0x4c78a97cef589b01bb91dbf893fffa14243d2444.jsonl.gz",
+      "funding_file": "hl_funding_0x4c78a97cef589b01bb91dbf893fffa14243d2444.jsonl.gz",
+      "pages": 100,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x4c78a97cef589b01bb91dbf893fffa14243d2444"
+    },
+    {
+      "status": "FULL",
+      "rank": 18,
+      "address": "0xdf954bbe619273a56e0cfa90dad8382195dc7d72",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 14,
+          "pnl": "3194509.4676150004",
+          "roi": "0.0733288642",
+          "vlm": "12659604.0800000001"
+        },
+        "week": {
+          "rank": 22,
+          "pnl": "6158901.0539620006",
+          "roi": "0.1190908014",
+          "vlm": "77508835.6800000072"
+        },
+        "month": {
+          "rank": 14,
+          "pnl": "18666553.297309",
+          "roi": "0.6059987199",
+          "vlm": "212447357.1100000143"
+        }
+      },
+      "account_value_at_observation": "54904902.7001830041",
+      "fills": 136968,
+      "fills_served": 136968,
+      "closed_pnl": "219012.963867",
+      "fees": "3487.987243",
+      "realized_ex_funding": "215524.976624",
+      "funding": "161968.804423",
+      "funding_rows": 20603,
+      "net_with_funding": "377493.781047",
+      "open_at_window_end": {
+        "AAVE": "-5803.90",
+        "ADA": "1221131.0",
+        "AERO": "-208889.0",
+        "AIXBT": "-8.0",
+        "ALT": "223337.0",
+        "APE": "-315485.5",
+        "APEX": "-144256.0",
+        "APT": "-115220.11",
+        "ARB": "-1704744.5",
+        "ASTER": "-17345.0",
+        "ATOM": "49216.67",
+        "AVNT": "-150357.0",
+        "AXS": "-12746.2",
+        "BCH": "-861.799",
+        "BERA": "21354.1",
+        "BIGTIME": "26000.0",
+        "BIO": "-488065.0",
+        "BLUR": "-2967.0",
+        "BNB": "-184.064",
+        "BTC": "-621.92871",
+        "CAKE": "-843.3",
+        "CASHCAT": "-1543401.0",
+        "CC": "-1038543.0",
+        "CFX": "-1480699.0",
+        "CHIP": "-322588.0",
+        "COMP": "-2666.64",
+        "CRV": "-948320.0",
+        "DASH": "-182.65",
+        "DOGE": "-11480938.0",
+        "DOT": "-128787.3",
+        "EIGEN": "-13608.38",
+        "ENA": "-3579170.0",
+        "ETC": "2542.63",
+        "ETH": "-25207.8268",
+        "ETHFI": "-350141.9",
+        "FARTCOIN": "1936.3",
+        "FET": "-1455394.0",
+        "GALA": "-3060063.0",
+        "GAS": "36.0",
+        "GMX": "-96.80",
+        "GRAM": "-1699.0",
+        "GRASS": "-12924.0",
+        "HBAR": "-3808001.0",
+        "HYPE": "-37739.35",
+        "HYPER": "-171.0",
+        "IMX": "-583944.2",
+        "INIT": "-843.0",
+        "INJ": "-2468.2",
+        "IO": "18931.0",
+        "JTO": "-93011.0",
+        "JUP": "-92726.0",
+        "LAYER": "6600.0",
+        "LDO": "-266016.2",
+        "LINK": "-12745.7",
+        "LIT": "-12792.0",
+        "LTC": "-6364.48",
+        "MANTA": "-18033.0",
+        "MEGA": "-420998.0",
+        "MEME": "59970.0",
+        "MERL": "-16746.0",
+        "MET": "7431.0",
+        "MINA": "41.0",
+        "MNT": "-13904.9",
+        "MON": "-22391852.0",
+        "MOODENG": "-42240.0",
+        "MORPHO": "-22629.6",
+        "MOVE": "-59352.0",
+        "NEAR": "-208758.6",
+        "NIL": "-479875.0",
+        "ONDO": "-502975.0",
+        "OP": "-37472.2",
+        "PAXG": "-69.304",
+        "PENDLE": "-104120.0",
+        "PNUT": "-349508.1",
+        "POL": "-2903036.0",
+        "PONS": "-297846.0",
+        "PUMP": "-29483503.0",
+        "PYTH": "-74594.0",
+        "RENDER": "-35341.6",
+        "RSR": "-1945.0",
+        "RUNE": "-1416.0",
+        "S": "177959.0",
+        "SAGA": "-4744610.8",
+        "SAND": "-426493.0",
+        "SEI": "-157274.0",
+        "SOL": "-4912.05",
+        "SOPH": "-2378682.0",
+        "STBL": "-1507.0",
+        "STRK": "-5390848.8999999998",
+        "STX": "2088.0",
+        "SUI": "-188280.5",
+        "SYRUP": "-38823.0",
+        "TAO": "-506.998",
+        "TIA": "-104952.3",
+        "TRUMP": "51965.5",
+        "TRX": "-202478.0",
+        "TURBO": "-868100.0",
+        "UNI": "-180608.7",
+        "USELESS": "-410589.0",
+        "VIRTUAL": "-91513.2",
+        "VVV": "-5767.31",
+        "W": "-739486.8",
+        "WLD": "-536352.4",
+        "WLFI": "2003332.0",
+        "XLM": "-270281.0",
+        "XMR": "-863.478",
+        "XPL": "-2770357.0",
+        "XRP": "-1304066.0",
+        "ZEC": "-771.11",
+        "ZK": "-6346990.0",
+        "ZRO": "-121865.1",
+        "kBONK": "-24360458.0",
+        "kPEPE": "-1412.0",
+        "xyz:AAPL": "108.145",
+        "xyz:AMZN": "19.376",
+        "xyz:ANT": "14158.35",
+        "xyz:BRENTOIL": "-24295.92",
+        "xyz:CL": "-3904.960",
+        "xyz:CRCL": "728.731",
+        "xyz:DRAM": "17.7",
+        "xyz:GOLD": "-18.6384",
+        "xyz:GOOGL": "-16.686",
+        "xyz:INTC": "82.28",
+        "xyz:META": "-229.877",
+        "xyz:MSFT": "4.484",
+        "xyz:MU": "-100.623",
+        "xyz:NVDA": "2115.94",
+        "xyz:SILVER": "10146.88",
+        "xyz:SKHX": "371.301",
+        "xyz:SKHY": "21.60",
+        "xyz:SNDK": "-124.440",
+        "xyz:SP500": "18.765",
+        "xyz:SPCX": "-1482.39",
+        "xyz:TSLA": "17.184",
+        "xyz:XYZ100": "1.2703"
+      },
+      "first_tx": "0x6d0190f43b7132ad6e7b044803623f02122c00d9d674517f10ca3c46fa750c98",
+      "last_tx": "0x5a645b432f2bb01c5bde0448604e080203720028ca2eceeefe2d0695ee2f8a06",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 18650 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "117783.682143"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "51546.464263"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-43220.919073"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "77531.740995"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "173852.812719"
+        }
+      ],
+      "fills_file": "hl_fills_0xdf954bbe619273a56e0cfa90dad8382195dc7d72.jsonl.gz",
+      "funding_file": "hl_funding_0xdf954bbe619273a56e0cfa90dad8382195dc7d72.jsonl.gz",
+      "pages": 122,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xdf954bbe619273a56e0cfa90dad8382195dc7d72"
+    },
+    {
+      "status": "FULL",
+      "rank": 19,
+      "address": "0xb695651daa495f59dd2725c6fe98322d8b51a92d",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 11,
+          "pnl": "3904097.0012010001",
+          "roi": "0.1137499741",
+          "vlm": "10448495.0899999999"
+        },
+        "week": {
+          "rank": 18,
+          "pnl": "7302940.0159679996",
+          "roi": "0.1556736449",
+          "vlm": "42590846.3800000027"
+        },
+        "month": {
+          "rank": 9,
+          "pnl": "23668076.7709399983",
+          "roi": "0.5858778228",
+          "vlm": "115220849.099999994"
+        }
+      },
+      "account_value_at_observation": "39074529.1929799989",
+      "fills": 3,
+      "fills_served": 3,
+      "closed_pnl": "-11.43000",
+      "fees": "0.700710",
+      "realized_ex_funding": "-12.130710",
+      "funding": "177382.781944",
+      "funding_rows": 2229,
+      "net_with_funding": "177370.651234",
+      "open_at_window_end": {
+        "HYPE": "-29970.39"
+      },
+      "first_tx": "0x09c358fa760bb8e20b3d04481c75e50209ff00e0110ed7b4ad8c044d350f92cc",
+      "last_tx": "0x09c358fa760bb8e20b3d04481c75e50209ff00e0110ed7b4ad8c044d350f92cc",
+      "coverage_reason": "0 capped cycles of 99; no gap after any exceeds the address's own largest gap 116407 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "37073.013526"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "47121.493553"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "40161.587488"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "30862.617020"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "22151.939647"
+        }
+      ],
+      "fills_file": "hl_fills_0xb695651daa495f59dd2725c6fe98322d8b51a92d.jsonl.gz",
+      "funding_file": "hl_funding_0xb695651daa495f59dd2725c6fe98322d8b51a92d.jsonl.gz",
+      "pages": 99,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xb695651daa495f59dd2725c6fe98322d8b51a92d"
+    },
+    {
+      "status": "FULL",
+      "rank": 20,
+      "address": "0x45d26f28196d226497130c4bac709d808fed4029",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 3,
+          "pnl": "5867349.537916",
+          "roi": "0.1922649753",
+          "vlm": "0.0"
+        },
+        "month": {
+          "rank": 7,
+          "pnl": "25537598.9169149995",
+          "roi": "0.8227740982",
+          "vlm": "2128343.8199999998"
+        }
+      },
+      "account_value_at_observation": "70893004.2516469955",
+      "fills": 140,
+      "fills_served": 140,
+      "closed_pnl": "0.0",
+      "fees": "65.069621",
+      "realized_ex_funding": "-65.069621",
+      "funding": "170205.568410",
+      "funding_rows": 6440,
+      "net_with_funding": "170140.498789",
+      "open_at_window_end": {
+        "xyz:SP500": "597.711"
+      },
+      "first_tx": "0x750d257fb4b342cb768604482950cf02061000654fb6619d18d5d0d273b71cb6",
+      "last_tx": "0x9e93c800581b9468a00d04482954b0020a9100e5f31eb33a425c7353171f6e53",
+      "coverage_reason": "0 capped cycles of 106; no gap after any exceeds the address's own largest gap 175197 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "36474.185583"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "33144.292368"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "39325.848182"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "33965.780859"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "27230.391797"
+        }
+      ],
+      "fills_file": "hl_fills_0x45d26f28196d226497130c4bac709d808fed4029.jsonl.gz",
+      "funding_file": "hl_funding_0x45d26f28196d226497130c4bac709d808fed4029.jsonl.gz",
+      "pages": 106,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x45d26f28196d226497130c4bac709d808fed4029"
+    },
+    {
+      "status": "FULL",
+      "rank": 21,
+      "address": "0x218a65e21eddeece7a9df38c6bbdd89f692b7da2",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 24,
+          "pnl": "1786353.6767210001",
+          "roi": "0.1853164118",
+          "vlm": "0.0"
+        },
+        "month": {
+          "rank": 19,
+          "pnl": "11067867.2844639998",
+          "roi": "0.8889518606",
+          "vlm": "37037975.9900000021"
+        }
+      },
+      "account_value_at_observation": "12785780.5881040003",
+      "fills": 6,
+      "fills_served": 6,
+      "closed_pnl": "0.0",
+      "fees": "28.399268",
+      "realized_ex_funding": "-28.399268",
+      "funding": "96056.274648",
+      "funding_rows": 240,
+      "net_with_funding": "96027.875380",
+      "open_at_window_end": {
+        "BTC": "-809.84930"
+      },
+      "first_tx": "0xf9f7388d6322a3c9fb700448524abf01df005072fe25c29c9dbfe3e022267db4",
+      "last_tx": "0x233a28528b463a1724b3044853014002026c0038264958e9c702d3a54a4a1401",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 364775 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "13220.531417"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "21104.648797"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "20741.305271"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "20754.512023"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "20206.877872"
+        }
+      ],
+      "fills_file": "hl_fills_0x218a65e21eddeece7a9df38c6bbdd89f692b7da2.jsonl.gz",
+      "funding_file": "hl_funding_0x218a65e21eddeece7a9df38c6bbdd89f692b7da2.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x218a65e21eddeece7a9df38c6bbdd89f692b7da2"
+    },
+    {
+      "status": "FULL",
+      "rank": 22,
+      "address": "0x4ba3979955f52158c0e4e3378b18985475182ce2",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 29,
+          "pnl": "6798556.2917550001",
+          "roi": "2.1550975532",
+          "vlm": "66907325.6600000039"
+        }
+      },
+      "account_value_at_observation": "23097548.5000160001",
+      "fills": 555,
+      "fills_served": 555,
+      "closed_pnl": "86244.762890",
+      "fees": "6.026356",
+      "realized_ex_funding": "86238.736534",
+      "funding": "24.352652",
+      "funding_rows": 55,
+      "net_with_funding": "86263.089186",
+      "open_at_window_end": {
+        "io:ANTH": "27.744"
+      },
+      "first_tx": "0x395ffcb6d09149db3ad9044822616602054b009c6b9468addd28a8098f9523c5",
+      "last_tx": "0x4a2a382414066eb34ba3044860464f02034d0009af098d85edf2e376d30a489d",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 234391 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "14.653867"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "86250.793893"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-2.358574"
+        }
+      ],
+      "fills_file": "hl_fills_0x4ba3979955f52158c0e4e3378b18985475182ce2.jsonl.gz",
+      "funding_file": "hl_funding_0x4ba3979955f52158c0e4e3378b18985475182ce2.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x4ba3979955f52158c0e4e3378b18985475182ce2"
+    },
+    {
+      "status": "FULL",
+      "rank": 23,
+      "address": "0xca4903c207a0df58bf37d4bc8bbc5210726f53c8",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 30,
+          "pnl": "1397901.4789209999",
+          "roi": "0.0873118124",
+          "vlm": "0.0"
+        },
+        "month": {
+          "rank": 25,
+          "pnl": "9498591.1189299989",
+          "roi": "0.7975467326",
+          "vlm": "29521077.870000001"
+        }
+      },
+      "account_value_at_observation": "15242157.3371179998",
+      "fills": 113,
+      "fills_served": 113,
+      "closed_pnl": "0.0",
+      "fees": "560.980100",
+      "realized_ex_funding": "-560.980100",
+      "funding": "75076.380690",
+      "funding_rows": 600,
+      "net_with_funding": "74515.400590",
+      "open_at_window_end": {
+        "ETH": "-9771.4552"
+      },
+      "first_tx": "0x53342b8cbefbc86654ad04481e32c5020206007259fee738f6fcd6df7dffa250",
+      "last_tx": "0x8744a8fda2e5fa5588be04483320c302052700e33de919272b0d545061e9d440",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 124377 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "14679.931766"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "15608.165525"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "15744.849973"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "14183.208683"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "14299.244643"
+        }
+      ],
+      "fills_file": "hl_fills_0xca4903c207a0df58bf37d4bc8bbc5210726f53c8.jsonl.gz",
+      "funding_file": "hl_funding_0xca4903c207a0df58bf37d4bc8bbc5210726f53c8.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xca4903c207a0df58bf37d4bc8bbc5210726f53c8"
+    },
+    {
+      "status": "FULL",
+      "rank": 24,
+      "address": "0xba5d9cc840745aeeeeedac5712e32f13ab8ea352",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 27,
+          "pnl": "7823803.217774",
+          "roi": "1.7373256484",
+          "vlm": "14368063.9399999995"
+        }
+      },
+      "account_value_at_observation": "6249805.8013300002",
+      "fills": 8225,
+      "fills_served": 8225,
+      "closed_pnl": "0.0",
+      "fees": "988.487715",
+      "realized_ex_funding": "-988.487715",
+      "funding": "16988.590144",
+      "funding_rows": 2020,
+      "net_with_funding": "16000.102429",
+      "open_at_window_end": {
+        "XMR": "-1263.745",
+        "ZEC": "-1809.97",
+        "xyz:ANT": "20654.2",
+        "xyz:BRENTOIL": "-37931.67",
+        "xyz:CL": "-29999.983"
+      },
+      "first_tx": "0xc9c818b8408e8364cb4104480a7023020531009ddb81a2366d90c40aff825d4f",
+      "last_tx": "0x1a02675cab7e3b331b7c04484f4c1e020191004246715a05bdcb12af6a72151d",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 59233 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "10240.383900"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "5587.956392"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-19633.952753"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "10994.172465"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "8811.542425"
+        }
+      ],
+      "fills_file": "hl_fills_0xba5d9cc840745aeeeeedac5712e32f13ab8ea352.jsonl.gz",
+      "funding_file": "hl_funding_0xba5d9cc840745aeeeeedac5712e32f13ab8ea352.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xba5d9cc840745aeeeeedac5712e32f13ab8ea352"
+    },
+    {
+      "status": "FULL",
+      "rank": 25,
+      "address": "0xa312114b5795dff9b8db50474dd57701aa78ad1e",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 19,
+          "pnl": "93787696.3234789968",
+          "roi": "3.2670678877",
+          "vlm": "1877832051.5"
+        }
+      },
+      "account_value_at_observation": "350467.313479",
+      "fills": 5,
+      "fills_served": 5,
+      "closed_pnl": "466.860642",
+      "fees": "1.888518",
+      "realized_ex_funding": "464.972124",
+      "funding": "-58.126635",
+      "funding_rows": 2280,
+      "net_with_funding": "406.845489",
+      "open_at_window_end": {
+        "xyz:SKHY": "122.58"
+      },
+      "first_tx": "0xb8dc610a1eb19381ba56044834057c02078f00efb9b4b2535ca50c5cddb56d6c",
+      "last_tx": "0x785f5d70c8b45e1f79d9044834075b020394005663b77cf11c2808c387b8380a",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 224792 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-27.821171"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "4.865659"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "429.858611"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-21.635360"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "21.577750"
+        }
+      ],
+      "fills_file": "hl_fills_0xa312114b5795dff9b8db50474dd57701aa78ad1e.jsonl.gz",
+      "funding_file": "hl_funding_0xa312114b5795dff9b8db50474dd57701aa78ad1e.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xa312114b5795dff9b8db50474dd57701aa78ad1e"
+    },
+    {
+      "status": "FULL",
+      "rank": 26,
+      "address": "0x13c50dcdee4bbcba71baf578b345cdd35c7928be",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 23,
+          "pnl": "84029148.2593040019",
+          "roi": "71.6116712419",
+          "vlm": "28275577.8599999994"
+        }
+      },
+      "account_value_at_observation": "48517081.2693039998",
+      "fills": 157,
+      "fills_served": 157,
+      "closed_pnl": "0.0",
+      "fees": "3.77590396",
+      "realized_ex_funding": "-3.77590396",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "-3.77590396",
+      "open_at_window_end": {
+        "@107": "26399.3619298"
+      },
+      "first_tx": "0xc852dd587773e63dc9cc0448131a6f0204e201021277050f6c1b88ab3677c028",
+      "last_tx": "0xebcf85061353c30fed4904481e64570204d50101ae56e1e18f983058d2579cfa",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 73563 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-3.23590422"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-0.53999974"
+        }
+      ],
+      "fills_file": "hl_fills_0x13c50dcdee4bbcba71baf578b345cdd35c7928be.jsonl.gz",
+      "funding_file": "hl_funding_0x13c50dcdee4bbcba71baf578b345cdd35c7928be.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x13c50dcdee4bbcba71baf578b345cdd35c7928be"
+    },
+    {
+      "status": "FULL",
+      "rank": 27,
+      "address": "0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 25,
+          "pnl": "76182984.5681679994",
+          "roi": "2.9840295843",
+          "vlm": "4846509623.1000003815"
+        }
+      },
+      "account_value_at_observation": "32737046.4181680009",
+      "fills": 1,
+      "fills_served": 1,
+      "closed_pnl": "0.0",
+      "fees": "0.00036",
+      "realized_ex_funding": "-0.00036",
+      "funding": "-22604.382822",
+      "funding_rows": 3083,
+      "net_with_funding": "-22604.383182",
+      "open_at_window_end": {
+        "@272": "5690.556501885"
+      },
+      "first_tx": "0xcacc59b1e773a80ecc46044831cb7402082300978276c6e06e950504a67781f9",
+      "last_tx": "0xcacc59b1e773a80ecc46044831cb7402082300978276c6e06e950504a67781f9",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 214572 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-2658.458433"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-7294.655986"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-8233.133001"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-4577.581965"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "159.446203"
+        }
+      ],
+      "fills_file": "hl_fills_0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05.jsonl.gz",
+      "funding_file": "hl_funding_0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05"
+    },
+    {
+      "status": "FULL",
+      "rank": 28,
+      "address": "0x9aa589355bf745db9784c8ef3c646360f11b58af",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 28,
+          "pnl": "6822264.3217759999",
+          "roi": "0.6621487217",
+          "vlm": "172733599.9499999881"
+        }
+      },
+      "account_value_at_observation": "12135483.0591250006",
+      "fills": 23050,
+      "fills_served": 23050,
+      "closed_pnl": "-454683.272078",
+      "fees": "2943.601768",
+      "realized_ex_funding": "-457626.873846",
+      "funding": "32801.142027",
+      "funding_rows": 4780,
+      "net_with_funding": "-424825.731819",
+      "open_at_window_end": {
+        "ARB": "-1959500.5000000001",
+        "BTC": "-90.20779",
+        "DOGE": "-4701098.0",
+        "ETH": "-3619.7931",
+        "LINK": "-6591.7",
+        "LTC": "-19698.69",
+        "PUMP": "-124022973.0",
+        "WLD": "-1430996.4000000001",
+        "ZEC": "32.97",
+        "xyz:AAPL": "8508.917",
+        "xyz:BRENTOIL": "-0.22",
+        "xyz:CL": "-1037.132",
+        "xyz:CRCL": "36.942",
+        "xyz:DRAM": "14081.6",
+        "xyz:EWY": "0.212",
+        "xyz:NVDA": "3266.878",
+        "xyz:SKHX": "-1.279",
+        "xyz:SNDK": "0.755",
+        "xyz:SPCX": "14002.20"
+      },
+      "first_tx": "0xeb4e744939b48874ecc804480363f10207b6002ed4b7a7468f171f9bf8b8625f",
+      "last_tx": "0x7866d8a456b40a0979e00448601a590203fe0089f1b728db1c2f83f715b7e3f4",
+      "coverage_reason": "0 capped cycles of 98; no gap after any exceeds the address's own largest gap 14670 s: every fill the tape could serve was served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "108279.267148"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "123816.438672"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-222426.437056"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-402248.598921"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-32246.401662"
+        }
+      ],
+      "fills_file": "hl_fills_0x9aa589355bf745db9784c8ef3c646360f11b58af.jsonl.gz",
+      "funding_file": "hl_funding_0x9aa589355bf745db9784c8ef3c646360f11b58af.jsonl.gz",
+      "pages": 100,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x9aa589355bf745db9784c8ef3c646360f11b58af"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x03b9a189e2480d1e4c3007080b29f362282130fa",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 21,
+          "pnl": "85282315.7672800273",
+          "roi": "11.8419810229",
+          "vlm": "61214305013.1200027466"
+        }
+      },
+      "account_value_at_observation": "69664070.9172800034",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x03b9a189e2480d1e4c3007080b29f362282130fa.jsonl.gz",
+      "funding_file": "hl_funding_0x03b9a189e2480d1e4c3007080b29f362282130fa.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x03b9a189e2480d1e4c3007080b29f362282130fa"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x05cafe987297448f21a3c7ae0ae815fddecac655",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 7,
+          "pnl": "14654851.7840819992",
+          "roi": "0.0797642049",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 16,
+          "pnl": "107890702.4882670045",
+          "roi": "1.192276795",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "198382023.748266995",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x05cafe987297448f21a3c7ae0ae815fddecac655.jsonl.gz",
+      "funding_file": "hl_funding_0x05cafe987297448f21a3c7ae0ae815fddecac655.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x05cafe987297448f21a3c7ae0ae815fddecac655"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x082e843a431aef031264dc232693dd710aedca88",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 17,
+          "pnl": "7306518.9800129998",
+          "roi": "0.374285583",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "21027759.7314560004",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "-153728.330384",
+      "funding_rows": 120,
+      "net_with_funding": "-153728.330384",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-35023.766271"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-35317.546982"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-32304.019596"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "-32379.701136"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-18703.296399"
+        }
+      ],
+      "fills_file": "hl_fills_0x082e843a431aef031264dc232693dd710aedca88.jsonl.gz",
+      "funding_file": "hl_funding_0x082e843a431aef031264dc232693dd710aedca88.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x082e843a431aef031264dc232693dd710aedca88"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 19,
+          "pnl": "2294392.6535990001",
+          "roi": "0.1503135261",
+          "vlm": "36215899.6999999955"
+        },
+        "month": {
+          "rank": 15,
+          "pnl": "18303417.1001299955",
+          "roi": "0.9838283757",
+          "vlm": "890543987.0299998522"
+        }
+      },
+      "account_value_at_observation": "45136798.3100999966",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "11139.946655",
+      "funding_rows": 120,
+      "net_with_funding": "11139.946655",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "2538.002507"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "2559.291372"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "2340.915655"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "2346.399929"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1355.337192"
+        }
+      ],
+      "fills_file": "hl_fills_0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8.jsonl.gz",
+      "funding_file": "hl_funding_0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 28,
+          "pnl": "72249654.2937660068",
+          "roi": "1204.1609048961",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "72274045.8237659931",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b.jsonl.gz",
+      "funding_file": "hl_funding_0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x1ab185be5ff61f7b678d6a871d439307cd0752e3",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 9,
+          "pnl": "10235145.9004570004",
+          "roi": "0.0738127527",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "148898798.5614489913",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x1ab185be5ff61f7b678d6a871d439307cd0752e3.jsonl.gz",
+      "funding_file": "hl_funding_0x1ab185be5ff61f7b678d6a871d439307cd0752e3.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x1ab185be5ff61f7b678d6a871d439307cd0752e3"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 10,
+          "pnl": "122544573.0022980124",
+          "roi": "1.1416696393",
+          "vlm": "1534574048.5699999332"
+        }
+      },
+      "account_value_at_observation": "4.422298",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5.jsonl.gz",
+      "funding_file": "hl_funding_0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x2e3d94f0562703b25c83308a05046ddaf9a8dd14",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 22,
+          "pnl": "84715878.2848969996",
+          "roi": "1.0743661456",
+          "vlm": "3335431474.1100001335"
+        }
+      },
+      "account_value_at_observation": "999998.574897",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x2e3d94f0562703b25c83308a05046ddaf9a8dd14.jsonl.gz",
+      "funding_file": "hl_funding_0x2e3d94f0562703b25c83308a05046ddaf9a8dd14.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x2e3d94f0562703b25c83308a05046ddaf9a8dd14"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x2ea18c23f72a4b6172c55b411823cdc5335923f4",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 17,
+          "pnl": "106341324.5199999958",
+          "roi": "6.7335227018",
+          "vlm": "2139884917.1700000763"
+        }
+      },
+      "account_value_at_observation": "2.705211",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x2ea18c23f72a4b6172c55b411823cdc5335923f4.jsonl.gz",
+      "funding_file": "hl_funding_0x2ea18c23f72a4b6172c55b411823cdc5335923f4.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x2ea18c23f72a4b6172c55b411823cdc5335923f4"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x3258e4e06929b746854c989de764efd015db3943",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 15,
+          "pnl": "7662235.9473099997",
+          "roi": "0.0755604828",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "109067569.3286940008",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x3258e4e06929b746854c989de764efd015db3943.jsonl.gz",
+      "funding_file": "hl_funding_0x3258e4e06929b746854c989de764efd015db3943.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x3258e4e06929b746854c989de764efd015db3943"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x393d0b87ed38fc779fd9611144ae649ba6082109",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 1,
+          "pnl": "58655928.829467997",
+          "roi": "0.0745979209",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 2,
+          "pnl": "424569433.2995020151",
+          "roi": "0.2375187029",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "838847891.0995019674",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x393d0b87ed38fc779fd9611144ae649ba6082109.jsonl.gz",
+      "funding_file": "hl_funding_0x393d0b87ed38fc779fd9611144ae649ba6082109.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x393d0b87ed38fc779fd9611144ae649ba6082109"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 18,
+          "pnl": "2552577.307118",
+          "roi": "0.1389771498",
+          "vlm": "0.0"
+        },
+        "month": {
+          "rank": 17,
+          "pnl": "15545563.6934360005",
+          "roi": "1.1186316955",
+          "vlm": "4379877.04"
+        }
+      },
+      "account_value_at_observation": "29355048.3710029982",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "75740.798453",
+      "funding_rows": 1560,
+      "net_with_funding": "75740.798453",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "19170.831524"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "19436.896915"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "16527.296593"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "9354.769489"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "11251.003932"
+        }
+      ],
+      "fills_file": "hl_fills_0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0.jsonl.gz",
+      "funding_file": "hl_funding_0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 13,
+          "pnl": "3309612.5129550002",
+          "roi": "0.4482769742",
+          "vlm": "1437421.5299999998"
+        },
+        "month": {
+          "rank": 22,
+          "pnl": "10127032.1919240002",
+          "roi": "0.7382368746",
+          "vlm": "176420405.7699999809"
+        }
+      },
+      "account_value_at_observation": "38594880.8082259968",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "1500.204982",
+      "funding_rows": 240,
+      "net_with_funding": "1500.204982",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "190.311059"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "334.212668"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "325.458446"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "325.453787"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "324.769022"
+        }
+      ],
+      "fills_file": "hl_fills_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.gz",
+      "funding_file": "hl_funding_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x484bc1608211d0604bf70bae72792a56884562f8"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 5,
+          "pnl": "17338802.3961779997",
+          "roi": "0.0725645419",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 7,
+          "pnl": "152682836.518016994",
+          "roi": "1.4737847042",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "256281982.2380169928",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08.jsonl.gz",
+      "funding_file": "hl_funding_0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x493db0ed7514c975e9abcc110bd40c473b6763e3",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 13,
+          "pnl": "8255729.312713",
+          "roi": "0.081001024",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 11,
+          "pnl": "122120461.0141669959",
+          "roi": "468.2605276067",
+          "vlm": "105.31"
+        }
+      },
+      "account_value_at_observation": "110177024.9941670001",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x493db0ed7514c975e9abcc110bd40c473b6763e3.jsonl.gz",
+      "funding_file": "hl_funding_0x493db0ed7514c975e9abcc110bd40c473b6763e3.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x493db0ed7514c975e9abcc110bd40c473b6763e3"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 23,
+          "pnl": "5861007.3493889999",
+          "roi": "0.0750834535",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 14,
+          "pnl": "114610734.5156829953",
+          "roi": "50.1319990633",
+          "vlm": "174649300.5300000012"
+        }
+      },
+      "account_value_at_observation": "83920913.7356829941",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab.jsonl.gz",
+      "funding_file": "hl_funding_0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x4eb8d907136189a34c9b087950211b6a566f7819",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 6,
+          "pnl": "15127353.4963930007",
+          "roi": "0.0797752007",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 15,
+          "pnl": "112433543.2818499953",
+          "roi": "1.2178864982",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "204752116.0318500102",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x4eb8d907136189a34c9b087950211b6a566f7819.jsonl.gz",
+      "funding_file": "hl_funding_0x4eb8d907136189a34c9b087950211b6a566f7819.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x4eb8d907136189a34c9b087950211b6a566f7819"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x4ec8fe22a531a96c8a846aaf5cbef73202649a80",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 1,
+          "pnl": "445038904.5224530101",
+          "roi": "26412.0395441133",
+          "vlm": "15999.34"
+        }
+      },
+      "account_value_at_observation": "224997150.8524529934",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x4ec8fe22a531a96c8a846aaf5cbef73202649a80.jsonl.gz",
+      "funding_file": "hl_funding_0x4ec8fe22a531a96c8a846aaf5cbef73202649a80.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x4ec8fe22a531a96c8a846aaf5cbef73202649a80"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 29,
+          "pnl": "71838905.2485190034",
+          "roi": "5.9605538443",
+          "vlm": "12016949.4199999999"
+        }
+      },
+      "account_value_at_observation": "315634.548519",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2.jsonl.gz",
+      "funding_file": "hl_funding_0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x64a4fbb71858f681f3fa10a42b34180a9a48088d",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 20,
+          "pnl": "1988383.2936369998",
+          "roi": "0.1385033125",
+          "vlm": "6221330.9500000002"
+        },
+        "month": {
+          "rank": 30,
+          "pnl": "6749552.8636949994",
+          "roi": "0.4339218744",
+          "vlm": "227789045.3400000036"
+        }
+      },
+      "account_value_at_observation": "24510280.9240889959",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x64a4fbb71858f681f3fa10a42b34180a9a48088d.jsonl.gz",
+      "funding_file": "hl_funding_0x64a4fbb71858f681f3fa10a42b34180a9a48088d.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x64a4fbb71858f681f3fa10a42b34180a9a48088d"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x659ddde484fd9dc313917d5de92a52b6a74a9d63",
+      "displayed_at_observation": {
+        "month": {
+          "rank": 3,
+          "pnl": "50482163.0605999976",
+          "roi": "5.5222072328",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "49986026.9006000012",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x659ddde484fd9dc313917d5de92a52b6a74a9d63.jsonl.gz",
+      "funding_file": "hl_funding_0x659ddde484fd9dc313917d5de92a52b6a74a9d63.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x659ddde484fd9dc313917d5de92a52b6a74a9d63"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x7aa14144f5811aab1ba4a07f014a592f8c9d864c",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 21,
+          "pnl": "6317423.1174619999",
+          "roi": "0.0725645419",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "93376790.5179480016",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x7aa14144f5811aab1ba4a07f014a592f8c9d864c.jsonl.gz",
+      "funding_file": "hl_funding_0x7aa14144f5811aab1ba4a07f014a592f8c9d864c.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x7aa14144f5811aab1ba4a07f014a592f8c9d864c"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x85530f0ff6496c72a619f37a60f3c1a59077737f",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 11,
+          "pnl": "9489839.2203819994",
+          "roi": "0.0636087943",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 20,
+          "pnl": "85907757.8119260073",
+          "roi": "1.1804933198",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "158680518.4619260132",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x85530f0ff6496c72a619f37a60f3c1a59077737f.jsonl.gz",
+      "funding_file": "hl_funding_0x85530f0ff6496c72a619f37a60f3c1a59077737f.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x85530f0ff6496c72a619f37a60f3c1a59077737f"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x875783b13e6157e8fb70985c9602afa18e7a31d1",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 4,
+          "pnl": "19538670.7780760005",
+          "roi": "0.0804369358",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "262445372.7187379897",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x875783b13e6157e8fb70985c9602afa18e7a31d1.jsonl.gz",
+      "funding_file": "hl_funding_0x875783b13e6157e8fb70985c9602afa18e7a31d1.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x875783b13e6157e8fb70985c9602afa18e7a31d1"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 6,
+          "pnl": "4828223.6865260014",
+          "roi": "0.0664492117",
+          "vlm": "1070967893.6500003338"
+        },
+        "week": {
+          "rank": 10,
+          "pnl": "9760366.8120180015",
+          "roi": "0.0649194056",
+          "vlm": "6204798639.1899986267"
+        },
+        "month": {
+          "rank": 4,
+          "pnl": "32472535.5452909991",
+          "roi": "0.3050450977",
+          "vlm": "21335111868.6199989319"
+        },
+        "allTime": {
+          "rank": 24,
+          "pnl": "77340453.8803890049",
+          "roi": "0.3213442273",
+          "vlm": "623299585961.7498779297"
+        }
+      },
+      "account_value_at_observation": "113974264.1803889573",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf.jsonl.gz",
+      "funding_file": "hl_funding_0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf.jsonl.gz",
+      "pages": 103,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x88560b720239179d7f3f9e49ca934a4861593d7f",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 17,
+          "pnl": "2626529.0697109997",
+          "roi": "0.5399805753",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "33134989.5588390008",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x88560b720239179d7f3f9e49ca934a4861593d7f.jsonl.gz",
+      "funding_file": "hl_funding_0x88560b720239179d7f3f9e49ca934a4861593d7f.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x88560b720239179d7f3f9e49ca934a4861593d7f"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x8d68efbf06fb8cf932518bcb53705e674c4852dc",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 26,
+          "pnl": "74874330.0304239988",
+          "roi": "0.1498390476",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "573394277.0904239416",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x8d68efbf06fb8cf932518bcb53705e674c4852dc.jsonl.gz",
+      "funding_file": "hl_funding_0x8d68efbf06fb8cf932518bcb53705e674c4852dc.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x8d68efbf06fb8cf932518bcb53705e674c4852dc"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x8def9f50456c6c4e37fa5d3d57f108ed23992dae",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 21,
+          "pnl": "1968438.684658",
+          "roi": "0.0366517581",
+          "vlm": "9672353.7699999996"
+        },
+        "month": {
+          "rank": 24,
+          "pnl": "9843497.9311140012",
+          "roi": "0.2036840348",
+          "vlm": "514095712.75"
+        }
+      },
+      "account_value_at_observation": "58119047.7265260071",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "11662.844085",
+      "funding_rows": 120,
+      "net_with_funding": "11662.844085",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "2657.133690"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "2679.421828"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "2450.795782"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "2456.537483"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1418.955302"
+        }
+      ],
+      "fills_file": "hl_fills_0x8def9f50456c6c4e37fa5d3d57f108ed23992dae.jsonl.gz",
+      "funding_file": "hl_funding_0x8def9f50456c6c4e37fa5d3d57f108ed23992dae.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x8def9f50456c6c4e37fa5d3d57f108ed23992dae"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 8,
+          "pnl": "144136787.9793010056",
+          "roi": "7.5867391838",
+          "vlm": "26418458.9499999993"
+        }
+      },
+      "account_value_at_observation": "3585.459301",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.gz",
+      "funding_file": "hl_funding_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xbde2ddc49a2e6827300faa6afc93d572114a60b1",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 18,
+          "pnl": "97508580.8844829947",
+          "roi": "43.3280616217",
+          "vlm": "25191221.120000001"
+        }
+      },
+      "account_value_at_observation": "1.014483",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xbde2ddc49a2e6827300faa6afc93d572114a60b1.jsonl.gz",
+      "funding_file": "hl_funding_0xbde2ddc49a2e6827300faa6afc93d572114a60b1.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xbde2ddc49a2e6827300faa6afc93d572114a60b1"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 28,
+          "pnl": "5473283.5342310006",
+          "roi": "0.0747961814",
+          "vlm": "0.0"
+        },
+        "allTime": {
+          "rank": 13,
+          "pnl": "118117238.7361959964",
+          "roi": "9.7933832793",
+          "vlm": "131567037.7899999917"
+        }
+      },
+      "account_value_at_observation": "78449159.0061959922",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50.jsonl.gz",
+      "funding_file": "hl_funding_0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 27,
+          "pnl": "74503126.3392889947",
+          "roi": "3.2159964362",
+          "vlm": "111259614.6400000006"
+        }
+      },
+      "account_value_at_observation": "101.679289",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4.jsonl.gz",
+      "funding_file": "hl_funding_0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xd0e2842e830f2107f151ec0bd307c5871a3b4018",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 29,
+          "pnl": "5470219.6658159997",
+          "roi": "0.0725538816",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "80865492.0432969928",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xd0e2842e830f2107f151ec0bd307c5871a3b4018.jsonl.gz",
+      "funding_file": "hl_funding_0xd0e2842e830f2107f151ec0bd307c5871a3b4018.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xd0e2842e830f2107f151ec0bd307c5871a3b4018"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xd47587702a91731dc1089b5db0932cf820151a91",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 22,
+          "pnl": "1870848.3670610001",
+          "roi": "0.1062956613",
+          "vlm": "0.0"
+        },
+        "month": {
+          "rank": 23,
+          "pnl": "9951955.5475859996",
+          "roi": "0.3669693005",
+          "vlm": "16155728.3900000006"
+        },
+        "allTime": {
+          "rank": 30,
+          "pnl": "70513950.9215449989",
+          "roi": "0.4490995615",
+          "vlm": "5434669699.6899995804"
+        }
+      },
+      "account_value_at_observation": "18757031.6768729985",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "12284.667582",
+      "funding_rows": 240,
+      "net_with_funding": "12284.667582",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "2778.950029"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "2797.089483"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "2566.056171"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "2573.969089"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1568.602810"
+        }
+      ],
+      "fills_file": "hl_fills_0xd47587702a91731dc1089b5db0932cf820151a91.jsonl.gz",
+      "funding_file": "hl_funding_0xd47587702a91731dc1089b5db0932cf820151a91.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xd47587702a91731dc1089b5db0932cf820151a91"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xdfc24b077bc1425ad1dea75bcb6f8158e10df303",
+      "displayed_at_observation": {
+        "allTime": {
+          "rank": 9,
+          "pnl": "138567109.0571179986",
+          "roi": "0.2626025588",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "150366051.967117995",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xdfc24b077bc1425ad1dea75bcb6f8158e10df303.jsonl.gz",
+      "funding_file": "hl_funding_0xdfc24b077bc1425ad1dea75bcb6f8158e10df303.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xdfc24b077bc1425ad1dea75bcb6f8158e10df303"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xdfd526409007db0d524a62dedaaba7706736d88e",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 23,
+          "pnl": "1832476.0042760002",
+          "roi": "0.2738541995",
+          "vlm": "1196738.8300000001"
+        }
+      },
+      "account_value_at_observation": "24747369.3968270011",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xdfd526409007db0d524a62dedaaba7706736d88e.jsonl.gz",
+      "funding_file": "hl_funding_0xdfd526409007db0d524a62dedaaba7706736d88e.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xdfd526409007db0d524a62dedaaba7706736d88e"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xe867fbdad3291530e41530301ecb77693850c78e",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 25,
+          "pnl": "5736514.6997809997",
+          "roi": "0.067784646",
+          "vlm": "1512328.23"
+        }
+      },
+      "account_value_at_observation": "90365041.0137230009",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xe867fbdad3291530e41530301ecb77693850c78e.jsonl.gz",
+      "funding_file": "hl_funding_0xe867fbdad3291530e41530301ecb77693850c78e.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xe867fbdad3291530e41530301ecb77693850c78e"
+    },
+    {
+      "status": "PARTIAL",
+      "rank": null,
+      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 7,
+          "pnl": "4695796.0336529994",
+          "roi": "0.0550347643",
+          "vlm": "2233410375.5899996758"
+        },
+        "week": {
+          "rank": 12,
+          "pnl": "8697999.1559430007",
+          "roi": "0.0992664097",
+          "vlm": "10274563909.9899978638"
+        },
+        "month": {
+          "rank": 13,
+          "pnl": "20235627.6843349971",
+          "roi": "0.2691528077",
+          "vlm": "36469985992.4799880981"
+        }
+      },
+      "account_value_at_observation": "87065755.4137910008",
+      "fills": 1229939,
+      "fills_served": 1243794,
+      "closed_pnl": "103482.5366980000",
+      "fees": "225894.528703",
+      "realized_ex_funding": "-122411.9920050000",
+      "funding": "-287.757428",
+      "funding_rows": 3448,
+      "net_with_funding": "-122699.7494330000",
+      "open_at_window_end": {
+        "AAVE": "-16.48",
+        "BNB": "1.425",
+        "BTC": "-7.65671",
+        "ENA": "2286.0",
+        "ETH": "131.7012",
+        "FARTCOIN": "6005.6",
+        "HYPE": "0.91",
+        "NEAR": "-1091.6",
+        "ONDO": "1446.0",
+        "PAXG": "2.45",
+        "PONS": "969.0",
+        "PUMP": "1545174.0",
+        "SOL": "-267.51",
+        "SUI": "4826.5",
+        "TAO": "1.501",
+        "UNI": "-303.4",
+        "USELESS": "-3943.0",
+        "VVV": "91.83",
+        "WLD": "5584.7",
+        "XPL": "311.0",
+        "XRP": "8942.0",
+        "ZEC": "-7.92",
+        "kPEPE": "-332658.0"
+      },
+      "first_tx": "0x641286d1bed782c2658c04480654f90206b000b759daa19407db32247ddb5cad",
+      "last_tx": "0xeb03ba1a7bda2651ec7d0448601c350205d4000016dd45238ecc656d3ade003c",
+      "coverage_reason": "the tape fell behind: 17 capped cycles of 102, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "-4860.4092820001"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "-47714.0147319999"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "-13509.5710440001"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "6998.6735340001"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "-63614.427909"
+        }
+      ],
+      "fills_file": "hl_fills_0xf5d81a135f756ca16544e53c20fc20643ec3ad53.jsonl.gz",
+      "funding_file": "hl_funding_0xf5d81a135f756ca16544e53c20fc20643ec3ad53.jsonl.gz",
+      "pages": 663,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xf5d81a135f756ca16544e53c20fc20643ec3ad53"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+      "displayed_at_observation": {
+        "day": {
+          "rank": 12,
+          "pnl": "3777375.1413519997",
+          "roi": "0.2187592734",
+          "vlm": "5399588.6900000004"
+        },
+        "week": {
+          "rank": 30,
+          "pnl": "5293516.5900670001",
+          "roi": "0.1785026425",
+          "vlm": "31430624.7199999988"
+        },
+        "month": {
+          "rank": 18,
+          "pnl": "13147944.376809001",
+          "roi": "0.8260128032",
+          "vlm": "132126723.5200000107"
+        }
+      },
+      "account_value_at_observation": "34848632.7077380046",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "9560.501474",
+      "funding_rows": 720,
+      "net_with_funding": "9560.501474",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [
+        {
+          "day": "2026-11-04",
+          "net": "1262.569655"
+        },
+        {
+          "day": "2026-11-05",
+          "net": "3190.515701"
+        },
+        {
+          "day": "2026-11-06",
+          "net": "1584.648693"
+        },
+        {
+          "day": "2026-11-07",
+          "net": "1600.111663"
+        },
+        {
+          "day": "2026-11-08",
+          "net": "1922.655762"
+        }
+      ],
+      "fills_file": "hl_fills_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.gz",
+      "funding_file": "hl_funding_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xf818fa41af44a1b42ba7433f4ec472be40a2c268"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xf8e3128c778a828f079049eefb89a9041cb4af4d",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 24,
+          "pnl": "5810000.7399899997",
+          "roi": "0.0738187285",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "84516324.4122579992",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xf8e3128c778a828f079049eefb89a9041cb4af4d.jsonl.gz",
+      "funding_file": "hl_funding_0xf8e3128c778a828f079049eefb89a9041cb4af4d.jsonl.gz",
+      "pages": 97,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xf8e3128c778a828f079049eefb89a9041cb4af4d"
+    },
+    {
+      "status": "NONE",
+      "rank": null,
+      "address": "0xfec495e7432264678175bea68c4d7678944f6635",
+      "displayed_at_observation": {
+        "week": {
+          "rank": 27,
+          "pnl": "5607586.1658619996",
+          "roi": "0.0636087942",
+          "vlm": "0.0"
+        }
+      },
+      "account_value_at_observation": "93764990.105023995",
+      "fills": 0,
+      "fills_served": 0,
+      "closed_pnl": "0",
+      "fees": "0",
+      "realized_ex_funding": "0",
+      "funding": "0",
+      "funding_rows": 0,
+      "net_with_funding": "0",
+      "open_at_window_end": {},
+      "first_tx": null,
+      "last_tx": null,
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "daily": [],
+      "fills_file": "hl_fills_0xfec495e7432264678175bea68c4d7678944f6635.jsonl.gz",
+      "funding_file": "hl_funding_0xfec495e7432264678175bea68c4d7678944f6635.jsonl.gz",
+      "pages": 98,
+      "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0xfec495e7432264678175bea68c4d7678944f6635"
+    }
+  ],
+  "record_row": {
+    "status": "RECORD",
+    "rank": null,
+    "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "displayed_at_observation": {},
+    "account_value_at_observation": null,
+    "fills": 0,
+    "fills_served": 0,
+    "closed_pnl": "0",
+    "fees": "0",
+    "realized_ex_funding": "0",
+    "funding": "0",
+    "funding_rows": 0,
+    "net_with_funding": "0",
+    "open_at_window_end": {},
+    "first_tx": null,
+    "last_tx": null,
+    "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+    "daily": [],
+    "fills_file": "hl_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz",
+    "funding_file": "hl_funding_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.gz",
+    "pages": 98,
+    "event_id": "agent_record:arena:settled:2026-11-03:2026-11-08:0x9f976123e7c48952be487664b8130aad144b7f23",
+    "coverage": "NONE",
+    "run_files": [
+      {
+        "file": "run_PAPER_2026-10-23_pv_f1998cef7df0489e.ri",
+        "sha256": "598761ff5f99fea49ddcee34721a8c35711b7896deea752cabd784ecb6141699",
+        "root": "14ffd9c75c78491c1e175391c25284ad29e8d2d13fa17f58ca0e769883b47c9c",
+        "events": 2,
+        "cryptographically_signed": 0,
+        "mode": "PAPER"
+      },
+      {
+        "file": "run_PAPER_2026-10-23_pv_f1998cef7df0489e_both.ri",
+        "sha256": "8abb84a25d0809ae6bd56b383c41e2ae9e9951c25a3be697ac88e8f53a4dd13d",
+        "root": "2b5a846b714d578da06f71d3dc1e9e29c6d92e1358e0c76cbabf5f6f32adfc38",
+        "events": 5,
+        "cryptographically_signed": 0,
+        "mode": "PAPER"
+      },
+      {
+        "file": "run_LIVE_2026-10-24_pv_e1849abce514440c.ri",
+        "sha256": "126afbe5a4bb5116162919c6cd47cedcaa41d55805475ceb1b4167de13c9559a",
+        "root": "8777b0a1e37df424f804943eb6c2e37b6c9853d8e241e1daefd8b772a754ee95",
+        "events": 9,
+        "cryptographically_signed": 2,
+        "mode": "LIVE"
+      },
+      {
+        "file": "run_LIVE_2026-10-25_pv_aca51be96df9478c.ri",
+        "sha256": "4c03441d4c6224fb8fc2358eea2b5819ed34bd98dca0fa3cec38c3766ec80d1b",
+        "root": "c805f1240831a27f6ce924e7172e76f4cb19b4ca810ca71fd5815aea166605d9",
+        "events": 15,
+        "cryptographically_signed": 2,
+        "mode": "LIVE"
+      },
+      {
+        "file": "run_LIVE_2026-10-26_pv_e9e6406179d94a4f.ri",
+        "sha256": "a5d0793cd576f91571a0c447298d3461bd56079610f0014fc03b3f95e2898b60",
+        "root": "5215bc902440f8fcd925ec964d34fc699af5bb8ec3b7b9c06692e4b44ecc4e02",
+        "events": 15,
+        "cryptographically_signed": 2,
+        "mode": "LIVE"
+      },
+      {
+        "file": "run_LIVE_2026-10-27_pv_65cbfed9bef849b6.ri",
+        "sha256": "63b27168429f77bebd82a17444deae06c87ecf207aa9d850dccfad534677b5cd",
+        "root": "38d30373d605b94bdccfb42d4ead5177d2e5e06395ed315cd04e3bb32ad01a87",
+        "events": 15,
+        "cryptographically_signed": 2,
+        "mode": "LIVE"
+      }
+    ],
+    "tx_hashes": [
+      "0x1837ce1ecfbac89e19b1044760de0f02010000046abde770bc0079718ebea288",
+      "0x196062567a9bd2ce1ada0447520dbe020133003c159ef1a0bd290da9399facb8",
+      "0x239c825c5cb3130f251604474f72980203e30041f7b631e1c7652daf1bb6ecf9",
+      "0x3c12dbd58851fb603d8c044785525502033c00bb23551a32dfdb87284755d54a",
+      "0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2",
+      "0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07",
+      "0xca0698b6303037accb800447638eca020961009bcb33567e6dcf4408ef341197",
+      "0xec47b0242615cdb9edc1044773c8a50201e80009c118ec8b90105b76e519a7a4"
+    ],
+    "explorer_urls": [
+      "https://app.hyperliquid.xyz/explorer/tx/0x1837ce1ecfbac89e19b1044760de0f02010000046abde770bc0079718ebea288",
+      "https://app.hyperliquid.xyz/explorer/tx/0x196062567a9bd2ce1ada0447520dbe020133003c159ef1a0bd290da9399facb8",
+      "https://app.hyperliquid.xyz/explorer/tx/0x239c825c5cb3130f251604474f72980203e30041f7b631e1c7652daf1bb6ecf9",
+      "https://app.hyperliquid.xyz/explorer/tx/0x3c12dbd58851fb603d8c044785525502033c00bb23551a32dfdb87284755d54a",
+      "https://app.hyperliquid.xyz/explorer/tx/0x8402a8c353e460c7857c04473db27f02010b00a8eee77f9927cb541612e83ab2",
+      "https://app.hyperliquid.xyz/explorer/tx/0x906ccd1d991bb21c91e604473de9e402041d0003341ed0ee34357870581f8c07",
+      "https://app.hyperliquid.xyz/explorer/tx/0xca0698b6303037accb800447638eca020961009bcb33567e6dcf4408ef341197",
+      "https://app.hyperliquid.xyz/explorer/tx/0xec47b0242615cdb9edc1044773c8a50201e80009c118ec8b90105b76e519a7a4"
+    ],
+    "settled_pairs_on_record": {
+      "PAPER": 1,
+      "LIVE": 4
+    }
+  },
+  "paper_rows": [],
+  "settled_rule": "SETTLED.md: realized_ex_funding = sum closedPnl - sum fee (fee includes builderFee); net_with_funding adds sum funding.usdc; positions open at the window's end are counted, never valued",
+  "arena_run": {
+    "file": "run_ARENA_2026-11-03_2026-11-08.ri",
+    "root": "d4a1f9bf4fa727b627b92a529179d02c9eff41673946574eb5b52612a2c3ce4d",
+    "events": [
+      "agent_record:arena:boards:1793688589648",
+      "agent_record:arena:ranking:2026-11-03:2026-11-08",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x023a3d058020fb76cca98f01b3c48c8938a22355",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x024294c53a69c1e6b39810b3fac87385752fffa1",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x03b9a189e2480d1e4c3007080b29f362282130fa",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x05cafe987297448f21a3c7ae0ae815fddecac655",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x082e843a431aef031264dc232693dd710aedca88",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x13c50dcdee4bbcba71baf578b345cdd35c7928be",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x1ab185be5ff61f7b678d6a871d439307cd0752e3",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x218a65e21eddeece7a9df38c6bbdd89f692b7da2",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x2e3d94f0562703b25c83308a05046ddaf9a8dd14",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x2ea18c23f72a4b6172c55b411823cdc5335923f4",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x3258e4e06929b746854c989de764efd015db3943",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x393d0b87ed38fc779fd9611144ae649ba6082109",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x45d26f28196d226497130c4bac709d808fed4029",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x484bc1608211d0604bf70bae72792a56884562f8",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x493db0ed7514c975e9abcc110bd40c473b6763e3",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x49e96e255ba418d08e66c35b588e2f2f3766e1d0",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x4ba3979955f52158c0e4e3378b18985475182ce2",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x4c78a97cef589b01bb91dbf893fffa14243d2444",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x4eb8d907136189a34c9b087950211b6a566f7819",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x4ec8fe22a531a96c8a846aaf5cbef73202649a80",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x64a4fbb71858f681f3fa10a42b34180a9a48088d",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x659ddde484fd9dc313917d5de92a52b6a74a9d63",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x7aa14144f5811aab1ba4a07f014a592f8c9d864c",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x7fdafde5cfb5465924316eced2d3715494c517d1",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x85530f0ff6496c72a619f37a60f3c1a59077737f",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x875783b13e6157e8fb70985c9602afa18e7a31d1",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x880ac484a1743862989a441d6d867238c7aa311c",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x88560b720239179d7f3f9e49ca934a4861593d7f",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x8d68efbf06fb8cf932518bcb53705e674c4852dc",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x8def9f50456c6c4e37fa5d3d57f108ed23992dae",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x9aa589355bf745db9784c8ef3c646360f11b58af",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0x9f976123e7c48952be487664b8130aad144b7f23",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xa312114b5795dff9b8db50474dd57701aa78ad1e",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xb695651daa495f59dd2725c6fe98322d8b51a92d",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xba5d9cc840745aeeeeedac5712e32f13ab8ea352",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xbde2ddc49a2e6827300faa6afc93d572114a60b1",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xca4903c207a0df58bf37d4bc8bbc5210726f53c8",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xd0e2842e830f2107f151ec0bd307c5871a3b4018",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xd47587702a91731dc1089b5db0932cf820151a91",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xd4c1f7e8d876c4749228d515473d36f919583d1d",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xda3768e9299e1fd81708ec030dac5ea37125f7b5",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xdd53c5297309130ab5fe5623dc905752e3342b13",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xdf954bbe619273a56e0cfa90dad8382195dc7d72",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xdfc24b077bc1425ad1dea75bcb6f8158e10df303",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xdfd526409007db0d524a62dedaaba7706736d88e",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xe867fbdad3291530e41530301ecb77693850c78e",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xf8e3128c778a828f079049eefb89a9041cb4af4d",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xfc667adba8d4837586078f4fdcdc29804337ca06",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae",
+      "agent_record:arena:settled:2026-11-03:2026-11-08:0xfec495e7432264678175bea68c4d7678944f6635"
+    ],
+    "record_source_url": "https://github.com/reality-infrastructure/reality-infrastructure/tree/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record",
+    "verify_command": "python -m rights_events.agent_arena --verify --run rights_events/fixtures/agent_record/<run file>"
+  }
+}

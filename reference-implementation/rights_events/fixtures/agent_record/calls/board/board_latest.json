@@ -1,0 +1,77 @@
+{
+ "kind": "proof_of_outcome_call_board",
+ "day": "2026-11-08",
+ "resolution_sha256": "08a911f4d363ce68d73a44215bb65bda71904f923cf37bbd1226065a71690207",
+ "tape_pins": {
+  "tape_MIDS_2026-11-08.jsonl": "701aabf653cdb199b4b332ac637d0c6543326c49471063bbc77f8b960db1c559",
+  "tape_MIDS_2026-11-09.jsonl": "3fa69a388938058a1acd75b3d9bbe984e440ac29a4196fff194f939e39a2f172"
+ },
+ "settled_calls_sha256": "0581207422084ff1896a37f0ffce820f59ba29529561967704930ef43e722622",
+ "rows": [
+  {
+   "leg": "CB_bar_coinflip",
+   "mode": "PAPER",
+   "type": "BAR",
+   "control": null,
+   "RESOLVED": 90,
+   "LOSS_RATE": 0.4889,
+   "GAP": null,
+   "RIGHT": 46,
+   "WRONG": 44,
+   "UNRESOLVED": 0,
+   "LATE": 48,
+   "DUPLICATE": 0,
+   "SLOW": 6,
+   "registered": 144
+  },
+  {
+   "leg": "CM_market_coinflip",
+   "mode": "PAPER",
+   "type": "MARKET",
+   "control": null,
+   "RESOLVED": 9,
+   "LOSS_RATE": 0.5556,
+   "GAP": null,
+   "RIGHT": 4,
+   "WRONG": 5,
+   "UNRESOLVED": 0,
+   "LATE": 10,
+   "DUPLICATE": 0,
+   "SLOW": 0,
+   "registered": 19
+  },
+  {
+   "leg": "L1_bar_continuation",
+   "mode": "PAPER",
+   "type": "BAR",
+   "control": "CB_bar_coinflip",
+   "RESOLVED": 90,
+   "LOSS_RATE": 0.4333,
+   "GAP": null,
+   "RIGHT": 51,
+   "WRONG": 39,
+   "UNRESOLVED": 0,
+   "LATE": 48,
+   "DUPLICATE": 0,
+   "SLOW": 6,
+   "registered": 144
+  },
+  {
+   "leg": "L2_market_favorite",
+   "mode": "PAPER",
+   "type": "MARKET",
+   "control": "CM_market_coinflip",
+   "RESOLVED": 9,
+   "LOSS_RATE": 0.1111,
+   "GAP": null,
+   "RIGHT": 8,
+   "WRONG": 1,
+   "UNRESOLVED": 0,
+   "LATE": 10,
+   "DUPLICATE": 0,
+   "SLOW": 0,
+   "registered": 19
+  }
+ ],
+ "what_is_not_claimed": "Two numbers per leg per day, RESOLVED and LOSS RATE (and GAP for a live leg), from pre-registered calls against pinned prints; nothing else is scored."
+}

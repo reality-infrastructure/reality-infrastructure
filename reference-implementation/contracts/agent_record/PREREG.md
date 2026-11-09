@@ -5996,3 +5996,208 @@ Every registered BAR call opens ≥ 1 800 s after 06:57:21Z (the first at 08:00:
 **What did not change.** No number, no rule, no rank, no pin. The page is a rendering of committed files; its source is not in the repository and its version is recorded here: https://claude.ai/artifact/JHvvyjwNJXBVsRxatXKqHd version 4 (id `1794122117-387e`).
 
 **Income row (R81):** 0 USD a day against 165. Nothing on the chain.
+
+### A17.11 — 2026-11-09 00:5xZ, flat — Day 18 (2026-11-08): THE FIRST WHOLE READING SINCE A26: 52 episodes, sum −984.7 bps (funding excluded); no fork beat both controls (F4:SOL's run 3 → 0, −22.94 net on 10); pass line over six days (11-06, 11-07 void by the marker's own mark), no CANDIDATE; ledger as of 11-08 six ALIVE, every run 0/5; cohort 2 as of 11-08 FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0, `--verify` OK; the first call board (L1 loss rate 0.4333 on 90 vs coin-flip 0.4889; L2 0.1111 on 9 vs 0.5556); R72 names the hand; live leg MISS
+
+**Clock.** `date -u` = Mon Nov 9 00:42:46 UTC 2026. D-1 = 2026-11-08 = **Day 18** (Day N = 2026-10-21 + N). Pass-line days as step 3 prescribes: 2026-11-01 … 2026-11-08.
+
+**Preflight.** `python --version` = **Python 3.11.18**. `git status --porcelain` empty; HEAD = `origin/contract/agent-record` = `c0df34431e69bfa35384d1c8086d374d4e3da65e`. Frozen shas, before and after:
+
+| file | sha256 | holds |
+|---|---|---|
+| `marker/marker.py` | `acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b` | yes |
+| `marker/forward.py` | `6fd373b87800398fe4f5517c1f84797809571fb1fab9625df24d9931f2681c76` | yes |
+| `marker/families.json` | `db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974` | yes |
+
+Gates: `pytest tests/test_agent_record_marker.py tests/test_agent_record_forward_read.py tests/test_agent_record_torn_void.py -q` → **39 passed in 0.19 s** (23 + 6 + **10**), after `pip install -q pytest`. Recorded as found: POO_DAILY.md step 1 says "23 + 6 + 11 gates"; `tests/test_agent_record_torn_void.py` holds 10 and all 10 pass. Nothing failed; the count in the protocol and the count in the file differ by one, and we did not edit either.
+
+**The channel.** `vps/poo-files` at `efbb05108d4ac40d64f9e8dee2b67387d13fa6cb` ("poo-vps day files 2026-11-09T00:09:18Z"). Extracted from the repository root to `/tmp/poo`; **350 files in the manifest, every sha256 equal to the manifest's (0 missing, 0 mismatches)**; 315 of them under `arena/` (1 515 154 929 bytes, largest part 8 388 583).
+
+| field | value | test | holds |
+|---|---|---|---|
+| `generated_at` | 2026-11-09T00:08:26Z | within 2 h of 00:42:46Z (34 min 20 s) | yes |
+| `poo_tape` | active | active | yes |
+| `poo_marker` | active | active | yes |
+| `poo_arena_tape_timer` | active | (not a step-2 test) | — |
+| `tape_newest_mtime` | 2026-11-09T00:08:26Z | within 10 min of `generated_at` (0 s) | yes |
+| `void_days` (marker_state) | ["2026-11-06"] | 2026-11-08 not in it | yes |
+| void row in `marks_2026-11-08.jsonl` (A26 R116) | none (the reader: `by row False`) | no `{"type":"void"}` row | yes |
+
+**Health holds.** The state's `void_days` still lacks 11-07 (A26: derived and lossy); the reader voids 11-07 by its three rows.
+
+**The tape (for R72 factor 1).** Rows in the 24 h before the read (2026-11-08T00:42:46Z … 2026-11-09T00:42:46Z): **15 949**; 3 null rows (`"mids": null`, isolated: 11-08 03:23:50Z, 03:24:25Z, 23:20:58Z; no null span); **longest gap between rows 22.2 s** (11-08 03:23:50Z → 03:24:12Z); **no hole longer than 15 min**; 0 gaps over 60 s. Torn tape lines: 3 in `tape_MIDS_2026-11-07`, 0 in `…-11-08`, 0 in `…-11-09`. Last row 2026-11-09T00:06:56Z, 89.6 s before `generated_at`, 35 min 50 s before the read (the channel publishes hourly; read against the manifest as A17.3 did). R72 factor 1 does not hold on holes or null spans. Recorded, not ruled on: by the letter of "its last row is older than 60 s at the read", an hourly channel can never pass that clause from the cloud; A17.3 read it against the manifest and we did the same.
+
+**Funding.** `curl -s -m 10 https://api.hyperliquid.xyz/info` failed (exit 56, HTTP 000). **The net numbers below exclude funding (disclosed, not estimated).**
+
+**The reading** (both prescribed runs exit 0; `--days 2026-11-01 … 2026-11-08 --n-alive 6`), the reader's markdown verbatim:
+
+**Forward day 2026-11-08** - episodes 52, N alive 6 -> k = 5; marker.py `acf754f9...`
+
+| fork | n | mean gross bps | mean net bps | stop-first | sum net bps |
+|---|---|---|---|---|---|
+| C1:BTC | 1 | -30.70 | -49.47 | 100% | -49.5 |
+| C1:ETH | 1 | -11.63 | -30.71 | 0% | -30.7 |
+| C1:HYPE | 1 | -30.05 | -48.82 | 100% | -48.8 |
+| C1:NEAR | 1 | +208.98 | +190.06 | 0% | +190.1 |
+| C1:SOL | 1 | -30.33 | -49.08 | 100% | -49.1 |
+| C1:ZEC | 1 | -32.78 | -52.22 | 100% | -52.2 |
+| F4:BTC | 6 | -14.12 | -32.92 | 50% | -197.5 |
+| F4:ETH | 7 | -15.00 | -34.22 | 57% | -239.5 |
+| F4:HYPE | 8 | -20.73 | -39.50 | 88% | -316.0 |
+| F4:NEAR | 2 | +60.88 | +41.43 | 50% | +82.9 |
+| F4:SOL | 10 | -4.09 | -22.94 | 80% | -229.4 |
+| F4:ZEC | 13 | +16.31 | -3.46 | 77% | -44.9 |
+
+Pass-line days (R116): 2026-11-01, 2026-11-02, 2026-11-03, 2026-11-04, 2026-11-05, 2026-11-08; void by the marker's own mark, counted for nothing: 2026-11-06 (1 marks, 61 episodes, sum -2137.5 bps), 2026-11-07 (3 marks, 45 episodes, sum -362.4 bps)
+
+| fork | run of days beating C0 and C1 | k | 2-sigma clause | candidate |
+|---|---|---|---|---|
+| F4:BTC | 0 | 5 | no | no |
+| F4:ETH | 0 | 5 | no | no |
+| F4:HYPE | 0 | 5 | no | no |
+| F4:NEAR | 0 | 5 | no | no |
+| F4:SOL | 0 | 5 | no | no |
+| F4:ZEC | 0 | 5 | no | no |
+
+Health: poo-tape active, poo-marker active, tape newest 2026-11-09T00:08:26Z, manifest 2026-11-09T00:08:26Z, void_days ['2026-11-06'], this day void: False (by state False, by row False)
+Signals: {'F4_signal': 4965, 'poll_failure': 10, 'tick_error': 3}
+
+Alignment (R115), file: rows / void marks / torn fragments [lines] / lost rows / in-flight:
+- `marks_2026-11-01.jsonl`: 60 / 0 / 0 [] / 0 / 0
+- `marks_2026-11-02.jsonl`: 85 / 0 / 0 [] / 0 / 0
+- `marks_2026-11-03.jsonl`: 79 / 0 / 0 [] / 0 / 0
+- `marks_2026-11-04.jsonl`: 97 / 0 / 0 [] / 0 / 0
+- `marks_2026-11-05.jsonl`: 101 / 0 / 0 [] / 0 / 0
+- `marks_2026-11-06.jsonl`: 61 / 1 / 1 [40] / 1 / 0
+- `marks_2026-11-07.jsonl`: 45 / 3 / 0 [] / 0 / 0
+- `marks_2026-11-08.jsonl`: 52 / 0 / 0 [] / 0 / 0
+- `signals_2026-11-08.jsonl`: 4978 / 0 / 0 [] / 0 / 0
+
+(End of the reader's markdown; its pins list is the table below.) From the `--json` run, the pass line's pooled numbers over the six counted days:
+
+| fork | mean net bps | 2σ/√n | n | run | candidate |
+|---|---:|---:|---:|---:|---|
+| F4:BTC | −22.66 | 14.71 | 56 | 0 | no |
+| F4:ETH | −27.67 | 15.80 | 69 | 0 | no |
+| F4:HYPE | −20.68 | 20.13 | 99 | 0 | no |
+| F4:NEAR | +19.96 | 66.09 | 34 | 0 | no |
+| F4:SOL | −0.66 | 27.63 | 63 | 0 | no |
+| F4:ZEC | −25.44 | 21.53 | 117 | 0 | no |
+
+Day 18 in one line: 52 episodes, 37 stop-first, sum −984.7 bps (F4 rows −944.5 on 46); the only net-positive rows are F4:NEAR (+41.43 on 2) and C1:NEAR (+190.06 on 1), so F4:NEAR beat C0 but not C1, and F4:SOL (−22.94) beat C1:SOL (−49.08) but not C0. F4:SOL's run of 3 (11-02 … 11-05 counted days) ends at 0.
+
+**Pins** (copied into `rights_events/fixtures/agent_record/vps/`, sha256 re-checked after the copy, equal to the reader's):
+
+| record file | source on `vps/poo-files` | sha256 |
+|---|---|---|
+| `vps/marks_2026-11-08.jsonl` | `marker/marks_2026-11-08.jsonl` (52 rows) | `38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332` |
+| `vps/signals_2026-11-08.jsonl` | `marker/signals_2026-11-08.jsonl` (4 978 rows, 0 torn) | `e789b6766970e15456ab0fcfe83982842811ff77a2a8c79818cf0a33f44ab1c2` |
+| `vps/manifest_2026-11-08.json` | `manifest.json` | `776b1b53fb27b7950b2f44277f6d16124f3b6245049671405ebcbdfad18177ab` |
+| `vps/marker_state_2026-11-08.json` | `marker/marker_state.json` | `426fcaeeb976732a39b91e0d1be1a95218e61157ee31ba47e8381ebebd93b3f6` |
+
+The reader's other pins equal the newest committed readings: `marks_2026-11-04` `e973d784…`, `-11-05` `603bb6e0…`, `-11-06` `f321c94e…`, `-11-07` `6e4a56d6…` (the `_as_read_2026-11-08` pins); `-11-01` `ed0698e5…`, `-11-02` `67a8732d…`, `-11-03` `2136d7c0…`.
+
+**The arena (step 3b), cohort `2026-11-03`, window 2026-11-04 … 11-10.** Newest `pages_index.jsonl` line fetched 2026-11-08T23:23:11Z, 1 h 20 min before the read: not VOID. Index `7cc319b7deae641c67b7aafdad33bf3e19ef27357a8e8266baa3888362677d4e` (15 314 lines), cohort file `b09ca0588cba509fc35e8e3358e32ec9457d2ad80ee2d32a80513d25829be716`. `arena_capture_from_tape.py --channel-dir /tmp/poo --cohort-capture capture_ARENA_2026-11-03_2026-11-03.json --as-of-date 2026-11-08 --now-ms <00:44:30Z>` → `capture_ARENA_2026-11-03_2026-11-08.json` **`105f4bab2241bb32e0679f855bb3100b33dc8e1a915e8ff81326c857b8882d66`**; 70 rows; alignment {files 140, pages 15 314, recovered 14, dropped 0, files without index 0}; 8 355 fills pages / 6 959 funding pages. Runner (unmodified): C1–C7 PASS, 72 events, **`AGENT-RECORD ARENA RUN: OK`**; `--verify --run` → reloaded 72 events, all signatures and inclusion proofs verified, root `d4a1f9bf4fa727b627b92a529179d02c9eff41673946574eb5b52612a2c3ce4d`, **RESULT: OK**. No paper marks passed (as A17.10).
+
+**Counts: FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0** (11-07: 27 / 1 / 41 / 0; `0x218a65e2…` moved NONE → FULL on 6 fills). Median net of FULL rows 858 129.87 USD; 25 of 28 net-positive. The window is open until 11-10; disclosed, not claimed about anyone's skill.
+
+| rank | address | fills | net with funding (USD) |
+|---:|---|---:|---:|
+| 1 | `0x49e96e255ba418d08e66c35b588e2f2f3766e1d0` | 26 509 | 7 901 197.08 |
+| 2 | `0x024294c53a69c1e6b39810b3fac87385752fffa1` | 88 779 | 5 177 196.27 |
+| 3 | `0xfc667adba8d4837586078f4fdcdc29804337ca06` | 296 445 | 5 033 212.46 |
+| 4 | `0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36` | 132 826 | 4 842 526.78 |
+| 5 | `0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00` | 821 396 | 3 979 983.59 |
+| 6 | `0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d` | 138 714 | 3 432 759.06 |
+| 7 | `0x5b5d51203a0f9079f8aeb098a6523a13f298c060` | 94 752 | 2 745 377.52 |
+| 8 | `0xda3768e9299e1fd81708ec030dac5ea37125f7b5` | 6 657 | 1 799 167.64 |
+| 9 | `0xd4c1f7e8d876c4749228d515473d36f919583d1d` | 171 199 | 1 151 954.91 |
+| 10 | `0x7fdafde5cfb5465924316eced2d3715494c517d1` | 259 815 | 1 123 728.35 |
+| 11 | `0xdd53c5297309130ab5fe5623dc905752e3342b13` | 8 786 | 1 077 492.72 |
+| 12 | `0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f` | 169 496 | 1 042 921.58 |
+| 13 | `0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae` | 37 333 | 939 323.44 |
+| 14 | `0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85` | 24 918 | 926 403.29 |
+| 15 | `0x880ac484a1743862989a441d6d867238c7aa311c` | 11 934 | 789 856.46 |
+| 16 | `0x023a3d058020fb76cca98f01b3c48c8938a22355` | 80 579 | 726 281.54 |
+| 17 | `0x4c78a97cef589b01bb91dbf893fffa14243d2444` | 13 123 | 499 533.53 |
+| 18 | `0xdf954bbe619273a56e0cfa90dad8382195dc7d72` | 136 968 | 377 493.78 |
+| 19 | `0xb695651daa495f59dd2725c6fe98322d8b51a92d` | 3 | 177 370.65 |
+| 20 | `0x45d26f28196d226497130c4bac709d808fed4029` | 140 | 170 140.50 |
+| 21 | `0x218a65e21eddeece7a9df38c6bbdd89f692b7da2` | 6 | 96 027.88 |
+| 22 | `0x4ba3979955f52158c0e4e3378b18985475182ce2` | 555 | 86 263.09 |
+| 23 | `0xca4903c207a0df58bf37d4bc8bbc5210726f53c8` | 113 | 74 515.40 |
+| 24 | `0xba5d9cc840745aeeeeedac5712e32f13ab8ea352` | 8 225 | 16 000.10 |
+| 25 | `0xa312114b5795dff9b8db50474dd57701aa78ad1e` | 5 | 406.85 |
+| 26 | `0x13c50dcdee4bbcba71baf578b345cdd35c7928be` | 157 | −3.78 |
+| 27 | `0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05` | 1 | −22 604.38 |
+| 28 | `0x9aa589355bf745db9784c8ef3c646360f11b58af` | 23 050 | −424 825.73 |
+
+PARTIAL (unranked): `0xf5d81a135f756ca16544e53c20fc20643ec3ad53`, 1 229 939 fills served, net −122 699.75 USD — "the tape fell behind: 17 capped cycles of 102, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)". **RECORD row:** `0x9f976123e7c48952be487664b8130aad144b7f23`, NONE, 0 fills, net 0 USD.
+
+Arena files (committed): `capture_ARENA_2026-11-03_2026-11-08.json` `105f4bab…82d66`, `run_ARENA_2026-11-03_2026-11-08.ri` `341035bc6e2dea8f6ea2178fc4ed1ed47f61f19925226f4d0652a87435d623af`, `arena_2026-11-03_2026-11-08.json` `c62546d9f292aaae4eeca3ccd26a37a1d54039ffa729f060be320d49a7c43501`, `.md` `a4dcf52451946719de10054fd61d31c517ce5c5100c9acc1e94875d2d7cb5d77`, `.html` `b5167174730682e0dd924f39c1f3449bbd0fdf26ebf83b0dbc2c4029202704ab`, `MANIFEST_ARENA_2026-11-03_2026-11-08.json` `e15649f3ce36281c1a07e3eec8b34b8aefd6b6953b791fe43d5b23b88675010a`. The 140 rebuilt `hl_*.jsonl.gz` page files are **not committed** (A24.1 F4, A25); their bytes are the channel's parts at `efbb051`, each pinned by sha256 in the capture.
+
+**The leader screen (step 3c).** Not due (cohort 2's window is not complete; first run 2026-11-12).
+
+**The population ledger (step 3d)**, as of 2026-11-08 → `ledger_2026-11-08.json` `9e4c89522eed80a90f5af7dcdbd7923698161baa36eb99db76d0cfd9323b1eb9`, `ledger_2026-11-08.md` `f3310695e03ca6dbe468faf413b61cfdfe944ef4454a8dd833d372e4eb4e198b`. Days counted: **6** (11-01 … 11-05, 11-08); void under R116 and counted for nothing: 11-06 (61 episodes), 11-07 (45 episodes) — the first ledger under R116.
+
+| fork | status | rung | days alive | episodes | sum net bps | mean net bps | 2σ/√n | run / k | retired |
+|---|---|---:|---:|---:|---:|---:|---:|---|---|
+| F4:BTC | ALIVE | 0 | 6 | 56 | −1 268.95 | −22.66 | 14.71 | 0 / 5 | — |
+| F4:ETH | ALIVE | 0 | 6 | 69 | −1 908.97 | −27.67 | 15.80 | 0 / 5 | — |
+| F4:HYPE | ALIVE | 0 | 6 | 99 | −2 046.86 | −20.68 | 20.13 | 0 / 5 | — |
+| F4:ZEC | ALIVE | 0 | 6 | 117 | −2 976.50 | −25.44 | 21.53 | 0 / 5 | — |
+| F4:SOL | ALIVE | 0 | 6 | 63 | −41.35 | −0.66 | 27.63 | 0 / 5 | — |
+| F4:NEAR | ALIVE | 0 | 6 | 34 | +678.49 | +19.96 | 66.09 | 0 / 5 | — |
+
+Counts: 6 ALIVE, 0 CANDIDATE, 0 PROMOTED, 0 RETIRED. Changes since the ledger as of 11-07: F4:SOL run 3 → 0, F4:HYPE run 1 → 0 (that run of 1 rested on void 11-07, A26). No retirement: the rule needs days alive ≥ 7.
+
+**The copier's grade (step 3e)**, `arena_feed --as-of 2026-11-08` → `feed_2026-11-08.json` = `feed_latest.json` `403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491` (byte-equal), `feed_2026-11-08.md` `b79b952d66e9cad38d473c6d8220835a2a204a685d9d946c0151941459cff88a`. Cohort `2026-10-25` (complete, arena as of 11-03): KEEP 7 / DROP 51 / UNDECIDED 23 / OPEN 0 (81 rows). Cohort `2026-11-03` (arena as of 11-08): OPEN 70. **No change of status or run** against `feed_2026-11-07.json` (151 rows compared, 0 differ); only the open cohort's figures moved.
+
+**The AI board entry (step 3f)**, `arena_ai_board --as-of 2026-11-09` → `ai_board_2026-11-09.json` = `ai_board_latest.json` `e54c81bac47c5fe260b3a9a1c359462eb067a96018c2b54454b681ddd0c9c9db`, `.md` `ce0fc0b32471c1fd4afabcdfa090382fe598435610ec6b2af8d76a589508fc7b`. 14 rows (USD 2, bps 12); population days 6, void excluded 11-06, 11-07; **not graded 0**. ROI not computed.
+
+| class | rank | row | total | trades | win rate | biggest win | biggest loss | fees |
+|---|---|---|---:|---:|---:|---:|---:|---:|
+| USD | 1 of 1 | RI record, window 10-26 … 11-02 | 0.073533 USD | 2 | 0.5000 (1/2) | 0.144370 | −0.067163 | 0.041793 USD |
+| USD | — of 1 | RI record, window 11-04 … 11-10 | 0 USD | 0 | — | — | — | 0 USD |
+| bps | 1 of 12 | F4:NEAR | +678.49 | 34 | 0.2059 (7/34) | +915.98 | −65.61 | 673.28 |
+| bps | 2 of 12 | C1:ETH | +107.59 | 6 | 0.3333 (2/6) | +193.11 | −53.46 | 114.48 |
+| bps | 3 of 12 | F4:SOL | −41.35 | 63 | 0.2381 (15/63) | +553.55 | −73.55 | 1 185.24 |
+| bps | 4 of 12 | C1:NEAR | −71.45 | 6 | 0.1667 (1/6) | +190.06 | −58.91 | 119.95 |
+| bps | 5 of 12 | C1:BTC | −150.06 | 6 | 0.3333 (2/6) | +30.70 | −53.59 | 112.62 |
+| bps | 6 of 12 | C1:ZEC | −239.53 | 6 | 0.1667 (1/6) | +69.09 | −100.16 | 117.58 |
+| bps | 7 of 12 | C1:SOL | −246.41 | 6 | 0.1667 (1/6) | +17.94 | −61.70 | 114.32 |
+| bps | 8 of 12 | C1:HYPE | −303.31 | 6 | 0.0000 (0/6) | −48.82 | −52.06 | 115.83 |
+| bps | 9 of 12 | F4:BTC | −1 268.95 | 56 | 0.2321 (13/56) | +230.35 | −67.43 | 1 052.67 |
+| bps | 10 of 12 | F4:ETH | −1 908.97 | 69 | 0.2029 (14/69) | +327.94 | −101.58 | 1 318.66 |
+| bps | 11 of 12 | F4:HYPE | −2 046.86 | 99 | 0.1212 (12/99) | +438.66 | −78.91 | 1 885.13 |
+| bps | 12 of 12 | F4:ZEC | −2 976.50 | 117 | 0.1197 (14/117) | +917.38 | −122.33 | 2 309.41 |
+
+**The call ledger (step 3g).** `resolve --day 2026-11-08` against the channel's tape (pins `tape_MIDS_2026-11-08.jsonl` `701aabf653cdb199…`, `tape_MIDS_2026-11-09.jsonl` `3fa69a388938058a…`) → `resolved_2026-11-08.json` `08a911f4d363ce68d73a44215bb65bda71904f923cf37bbd1226065a71690207`; `board --day 2026-11-08` → `board_2026-11-08.json` = `board_latest.json` `dfa7e633d9907e2ab29f56e58cdd52f46591d58d038f2cd7774fbadabcb273d5`, `.md` `e2aacd8ab378881c60f23b095733abfc625e8706e8e5a0f9939d6a63256aa6b4`. **The first board:**
+
+| leg | mode | RESOLVED | LOSS RATE | GAP | right | wrong | unresolved | late | slow |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| L1_bar_continuation | PAPER | 90 | 0.4333 | — | 51 | 39 | 0 | 48 | 6 |
+| CB_bar_coinflip | PAPER | 90 | 0.4889 | — | 46 | 44 | 0 | 48 | 6 |
+| L2_market_favorite | PAPER | 9 | 0.1111 | — | 8 | 1 | 0 | 10 | 0 |
+| CM_market_coinflip | PAPER | 9 | 0.5556 | — | 4 | 5 | 0 | 10 | 0 |
+
+The 6 SLOW per bar leg are the 23:00 bars (one per coin) as A35.1 / SETTLED_CALLS.md 4 predicted: 15 countable bars per coin × 6 = 90. One day, one board; nothing is claimed about a leg on 90 or 9 bits (R142's burn-in is the leg's own rule). `register --day 2026-11-09 --registered-ms 1794185257000 --commit-sha c0df34431e69bfa35384d1c8086d374d4e3da65e` at 00:47:37Z → `calls_2026-11-09.jsonl` `060160c05fb5412b814c9c4cb7e8d81356e45cfcb3655ec953d85487bddba43d`, 316 new rows: L1 132 REGISTERED + 12 LATE (all six coins DOWN), CB 132 + 12, L2 14 + 0, CM 14 + 0, 0 duplicates. A35.1's known answer "132 + 14 per leg pair" met; the 12 LATE per bar leg are the 00:00Z bars (registered at 00:47Z) — recorded, not ruled on. `calls_2026-11-08.jsonl` untouched (`0e278338…`).
+
+**The live leg.** Day 18 (2026-11-08): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat.
+(No `capture_LIVE_2026-11-08_*.json` on the branch; the newest live capture is `capture_LIVE_2026-10-28_pv_65cbfed9bef849b6_close.json`. Of the amendments dated 11-08, none records an open; A34's standing go begins Day 19, 2026-11-09, open 14:43:00Z, which is today, not D-1.)
+
+**The three questions, from Day 18's numbers.**
+
+1. *What is the one thing limiting you right now?* By R72's fixed order (R94): (1) the sensor does not hold — 15 949 rows in the last 24 h, 3 isolated null rows, longest gap 22.2 s, no hole over 15 min, last row 90 s before the manifest; (2) **the hand / the gateway holds** — no pair settled inside the five-hour gate in the last 7 days (the newest live capture is dated 10-28). The factor is the hand: A34's standing go starts today at 14:43Z, and nothing on paper reaches the chain until a hand commits that pair.
+2. *What does reality actually reward, as opposed to what your dashboard rewards?* Reality rewards closed episodes net of cost: on 11-08 the 52 episodes netted −984.7 bps (funding excluded), 37 of 52 hit their stop first, and no fork beat both its controls. The AI board ranks F4:NEAR first on +678.49 bps, but its mean +19.96 sits inside a 2σ bar of 66.09 on 34 episodes, so the ranking is a dashboard number until the chain grades a pair.
+3. *What is the smallest sequence of bets that lets reality grade you early and cheaply?* Today's one-unit pair under A34 (0.00014 BTC long, open 14:43Z, exit at 30 bps or the 19:43Z gate) is one bit on the chain at the venue's minimum. The call ledger already gives about 200 paper bits a day (L1 90, L2 9 and their coin-flip controls); keep registering before the windows and let the burn-in run its written course.
+
+**The k countdown.** Forward days counted: 6 (11-01 … 11-05, 11-08); 11-06 and 11-07 void (R116). 2026-11-05 has passed with no CANDIDATE. Every fork's run is 0 / 5 by the reader and by the ledger. The earliest any fork can be a CANDIDATE is five counted days that each beat both controls: 11-09 … 11-13, read by the run of 2026-11-14, and then only if its pooled mean clears 2σ/√n.
+
+**Income row (R81):** **0 USD a day against 165.** No settled live pair on the branch.
+
+**STOPs hit:** none today. S72 not hit for 11-08 (no void row). S85 not hit (arena fresh). S84 / S87–S89 / S96–S104 not hit (no `REFUSED`, no `FEED REFUSED`, no `AI BOARD REFUSED`, no `CALL LEDGER REFUSED`).
+
+**R108 (the trace).** No decision is made in this amendment beyond what POO_DAILY.md prescribes.
+
+**What was not verified.** Funding (API unreachable). Whether the last-row-at-the-read clause of R72 factor 1 means the read or the manifest (read as A17.3 did). Why `tests/test_agent_record_torn_void.py` holds 10 gates where POO_DAILY.md says 11. The C0 rows (C0 = 0 in the reader). The cause of the 3 null tape rows and the 3 marker tick errors on 11-08 (`AttributeError("'NoneType' object has no attribute 'get'")` in the log tail, consistent with a null tape row). The Proof of Outcome doc row and the email: their outcomes are stated in the run's final message; the commit precedes them. Frozen shas re-checked after the commit.

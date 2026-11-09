@@ -1860,3 +1860,16 @@ the go (a hand-off), then search (P12).
 | Tomorrow | 00:40Z: resolve 11-08, board, register 11-09 (132 + 14 per leg pair). |
 
 **Income row (R81), 2026-11-08 after A35.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.11 — Day 18 (2026-11-08): the first whole reading since A26; no fork beat both controls; six ALIVE, every run 0/5; the first call board; R72 names the hand; live leg MISS
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `c0df344`; frozen shas hold; 39 passed (23 + 6 + 10; the protocol says 11 for torn_void, the file holds 10). |
+| Channel | `efbb051`, 350 files, 0 sha mismatches; health holds (manifest 34 min old, tape and marker active, 11-08 not void by state or row); tape 15 949 rows / 24 h, no hole > 15 min. |
+| Reading | 52 episodes, sum −984.7 bps (funding excluded); pass line over 11-01 … 11-05, 11-08 (11-06, 11-07 void, counted for nothing); no CANDIDATE; F4:SOL run 3 → 0. Marks pin `38b24bb0…`. |
+| Ledger / arena | ledger as of 11-08 six ALIVE, 0 CANDIDATE, all runs 0/5 (`f3310695…`); cohort 2 as of 11-08 FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0, `--verify` OK (root `d4a1f9bf…`); feed: no status change; AI board 14 rows, 0 not graded. |
+| Calls | first board 11-08: L1 0.4333 on 90 vs CB 0.4889 on 90; L2 0.1111 on 9 vs CM 0.5556 on 9; 11-09 registered 316 rows (`060160c0…`). |
+| Live leg | Day 18 (2026-11-08): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-09 after A17.11:** 0 USD a day against 165. Nothing on the chain.
