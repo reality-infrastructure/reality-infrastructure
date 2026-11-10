@@ -223,6 +223,21 @@ KILLED, the kill test due or not) and the STARLINK line verbatim. The marker run
 write nothing. The first chain-graded pair under an arena verdict has a 50th-percentile date of **2026-11-11** (R152):
 on and after it, a day without one is written `R152: the date is missed; <n> days late` in the same words every time.
 
+**3j. L2 favorite, the compounding account (A40, every run, after 3h).** The hourly legs this laptop session registered
+for D-1 (`calls/l2_favorite/ledger/calls_<D-1>.jsonl`, from the captures under `calls/l2_favorite/captures/`) are resolved
+against the channel's tape exactly as 3g resolves the main ledger's market calls (SETTLED_CALLS.md 3b; S104 on different
+tape bytes), then the account is marked as of D-1 (R164: 11.00 USDC, quarter-Kelly on the Laplace p-hat, reinvested; the
+benches CM and C0; the date for 165 USD a day from the measured mean daily log growth after 5 marked days; the kill line
+R168). You register nothing (you cannot capture); if no register exists for D-1 the resolve step is skipped and the account
+is still marked from the main ledger's favorite calls:
+```
+python -m rights_events.l2_favorite resolve --day <D-1> --tape-dir /tmp/poo/tape     # only if calls_<D-1>.jsonl exists
+python -m rights_events.l2_favorite account --as-of <D-1>
+python -m rights_events.l2_favorite check-latest
+```
+Paste the account table (the four rows and the date line) into the amendment. Commit `calls/l2_favorite/ledger/resolved_<D-1>.json`,
+`calls/l2_favorite/account_<D-1>.json|.md` and `account_latest.json` with the day's files.
+
 **4. The live leg (A38 R155 from Day 19, 2026-11-09).** Under the standing go of A34 the entry is the first F6 signal
 inside [14:00, 15:00)Z (a KEEP leader's qualifying open), one unit by R156, exit at 30 bps or the gate 5 h after the
 open; the hand submits both legs (R157). `ops/copier_watch.py` watches the window and writes `copier/watch_<D>.jsonl`;

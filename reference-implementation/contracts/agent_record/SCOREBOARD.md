@@ -1954,3 +1954,19 @@ the go (a hand-off), then search (P12).
 | Not done / not mine | the next variable after this result is the operator's to name (rule 7); Day 20's start before 13:50Z is the operator's one command. |
 
 **Income row (R81), 2026-11-10 after A39.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A40 / P32 / A40.1 — "L2 FAVORITE", THE COMPOUNDING ACCOUNT: the reward as money per unit staked; 11 USDC at quarter-Kelly on the venue's binary-market favorite, reinvested, marked daily; hourly captures from this session; the page beside the arena
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A40 `c384e9f` → P32 (this commit) → A40.1. The operator: "let's execute this verbatim now starting today — let's call it 'L2 favorite' … It should now sit alongside arena with daily results." |
+| R163 payoff | one USD a call at the captured price: L2 **+7.411 on 23** (16 right), CM **−9.030 on 23** (7 right), 11-08 and 11-09; reproduced by the gate. |
+| R164 account | as of 11-09: L2 favorite **11.94 USDC** (14 bets staked, none ≥ 11), CM bench 9.36, C0 11.00; g 11-08 0, 11-09 +0.0819; the date for 165 a day not computed (2 of 5 marked days); kill not due. |
+| R166 legs | three frozen leg files; first capture `outcomes_2026-11-10T0159Z.json` 274 markets, mids 1 424 at 02:05:02Z; registration 02:06:45Z: 11 REGISTERED + 11 LATE per leg; hourly session job `c84d9497` at :07 (7 days, dies with the session). |
+| R169 beside the arena | page https://claude.ai/artifact/FLpgDnFWGjgzPFiD373w1k (a rendering of `account_latest.json`); endpoint `calls/l2_favorite/account_latest.json`; POO_DAILY step 3j; the arena page's nav link is a later publish. |
+| Untouched | `call_ledger.py`, its legs, its board, SETTLED_CALLS.md, the arena, the book, the marker, every pin (gated). |
+| Known answers | (1) (2) (5) held; (3) (4) read tomorrow by 3j. |
+| Suite | + 9 gates (`tests/test_agent_record_l2_favorite.py`); 1 267 passed, 3 pre-existing red (the routine's latest pointers), untouched. |
+| Not mine | the live rung (R167, earliest 11-13) by the operator's written word; the durable hourly capture (a venue client the routine lacks). |
+
+**Income row (R81), 2026-11-10 after A40.1:** 0 USD a day against 165. Paper equity 11.94 against 11.00; nothing on the chain.

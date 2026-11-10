@@ -6733,3 +6733,36 @@ One address, `0xf5d81a13…` (PARTIAL in the arena: 1 229 939 fills served), is 
 **R108 (the trace).** Musk `@ 1:02:15` (recursion is the only path from 10 to 165), `@ 2:13:05` (physics sets the rate; the S-curve), `@ 2:42:14` (the little fab), `@ 1:29:21` (the simple continuous task), `@ 20:42` (if capital is the limiting factor, solve for capital), `@ 2:12:20` (the date at the 50th percentile, written by the measured rate). Brown `@ 47:37` (the reward is what gets optimised: money per unit staked), `@ 28:49` (a clear metric). The panel `@ 15:47` (the objective is the operator's), `@ 1:18:14` (bits per episode), `@ 45:03` (the Cursor rule), `@ 32:54` (relax realism, then return), `@ 12:20` (no bits from thinking: the account is marked, not forecast). Rule 6: one variable per leg. Rule 7: the go, the funding and the durable capture are the operator's.
 
 **Income row (R81), 2026-11-10 after A40:** 0 USD a day against 165. Nothing on the chain.
+
+### A40.1 — 2026-11-10 02:2xZ (20:2x CST 11-09), flat — "L2 FAVORITE" IS RUNNING (P32 `rights_events/l2_favorite.py`): the account reads 11.94 USDC after the record's 23 favorite calls against the coin-flip bench's 9.36 and cash's 11.00; the first hourly capture is pinned and the day's legs registered; the page is beside the arena; the date for 165 a day is not computed until five marked days exist
+
+**Clock, corrected.** A39.1's heading read 03:0xZ; the clock at that commit was about 01:55Z. A40's heading reads 02:0xZ; the first capture's pages are stamped 01:59:48Z–02:00:58Z and the mids 02:05:02Z. Recorded, not edited.
+
+**What was built (P32).** `rights_events/l2_favorite.py`: `payoff_1usd` / `payoff_table` (R163), `register` / `resolve` for the hourly legs (R166; the capture's pages and mids pinned by sha256; S104 on different tape bytes), `call_streams` / `simulate` / `account` (R164: 11.00 USDC, `f = 0.25 × max(0, (p̂ − q)/(1 − q))` of the free balance, `p̂ = (right + 1)/(n + 2)` over the calls resolved before the call's registration, RIGHT pays `stake × (1 − q)/q`, WRONG loses the stake, anything else returns it; marked at every UTC day's end; the benches CM and C0), `date_line` (R164: `A* = 165/(e^ḡ − 1)`, computed only at ≥ 5 marked days), `kill_line` (R168), `render_account` / `render_html`, `check_latest` (S103's words). `calls/l2_favorite/legs/` holds the three frozen leg files (L2F_favorite, L3T_tape_side, CMF_coinflip); `ops/l2_favorite_capture.py` assembles one capture from the venue's `hl_outcomes` pages as the session's tool saved them plus HyperLiquid's public `allMids` fetched now (the venue's own mids tool failed tonight with a client-side module error, `ERR_REQUIRE_ESM`; the public endpoint is the tape's source and is used instead, disclosed); POO_DAILY step 3j; 9 gates in `tests/test_agent_record_l2_favorite.py`. `call_ledger.py`, its legs, its board, SETTLED_CALLS.md, the arena, the book, the marker and every pin are unchanged (gated).
+
+**The account as of 2026-11-09 (the record's own 23 favorite calls, 11-08 and 11-09; `calls/l2_favorite/account_2026-11-09.json`, `account_latest.json` byte-equal).**
+
+| account | calls | bets staked | placeable live (≥ 11) | resolved | right | equity (USDC) | mean daily log growth |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| L2 favorite | 23 | 14 | 0 | 23 | 16 | **11.94** | +0.0410 |
+| L3 tape side | 0 | 0 | 0 | 0 | 0 | 11.00 | 0 |
+| CM control | 23 | 7 | 0 | 23 | 7 | 9.36 | −0.0807 |
+| C0 cash | — | — | — | — | — | 11.00 | 0 |
+
+Day by day: 11-08 11.00 (the first nine calls were staked on p̂ = 0.5 against prices ≥ 0.51, so nothing was risked until the record had earned a hit rate; two staked small), 11-09 11.94 (g = +0.0819). **The date for 165 a day: not computed (2 marked days; 5 needed).** The kill test is not due. No stake reached the venue's 11 USDC minimum: a live account at this stage would place one 11 USDC ticket a call (R167), not these fractions.
+
+**R163, the payoff of one USD a call (the main ledger's legs):** 11-08 L2 +5.780 on 9 (8 right) / CM −1.049 on 9; 11-09 L2 +1.632 on 14 (8 right) / CM −7.982 on 14. Totals L2 **+7.411 on 23**, CM **−9.030 on 23**. One reading on the record for the first time: on 11-09 the registered prices were 0.50 to 0.57 — the routine registers once a day from the newest capture, which was the 11-08 capture, so the "favorite" on 11-09 was the side a hair above 0.5 some twenty hours before expiry; it still went 8 of 14 against the coin flip's 3 of 14 on the same markets. The hourly legs exist to replace that stale price with a fresh one.
+
+**R166, the first capture and registration.** `calls/l2_favorite/captures/outcomes_2026-11-10T0159Z.json`: 274 active binary-price markets in three pages (277 total at the venue; 3 fell out between pages), prices live (an ETH 60-second market for 02:00Z at 0.81656 / 0.18344), mids 1 424 coins at 02:05:02Z. Registration at 02:06:45Z (sha `f3f100e`): **11 REGISTERED and 11 LATE per leg** — the capture's day-10 markets on the six coins were 22, half of them the 60–90-second contracts expiring inside the 300-second lead. The hourly schedule (session job `c84d9497`, :07 every hour, seven days, dies with this session) captures and registers through the day; the known answer of ≥ 50 favorite calls for 2026-11-10 is read tomorrow by step 3j.
+
+**R169, beside the arena.** The page: https://claude.ai/artifact/FLpgDnFWGjgzPFiD373w1k (a rendering of `account_latest.json` and nothing else: the account, the day line to scale against C0, the payoff table; republished from this laptop with each daily run). The endpoint: `…/calls/l2_favorite/account_latest.json`. The arena page's navigation does not yet link it (its 452-line source was not re-read tonight; a later publish adds the link). Step 3j in POO_DAILY resolves the day's hourly legs against the channel's tape and marks the account every morning; the routine registers nothing.
+
+**Known answers against the result.** (1) held: +7.411 / −9.030 on 23 each, reproduced by the gate. (2) held: 11.94 (above 11.00, below 13.00); the bench 9.36 (≤ 11.00). (3) not yet readable: L3T and L2F share 11 markets as of the first capture; their agreement is read when a day of captures exists. (4) open: 11 favorite calls registered at 02:06Z; the day's count is tomorrow's reading. (5) held: nothing live, no order, the arena untouched.
+
+**Suite.** `tests/test_agent_record_l2_favorite.py` 9 passed, `tests/test_agent_record_source.py` 10 passed; full suite **1 267 passed, 3 failed** — the same three pre-existing red gates as A39.1 (the routine's 00:40Z 11-10 run moved the book's and the AI board's latest pointers), untouched.
+
+**What follows.** Hourly: capture, register, commit, push (the session's job). 00:40Z 11-11: the routine resolves 11-10's legs (3g for the main ledger, 3j for the hourly ones) and marks the account. 11-11, laptop: the arena's cohort 2 decomposition for the complete window (A39 R159), the page link, and the first reading of L3T against L2F. Earliest live rung 2026-11-13 under R167, the operator's word.
+
+**R108 (the trace).** As A40's; Musk `@ 2:42:14` (the little fab is built and running), the panel `@ 45:03` (the bench runs beside it from the first call).
+
+**Income row (R81), 2026-11-10 after A40.1:** 0 USD a day against 165. Paper equity 11.94 against 11.00; nothing on the chain.

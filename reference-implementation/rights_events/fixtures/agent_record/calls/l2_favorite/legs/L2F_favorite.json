@@ -1,0 +1,33 @@
+{
+ "type": "MARKET",
+ "coins": [
+  "BTC",
+  "ETH",
+  "HYPE",
+  "ZEC",
+  "SOL",
+  "NEAR"
+ ],
+ "template": "template:binaryPrice",
+ "print": "SETTLED_CALLS.md 3b: the tape of record's mid at the market's `time` (first row at/after within 60 s) against `threshold`",
+ "registration": "every active binaryPrice market on a declared coin in each capture of day D whose expiry is at least 300 s after the capture's registration and inside D; once per market per leg across the day's captures (the earlier registration stands)",
+ "horizon": "inside the day (SETTLED_CALLS.md 4)",
+ "mode": "PAPER",
+ "size": "paper: the account's quarter-Kelly stake (A40 R164); live: R167",
+ "frozen_by": "PREREG A40, 2026-11-10; changed only by a dated amendment and never after a number has been seen (S71)",
+ "leg": "L2F_favorite",
+ "rule": "for each qualifying market: the side whose captured price is higher (YES if equal) — the main ledger's L2 rule at every capture of the day",
+ "parameter": {
+  "favorite": "the higher-priced side at capture, one fixed parameter"
+ },
+ "control": "CMF_coinflip",
+ "burn_in": {
+  "rule": "the favorite goes LIVE under L2_market_favorite.json's burn-in (A35) as A40 R167 words it: >= 5 full days resolved and the leg's loss rate below its control's on k_for(N) consecutive days; then one 11 USDC ticket a call by a dated amendment naming the account",
+  "why": "the panel @ 45:03: deploy when it beats the bench, throw it away when it doesn't"
+ },
+ "kill": {
+  "rule": "RETIRED, sticky, when the loss rate is at or above the control's plus 0.05 on 5 consecutive resolved days, or fewer than 10 resolved calls on 3 consecutive days (A35's words); and A40 R168: at 5 marked days with the account's equity at or below C0's 11.00 the line reads 'not a bet; capital is the limiting factor'",
+  "why": "Musk @ 2:16:12; Musk @ 20:42"
+ },
+ "mechanism": "the crowd's price as the call, read fresh every hour (S71: a frozen rule chosen for its simplicity)"
+}
