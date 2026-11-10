@@ -1,28 +1,4 @@
 
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 273, in <module>
-    sys.exit(main())
-             ^^^^^^
-  File "/root/poo/marker/forward.py", line 265, in main
-    append(a.out_dir / f"signals_{day_of(now_ms())}.jsonl", {"type": "tick_error", "ms": now_ms(), "error": repr(e)[:300]})
-  File "/root/poo/marker/forward.py", line 104, in append
-    with path.open("a", encoding="utf-8", newline="\n") as f:
-OSError: [Errno 28] No space left on device
-forward marker: 28 leaders, coins ('BTC', 'ETH', 'HYPE', 'ZEC', 'SOL', 'NEAR'), forks ('F4', 'C1'), stop 30.0 bps, gate 18000000 ms, seed 37ee0a556814e53273db164e3b074bac29bc42ad
-[2026-11-07] S72 VOID: tape stale
-OSError: [Errno 28] No space left on device
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 263, in main
-    tick(a, st)
-  File "/root/poo/marker/forward.py", line 199, in tick
-    append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type="F4_signal"))
-  File "/root/poo/marker/forward.py", line 104, in append
-    with path.open("a", encoding="utf-8", newline="\n") as f:
-OSError: [Errno 28] No space left on device
-
 During handling of the above exception, another exception occurred:
 
 OSError: [Errno 28] No space left on device
@@ -398,3 +374,27 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-10] OPEN F6:ZEC S @ 1165.15 (signal 1794318870843)
 [2026-11-10] OPEN F4:SOL L @ 84.1875 (signal 1794319275644)
 [2026-11-10] OPEN F6:ZEC S @ 1171.25 (signal 1794319330130)
+[2026-11-10] OPEN F6:ZEC S @ 1175.45 (signal 1794319590985)
+[2026-11-10] OPEN F4:NEAR S @ 3.66465 (signal 1794319835667)
+[2026-11-10] OPEN F6:ZEC S @ 1175.75 (signal 1794319957266)
+[2026-11-10] OPEN F4:SOL S @ 83.9075 (signal 1794320428837)
+[2026-11-10] OPEN F6:ZEC S @ 1175.05 (signal 1794320541141)
+[2026-11-10] OPEN F7:ZEC S @ 1176.9 (signal 1794321198201)
+[2026-11-10] OPEN F7:ETH S @ 2070.25 (signal 1794321257699)
+[2026-11-10] OPEN F7:BTC S @ 74106.5 (signal 1794321332009)
+[2026-11-10] OPEN F4:SOL L @ 84.5895 (signal 1794321359692)
+[2026-11-10] OPEN F6:ZEC S @ 1187.35 (signal 1794321363122)
+[2026-11-10] OPEN F7:ZEC S @ 1187.35 (signal 1794321363122)
+[2026-11-10] OPEN F4:BTC L @ 74175.5 (signal 1794321419316)
+[2026-11-10] OPEN F4:SOL S @ 84.343 (signal 1794321520593)
+[2026-11-10] OPEN F7:BTC S @ 74172.0 (signal 1794321526919)
+[2026-11-10] OPEN F7:BTC S @ 74215.5 (signal 1794321686446)
+[2026-11-10] OPEN F7:ZEC S @ 1182.75 (signal 1794322146254)
+[2026-11-10] OPEN F6:BTC S @ 74651.5 (signal 1794322910214)
+[2026-11-10] OPEN F7:BTC S @ 74651.5 (signal 1794322910214)
+[2026-11-10] OPEN F6:ZEC S @ 1194.85 (signal 1794322921389)
+[2026-11-10] OPEN F4:SOL S @ 84.844 (signal 1794322923586)
+[2026-11-10] OPEN F4:HYPE L @ 74.0095 (signal 1794322970721)
+[2026-11-10] OPEN F6:HYPE S @ 74.0805 (signal 1794323000777)
+[2026-11-10] OPEN F7:HYPE S @ 74.0805 (signal 1794323000777)
+[2026-11-10] OPEN F4:NEAR L @ 3.73915 (signal 1794323121368)
