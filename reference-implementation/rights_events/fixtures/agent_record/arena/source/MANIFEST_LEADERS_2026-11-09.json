@@ -1,0 +1,74 @@
+{
+ "inputs": [
+  {
+   "file": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+   "rows": 60,
+   "sha256": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+   "rows": 85,
+   "sha256": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+   "rows": 79,
+   "sha256": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+   "rows": 97,
+   "sha256": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+   "rows": 101,
+   "sha256": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-06_as_read_2026-11-08.jsonl",
+   "rows": 61,
+   "sha256": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
+   "void_marks": 1
+  },
+  {
+   "file": "marks_2026-11-07_as_read_2026-11-08.jsonl",
+   "rows": 45,
+   "sha256": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
+   "void_marks": 3
+  },
+  {
+   "file": "marks_2026-11-08.jsonl",
+   "rows": 52,
+   "sha256": "38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-09.jsonl",
+   "rows": 143,
+   "sha256": "5223a57d50dcb9e52b450363f898202c0b4f5b22407285cfe1fe62f1320e82c4",
+   "void_marks": 0
+  },
+  {
+   "file": "leaders_2026-11-01.json",
+   "sha256": "5315ffc84b1fba8deadf5b022791ebbb54a5459451fe120301665f424d3a350f"
+  }
+ ],
+ "kind": "agent_record_source_manifest",
+ "outputs": [
+  {
+   "file": "arena/source/leaders_as_of_2026-11-09.json",
+   "sha256": "9509406967a62820b91dba3bb3ca0e4c2902e35001bbc259b44c73305a5f10cb"
+  },
+  {
+   "file": "arena/source/leaders_as_of_2026-11-09.md",
+   "sha256": "62a616899b55834bfba2ea22b369dafdc3336e39b67ebbd8a61248e88731e3e6"
+  }
+ ],
+ "what": "R161"
+}

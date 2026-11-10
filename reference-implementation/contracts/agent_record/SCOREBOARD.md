@@ -1938,3 +1938,19 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 19 (2026-11-09): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-10 after A17.12:** 0 USD a day against 165. Nothing on the chain.
+
+### A39 / P31 / A39.1 — THE SOURCE OF THE MONEY: what reality rewards on the board, read at the copier's regime; the forward marks read by leader for the first time; no F8; "the structure is not the limiting factor, the signal is"
+
+| gate | evidence |
+|---|---|
+| Prereg before code | A39 `9f68555` → P31 (this commit) → A39.1. The operator: "Work on removing the limiting factor … the absence of anything worth copying … use the three transcripts from first principles … don't do anything else until … removed." |
+| Day 19 corrected | 72 F6 signals inside [14:00, 15:00)Z, first 14:01:00.697Z (BTC −1, `0xfc667adb…`); `copier_session.py` never started; MISS, the hand; this session's "zero signals" reading withdrawn on the record. |
+| R159 cohort 1 | 8 FULL rows re-derived equal; **0 closed round trips** in 8 days; 100 % of 550 743 USD realized in positions never opened-and-closed in the window; rank 1 = one −3 139 XMR short closed in pieces. |
+| R159 cohort 2 | 28 FULL rows re-derived equal (channel `64d5acd4…`, 140 parts pinned); 42 closed trips on 6 rows, **0 on the declared coins**; 909 open, 305 carried-in closes; **99.82 % of 73 172 801 USD realized in positions not round-tripped in the window**. |
+| R160 | funding at one unit over 5 h: < 0.75 bps at the mean every coin (cohort 2), < 11 bps at the worst hour (HYPE 10.87, cohort 1); structures GDEX 20.64 / HL taker 11.0 / HL maker 3.0 printed as columns. |
+| R161 | 510 F4 rows, 8 of 28 leaders ever fired, `0xf5d81a13…` 69.6 % of rows at −1.31 ± 10.19 gross; KEEP leader −19.29 on 60; best n ≥ 20 line +15.00 ± 27.46; **no candidate, no F8**: "the structure is not the limiting factor, the signal is". |
+| Known answers | (1) (2) (4) (5) held; (3) held in conclusion, wrong in picture (the high-cadence rows have no closed trips at all). |
+| Suite | + 10 gates (`tests/test_agent_record_source.py`); 1 258 passed, 3 pre-existing red (the routine's 11-10 run moved the latest pointers), untouched. |
+| Not done / not mine | the next variable after this result is the operator's to name (rule 7); Day 20's start before 13:50Z is the operator's one command. |
+
+**Income row (R81), 2026-11-10 after A39.1:** 0 USD a day against 165. Nothing on the chain.
