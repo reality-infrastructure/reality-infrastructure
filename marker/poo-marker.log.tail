@@ -1,9 +1,5 @@
 tick error: OSError(28, 'No space left on device')
 tick error: OSError(28, 'No space left on device')
-tick error: OSError(28, 'No space left on device')
-tick error: OSError(28, 'No space left on device')
-tick error: OSError(28, 'No space left on device')
-tick error: OSError(28, 'No space left on device')
 Traceback (most recent call last):
   File "/root/poo/marker/forward.py", line 263, in main
     tick(a, st)
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-10] OPEN F4:HYPE S @ 74.4595 (signal 1794304838770)
 [2026-11-10] OPEN F6:ETH L @ 2101.25 (signal 1794304977083)
 [2026-11-10] OPEN F7:ETH L @ 2101.25 (signal 1794304977083)
+[2026-11-10] OPEN F4:ZEC L @ 1133.95 (signal 1794305782265)
+[2026-11-10] OPEN F6:ETH L @ 2085.15 (signal 1794307275067)
+[2026-11-10] OPEN F4:ETH S @ 2089.25 (signal 1794307760854)
+[2026-11-10] OPEN F7:ZEC S @ 1146.05 (signal 1794308678881)
