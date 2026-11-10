@@ -1,9 +1,5 @@
 During handling of the above exception, another exception occurred:
 
-OSError: [Errno 28] No space left on device
-
-During handling of the above exception, another exception occurred:
-
 Traceback (most recent call last):
   File "/root/poo/marker/forward.py", line 273, in <module>
     sys.exit(main())
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-10] OPEN F6:ZEC S @ 1175.3 (signal 1794272472831)
 [2026-11-10] OPEN F7:ZEC S @ 1175.3 (signal 1794272472831)
 [2026-11-10] OPEN F4:NEAR S @ 3.6257 (signal 1794274276892)
+[2026-11-10] OPEN F4:SOL L @ 86.0355 (signal 1794276889591)
+[2026-11-10] OPEN F4:BTC L @ 74755.5 (signal 1794278511057)
+[2026-11-10] OPEN F7:ZEC S @ 1161.85 (signal 1794278858053)
+[2026-11-10] OPEN C1:BTC L @ 74752.5 (signal 1794279840000)
