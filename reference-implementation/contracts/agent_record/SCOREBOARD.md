@@ -1970,3 +1970,15 @@ the go (a hand-off), then search (P12).
 | Not mine | the live rung (R167, earliest 11-13) by the operator's written word; the durable hourly capture (a venue client the routine lacks). |
 
 **Income row (R81), 2026-11-10 after A40.1:** 0 USD a day against 165. Paper equity 11.94 against 11.00; nothing on the chain.
+
+### A40.2 — the client updated and probed: 5.4.1 signs in; the signing library still fails on Node 20.18; the vendor declares Node ≥ 22; repair by 11-12 is the operator's install, else the live rung's date moves
+
+| gate | evidence |
+|---|---|
+| The word | "update the GDEX MCP client to its current version, run the sign-in probe, and write the version into the amendment that opens the live rung. If the probe still fails on 11-12, the live rung's date moves and the record says why." |
+| Version | registry current 5.4.1 (2026-11-06); probe on Node v20.18.0; `~/.claude.json` pinned to 5.4.1 for the next session. |
+| Probe | `gdex_status` api ok; `gdex_connect` accepted (session age 0); `hl_outcomes` 296 active; `hl_outcome_check_collateral` spot USDC 0; `get_all_mid_prices` **ERR_REQUIRE_ESM** (same libraries in both caches: `@nktkas/hyperliquid` 0.32.2 → `@noble/hashes` 2.4.0); five answers pinned, no secret in them. |
+| R170 | Node ≥ 22 for the GDEX server's process by 2026-11-12 (the operator's install; A3's 20.18 stands elsewhere); the probe re-run is the test; the live-rung amendment quotes client and Node versions; a failed probe moves the date day for day and says why. Also needed for the first ticket: 11 USDC of spot USDC in the managed wallet. |
+| Untested | `hl_create_outcome_order` on Node 20.18: not guessed, no order placed. |
+
+**Income row (R81), 2026-11-10 after A40.2:** 0 USD a day against 165. Paper equity 11.94 against 11.00; nothing on the chain.

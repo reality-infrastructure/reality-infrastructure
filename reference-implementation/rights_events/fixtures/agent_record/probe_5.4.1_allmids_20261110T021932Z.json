@@ -1,0 +1,20 @@
+{
+  "arguments": {},
+  "raw": {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": [
+        {
+          "text": "{\n  \"error\": {\n    \"message\": \"require() of ES Module C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@noble\\\\hashes\\\\sha3.js from C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@nktkas\\\\hyperliquid\\\\script\\\\signing\\\\mod.js not supported.\\nInstead change the require of sha3.js in C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@nktkas\\\\hyperliquid\\\\script\\\\signing\\\\mod.js to a dynamic import() which is available in all CommonJS modules.\",\n    \"code\": \"ERR_REQUIRE_ESM\",\n    \"submission\": \"not_submitted\",\n    \"retryable\": false,\n    \"next\": \"The request failed before reaching GDEX; fix the cause in the message.\"\n  }\n}",
+          "type": "text"
+        }
+      ],
+      "isError": true
+    }
+  },
+  "received_ms": 1794277174419,
+  "response_text": "{\n  \"error\": {\n    \"message\": \"require() of ES Module C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@noble\\\\hashes\\\\sha3.js from C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@nktkas\\\\hyperliquid\\\\script\\\\signing\\\\mod.js not supported.\\nInstead change the require of sha3.js in C:\\\\Users\\\\newce\\\\AppData\\\\Local\\\\npm-cache\\\\_npx\\\\1132c0a0f65024e0\\\\node_modules\\\\@nktkas\\\\hyperliquid\\\\script\\\\signing\\\\mod.js to a dynamic import() which is available in all CommonJS modules.\",\n    \"code\": \"ERR_REQUIRE_ESM\",\n    \"submission\": \"not_submitted\",\n    \"retryable\": false,\n    \"next\": \"The request failed before reaching GDEX; fix the cause in the message.\"\n  }\n}",
+  "sent_ms": 1794277174377,
+  "tool": "get_all_mid_prices"
+}

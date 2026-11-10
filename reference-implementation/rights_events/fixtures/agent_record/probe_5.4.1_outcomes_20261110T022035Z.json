@@ -1,0 +1,23 @@
+{
+  "arguments": {
+    "limit": 1,
+    "sortBy": "expiry",
+    "state": "active"
+  },
+  "raw": {
+    "id": 2,
+    "jsonrpc": "2.0",
+    "result": {
+      "content": [
+        {
+          "text": "{\n  \"count\": 296,\n  \"total\": 296,\n  \"asOf\": \"2026-11-10T02:20:37.787Z\",\n  \"source\": \"GET /v1/hl/outcomes (Hyperliquid outcomeMeta + allMids)\",\n  \"notes\": [\n    \"Hyperliquid HIP-4 outcome markets. Collateral is each market's quoteToken in the managed wallet's HL spot balance.\",\n    \"Side order follows Hyperliquid sideSpecs; read sides[].label \u2014 the first side is not necessarily \\\"Yes\\\".\"\n  ],\n  \"offset\": 0,\n  \"returned\": 1,\n  \"nextOffset\": 1,\n  \"markets\": [\n    {\n      \"outcomeId\": 30956,\n      \"title\": \"SOL above 86.1 at 2026-11-10 02:23 UTC?\",\n      \"state\": \"active\",\n      \"expiry\": \"2026-11-10T02:23:00.000Z\",\n      \"quoteToken\": \"USDC\",\n      \"sides\": [\n        {\n          \"label\": \"Yes\",\n          \"price\": 0.5,\n          \"coin\": \"#309560\"\n        },\n        {\n          \"label\": \"No\",\n          \"price\": 0.5,\n          \"coin\": \"#309561\"\n        }\n      ]\n    }\n  ]\n}",
+          "type": "text"
+        }
+      ]
+    }
+  },
+  "received_ms": 1794277237814,
+  "response_text": "{\n  \"count\": 296,\n  \"total\": 296,\n  \"asOf\": \"2026-11-10T02:20:37.787Z\",\n  \"source\": \"GET /v1/hl/outcomes (Hyperliquid outcomeMeta + allMids)\",\n  \"notes\": [\n    \"Hyperliquid HIP-4 outcome markets. Collateral is each market's quoteToken in the managed wallet's HL spot balance.\",\n    \"Side order follows Hyperliquid sideSpecs; read sides[].label \u2014 the first side is not necessarily \\\"Yes\\\".\"\n  ],\n  \"offset\": 0,\n  \"returned\": 1,\n  \"nextOffset\": 1,\n  \"markets\": [\n    {\n      \"outcomeId\": 30956,\n      \"title\": \"SOL above 86.1 at 2026-11-10 02:23 UTC?\",\n      \"state\": \"active\",\n      \"expiry\": \"2026-11-10T02:23:00.000Z\",\n      \"quoteToken\": \"USDC\",\n      \"sides\": [\n        {\n          \"label\": \"Yes\",\n          \"price\": 0.5,\n          \"coin\": \"#309560\"\n        },\n        {\n          \"label\": \"No\",\n          \"price\": 0.5,\n          \"coin\": \"#309561\"\n        }\n      ]\n    }\n  ]\n}",
+  "sent_ms": 1794277236838,
+  "tool": "hl_outcomes"
+}
