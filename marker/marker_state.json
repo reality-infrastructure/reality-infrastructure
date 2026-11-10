@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794294344871,
+ "last_fill_poll_ms": 1794297944236,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -12,7 +12,7 @@
   "2026-11-07": 2088937,
   "2026-11-08": 2315423,
   "2026-11-09": 2311635,
-  "2026-11-10": 686304
+  "2026-11-10": 783245
  },
  "open": {
   "F7:SOL": {
@@ -100,23 +100,6 @@
    "entry_spread_source": "l2Book:79ce378cafb0223807ecf31dae6fb2248fc21b682f92bf7d78ab32da5ce7c011",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
-  "F7:ZEC": {
-   "family": "F7",
-   "coin": "ZEC",
-   "direction": -1,
-   "entry_ms": 1794286953334,
-   "entry_px": 1154.65,
-   "signal_ms": 1794286952618,
-   "signal": {
-    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
-    "leader_px": 1155.4,
-    "leader_sz": 10.0,
-    "leader_notional": 11554.0
-   },
-   "entry_spread_bps": 0.4319094717753052,
-   "entry_spread_source": "l2Book:70d79c81ae75c4a97cb46bccfd0c5464d95f1258630f2878bb3b029a9e150a92",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:ETH": {
    "family": "F4",
    "coin": "ETH",
@@ -134,23 +117,6 @@
    "entry_spread_source": "l2Book:c3c47b6a3de064d24539763b20bf018638937d70a6c1bdf3c072896e9478878b",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
-  "F6:BTC": {
-   "family": "F6",
-   "coin": "BTC",
-   "direction": -1,
-   "entry_ms": 1794290765700,
-   "entry_px": 74725.5,
-   "signal_ms": 1794290704978,
-   "signal": {
-    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
-    "leader_px": 74758.0,
-    "leader_sz": 0.311,
-    "leader_notional": 23249.738
-   },
-   "entry_spread_bps": 0.06691156298719982,
-   "entry_spread_source": "l2Book:41bcdf9c408bf4f93350b96ad4e60eaca868989d450969ae95f3f0a282f1650e",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F7:BTC": {
    "family": "F7",
    "coin": "BTC",
@@ -166,6 +132,23 @@
    },
    "entry_spread_bps": 0.06691156298719982,
    "entry_spread_source": "l2Book:6345d23544eded7f4da2c9be6f729f225e44f3f9480cdd4d07afb36e25fd3452",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F6:ZEC": {
+   "family": "F6",
+   "coin": "ZEC",
+   "direction": -1,
+   "entry_ms": 1794297070688,
+   "entry_px": 1154.35,
+   "signal_ms": 1794297048329,
+   "signal": {
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 1155.3,
+    "leader_sz": 10.0,
+    "leader_notional": 11553.0
+   },
+   "entry_spread_bps": 0.4331066741734551,
+   "entry_spread_source": "l2Book:b499a3f755f147d258f75ace06e1495c04f01991643f6b08656c87325beaecd7",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -86955,7 +86938,192 @@
    1,
    -1,
    1,
-   -1
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1
   ]
  },
  "seed": "37ee0a556814e53273db164e3b074bac29bc42ad",
@@ -135646,6 +135814,3206 @@
    "coin": "NEAR",
    "px": 3.6568,
    "sz": 233.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294492139,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6479,
+   "sz": 227.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294600054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 88.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294604594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6368,
+   "sz": 195.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294614892,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6357,
+   "sz": 28.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294615048,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6357,
+   "sz": 11.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294631121,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 28.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294631121,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 11.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294631121,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 288.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294631121,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 101.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294666923,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6392,
+   "sz": 3.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670232,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 47.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670232,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 17.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670232,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 120.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670232,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 4.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 85.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 48.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 96.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 196.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 30.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 64.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294670434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6379,
+   "sz": 288.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294675044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6389,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294680801,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6388,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294680801,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6388,
+   "sz": 329.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294695149,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6388,
+   "sz": 238.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294695149,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6388,
+   "sz": 191.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294695149,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6388,
+   "sz": 94.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294706647,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6377,
+   "sz": 2.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294724043,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294729042,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 239.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294729042,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 105.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294734453,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 3.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294734791,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 467.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294735060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 11.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294743154,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6348,
+   "sz": 4.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 41.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 4.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 2.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 344.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294747850,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 11.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294775016,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6349,
+   "sz": 467.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294775016,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6349,
+   "sz": 190.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294784000,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6329,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294868046,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 108.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294868046,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294868046,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 222.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294868046,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 3.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294868046,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6359,
+   "sz": 128.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294874359,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6328,
+   "sz": 270.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294885017,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6319,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294887141,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6319,
+   "sz": 258.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294887141,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6319,
+   "sz": 199.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294887141,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6319,
+   "sz": 46.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294899233,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6308,
+   "sz": 442.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294994337,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6373,
+   "sz": 483.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794294994337,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6373,
+   "sz": 94.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295028884,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.639,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295028884,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.639,
+   "sz": 63.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295028884,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.639,
+   "sz": 68.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295095048,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6339,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295256288,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 131.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295256288,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 509.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295256288,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295256288,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 113.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295275015,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6378,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295288637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.637,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295325437,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6373,
+   "sz": 221.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295330625,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6368,
+   "sz": 223.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295330625,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6368,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295330625,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6368,
+   "sz": 175.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295343285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6357,
+   "sz": 287.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295351073,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.637,
+   "sz": 287.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295351073,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.637,
+   "sz": 345.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295354065,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.637,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295391204,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6358,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295391204,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6358,
+   "sz": 600.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295419648,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 32.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295419648,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6369,
+   "sz": 511.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295425044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.637,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295455030,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.641,
+   "sz": 1.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295472755,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 45.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295474040,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 31.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 80.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 544.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 10.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 45.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295485622,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 189.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295486709,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 196.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295565882,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 713.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295565882,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 90.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295565882,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 196.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295575080,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 8.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295598224,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6487,
+   "sz": 8.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295598224,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6487,
+   "sz": 463.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295620583,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 528.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295620583,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 5.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295624047,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295630323,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 533.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295630323,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 105.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295634954,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 352.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295634954,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295639284,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6477,
+   "sz": 360.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295639284,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6477,
+   "sz": 38.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295672778,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 399.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295672778,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 75.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295684048,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 1.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295695034,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6479,
+   "sz": 5.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295706367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6468,
+   "sz": 474.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295706367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6468,
+   "sz": 261.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295721421,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 233.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295741107,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6448,
+   "sz": 5.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295741107,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6448,
+   "sz": 233.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295741107,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6448,
+   "sz": 361.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295749506,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6448,
+   "sz": 448.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295760654,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6437,
+   "sz": 151.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295760654,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6437,
+   "sz": 374.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295760654,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6437,
+   "sz": 25.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295760654,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6437,
+   "sz": 21.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295785031,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2121.0,
+   "sz": 0.0055,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295802308,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 41.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295804131,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295805002,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 378.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295805002,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 355.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295815034,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 1.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295834083,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6438,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295859957,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 42.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295859957,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 215.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295859957,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 51.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295875052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6488,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295881526,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295881526,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 310.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295928157,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6507,
+   "sz": 638.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295935005,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6538,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295939285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6539,
+   "sz": 355.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295939285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6538,
+   "sz": 57.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295957961,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 321.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295957961,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295957961,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 32.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295957961,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 630.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295957961,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295973172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6555,
+   "sz": 540.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295977820,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.656,
+   "sz": 49.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295984055,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6569,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295991102,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6569,
+   "sz": 416.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794295995034,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.657,
+   "sz": 11.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296013496,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6557,
+   "sz": 342.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296014034,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6557,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296043560,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6511,
+   "sz": 116.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296043560,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6511,
+   "sz": 505.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296044057,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6511,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296045888,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 82.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296047097,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 33.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296047386,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 38.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296048723,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 508.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296073435,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 314.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296074036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296085020,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296085020,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 3.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 16.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 19.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 508.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 38.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 314.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 41.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 33.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296087060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296115038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6529,
+   "sz": 6.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296128669,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 6.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296128669,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 659.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296141059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6519,
+   "sz": 286.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296144025,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6519,
+   "sz": 42.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296145060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6519,
+   "sz": 5.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296145060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6519,
+   "sz": 6.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296148613,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6519,
+   "sz": 612.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296160561,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6512,
+   "sz": 220.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296164052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 58.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 46.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 42.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 220.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296167849,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.651,
+   "sz": 339.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296175033,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 1.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296183319,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6541,
+   "sz": 329.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296199124,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6539,
+   "sz": 273.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296199124,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6539,
+   "sz": 7.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296199124,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6539,
+   "sz": 388.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296199124,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6539,
+   "sz": 44.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296214067,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.654,
+   "sz": 285.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296245213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6529,
+   "sz": 34.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296254026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296281785,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6447,
+   "sz": 4.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296282578,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2119.8,
+   "sz": 0.472,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296287993,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6433,
+   "sz": 28.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296295766,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6436,
+   "sz": 8.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296295766,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6436,
+   "sz": 377.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296303474,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 28.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296303474,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 385.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296303474,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 337.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296303749,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 248.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296326994,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6418,
+   "sz": 136.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296331577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6411,
+   "sz": 136.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296331577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6411,
+   "sz": 112.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296331577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6411,
+   "sz": 335.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296338380,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6411,
+   "sz": 71.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296339027,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6409,
+   "sz": 71.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296345676,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.64,
+   "sz": 71.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296345676,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.64,
+   "sz": 552.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296364119,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6397,
+   "sz": 13.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296411924,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.644,
+   "sz": 31.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296411924,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.644,
+   "sz": 136.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296428130,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 168.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296428130,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 318.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296444807,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 513.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296444807,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 125.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296469038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 638.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296469038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 11.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296483047,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 350.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296483047,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 131.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296505701,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6488,
+   "sz": 482.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296505701,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6488,
+   "sz": 178.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296516298,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6489,
+   "sz": 125.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296526921,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6479,
+   "sz": 125.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296526921,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6479,
+   "sz": 165.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296530943,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6468,
+   "sz": 213.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296530943,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6468,
+   "sz": 242.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296538990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 290.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296538990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 447.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296570434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 252.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296570434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 8.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296570434,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 9.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296578815,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 271.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296578815,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6449,
+   "sz": 360.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296589562,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6452,
+   "sz": 368.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296589562,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6452,
+   "sz": 631.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296637528,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.653,
+   "sz": 593.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296658123,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6509,
+   "sz": 320.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296665943,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.652,
+   "sz": 79.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296712407,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6509,
+   "sz": 236.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296722542,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6513,
+   "sz": 207.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296785275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 29.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296785275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 79.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296785275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 84.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296785275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 207.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296785275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 358.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296788177,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 155.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296788177,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 86.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296788177,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 116.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296792625,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 642.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296792625,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 41.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296798049,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 315.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296798049,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 212.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296838644,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 335.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296854289,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6509,
+   "sz": 30.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296866298,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6489,
+   "sz": 189.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296869220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 189.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296869220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 335.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296869220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 30.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296869220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 267.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296896704,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6509,
+   "sz": 358.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296909477,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6509,
+   "sz": 234.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296916771,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 178.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296916771,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6499,
+   "sz": 219.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296924700,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 397.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296924700,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 234.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296924700,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 45.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296938828,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6489,
+   "sz": 93.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296938828,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6489,
+   "sz": 430.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296943287,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 247.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296943287,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 229.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296943287,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6478,
+   "sz": 134.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296948605,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6471,
+   "sz": 389.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296948605,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6471,
+   "sz": 367.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296954394,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6469,
+   "sz": 578.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296976060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 177.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296976060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 243.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296976060,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 135.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296981487,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6461,
+   "sz": 557.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296981487,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6461,
+   "sz": 228.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296985371,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6448,
+   "sz": 101.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296991648,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6437,
+   "sz": 180.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296998285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6428,
+   "sz": 214.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296998285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6428,
+   "sz": 101.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794296998285,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6428,
+   "sz": 8.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297005114,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6423,
+   "sz": 180.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297005114,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6423,
+   "sz": 83.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297016136,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 324.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297023127,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6432,
+   "sz": 264.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297023127,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6432,
+   "sz": 78.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297033231,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 342.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297033231,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 140.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297037492,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 516.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297037492,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6429,
+   "sz": 116.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297054069,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6418,
+   "sz": 366.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297054069,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6418,
+   "sz": 119.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297067117,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.642,
+   "sz": 485.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297067117,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.642,
+   "sz": 229.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297077877,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6439,
+   "sz": 624.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297098408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6421,
+   "sz": 624.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297098408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6421,
+   "sz": 91.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297098408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6421,
+   "sz": 30.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297112564,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6431,
+   "sz": 254.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297112564,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6431,
+   "sz": 329.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297146806,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 46.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297155059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 46.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297155059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 370.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297155059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 228.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297167041,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6471,
+   "sz": 3.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297169870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6471,
+   "sz": 4.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297172084,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.647,
+   "sz": 290.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297207187,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6441,
+   "sz": 56.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297207187,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6441,
+   "sz": 290.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297207187,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6441,
+   "sz": 10.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297221585,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 625.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297226603,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 497.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297234195,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 497.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297234195,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 3.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297234195,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 9.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297234195,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 186.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297274420,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 4.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297274420,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 489.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297278270,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.645,
+   "sz": 16.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297279968,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 207.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297279968,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6453,
+   "sz": 16.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297285329,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 494.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297285329,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 127.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297285329,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6451,
+   "sz": 171.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297304395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 154.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297304395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 9.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297322484,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6461,
+   "sz": 628.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297334932,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.646,
+   "sz": 163.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297350667,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.65,
+   "sz": 373.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297370744,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.65,
+   "sz": 493.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297410265,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6521,
+   "sz": 133.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297410265,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6521,
+   "sz": 373.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297410265,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6521,
+   "sz": 62.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297420169,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6521,
+   "sz": 273.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297427297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.555,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297437137,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6501,
+   "sz": 15.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297443190,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 141.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297443190,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 15.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297443190,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 273.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297443190,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.649,
+   "sz": 352.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297447012,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.52,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297459577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6491,
+   "sz": 216.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297459577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6491,
+   "sz": 295.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297464013,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 488.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297464013,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6498,
+   "sz": 293.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297477045,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.529,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297486034,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.648,
+   "sz": 659.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297507007,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.504,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297524276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ZEC",
+   "px": 1152.9,
+   "sz": 10.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297532925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6442,
+   "sz": 335.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297536744,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6442,
+   "sz": 5.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297536744,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6442,
+   "sz": 317.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297550857,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6432,
+   "sz": 335.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297550857,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6432,
+   "sz": 242.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297564043,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.463,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297571225,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2115.4,
+   "sz": 0.0049,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297571225,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2115.4,
+   "sz": 0.0095,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297573024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6399,
+   "sz": 82.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297573024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6398,
+   "sz": 219.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297597045,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.472,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297601860,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6374,
+   "sz": 4.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297627024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.379,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297651732,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6421,
+   "sz": 48.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297653570,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6409,
+   "sz": 3.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297660299,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.431,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297704913,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6411,
+   "sz": 64.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297710576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6425,
+   "sz": 64.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297710576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6425,
+   "sz": 310.5,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297723830,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2116.5,
+   "sz": 0.0055,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297723830,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 2116.5,
+   "sz": 19.9945,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297748757,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6457,
+   "sz": 30.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297757951,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6424,
+   "sz": 375.3,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297764576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6413,
+   "sz": 7.4,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297775062,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.641,
+   "sz": 30.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297775062,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.641,
+   "sz": 241.6,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297803185,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6374,
+   "sz": 4.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297806617,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6365,
+   "sz": 48.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297806617,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6365,
+   "sz": 271.7,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297806617,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6365,
+   "sz": 325.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297807023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.501,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297818371,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6355,
+   "sz": 340.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297837017,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.565,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297842547,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6365,
+   "sz": 304.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297842547,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6365,
+   "sz": 36.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297867023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.547,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297869218,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6335,
+   "sz": 1.9,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297897010,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 74.587,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794297908298,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6344,
+   "sz": 339.2,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297908298,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6344,
+   "sz": 340.8,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297908298,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6344,
+   "sz": 320.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297943828,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6325,
+   "sz": 600.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794297944028,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.6325,
+   "sz": 399.9,
    "dir": "Close Long"
   }
  ]
