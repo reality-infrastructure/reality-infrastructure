@@ -1,7 +1,3 @@
-OSError: [Errno 28] No space left on device
-
-During handling of the above exception, another exception occurred:
-
 Traceback (most recent call last):
   File "/root/poo/marker/forward.py", line 263, in main
     tick(a, st)
@@ -398,3 +394,7 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-10] OPEN F4:ETH S @ 2121.15 (signal 1794284709508)
 [2026-11-10] OPEN F7:ZEC S @ 1154.65 (signal 1794286952618)
+[2026-11-10] OPEN F4:ETH S @ 2129.75 (signal 1794289668179)
+[2026-11-10] OPEN C1:ETH L @ 2126.85 (signal 1794290160000)
+[2026-11-10] OPEN F6:BTC S @ 74725.5 (signal 1794290704978)
+[2026-11-10] OPEN F7:BTC S @ 74725.5 (signal 1794290704978)
