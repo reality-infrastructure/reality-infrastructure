@@ -1,13 +1,4 @@
 
-Traceback (most recent call last):
-  File "/root/poo/marker/forward.py", line 263, in main
-    tick(a, st)
-  File "/root/poo/marker/forward.py", line 199, in tick
-    append(a.out_dir / f"signals_{day_of(s['ms'])}.jsonl", dict(s, type="F4_signal"))
-  File "/root/poo/marker/forward.py", line 104, in append
-    with path.open("a", encoding="utf-8", newline="\n") as f:
-OSError: [Errno 28] No space left on device
-
 During handling of the above exception, another exception occurred:
 
 OSError: [Errno 28] No space left on device
@@ -398,3 +389,12 @@ tick error: AttributeError("'NoneType' object has no attribute 'get'")
 [2026-11-09] OPEN F7:BTC S @ 75259.5 (signal 1794266405347)
 [2026-11-09] OPEN F4:NEAR S @ 3.61385 (signal 1794267766144)
 [2026-11-10] OPEN F6:BTC S @ 75344.5 (signal 1794268786369)
+[2026-11-10] OPEN F6:ZEC S @ 1167.05 (signal 1794269706523)
+[2026-11-10] OPEN F7:ZEC S @ 1167.05 (signal 1794269706523)
+[2026-11-10] OPEN F4:NEAR S @ 3.63015 (signal 1794269890094)
+tick error: AttributeError("'NoneType' object has no attribute 'get'")
+[2026-11-10] OPEN F4:SOL L @ 86.4185 (signal 1794270324000)
+[2026-11-10] OPEN C1:NEAR S @ 3.6222 (signal 1794270420000)
+[2026-11-10] OPEN F4:BTC L @ 75012.5 (signal 1794271539681)
+[2026-11-10] OPEN F6:ZEC S @ 1175.3 (signal 1794272472831)
+[2026-11-10] OPEN F7:ZEC S @ 1175.3 (signal 1794272472831)
