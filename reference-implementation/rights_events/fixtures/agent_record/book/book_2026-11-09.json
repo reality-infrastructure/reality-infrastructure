@@ -1,0 +1,813 @@
+{
+ "as_of": "2026-11-09",
+ "copier": {
+  "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+  "c1_daily_net_bps": {},
+  "c1_mean_bps": 0.0,
+  "coverage": "NONE",
+  "daily_net_bps": {},
+  "entries": [
+   {
+    "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
+    "amendment": "A38 R154",
+    "class": "COPIER",
+    "date": "2026-11-09",
+    "graded_as": "the RECORD row's arithmetic and coverage words (R135); pairs = round trips from startPosition 0 back to 0 after 2026-11-09T14:00:00Z (R124)",
+    "kill_line": "R153: CANDIDATE at a run of k_for(1) = 2 days beating C0 and C1 with the 2 sigma clause; KILLED at 7 settled pairs or on 2026-11-25 when mean + 2 sigma / sqrt n < min(0, C1 mean)",
+    "leg": "F6-live (A38 R155): the entry is the first F6 signal inside [14:00, 15:00)Z, one unit by R156, exit at 30 bps or the gate 5 h after the open; the hand submits both legs (R157)",
+    "owner_word": "the operator, 2026-11-09: \"execute the all four bets starting with the smallest\" and the bet's line \"The record's account becomes the first COPIER row\""
+   }
+  ],
+  "first_pair_date_50pct": "2026-11-11",
+  "first_pair_settled": null,
+  "funding": "excluded here (disclosed); the arena's RECORD row applies it",
+  "k": 2,
+  "kill_date": "2026-11-25",
+  "kill_due": false,
+  "kill_pairs": 7,
+  "leg": "F6-live (R155)",
+  "mean_net_bps": null,
+  "n_settled": 0,
+  "open_trips": [],
+  "pages": {
+   "alignment": {
+    "indexed": 0,
+    "lines": 122,
+    "lost_pages": 0,
+    "pages": 122,
+    "torn_fragments": 0,
+    "unparsed": 0
+   },
+   "fills": 0,
+   "parts": 1
+  },
+  "r155_start": "2026-11-09T14:00:00Z",
+  "registry": {
+   "file": "copiers.json",
+   "sha256": "21b23c56c1d67a005345000cf8a0f1503461b95d70a8a1951e6f9c3f77264d7c"
+  },
+  "rules": {
+   "R153": "CANDIDATE: trailing run of live-graded days beating C0 (0) and C1 >= k_for(1) = 2 and mean > 2 sigma / sqrt n; KILLED at 7 settled pairs or on 2026-11-25 when mean + 2 sigma / sqrt n < min(0, C1 mean); a killed row stays on the record",
+   "R154": "the record's account is the first COPIER row by the operator's written word of 2026-11-09",
+   "R155": "the entry is the first F6 signal inside [14:00, 15:00)Z; none = MISS by rule",
+   "R158": "STARLINK READY only when >= 7 settled pairs, not KILLED, coverage FULL; nothing shared before"
+  },
+  "run_days": 0,
+  "settled_pairs": [],
+  "starlink_line": "STARLINK: not ready (0 of 7 pairs)",
+  "starlink_pairs_needed": 7,
+  "starlink_ready": false,
+  "status": "ALIVE",
+  "sum_net_bps": 0.0,
+  "sum_net_usd": 0.0,
+  "two_sigma_over_sqrt_n": null
+ },
+ "daily": [
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -302.8503706019101
+   },
+   "F4": {
+    "episodes": 91,
+    "sum_net_bps": -1514.0658981253578
+   },
+   "F6": {
+    "episodes": 57,
+    "sum_net_bps": -1349.4705325445104
+   },
+   "F6_beats_both_controls": false,
+   "F7": {
+    "episodes": 93,
+    "sum_net_bps": -2932.076820735158
+   },
+   "F7_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-04"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -6.823306375660213
+   },
+   "F4": {
+    "episodes": 95,
+    "sum_net_bps": -1951.6569871511172
+   },
+   "F6": {
+    "episodes": 40,
+    "sum_net_bps": 127.38655079542508
+   },
+   "F6_beats_both_controls": true,
+   "F7": {
+    "episodes": 58,
+    "sum_net_bps": -1370.9609472982013
+   },
+   "F7_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-05"
+  },
+  {
+   "C1": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F4": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6": {
+    "episodes": 31,
+    "sum_net_bps": -795.8084598078078
+   },
+   "F6_beats_both_controls": false,
+   "F7": {
+    "episodes": 25,
+    "sum_net_bps": -150.75550448741535
+   },
+   "F7_beats_both_controls": false,
+   "admitted": false,
+   "day": "2026-11-06"
+  },
+  {
+   "C1": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F4": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6": {
+    "episodes": 10,
+    "sum_net_bps": 274.4930271825569
+   },
+   "F6_beats_both_controls": true,
+   "F7": {
+    "episodes": 7,
+    "sum_net_bps": -25.31050350489749
+   },
+   "F7_beats_both_controls": false,
+   "admitted": false,
+   "day": "2026-11-07"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -40.23917078144687
+   },
+   "F4": {
+    "episodes": 46,
+    "sum_net_bps": -944.4775678686627
+   },
+   "F6": {
+    "episodes": 6,
+    "sum_net_bps": 225.7285335107769
+   },
+   "F6_beats_both_controls": true,
+   "F7": {
+    "episodes": 17,
+    "sum_net_bps": 619.093264376576
+   },
+   "F7_beats_both_controls": true,
+   "admitted": true,
+   "day": "2026-11-08"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -312.9554544120943
+   },
+   "F4": {
+    "episodes": 72,
+    "sum_net_bps": -940.7604689738484
+   },
+   "F6": {
+    "episodes": 31,
+    "sum_net_bps": -71.3927498338656
+   },
+   "F6_beats_both_controls": false,
+   "F7": {
+    "episodes": 44,
+    "sum_net_bps": -707.9138082505754
+   },
+   "F7_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-09"
+  }
+ ],
+ "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json",
+ "keep": {
+  "addresses": [
+   "0x484bc1608211d0604bf70bae72792a56884562f8",
+   "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9",
+   "0x856c35038594767646266bc7fd68dc26480e910d",
+   "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+   "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+   "0xfc667adba8d4837586078f4fdcdc29804337ca06"
+  ],
+  "cohort_date": "2026-10-25",
+  "excluded_record": [
+   "0x9f976123e7c48952be487664b8130aad144b7f23"
+  ],
+  "feed_as_of": "2026-11-09",
+  "feed_file": "feed_2026-11-09.json",
+  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
+  "n_keep_rows": 7,
+  "what": "R146: the leader list of F6 = the arena's KEEP set of the newest completed cohort, the RECORD row excluded (the record does not follow itself), sorted; refreshed once per completed cohort",
+  "window": {
+   "complete": true,
+   "days": 8,
+   "started": true,
+   "t0_date": "2026-10-26",
+   "t0_ms": 1792972800000,
+   "t1_date": "2026-11-02",
+   "t1_ms": 1793663999999
+  }
+ },
+ "kind": "agent_record_book",
+ "ledger": {
+  "as_of": "2026-11-09",
+  "counts": {
+   "ALIVE": 4,
+   "CANDIDATE": 0,
+   "PROMOTED": 0,
+   "RETIRED": 2
+  },
+  "days": [
+   "2026-11-01",
+   "2026-11-02",
+   "2026-11-03",
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-08",
+   "2026-11-09"
+  ],
+  "forward_rows": 26,
+  "k": 5,
+  "note": "forward rows read from the pinned marks"
+ },
+ "ledger_f7": {
+  "as_of": "2026-11-09",
+  "counts": {
+   "ALIVE": 6,
+   "CANDIDATE": 0,
+   "PROMOTED": 0,
+   "RETIRED": 0
+  },
+  "forward_rows": 35,
+  "k": 5
+ },
+ "per_coin": [
+  {
+   "episodes": 23,
+   "fork": "F6:BTC",
+   "gates": 7,
+   "leader_closes": 0,
+   "mean_hold_hours": 2.422388804347826,
+   "mean_net_bps": -10.786054141417203,
+   "sd_net_bps": 79.21091817572315,
+   "stops": 16,
+   "sum_gross_bps": 226.6407547474043,
+   "sum_net_bps": -248.07924525259568,
+   "two_sigma_over_sqrt_n": 33.03323638066762
+  },
+  {
+   "episodes": 34,
+   "fork": "F6:ETH",
+   "gates": 6,
+   "leader_closes": 0,
+   "mean_hold_hours": 1.5788356617647057,
+   "mean_net_bps": -4.807638523828306,
+   "sd_net_bps": 130.6549663957322,
+   "stops": 28,
+   "sum_gross_bps": 538.3002901898376,
+   "sum_net_bps": -163.4597098101624,
+   "two_sigma_over_sqrt_n": 44.81428375742022
+  },
+  {
+   "episodes": 12,
+   "fork": "F6:HYPE",
+   "gates": 5,
+   "leader_closes": 0,
+   "mean_hold_hours": 2.177773888888889,
+   "mean_net_bps": 93.26540707774198,
+   "sd_net_bps": 203.18163263152687,
+   "stops": 7,
+   "sum_gross_bps": 1366.8648849329038,
+   "sum_net_bps": 1119.1848849329037,
+   "two_sigma_over_sqrt_n": 117.30697029419969
+  },
+  {
+   "episodes": 63,
+   "fork": "F6:ZEC",
+   "gates": 6,
+   "leader_closes": 0,
+   "mean_hold_hours": 0.905938020282187,
+   "mean_net_bps": -26.33907291970732,
+   "sd_net_bps": 107.75684078891841,
+   "stops": 57,
+   "sum_gross_bps": -359.0415939415612,
+   "sum_net_bps": -1659.361593941561,
+   "two_sigma_over_sqrt_n": 27.152171694615163
+  },
+  {
+   "episodes": 1,
+   "fork": "F6:SOL",
+   "gates": 0,
+   "leader_closes": 0,
+   "mean_hold_hours": 0.20374972222222223,
+   "mean_net_bps": -64.58380486083527,
+   "sd_net_bps": null,
+   "stops": 1,
+   "sum_gross_bps": -43.943804860835264,
+   "sum_net_bps": -64.58380486083527,
+   "two_sigma_over_sqrt_n": null
+  },
+  {
+   "episodes": 1,
+   "fork": "F6:NEAR",
+   "gates": 0,
+   "leader_closes": 0,
+   "mean_hold_hours": 0.6500641666666667,
+   "mean_net_bps": -51.44872913992319,
+   "sd_net_bps": null,
+   "stops": 1,
+   "sum_gross_bps": -30.808729139923187,
+   "sum_net_bps": -51.44872913992319,
+   "two_sigma_over_sqrt_n": null
+  }
+ ],
+ "per_coin_f7": [
+  {
+   "episodes": 71,
+   "fork": "F7:BTC",
+   "gates": 0,
+   "leader_closes": 71,
+   "mean_hold_hours": 0.47422906885759,
+   "mean_net_bps": -17.972993535103406,
+   "sd_net_bps": 45.87619177069771,
+   "stops": 0,
+   "sum_gross_bps": 189.35745900765824,
+   "sum_net_bps": -1276.0825409923418,
+   "two_sigma_over_sqrt_n": 10.889004588249566
+  },
+  {
+   "episodes": 51,
+   "fork": "F7:ETH",
+   "gates": 0,
+   "leader_closes": 51,
+   "mean_hold_hours": 0.7948601361655774,
+   "mean_net_bps": -11.156907092903916,
+   "sd_net_bps": 69.39804281980223,
+   "stops": 0,
+   "sum_gross_bps": 483.63773826190027,
+   "sum_net_bps": -569.0022617380997,
+   "two_sigma_over_sqrt_n": 19.435339446218418
+  },
+  {
+   "episodes": 24,
+   "fork": "F7:HYPE",
+   "gates": 0,
+   "leader_closes": 24,
+   "mean_hold_hours": 0.17403605324074073,
+   "mean_net_bps": -13.349278292266845,
+   "sd_net_bps": 83.65246790751401,
+   "stops": 0,
+   "sum_gross_bps": 174.97732098559567,
+   "sum_net_bps": -320.3826790144043,
+   "two_sigma_over_sqrt_n": 34.15097701632576
+  },
+  {
+   "episodes": 63,
+   "fork": "F7:ZEC",
+   "gates": 0,
+   "leader_closes": 63,
+   "mean_hold_hours": 0.6377947751322751,
+   "mean_net_bps": -37.82738591741455,
+   "sd_net_bps": 101.84536257398919,
+   "stops": 0,
+   "sum_gross_bps": -1082.8053127971166,
+   "sum_net_bps": -2383.1253127971167,
+   "two_sigma_over_sqrt_n": 25.662619195807665
+  },
+  {
+   "episodes": 2,
+   "fork": "F7:SOL",
+   "gates": 0,
+   "leader_closes": 2,
+   "mean_hold_hours": 0.34064694444444443,
+   "mean_net_bps": 47.20355778240571,
+   "sd_net_bps": 47.84027298840721,
+   "stops": 0,
+   "sum_gross_bps": 135.68711556481142,
+   "sum_net_bps": 94.40711556481142,
+   "two_sigma_over_sqrt_n": 67.6563628878367
+  },
+  {
+   "episodes": 1,
+   "fork": "F7:NEAR",
+   "gates": 0,
+   "leader_closes": 1,
+   "mean_hold_hours": 0.23845555555555556,
+   "mean_net_bps": 62.327367069792444,
+   "sd_net_bps": null,
+   "stops": 0,
+   "sum_gross_bps": 82.96736706979245,
+   "sum_net_bps": 62.327367069792444,
+   "two_sigma_over_sqrt_n": null
+  }
+ ],
+ "readings": {
+  "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+  "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+  "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+  "2026-11-04": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+  "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+  "2026-11-06": "marks_2026-11-06_as_read_2026-11-08.jsonl",
+  "2026-11-07": "marks_2026-11-07_as_read_2026-11-08.jsonl",
+  "2026-11-08": "marks_2026-11-08.jsonl",
+  "2026-11-09": "marks_2026-11-09.jsonl"
+ },
+ "relist": {
+  "cohort": "2026-10-25",
+  "feed_file": "feed_2026-11-09.json",
+  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
+  "n_rows": {
+   "cohort": 81,
+   "next_cohort": 70
+  },
+  "new_in_next_cohort": 18,
+  "next_cohort": "2026-11-03",
+  "next_cohort_arena_as_of": "2026-11-09",
+  "next_window": {
+   "complete": false,
+   "days": 7,
+   "started": true,
+   "t0_date": "2026-11-04",
+   "t0_ms": 1793750400000,
+   "t1_date": "2026-11-10",
+   "t1_ms": 1794355199999
+  },
+  "table": [
+   {
+    "full_so_far": 1,
+    "n": 7,
+    "net_positive": 1,
+    "relisted": 5,
+    "verdict": "KEEP"
+   },
+   {
+    "full_so_far": 8,
+    "n": 51,
+    "net_positive": 5,
+    "relisted": 34,
+    "verdict": "DROP"
+   },
+   {
+    "full_so_far": 13,
+    "n": 23,
+    "net_positive": 13,
+    "relisted": 13,
+    "verdict": "UNDECIDED"
+   }
+  ],
+  "what": "R149: each verdict of the completed cohort counted as relisted / FULL / net > 0 in the next cohort's arena as of the feed's day; a statement about the verdict's forward value, not about any address"
+ },
+ "replay": {
+  "coverage": {
+   "0x484bc1608211d0604bf70bae72792a56884562f8": {
+    "alignment": {
+     "indexed": 122,
+     "lines": 122,
+     "lost_pages": 0,
+     "pages": 122,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "closes": 0,
+    "fills": 0,
+    "pages": 122,
+    "parts": 1,
+    "signals": 0
+   },
+   "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9": {
+    "fills": 0,
+    "note": "no pages on the channel: the sensor did not follow this address (disclosed, R147)",
+    "pages": 0,
+    "parts": 0,
+    "signals": 0
+   },
+   "0x856c35038594767646266bc7fd68dc26480e910d": {
+    "fills": 0,
+    "note": "no pages on the channel: the sensor did not follow this address (disclosed, R147)",
+    "pages": 0,
+    "parts": 0,
+    "signals": 0
+   },
+   "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b": {
+    "alignment": {
+     "indexed": 122,
+     "lines": 122,
+     "lost_pages": 0,
+     "pages": 122,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "closes": 0,
+    "fills": 0,
+    "pages": 122,
+    "parts": 1,
+    "signals": 0
+   },
+   "0xf818fa41af44a1b42ba7433f4ec472be40a2c268": {
+    "alignment": {
+     "indexed": 122,
+     "lines": 122,
+     "lost_pages": 0,
+     "pages": 122,
+     "torn_fragments": 0,
+     "unparsed": 0
+    },
+    "closes": 0,
+    "fills": 0,
+    "pages": 122,
+    "parts": 1,
+    "signals": 0
+   },
+   "0xfc667adba8d4837586078f4fdcdc29804337ca06": {
+    "alignment": {
+     "indexed": 277,
+     "lines": 277,
+     "lost_pages": 1,
+     "pages": 277,
+     "torn_fragments": 1,
+     "unparsed": 0
+    },
+    "closes": 33521,
+    "fills": 403597,
+    "pages": 277,
+    "parts": 19,
+    "signals": 3221
+   }
+  },
+  "disclosure": "every row in_sample: the rule (F6 = the KEEP list) was decided after cohort 1's KEEP set and cohort 2's partial grade had been seen (R147); episodes whose exit the tape had not yet printed are dropped (the marker's rule); funding excluded",
+  "f7": {
+   "closes_seen": 33521,
+   "family": "F7",
+   "one_variable": "the exit (R151): F7 = F6 with the leader's own close as the exit; no stop, no gate; nothing else differs",
+   "signals_in_tape_holes": 177,
+   "signals_without_later_close": 4
+  },
+  "family": "F6",
+  "in_sample": true,
+  "keep": {
+   "addresses": [
+    "0x484bc1608211d0604bf70bae72792a56884562f8",
+    "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9",
+    "0x856c35038594767646266bc7fd68dc26480e910d",
+    "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b",
+    "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+    "0xfc667adba8d4837586078f4fdcdc29804337ca06"
+   ],
+   "cohort_date": "2026-10-25",
+   "excluded_record": [
+    "0x9f976123e7c48952be487664b8130aad144b7f23"
+   ],
+   "feed_file": "feed_2026-11-09.json",
+   "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe"
+  },
+  "one_variable": "the list (R145): F6 = F4 with the KEEP set as its leaders; nothing else differs",
+  "parameters": {
+   "coins": [
+    "BTC",
+    "ETH",
+    "HYPE",
+    "ZEC",
+    "SOL",
+    "NEAR"
+   ],
+   "fee_bps_per_leg": 9.32,
+   "funding": "excluded (disclosed)",
+   "gate_ms": 18000000,
+   "min_open_notional_usd": 10000.0,
+   "spread_bps_per_leg": 1.0,
+   "spread_source": "replay_proxy",
+   "stop_bps": 30.0
+  },
+  "pins": {
+   "pages": [
+    {
+     "bytes": 366,
+     "file": "pages_fills_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.part000",
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+    },
+    {
+     "bytes": 366,
+     "file": "pages_fills_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.part000",
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+    },
+    {
+     "bytes": 366,
+     "file": "pages_fills_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.part000",
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+    },
+    {
+     "bytes": 7913389,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part000",
+     "sha256": "4d2b8e1b2738589e3b80a40438bd30a4af9ec006fcc1927462dea3b48ab61cec"
+    },
+    {
+     "bytes": 7863774,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part001",
+     "sha256": "9bc9860d646707680634f35107610d19224fc785c6ff384f0d4be42c83480169"
+    },
+    {
+     "bytes": 7688626,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part002",
+     "sha256": "251a1d52a262551c4c00e593f833a68ce876ba79c348dab1f23c47d0132a1901"
+    },
+    {
+     "bytes": 7774268,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part003",
+     "sha256": "eac0596996d57641851c46102611ca1460e79c04ee4bd4ad34681832e3d87328"
+    },
+    {
+     "bytes": 8285904,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part004",
+     "sha256": "391a51739ca8112da92f9f133f590edb1a7aee529de510b74762510a8c3d4154"
+    },
+    {
+     "bytes": 7717664,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part005",
+     "sha256": "e1f22e0cab726604cb056a1a35a61bd5ce34f806d95cb363be6eeabb285efc40"
+    },
+    {
+     "bytes": 7820191,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part006",
+     "sha256": "5a986c6c26d518477fa1ecccd9277409efb47620dfdc09bbb3cd1852fac53cc5"
+    },
+    {
+     "bytes": 7870423,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part007",
+     "sha256": "f3e5121b136d110f9b21a18041629ee5e73f9d92950b77b33e35e6930dbcec56"
+    },
+    {
+     "bytes": 7736915,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part008",
+     "sha256": "985778639af56a14ab783f93666428ed800b6a3d50a677db270e881423c8a2e8"
+    },
+    {
+     "bytes": 8174213,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part009",
+     "sha256": "41de433a58a5daec540610094b5e1ee2efdd118bb9af665f16799e5ed870b4e0"
+    },
+    {
+     "bytes": 8386963,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part010",
+     "sha256": "613fefff799c2be2f3fa8be7bac777081466275d47073bbb9d7cdbfe3b78c8de"
+    },
+    {
+     "bytes": 8127991,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part011",
+     "sha256": "b851bf898bc97c9ad91b8a4e5a5bada8e26f63580170e24f6dc4eceb5ed33eda"
+    },
+    {
+     "bytes": 8327679,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part012",
+     "sha256": "800bb7a441741c134f87e53925e1af31c4a1dd4b5f9882d1f5a6c7e610e0fb84"
+    },
+    {
+     "bytes": 8298553,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part013",
+     "sha256": "a75387ed851e8a8dc5e542452da01d8a67a1698831719b032e2024dfeb890508"
+    },
+    {
+     "bytes": 7779966,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part014",
+     "sha256": "e531f71011f8e7e414a944f71f25f4184cf6472c13dbef9588435c00d23f1c2a"
+    },
+    {
+     "bytes": 8073909,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part015",
+     "sha256": "05a233953319557dd1b36738c47023d33012287eacad7f27e7bafa012fe3d33d"
+    },
+    {
+     "bytes": 8287510,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part016",
+     "sha256": "1e2bfdff816e1f88f7cbe89a998339330cb9da0ba5b35365666afad84d061e52"
+    },
+    {
+     "bytes": 8335600,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part017",
+     "sha256": "03559e7cfbda97056a20bad4a735dcda3ad3af8ef95ad8cd1749d961fe92279b"
+    },
+    {
+     "bytes": 6186593,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part018",
+     "sha256": "bbec2fee2677c7225b365e8067bcf5923dfa0a1b03f79aa4c04e02e683b539f9"
+    }
+   ],
+   "pages_index": {
+    "file": "pages_index.jsonl",
+    "rows": 8302,
+    "sha256": "dded95295f8b7630e991e41bf1ae9b991f7b5f9aca1a2a2835f7d0de0683d538"
+   },
+   "tape": [
+    {
+     "file": "tape_MIDS_2026-11-04.jsonl",
+     "rows": 16406,
+     "sha256": "f91098350194c64bb8d823cd4d1f71a861da4b69adeffcb37e3790ffbd820d65",
+     "unparsed_lines": 18
+    },
+    {
+     "file": "tape_MIDS_2026-11-05.jsonl",
+     "rows": 15692,
+     "sha256": "ffe87ffb373500e8555598af6797b5e0d82e8ba1f74e8843da7dd22656e61ae6",
+     "unparsed_lines": 43
+    },
+    {
+     "file": "tape_MIDS_2026-11-06.jsonl",
+     "rows": 5950,
+     "sha256": "2d30441e665d1c30074c415f397d6a2be933dc39a34344d8f31ddab95759b712",
+     "unparsed_lines": 91
+    },
+    {
+     "file": "tape_MIDS_2026-11-07.jsonl",
+     "rows": 14734,
+     "sha256": "af165b54817cd91d4e94fe730206dddd484beec9d3e1d3ef999a82baeab476ab",
+     "unparsed_lines": 32
+    },
+    {
+     "file": "tape_MIDS_2026-11-08.jsonl",
+     "rows": 16354,
+     "sha256": "701aabf653cdb199b4b332ac637d0c6543326c49471063bbc77f8b960db1c559",
+     "unparsed_lines": 3
+    },
+    {
+     "file": "tape_MIDS_2026-11-09.jsonl",
+     "rows": 16349,
+     "sha256": "24d21e196143aa57d27e8127370b9648a3f88a02b8de62be2ef055c1b9fb8e39",
+     "unparsed_lines": 24
+    },
+    {
+     "file": "tape_MIDS_2026-11-10.jsonl",
+     "rows": 81,
+     "sha256": "8d8b0650a8904fc0796ce52d483e1bbd6066c56b7246446846661c38ffae7964",
+     "unparsed_lines": 0
+    }
+   ]
+  },
+  "window": {
+   "t0_day": "2026-11-04",
+   "t0_ms": 1793750400000,
+   "t1_day": "2026-11-09",
+   "t1_ms": 1794268799999,
+   "tape_days": [
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-06",
+    "2026-11-07",
+    "2026-11-08",
+    "2026-11-09",
+    "2026-11-10"
+   ]
+  }
+ },
+ "replay_files": {
+  "marks": "marks_F6_2026-10-25_as_of_2026-11-09.jsonl",
+  "marks_f7": "marks_F7_2026-10-25_as_of_2026-11-09.jsonl",
+  "signals": "signals_F6_2026-10-25_as_of_2026-11-09.jsonl"
+ },
+ "replay_totals": {
+  "C1_episodes": 24,
+  "C1_sum_net_bps": -662.8683021711115,
+  "F4_episodes": 304,
+  "F4_sum_net_bps": -5350.960922118986,
+  "F7_episodes": 212,
+  "F7_episodes_on_void_days_not_counted": 32,
+  "F7_signals_in_tape_holes": 177,
+  "F7_signals_without_later_close": 4,
+  "F7_sum_cost_bps": 4375.68,
+  "F7_sum_gross_bps": -16.178311907358637,
+  "F7_sum_net_bps": -4391.858311907358,
+  "admitted_days": [
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-08",
+   "2026-11-09"
+  ],
+  "days_F6_beats_both_controls": 2,
+  "days_F7_beats_both_controls": 1,
+  "episodes": 134,
+  "episodes_on_void_days_not_counted": 41,
+  "sum_cost_bps": 2765.76,
+  "sum_gross_bps": 1698.011801927826,
+  "sum_net_bps": -1067.7481980721739,
+  "void_days": [
+   "2026-11-06",
+   "2026-11-07"
+  ]
+ },
+ "what_is_not_claimed": "No forecast, no profit, no status from the replay: F6's and F7's replay rows are in-sample for the rule's existence (R147) and decide nothing; only the forward marker's rows enter the book's ledger (R148). Funding is excluded from the replay and said so."
+}

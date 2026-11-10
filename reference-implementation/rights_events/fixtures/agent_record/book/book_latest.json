@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-08",
+ "as_of": "2026-11-09",
  "copier": {
   "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
   "c1_daily_net_bps": {},
@@ -32,9 +32,9 @@
   "pages": {
    "alignment": {
     "indexed": 0,
-    "lines": 100,
+    "lines": 122,
     "lost_pages": 0,
-    "pages": 100,
+    "pages": 122,
     "torn_fragments": 0,
     "unparsed": 0
    },
@@ -161,8 +161,8 @@
     "sum_net_bps": -944.4775678686627
    },
    "F6": {
-    "episodes": 5,
-    "sum_net_bps": 187.08510700830013
+    "episodes": 6,
+    "sum_net_bps": 225.7285335107769
    },
    "F6_beats_both_controls": true,
    "F7": {
@@ -172,6 +172,28 @@
    "F7_beats_both_controls": true,
    "admitted": true,
    "day": "2026-11-08"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -312.9554544120943
+   },
+   "F4": {
+    "episodes": 72,
+    "sum_net_bps": -940.7604689738484
+   },
+   "F6": {
+    "episodes": 31,
+    "sum_net_bps": -71.3927498338656
+   },
+   "F6_beats_both_controls": false,
+   "F7": {
+    "episodes": 44,
+    "sum_net_bps": -707.9138082505754
+   },
+   "F7_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-09"
   }
  ],
  "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json",
@@ -188,9 +210,9 @@
   "excluded_record": [
    "0x9f976123e7c48952be487664b8130aad144b7f23"
   ],
-  "feed_as_of": "2026-11-08",
-  "feed_file": "feed_2026-11-08.json",
-  "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491",
+  "feed_as_of": "2026-11-09",
+  "feed_file": "feed_2026-11-09.json",
+  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
   "n_keep_rows": 7,
   "what": "R146: the leader list of F6 = the arena's KEEP set of the newest completed cohort, the RECORD row excluded (the record does not follow itself), sorted; refreshed once per completed cohort",
   "window": {
@@ -205,12 +227,12 @@
  },
  "kind": "agent_record_book",
  "ledger": {
-  "as_of": "2026-11-08",
+  "as_of": "2026-11-09",
   "counts": {
-   "ALIVE": 6,
+   "ALIVE": 4,
    "CANDIDATE": 0,
    "PROMOTED": 0,
-   "RETIRED": 0
+   "RETIRED": 2
   },
   "days": [
    "2026-11-01",
@@ -218,75 +240,76 @@
    "2026-11-03",
    "2026-11-04",
    "2026-11-05",
-   "2026-11-08"
+   "2026-11-08",
+   "2026-11-09"
   ],
-  "forward_rows": 0,
+  "forward_rows": 26,
   "k": 5,
-  "note": "no forward F6 row exists before the marker runs with keep.json beside it (R148)"
+  "note": "forward rows read from the pinned marks"
  },
  "ledger_f7": {
-  "as_of": "2026-11-08",
+  "as_of": "2026-11-09",
   "counts": {
    "ALIVE": 6,
    "CANDIDATE": 0,
    "PROMOTED": 0,
    "RETIRED": 0
   },
-  "forward_rows": 0,
+  "forward_rows": 35,
   "k": 5
  },
  "per_coin": [
   {
-   "episodes": 17,
-   "fork": "F6:BTC",
-   "gates": 4,
-   "leader_closes": 0,
-   "mean_hold_hours": 2.1750165359477123,
-   "mean_net_bps": -13.21645118510799,
-   "sd_net_bps": 86.96607908726321,
-   "stops": 13,
-   "sum_gross_bps": 126.20032985316415,
-   "sum_net_bps": -224.67967014683583,
-   "two_sigma_over_sqrt_n": 42.184744696777095
-  },
-  {
    "episodes": 23,
+   "fork": "F6:BTC",
+   "gates": 7,
+   "leader_closes": 0,
+   "mean_hold_hours": 2.422388804347826,
+   "mean_net_bps": -10.786054141417203,
+   "sd_net_bps": 79.21091817572315,
+   "stops": 16,
+   "sum_gross_bps": 226.6407547474043,
+   "sum_net_bps": -248.07924525259568,
+   "two_sigma_over_sqrt_n": 33.03323638066762
+  },
+  {
+   "episodes": 34,
    "fork": "F6:ETH",
-   "gates": 4,
+   "gates": 6,
    "leader_closes": 0,
-   "mean_hold_hours": 1.7278707487922704,
-   "mean_net_bps": 4.0977798421242415,
-   "sd_net_bps": 151.4695696115793,
-   "stops": 19,
-   "sum_gross_bps": 568.9689363688575,
-   "sum_net_bps": 94.24893636885756,
-   "two_sigma_over_sqrt_n": 63.16717711007151
+   "mean_hold_hours": 1.5788356617647057,
+   "mean_net_bps": -4.807638523828306,
+   "sd_net_bps": 130.6549663957322,
+   "stops": 28,
+   "sum_gross_bps": 538.3002901898376,
+   "sum_net_bps": -163.4597098101624,
+   "two_sigma_over_sqrt_n": 44.81428375742022
   },
   {
-   "episodes": 11,
+   "episodes": 12,
    "fork": "F6:HYPE",
-   "gates": 4,
+   "gates": 5,
    "leader_closes": 0,
-   "mean_hold_hours": 1.9211814646464647,
-   "mean_net_bps": 88.50391539165176,
-   "sd_net_bps": 212.39535216685297,
+   "mean_hold_hours": 2.177773888888889,
+   "mean_net_bps": 93.26540707774198,
+   "sd_net_bps": 203.18163263152687,
    "stops": 7,
-   "sum_gross_bps": 1200.5830693081693,
-   "sum_net_bps": 973.5430693081694,
-   "two_sigma_over_sqrt_n": 128.07921642779093
+   "sum_gross_bps": 1366.8648849329038,
+   "sum_net_bps": 1119.1848849329037,
+   "two_sigma_over_sqrt_n": 117.30697029419969
   },
   {
-   "episodes": 49,
+   "episodes": 63,
    "fork": "F6:ZEC",
-   "gates": 3,
+   "gates": 6,
    "leader_closes": 0,
-   "mean_hold_hours": 0.8025737811791384,
-   "mean_net_bps": -35.9607893116371,
-   "sd_net_bps": 90.57462208834482,
-   "stops": 46,
-   "sum_gross_bps": -750.7186762702178,
-   "sum_net_bps": -1762.0786762702178,
-   "two_sigma_over_sqrt_n": 25.878463453812806
+   "mean_hold_hours": 0.905938020282187,
+   "mean_net_bps": -26.33907291970732,
+   "sd_net_bps": 107.75684078891841,
+   "stops": 57,
+   "sum_gross_bps": -359.0415939415612,
+   "sum_net_bps": -1659.361593941561,
+   "two_sigma_over_sqrt_n": 27.152171694615163
   },
   {
    "episodes": 1,
@@ -317,69 +340,69 @@
  ],
  "per_coin_f7": [
   {
-   "episodes": 58,
+   "episodes": 71,
    "fork": "F7:BTC",
    "gates": 0,
-   "leader_closes": 58,
-   "mean_hold_hours": 0.39504693007662833,
-   "mean_net_bps": -18.250455773212735,
-   "sd_net_bps": 46.45124361808333,
+   "leader_closes": 71,
+   "mean_hold_hours": 0.47422906885759,
+   "mean_net_bps": -17.972993535103406,
+   "sd_net_bps": 45.87619177069771,
    "stops": 0,
-   "sum_gross_bps": 138.59356515366142,
-   "sum_net_bps": -1058.5264348463386,
-   "two_sigma_over_sqrt_n": 12.198694202776949
+   "sum_gross_bps": 189.35745900765824,
+   "sum_net_bps": -1276.0825409923418,
+   "two_sigma_over_sqrt_n": 10.889004588249566
   },
   {
-   "episodes": 38,
+   "episodes": 51,
    "fork": "F7:ETH",
    "gates": 0,
-   "leader_closes": 38,
-   "mean_hold_hours": 0.8218072807017545,
-   "mean_net_bps": -8.052545374335509,
-   "sd_net_bps": 77.21030822670848,
+   "leader_closes": 51,
+   "mean_hold_hours": 0.7948601361655774,
+   "mean_net_bps": -11.156907092903916,
+   "sd_net_bps": 69.39804281980223,
    "stops": 0,
-   "sum_gross_bps": 478.3232757752507,
-   "sum_net_bps": -305.9967242247493,
-   "two_sigma_over_sqrt_n": 25.050331852961712
+   "sum_gross_bps": 483.63773826190027,
+   "sum_net_bps": -569.0022617380997,
+   "two_sigma_over_sqrt_n": 19.435339446218418
   },
   {
-   "episodes": 22,
+   "episodes": 24,
    "fork": "F7:HYPE",
    "gates": 0,
-   "leader_closes": 22,
-   "mean_hold_hours": 0.1754878787878788,
-   "mean_net_bps": -11.582442439503357,
-   "sd_net_bps": 87.20825452460988,
+   "leader_closes": 24,
+   "mean_hold_hours": 0.17403605324074073,
+   "mean_net_bps": -13.349278292266845,
+   "sd_net_bps": 83.65246790751401,
    "stops": 0,
-   "sum_gross_bps": 199.26626633092613,
-   "sum_net_bps": -254.81373366907386,
-   "two_sigma_over_sqrt_n": 37.185724673538466
+   "sum_gross_bps": 174.97732098559567,
+   "sum_net_bps": -320.3826790144043,
+   "two_sigma_over_sqrt_n": 34.15097701632576
   },
   {
-   "episodes": 48,
+   "episodes": 63,
    "fork": "F7:ZEC",
    "gates": 0,
-   "leader_closes": 48,
-   "mean_hold_hours": 0.5434164756944444,
-   "mean_net_bps": -45.99930660859871,
-   "sd_net_bps": 108.10801884474468,
+   "leader_closes": 63,
+   "mean_hold_hours": 0.6377947751322751,
+   "mean_net_bps": -37.82738591741455,
+   "sd_net_bps": 101.84536257398919,
    "stops": 0,
-   "sum_gross_bps": -1217.246717212738,
-   "sum_net_bps": -2207.966717212738,
-   "two_sigma_over_sqrt_n": 31.20809689078524
+   "sum_gross_bps": -1082.8053127971166,
+   "sum_net_bps": -2383.1253127971167,
+   "two_sigma_over_sqrt_n": 25.662619195807665
   },
   {
-   "episodes": 1,
+   "episodes": 2,
    "fork": "F7:SOL",
    "gates": 0,
-   "leader_closes": 1,
-   "mean_hold_hours": 0.12919333333333333,
-   "mean_net_bps": 81.03173922632406,
-   "sd_net_bps": null,
+   "leader_closes": 2,
+   "mean_hold_hours": 0.34064694444444443,
+   "mean_net_bps": 47.20355778240571,
+   "sd_net_bps": 47.84027298840721,
    "stops": 0,
-   "sum_gross_bps": 101.67173922632406,
-   "sum_net_bps": 81.03173922632406,
-   "two_sigma_over_sqrt_n": null
+   "sum_gross_bps": 135.68711556481142,
+   "sum_net_bps": 94.40711556481142,
+   "two_sigma_over_sqrt_n": 67.6563628878367
   },
   {
    "episodes": 1,
@@ -403,19 +426,20 @@
   "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
   "2026-11-06": "marks_2026-11-06_as_read_2026-11-08.jsonl",
   "2026-11-07": "marks_2026-11-07_as_read_2026-11-08.jsonl",
-  "2026-11-08": "marks_2026-11-08.jsonl"
+  "2026-11-08": "marks_2026-11-08.jsonl",
+  "2026-11-09": "marks_2026-11-09.jsonl"
  },
  "relist": {
   "cohort": "2026-10-25",
-  "feed_file": "feed_2026-11-08.json",
-  "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491",
+  "feed_file": "feed_2026-11-09.json",
+  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
   "n_rows": {
    "cohort": 81,
    "next_cohort": 70
   },
   "new_in_next_cohort": 18,
   "next_cohort": "2026-11-03",
-  "next_cohort_arena_as_of": "2026-11-08",
+  "next_cohort_arena_as_of": "2026-11-09",
   "next_window": {
    "complete": false,
    "days": 7,
@@ -436,7 +460,7 @@
    {
     "full_so_far": 8,
     "n": 51,
-    "net_positive": 6,
+    "net_positive": 5,
     "relisted": 34,
     "verdict": "DROP"
    },
@@ -454,16 +478,16 @@
   "coverage": {
    "0x484bc1608211d0604bf70bae72792a56884562f8": {
     "alignment": {
-     "indexed": 100,
-     "lines": 100,
+     "indexed": 122,
+     "lines": 122,
      "lost_pages": 0,
-     "pages": 100,
+     "pages": 122,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 100,
+    "pages": 122,
     "parts": 1,
     "signals": 0
    },
@@ -483,57 +507,57 @@
    },
    "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b": {
     "alignment": {
-     "indexed": 100,
-     "lines": 100,
+     "indexed": 122,
+     "lines": 122,
      "lost_pages": 0,
-     "pages": 100,
+     "pages": 122,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 100,
+    "pages": 122,
     "parts": 1,
     "signals": 0
    },
    "0xf818fa41af44a1b42ba7433f4ec472be40a2c268": {
     "alignment": {
-     "indexed": 100,
-     "lines": 100,
+     "indexed": 122,
+     "lines": 122,
      "lost_pages": 0,
-     "pages": 100,
+     "pages": 122,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 100,
+    "pages": 122,
     "parts": 1,
     "signals": 0
    },
    "0xfc667adba8d4837586078f4fdcdc29804337ca06": {
     "alignment": {
-     "indexed": 218,
-     "lines": 218,
+     "indexed": 277,
+     "lines": 277,
      "lost_pages": 1,
-     "pages": 218,
+     "pages": 277,
      "torn_fragments": 1,
      "unparsed": 0
     },
-    "closes": 27079,
-    "fills": 309166,
-    "pages": 218,
-    "parts": 15,
-    "signals": 2845
+    "closes": 33521,
+    "fills": 403597,
+    "pages": 277,
+    "parts": 19,
+    "signals": 3221
    }
   },
   "disclosure": "every row in_sample: the rule (F6 = the KEEP list) was decided after cohort 1's KEEP set and cohort 2's partial grade had been seen (R147); episodes whose exit the tape had not yet printed are dropped (the marker's rule); funding excluded",
   "f7": {
-   "closes_seen": 27079,
+   "closes_seen": 33521,
    "family": "F7",
    "one_variable": "the exit (R151): F7 = F6 with the leader's own close as the exit; no stop, no gate; nothing else differs",
-   "signals_in_tape_holes": 172,
-   "signals_without_later_close": 0
+   "signals_in_tape_holes": 177,
+   "signals_without_later_close": 4
   },
   "family": "F6",
   "in_sample": true,
@@ -550,8 +574,8 @@
    "excluded_record": [
     "0x9f976123e7c48952be487664b8130aad144b7f23"
    ],
-   "feed_file": "feed_2026-11-08.json",
-   "feed_sha256": "403df8e3b59970ca7ed0c437c614ecca393f67c7d22de909c58ede65d5a05491"
+   "feed_file": "feed_2026-11-09.json",
+   "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe"
   },
   "one_variable": "the list (R145): F6 = F4 with the KEEP set as its leaders; nothing else differs",
   "parameters": {
@@ -574,19 +598,19 @@
   "pins": {
    "pages": [
     {
-     "bytes": 300,
+     "bytes": 366,
      "file": "pages_fills_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.part000",
-     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
     },
     {
-     "bytes": 300,
+     "bytes": 366,
      "file": "pages_fills_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.part000",
-     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
     },
     {
-     "bytes": 300,
+     "bytes": 366,
      "file": "pages_fills_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.part000",
-     "sha256": "2c469216266e5dffba8a980a0eb4a08319a7038e20e3ab877385267af819ff0e"
+     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
     },
     {
      "bytes": 7913389,
@@ -659,15 +683,35 @@
      "sha256": "a75387ed851e8a8dc5e542452da01d8a67a1698831719b032e2024dfeb890508"
     },
     {
-     "bytes": 3970316,
+     "bytes": 7779966,
      "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part014",
-     "sha256": "d82af1c4d6ad5b6dd5059fedad15a783d9e0372dc5df47cc79fbaae3f9773a8b"
+     "sha256": "e531f71011f8e7e414a944f71f25f4184cf6472c13dbef9588435c00d23f1c2a"
+    },
+    {
+     "bytes": 8073909,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part015",
+     "sha256": "05a233953319557dd1b36738c47023d33012287eacad7f27e7bafa012fe3d33d"
+    },
+    {
+     "bytes": 8287510,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part016",
+     "sha256": "1e2bfdff816e1f88f7cbe89a998339330cb9da0ba5b35365666afad84d061e52"
+    },
+    {
+     "bytes": 8335600,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part017",
+     "sha256": "03559e7cfbda97056a20bad4a735dcda3ad3af8ef95ad8cd1749d961fe92279b"
+    },
+    {
+     "bytes": 6186593,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part018",
+     "sha256": "bbec2fee2677c7225b365e8067bcf5923dfa0a1b03f79aa4c04e02e683b539f9"
     }
    ],
    "pages_index": {
     "file": "pages_index.jsonl",
-    "rows": 6802,
-    "sha256": "5f4c0d8af9b683481228c55e25cd5800a32ff3fef16e82b5533c6fffe7a5aef2"
+    "rows": 8302,
+    "sha256": "dded95295f8b7630e991e41bf1ae9b991f7b5f9aca1a2a2835f7d0de0683d538"
    },
    "tape": [
     {
@@ -702,56 +746,64 @@
     },
     {
      "file": "tape_MIDS_2026-11-09.jsonl",
-     "rows": 1444,
-     "sha256": "85ccaf264c70d8113a8708117a6ed20edd4e882548c33f0142187d1217712cfe",
-     "unparsed_lines": 3
+     "rows": 16349,
+     "sha256": "24d21e196143aa57d27e8127370b9648a3f88a02b8de62be2ef055c1b9fb8e39",
+     "unparsed_lines": 24
+    },
+    {
+     "file": "tape_MIDS_2026-11-10.jsonl",
+     "rows": 81,
+     "sha256": "8d8b0650a8904fc0796ce52d483e1bbd6066c56b7246446846661c38ffae7964",
+     "unparsed_lines": 0
     }
    ]
   },
   "window": {
    "t0_day": "2026-11-04",
    "t0_ms": 1793750400000,
-   "t1_day": "2026-11-08",
-   "t1_ms": 1794182399999,
+   "t1_day": "2026-11-09",
+   "t1_ms": 1794268799999,
    "tape_days": [
     "2026-11-04",
     "2026-11-05",
     "2026-11-06",
     "2026-11-07",
     "2026-11-08",
-    "2026-11-09"
+    "2026-11-09",
+    "2026-11-10"
    ]
   }
  },
  "replay_files": {
-  "marks": "marks_F6_2026-10-25_as_of_2026-11-08.jsonl",
-  "marks_f7": "marks_F7_2026-10-25_as_of_2026-11-08.jsonl",
-  "signals": "signals_F6_2026-10-25_as_of_2026-11-08.jsonl"
+  "marks": "marks_F6_2026-10-25_as_of_2026-11-09.jsonl",
+  "marks_f7": "marks_F7_2026-10-25_as_of_2026-11-09.jsonl",
+  "signals": "signals_F6_2026-10-25_as_of_2026-11-09.jsonl"
  },
  "replay_totals": {
-  "C1_episodes": 18,
-  "C1_sum_net_bps": -349.91284775901715,
-  "F4_episodes": 232,
-  "F4_sum_net_bps": -4410.2004531451375,
-  "F7_episodes": 168,
+  "C1_episodes": 24,
+  "C1_sum_net_bps": -662.8683021711115,
+  "F4_episodes": 304,
+  "F4_sum_net_bps": -5350.960922118986,
+  "F7_episodes": 212,
   "F7_episodes_on_void_days_not_counted": 32,
-  "F7_signals_in_tape_holes": 172,
-  "F7_signals_without_later_close": 0,
-  "F7_sum_cost_bps": 3467.52,
-  "F7_sum_gross_bps": -216.42450365678326,
-  "F7_sum_net_bps": -3683.944503656783,
+  "F7_signals_in_tape_holes": 177,
+  "F7_signals_without_later_close": 4,
+  "F7_sum_cost_bps": 4375.68,
+  "F7_sum_gross_bps": -16.178311907358637,
+  "F7_sum_net_bps": -4391.858311907358,
   "admitted_days": [
    "2026-11-04",
    "2026-11-05",
-   "2026-11-08"
+   "2026-11-08",
+   "2026-11-09"
   ],
   "days_F6_beats_both_controls": 2,
   "days_F7_beats_both_controls": 1,
-  "episodes": 102,
+  "episodes": 134,
   "episodes_on_void_days_not_counted": 41,
-  "sum_cost_bps": 2105.28,
-  "sum_gross_bps": 1070.2811252592148,
-  "sum_net_bps": -1034.9988747407851,
+  "sum_cost_bps": 2765.76,
+  "sum_gross_bps": 1698.011801927826,
+  "sum_net_bps": -1067.7481980721739,
   "void_days": [
    "2026-11-06",
    "2026-11-07"

@@ -1,0 +1,629 @@
+{
+  "kind": "agent_record_book_ledger",
+  "family": "F7",
+  "as_of": "2026-11-09",
+  "first_full_day": "2026-11-01",
+  "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-08",
+    "2026-11-09"
+  ],
+  "void_days_excluded": {
+    "2026-11-06": {
+      "void_marks": 1,
+      "episodes_not_counted": 2
+    },
+    "2026-11-07": {
+      "void_marks": 3,
+      "episodes_not_counted": 6
+    }
+  },
+  "readings": {
+    "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+    "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+    "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+    "2026-11-04": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+    "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+    "2026-11-06": "marks_2026-11-06_as_read_2026-11-08.jsonl",
+    "2026-11-07": "marks_2026-11-07_as_read_2026-11-08.jsonl",
+    "2026-11-08": "marks_2026-11-08.jsonl",
+    "2026-11-09": "marks_2026-11-09.jsonl"
+  },
+  "pins": {
+    "marks_2026-11-01_as_read_2026-11-03.jsonl": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+    "marks_2026-11-02_as_read_2026-11-04.jsonl": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+    "marks_2026-11-03_as_read_2026-11-05.jsonl": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+    "marks_2026-11-04_as_read_2026-11-08.jsonl": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",
+    "marks_2026-11-05_as_read_2026-11-08.jsonl": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
+    "marks_2026-11-06_as_read_2026-11-08.jsonl": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
+    "marks_2026-11-07_as_read_2026-11-08.jsonl": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
+    "marks_2026-11-08.jsonl": "38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332",
+    "marks_2026-11-09.jsonl": "5223a57d50dcb9e52b450363f898202c0b4f5b22407285cfe1fe62f1320e82c4",
+    "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b",
+    "promotions.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  "n_alive_at_start_of_last_day": 6,
+  "n_alive_now": 6,
+  "k": 5,
+  "counts": {
+    "ALIVE": 6,
+    "CANDIDATE": 0,
+    "PROMOTED": 0,
+    "RETIRED": 0
+  },
+  "forks": [
+    {
+      "fork": "F7:BTC",
+      "coin": "BTC",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 11,
+      "sum_net_bps": -192.20551337011779,
+      "mean_net_bps": -17.473228488192525,
+      "two_sigma_over_sqrt_n": 27.708670745894963,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": -28.659293567437214
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F7:ETH",
+      "coin": "ETH",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 8,
+      "sum_net_bps": -174.20843060532044,
+      "mean_net_bps": -21.77605382566506,
+      "two_sigma_over_sqrt_n": 25.621653407668262,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": 7.559378124719241
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F7:HYPE",
+      "coin": "HYPE",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 2,
+      "sum_net_bps": -102.66806383265646,
+      "mean_net_bps": -51.33403191632823,
+      "two_sigma_over_sqrt_n": 2.751615180569246,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": -50.515070203080214
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F7:ZEC",
+      "coin": "ZEC",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 13,
+      "sum_net_bps": 0.6116076547734153,
+      "mean_net_bps": 0.04704674267487782,
+      "two_sigma_over_sqrt_n": 42.98359069505138,
+      "two_sigma_clears": false,
+      "run_days": 1,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": -41.646276088071566
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F7:SOL",
+      "coin": "SOL",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 1,
+      "sum_net_bps": -13.909957492427019,
+      "mean_net_bps": -13.909957492427019,
+      "two_sigma_over_sqrt_n": null,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": -42.21869844487404
+      },
+      "retired": null,
+      "promotion": null
+    },
+    {
+      "fork": "F7:NEAR",
+      "coin": "NEAR",
+      "status": "ALIVE",
+      "rung": 0,
+      "days_alive": 7,
+      "episodes": 0,
+      "sum_net_bps": 0,
+      "mean_net_bps": 0.0,
+      "two_sigma_over_sqrt_n": null,
+      "two_sigma_clears": false,
+      "run_days": 0,
+      "k": 5,
+      "candidate": false,
+      "candidate_days": [],
+      "control_c1": {
+        "episodes": 7,
+        "mean_net_bps": -18.252194536654226
+      },
+      "retired": null,
+      "promotion": null
+    }
+  ],
+  "history": [
+    {
+      "day": "2026-11-01",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-02",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-03",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-04",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-05",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-08",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    },
+    {
+      "day": "2026-11-09",
+      "n_alive_at_start": 6,
+      "k": 5,
+      "states": {
+        "F7:BTC": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -17.473228488192525,
+          "two_sigma_over_sqrt_n": 27.708670745894963,
+          "episodes": 11
+        },
+        "F7:ETH": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -21.77605382566506,
+          "two_sigma_over_sqrt_n": 25.621653407668262,
+          "episodes": 8
+        },
+        "F7:HYPE": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -51.33403191632823,
+          "two_sigma_over_sqrt_n": 2.751615180569246,
+          "episodes": 2
+        },
+        "F7:ZEC": {
+          "status": "ALIVE",
+          "run": 1,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.04704674267487782,
+          "two_sigma_over_sqrt_n": 42.98359069505138,
+          "episodes": 13
+        },
+        "F7:SOL": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": -13.909957492427019,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 1
+        },
+        "F7:NEAR": {
+          "status": "ALIVE",
+          "run": 0,
+          "candidate": false,
+          "k": 5,
+          "mean_net_bps": 0.0,
+          "two_sigma_over_sqrt_n": null,
+          "episodes": 0
+        }
+      }
+    }
+  ],
+  "rules": {
+    "candidate": "marker.is_candidate: trailing run of days beating C0 (0) and C1:<coin> >= k_for(n_alive) and mean > 2\u03c3/\u221an",
+    "retired": "days alive >= 7 and episodes >= 2 and mean + 2\u03c3/\u221an < min(0, C1 mean); sticky",
+    "promoted": "an entry in promotions.json only (an amendment under R88); rungs 0 paper, 1 one unit, 2 four, 3 sixteen",
+    "slot": "a retirement frees one slot, refilled only by a PREREG amendment (R107)"
+  },
+  "what_is_not_claimed": "No forecast, no profit: statuses by written rule over pinned forward days.",
+  "what": "R148 (and R151 for F7): the F7 population's own ledger, six slots of its own, the same k_for, controls and retirement rule as the F4 population's; never merged, ranked or averaged with it or with any arena row; no forward row exists before the marker runs with keep.json"
+}

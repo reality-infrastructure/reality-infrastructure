@@ -1925,3 +1925,16 @@ the go (a hand-off), then search (P12).
 | Gates | three known-answer gates re-measured or made frame-level with the reason written; **1 251 passed, 0 failed**. |
 
 **Income row (R81), 2026-11-09 after A38.2:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.12 — Day 19 (2026-11-09): 78 episodes, −1 253.7 bps; F4:HYPE and F4:NEAR beat both controls; the first retirement by rule (F4:ETH, R106); no CANDIDATE; the window's F6 signal fired 14:01:00Z, nothing reached the venue; R72 names the hand; live leg MISS
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `4d7acd5`; `marker.py`, `families.json` hold; `forward.py` = `b33b9282…` (P29's file, installed on the VPS by A38.2), not POO_DAILY's pin `6fd373b8…` — the pin is stale, recorded (F1); 39 passed (23 + 6 + 10). |
+| Channel | `64d5acd`, 402 files, 0 sha mismatches; health holds (manifest 35 min old, tape and marker active, 11-09 not void by state or row); tape 15 960 rows / 24 h, no hole > 15 min, longest null run 11 s. |
+| Reading | 78 episodes, 63 stop-first, sum −1 253.7 bps (funding excluded); F4:HYPE +38.33 on 9 and F4:NEAR +15.80 on 4 beat C0 and C1 (runs 0 → 1); pass line over 7 counted days, no CANDIDATE. Marks pin `5223a57d…`. The channel's 11-08 file grew 52 → 57 after its pin (F2). |
+| Ledger / arena | ledger as of 11-09: 5 ALIVE, **F4:ETH RETIRED (R106)**, slot refilled only by amendment (R107) (`6d841dfd…`); cohort 2 as of 11-09 FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0, `--verify` OK (root `71f20676…`); feed: no status change; AI board 14 rows, 0 not graded. |
+| Calls / book | board 11-09: L1 0.4603 on 126 vs CB 0.5317; L2 0.4286 on 14 vs CM 0.7857; 11-10 registered 288 (L2/CM 0: no market capture newer than 11-08). Book verify OK; F6 replay 2 of 4 admitted days beat both, F7 1 of 4; book ledger F6 4 ALIVE / 2 RETIRED on one forward day; copier 0 pairs ALIVE; STARLINK not ready (0 of 7 pairs). |
+| Live leg | Day 19 (2026-11-09): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
+
+**Income row (R81), 2026-11-10 after A17.12:** 0 USD a day against 165. Nothing on the chain.
