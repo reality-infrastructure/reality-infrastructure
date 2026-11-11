@@ -223,6 +223,14 @@ KILLED, the kill test due or not) and the STARLINK line verbatim. The marker run
 write nothing. The first chain-graded pair under an arena verdict has a 50th-percentile date of **2026-11-11** (R152):
 on and after it, a day without one is written `R152: the date is missed; <n> days late` in the same words every time.
 
+**3k. The fill table (A41, every run, after 3j).** The calls of D-1 marked at the ask one 11 USDC ticket lifts from the
+venue's own book at registration (R172), beside the displayed payoff. You capture nothing; you mark what the laptop session
+booked (`calls/l2_favorite/captures/books_*.json`). Run `python -m rights_events.l2_fill table --day <D-1>` then
+`python -m rights_events.l2_fill check-latest` (it must print `FILL LATEST OK`), commit `calls/l2_favorite/fill/`, and put
+one line in the day's amendment: per leg, fillable of booked, placeholder, the fill payoff sum and mean beside the
+displayed payoff on the same calls. If no register exists for D-1 the step is skipped and said so. The live rung is read
+on this table (R174), never on the displayed one.
+
 **3j. L2 favorite, the compounding account (A40, every run, after 3h).** The hourly legs this laptop session registered
 for D-1 (`calls/l2_favorite/ledger/calls_<D-1>.jsonl`, from the captures under `calls/l2_favorite/captures/`) are resolved
 against the channel's tape exactly as 3g resolves the main ledger's market calls (SETTLED_CALLS.md 3b; S104 on different
