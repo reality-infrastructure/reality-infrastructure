@@ -7176,3 +7176,30 @@ Every one of the 20 favorite and tape-side calls is fillable only at 0.95 to 0.9
 **R108 (the trace).** Musk `@ 20:42` (the same limiting factor; no capital), `@ 2:16:03`–`2:16:12` (plot the points; drastic action when success is not in the set), `@ 52:10` (reality verifies: prints, not quotes), `@ 1:29:21` (the continuous operation). The panel `@ 45:03` (throw the version out), `@ 32:02`–`32:22` (a task designed to show signs of life, then more realism), `@ 1:03:59`–`1:04:06` (successive rungs), `@ 1:28:22` (the judge), `@ 12:20` (no bits from thinking). Brown `@ 29:26` (you have to run the experiment). Rule 6: one variable — the side of the book. Rule 7: the three words are the operator's, given 2026-11-11.
 
 **Income row (R81), 2026-11-11 after A42:** 0 USD a day against 165. Nothing on the chain.
+
+### A42.1 — 2026-11-11 05:0xZ (23:0x CST 11-10), flat — THE THREE WORDS, DONE (P34 `1d4f69c`): the copy line is retired and the go released in the daily procedure; the book tape has run on the VPS since 04:34:32Z and reaches the channel; the resting bid's first 27 minutes are on the record as a look, not a reading — 14 calls, 4 filled by prints, 3 right, and every one of the 6 unfilled and resolved calls was right
+
+**Word 1, done.** POO_DAILY 4-A42: from D-1 = 2026-11-11 the line is `no live leg — the standing go released by the operator's word (A42 R178); flat.`; F4, F6, F7 and F6-live are quoted `RETIRED BY WORD (A42)`. The marker still writes and is still read. The leader read as of 11-10 is pinned (`arena/source/leaders_as_of_2026-11-10.json|.md`, `MANIFEST_LEADERS_2026-11-10.json`; written 03:45Z by the session that timed out, committed with A42).
+
+**Word 3, done.** `ops/l2_book_tape_vps.sh` installed `l2_book_tape.py` (sha `7e5bde7d…`, equal on both machines, no CRLF) as `poo-l2tape.service`: active since **2026-11-11 04:34:32Z**, PID 3755859, 14 MB, `MemoryMax` 96 MB, `Nice` 10; `poo-tape` and `poo-marker` active before and after. `/root/poo/publish.sh` replaced by the repo's (`4b425b53…`; the earlier bytes kept as `publish.sh.before_A42`, `53bfa42f…`); run once by hand at 04:41Z: pushed `d56f4f6` to `vps/poo-files`, `l2/l2tape_2026-11-11.jsonl` in the channel, `manifest.json`'s list unchanged. At 05:01Z the day file holds 719 rows: 31 markets, 626 book rows, 61 prints, 0 errors, 0 gaps.
+
+**Word 2, built and looked at once.** `rights_events/l2_maker.py`, the two frozen leg files, 14 gates, POO_DAILY 3l. Pulled at 05:01:38Z (the tape's first 27 minutes; **a partial day, printed and not counted, R184**; run with `--no-write`, nothing pinned from it):
+
+| leg | calls | filled | fill rate | filled and resolved | right | hit rate (filled) | mean p (filled) | payoff sum (USD) | hit rate (unfilled) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| L4M_resting_bid | 14 | 4 | 0.286 | 4 | 3 | 0.750 | 0.701 | +0.562 | 1.000 (6 of 6) |
+| CMM_coinflip_bid | 14 | 8 | 0.571 | 7 | 2 | 0.286 | 0.396 | −3.586 | 0.333 |
+
+Thirty-one markets expiring in the day were on the tape; 14 were called. The one L4M loss is the shape the amendment predicted: `32095` (BTC above 73 757 at 05:00Z), bid 0.76001, filled by a print at 0.0021 as the market collapsed, WRONG, −1. The three wins were bids at 0.575 to 0.871. **Four filled calls decide nothing**; what the look does show is the mechanism working end to end on real prints, and the adverse selection in sign: the bids that were never hit were right six times in six, the bids that were hit three in four.
+
+**Known answers so far (one look, not a day).** (1) holding: 14 of 31 called. (2) holding: fill rate 0.286. (3) **not holding on four calls**: hit rate 0.750 above mean p 0.701, payoff +0.562 — the prediction was a loss; five full days decide it (R181), and the record will say which way. (4) not holding: the control is at −3.586, far below L4M. (5) no gap row yet.
+
+**Corrections to A42, written here.** (a) The leg files are in `calls/l2_favorite/maker/legs/`, not `calls/l2_favorite/legs/` as R179 says: the A40 gate pins that directory to its three legs and was left alone. (b) R182's budget: the worst case is 746 request-weight a minute (8 hot markets), not "under 600"; the address's limit is 1 200 and the first half hour ran with 0 errors. (c) The tape writes a book row whenever a market first enters the 900 s window even if its book has not changed, so R179's "first row" always exists there.
+
+**The taker reading, the same hour.** The 04:43Z capture (`5d4f054`): 13 of 13 booked favorite and tape-side calls fillable only at 0.95 or above, mean displayed 0.705, mean ask 0.992. Unchanged in kind from A41.1.
+
+**What follows.** The routine's 00:40Z 11-12 run: 3k (the first resolved fill table, 11-11) and 3l (the maker table for 11-11, partial). The first full tape day is 2026-11-12; R181's five full days end with 2026-11-16, read on 11-17. The hourly laptop capture runs while this session lives. Nothing is funded; R175's three acts are untouched.
+
+**The suite.** 1 292 passed, 3 failed — the three pin gates named in A41.1, unchanged.
+
+**Income row (R81), 2026-11-11 after A42.1:** 0 USD a day against 165. Nothing on the chain.
