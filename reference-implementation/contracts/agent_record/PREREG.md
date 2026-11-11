@@ -7298,3 +7298,16 @@ For L4M and CMM an hour is without a capture when the book tape holds no row of 
 **R108 (the trace).** Musk `@ 2:12:42` (schedules expand: the count, not the date), `@ 1:29:21` (the continuous operation), `@ 1:16:52` and `@ 1:17:10` (the cells a human calculates), `@ 52:10` (reality verifies: the gap line), `@ 2:42:14` (the little fab: the offered cap), `@ 2:16:12` (when a thesis closes). The panel `@ 45:03` (the bench throws the version out), `@ 44:39` (variance sets the count), `@ 1:19:25` (bits per episode), `@ 39:38` (no human in the loop of the steps), `@ 15:47` (the objective and the budget stay human; the signature is not the transcripts'), `@ 29:03` and `@ 32:02` (the successor is a patch on what is most broken). Brown `@ 30:27` (the bottleneck that is not intelligence: the laptop and the hand). Rule 6: one variable a leg (L5M: the cancel). Rule 7: the signature, the cap and the funding are the operator's.
 
 **Income row (R81), 2026-11-11 after A43:** 0 USD a day against 165. Nothing on the chain.
+
+### A43.1 — 2026-11-11 15:5xZ (09:5x CST), flat — THE OPERATOR'S RULINGS ON A43 (`254269e`), in the operator's words: R185 ratified with its disclosure; R188 unsigned and not struck; no funding; the taker capture left down and R186's registrar not installed; P35 opened at its own plan gate
+
+**The operator, 2026-11-11, verbatim.** "Commit and push A43. I ratify R185 with its disclosure: it changes the bench after the four-fill look was seen, and it may only kill earlier or clear on a stricter test." — "R188 stays unsigned, not struck. Do not fund. Before I am asked again, P35 must establish three facts read-only: whether hl_create_outcome_order accepts a resting bid at one ticket (dry or the smallest probe the venue allows without funds), the maker fee, and a signing path that stays up without the laptop. Report them; build no live path." — "Do not re-create the hourly taker capture and do not install a VPS registrar for it. The HALT line will print for the taker legs; leave it printing until I rule on retiring them." — "Then open P35 at its own plan gate: the cumulative shots read under R185, the HALT line, and L5M's leg file frozen before its first row on 11-12."
+
+**What that makes of A43's rules.**
+- **R185: RATIFIED** (the operator, as quoted). It binds from the first full tape day, 2026-11-12.
+- **R186: NOT ORDERED.** The registrar is not built and not installed; the laptop schedule is not re-created. R174's five booked days cannot complete on captures that do not exist, and the taker legs' HALT line says so daily until the operator rules on retiring them. They are not retired by this.
+- **R187: stands**, built by P35.
+- **R188: DRAFT, unsigned, not struck.** Nothing is funded. The operator is not asked again before P35 reports the three facts; P35 reads them and builds no live path. The probe may not place, rest or sign anything that needs funds.
+- **R189, R190: stand.** L5M's leg file is frozen by P35 before 2026-11-12 00:00:00Z, the first row it can call.
+
+**Income row (R81), 2026-11-11 after A43.1:** 0 USD a day against 165. Nothing on the chain.
