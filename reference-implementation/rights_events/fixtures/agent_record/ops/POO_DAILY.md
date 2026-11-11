@@ -246,6 +246,23 @@ python -m rights_events.l2_favorite check-latest
 Paste the account table (the four rows and the date line) into the amendment. Commit `calls/l2_favorite/ledger/resolved_<D-1>.json`,
 `calls/l2_favorite/account_<D-1>.json|.md` and `account_latest.json` with the day's files.
 
+**4-A42. No live leg from Day 21 (2026-11-11) — this paragraph outranks step 4 below until a later amendment gives a
+new written go.** The operator released the standing go of A34 on 2026-11-11 (A42 R178) and retired the copy line by
+word (A42 R177: F4, F6, F7 and the copier row's leg F6-live decide nothing; no CANDIDATE and no promotion may be read
+from them, whatever the ledgers' rule-computed statuses print; quote them as `RETIRED BY WORD (A42)`). For D-1 on or
+after 2026-11-11 the live-leg line is exactly `Day N (D-1): no live leg — the standing go released by the operator's
+word (A42 R178); flat.` It is not a MISS. Steps 1–3 run unchanged (the marker still writes; its rows are read and
+pinned as the record of a retired line).
+
+**3l. The maker table (A42, every run, after 3k).** The resting-bid fork L4M and its control, graded by the venue's trade
+prints from the VPS book tape. If the channel holds `l2/l2tape_<D-1>.jsonl`: copy it (and `l2/l2tape_<D-2>.jsonl` if
+it exists and is not already committed) byte for byte to `rights_events/fixtures/agent_record/calls/l2_favorite/maker/`,
+run `python -m rights_events.l2_maker table --day <D-1> --tape-dir <channel>/tape` then
+`python -m rights_events.l2_maker check-latest` (it must print `MAKER LATEST OK`), commit `calls/l2_favorite/maker/`,
+and put one line in the day's amendment: per leg, calls, filled, the hit rate of the filled beside their mean p, the
+payoff sum, and whether the day is partial (a partial day is printed and not counted toward R181's five). If the
+channel has no such file the step is skipped and said so. Nothing here sends an order; you capture nothing.
+
 **4. The live leg (A38 R155 from Day 19, 2026-11-09).** Under the standing go of A34 the entry is the first F6 signal
 inside [14:00, 15:00)Z (a KEEP leader's qualifying open), one unit by R156, exit at 30 bps or the gate 5 h after the
 open; the hand submits both legs (R157). `ops/copier_watch.py` watches the window and writes `copier/watch_<D>.jsonl`;

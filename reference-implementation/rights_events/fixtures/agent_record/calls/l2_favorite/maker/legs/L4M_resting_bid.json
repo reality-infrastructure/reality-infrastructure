@@ -1,0 +1,17 @@
+{
+ "leg": "L4M_resting_bid",
+ "type": "MARKET",
+ "mode": "PAPER",
+ "coins": ["BTC", "ETH", "HYPE", "ZEC", "SOL", "NEAR"],
+ "template": "template:binaryPrice",
+ "frozen_by": "PREREG A42, 2026-11-11; changed only by a dated amendment and never after a number has been seen (S71)",
+ "rule": "at the first book-tape row whose lead to expiry is at least 300 s and at most 900 s and at which the favorite (the side whose book mid is higher; YES if equal) has a best bid of at least 0.5 and a best ask above that bid plus one tick: a paper bid of ceil(11 / p) whole contracts on the favorite at p = best bid + 0.00001, resting until expiry; one call per market",
+ "parameter": {"side_of_the_book": "the bid, one tick inside the best bid — one variable against L2F_favorite, which takes the ask"},
+ "fill": "FILLED only by a trade print strictly after the call and before expiry that trades through the bid: YES bid — a print on the YES coin with side A below p; NO bid — a print on the YES coin with side B above 1 - p; a quote is never a fill (A42 R180)",
+ "print": "SETTLED_CALLS.md 3b: the tape of record's mid at the market's expiry (first row at/after within 60 s) against the threshold",
+ "payoff": "FILLED and RIGHT: (1 - p) / p per USD; FILLED and WRONG: -1; UNFILLED: nothing, counted",
+ "control": "CMM_coinflip_bid",
+ "bench": "after five full tape days: a candidate for the next rung only if the payoff sum is above zero and above the control's with at least 20 FILLED and resolved calls; otherwise RETIRED by this rule (A42 R181)",
+ "next_rung": "one live resting order at the venue's minimum, by its own amendment, after A41 R175's three acts; nothing in this leg sends an order",
+ "not_modelled": "the paper bid's own effect on the book, partial fills, the maker's fee"
+}

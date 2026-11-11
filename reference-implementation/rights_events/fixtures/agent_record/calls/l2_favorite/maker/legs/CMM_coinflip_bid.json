@@ -1,0 +1,14 @@
+{
+ "leg": "CMM_coinflip_bid",
+ "type": "MARKET",
+ "mode": "PAPER",
+ "coins": ["BTC", "ETH", "HYPE", "ZEC", "SOL", "NEAR"],
+ "template": "template:binaryPrice",
+ "frozen_by": "PREREG A42, 2026-11-11; changed only by a dated amendment and never after a number has been seen (S71)",
+ "rule": "the same markets at the same book-tape rows as L4M_resting_bid; the side is YES when the first byte of sha256(\"A42:\" + outcomeId) is even, else NO; a paper bid one tick inside that side's best bid when that bid is at least 0.00002 and its ask is above the bid plus one tick",
+ "parameter": {"side": "a coin flip seeded by the amendment's name and the market's id — the bench"},
+ "fill": "as L4M_resting_bid's",
+ "print": "as L4M_resting_bid's",
+ "payoff": "as L4M_resting_bid's",
+ "control_of": "L4M_resting_bid"
+}

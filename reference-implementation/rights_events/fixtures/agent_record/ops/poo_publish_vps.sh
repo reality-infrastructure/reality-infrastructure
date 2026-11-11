@@ -13,6 +13,9 @@ cp -p $SRC/tape/tape_MIDS_*.jsonl tape/ 2>/dev/null
 cp -p $SRC/marker/out/*.jsonl marker/ 2>/dev/null
 cp -p $SRC/marker/leaders_*.json $SRC/marker/families.json $SRC/marker/out/marker_state.json marker/ 2>/dev/null
 tail -n 400 $SRC/marker/poo-marker.log > marker/poo-marker.log.tail 2>/dev/null
+# the book tape (A42 R183): day files verbatim under l2/; not listed in manifest.json (the routine's health check is unchanged)
+mkdir -p l2
+cp -p $SRC/l2/l2tape_*.jsonl l2/ 2>/dev/null
 # the arena fills tape (A18 R93; A17.8 R109): every cohort directory; pages as parts, the rest verbatim
 if [ -d $SRC/arena ]; then
   for d in $SRC/arena/cohorts $SRC/arena/2*; do
