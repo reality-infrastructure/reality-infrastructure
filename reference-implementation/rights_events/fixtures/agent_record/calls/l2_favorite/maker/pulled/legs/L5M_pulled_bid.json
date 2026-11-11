@@ -1,0 +1,21 @@
+{
+ "leg": "L5M_pulled_bid",
+ "type": "MARKET",
+ "mode": "PAPER",
+ "coins": ["BTC", "ETH", "HYPE", "ZEC", "SOL", "NEAR"],
+ "template": "template:binaryPrice",
+ "frozen_by": "PREREG A43 R189, 2026-11-11; frozen before the first row it can call (2026-11-12 00:00:00Z); changed only by a dated amendment and never after a number has been seen (S71)",
+ "rule": "L4M_resting_bid's call (the same book-tape row, side, price p and ceil(11 / p) whole contracts; A42 R179), kept only when the tape of record agrees with the favorite at the call, and cancelled when it stops agreeing; one call per market",
+ "parameter": {"the_cancel": "the bid is pulled when the perp's mid on the tape of record crosses to the other side of the threshold — one variable against L4M_resting_bid, whose bid rests until expiry"},
+ "entry": "the newest tape-of-record row at or before the call's time and no more than 15000 ms before it carries a mid for the market's perp that is on the favorite's side of the threshold: a YES favorite needs mid > threshold; a NO favorite needs mid <= threshold (a mid exactly at the threshold is the NO side, L3T's rule). No such row, no mid for the perp, or a mid on the other side: no call, counted NO_CALL_TAPE_SIDE",
+ "pull": "the bid is cancelled at the first tape-of-record row strictly after the call's time and strictly before the market's expiry whose mid for the perp is on the other side of the threshold (YES favorite: mid <= threshold; NO favorite: mid > threshold); that row's time is the pull time",
+ "pull_latency_ms": 5000,
+ "fill": "as L4M_resting_bid's (A42 R180: a trade print strictly after the call and before expiry that trades through the bid; a quote is never a fill), and when the bid was pulled only a print whose time is at or before the pull time plus 5000 ms fills it; a print at exactly the pull time plus 5000 ms fills, one millisecond later does not",
+ "print": "SETTLED_CALLS.md 3b: the tape of record's mid at the market's expiry (first row at/after within 60 s) against the threshold",
+ "payoff": "FILLED and RIGHT: (1 - p) / p per USD; FILLED and WRONG: -1; UNFILLED (pulled or not): nothing, counted",
+ "control": "CMM_coinflip_bid, on its own calls of the same days",
+ "bench": "A43 R185's counts with this leg's own shots (a shot = one call FILLED and resolved on a full tape day from 2026-11-12): kill 1 the cumulative payoff sum at or below -10.000; kill 2 at 150 or more shots the sum at or below zero or at or below the control's; kill 3 at 600 or more shots not cleared; cleared at 150 or more shots when the sum is above zero and above the control's and the mean payoff a shot is above two of its standard errors. R185's kill 4 is L4M's date (A42 R181) and is not this leg's: its budget is the 600 shots",
+ "standing": "printed beside L4M_resting_bid for every full tape day from 2026-11-12; decides nothing while L4M is the leg of record; becomes the leg of record on the read that RETIRES L4M, with every shot it already has; a shadow if L4M clears (A43 R189)",
+ "next_rung": "none of its own: a live order needs A43 R188 signed by the operator; nothing in this leg sends an order",
+ "not_modelled": "the real cancel latency (5000 ms is assumed and counted against the leg; only a live order measures it), the paper bid's own effect on the book, partial fills, the maker's fee"
+}

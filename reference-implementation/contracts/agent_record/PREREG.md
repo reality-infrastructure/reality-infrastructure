@@ -7311,3 +7311,27 @@ For L4M and CMM an hour is without a capture when the book tape holds no row of 
 - **R189, R190: stand.** L5M's leg file is frozen by P35 before 2026-11-12 00:00:00Z, the first row it can call.
 
 **Income row (R81), 2026-11-11 after A43.1:** 0 USD a day against 165. Nothing on the chain.
+
+### A43.2 — 2026-11-11 16:3xZ (10:3x CST), flat — P35's PLAN GATE HELD ON THE THREE TRANSCRIPTS, at the operator's word ("now apply the three transcripts verbatim to finish us up here", over the gate's own text): GO for the paper build; the probe of the order tool stays read-only; L5M's leg file frozen in this commit, before the first row it can call
+
+**(1) The GO for P35 — VERDICT: go, now, the leg file first.**
+- Musk `2026-musk.md @ 2:12:42`–`2:12:55`: "There is a law of gas expansion that applies to schedules … it will expand to fill the available schedule". The one clock is 2026-11-12 00:00:00Z; the leg file is committed with this amendment, about seven hours ahead of it.
+- Brown `2026-brown.md @ 29:26`: "When you look at things like RSI, you do have to run experiments. It's not enough to just be extremely smart." The panel `2026-schulman-millidge-oneill.md @ 12:20`: "You can't gain any new bits from just thinking." The tapes are already writing; the read is what is missing.
+- The panel `@ 45:03`: "If it didn't, they would throw that version out." R185 cannot throw anything out until a table counts its shots.
+
+**(2) The probe of `hl_create_outcome_order` — VERDICT: schema, documents and any preview only; no call that writes to the venue.**
+- A27 (3) stands and decides it: the panel `@ 15:47`–`15:55`, "the last job for humans … is defining the objective and deciding what we actually want"; a venue write is a gate, and nothing in any transcript lets a machine write it. The operator's words allow "dry or the smallest probe the venue allows without funds" and, in the same message, "Report them; build no live path." A real order call against an unfunded wallet is not dry: if the venue or its client found collateral this record did not see (the probe of A40.2 read spot USDC only), it would rest. So it is not made.
+- Musk `@ 2:42:14`: "We make a little fab and see what happens." The little fab here is the tool's own schema and the venue's documents. If they leave the first fact open, P35 reports it open and names the one call that would close it; the yes for that call is the operator's.
+- Brown `@ 47:37`: "they will optimize for that reward. If that reward is misspecified, then that" is what is optimised. "Establish three facts" is not a licence to reach the venue to finish the list.
+
+**(3) The scope — VERDICT: as the gate wrote it; `l2_maker.py`, its 14 gates and A42's table bytes untouched; a new module beside it.** The panel `@ 29:03`: "each iteration, patch whatever seems to be most broken in the last iteration." One patch, not a rewrite. Not in P35: any live path, funding, the registrar, the taker schedule, the A42 leg files, SPEC.md, `contracts/CURRENT.md`.
+
+**Four places where A43's text is made exact, written before any row (same meaning; said so, not slipped in).**
+- (a) **Where the leg file lives.** `calls/l2_favorite/maker/pulled/legs/L5M_pulled_bid.json`, not `maker/legs/`: A42's gate pins that directory to its two legs and is left alone (as A42.1 (a) did for A40's).
+- (b) **The threshold.** A perp mid exactly at the threshold is the NO side (L3T's rule, "YES if above"); so a YES favorite is pulled at mid ≤ threshold and a NO favorite at mid > threshold.
+- (c) **The latency's edge.** A print at exactly the pull row's time plus 5 000 ms fills; one millisecond later does not.
+- (d) **L5M's latest date.** R189 gives L5M "R185's counts". Kill 4 is a date, L4M's own from R181, and would retire L5M on the read it became the leg of record. L5M's budget is Kill 3's 600 shots and it has no date (line 2 of the doctrine). And R187's "longest" for the maker legs is measured to the day's edges as it is for the taker legs, so a tape that starts late shows its silence (known answer 6 already counts those hours).
+
+**The leg, frozen.** `L5M_pulled_bid.json`, committed with this amendment; its sha256 is pinned by every table that reads it. No row of the book tape after 05:01:38Z has been read for a call, a fill or a payoff by this session.
+
+**Income row (R81), 2026-11-11 after A43.2:** 0 USD a day against 165. Nothing on the chain.
