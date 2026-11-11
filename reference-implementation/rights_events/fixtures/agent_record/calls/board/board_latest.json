@@ -1,10 +1,10 @@
 {
  "kind": "proof_of_outcome_call_board",
- "day": "2026-11-09",
- "resolution_sha256": "66ac81103be134ea5e51715616e77910ff5a297a78410ab8d227aabb4bd11ed1",
+ "day": "2026-11-10",
+ "resolution_sha256": "7d418d9fb1459a5bc6374aa7cfb9493e45068cbd631b19ee4cad874ddeb73187",
  "tape_pins": {
-  "tape_MIDS_2026-11-09.jsonl": "24d21e196143aa57d27e8127370b9648a3f88a02b8de62be2ef055c1b9fb8e39",
-  "tape_MIDS_2026-11-10.jsonl": "8d8b0650a8904fc0796ce52d483e1bbd6066c56b7246446846661c38ffae7964"
+  "tape_MIDS_2026-11-10.jsonl": "a79a85e4cb1b7f989088bec8dcc2624eaa984c8d5d61a362f09bbcab48c24b5f",
+  "tape_MIDS_2026-11-11.jsonl": "50c5ac9f9ef3f2b41ab44f8f88f6cf41bc21e03cc7439a1071551ecef63da251"
  },
  "settled_calls_sha256": "0581207422084ff1896a37f0ffce820f59ba29529561967704930ef43e722622",
  "rows": [
@@ -14,10 +14,10 @@
    "type": "BAR",
    "control": null,
    "RESOLVED": 126,
-   "LOSS_RATE": 0.5317,
+   "LOSS_RATE": 0.4524,
    "GAP": null,
-   "RIGHT": 59,
-   "WRONG": 67,
+   "RIGHT": 69,
+   "WRONG": 57,
    "UNRESOLVED": 0,
    "LATE": 12,
    "DUPLICATE": 0,
@@ -29,16 +29,16 @@
    "mode": "PAPER",
    "type": "MARKET",
    "control": null,
-   "RESOLVED": 14,
-   "LOSS_RATE": 0.7857,
+   "RESOLVED": 0,
+   "LOSS_RATE": null,
    "GAP": null,
-   "RIGHT": 3,
-   "WRONG": 11,
+   "RIGHT": 0,
+   "WRONG": 0,
    "UNRESOLVED": 0,
    "LATE": 0,
    "DUPLICATE": 0,
    "SLOW": 0,
-   "registered": 14
+   "registered": 0
   },
   {
    "leg": "L1_bar_continuation",
@@ -46,10 +46,10 @@
    "type": "BAR",
    "control": "CB_bar_coinflip",
    "RESOLVED": 126,
-   "LOSS_RATE": 0.4603,
+   "LOSS_RATE": 0.5556,
    "GAP": null,
-   "RIGHT": 68,
-   "WRONG": 58,
+   "RIGHT": 56,
+   "WRONG": 70,
    "UNRESOLVED": 0,
    "LATE": 12,
    "DUPLICATE": 0,
@@ -61,16 +61,16 @@
    "mode": "PAPER",
    "type": "MARKET",
    "control": "CM_market_coinflip",
-   "RESOLVED": 14,
-   "LOSS_RATE": 0.4286,
+   "RESOLVED": 0,
+   "LOSS_RATE": null,
    "GAP": null,
-   "RIGHT": 8,
-   "WRONG": 6,
+   "RIGHT": 0,
+   "WRONG": 0,
    "UNRESOLVED": 0,
    "LATE": 0,
    "DUPLICATE": 0,
    "SLOW": 0,
-   "registered": 14
+   "registered": 0
   }
  ],
  "what_is_not_claimed": "Two numbers per leg per day, RESOLVED and LOSS RATE (and GAP for a live leg), from pre-registered calls against pinned prints; nothing else is scored."

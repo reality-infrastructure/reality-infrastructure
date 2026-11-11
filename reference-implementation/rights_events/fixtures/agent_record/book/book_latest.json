@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-09",
+ "as_of": "2026-11-10",
  "copier": {
   "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
   "c1_daily_net_bps": {},
@@ -32,9 +32,9 @@
   "pages": {
    "alignment": {
     "indexed": 0,
-    "lines": 122,
+    "lines": 146,
     "lost_pages": 0,
-    "pages": 122,
+    "pages": 146,
     "torn_fragments": 0,
     "unparsed": 0
    },
@@ -183,17 +183,39 @@
     "sum_net_bps": -940.7604689738484
    },
    "F6": {
-    "episodes": 31,
-    "sum_net_bps": -71.3927498338656
+    "episodes": 34,
+    "sum_net_bps": -90.35908278236815
    },
    "F6_beats_both_controls": false,
    "F7": {
-    "episodes": 44,
-    "sum_net_bps": -707.9138082505754
+    "episodes": 47,
+    "sum_net_bps": -1034.8918907193813
    },
    "F7_beats_both_controls": false,
    "admitted": true,
    "day": "2026-11-09"
+  },
+  {
+   "C1": {
+    "episodes": 6,
+    "sum_net_bps": -317.7877332989027
+   },
+   "F4": {
+    "episodes": 72,
+    "sum_net_bps": -264.16649848616817
+   },
+   "F6": {
+    "episodes": 32,
+    "sum_net_bps": 482.93496575284405
+   },
+   "F6_beats_both_controls": true,
+   "F7": {
+    "episodes": 63,
+    "sum_net_bps": -1127.1188820502339
+   },
+   "F7_beats_both_controls": false,
+   "admitted": true,
+   "day": "2026-11-10"
   }
  ],
  "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json",
@@ -210,9 +232,9 @@
   "excluded_record": [
    "0x9f976123e7c48952be487664b8130aad144b7f23"
   ],
-  "feed_as_of": "2026-11-09",
-  "feed_file": "feed_2026-11-09.json",
-  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
+  "feed_as_of": "2026-11-10",
+  "feed_file": "feed_2026-11-10.json",
+  "feed_sha256": "7de1d8ad148adb9a4f631431fae67d416491d1a0d8df57326277cc0f47cfb115",
   "n_keep_rows": 7,
   "what": "R146: the leader list of F6 = the arena's KEEP set of the newest completed cohort, the RECORD row excluded (the record does not follow itself), sorted; refreshed once per completed cohort",
   "window": {
@@ -227,7 +249,7 @@
  },
  "kind": "agent_record_book",
  "ledger": {
-  "as_of": "2026-11-09",
+  "as_of": "2026-11-10",
   "counts": {
    "ALIVE": 4,
    "CANDIDATE": 0,
@@ -241,88 +263,89 @@
    "2026-11-04",
    "2026-11-05",
    "2026-11-08",
-   "2026-11-09"
+   "2026-11-09",
+   "2026-11-10"
   ],
-  "forward_rows": 26,
-  "k": 5,
+  "forward_rows": 59,
+  "k": 4,
   "note": "forward rows read from the pinned marks"
  },
  "ledger_f7": {
-  "as_of": "2026-11-09",
+  "as_of": "2026-11-10",
   "counts": {
    "ALIVE": 6,
    "CANDIDATE": 0,
    "PROMOTED": 0,
    "RETIRED": 0
   },
-  "forward_rows": 35,
+  "forward_rows": 92,
   "k": 5
  },
  "per_coin": [
   {
-   "episodes": 23,
+   "episodes": 30,
    "fork": "F6:BTC",
-   "gates": 7,
+   "gates": 10,
    "leader_closes": 0,
-   "mean_hold_hours": 2.422388804347826,
-   "mean_net_bps": -10.786054141417203,
-   "sd_net_bps": 79.21091817572315,
-   "stops": 16,
-   "sum_gross_bps": 226.6407547474043,
-   "sum_net_bps": -248.07924525259568,
-   "two_sigma_over_sqrt_n": 33.03323638066762
+   "mean_hold_hours": 2.5334102685185185,
+   "mean_net_bps": -6.341491278864371,
+   "sd_net_bps": 79.34163343865384,
+   "stops": 20,
+   "sum_gross_bps": 428.95526163406885,
+   "sum_net_bps": -190.24473836593114,
+   "two_sigma_over_sqrt_n": 28.97146825577126
   },
   {
-   "episodes": 34,
+   "episodes": 41,
    "fork": "F6:ETH",
    "gates": 6,
    "leader_closes": 0,
-   "mean_hold_hours": 1.5788356617647057,
-   "mean_net_bps": -4.807638523828306,
-   "sd_net_bps": 130.6549663957322,
-   "stops": 28,
-   "sum_gross_bps": 538.3002901898376,
-   "sum_net_bps": -163.4597098101624,
-   "two_sigma_over_sqrt_n": 44.81428375742022
+   "mean_hold_hours": 1.6721566395663956,
+   "mean_net_bps": -13.404033220282129,
+   "sd_net_bps": 120.22849173072997,
+   "stops": 35,
+   "sum_gross_bps": 296.67463796843265,
+   "sum_net_bps": -549.5653620315672,
+   "two_sigma_over_sqrt_n": 37.553071679562535
   },
   {
-   "episodes": 12,
+   "episodes": 13,
    "fork": "F6:HYPE",
-   "gates": 5,
-   "leader_closes": 0,
-   "mean_hold_hours": 2.177773888888889,
-   "mean_net_bps": 93.26540707774198,
-   "sd_net_bps": 203.18163263152687,
-   "stops": 7,
-   "sum_gross_bps": 1366.8648849329038,
-   "sum_net_bps": 1119.1848849329037,
-   "two_sigma_over_sqrt_n": 117.30697029419969
-  },
-  {
-   "episodes": 63,
-   "fork": "F6:ZEC",
    "gates": 6,
    "leader_closes": 0,
-   "mean_hold_hours": 0.905938020282187,
-   "mean_net_bps": -26.33907291970732,
-   "sd_net_bps": 107.75684078891841,
-   "stops": 57,
-   "sum_gross_bps": -359.0415939415612,
-   "sum_net_bps": -1659.361593941561,
-   "two_sigma_over_sqrt_n": 27.152171694615163
+   "mean_hold_hours": 2.3948689957264957,
+   "mean_net_bps": 107.49889462495383,
+   "sd_net_bps": 201.18708382932522,
+   "stops": 7,
+   "sum_gross_bps": 1665.8056301243998,
+   "sum_net_bps": 1397.4856301244,
+   "two_sigma_over_sqrt_n": 111.59851487810832
   },
   {
-   "episodes": 1,
-   "fork": "F6:SOL",
-   "gates": 0,
+   "episodes": 82,
+   "fork": "F6:ZEC",
+   "gates": 9,
    "leader_closes": 0,
-   "mean_hold_hours": 0.20374972222222223,
-   "mean_net_bps": -64.58380486083527,
-   "sd_net_bps": null,
+   "mean_hold_hours": 0.9183809993224933,
+   "mean_net_bps": -13.650545472221669,
+   "sd_net_bps": 183.2313230827592,
+   "stops": 73,
+   "sum_gross_bps": 573.1352712778233,
+   "sum_net_bps": -1119.3447287221768,
+   "two_sigma_over_sqrt_n": 40.4690292654847
+  },
+  {
+   "episodes": 2,
+   "fork": "F6:SOL",
+   "gates": 1,
+   "leader_closes": 0,
+   "mean_hold_hours": 2.6021219444444443,
+   "mean_net_bps": -45.33081856631699,
+   "sd_net_bps": 27.22783433389107,
    "stops": 1,
-   "sum_gross_bps": -43.943804860835264,
-   "sum_net_bps": -64.58380486083527,
-   "two_sigma_over_sqrt_n": null
+   "sum_gross_bps": -49.381637132633976,
+   "sum_net_bps": -90.66163713263398,
+   "two_sigma_over_sqrt_n": 38.50597258903655
   },
   {
    "episodes": 1,
@@ -340,69 +363,69 @@
  ],
  "per_coin_f7": [
   {
-   "episodes": 71,
+   "episodes": 82,
    "fork": "F7:BTC",
    "gates": 0,
-   "leader_closes": 71,
-   "mean_hold_hours": 0.47422906885759,
-   "mean_net_bps": -17.972993535103406,
-   "sd_net_bps": 45.87619177069771,
+   "leader_closes": 82,
+   "mean_hold_hours": 0.5624590345528455,
+   "mean_net_bps": -17.522544843354506,
+   "sd_net_bps": 43.85703318487496,
    "stops": 0,
-   "sum_gross_bps": 189.35745900765824,
-   "sum_net_bps": -1276.0825409923418,
-   "two_sigma_over_sqrt_n": 10.889004588249566
+   "sum_gross_bps": 255.63132284493065,
+   "sum_net_bps": -1436.8486771550695,
+   "two_sigma_over_sqrt_n": 9.686398207441858
   },
   {
-   "episodes": 51,
+   "episodes": 66,
    "fork": "F7:ETH",
    "gates": 0,
-   "leader_closes": 51,
-   "mean_hold_hours": 0.7948601361655774,
-   "mean_net_bps": -11.156907092903916,
-   "sd_net_bps": 69.39804281980223,
+   "leader_closes": 66,
+   "mean_hold_hours": 0.8000926515151515,
+   "mean_net_bps": -11.916157741611514,
+   "sd_net_bps": 64.7146762798377,
    "stops": 0,
-   "sum_gross_bps": 483.63773826190027,
-   "sum_net_bps": -569.0022617380997,
-   "two_sigma_over_sqrt_n": 19.435339446218418
+   "sum_gross_bps": 575.7735890536401,
+   "sum_net_bps": -786.4664109463599,
+   "two_sigma_over_sqrt_n": 15.93165198306016
   },
   {
-   "episodes": 24,
+   "episodes": 26,
    "fork": "F7:HYPE",
    "gates": 0,
-   "leader_closes": 24,
-   "mean_hold_hours": 0.17403605324074073,
-   "mean_net_bps": -13.349278292266845,
-   "sd_net_bps": 83.65246790751401,
+   "leader_closes": 26,
+   "mean_hold_hours": 0.17371268162393164,
+   "mean_net_bps": -7.8762864629621285,
+   "sd_net_bps": 82.57707803572518,
    "stops": 0,
-   "sum_gross_bps": 174.97732098559567,
-   "sum_net_bps": -320.3826790144043,
-   "two_sigma_over_sqrt_n": 34.15097701632576
+   "sum_gross_bps": 331.85655196298467,
+   "sum_net_bps": -204.78344803701535,
+   "two_sigma_over_sqrt_n": 32.3893947907413
   },
   {
-   "episodes": 63,
+   "episodes": 100,
    "fork": "F7:ZEC",
    "gates": 0,
-   "leader_closes": 63,
-   "mean_hold_hours": 0.6377947751322751,
-   "mean_net_bps": -37.82738591741455,
-   "sd_net_bps": 101.84536257398919,
+   "leader_closes": 100,
+   "mean_hold_hours": 0.537505625,
+   "mean_net_bps": -32.39666996138114,
+   "sd_net_bps": 99.92366014669378,
    "stops": 0,
-   "sum_gross_bps": -1082.8053127971166,
-   "sum_net_bps": -2383.1253127971167,
-   "two_sigma_over_sqrt_n": 25.662619195807665
+   "sum_gross_bps": -1175.6669961381142,
+   "sum_net_bps": -3239.6669961381144,
+   "two_sigma_over_sqrt_n": 19.984732029338755
   },
   {
-   "episodes": 2,
+   "episodes": 3,
    "fork": "F7:SOL",
    "gates": 0,
-   "leader_closes": 2,
-   "mean_hold_hours": 0.34064694444444443,
-   "mean_net_bps": 47.20355778240571,
-   "sd_net_bps": 47.84027298840721,
+   "leader_closes": 3,
+   "mean_hold_hours": 5.5689807407407415,
+   "mean_net_bps": -80.17237040654395,
+   "sd_net_bps": 223.19997111512367,
    "stops": 0,
-   "sum_gross_bps": 135.68711556481142,
-   "sum_net_bps": 94.40711556481142,
-   "two_sigma_over_sqrt_n": 67.6563628878367
+   "sum_gross_bps": -178.59711121963184,
+   "sum_net_bps": -240.51711121963183,
+   "two_sigma_over_sqrt_n": 257.7291268128667
   },
   {
    "episodes": 1,
@@ -427,19 +450,20 @@
   "2026-11-06": "marks_2026-11-06_as_read_2026-11-08.jsonl",
   "2026-11-07": "marks_2026-11-07_as_read_2026-11-08.jsonl",
   "2026-11-08": "marks_2026-11-08.jsonl",
-  "2026-11-09": "marks_2026-11-09.jsonl"
+  "2026-11-09": "marks_2026-11-09.jsonl",
+  "2026-11-10": "marks_2026-11-10.jsonl"
  },
  "relist": {
   "cohort": "2026-10-25",
-  "feed_file": "feed_2026-11-09.json",
-  "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe",
+  "feed_file": "feed_2026-11-10.json",
+  "feed_sha256": "7de1d8ad148adb9a4f631431fae67d416491d1a0d8df57326277cc0f47cfb115",
   "n_rows": {
    "cohort": 81,
    "next_cohort": 70
   },
   "new_in_next_cohort": 18,
   "next_cohort": "2026-11-03",
-  "next_cohort_arena_as_of": "2026-11-09",
+  "next_cohort_arena_as_of": "2026-11-10",
   "next_window": {
    "complete": false,
    "days": 7,
@@ -478,16 +502,16 @@
   "coverage": {
    "0x484bc1608211d0604bf70bae72792a56884562f8": {
     "alignment": {
-     "indexed": 122,
-     "lines": 122,
+     "indexed": 146,
+     "lines": 146,
      "lost_pages": 0,
-     "pages": 122,
+     "pages": 146,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 122,
+    "pages": 146,
     "parts": 1,
     "signals": 0
    },
@@ -507,57 +531,57 @@
    },
    "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b": {
     "alignment": {
-     "indexed": 122,
-     "lines": 122,
+     "indexed": 146,
+     "lines": 146,
      "lost_pages": 0,
-     "pages": 122,
+     "pages": 146,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 122,
+    "pages": 146,
     "parts": 1,
     "signals": 0
    },
    "0xf818fa41af44a1b42ba7433f4ec472be40a2c268": {
     "alignment": {
-     "indexed": 122,
-     "lines": 122,
+     "indexed": 146,
+     "lines": 146,
      "lost_pages": 0,
-     "pages": 122,
+     "pages": 146,
      "torn_fragments": 0,
      "unparsed": 0
     },
     "closes": 0,
     "fills": 0,
-    "pages": 122,
+    "pages": 146,
     "parts": 1,
     "signals": 0
    },
    "0xfc667adba8d4837586078f4fdcdc29804337ca06": {
     "alignment": {
-     "indexed": 277,
-     "lines": 277,
+     "indexed": 331,
+     "lines": 331,
      "lost_pages": 1,
-     "pages": 277,
+     "pages": 331,
      "torn_fragments": 1,
      "unparsed": 0
     },
-    "closes": 33521,
-    "fills": 403597,
-    "pages": 277,
-    "parts": 19,
-    "signals": 3221
+    "closes": 38723,
+    "fills": 488234,
+    "pages": 331,
+    "parts": 23,
+    "signals": 3844
    }
   },
   "disclosure": "every row in_sample: the rule (F6 = the KEEP list) was decided after cohort 1's KEEP set and cohort 2's partial grade had been seen (R147); episodes whose exit the tape had not yet printed are dropped (the marker's rule); funding excluded",
   "f7": {
-   "closes_seen": 33521,
+   "closes_seen": 38723,
    "family": "F7",
    "one_variable": "the exit (R151): F7 = F6 with the leader's own close as the exit; no stop, no gate; nothing else differs",
-   "signals_in_tape_holes": 177,
-   "signals_without_later_close": 4
+   "signals_in_tape_holes": 180,
+   "signals_without_later_close": 53
   },
   "family": "F6",
   "in_sample": true,
@@ -574,8 +598,8 @@
    "excluded_record": [
     "0x9f976123e7c48952be487664b8130aad144b7f23"
    ],
-   "feed_file": "feed_2026-11-09.json",
-   "feed_sha256": "6e79eeb3e09d2f0e222cc422e91d415ce013ab4d12431710ab2a9007d30453fe"
+   "feed_file": "feed_2026-11-10.json",
+   "feed_sha256": "7de1d8ad148adb9a4f631431fae67d416491d1a0d8df57326277cc0f47cfb115"
   },
   "one_variable": "the list (R145): F6 = F4 with the KEEP set as its leaders; nothing else differs",
   "parameters": {
@@ -598,19 +622,19 @@
   "pins": {
    "pages": [
     {
-     "bytes": 366,
+     "bytes": 438,
      "file": "pages_fills_0x484bc1608211d0604bf70bae72792a56884562f8.jsonl.part000",
-     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+     "sha256": "9aeb147936e510492275e24b6c577caa69b8b6831200b24fe9e2166b6151ba74"
     },
     {
-     "bytes": 366,
+     "bytes": 438,
      "file": "pages_fills_0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b.jsonl.part000",
-     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+     "sha256": "9aeb147936e510492275e24b6c577caa69b8b6831200b24fe9e2166b6151ba74"
     },
     {
-     "bytes": 366,
+     "bytes": 438,
      "file": "pages_fills_0xf818fa41af44a1b42ba7433f4ec472be40a2c268.jsonl.part000",
-     "sha256": "b3cbf34a32d1313b11e553465107c06d9bf34412335c046ad9d7eb47146b3410"
+     "sha256": "9aeb147936e510492275e24b6c577caa69b8b6831200b24fe9e2166b6151ba74"
     },
     {
      "bytes": 7913389,
@@ -703,15 +727,35 @@
      "sha256": "03559e7cfbda97056a20bad4a735dcda3ad3af8ef95ad8cd1749d961fe92279b"
     },
     {
-     "bytes": 6186593,
+     "bytes": 8067552,
      "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part018",
-     "sha256": "bbec2fee2677c7225b365e8067bcf5923dfa0a1b03f79aa4c04e02e683b539f9"
+     "sha256": "82f143981da936db098d1cd6a3a4cced84f8c6c502487cfae3dbbfe7b7606e73"
+    },
+    {
+     "bytes": 8370580,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part019",
+     "sha256": "e3665a284071e7b1134783d990daace1ca7e4ae7c550eb202d10c46a4c072562"
+    },
+    {
+     "bytes": 7675152,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part020",
+     "sha256": "7e9a733f5bebabb884e13a99588bee7b5970f7aa6f7fd98d5aa6e07327be7850"
+    },
+    {
+     "bytes": 8268849,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part021",
+     "sha256": "f1ba3a1efd842eed94dfb1f238f7d3629d9c7c84b9afb5f836df331391db0966"
+    },
+    {
+     "bytes": 4934812,
+     "file": "pages_fills_0xfc667adba8d4837586078f4fdcdc29804337ca06.jsonl.part022",
+     "sha256": "cc36b573b320fcd920faef5a925b8d3d7be2dd24727170ba122e9530bc8bf800"
     }
    ],
    "pages_index": {
     "file": "pages_index.jsonl",
-    "rows": 8302,
-    "sha256": "dded95295f8b7630e991e41bf1ae9b991f7b5f9aca1a2a2835f7d0de0683d538"
+    "rows": 9904,
+    "sha256": "74ef99c10a557a561e037e9acf425ceac59cc007fb03d404f6f4fbfb467b25e4"
    },
    "tape": [
     {
@@ -752,8 +796,14 @@
     },
     {
      "file": "tape_MIDS_2026-11-10.jsonl",
-     "rows": 81,
-     "sha256": "8d8b0650a8904fc0796ce52d483e1bbd6066c56b7246446846661c38ffae7964",
+     "rows": 16383,
+     "sha256": "a79a85e4cb1b7f989088bec8dcc2624eaa984c8d5d61a362f09bbcab48c24b5f",
+     "unparsed_lines": 15
+    },
+    {
+     "file": "tape_MIDS_2026-11-11.jsonl",
+     "rows": 79,
+     "sha256": "50c5ac9f9ef3f2b41ab44f8f88f6cf41bc21e03cc7439a1071551ecef63da251",
      "unparsed_lines": 0
     }
    ]
@@ -761,8 +811,8 @@
   "window": {
    "t0_day": "2026-11-04",
    "t0_ms": 1793750400000,
-   "t1_day": "2026-11-09",
-   "t1_ms": 1794268799999,
+   "t1_day": "2026-11-10",
+   "t1_ms": 1794355199999,
    "tape_days": [
     "2026-11-04",
     "2026-11-05",
@@ -770,40 +820,42 @@
     "2026-11-07",
     "2026-11-08",
     "2026-11-09",
-    "2026-11-10"
+    "2026-11-10",
+    "2026-11-11"
    ]
   }
  },
  "replay_files": {
-  "marks": "marks_F6_2026-10-25_as_of_2026-11-09.jsonl",
-  "marks_f7": "marks_F7_2026-10-25_as_of_2026-11-09.jsonl",
-  "signals": "signals_F6_2026-10-25_as_of_2026-11-09.jsonl"
+  "marks": "marks_F6_2026-10-25_as_of_2026-11-10.jsonl",
+  "marks_f7": "marks_F7_2026-10-25_as_of_2026-11-10.jsonl",
+  "signals": "signals_F6_2026-10-25_as_of_2026-11-10.jsonl"
  },
  "replay_totals": {
-  "C1_episodes": 24,
-  "C1_sum_net_bps": -662.8683021711115,
-  "F4_episodes": 304,
-  "F4_sum_net_bps": -5350.960922118986,
-  "F7_episodes": 212,
+  "C1_episodes": 30,
+  "C1_sum_net_bps": -980.6560354700142,
+  "F4_episodes": 376,
+  "F4_sum_net_bps": -5615.127420605154,
+  "F7_episodes": 278,
   "F7_episodes_on_void_days_not_counted": 32,
-  "F7_signals_in_tape_holes": 177,
-  "F7_signals_without_later_close": 4,
-  "F7_sum_cost_bps": 4375.68,
-  "F7_sum_gross_bps": -16.178311907358637,
-  "F7_sum_net_bps": -4391.858311907358,
+  "F7_signals_in_tape_holes": 180,
+  "F7_signals_without_later_close": 53,
+  "F7_sum_cost_bps": 5737.92,
+  "F7_sum_gross_bps": -108.0352764263983,
+  "F7_sum_net_bps": -5845.955276426398,
   "admitted_days": [
    "2026-11-04",
    "2026-11-05",
    "2026-11-08",
-   "2026-11-09"
+   "2026-11-09",
+   "2026-11-10"
   ],
-  "days_F6_beats_both_controls": 2,
+  "days_F6_beats_both_controls": 3,
   "days_F7_beats_both_controls": 1,
-  "episodes": 134,
+  "episodes": 169,
   "episodes_on_void_days_not_counted": 41,
-  "sum_cost_bps": 2765.76,
-  "sum_gross_bps": 1698.011801927826,
-  "sum_net_bps": -1067.7481980721739,
+  "sum_cost_bps": 3488.1600000000003,
+  "sum_gross_bps": 2884.3804347321675,
+  "sum_net_bps": -603.7795652678325,
   "void_days": [
    "2026-11-06",
    "2026-11-07"
