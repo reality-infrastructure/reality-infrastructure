@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794371868232,
+ "last_fill_poll_ms": 1794373547710,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -13,7 +13,7 @@
   "2026-11-08": 2315423,
   "2026-11-09": 2311635,
   "2026-11-10": 2316746,
-  "2026-11-11": 449458
+  "2026-11-11": 494737
  },
  "open": {
   "F7:ZEC": {
@@ -167,6 +167,40 @@
    },
    "entry_spread_bps": 0.2418906170627441,
    "entry_spread_source": "l2Book:c199b4ad6b93a25f8e104c9eeb52d9402fc4bb497d612e237132db39bbba8ebc",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F4:NEAR": {
+   "family": "F4",
+   "coin": "NEAR",
+   "direction": -1,
+   "entry_ms": 1794372719370,
+   "entry_px": 3.68835,
+   "signal_ms": 1794372665265,
+   "signal": {
+    "leader": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+    "leader_px": 3.681,
+    "leader_sz": 3952.0,
+    "leader_notional": 14547.312
+   },
+   "entry_spread_bps": 0.13567968739428657,
+   "entry_spread_source": "l2Book:ceb4d4734cffc0437f4b3e9f18d6fe5bf5c6372fab5ae7e657636f3808f7fdfb",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F6:ETH": {
+   "family": "F6",
+   "coin": "ETH",
+   "direction": -1,
+   "entry_ms": 1794372949274,
+   "entry_px": 2062.55,
+   "signal_ms": 1794372950579,
+   "signal": {
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 2063.7,
+    "leader_sz": 20.0,
+    "leader_notional": 41274.0
+   },
+   "entry_spread_bps": 0.2423596131938369,
+   "entry_spread_source": "l2Book:26a539ec244d46a2e26e7407e06f76bdf0d9ae141c6768cf1630ace04fa0b186",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -96187,6 +96221,32 @@
    -1,
    1,
    1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
    1
   ]
  },
@@ -180526,6 +180586,14 @@
    "coin": "HYPE",
    "px": 71.581,
    "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794372449996,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 72.117,
+   "sz": 73.19,
    "dir": "Close Short"
   }
  ]
