@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794427556079,
+ "last_fill_poll_ms": 1794431177060,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -13,7 +13,7 @@
   "2026-11-08": 2315423,
   "2026-11-09": 2311635,
   "2026-11-10": 2316746,
-  "2026-11-11": 1947147
+  "2026-11-11": 2045028
  },
  "open": {
   "F7:ZEC": {
@@ -165,23 +165,6 @@
    },
    "entry_spread_bps": 0.23938907906999513,
    "entry_spread_source": "l2Book:b7808ac293bd327136242269e714a980a017ab7a49ca1e23c153d83d7fc470af",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F6:BTC": {
-   "family": "F6",
-   "coin": "BTC",
-   "direction": -1,
-   "entry_ms": 1794422758051,
-   "entry_px": 74475.5,
-   "signal_ms": 1794422707985,
-   "signal": {
-    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
-    "leader_px": 74500.0,
-    "leader_sz": 2.0,
-    "leader_notional": 149000.0
-   },
-   "entry_spread_bps": 0.06713617229827258,
-   "entry_spread_source": "l2Book:8db9dcc9c7720f7051c31a73dcc1b8596962b98fed1cc54af3e4a976592ab179",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -101762,7 +101745,236 @@
    -1,
    -1,
    -1,
-   -1
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
   ]
  },
  "seed": "37ee0a556814e53273db164e3b074bac29bc42ad",
@@ -192981,6 +193193,1126 @@
    "coin": "BTC",
    "px": 74423.0,
    "sz": 0.00562,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427773088,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74445.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427773088,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74450.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427773088,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74453.0,
+   "sz": 0.04029,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427872408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74443.0,
+   "sz": 0.06716,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427872408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74443.0,
+   "sz": 0.00061,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794427872408,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74447.0,
+   "sz": 0.00029,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74538.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74538.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74539.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74539.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74539.0,
+   "sz": 0.01634,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428019374,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74539.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428020102,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74564.0,
+   "sz": 0.04514,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428020102,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74565.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428070738,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74551.0,
+   "sz": 0.00079,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167606,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.1546,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167606,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.09752,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167606,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.001,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167606,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.24688,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167666,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.4691,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167666,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.26812,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794428167666,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74591.0,
+   "sz": 0.51278,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74599.0,
+   "sz": 0.00077,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.05264,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.2,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.01475,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74600.0,
+   "sz": 0.03391,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74601.0,
+   "sz": 0.00341,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74601.0,
+   "sz": 0.0005,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430106895,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74604.0,
+   "sz": 0.98044,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430108502,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74605.0,
+   "sz": 0.00373,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430108502,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74605.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430108502,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74605.0,
+   "sz": 0.00671,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430108502,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74606.0,
+   "sz": 0.00016,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430124275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74632.0,
+   "sz": 0.00637,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430124275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74634.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430124275,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74635.0,
+   "sz": 0.00024,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430125026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74641.0,
+   "sz": 0.00037,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430125026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74641.0,
+   "sz": 0.00015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430125026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74642.0,
+   "sz": 0.00015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430125026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74642.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430160403,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74628.0,
+   "sz": 0.00177,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430160403,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74629.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430160403,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74638.0,
+   "sz": 0.02688,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430160403,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74639.0,
+   "sz": 0.02679,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430161184,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74640.0,
+   "sz": 0.0074,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430161184,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74647.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74643.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74648.0,
+   "sz": 0.36466,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74648.0,
+   "sz": 0.00046,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74648.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74648.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74648.0,
+   "sz": 1.34622,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74650.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165745,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74650.0,
+   "sz": 0.02269,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74651.0,
+   "sz": 0.14605,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.01674,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.01674,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 0.14605,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74652.0,
+   "sz": 1.18871,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.00015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.00083,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.00047,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.00092,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.14605,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74654.0,
+   "sz": 0.00023,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74654.0,
+   "sz": 1.00966,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430165814,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74654.0,
+   "sz": 0.14605,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74656.0,
+   "sz": 0.0004,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74656.0,
+   "sz": 0.00018,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74657.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74658.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00018,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00029,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00014,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.21549,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74661.0,
+   "sz": 0.00044,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74662.0,
+   "sz": 0.00395,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430179294,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74662.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430180544,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74663.0,
+   "sz": 0.01421,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430180544,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74663.0,
+   "sz": 0.08153,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430180544,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74663.0,
+   "sz": 0.1,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430180544,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74663.0,
+   "sz": 0.30426,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430210282,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74650.0,
+   "sz": 0.00134,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430210282,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74653.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430210282,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.0004,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430210282,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74663.0,
+   "sz": 0.05463,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74691.0,
+   "sz": 0.0604,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74692.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74693.0,
+   "sz": 0.00049,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74694.0,
+   "sz": 0.00015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74695.0,
+   "sz": 0.00184,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74695.0,
+   "sz": 0.00047,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74695.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74696.0,
+   "sz": 0.00023,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74696.0,
+   "sz": 0.00206,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74697.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74698.0,
+   "sz": 0.00094,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74698.0,
+   "sz": 0.00181,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74698.0,
+   "sz": 0.00085,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.0025,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.00034,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.003,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.02768,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.00036,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 2.4,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74700.0,
+   "sz": 0.11452,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74703.0,
+   "sz": 0.00016,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74703.0,
+   "sz": 0.00402,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74703.0,
+   "sz": 0.0002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74703.0,
+   "sz": 1.33916,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74705.0,
+   "sz": 1.60673,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74706.0,
+   "sz": 0.00018,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430225900,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74706.0,
+   "sz": 0.04955,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430262204,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74666.0,
+   "sz": 0.02678,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430262204,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74667.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430309220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430309220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430309220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00046,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430309220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430309220,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74660.0,
+   "sz": 0.00026,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430332851,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74616.0,
+   "sz": 0.0015,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430332851,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74619.0,
+   "sz": 0.002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430332851,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74619.0,
+   "sz": 0.004,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794430547620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 74649.0,
+   "sz": 0.00144,
    "dir": "Close Short"
   }
  ]
