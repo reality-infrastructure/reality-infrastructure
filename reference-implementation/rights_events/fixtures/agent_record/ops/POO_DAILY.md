@@ -263,6 +263,23 @@ and put one line in the day's amendment: per leg, calls, filled, the hit rate of
 payoff sum, and whether the day is partial (a partial day is printed and not counted toward R181's five). If the
 channel has no such file the step is skipped and said so. Nothing here sends an order; you capture nothing.
 
+**3m. Out-grind: the pulled bid, the shots read, the HALT line (A43, every run, after 3l; from the run of 2026-11-12).**
+Three commands, in this order, each a pure function of files already pinned by 3g, 3j and 3l:
+`python -m rights_events.l2_shots pulled --day <D-1> --tape-dir <channel>/tape` (L5M, the pulled bid, beside L4M; it needs
+3l's `l2tape_<D-1>.jsonl`; if 3l was skipped, skip this and say so);
+`python -m rights_events.l2_shots shots --day <D-1>` (R185's cumulative read over full tape days from 2026-11-12; skip before
+D-1 = 2026-11-12);
+`python -m rights_events.l2_shots halt --day <D-1>`; then `python -m rights_events.l2_shots check-latest` (no line may say
+`REFUSED`). Commit `calls/l2_favorite/maker/pulled/`, `calls/l2_favorite/maker/shots/` and `calls/l2_favorite/halt/`.
+In the day's amendment and the email, **before any payoff table**, paste the six HALT lines exactly as printed, the same
+words every day (R187); any line with 1 or more hours without a capture is the day's first finding. The taker legs
+(L2F, L3T, CMF) will read halted every day: the operator ruled on 2026-11-11 that their hourly capture is not re-created
+and no registrar is installed (A43.1); print the line, do not repair it, do not call it a failure of the routine.
+Then one line from the shots read: the leg of record, its shots, its sum, its status and the reason exactly as printed
+(`CONTINUES`, `CLEARED` or `RETIRED` with the kill's number), L5M's row beside it, and the thesis line. A `RETIRED` or
+`CLEARED` is the rule's verdict, not yours: write it, change nothing, send nothing. `CLEARED` opens no live leg: R188 is
+unsigned and R178 stands.
+
 **4. The live leg (A38 R155 from Day 19, 2026-11-09).** Under the standing go of A34 the entry is the first F6 signal
 inside [14:00, 15:00)Z (a KEEP leader's qualifying open), one unit by R156, exit at 30 bps or the gate 5 h after the
 open; the hand submits both legs (R157). `ops/copier_watch.py` watches the window and writes `copier/watch_<D>.jsonl`;
