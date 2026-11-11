@@ -1,0 +1,561 @@
+{
+ "as_of": "2026-11-10",
+ "candidates": [],
+ "control": {
+  "candidate_for_forward_fork": false,
+  "coins": [
+   "BTC",
+   "ETH",
+   "HYPE",
+   "NEAR",
+   "SOL",
+   "ZEC"
+  ],
+  "days": [
+   "2026-11-01",
+   "2026-11-02",
+   "2026-11-03",
+   "2026-11-04",
+   "2026-11-05",
+   "2026-11-08",
+   "2026-11-09",
+   "2026-11-10"
+  ],
+  "gross_clears_2sigma": false,
+  "gross_two_sigma_over_sqrt_n": 16.27994379031659,
+  "leader": "C1 (control, pooled)",
+  "mean_cost_bps_as_marked": 19.22255110851918,
+  "mean_gross_bps": -12.733965897870172,
+  "mean_hold_min": 93.46372986111112,
+  "mean_net_bps": {
+   "GDEX": {
+    "mean": -33.37396589787017,
+    "two_sigma_over_sqrt_n": 16.27994379031659
+   },
+   "GDEX_as_marked": {
+    "mean": -31.95651700638935,
+    "two_sigma_over_sqrt_n": 16.31054571618084
+   },
+   "HL_maker": {
+    "mean": -15.733965897870172,
+    "two_sigma_over_sqrt_n": 16.27994379031659
+   },
+   "HL_taker": {
+    "mean": -23.733965897870174,
+    "two_sigma_over_sqrt_n": 16.27994379031659
+   }
+  },
+  "n": 48,
+  "net_clears_2sigma": {
+   "GDEX": false,
+   "GDEX_as_marked": false,
+   "HL_maker": false,
+   "HL_taker": false
+  },
+  "on_list": null,
+  "stop_share": 0.8125,
+  "sum_net_bps_as_marked": -1533.912816306689
+ },
+ "days_counted": [
+  "2026-11-01",
+  "2026-11-02",
+  "2026-11-03",
+  "2026-11-04",
+  "2026-11-05",
+  "2026-11-08",
+  "2026-11-09",
+  "2026-11-10"
+ ],
+ "days_void": [
+  "2026-11-06",
+  "2026-11-07"
+ ],
+ "f8": null,
+ "first_day": "2026-11-01",
+ "kind": "agent_record_forward_marks_by_leader",
+ "leaders_file": {
+  "file": "leaders_2026-11-01.json",
+  "sha256": "5315ffc84b1fba8deadf5b022791ebbb54a5459451fe120301665f424d3a350f"
+ },
+ "lines": [
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "ETH",
+    "HYPE",
+    "NEAR",
+    "SOL",
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-08",
+    "2026-11-09",
+    "2026-11-10"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 11.06708380367997,
+   "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+   "mean_cost_bps_as_marked": 19.125018350622646,
+   "mean_gross_bps": 2.0994968799023153,
+   "mean_hold_min": 96.92640326716294,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": -18.540503120097686,
+     "two_sigma_over_sqrt_n": 11.06708380367997
+    },
+    "GDEX_as_marked": {
+     "mean": -17.02552147072033,
+     "two_sigma_over_sqrt_n": 11.067249322393868
+    },
+    "HL_maker": {
+     "mean": -0.900503120097685,
+     "two_sigma_over_sqrt_n": 11.06708380367997
+    },
+    "HL_taker": {
+     "mean": -8.900503120097685,
+     "two_sigma_over_sqrt_n": 11.06708380367997
+    }
+   },
+   "n": 403,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.7965260545905707,
+   "sum_net_bps_as_marked": -6861.285152700294
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "ETH",
+    "HYPE",
+    "NEAR",
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-08",
+    "2026-11-09",
+    "2026-11-10"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 23.999912446314127,
+   "leader": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
+   "mean_cost_bps_as_marked": 19.32180715804961,
+   "mean_gross_bps": 8.246279396657824,
+   "mean_hold_min": 108.46862307692308,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": -12.393720603342176,
+     "two_sigma_over_sqrt_n": 23.999912446314127
+    },
+    "GDEX_as_marked": {
+     "mean": -11.075527761391786,
+     "two_sigma_over_sqrt_n": 24.019841043927038
+    },
+    "HL_maker": {
+     "mean": 5.246279396657823,
+     "two_sigma_over_sqrt_n": 23.999912446314127
+    },
+    "HL_taker": {
+     "mean": -2.753720603342176,
+     "two_sigma_over_sqrt_n": 23.999912446314127
+    }
+   },
+   "n": 65,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.7538461538461538,
+   "sum_net_bps_as_marked": -719.9093044904661
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "ETH",
+    "HYPE",
+    "NEAR",
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-09",
+    "2026-11-10"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 14.708812467867682,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "mean_cost_bps_as_marked": 19.66945717164384,
+   "mean_gross_bps": -20.429327750264736,
+   "mean_hold_min": 57.191597135416664,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": -41.06932775026474,
+     "two_sigma_over_sqrt_n": 14.708812467867682
+    },
+    "GDEX_as_marked": {
+     "mean": -40.09878492190858,
+     "two_sigma_over_sqrt_n": 14.729692126014132
+    },
+    "HL_maker": {
+     "mean": -23.429327750264736,
+     "two_sigma_over_sqrt_n": 14.708812467867682
+    },
+    "HL_taker": {
+     "mean": -31.42932775026474,
+     "two_sigma_over_sqrt_n": 14.708812467867682
+    }
+   },
+   "n": 64,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.90625,
+   "sum_net_bps_as_marked": -2566.3222350021492
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "HYPE",
+    "NEAR",
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-08",
+    "2026-11-09",
+    "2026-11-10"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 48.16803232390397,
+   "leader": "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+   "mean_cost_bps_as_marked": 19.32102639563833,
+   "mean_gross_bps": 12.59772610801298,
+   "mean_hold_min": 75.18218680555556,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": -8.04227389198702,
+     "two_sigma_over_sqrt_n": 48.16803232390397
+    },
+    "GDEX_as_marked": {
+     "mean": -6.723300287625352,
+     "two_sigma_over_sqrt_n": 48.18040073510783
+    },
+    "HL_maker": {
+     "mean": 9.59772610801298,
+     "two_sigma_over_sqrt_n": 48.16803232390397
+    },
+    "HL_taker": {
+     "mean": 1.5977261080129808,
+     "two_sigma_over_sqrt_n": 48.16803232390397
+    }
+   },
+   "n": 24,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.8333333333333334,
+   "sum_net_bps_as_marked": -161.35920690300844
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "ETH",
+    "HYPE",
+    "SOL"
+   ],
+   "days": [
+    "2026-11-01",
+    "2026-11-02",
+    "2026-11-03",
+    "2026-11-04",
+    "2026-11-05",
+    "2026-11-09",
+    "2026-11-10"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 54.63226659399157,
+   "leader": "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+   "mean_cost_bps_as_marked": 18.947193144130523,
+   "mean_gross_bps": 23.63201122481386,
+   "mean_hold_min": 101.80029722222223,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": 2.992011224813859,
+     "two_sigma_over_sqrt_n": 54.63226659399157
+    },
+    "GDEX_as_marked": {
+     "mean": 4.684818080683333,
+     "two_sigma_over_sqrt_n": 54.630479784567434
+    },
+    "HL_maker": {
+     "mean": 20.63201122481386,
+     "two_sigma_over_sqrt_n": 54.63226659399157
+    },
+    "HL_taker": {
+     "mean": 12.632011224813859,
+     "two_sigma_over_sqrt_n": 54.63226659399157
+    }
+   },
+   "n": 18,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.7777777777777778,
+   "sum_net_bps_as_marked": 84.3267254523
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "HYPE"
+   ],
+   "days": [
+    "2026-11-02",
+    "2026-11-04",
+    "2026-11-05"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 231.44784846236357,
+   "leader": "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+   "mean_cost_bps_as_marked": 18.779908845551674,
+   "mean_gross_bps": 122.99646396114235,
+   "mean_hold_min": 164.25717083333333,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": 102.35646396114235,
+     "two_sigma_over_sqrt_n": 231.4478484623636
+    },
+    "GDEX_as_marked": {
+     "mean": 104.21655511559068,
+     "two_sigma_over_sqrt_n": 231.42464153061348
+    },
+    "HL_maker": {
+     "mean": 119.99646396114235,
+     "two_sigma_over_sqrt_n": 231.44784846236357
+    },
+    "HL_taker": {
+     "mean": 111.99646396114235,
+     "two_sigma_over_sqrt_n": 231.44784846236357
+    }
+   },
+   "n": 4,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.5,
+   "sum_net_bps_as_marked": 416.8662204623627
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-02",
+    "2026-11-03"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 975.0052189900605,
+   "leader": "0x9aa589355bf745db9784c8ef3c646360f11b58af",
+   "mean_cost_bps_as_marked": 21.547523182200088,
+   "mean_gross_bps": 451.44790580667626,
+   "mean_hold_min": 215.1616,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": 430.8079058066763,
+     "two_sigma_over_sqrt_n": 975.0052189900605
+    },
+    "GDEX_as_marked": {
+     "mean": 429.90038262447615,
+     "two_sigma_over_sqrt_n": 974.9681394564454
+    },
+    "HL_maker": {
+     "mean": 448.44790580667626,
+     "two_sigma_over_sqrt_n": 975.0052189900605
+    },
+    "HL_taker": {
+     "mean": 440.44790580667626,
+     "two_sigma_over_sqrt_n": 975.0052189900605
+    }
+   },
+   "n": 2,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.5,
+   "sum_net_bps_as_marked": 859.8007652489523
+  },
+  {
+   "candidate_for_forward_fork": false,
+   "coins": [
+    "BTC",
+    "ZEC"
+   ],
+   "days": [
+    "2026-11-02",
+    "2026-11-05"
+   ],
+   "gross_clears_2sigma": false,
+   "gross_two_sigma_over_sqrt_n": 281.2054769211608,
+   "leader": "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d",
+   "mean_cost_bps_as_marked": 19.10474166942266,
+   "mean_gross_bps": 108.51417402273195,
+   "mean_hold_min": 154.58818333333332,
+   "mean_net_bps": {
+    "GDEX": {
+     "mean": 87.87417402273196,
+     "two_sigma_over_sqrt_n": 281.2054769211609
+    },
+    "GDEX_as_marked": {
+     "mean": 89.4094323533093,
+     "two_sigma_over_sqrt_n": 281.87620367542706
+    },
+    "HL_maker": {
+     "mean": 105.51417402273195,
+     "two_sigma_over_sqrt_n": 281.2054769211608
+    },
+    "HL_taker": {
+     "mean": 97.51417402273195,
+     "two_sigma_over_sqrt_n": 281.2054769211608
+    }
+   },
+   "n": 2,
+   "net_clears_2sigma": {
+    "GDEX": false,
+    "GDEX_as_marked": false,
+    "HL_maker": false,
+    "HL_taker": false
+   },
+   "on_list": true,
+   "stop_share": 0.5,
+   "sum_net_bps_as_marked": 178.8188647066186
+  }
+ ],
+ "net_clears_gdex": [],
+ "not_claimed": "No rank, no status, no forecast: a disclosure of settled arithmetic (SETTLED.md 1-4) read at the copier's regime; the hypothetical structures are printed for R83 and decide nothing.",
+ "pins": [
+  {
+   "file": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+   "rows": 60,
+   "sha256": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+   "rows": 85,
+   "sha256": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+   "rows": 79,
+   "sha256": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+   "rows": 97,
+   "sha256": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+   "rows": 101,
+   "sha256": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-06_as_read_2026-11-08.jsonl",
+   "rows": 61,
+   "sha256": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
+   "void_marks": 1
+  },
+  {
+   "file": "marks_2026-11-07_as_read_2026-11-08.jsonl",
+   "rows": 45,
+   "sha256": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
+   "void_marks": 3
+  },
+  {
+   "file": "marks_2026-11-08.jsonl",
+   "rows": 52,
+   "sha256": "38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-09.jsonl",
+   "rows": 143,
+   "sha256": "5223a57d50dcb9e52b450363f898202c0b4f5b22407285cfe1fe62f1320e82c4",
+   "void_marks": 0
+  },
+  {
+   "file": "marks_2026-11-10.jsonl",
+   "rows": 169,
+   "sha256": "8ee5fb4056e36b3003267da859f5c9d3d50e080c558c8fbd33430a08e4e225fc",
+   "void_marks": 0
+  }
+ ],
+ "result": "on the venue's boards as graded, no leader's opens transfer to one unit through the record's exit at any structure; the structure is not the limiting factor, the signal is",
+ "rule": {
+  "candidate": "n >= 20 and mean gross - 2 sigma / sqrt n > 0 (R161): a candidate for a FORWARD FORK, never a live leg",
+  "leaders_that_fired": 8,
+  "selection_over": 28
+ },
+ "structure_words": {
+  "GDEX": "the record's: 2 x 9.32 bps fee (2 x 5.0 of it the builder fee) + 2 x 1.0 bps spread proxy; the only column that decides anything",
+  "HL_maker": "hypothetical (R83): HyperLiquid direct, base-tier maker 1.5 bps a leg, the spread earned, no fill guaranteed",
+  "HL_taker": "hypothetical (R83): HyperLiquid direct, base-tier taker 4.5 bps + 1.0 bps spread a leg"
+ },
+ "structures_bps_per_pair": {
+  "GDEX": 20.64,
+  "HL_maker": 3.0,
+  "HL_taker": 11.0
+ }
+}
