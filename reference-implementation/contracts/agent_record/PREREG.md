@@ -7336,7 +7336,7 @@ For L4M and CMM an hour is without a capture when the book tape holds no row of 
 
 **Income row (R81), 2026-11-11 after A43.2:** 0 USD a day against 165. Nothing on the chain.
 
-### A43.3 — 2026-11-11 16:4xZ (10:4x CST), flat — OUT-GRIND, DONE (P35 `21ee387`): the pulled bid, the shots read and the HALT line are built and in the daily procedure; L5M's leg was frozen at 16:26Z (`8125ae4`), seven and a half hours before its first row; the three facts the operator asked for are read and reported, one of them open; nothing reached the venue and no live path exists
+### A43.3 — 2026-11-11 16:3xZ (10:3x CST), flat — OUT-GRIND, DONE (P35 `21ee387`): the pulled bid, the shots read and the HALT line are built and in the daily procedure; L5M's leg was frozen at 16:26Z (`8125ae4`), seven and a half hours before its first row; the three facts the operator asked for are read and reported, one of them open; nothing reached the venue and no live path exists
 
 **What was built (P35).** `rights_events/l2_shots.py`, three commands, each a pure function of pinned files (S117):
 - `pulled --day` — R189: every L4M call of the day re-read with the entry check (the tape of record's mid for the perp, newest row within 15 000 ms before the call, on the favorite's side) and the pull (the first row after the call on the other side; a print fills only up to the pull plus 5 000 ms). Files `calls/l2_favorite/maker/pulled/pulled_<day>.json|.md`, `pulled_latest.json`.
