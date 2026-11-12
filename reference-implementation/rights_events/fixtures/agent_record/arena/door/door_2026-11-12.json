@@ -1,0 +1,145 @@
+{
+  "kind": "proof_of_outcome_door",
+  "as_of": "2026-11-12",
+  "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena/door/door_latest.json",
+  "columns": [
+    "RANK",
+    "MODEL",
+    "TOTAL P&L",
+    "ROI %",
+    "WIN RATE",
+    "BIGGEST WIN",
+    "BIGGEST LOSS",
+    "TRADES",
+    "FEES"
+  ],
+  "settled_sha256": "c6b590de2289de698053a203e22941bafd55e558f0d5947ac8a4b40274042878",
+  "registry": {
+    "file": "entrants.json",
+    "sha256": "8974b69e2159974cd920b408a9bd6ccc804ff55f706102dfd4d9c76d86ef8cf3",
+    "entered": 0,
+    "withdrawn": 0,
+    "active_as_of": 0,
+    "outside": 0
+  },
+  "how_to_enter": {
+    "statement": "PROOF OF OUTCOME ARENA: ENROLMENT\naddress: <your address: 0x + 40 lower-case hex>\nmodel: <your label, 1 to 64 printable ASCII characters>\nsettled_sha256: c6b590de2289de698053a203e22941bafd55e558f0d5947ac8a4b40274042878\nregistry: arena/entrants.json\nstatement: grade this address by what settled on chain; I claim nothing else.\n",
+    "sign": "EIP-191 personal_sign over the statement's exact bytes (six LF-terminated lines, UTF-8, no byte order mark) with the address's own key",
+    "send": "the statement and the 0x signature, by any channel, to the operator; the check is `python -m rights_events.arena_door enrol`, offline, and anyone can run it",
+    "then": "the address is graded from the first capture after its entry; until then it reads LISTED, NOT YET CAPTURED",
+    "leave": "the same six lines with the withdrawal heading and last line, signed by the same key; rows already pinned stand"
+  },
+  "rows": [],
+  "not_yet_captured": [],
+  "counts": {
+    "KEEP": 0,
+    "DROP": 0,
+    "UNDECIDED": 0,
+    "OPEN": 0,
+    "TRIPS NOT COMPUTED": 0
+  },
+  "cohorts": [
+    {
+      "cohort_date": "2026-10-25",
+      "arena_file": "arena_2026-10-25_2026-11-03.json",
+      "capture_file": "capture_ARENA_2026-10-25_2026-11-03.json",
+      "capture_sha256": "1471de788d474bae26b47ef176afb7e31c66b8596d8765fd9a112fe7d0514016",
+      "arena_as_of": "2026-11-03",
+      "window": {
+        "t0_date": "2026-10-26",
+        "t1_date": "2026-11-02",
+        "complete": true
+      },
+      "addresses": 81,
+      "fills_files_on_branch": 81,
+      "pages_on_branch": true,
+      "census": {
+        "fill_rows": 217285,
+        "distinct_tids": 216912,
+        "crossings": 373,
+        "addresses_with_a_crossing": 19,
+        "largest_pairs": [
+          {
+            "addresses": [
+              "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+              "0x5b5d51203a0f9079f8aeb098a6523a13f298c060"
+            ],
+            "crossings": 138
+          },
+          {
+            "addresses": [
+              "0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb",
+              "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d"
+            ],
+            "crossings": 52
+          },
+          {
+            "addresses": [
+              "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+              "0xdd53c5297309130ab5fe5623dc905752e3342b13"
+            ],
+            "crossings": 50
+          },
+          {
+            "addresses": [
+              "0x024294c53a69c1e6b39810b3fac87385752fffa1",
+              "0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb"
+            ],
+            "crossings": 37
+          },
+          {
+            "addresses": [
+              "0x023a3d058020fb76cca98f01b3c48c8938a22355",
+              "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36"
+            ],
+            "crossings": 20
+          }
+        ]
+      },
+      "board_under_r195": {
+        "what": "the cohort's FULL board rows read by R195's words; not rows of the door: none of these addresses enrolled",
+        "full_rows": 8,
+        "trips_opened_and_closed_in_window": 0,
+        "would_read_keep": 0,
+        "addresses": []
+      }
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "arena_file": "arena_2026-11-03_2026-11-11.json",
+      "capture_file": "capture_ARENA_2026-11-03_2026-11-11.json",
+      "capture_sha256": "c871a7c0b25a02fb948da14214c11190cdc990475488887b3167063035bdd130",
+      "arena_as_of": "2026-11-11",
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "addresses": 70,
+      "fills_files_on_branch": 0,
+      "pages_on_branch": false,
+      "census": null,
+      "board_under_r195": null,
+      "not_computed": "pages not on the branch (0 of 70 fills files); the census and the trips are not computed"
+    }
+  ],
+  "kill_line": {
+    "word": "OPEN",
+    "asks": 0,
+    "kill_at_asks": 20,
+    "outside_entrants": 0,
+    "outside_full_complete_rows": 0,
+    "clear_at_rows": 3,
+    "line": "OPEN 0 of 20: 0 outside entrants, 0 of 3 outside FULL rows over a complete window"
+  },
+  "asks": [],
+  "rules": {
+    "R191": "an address enters by its own signed statement; the proof is the arithmetic, not anyone's word",
+    "R193": "SETTLED.md's figures as the arena's row carries them, beside round trips per coin opened and closed inside the window; carried-in and open positions counted, never valued",
+    "R194": "a trade id on the pinned pages of two addresses of one capture is a crossing: disclosed, never by itself a finding",
+    "R195": "KEEP = complete window, FULL, >= 1 closed trip, net with funding > 0, trip net > 0, trip net uncrossed > 0; DROP = every other complete FULL row and NONE; UNDECIDED = PARTIAL or REFUSED; OPEN = window not complete",
+    "R196": "A settled net, not a finding about skill; the page does not name counterparties; the label is self-declared.",
+    "R198": "a shot is one ask delivered, entered only by the operator's quoted word; CLOSED at 20 asks with 0 outside entrants; CLEARED at 3 outside FULL rows over a complete window"
+  },
+  "what_is_not_claimed": "No badge, no rank on the venue, no return, no price, no finding about anyone's skill or about who trades from an address. A door, a grader and the files they read."
+}

@@ -280,6 +280,18 @@ Then one line from the shots read: the leg of record, its shots, its sum, its st
 `CLEARED` is the rule's verdict, not yours: write it, change nothing, send nothing. `CLEARED` opens no live leg: R188 is
 unsigned and R178 stands.
 
+**3n. The door (A44, every run, after 3m; from the run of 2026-11-13).**
+`python -m rights_events.arena_door door --as-of <D>` (D = the production day, as 3f's board; a pure function of
+`arena/entrants.json`, `arena/door/asks.jsonl`, SETTLED.md and the newest pinned arena and capture file per cohort), then
+`python -m rights_events.arena_door check-latest`. Commit `arena/door/`. In the day's amendment paste the kill line
+exactly as printed (`OPEN n of 20: …`, `CLOSED: …` or `CLEARED: …`), the count of rows by status word, and each cohort's
+census line. Do not enter a statement and do not enter an ask: an entrant is entered only by
+`python -m rights_events.arena_door enrol --statement <file> --signature <0x…> --date <D>` on a statement and signature
+the operator forwarded (a `REFUSED S118` is written into the amendment and nothing is entered), and an ask only by the
+operator's own quoted word (S120); neither is ever inferred from mail, chat or memory, and the routine sends nothing to
+anyone. A `REFUSED S119` is the day's finding: write it, repair nothing. `CLOSED` and `CLEARED` are the rule's words,
+not yours: `CLEARED` opens no price, fee, code or badge (R198).
+
 **4. The live leg (A38 R155 from Day 19, 2026-11-09).** Under the standing go of A34 the entry is the first F6 signal
 inside [14:00, 15:00)Z (a KEEP leader's qualifying open), one unit by R156, exit at 30 bps or the gate 5 h after the
 open; the hand submits both legs (R157). `ops/copier_watch.py` watches the window and writes `copier/watch_<D>.jsonl`;
