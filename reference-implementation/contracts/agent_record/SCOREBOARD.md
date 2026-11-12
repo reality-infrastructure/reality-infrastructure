@@ -1995,3 +1995,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 20 (2026-11-10): live leg MISS — no hand committed through the gate (R54); nothing reached the venue; flat. |
 
 **Income row (R81), 2026-11-11 after A17.13:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.14 — Day 21 (2026-11-11): 74 episodes, −1 717.2 bps; only F4:NEAR beat both controls; no CANDIDATE (the copy line RETIRED BY WORD, A42); cohort 2 complete, feed KEEP 25 / DROP 44 / UNDECIDED 1; leader screen REFUSED (S91); book not run (no next cohort); R152 missed, 0 days late; R72 names the hand; no live leg (A42 R178)
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `643f8ac`; `marker.py`, `families.json` hold; `forward.py` = `b33b9282…`, not POO_DAILY's pin `6fd373b8…` (as A17.12, A17.13); 39 passed (23 + 6 + 10). |
+| Channel | `d14f8fc`, 447 files, 0 sha mismatches, 2 `l2/` files outside the manifest (F1); health holds (manifest 33 min old, tape and marker active, 11-11 not void by state or row); tape 15 945 rows / 24 h, no hole > 15 min, longest null run 5.2 s; last row 132 s before the manifest (recorded). |
+| Reading | 74 episodes, 63 stop-first, sum −1 717.2 bps (funding excluded); F4:NEAR +35.69 on 3 beat C0 and C1 (run 0 → 1); pass line over 9 counted days, no CANDIDATE. Marks pin `f9b8bdf0…`. The channel's 11-10 file grew 169 → 181 after its pin (F2). |
+| Ledger / arena | ledger as of 11-11: 5 ALIVE, 1 RETIRED by rule, all RETIRED BY WORD (A42) (`8472c918…`); cohort 2 as of 11-11 complete, FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0, `--verify` OK (root `c7012fb0…`); screen `SCREEN REFUSED: S91` on rank 1's coverage (F3); feed cohort 2 OPEN 70 → KEEP 25 / DROP 44 / UNDECIDED 1; AI board 14 rows, 0 not graded. |
+| Calls / L2 | board 11-11: L1 0.5079 on 126 vs CB 0.5476; L2/CM 0 resolved; 11-12 registered 288 (L2/CM 0). Book not run (3h impossible as written). L2 favorite 29.96 USDC displayed (L3 60.12, CM 13.19, cash 11.00); fill table: L2F −6.947, L3T −8.962, CMF −7.425 on 18 fillable calls each, all placeholder asks; maker (partial day) L4M −71.438 on 167 filled, CMM −83.330 on 181; L5M −13.135 on 41. |
+| Live leg | Day 21 (2026-11-11): no live leg — the standing go released by the operator's word (A42 R178); flat. |
+
+**Income row (R81), 2026-11-12 after A17.14:** 0 USD a day against 165. Nothing on the chain.

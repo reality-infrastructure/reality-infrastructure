@@ -1,6 +1,6 @@
 {
   "kind": "proof_of_outcome_copiers_grade",
-  "as_of": "2026-11-10",
+  "as_of": "2026-11-11",
   "settled_sha256": "c6b590de2289de698053a203e22941bafd55e558f0d5947ac8a4b40274042878",
   "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena/feed/feed_latest.json",
   "statuses": {
@@ -52,10 +52,10 @@
     },
     {
       "cohort_date": "2026-11-03",
-      "arena_as_of": "2026-11-10",
-      "arena_file": "arena_2026-11-03_2026-11-10.json",
-      "arena_sha256": "05cfa80cc2f63e0796299f4e2ac18c29f64dde2769037d09000be523db8d6878",
-      "arena_run_root": "6089643a710f3041f89a58ebd3d913a5cd04f3b224a07da05cd21e2028f834c3",
+      "arena_as_of": "2026-11-11",
+      "arena_file": "arena_2026-11-03_2026-11-11.json",
+      "arena_sha256": "345ebeca07d9cb9310d3717914ff0f3842a6fcee70194d07bb43191131236dd3",
+      "arena_run_root": "c7012fb021a35b3f26b89580edb8b55e640503df3208b81f4dbef913be058ebc",
       "window": {
         "t0_ms": 1793750400000,
         "t1_ms": 1794355199999,
@@ -63,14 +63,14 @@
         "t1_date": "2026-11-10",
         "days": 7,
         "started": true,
-        "complete": false
+        "complete": true
       },
       "screen": null,
       "counts": {
-        "KEEP": 0,
-        "DROP": 0,
-        "UNDECIDED": 0,
-        "OPEN": 70
+        "KEEP": 25,
+        "DROP": 44,
+        "UNDECIDED": 1,
+        "OPEN": 0
       },
       "coverage_counts": {
         "FULL": 28,
@@ -150,9 +150,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 1,
+      "run": 2,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -185,9 +185,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -257,9 +257,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -293,9 +293,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -324,9 +324,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -402,9 +402,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -441,9 +441,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -482,7 +482,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -521,7 +521,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -560,7 +560,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -599,7 +599,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -636,9 +636,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -677,7 +677,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -794,7 +794,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -833,7 +833,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -873,7 +873,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -953,7 +953,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -993,7 +993,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1033,7 +1033,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1073,7 +1073,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1113,7 +1113,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1153,7 +1153,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1233,7 +1233,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1313,7 +1313,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1353,7 +1353,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1393,7 +1393,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1433,7 +1433,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1473,7 +1473,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1513,7 +1513,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1553,7 +1553,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1593,7 +1593,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1633,7 +1633,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1713,7 +1713,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1793,7 +1793,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1833,7 +1833,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1913,7 +1913,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -1993,7 +1993,7 @@
       "arena_as_of": "2026-11-03",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2147,9 +2147,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2223,9 +2223,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2416,9 +2416,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2453,9 +2453,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2490,9 +2490,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2562,9 +2562,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2599,9 +2599,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2673,9 +2673,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2746,9 +2746,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2819,9 +2819,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2856,9 +2856,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2892,9 +2892,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2930,9 +2930,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -2967,9 +2967,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -3003,9 +3003,9 @@
         "complete": true
       },
       "arena_as_of": "2026-11-03",
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-10-25",
@@ -3206,9 +3206,9 @@
       "record": false,
       "rank": 1,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 156; no gap after any exceeds the address's own largest gap 22426 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 180; no gap after any exceeds the address's own largest gap 22426 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "24080306.3182360008",
       "displayed_window": "day",
       "verified_net": "19991945.91982840",
@@ -3219,17 +3219,17 @@
       "first_tx": "0x747cd3fd79f5c99f75f6044803623f02065400e314f8e87118457f5038f9a38a",
       "last_tx": "0xeba7016245848deced2004488385e90202a30047e087acbe8f6facb5048867d7",
       "open_positions_at_window_end": 24,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3237,9 +3237,9 @@
       "record": false,
       "rank": 2,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 155; no gap after any exceeds the address's own largest gap 36066 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 179; no gap after any exceeds the address's own largest gap 36066 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "22930969.5837499984",
       "displayed_window": "day",
       "verified_net": "17891245.97722583",
@@ -3250,17 +3250,17 @@
       "first_tx": "0x747cd3fd79f5c99f75f6044803623f02065400e314f8e87118457f5038f9a38a",
       "last_tx": "0xa076921fe0f0234fa1f004488374e70202fc00057bf34221443f3d729ff3fd3a",
       "open_positions_at_window_end": 28,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3268,9 +3268,9 @@
       "record": false,
       "rank": 3,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 154; no gap after any exceeds the address's own largest gap 179028 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 178; no gap after any exceeds the address's own largest gap 179028 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "5469840.4806220001",
       "displayed_window": "day",
       "verified_net": "9279709.267945",
@@ -3281,17 +3281,17 @@
       "first_tx": "0xed4a8e97782316fceec40448036bb1020275007d132635ce911339ea3726f0e7",
       "last_tx": "0x57e4dd5b421fea2f595e04488339af0202f60040dd130901fbad88ae0113c419",
       "open_positions_at_window_end": 39,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3299,30 +3299,30 @@
       "record": false,
       "rank": 4,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 172951 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 172951 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "2705301.8090459998",
       "displayed_window": "day",
-      "verified_net": "8216916.665371",
-      "realized_ex_funding": "8149776.311408",
+      "verified_net": "8226067.353659",
+      "realized_ex_funding": "8158926.999696",
       "funding": "67140.353963",
-      "fills": 27881,
-      "fills_served": 27881,
+      "fills": 28130,
+      "fills_served": 28130,
       "first_tx": "0xccffbd296b36c3c6ce79044803731402019f000f0639e29870c8687c2a3a9db1",
-      "last_tx": "0xd6fc8a5ca5e7f8ced87604488251dd0201d5004240eb17a07ac535af64ebd2b9",
+      "last_tx": "0xb99e6362be591a40bb18044885b12502078c0048595c39125d670eb57d5cf42b",
       "open_positions_at_window_end": 25,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3330,30 +3330,30 @@
       "record": false,
       "rank": 5,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 147; no gap after any exceeds the address's own largest gap 42633 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 171; no gap after any exceeds the address's own largest gap 42633 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "4159638.5428070002",
       "displayed_window": "day",
-      "verified_net": "7941087.3329999046",
-      "realized_ex_funding": "7789999.1813599046",
+      "verified_net": "7951230.9461203608",
+      "realized_ex_funding": "7800142.7944803608",
       "funding": "151088.151640",
-      "fills": 1236993,
-      "fills_served": 1236993,
+      "fills": 1241344,
+      "fills_served": 1241344,
       "first_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
-      "last_tx": "0x6710fce5e4af4d47688a044885343e0202fc00cb7fa26c190ad9a838a3a32732",
+      "last_tx": "0x199e1eb84c5df1191b17044885b4bf0203ea009de7510febbd66ca0b0b51cb03",
       "open_positions_at_window_end": 126,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3361,30 +3361,30 @@
       "record": false,
       "rank": 6,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 148; no gap after any exceeds the address's own largest gap 15385 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 172; no gap after any exceeds the address's own largest gap 15385 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "4298456.9353409996",
       "displayed_window": "day",
-      "verified_net": "5890679.3939356701",
-      "realized_ex_funding": "6101965.7328416701",
+      "verified_net": "5870048.5375396701",
+      "realized_ex_funding": "6081334.8764456701",
       "funding": "-211286.338906",
-      "fills": 488234,
-      "fills_served": 493829,
+      "fills": 492918,
+      "fills_served": 498513,
       "first_tx": "0xd279aa30d07b0c38d3f3044804f9f302067800166b7e2b0a764255838f7ee623",
-      "last_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "last_tx": "0xd16df1afe9f5abffd2e7044885b49f020174009584f8cad175369d02a8f985ea",
       "open_positions_at_window_end": 65,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 1,
+      "arena_as_of": "2026-11-11",
+      "run": 2,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3392,30 +3392,30 @@
       "record": false,
       "rank": 7,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 152; no gap after any exceeds the address's own largest gap 699 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 176; no gap after any exceeds the address's own largest gap 699 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "5445347.8680980001",
       "displayed_window": "day",
-      "verified_net": "4915974.978140",
-      "realized_ex_funding": "4655012.916833",
+      "verified_net": "4929630.872418",
+      "realized_ex_funding": "4668668.811111",
       "funding": "260962.061307",
-      "fills": 356710,
-      "fills_served": 391793,
+      "fills": 357299,
+      "fills_served": 392382,
       "first_tx": "0xd99be336e28f6171db15044803670f0204b5001c7d8280437d648e89a1833b5c",
-      "last_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "last_tx": "0x199e1eb84c5df1191b17044885b4bf0203ea009de7510febbd66ca0b0b51cb03",
       "open_positions_at_window_end": 35,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3423,30 +3423,30 @@
       "record": false,
       "rank": 8,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 150; no gap after any exceeds the address's own largest gap 3569 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 174; no gap after any exceeds the address's own largest gap 3569 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "4589819.3195869997",
       "displayed_window": "day",
-      "verified_net": "3894624.781733",
-      "realized_ex_funding": "3323222.149165",
+      "verified_net": "3852234.274298",
+      "realized_ex_funding": "3280831.641730",
       "funding": "571402.632568",
-      "fills": 211727,
-      "fills_served": 223910,
+      "fills": 212468,
+      "fills_served": 224651,
       "first_tx": "0xf6c2b546cfcdcc83f83c044803621202025a002c6ac0eb569a8b60998ec1a66e",
-      "last_tx": "0xb18d12482984d896b30604488532a0020310002dc487f7685555bd9ae888b281",
+      "last_tx": "0x199e1eb84c5df1191b17044885b4bf0203ea009de7510febbd66ca0b0b51cb03",
       "open_positions_at_window_end": 85,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3454,30 +3454,30 @@
       "record": false,
       "rank": 9,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 43723 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 43723 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "2762195.680962",
       "displayed_window": "day",
-      "verified_net": "3599871.323406940",
-      "realized_ex_funding": "3485080.659658940",
+      "verified_net": "3601548.962082940",
+      "realized_ex_funding": "3486758.298334940",
       "funding": "114790.663748",
-      "fills": 53513,
-      "fills_served": 53513,
+      "fills": 53582,
+      "fills_served": 53582,
       "first_tx": "0x1c6a2ca961b8e82e1de30448037388010300448efcbc0700c032d7fc20bcc218",
-      "last_tx": "0x86ae9503cc3e31018828044885108502013a00e967314fd32a7740568b320aec",
+      "last_tx": "0xe88b1fd90f395dc6ea04044885b40f0201b800beaa3c7c988c53cb2bce3d37b1",
       "open_positions_at_window_end": 116,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3485,30 +3485,30 @@
       "record": false,
       "rank": 10,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 169905 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 169905 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1616546.5876879999",
       "displayed_window": "day",
-      "verified_net": "3208875.169336",
-      "realized_ex_funding": "3153079.434118",
+      "verified_net": "3211706.951917",
+      "realized_ex_funding": "3155911.216699",
       "funding": "55795.735218",
-      "fills": 8671,
-      "fills_served": 8671,
+      "fills": 8737,
+      "fills_served": 8737,
       "first_tx": "0x8a168e770333db288b9004480365d10206ae005c9e36f9fa2ddf39c9c237b513",
-      "last_tx": "0x7c0439e1c4605f707d7d044884ee3b0201a700c75f637e421fcce5348364395b",
+      "last_tx": "0x0d1c9fa98b870bbe0e96044885af3f01d500b78f268a2a90b0e54afc4a8ae5a8",
       "open_positions_at_window_end": 31,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -3516,30 +3516,30 @@
       "record": false,
       "rank": 11,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 51380 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 51380 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1487259.6761680001",
       "displayed_window": "day",
-      "verified_net": "3094520.18537134",
-      "realized_ex_funding": "2901541.36357634",
+      "verified_net": "3154342.51863234",
+      "realized_ex_funding": "2961363.69683734",
       "funding": "192978.821795",
-      "fills": 23417,
-      "fills_served": 23417,
+      "fills": 23868,
+      "fills_served": 23868,
       "first_tx": "0x2a8a76251f5d69d12c04044803cd170204e2000aba5088a3ce532177de5143bb",
-      "last_tx": "0xe3df15fcf708b62ee558044885360f02023d00e2920bd50087a7c14fb60c9019",
+      "last_tx": "0x53118f8254732172548b044885a79e0201210067ef764044f6da3ad51376fb5c",
       "open_positions_at_window_end": 16,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3547,30 +3547,30 @@
       "record": false,
       "rank": 12,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 15045 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 15045 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "10460042.2694669999",
       "displayed_window": "month",
-      "verified_net": "2340998.34396495",
-      "realized_ex_funding": "2610223.52317295",
+      "verified_net": "2339557.03249095",
+      "realized_ex_funding": "2608782.21169895",
       "funding": "-269225.179208",
-      "fills": 234035,
-      "fills_served": 234035,
+      "fills": 234360,
+      "fills_served": 234360,
       "first_tx": "0xb94daed154af94cdbac7044803622b02059b00b6efa2b39f5d165a2413a36eb8",
-      "last_tx": "0x7ac563c1b99e5d647c3f044885381c02024d00a754917c361e8e0f147892374f",
+      "last_tx": "0x4a79bbaa0051b1384bf3044885b3d0011500d38f9b54d00aee4266fcbf558b22",
       "open_positions_at_window_end": 40,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3578,30 +3578,30 @@
       "record": false,
       "rank": 13,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 6921 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 6921 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "20683388.8134730011",
       "displayed_window": "month",
-      "verified_net": "2047231.414053",
-      "realized_ex_funding": "2008791.816782",
+      "verified_net": "2047445.202449",
+      "realized_ex_funding": "2009005.605178",
       "funding": "38439.597271",
-      "fills": 12872,
-      "fills_served": 12872,
+      "fills": 12873,
+      "fills_served": 12873,
       "first_tx": "0x447a036990c1096145f304480364e0021264004f2bc42833e842aebc4fc4e34b",
-      "last_tx": "0xf0a3a30bd4e218b3f21d044885162302026700f16fe53786946c4e5e93e5f29e",
+      "last_tx": "0x2146ae06b73d9a0622c00448859a2602018500ec5230b8d8c50f5959763173f0",
       "open_positions_at_window_end": 13,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3609,30 +3609,30 @@
       "record": false,
       "rank": 14,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 145; no gap after any exceeds the address's own largest gap 16922 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 169; no gap after any exceeds the address's own largest gap 16922 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1625954.945942",
       "displayed_window": "day",
-      "verified_net": "1960161.988042",
-      "realized_ex_funding": "1911530.645282",
+      "verified_net": "1960076.137537",
+      "realized_ex_funding": "1911444.794777",
       "funding": "48631.342760",
-      "fills": 246966,
-      "fills_served": 246966,
+      "fills": 247523,
+      "fills_served": 247523,
       "first_tx": "0xa2cf05cf14bdbf4ea448044803623302061c00b4afb0de204697b121d3b19939",
-      "last_tx": "0x028f423acbdb1a91040804488535de0202c7002066de3963a657ed8d8adef47b",
+      "last_tx": "0xb9f346477a0fd143bb6d044885b4ae020292002d1502f0155dbbf19a3903ab2e",
       "open_positions_at_window_end": 27,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3640,9 +3640,9 @@
       "record": false,
       "rank": 15,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 93537 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 93537 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1517648.9958200001",
       "displayed_window": "day",
       "verified_net": "1190427.792435",
@@ -3653,17 +3653,17 @@
       "first_tx": "0xc8e124e4545a3b5fca5a04480963a60201a700c9ef5d5a316ca9d037135e154a",
       "last_tx": "0x37cc8cdddc34b22c39460448835739020db600c37737d0fedb9538309b388c16",
       "open_positions_at_window_end": 12,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -3671,30 +3671,30 @@
       "record": false,
       "rank": 16,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 1648 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 1648 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "8359023.4185229996",
       "displayed_window": "month",
-      "verified_net": "1040893.4102291305",
-      "realized_ex_funding": "1015610.1409371305",
+      "verified_net": "1042554.1838440745",
+      "realized_ex_funding": "1017270.9145520745",
       "funding": "25283.269292",
-      "fills": 119134,
-      "fills_served": 119134,
+      "fills": 119400,
+      "fills_served": 119400,
       "first_tx": "0xc712bf4fdf92fcddc88c04480362430204aa00357a961baf6adb6aa29e96d6c8",
-      "last_tx": "0xa29c921a305d7174a416044885381f02034a00ffcb50904646653d6cef514b5f",
+      "last_tx": "0x3703c67ca56948dd387d044885b43c0202720062406c67afdacc71cf646d22c7",
       "open_positions_at_window_end": 76,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3702,30 +3702,30 @@
       "record": false,
       "rank": 17,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 18650 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 18650 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "3194509.4676150004",
       "displayed_window": "day",
-      "verified_net": "942417.963366",
-      "realized_ex_funding": "765328.914994",
+      "verified_net": "942763.925617",
+      "realized_ex_funding": "765674.877245",
       "funding": "177089.048372",
-      "fills": 194643,
-      "fills_served": 194643,
+      "fills": 195105,
+      "fills_served": 195105,
       "first_tx": "0x6d0190f43b7132ad6e7b044803623f02122c00d9d674517f10ca3c46fa750c98",
-      "last_tx": "0xf1ba5ccb91865665f334044885348102026b00b12c8975389583081e508a3050",
+      "last_tx": "0x214559ecc2375baa22bf044885af790201d600d25d3a7a7cc50e053f813b3594",
       "open_positions_at_window_end": 158,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3733,9 +3733,9 @@
       "record": false,
       "rank": 18,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 163295 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 163295 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1594891.9055870001",
       "displayed_window": "day",
       "verified_net": "755883.282607",
@@ -3746,17 +3746,17 @@
       "first_tx": "0x174424bd2ed5cde518bd04480362910207b800a2c9d8ecb7bb0cd00fedd9a7cf",
       "last_tx": "0xdb6dd1265dba9942dce70448836f800207eb000bf8bdb8147f367c791cbe732d",
       "open_positions_at_window_end": 12,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -3764,9 +3764,9 @@
       "record": false,
       "rank": 19,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 147; no gap after any exceeds the address's own largest gap 446397 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 171; no gap after any exceeds the address's own largest gap 446397 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "3904097.0012010001",
       "displayed_window": "day",
       "verified_net": "718900.010294",
@@ -3777,17 +3777,17 @@
       "first_tx": "0x09c358fa760bb8e20b3d04481c75e50209ff00e0110ed7b4ad8c044d350f92cc",
       "last_tx": "0xd0e92c27a6b9696fd2620448811174020637000d41bc884174b1d77a65bd435a",
       "open_positions_at_window_end": 3,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3795,30 +3795,30 @@
       "record": false,
       "rank": 20,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 120079 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 120079 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "6822264.3217759999",
       "displayed_window": "month",
-      "verified_net": "342554.727981",
-      "realized_ex_funding": "308618.927172",
+      "verified_net": "342499.724919",
+      "realized_ex_funding": "308563.924110",
       "funding": "33935.800809",
-      "fills": 24684,
-      "fills_served": 24684,
+      "fills": 25022,
+      "fills_served": 25022,
       "first_tx": "0xeb4e744939b48874ecc804480363f10207b6002ed4b7a7468f171f9bf8b8625f",
-      "last_tx": "0x10cbb39df103be03124504488535cc02016c00838c06dcd5b4945ef0b00797ed",
+      "last_tx": "0xc943d40fa1ecb30acabd044885b21502047d00f53cefd1dc6d0c7f6260e08cf5",
       "open_positions_at_window_end": 20,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -3826,30 +3826,30 @@
       "record": false,
       "rank": 21,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 253526 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 253526 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1397901.4789209999",
       "displayed_window": "day",
-      "verified_net": "230294.466088",
-      "realized_ex_funding": "146560.708686",
+      "verified_net": "236768.135311",
+      "realized_ex_funding": "153034.377909",
       "funding": "83733.757402",
-      "fills": 1260,
-      "fills_served": 1260,
+      "fills": 1309,
+      "fills_served": 1309,
       "first_tx": "0x53342b8cbefbc86654ad04481e32c5020206007259fee738f6fcd6df7dffa250",
-      "last_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
+      "last_tx": "0x4650accdc9e30a3f47ca044885a8f002017600b364e62911ea19582088e6e429",
       "open_positions_at_window_end": 2,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -3857,9 +3857,9 @@
       "record": false,
       "rank": 22,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 154; no gap after any exceeds the address's own largest gap 175197 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 178; no gap after any exceeds the address's own largest gap 175197 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "5867349.537916",
       "displayed_window": "day",
       "verified_net": "213988.491327",
@@ -3870,17 +3870,17 @@
       "first_tx": "0x750d257fb4b342cb768604482950cf02061000654fb6619d18d5d0d273b71cb6",
       "last_tx": "0x9e93c800581b9468a00d04482954b0020a9100e5f31eb33a425c7353171f6e53",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3888,9 +3888,9 @@
       "record": false,
       "rank": 23,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 364775 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 364775 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "1786353.6767210001",
       "displayed_window": "day",
       "verified_net": "137007.881203",
@@ -3901,17 +3901,17 @@
       "first_tx": "0xf9f7388d6322a3c9fb700448524abf01df005072fe25c29c9dbfe3e022267db4",
       "last_tx": "0x96a947d9f526f836982304486a6bcc0202fe00bf902a17083a71f32cb42ad221",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -3919,215 +3919,29 @@
       "record": false,
       "rank": 24,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 234391 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 234391 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "6798556.2917550001",
       "displayed_window": "month",
-      "verified_net": "95580.621479",
-      "realized_ex_funding": "95565.977921",
+      "verified_net": "94742.912164",
+      "realized_ex_funding": "94728.268606",
       "funding": "14.643558",
-      "fills": 4055,
-      "fills_served": 4055,
+      "fills": 4347,
+      "fills_served": 4347,
       "first_tx": "0x395ffcb6d09149db3ad9044822616602054b009c6b9468addd28a8098f9523c5",
-      "last_tx": "0xd08f8de92cc6d7b6d209044884fb3c02015800cec7c9f6887458393bebcab1a1",
+      "last_tx": "0xba23e60c9a6ed2eebb9d044885b28d01ed00fdf23561f1c05dec915f5962acd9",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
+      "arena_as_of": "2026-11-11",
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "2552577.307118",
-      "displayed_window": "day",
-      "verified_net": "84757.439639",
-      "realized_ex_funding": "0",
-      "funding": "84757.439639",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0xd47587702a91731dc1089b5db0932cf820151a91",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "1870848.3670610001",
-      "displayed_window": "day",
-      "verified_net": "14695.926640",
-      "realized_ex_funding": "0",
-      "funding": "14695.926640",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0x8def9f50456c6c4e37fa5d3d57f108ed23992dae",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "1968438.684658",
-      "displayed_window": "day",
-      "verified_net": "13820.888817",
-      "realized_ex_funding": "0",
-      "funding": "13820.888817",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "2294392.6535990001",
-      "displayed_window": "day",
-      "verified_net": "13201.236596",
-      "realized_ex_funding": "0",
-      "funding": "13201.236596",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "3777375.1413519997",
-      "displayed_window": "day",
-      "verified_net": "12134.104965",
-      "realized_ex_funding": "0",
-      "funding": "12134.104965",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 1,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
-      "record": false,
-      "rank": null,
-      "coverage": "NONE",
-      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "3309612.5129550002",
-      "displayed_window": "day",
-      "verified_net": "2117.745311",
-      "realized_ex_funding": "0",
-      "funding": "2117.745311",
-      "fills": 0,
-      "fills_served": 0,
-      "first_tx": null,
-      "last_tx": null,
-      "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 1,
-      "cohorts_listed": 2,
       "cohorts_completed": 1
     },
     {
@@ -4136,9 +3950,9 @@
       "record": false,
       "rank": 25,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 311571 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 311571 s: every fill the tape could serve was served (R114)",
+      "status": "KEEP",
+      "status_reason": "window complete, coverage FULL, verified net > 0 (R119)",
       "displayed_pnl_at_listing": "93787696.3234789968",
       "displayed_window": "allTime",
       "verified_net": "880.859361",
@@ -4149,17 +3963,203 @@
       "first_tx": "0xb8dc610a1eb19381ba56044834057c02078f00efb9b4b2535ca50c5cddb56d6c",
       "last_tx": "0x7d4356e73a1edd467ebd0448772f2f0202f600ccd511fc18210c0239f912b731",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
+      "run": 1,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "2552577.307118",
+      "displayed_window": "day",
+      "verified_net": "84757.439639",
+      "realized_ex_funding": "0",
+      "funding": "84757.439639",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0xd47587702a91731dc1089b5db0932cf820151a91",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "1870848.3670610001",
+      "displayed_window": "day",
+      "verified_net": "14695.926640",
+      "realized_ex_funding": "0",
+      "funding": "14695.926640",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0x8def9f50456c6c4e37fa5d3d57f108ed23992dae",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "1968438.684658",
+      "displayed_window": "day",
+      "verified_net": "13820.888817",
+      "realized_ex_funding": "0",
+      "funding": "13820.888817",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "2294392.6535990001",
+      "displayed_window": "day",
+      "verified_net": "13201.236596",
+      "realized_ex_funding": "0",
+      "funding": "13201.236596",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0xf818fa41af44a1b42ba7433f4ec472be40a2c268",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "3777375.1413519997",
+      "displayed_window": "day",
+      "verified_net": "12134.104965",
+      "realized_ex_funding": "0",
+      "funding": "12134.104965",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0x484bc1608211d0604bf70bae72792a56884562f8",
+      "record": false,
+      "rank": null,
+      "coverage": "NONE",
+      "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
+      "displayed_pnl_at_listing": "3309612.5129550002",
+      "displayed_window": "day",
+      "verified_net": "2117.745311",
+      "realized_ex_funding": "0",
+      "funding": "2117.745311",
+      "fills": 0,
+      "fills_served": 0,
+      "first_tx": null,
+      "last_tx": null,
+      "open_positions_at_window_end": 0,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4168,8 +4168,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "85282315.7672800273",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4180,17 +4180,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4199,8 +4199,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "14654851.7840819992",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4211,17 +4211,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4230,8 +4230,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "72249654.2937660068",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4242,17 +4242,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4261,8 +4261,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "10235145.9004570004",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4273,17 +4273,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4292,8 +4292,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "122544573.0022980124",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4304,17 +4304,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4323,8 +4323,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "84715878.2848969996",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4335,17 +4335,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4354,8 +4354,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "106341324.5199999958",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4366,17 +4366,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4385,8 +4385,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "7662235.9473099997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4397,17 +4397,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4416,8 +4416,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "58655928.829467997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4428,17 +4428,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4447,8 +4447,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "17338802.3961779997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4459,17 +4459,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4478,8 +4478,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "8255729.312713",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4490,17 +4490,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4509,8 +4509,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5861007.3493889999",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4521,17 +4521,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4540,8 +4540,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "15127353.4963930007",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4552,17 +4552,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4571,8 +4571,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "445038904.5224530101",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4583,17 +4583,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4602,8 +4602,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "71838905.2485190034",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4614,17 +4614,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4633,8 +4633,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "1988383.2936369998",
       "displayed_window": "day",
       "verified_net": "0",
@@ -4645,17 +4645,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4664,8 +4664,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "50482163.0605999976",
       "displayed_window": "month",
       "verified_net": "0",
@@ -4676,17 +4676,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4695,8 +4695,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "6317423.1174619999",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4707,17 +4707,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4726,8 +4726,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "9489839.2203819994",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4738,17 +4738,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4757,8 +4757,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "19538670.7780760005",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4769,17 +4769,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -4788,8 +4788,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "4828223.6865260014",
       "displayed_window": "day",
       "verified_net": "0",
@@ -4800,17 +4800,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4819,8 +4819,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "2626529.0697109997",
       "displayed_window": "day",
       "verified_net": "0",
@@ -4831,17 +4831,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4850,8 +4850,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "74874330.0304239988",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4862,17 +4862,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4881,8 +4881,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "144136787.9793010056",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4893,17 +4893,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 1,
+      "arena_as_of": "2026-11-11",
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4912,8 +4912,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": null,
       "displayed_window": null,
       "verified_net": "0",
@@ -4924,17 +4924,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
-      "run": 1,
+      "arena_as_of": "2026-11-11",
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4943,8 +4943,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "97508580.8844829947",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -4955,17 +4955,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -4974,8 +4974,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5473283.5342310006",
       "displayed_window": "week",
       "verified_net": "0",
@@ -4986,17 +4986,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5005,8 +5005,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "74503126.3392889947",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -5017,17 +5017,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5036,8 +5036,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5470219.6658159997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -5048,17 +5048,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -5067,8 +5067,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "138567109.0571179986",
       "displayed_window": "allTime",
       "verified_net": "0",
@@ -5079,17 +5079,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5098,8 +5098,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "1832476.0042760002",
       "displayed_window": "day",
       "verified_net": "0",
@@ -5110,17 +5110,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -5129,8 +5129,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5736514.6997809997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -5141,17 +5141,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -5160,8 +5160,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5810000.7399899997",
       "displayed_window": "week",
       "verified_net": "0",
@@ -5172,17 +5172,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -5191,8 +5191,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "5607586.1658619996",
       "displayed_window": "week",
       "verified_net": "0",
@@ -5203,17 +5203,17 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
     },
     {
       "cohort_date": "2026-11-03",
@@ -5221,9 +5221,9 @@
       "record": false,
       "rank": 26,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 454360 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 454360 s: every fill the tape could serve was served (R114)",
+      "status": "DROP",
+      "status_reason": "window complete, coverage FULL, verified net <= 0 (R119)",
       "displayed_pnl_at_listing": "84029148.2593040019",
       "displayed_window": "allTime",
       "verified_net": "-4.67373592",
@@ -5234,17 +5234,17 @@
       "first_tx": "0xc852dd587773e63dc9cc0448131a6f0204e201021277050f6c1b88ab3677c028",
       "last_tx": "0xabfc106ba6015b3fad75044880d1cb020701005141047a114fc4bbbe6505352a",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5252,9 +5252,9 @@
       "record": false,
       "rank": 27,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 204484 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 204484 s: every fill the tape could serve was served (R114)",
+      "status": "DROP",
+      "status_reason": "window complete, coverage FULL, verified net <= 0 (R119)",
       "displayed_pnl_at_listing": "7823803.217774",
       "displayed_window": "month",
       "verified_net": "-15370.374725",
@@ -5265,17 +5265,17 @@
       "first_tx": "0xc9c818b8408e8364cb4104480a7023020531009ddb81a2366d90c40aff825d4f",
       "last_tx": "0x75a1aba85b638a9e771b044884a5fd02024d008df666a970196a56fb1a676489",
       "open_positions_at_window_end": 5,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5283,9 +5283,9 @@
       "record": false,
       "rank": 28,
       "coverage": "FULL",
-      "coverage_reason": "0 capped cycles of 146; no gap after any exceeds the address's own largest gap 214572 s: every fill the tape could serve was served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "coverage_reason": "0 capped cycles of 170; no gap after any exceeds the address's own largest gap 214572 s: every fill the tape could serve was served (R114)",
+      "status": "DROP",
+      "status_reason": "window complete, coverage FULL, verified net <= 0 (R119)",
       "displayed_pnl_at_listing": "76182984.5681679994",
       "displayed_window": "allTime",
       "verified_net": "-29373.522099",
@@ -5296,48 +5296,17 @@
       "first_tx": "0xcacc59b1e773a80ecc46044831cb7402082300978276c6e06e950504a67781f9",
       "last_tx": "0xcacc59b1e773a80ecc46044831cb7402082300978276c6e06e950504a67781f9",
       "open_positions_at_window_end": 1,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1
-    },
-    {
-      "cohort_date": "2026-11-03",
-      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-      "record": false,
-      "rank": null,
-      "coverage": "PARTIAL",
-      "coverage_reason": "the tape fell behind: 27 capped cycles of 150, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
-      "displayed_pnl_at_listing": "4695796.0336529994",
-      "displayed_window": "day",
-      "verified_net": "-105646.8192279998",
-      "realized_ex_funding": "-104746.0786399998",
-      "funding": "-900.740588",
-      "fills": 1869372,
-      "fills_served": 1883227,
-      "first_tx": "0x641286d1bed782c2658c04480654f90206b000b759daa19407db32247ddb5cad",
-      "last_tx": "0x0000000000000000000000000000000000000000000000000000000000000000",
-      "open_positions_at_window_end": 22,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
-      "screen_fails": [],
-      "window": {
-        "t0_date": "2026-11-04",
-        "t1_date": "2026-11-10",
-        "complete": false
-      },
-      "arena_as_of": "2026-11-10",
-      "run": 0,
-      "cohorts_listed": 2,
-      "cohorts_completed": 1
+      "cohorts_completed": 2
     },
     {
       "cohort_date": "2026-11-03",
@@ -5346,8 +5315,8 @@
       "rank": null,
       "coverage": "NONE",
       "coverage_reason": "zero fills served in the window: nothing settled under this address on the perp L1 as the tape served it",
-      "status": "OPEN",
-      "status_reason": "window open: interim figures, no status (R119)",
+      "status": "DROP",
+      "status_reason": "window complete, nothing settled under the address in the window (R119)",
       "displayed_pnl_at_listing": "7306518.9800129998",
       "displayed_window": "week",
       "verified_net": "-182173.588785",
@@ -5358,45 +5327,76 @@
       "first_tx": null,
       "last_tx": null,
       "open_positions_at_window_end": 0,
-      "screen_verdict": "not screened (window open until 2026-11-10)",
+      "screen_verdict": "not screened",
       "screen_fails": [],
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
-        "complete": false
+        "complete": true
       },
-      "arena_as_of": "2026-11-10",
+      "arena_as_of": "2026-11-11",
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0
+      "cohorts_completed": 1
+    },
+    {
+      "cohort_date": "2026-11-03",
+      "address": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
+      "record": false,
+      "rank": null,
+      "coverage": "PARTIAL",
+      "coverage_reason": "the tape fell behind: 27 capped cycles of 174, a gap of 28827 s after one of them, above the address's largest other gap 1458 s; fills in that gap were never served (R114)",
+      "status": "UNDECIDED",
+      "status_reason": "window complete but the sensor did not see the whole window; a statement about the sensor, not the leader (R119)",
+      "displayed_pnl_at_listing": "4695796.0336529994",
+      "displayed_window": "day",
+      "verified_net": "-102974.3259229998",
+      "realized_ex_funding": "-102073.5853349998",
+      "funding": "-900.740588",
+      "fills": 1875169,
+      "fills_served": 1889024,
+      "first_tx": "0x641286d1bed782c2658c04480654f90206b000b759daa19407db32247ddb5cad",
+      "last_tx": "0x199e1eb84c5df1191b17044885b4bf0203ea009de7510febbd66ca0b0b51cb03",
+      "open_positions_at_window_end": 23,
+      "screen_verdict": "not screened",
+      "screen_fails": [],
+      "window": {
+        "t0_date": "2026-11-04",
+        "t1_date": "2026-11-10",
+        "complete": true
+      },
+      "arena_as_of": "2026-11-11",
+      "run": 0,
+      "cohorts_listed": 2,
+      "cohorts_completed": 2
     }
   ],
   "runs": {
     "0x023a3d058020fb76cca98f01b3c48c8938a22355": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x024294c53a69c1e6b39810b3fac87385752fffa1": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x03b9a189e2480d1e4c3007080b29f362282130fa": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x048b75dc11fd31bc38808478fee0c08d4cc05eb3": {
@@ -5410,27 +5410,27 @@
     "0x05cafe987297448f21a3c7ae0ae815fddecac655": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x082e843a431aef031264dc232693dd710aedca88": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x0b8aa35c28b7c6ab18f11dc168f437a8a69fd4f8": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x0cc159b29f45c9cc0da41326d7e18e04245bc7cb": {
@@ -5444,45 +5444,45 @@
     "0x0d446c3372a9ba9cddef0eef7a1afab6dc0e8c0b": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x13c50dcdee4bbcba71baf578b345cdd35c7928be": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x1ab185be5ff61f7b678d6a871d439307cd0752e3": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x20c2d95a3dfdca9e9ad12794d5fa6fad99da44f5": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x218a65e21eddeece7a9df38c6bbdd89f692b7da2": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x26b61e7ec6ccd97df9836e3358c8c92d4fa79a13": {
@@ -5504,19 +5504,19 @@
     "0x2e3d94f0562703b25c83308a05046ddaf9a8dd14": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x2ea18c23f72a4b6172c55b411823cdc5335923f4": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x2fd6e64bdce13f79dba8e430cd5a2bfea813f1c9": {
@@ -5538,18 +5538,18 @@
     "0x3258e4e06929b746854c989de764efd015db3943": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x393d0b87ed38fc779fd9611144ae649ba6082109": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x3a98be4692cae9eee26ecf73b4be7b8961ebf4b8": {
@@ -5563,63 +5563,63 @@
     "0x3dc908374e11623d8eb9f07dfc7a2e5e803a54b0": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x45d26f28196d226497130c4bac709d808fed4029": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x484bc1608211d0604bf70bae72792a56884562f8": {
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "KEEP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x488d2a9b70cc18ef66057a48ab3d59da1c59fe08": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x493db0ed7514c975e9abcc110bd40c473b6763e3": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x49e96e255ba418d08e66c35b588e2f2f3766e1d0": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x4ba3979955f52158c0e4e3378b18985475182ce2": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x4c6d679eac539bf7c5a0b7ebd8949ae93b1e5ee9": {
@@ -5631,47 +5631,47 @@
       }
     },
     "0x4c78a97cef589b01bb91dbf893fffa14243d2444": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x4e14fc11f58b64740e66e4b1aa188a4b007c0eab": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x4eb8d907136189a34c9b087950211b6a566f7819": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x4ec8fe22a531a96c8a846aaf5cbef73202649a80": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x51156f7002c4f74f4956c9e0f2b7bfb6e9dbfac2": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x5647249079e257329ecb6f46ed41821d3c69e7de": {
@@ -5691,12 +5691,12 @@
       }
     },
     "0x5b5d51203a0f9079f8aeb098a6523a13f298c060": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x60b081bd8ee2b0e5a2b8f17503322cf7ee7a991e": {
@@ -5710,17 +5710,17 @@
     "0x64a4fbb71858f681f3fa10a42b34180a9a48088d": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x659ddde484fd9dc313917d5de92a52b6a74a9d63": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x6910c590d8503a1f3ef5ea9b64a5d7c7f3b5feda": {
@@ -5742,27 +5742,27 @@
     "0x7aa14144f5811aab1ba4a07f014a592f8c9d864c": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x7fdafde5cfb5465924316eced2d3715494c517d1": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x85530f0ff6496c72a619f37a60f3c1a59077737f": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x856c35038594767646266bc7fd68dc26480e910d": {
@@ -5784,45 +5784,45 @@
     "0x875783b13e6157e8fb70985c9602afa18e7a31d1": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x87f9cd15f5050a9283b8896300f7c8cf69ece2cf": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x880ac484a1743862989a441d6d867238c7aa311c": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x88560b720239179d7f3f9e49ca934a4861593d7f": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x8af700ba841f30e0a3fcb0ee4c4a9d223e1efa05": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x8cfac7c6f03e00db2f298699df96933a9694b6ab": {
@@ -5836,37 +5836,37 @@
     "0x8d68efbf06fb8cf932518bcb53705e674c4852dc": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x8def9f50456c6c4e37fa5d3d57f108ed23992dae": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x9794bbbc222b6b93c1417d01aa1ff06d42e5333b": {
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "KEEP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0x99967871e6c4f9a5185abc57edede9e9540191f6": {
@@ -5878,29 +5878,29 @@
       }
     },
     "0x9aa589355bf745db9784c8ef3c646360f11b58af": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0x9f976123e7c48952be487664b8130aad144b7f23": {
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "KEEP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xa312114b5795dff9b8db50474dd57701aa78ad1e": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xa822a9ceb6d6cb5b565bd10098abcfa9cf18d748": {
@@ -5920,48 +5920,48 @@
       }
     },
     "0xb695651daa495f59dd2725c6fe98322d8b51a92d": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xba5d9cc840745aeeeeedac5712e32f13ab8ea352": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xbde2ddc49a2e6827300faa6afc93d572114a60b1": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xbdfa4f4492dd7b7cf211209c4791af8d52bf5c50": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xbf732ea04197942783e34730ed6e0f6099575d58": {
@@ -5997,54 +5997,54 @@
       }
     },
     "0xca4903c207a0df58bf37d4bc8bbc5210726f53c8": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xcfdb74a8c080bb7b4360ed6fe21f895c653efff4": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xd0e2842e830f2107f151ec0bd307c5871a3b4018": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xd1dd6d99c5fb5d31ff52eacce5046c7158859e85": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xd47587702a91731dc1089b5db0932cf820151a91": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xd4c1f7e8d876c4749228d515473d36f919583d1d": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xd8c5228c515db3043dfa0c8cd6f22450ee9a99b0": {
@@ -6056,11 +6056,11 @@
       }
     },
     "0xda3768e9299e1fd81708ec030dac5ea37125f7b5": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xdcda2478f8f4f16fe13335f7b2795e2ce3520176": {
@@ -6072,38 +6072,38 @@
       }
     },
     "0xdd53c5297309130ab5fe5623dc905752e3342b13": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xdf954bbe619273a56e0cfa90dad8382195dc7d72": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xdfc24b077bc1425ad1dea75bcb6f8158e10df303": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xdfd526409007db0d524a62dedaaba7706736d88e": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xe0ffc829349c88c159462942ad885f12130e7610": {
@@ -6125,18 +6125,18 @@
     "0xe867fbdad3291530e41530301ecb77693850c78e": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xf02d16a272a842f8bac1d9a9e773aba1933454c6": {
@@ -6150,62 +6150,62 @@
     "0xf5d81a135f756ca16544e53c20fc20643ec3ad53": {
       "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "DROP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "UNDECIDED"
       }
     },
     "0xf818fa41af44a1b42ba7433f4ec472be40a2c268": {
-      "run": 1,
+      "run": 0,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "KEEP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xf8e3128c778a828f079049eefb89a9041cb4af4d": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xfc27136e42af1732ddc9ce2605ea9bff1b959d9d": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xfc667adba8d4837586078f4fdcdc29804337ca06": {
-      "run": 1,
+      "run": 2,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "KEEP",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xfe7ce058edc7cfcde9ef8262ba51f8d4796ab7ae": {
-      "run": 0,
+      "run": 1,
       "cohorts_listed": 2,
-      "cohorts_completed": 1,
+      "cohorts_completed": 2,
       "statuses": {
         "2026-10-25": "UNDECIDED",
-        "2026-11-03": "OPEN"
+        "2026-11-03": "KEEP"
       }
     },
     "0xfec495e7432264678175bea68c4d7678944f6635": {
       "run": 0,
       "cohorts_listed": 1,
-      "cohorts_completed": 0,
+      "cohorts_completed": 1,
       "statuses": {
-        "2026-11-03": "OPEN"
+        "2026-11-03": "DROP"
       }
     },
     "0xff4cd3826ecee12acd4329aada4a2d3419fc463c": {
