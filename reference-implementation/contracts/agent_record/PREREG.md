@@ -7668,3 +7668,52 @@ The maker legs' 4 h is the book tape starting at 04:34Z on its first day; the ta
 **Dates (50th percentile).** P36 (the door, its gates, POO_DAILY 3n) and A44.1 with the ask's draft: 2026-11-12. The ask delivered: 2026-11-18 (the date A18 already set for the rung-4 conversation). First outside statement: 2026-11-25. P37: the day after that statement.
 
 **Income row (R81), 2026-11-12 after A44:** 0 USD a day against 165. Nothing on the chain. The door is not income; it is a position that has not been tested by anyone outside.
+
+### A44.1 — 2026-11-12 02:0xZ (20:0x CST 11-11), flat — THE DOOR, BUILT AND STANDING OPEN (P36 `d539166`): an address can enrol itself by a signature the machine checks offline; the first door file is on the branch with 0 entrants and the kill line at 0 of 20; the census of cohort 1 is 373 crossings as measured; R195 read over the board's eight FULL rows keeps none of them; the ask to the venue is drafted and is the operator's; nothing was sent to anyone and nothing reached the venue
+
+**What was built (P36).** `rights_events/arena_door.py`, six commands, each a pure function of files on the branch (no network, no clock):
+- `enrol` / `withdraw --statement FILE --signature 0x… --date D` — R191, R192: the six fixed lines parsed byte for byte, the `settled_sha256` compared with the branch's SETTLED.md, the signature recovered by EIP-191 `personal_sign` (keccak-256 and secp256k1 recovery written in the standard library, no new dependency) and compared with the statement's address; `ENTERED`, `ALREADY ENTERED` (nothing written), `WITHDRAWN`, or `REFUSED S118` (nothing written).
+- `template --address --model` — prints the exact bytes to sign.
+- `door --as-of D` — R193–R197: per cohort, the census of crossings over every pinned fill row of the capture and the board's FULL rows read by R195's words (a table, not rows); per active entrant, the arena's own figures beside trips per coin, crossed fills and trips, the status word, the rank within the cohort among rows with one closed trip or more, and R196's sentence; `LISTED, NOT YET CAPTURED` for an entrant no capture holds; the kill line; the statement's template. Files `arena/door/door_<D>.json|.md`, `door_latest.json`.
+- `ask --date --to --channel --operator-word` — R198, S120: appends one shot to `arena/door/asks.jsonl`; refused without the operator's quoted word.
+- `check-latest` — S119.
+- `tests/test_agent_record_door.py`, 37 gates. The arithmetic is not checked against itself: the permutation is run with SHA-3's padding against `hashlib.sha3_256` on 147 lengths; the recovery is checked against three signatures made by an independent library (`eth_account` 0.13.7, on this machine, on 2026-11-12) and pasted into the gate as bytes, and, before the gate was written, against 40 random keys and messages signed by that library (40 of 40). The library is not a dependency of the door or of its gates.
+- POO_DAILY step 3n, after 3m: the two commands, the kill line pasted as printed, no statement and no ask ever entered on the routine's own judgment.
+- `arena_ai_board.py`, `arena_feed.py`, the adapter, `arena/copiers.json`, every capture, arena file and pin: untouched.
+
+**The first door file, as of 2026-11-12** (`door_2026-11-12.json` sha256 `87bcb483…`, `.md` `ca8dce9c…`, `door_latest.json` byte-equal):
+
+| line | value |
+|---|---|
+| registry | entered 0, withdrawn 0, active 0, outside 0 |
+| kill line (R198) | `OPEN 0 of 20: 0 outside entrants, 0 of 3 outside FULL rows over a complete window` |
+| rows by status | KEEP 0, DROP 0, UNDECIDED 0, OPEN 0 |
+| cohort 2026-10-25, census (R194) | 217 285 fill rows in the window on 81 addresses, 216 912 distinct trade ids, **373 crossings** on 19 addresses; the largest pair 138 |
+| cohort 2026-10-25, the board under R195 | 8 FULL rows, **0 trips opened and closed inside the window, 0 would read KEEP** |
+| cohort 2026-11-03 | pages not on the branch (0 of 70 fills files): the census and the trips are not computed |
+
+**The known answers of A44.**
+1. Held: 0 entrants, `OPEN 0 of 20`; P36's commit adds `arena/door/` and nothing else under `arena/` (A44 itself opened `entrants.json`).
+2. Held: keccak-256 of the empty string and of `abc`; the published test key's address `0xf39f…2266`; one changed byte of the statement, one changed character of the signature, another key's signature and a statement naming another address each `S118`.
+3. Held: 373.
+4. Held: both rows read crossed, the positive one reads `DROP` (trip net 9.98, trip net uncrossed 0).
+5. Held on the record's pinned cohort-1 pages: 2 closed trips, 1 win, +0.144370 and −0.067163, trip net 0.077207 = the arena's `realized_ex_funding`, fees 0.041793. On a single coin the door's trips equal `arena_ai_board.round_trips`.
+6. Held: 0 of 8. The feed's R119 reads KEEP on 6 of those 8 board rows by net after listing; R195 reads KEEP on none, because none opened and closed a position inside the eight days (A39.1's reading, reached by other code). The two rules answer two questions and both stand: R119 is "did the address net above zero after it was listed", R195 is "did it do so on trips a follower could have entered".
+7. Not readable yet.
+
+**What the gates state about the limit (R196).** The same two fills read `KEEP` when the counterpart's address is not in the capture (`test_a_self_cross_reads_drop_and_the_limit_is_what_r196_says`). The door sees a self-cross only between two graded addresses. That is the sentence on every row, and it is the reason R120's "no badge" is not loosened here.
+
+**Disclosures.**
+- **A word R195 did not have.** A complete `FULL` row whose pages are not on the branch cannot be read by R195 (no trips); the door prints `TRIPS NOT COMPUTED` and counts it for nothing, rather than `KEEP` or `DROP`. Cohort 2 is in that state for every address until its pages are archived (A27 (2), dated 2026-11-11: **not done as of this amendment; one day late**). No entrant is affected today.
+- **A difference from the board's code, found and not edited.** `arena_ai_board.round_trips` values a position carried into the window when it closes inside it (its docstring says "counted as open, never valued"; its loop gives it a net). The door excludes it, as R193 says. The record's rows are unaffected: every one of its trips starts at 0. A29's module is not touched; an amendment to R124 is the operator's if wanted.
+- `active_entrants` returns addresses in the order of each address's first entry, with its newest entry.
+- **Corrections.** A44's heading says 01:5xZ; it was committed at 01:45:29Z (`da63a3c`). Two expectations in the gate file were corrected by a three-line script rather than the editor (plain text, no byte escapes; the rule of A34.1 exists for escapes and was not the cause of anything here; written because the rule is the rule).
+- **Finding F1 (not mine, not touched).** The suite reads 1 346 passed, 4 failed: the three pin gates named in A41.1, and `tests/test_agent_record_arena_feed.py::test_known_answers_on_the_pinned_arena_outputs`, red since the routine's commit of 00:5xZ today (`3a5d218`, cohort 2 complete); it fails identically with P36 stashed.
+
+**The ask (R199).** `contracts/agent_record/ASK_GDEX.md`, DRAFT: four facts, each with its file (the empty tab as seen 2026-11-08; the two graded cohorts, KEEP 7 / DROP 51 / UNDECIDED 23 and KEEP 25 / DROP 44 / UNDECIDED 1; where the board's realized money sat, A39.1; the door and the census), three asks (the rows in the tab or a link; one signature from the Agent Risk Terminal; the referral question), and what is not asked or claimed. The session sent it to no one. The first shot is entered by `python -m rights_events.arena_door ask --date <D> --to "<who>" --channel "<how>" --operator-word "<the operator's own words that it was delivered>"`.
+
+**R108 (the trace).** As A44. The panel `@ 21:53` (a service with users going through it: the door exists and has none); Musk `@ 20:42` (the limiting factor is now one message the operator has not sent, and no code removes it); Brown `@ 58:48` and the panel `@ 45:11` (the gate that shows where the grader can be fooled is on the branch beside the grader); Musk `@ 52:10` (the signature is checked by arithmetic); the panel `@ 15:47` (the ask, the price of anything and the word "badge" stay the human's).
+
+**What binds next, in order.** (1) The operator's: read `ASK_GDEX.md`, change it, send it or not; the 50th-percentile date is 2026-11-18. (2) The routine's 00:40Z 11-13 run executes 3n for the first time; a refusal is the day's finding. (3) The first outside statement opens P37 (the entrants' capture) the day after it verifies, and not before. (4) Cohort 2's pages (A27 (2)) are still owed to the branch; when they land the door computes cohort 2's census and its board under R195 with no code change. (5) F1's gate and the three pin gates are the operator's or the routine's to amend.
+
+**Income row (R81), 2026-11-12 after A44.1:** 0 USD a day against 165. Nothing on the chain. The door has been tested by nobody outside; whether it is worth anything is one conversation away from being known, in either direction.
