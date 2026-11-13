@@ -1,86 +1,77 @@
 {
- "day": "2026-11-11",
+ "day": "2026-11-12",
  "halted": [
   "CMF_coinflip",
-  "CMM_coinflip_bid",
   "L2F_favorite",
-  "L3T_tape_side",
-  "L4M_resting_bid",
-  "L5M_pulled_bid"
+  "L3T_tape_side"
  ],
  "kind": "l2_halt_line",
  "legs": {
   "CMF_coinflip": {
-   "captures": 5,
-   "from": "05:43",
-   "hours_without": 20,
-   "line": "HALT CMF_coinflip (2026-11-11): 20 of 24 hours without a capture; longest 18 h 17 min from 05:43Z to 24:00Z; resolved calls 43.",
-   "longest_ms": 65820000,
-   "resolved": 43,
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT CMF_coinflip (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
    "source": "the hourly capture",
    "to": "24:00"
   },
   "CMM_coinflip_bid": {
-   "captures": 29598,
-   "from": "00:00",
-   "hours_without": 4,
-   "line": "HALT CMM_coinflip_bid (2026-11-11): 4 of 24 hours without a capture; longest 4 h 34 min from 00:00Z to 04:34Z; resolved calls 181.",
-   "longest_ms": 16473912,
-   "resolved": 181,
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT CMM_coinflip_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 200.",
+   "longest_ms": 43950,
+   "resolved": 200,
    "source": "the book tape",
-   "to": "04:34"
+   "to": "23:15"
   },
   "L2F_favorite": {
-   "captures": 5,
-   "from": "05:43",
-   "hours_without": 20,
-   "line": "HALT L2F_favorite (2026-11-11): 20 of 24 hours without a capture; longest 18 h 17 min from 05:43Z to 24:00Z; resolved calls 43.",
-   "longest_ms": 65820000,
-   "resolved": 43,
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L2F_favorite (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
    "source": "the hourly capture",
    "to": "24:00"
   },
   "L3T_tape_side": {
-   "captures": 5,
-   "from": "05:43",
-   "hours_without": 20,
-   "line": "HALT L3T_tape_side (2026-11-11): 20 of 24 hours without a capture; longest 18 h 17 min from 05:43Z to 24:00Z; resolved calls 43.",
-   "longest_ms": 65820000,
-   "resolved": 43,
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L3T_tape_side (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
    "source": "the hourly capture",
    "to": "24:00"
   },
   "L4M_resting_bid": {
-   "captures": 29598,
-   "from": "00:00",
-   "hours_without": 4,
-   "line": "HALT L4M_resting_bid (2026-11-11): 4 of 24 hours without a capture; longest 4 h 34 min from 00:00Z to 04:34Z; resolved calls 167.",
-   "longest_ms": 16473912,
-   "resolved": 167,
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT L4M_resting_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 205.",
+   "longest_ms": 43950,
+   "resolved": 205,
    "source": "the book tape",
-   "to": "04:34"
+   "to": "23:15"
   },
   "L5M_pulled_bid": {
-   "captures": 29598,
-   "from": "00:00",
-   "hours_without": 4,
-   "line": "HALT L5M_pulled_bid (2026-11-11): 4 of 24 hours without a capture; longest 4 h 34 min from 00:00Z to 04:34Z; resolved calls 41.",
-   "longest_ms": 16473912,
-   "resolved": 41,
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT L5M_pulled_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 64.",
+   "longest_ms": 43950,
+   "resolved": 64,
    "source": "the book tape",
-   "to": "04:34"
+   "to": "23:15"
   }
  },
  "pins": {
-  "l2tape_2026-11-11.jsonl": "8594615bbc1b8f1a32a89a7e08e443d4332ddc407c45af64319f7ce69d984ab9",
-  "maker_2026-11-11.json": "b5feab4b4608c88a23dcb0107d8c19bf7ac54d87eacbcb864a065c44856c0bb8",
-  "outcomes_2026-11-11T0130Z.json": "d043c706f9d1d96687708a79e8c7010f8760eaa8256dc721706b75863ad2f0cd",
-  "outcomes_2026-11-11T0330Z.json": "f85af7092113fd0d14334046fdf31b31c903cce6dc3a96b36cedd18ba302dec0",
-  "outcomes_2026-11-11T0421Z.json": "eb654a549aae1bd450127eb558cfbc14ad6a30dc194654bd0efc27cd1461a34d",
-  "outcomes_2026-11-11T0443Z.json": "25cb13168e30924985cce95b48b1df3450d683b9a1fd3bd7cf5df8a22c8fc471",
-  "outcomes_2026-11-11T0543Z.json": "488267a53955399dadb73564c4958d48a6c895fc2e07d275b11a2115ec09f097",
-  "pulled_2026-11-11.json": "05ebe8d2055ca1a5aab83bf952036bcebadfc4b3d0c5ff07483d51da98c1ef84",
-  "resolved_2026-11-11.json": "bb485bb3de837578897d03f78cc8cc6e0ec36396e944208a830af3f8b1a3ffea"
+  "l2tape_2026-11-12.jsonl": "ebf56f0c94cdb4c745e78097ba47ebd9921441e35abde2db4fda5094690ce5e5",
+  "maker_2026-11-12.json": "df63ac0f0b6e8eee790f10f802d0de870aefbab018adfecfce8314f204c71741",
+  "pulled_2026-11-12.json": "a5a554c5b8b92ec2fdad352b7323175ba7b457bd7ecabfa68e3ea2836c6ba8ed"
  },
  "prereg": "A43 R187"
 }

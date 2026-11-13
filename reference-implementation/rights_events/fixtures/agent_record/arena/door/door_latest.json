@@ -1,6 +1,6 @@
 {
   "kind": "proof_of_outcome_door",
-  "as_of": "2026-11-12",
+  "as_of": "2026-11-13",
   "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/arena/door/door_latest.json",
   "columns": [
     "RANK",
@@ -106,21 +106,70 @@
     },
     {
       "cohort_date": "2026-11-03",
-      "arena_file": "arena_2026-11-03_2026-11-11.json",
-      "capture_file": "capture_ARENA_2026-11-03_2026-11-11.json",
-      "capture_sha256": "c871a7c0b25a02fb948da14214c11190cdc990475488887b3167063035bdd130",
-      "arena_as_of": "2026-11-11",
+      "arena_file": "arena_2026-11-03_2026-11-12.json",
+      "capture_file": "capture_ARENA_2026-11-03_2026-11-12.json",
+      "capture_sha256": "06947f1d8aa2dd18dcbc3b523080e81bc25205714ba1e1d9c59f4484b173ee09",
+      "arena_as_of": "2026-11-12",
       "window": {
         "t0_date": "2026-11-04",
         "t1_date": "2026-11-10",
         "complete": true
       },
       "addresses": 70,
-      "fills_files_on_branch": 0,
-      "pages_on_branch": false,
-      "census": null,
-      "board_under_r195": null,
-      "not_computed": "pages not on the branch (0 of 70 fills files); the census and the trips are not computed"
+      "fills_files_on_branch": 70,
+      "pages_on_branch": true,
+      "census": {
+        "fill_rows": 5926697,
+        "distinct_tids": 5465363,
+        "crossings": 252877,
+        "addresses_with_a_crossing": 27,
+        "largest_pairs": [
+          {
+            "addresses": [
+              "0x7fdafde5cfb5465924316eced2d3715494c517d1",
+              "0xf5d81a135f756ca16544e53c20fc20643ec3ad53"
+            ],
+            "crossings": 68143
+          },
+          {
+            "addresses": [
+              "0x936cf4fb95c30ce83f658b5bbb247e4bb381bb0f",
+              "0xf5d81a135f756ca16544e53c20fc20643ec3ad53"
+            ],
+            "crossings": 36302
+          },
+          {
+            "addresses": [
+              "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+              "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00"
+            ],
+            "crossings": 13623
+          },
+          {
+            "addresses": [
+              "0x5b5d51203a0f9079f8aeb098a6523a13f298c060",
+              "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00"
+            ],
+            "crossings": 13257
+          },
+          {
+            "addresses": [
+              "0xb83de012dba672c76a7dbbbf3e459cb59d7d6e36",
+              "0xf5d81a135f756ca16544e53c20fc20643ec3ad53"
+            ],
+            "crossings": 12955
+          }
+        ]
+      },
+      "board_under_r195": {
+        "what": "the cohort's FULL board rows read by R195's words; not rows of the door: none of these addresses enrolled",
+        "full_rows": 28,
+        "trips_opened_and_closed_in_window": 52,
+        "would_read_keep": 1,
+        "addresses": [
+          "0xdf954bbe619273a56e0cfa90dad8382195dc7d72"
+        ]
+      }
     }
   ],
   "kill_line": {

@@ -1,0 +1,77 @@
+{
+ "day": "2026-11-12",
+ "halted": [
+  "CMF_coinflip",
+  "L2F_favorite",
+  "L3T_tape_side"
+ ],
+ "kind": "l2_halt_line",
+ "legs": {
+  "CMF_coinflip": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT CMF_coinflip (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "CMM_coinflip_bid": {
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT CMM_coinflip_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 200.",
+   "longest_ms": 43950,
+   "resolved": 200,
+   "source": "the book tape",
+   "to": "23:15"
+  },
+  "L2F_favorite": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L2F_favorite (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "L3T_tape_side": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L3T_tape_side (2026-11-12): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "L4M_resting_bid": {
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT L4M_resting_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 205.",
+   "longest_ms": 43950,
+   "resolved": 205,
+   "source": "the book tape",
+   "to": "23:15"
+  },
+  "L5M_pulled_bid": {
+   "captures": 39677,
+   "from": "23:14",
+   "hours_without": 0,
+   "line": "HALT L5M_pulled_bid (2026-11-12): 0 of 24 hours without a capture; longest 0 h 0 min from 23:14Z to 23:15Z; resolved calls 64.",
+   "longest_ms": 43950,
+   "resolved": 64,
+   "source": "the book tape",
+   "to": "23:15"
+  }
+ },
+ "pins": {
+  "l2tape_2026-11-12.jsonl": "ebf56f0c94cdb4c745e78097ba47ebd9921441e35abde2db4fda5094690ce5e5",
+  "maker_2026-11-12.json": "df63ac0f0b6e8eee790f10f802d0de870aefbab018adfecfce8314f204c71741",
+  "pulled_2026-11-12.json": "a5a554c5b8b92ec2fdad352b7323175ba7b457bd7ecabfa68e3ea2836c6ba8ed"
+ },
+ "prereg": "A43 R187"
+}
