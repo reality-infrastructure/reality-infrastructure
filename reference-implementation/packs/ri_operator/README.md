@@ -7,10 +7,10 @@ the one that was written.
 
 Nothing in `engine/` knows this pack exists.
 
-## The seven commands
+## The eight commands
 
 Each lives in `.claude/commands/` at the repository root and ends by appending
-exactly one event with `record.py`.
+events with `record.py`, or with `foresight.py` for the journal.
 
 | Command | The question it answers | Event |
 |---|---|---|
@@ -21,6 +21,7 @@ exactly one event with `record.py`.
 | `/ri-evidence` | What does the source say, in its own words? | `evidence_submitted`, `fetch_logged` |
 | `/ri-scan` | What is the one constraint today, by count, and was the last scan right? | `scan_recorded` |
 | `/ri-week` | What is nobody watching, and did the moves written last week happen? | `move_graded`, `watch_set`, `clock_set`, `week_reviewed` |
+| `/ri-foresight` | What did we expect, written beforehand, and what did the miss teach? | `belief_stated`, `forecast_written`, `forecast_settled`, `sheet_reviewed` |
 
 ## Why each exists
 
@@ -39,6 +40,9 @@ The design follows five published interviews. One line each:
 | A measure can look good and not be measuring the thing. | Brown | `/ri-scan` opens the records the next stage consumes and scores its own last prediction. |
 | Work runs longer than anyone has time to check; trouble shows small first; never rely on one safeguard. | Brown | `/ri-week`: the whisper, cascade and dependency passes. |
 | Review unprepared, and plot the points week over week to see whether they converge. | Musk | `/ri-week` counts the week from the ledger and grades each written move Y or N. |
+| Go back over the calls you got wrong to raise your own hit rate; set a date you expect to miss half the time. | Musk | `/ri-foresight` scores every forecast and aims the middle value to be missed high as often as low. |
+| Thinking adds no information; many tiny updates destroy what was learned. | Schulman, Millidge and O'Neill | Only a settled outcome changes anything, and a belief moves on three misses one way, not on one. |
+| Hold the answer back and predict it from the record. | Patel | The record itself becomes a rival forecaster after five like windows, and the author has to beat it. |
 
 ## Use
 

@@ -73,3 +73,45 @@ dependency; any file outside this worktree.
 - [ ] One real sheet written before its window opens, on the ledger and verified.
 - [ ] That sheet settled after its window closes, reviewed with a cause, and the rival
       compared. This cannot be met before the window closes. Until then: NOT DELIVERED.
+
+## Build and run report — 2026-11-14
+
+Built: `packs/ri_operator/foresight.py` (about 330 lines, standard library only), four
+event types (`belief_stated`, `forecast_written`, `forecast_settled`, `sheet_reviewed`),
+`.claude/commands/ri-foresight.md`, `tests/test_ri_operator_foresight.py` (17 tests).
+
+- [x] `python -m engine.validate ri_operator`: `OK`, 23 event types.
+- [x] Full suite: `1 failed, 819 passed, 1 skipped` (777 + 25 pack + 17 journal; the same known failure).
+- [x] Engine diff against `contract/irv-harness`: 0 lines.
+- [x] Banned nouns: none across the pack and all eight commands.
+- [x] Known answers 1 to 5 held (`test_known_answer_*`).
+- [x] One real sheet written before its window opened: three beliefs and three forecasts
+      for `support-outsourcing`, window 2026-11-15T00:00Z to 2026-11-21T00:00Z, written
+      2026-11-14T17:11Z. Ledger indexes 11 to 16; all six events re-verified.
+- [ ] Settled, reviewed and compared with a rival: NOT DONE. The window closes
+      2026-11-21T00:00Z. The record is a rival only after five like windows.
+
+The sheet, as written:
+
+| Forecast | Value | Belief it rests on |
+|---|---|---|
+| Human replies in the prospect log (surroundings sheet) | 0 / 1 / 3 | cold-reply-rate (0.4) |
+| Rows marked sent, cumulative | 15 / 30 / 60 | sends-in-bursts (0.6) |
+| P(signed clients >= 1) | 0.05 | pilot-needs-chain (0.7), cold-reply-rate |
+
+Disclosures:
+
+1. **The forecasts are the agent's.** No person wrote or confirmed them. They rest on
+   counts taken today and on the week plan's own targets.
+2. **This is one sheet, unsettled.** Nothing about calibration or skill is known. The
+   scoring, review, revision and rival rules have run only on test fixtures.
+3. **The journal is stricter than its source** on belief revision (CONTRACT-3, above).
+   That choice has not been tried on a real record.
+4. **Not ported:** the split of a miss across multiplied factors, the link between
+   surroundings and result in units, per-item models, and the discount between simulated
+   and live results. A buyer who needs those gets them as later work, not from this file.
+5. The command tells the author to forecast the surroundings first. That order is
+   written in the command and is not enforced by the journal.
+
+Delivery status: ri-foresight NOT DELIVERED until the sheet is settled and reviewed on or
+after 2026-11-21.

@@ -17,7 +17,7 @@ from packs.ri_operator import record
 ROOT = Path(__file__).resolve().parents[1]
 PACK_DIR = ROOT / "packs" / "ri_operator"
 COMMANDS_DIR = ROOT.parent / ".claude" / "commands"
-COMMANDS = ("ri-bottleneck", "ri-judgment", "ri-gate", "ri-pack", "ri-evidence", "ri-scan", "ri-week")
+COMMANDS = ("ri-bottleneck", "ri-judgment", "ri-gate", "ri-pack", "ri-evidence", "ri-scan", "ri-week", "ri-foresight")
 
 # PREREG.md "Banned nouns": substring match, case-insensitive.
 BANNED = ("atlas", "hyperliquid", "venue", "clip", "leg", "vps", "pump", "polymarket",
@@ -203,7 +203,8 @@ def test_commands_exist_and_each_ends_in_a_ledger_record():
         text = (COMMANDS_DIR / f"{name}.md").read_text(encoding="utf-8")
         assert text.startswith("---\ndescription:"), name
         assert "$RI_HOME" in text, name
-        assert "packs.ri_operator.record append" in text or "engine.replay" in text, name
+        assert ("packs.ri_operator.record append" in text or "engine.replay" in text
+                or "packs.ri_operator.foresight" in text), name
 
 
 def test_pack_and_commands_carry_no_banned_noun():

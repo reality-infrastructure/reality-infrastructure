@@ -196,3 +196,71 @@ events:
         due: { type: string, minLength: 10, maxLength: 10 }
         source: { type: string, minLength: 1 }
         status: { type: string, enum: [open, closed] }
+  ri_operator.belief_stated:
+    description: "/ri-foresight: one version of one belief the forecasts rest on.  A later version carries the lesson that caused it."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [key, version, statement, because, confidence, lesson, forced, force_evidence]
+      properties:
+        key: { type: string, minLength: 1 }
+        version: { type: integer, minimum: 1 }
+        statement: { type: string, minLength: 1 }
+        because: { type: string, minLength: 1 }
+        confidence: { type: number, minimum: 0, maximum: 1 }
+        lesson: { type: string }
+        forced: { type: boolean }
+        force_evidence: { type: [string, "null"] }
+  ri_operator.forecast_written:
+    description: "/ri-foresight: one forecast of one metric over one window, an interval or a probability, written before the window opened unless marked as hindsight."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [fid, sheet, subject, author, metric, window_start, window_end, lo, mid, hi, p, op, x, beliefs, why, premortem, hindsight]
+      properties:
+        fid: { type: string, minLength: 1 }
+        sheet: { type: string, minLength: 1 }
+        subject: { type: string, minLength: 1 }
+        author: { type: string, minLength: 1 }
+        metric: { type: string, minLength: 1 }
+        window_start: { type: string, minLength: 20 }
+        window_end: { type: string, minLength: 20 }
+        lo: { type: [number, "null"] }
+        mid: { type: [number, "null"] }
+        hi: { type: [number, "null"] }
+        p: { type: [number, "null"] }
+        op: { type: [string, "null"] }
+        x: { type: [number, "null"] }
+        beliefs: { type: array, items: { type: string } }
+        why: { type: string }
+        premortem: { type: string }
+        hindsight: { type: boolean }
+  ri_operator.forecast_settled:
+    description: "/ri-foresight: what the metric turned out to be, where the number was read, and the score that follows from it."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [fid, actual, evidence, held, error, bias, interval_score, event, brier]
+      properties:
+        fid: { type: string, minLength: 1 }
+        actual: { type: number }
+        evidence: { type: string, minLength: 1 }
+        held: { type: [boolean, "null"] }
+        error: { type: [number, "null"] }
+        bias: { type: [number, "null"] }
+        interval_score: { type: [number, "null"] }
+        event: { type: [number, "null"] }
+        brier: { type: [number, "null"] }
+  ri_operator.sheet_reviewed:
+    description: "/ri-foresight: one cause for a scored sheet and the lesson that changes a number next time.  A sheet where everything held is variance."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [sheet, cause, lesson, outside, forced, force_evidence]
+      properties:
+        sheet: { type: string, minLength: 1 }
+        cause: { type: string, enum: [variance, model, overfit, execution, ops, regime, data] }
+        lesson: { type: string, minLength: 1 }
+        outside: { type: array, items: { type: string } }
+        forced: { type: boolean }
+        force_evidence: { type: [string, "null"] }

@@ -18,6 +18,8 @@ forbidden to carry (PREREG.md, banned nouns).
 | ri-scan | `~/hyperliquid/.claude/commands/morning.md` | `c3590257f4cc6ea0b40cd0c5ad00bc43863f4fcb09746a07b1ac06819d68a9c5` |
 | ri-week | `~/hyperliquid/.claude/commands/week.md` | `5eec0aef9b7d61272eaeaea3147a865d240ca3f02ed0300b310cd259caa35911` |
 | ri-week | `~/rich/scan/prompts/disprove.md` (the tripwire test) | `fe47abf0bccad6afb336641ab2dbb9fc4ab5bb9935b50d7a06c649270cf1eb6a` |
+| ri-foresight | `~/hyperliquid/atlas/foresight.py` (rules only) | `709c27c3406029c1eb2c19c925d4032b2fa5e89d22583b0e41a0dbd9567d5332` |
+| ri-foresight | `~/hyperliquid/.claude/commands/hype-foresight.md` | `dce7777c6c526b819c9eb30a3452daf5ad27b98a081f6d77ce5585c1e7d3d3b1` |
 
 ## What changed in the copy
 
@@ -41,6 +43,9 @@ forbidden to carry (PREREG.md, banned nouns).
 - **ri-week:** the eight steps are kept. The instrument that built the sheet is replaced
   by `record.py list`; execution grades, watch rows and clocks became events. The rule
   that nothing is carried a third week is enforced by the event schema.
+- **ri-foresight:** no code was copied. The rules were re-implemented on the standard
+  library over the pack's ledger; CONTRACT-3.md lists rule by rule what was kept and what
+  was left behind, and where the port is stricter than the source.
 
 ## The five interviews
 
