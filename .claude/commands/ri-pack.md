@@ -66,9 +66,13 @@ logged exactly as a successful one is, and is not retried with a looser fence.
 ## `rule <pack>/<agent>` — a verdict on each run
 
 ```bash
-python -m engine.verdicts <pack>/<agent> --pending
+python -m engine.verdicts <pack>/<agent> --pending < /dev/null
 python -m engine.verdicts <pack>/<agent> --run <run_id> --verdict followed|overridden|wrong|n/a --reason "<why>"
 ```
+
+`--pending` prompts for a verdict on standard input after each run it lists. In an
+agent session it is always given an empty input as above, so it lists the first
+pending run and exits; without that it waits for a person who is not there.
 
 - `followed`: the output is what the manual workflow would have produced.
 - `overridden`: usable, but one named field should read differently.

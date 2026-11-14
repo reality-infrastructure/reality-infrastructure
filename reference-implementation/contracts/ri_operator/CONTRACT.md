@@ -195,3 +195,78 @@ its output passes the engine's citation guardrails is unknown.
 Delivery status: ri-bottleneck NOT DELIVERED, ri-judgment NOT DELIVERED, ri-gate
 NOT DELIVERED, ri-pack NOT DELIVERED, ri-evidence NOT DELIVERED (each: built and
 tested, no real run).
+
+## Second gate — answered 2026-11-14
+
+Answered from the five transcripts at the operator's instruction, except where the
+operator acted directly.
+
+- **Spend.** The operator supplied a model-provider key during the session, which is the
+  authorisation. The transcripts set its size: Musk, make the mistakes at small scale;
+  Naval, take bets whose downside is limited and never one that can ruin; Brown, do not
+  trust a checker that has not itself been evaluated; Patel, the heaviest users of agents
+  are the ones spending on them; the Schulman panel, a realistic run tells more than a
+  fixture. Ruling: one fenced disprover run, no more, before anything is concluded about it.
+- **The real runs: go**, read-only on tier-one.
+- **The claim for /ri-evidence.** Musk states that customer service is about one percent
+  of the world economy, close to a trillion dollars; tier-one's BUSINESS.md line 11 rests on
+  it. Claim `tier1-market-size-01`. Hypotheses fixed before any source was opened: (H1)
+  published estimates put the worldwide market near a trillion dollars a year; (H2)
+  published estimates are below half a trillion. Fixed by the agent; no person confirmed
+  them, which the command asks for.
+
+## Run report — 2026-11-14
+
+Store: `reference-implementation/.harness/engine.sqlite3` in the worktree. It is ignored by
+git, so the ledger exists on this machine only. Ten ledger entries; final root
+`dbc97b2c9e000fad3d44e919d26455644755909051bf7a52e6fdf414ded2eced`. All nine events re-verified
+against the ledger after the last write.
+
+| Command | What ran | Record | Proof |
+|---|---|---|---|
+| ri-bottleneck | tier-one's flow from prospect list to billed ticket, measured from its store and pipeline file | event `bf661f2d-7602-453e-bdaf-b3247f7b700b` | `record verify` OK |
+| ri-judgment | the decision to send by hand daily before automating or changing market | event `f8640bac-19fe-4e8b-b95b-f944f25a054a` | `record verify` OK |
+| ri-gate | request `4f290c6a-aeb1-48d3-9935-e18db87d948f`; fenced disprover run `9ce410fd-fab4-4499-8974-2c5e11665ba7`, cost $0.0137; verdict event `3d05ba72-60f8-4421-8f14-4776be96f643` | verdict HOLD, G1 to G8 all failed | `engine.replay` OK |
+| ri-evidence | three sources tried (two read, one refused), two excerpts submitted | fetch events `e5671260`, `f9cdd5b7`, `0eb8431e`; evidence events `ee577e01`, `73bcb44b` | verified in the sweep |
+| ri-pack | not run on tier-one | none | none |
+
+What the runs found, as recorded and not as concluded here:
+
+- Bottleneck: throughput 0 billed tickets; state STARVED; constraint named as the send
+  stage (15 sends, all on one day, eight days after the lists existed; every later stage has
+  zero input). Prediction not tested. No change made. Next constraint UNKNOWN.
+- Judgment: outcome PROCEED-REVERSIBLE-PART. The independent root is UNTESTABLE this
+  session: the only record of sends and replies is the sender's own log.
+- Evidence: both excerpts were filed under H2 and both are scoped narrower than the claim
+  (software only; scope undefined). Nothing was found for H1 by search, and search pages
+  are not sources. The one page that might bear on labour cost refused the fetch and was
+  not read. The claim is unresolved.
+
+Disclosures:
+
+1. **The disprover failed all eight checks on its only run.** Its instructions say a check
+   that cannot be decided does not hold. One run cannot show whether it can tell a sound
+   request from an unsound one. It has never returned PROCEED. Until it is shown a request
+   that should pass, its HOLD is weak evidence. The run awaits a person's verdict
+   (`human_verdict` is empty); none was entered.
+2. **The gate request was written by this session**, which also built the pack. The action
+   belongs to tier-one's owner; the session transcribed it and listed the assumptions. The
+   disprover saw only the event.
+3. **`engine.verdicts --pending` waits on standard input.** It hung a command for two
+   minutes during this run and was stopped. Nothing was written. `ri-pack.md` now passes it
+   an empty input.
+4. **The key was pasted on the wrong line of `.env`** and was moved to the right one by a
+   script that did not print it. `.env` is excluded through `.git/info/exclude`.
+5. **`/ri-pack new` on tier-one would stop at its second step:** tier-one has 0 tickets from
+   a real client, and fewer than ten real cases is a STOP. The disprover run exercised
+   `run` and `prove`, but it is already counted for ri-gate and is not counted twice.
+
+Delivery status, by the closed vocabulary:
+
+- ri-bottleneck: DELIVERED
+- ri-judgment: DELIVERED
+- ri-gate: DELIVERED (with disclosure 1)
+- ri-evidence: DELIVERED
+- ri-pack: NOT DELIVERED (no real run of its own)
+
+Not pushed. The contract is not DONE: one command is undelivered and push is part of DONE.
