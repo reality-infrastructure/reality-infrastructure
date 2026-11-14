@@ -1,7 +1,9 @@
 # CONTRACT: RI-OPERATOR-3 — /ri-foresight
 
 ```
-status:   opened 2026-11-14 on the operator's order ("use all 5 transcripts to build
+status:   PARKED 2026-11-14: built, one real sheet written, nothing left to build.
+          It waits on a date and is listed in contracts/queue/ri-operator-waiting.md.
+          Opened 2026-11-14 on the operator's order ("use all 5 transcripts to build
           /ri-foresight"), with RI-OPERATOR and RI-OPERATOR-2 both not DONE. Third
           contract open at once on this branch, against the repository's rule; recorded.
 branch:   contract/ri-operator

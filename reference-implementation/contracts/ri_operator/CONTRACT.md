@@ -1,7 +1,10 @@
 # CONTRACT: RI-OPERATOR — eight operator commands as one pack on the harness
 
 ```
-status:   PLAN GATE (no code written; nothing pushed)
+status:   CLOSED 2026-11-14 on the operator's order ("close and push the five") for the
+          four commands delivered here: ri-bottleneck, ri-judgment, ri-gate, ri-evidence.
+          ri-pack is not delivered and moves to contracts/queue/ri-operator-waiting.md.
+          The text below is the record as it was written, gate by gate; see CLOSE.md.
 branch:   contract/ri-operator, cut from contract/irv-harness at 1be79e5
 baseline: 777 passed, 1 failed, 1 skipped (2026-11-14, `python -m pytest -q` from
           reference-implementation/ in the worktree C:\Users\newce\ri-operator).

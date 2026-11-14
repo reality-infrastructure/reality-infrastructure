@@ -1,7 +1,10 @@
 # CONTRACT: RI-OPERATOR-2 — /ri-scan and /ri-week
 
 ```
-status:   opened 2026-11-14 on the operator's order ("use all 5 transcripts to build
+status:   CLOSED 2026-11-14 on the operator's order ("close and push the five") for
+          ri-scan, delivered. ri-week is not delivered and moves to
+          contracts/queue/ri-operator-waiting.md. See CLOSE.md.
+          Opened 2026-11-14 on the operator's order ("use all 5 transcripts to build
           /ri-scan and /ri-week"), while RI-OPERATOR is not DONE (ri-pack undelivered,
           branch unpushed). The repository's rule is one contract at a time; the operator
           has overruled it for this contract and that is recorded here, not hidden.
