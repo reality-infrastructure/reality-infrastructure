@@ -4,28 +4,28 @@
  "leg_of_record": "L5M_pulled_bid",
  "legs": {
   "CMM_coinflip_bid": {
-   "n": 200,
-   "sum": -74.10488
+   "n": 413,
+   "sum": -182.0494
   },
   "L4M_resting_bid": {
-   "mean": -0.278777,
-   "n": 205,
+   "mean": -0.290424,
+   "n": 388,
    "read_day": "2026-11-12",
-   "sd": 0.842621,
-   "se": 0.058851,
+   "sd": 0.83685,
+   "se": 0.042485,
    "status": "RETIRED",
-   "sum": -57.149189,
+   "sum": -112.684645,
    "why": "kill 1: the payoff sum -57.149 is at or below -10.000"
   },
   "L5M_pulled_bid": {
-   "mean": 0.056662,
-   "n": 64,
-   "read_day": "2026-11-12",
-   "sd": 0.785775,
-   "se": 0.098222,
+   "mean": -0.067378,
+   "n": 130,
+   "read_day": "2026-11-13",
+   "sd": 0.79201,
+   "se": 0.069464,
    "status": "CONTINUES",
-   "sum": 3.626352,
-   "why": "64 shots, sum +3.626"
+   "sum": -8.759104,
+   "why": "130 shots, sum -8.759"
   }
  },
  "missing_tables": [],
@@ -33,10 +33,12 @@
  "partial_days_not_counted": [],
  "pins": {
   "maker_2026-11-12.json": "df63ac0f0b6e8eee790f10f802d0de870aefbab018adfecfce8314f204c71741",
-  "pulled_2026-11-12.json": "a5a554c5b8b92ec2fdad352b7323175ba7b457bd7ecabfa68e3ea2836c6ba8ed"
+  "maker_2026-11-13.json": "5b04a4e18fb5248403d4bd3c1e90f65eb82adb2386fa046e3684de9a1cff7818",
+  "pulled_2026-11-12.json": "a5a554c5b8b92ec2fdad352b7323175ba7b457bd7ecabfa68e3ea2836c6ba8ed",
+  "pulled_2026-11-13.json": "8c522c59f25632be376a8b78a735cfe5c0689d195a25bcf144f8363c48f95557"
  },
  "prereg": "A43 R185, R189, R190",
- "read_on": "2026-11-13",
+ "read_on": "2026-11-14",
  "reads": [
   {
    "CMM_coinflip_bid": {
@@ -54,6 +56,23 @@
     "sum": 3.626352
    },
    "day": "2026-11-12"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 413,
+    "sum": -182.0494
+   },
+   "L4M_resting_bid": {
+    "n": 388,
+    "status": "RETIRED",
+    "sum": -112.684645
+   },
+   "L5M_pulled_bid": {
+    "n": 130,
+    "status": "CONTINUES",
+    "sum": -8.759104
+   },
+   "day": "2026-11-13"
   }
  ],
  "rule": {
@@ -67,5 +86,5 @@
   "status": "OPEN",
   "why": "a leg is alive or cleared"
  },
- "through_day": "2026-11-12"
+ "through_day": "2026-11-13"
 }
