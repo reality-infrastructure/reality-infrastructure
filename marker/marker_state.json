@@ -1,5 +1,5 @@
 {
- "last_fill_poll_ms": 1794621951509,
+ "last_fill_poll_ms": 1794625551739,
  "tape_offsets": {
   "2026-10-30": 2240081,
   "2026-10-31": 2304049,
@@ -16,41 +16,9 @@
   "2026-11-11": 2321156,
   "2026-11-12": 2283279,
   "2026-11-13": 2309568,
-  "2026-11-14": 202034
+  "2026-11-14": 298349
  },
  "open": {
-  "C1:BTC": {
-   "family": "C1",
-   "coin": "BTC",
-   "direction": -1,
-   "entry_ms": 1794605680246,
-   "entry_px": 68314.5,
-   "signal_ms": 1794605640000,
-   "signal": {
-    "minute": 1294,
-    "long_share": 0.6025652136233642
-   },
-   "entry_spread_bps": 0.07320376267340141,
-   "entry_spread_source": "l2Book:0fdf38943e8cf871d805b998f2ad57b5b0f4726c8bcad144002093ccbec5066e",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
-  "F4:NEAR": {
-   "family": "F4",
-   "coin": "NEAR",
-   "direction": -1,
-   "entry_ms": 1794605922220,
-   "entry_px": 3.49565,
-   "signal_ms": 1794605884048,
-   "signal": {
-    "leader": "0xecb63caa47c7c4e77f60f1ce858cf28dc2b82b00",
-    "leader_px": 3.4934,
-    "leader_sz": 8877.2,
-    "leader_notional": 31011.61048
-   },
-   "entry_spread_bps": 0.14300218793377714,
-   "entry_spread_source": "l2Book:3e7c20a5b612238ab2914b220560513b32c66d7aad29127d86dba5269d2622af",
-   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
-  },
   "F4:SOL": {
    "family": "F4",
    "coin": "SOL",
@@ -119,21 +87,85 @@
    "entry_spread_source": "l2Book:9d3ff12d99c0b21c4ac0d2ff1992b26329a55d8631e6e79bad79cb3acd5d5096",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   },
+  "C1:SOL": {
+   "family": "C1",
+   "coin": "SOL",
+   "direction": -1,
+   "entry_ms": 1794622508286,
+   "entry_px": 76.5885,
+   "signal_ms": 1794622500000,
+   "signal": {
+    "minute": 135,
+    "long_share": 0.6544
+   },
+   "entry_spread_bps": 0.06524136041223172,
+   "entry_spread_source": "l2Book:a09781c8d2d940dbe5ff90a13d9608a37bb32f15cada8393b53ac812f5d71102",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
   "F4:ETH": {
    "family": "F4",
    "coin": "ETH",
    "direction": 1,
-   "entry_ms": 1794618724671,
-   "entry_px": 1928.55,
-   "signal_ms": 1794618707232,
+   "entry_ms": 1794623661878,
+   "entry_px": 1893.85,
+   "signal_ms": 1794623654092,
    "signal": {
-    "leader": "0xf5d81a135f756ca16544e53c20fc20643ec3ad53",
-    "leader_px": 1928.5,
-    "leader_sz": 7.2532,
-    "leader_notional": 13987.796199999999
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 1894.0,
+    "leader_sz": 5.8463,
+    "leader_notional": 11072.8922
    },
-   "entry_spread_bps": 0.25941010142911375,
-   "entry_spread_source": "l2Book:162585a144ffb648db7811e42afa8344d35bd4093c261e1229d56a3da4feec66",
+   "entry_spread_bps": 0.26365050489047703,
+   "entry_spread_source": "l2Book:6e30bd7f32c09a78459c721c6ff234e07728f49c44db4cd5076c0fcedfed08ae",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F6:ETH": {
+   "family": "F6",
+   "coin": "ETH",
+   "direction": 1,
+   "entry_ms": 1794623661878,
+   "entry_px": 1893.85,
+   "signal_ms": 1794623654092,
+   "signal": {
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 1894.0,
+    "leader_sz": 5.8463,
+    "leader_notional": 11072.8922
+   },
+   "entry_spread_bps": 0.26362270318755815,
+   "entry_spread_source": "l2Book:c0327829cca88822ddf3ec4b56812d317c10875afb97ac5203a4477b64fbca68",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "F7:ETH": {
+   "family": "F7",
+   "coin": "ETH",
+   "direction": 1,
+   "entry_ms": 1794623661878,
+   "entry_px": 1893.85,
+   "signal_ms": 1794623654092,
+   "signal": {
+    "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+    "leader_px": 1894.0,
+    "leader_sz": 5.8463,
+    "leader_notional": 11072.8922
+   },
+   "entry_spread_bps": 0.26362270318755815,
+   "entry_spread_source": "l2Book:c0327829cca88822ddf3ec4b56812d317c10875afb97ac5203a4477b64fbca68",
+   "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
+  },
+  "C1:BTC": {
+   "family": "C1",
+   "coin": "BTC",
+   "direction": 1,
+   "entry_ms": 1794624840383,
+   "entry_px": 67648.5,
+   "signal_ms": 1794624840000,
+   "signal": {
+    "minute": 174,
+    "long_share": 0.7065127782357791
+   },
+   "entry_spread_bps": 0.5913660555884093,
+   "entry_spread_source": "l2Book:ec41d8fc5e88c3cf161a8e66be071e27b136acb87590613df6a8414ac4262356",
    "seed": "37ee0a556814e53273db164e3b074bac29bc42ad"
   }
  },
@@ -557,6 +589,16 @@
    "minute": 1294,
    "direction": 1,
    "long_share": 0.6025652136233642
+  },
+  "2026-11-14:SOL": {
+   "minute": 135,
+   "direction": -1,
+   "long_share": 0.6544
+  },
+  "2026-11-14:BTC": {
+   "minute": 174,
+   "direction": 1,
+   "long_share": 0.7065127782357791
   }
  },
  "void_days": [
@@ -125044,7 +125086,661 @@
    1,
    1,
    1,
-   1
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1,
+   1,
+   1,
+   1,
+   -1,
+   1,
+   -1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   -1,
+   -1,
+   -1,
+   -1,
+   -1
   ]
  },
  "seed": "37ee0a556814e53273db164e3b074bac29bc42ad",
@@ -317183,6 +317879,8062 @@
    "coin": "HYPE",
    "px": 71.158,
    "sz": 5.57,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622000320,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.996,
+   "sz": 4.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622035775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.944,
+   "sz": 20.63,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622039909,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.955,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622039909,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.955,
+   "sz": 64.94,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622039909,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.955,
+   "sz": 4.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622039909,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.955,
+   "sz": 20.63,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 4.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 64.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042421,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622042421,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.925,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622043233,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.907,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622045304,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.904,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622045304,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.904,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 64.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622048297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.895,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 64.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622051286,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.883,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054259,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 8.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 55.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 8.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622054685,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622057052,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.888,
+   "sz": 0.42,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 8.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 55.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 0.42,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622063373,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622064054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622064054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.87,
+   "sz": 19.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 0.42,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 8.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 9.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 5.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 1.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 1.93,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622073276,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.884,
+   "sz": 19.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622074868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.779,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622074868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.775,
+   "sz": 8.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622074868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.775,
+   "sz": 2.9,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622079124,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.767,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622079325,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.767,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083329,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 7.71,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083329,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 24.62,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 18.67,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 8.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 8.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 18.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 10.52,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 2.9,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 24.82,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622083529,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622094226,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.765,
+   "sz": 0.71,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 9.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 12.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 10.1,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 8.57,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 3.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622102381,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.778,
+   "sz": 8.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 12.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 8.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 3.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622123038,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.758,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 10.1,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 8.46,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 3.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 2.72,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 5.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 12.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622127317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.777,
+   "sz": 11.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622134107,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.757,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622159497,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.908,
+   "sz": 35.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622217510,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.712,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 67.89,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 5.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622232727,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.745,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 22.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 5.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 67.89,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622363870,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.78,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622414115,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.763,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622446664,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.741,
+   "sz": 3.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622446664,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.741,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622446664,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.741,
+   "sz": 8.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 3.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 8.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622540716,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.784,
+   "sz": 67.89,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622590641,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.743,
+   "sz": 3.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622590641,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.743,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622591901,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 6.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 43.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 24.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 3.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622592868,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.703,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 3.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 6.54,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 11.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 6.91,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 20.44,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622597180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.666,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622673540,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.372,
+   "sz": 3.33,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 11.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 5.63,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622678637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.571,
+   "sz": 34.07,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 11.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 5.63,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622691931,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.621,
+   "sz": 34.07,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 11.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 0.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 34.07,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622692367,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.609,
+   "sz": 5.63,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 9.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 5.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 0.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 11.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622695415,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.575,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622697026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.556,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622697026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.556,
+   "sz": 4.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622697891,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.556,
+   "sz": 4.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622697891,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.556,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 9.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 4.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 1.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 11.57,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622698450,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.546,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 25.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 1.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 2.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 5.11,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622719277,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.605,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 25.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 4.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723036,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 2.64,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 1.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 25.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 4.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622723576,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 2.64,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 4.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 11.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 25.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 1.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622725070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.538,
+   "sz": 22.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.44,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.21,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 17.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 1.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 15.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 13.31,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 1.35,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622726044,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.534,
+   "sz": 4.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727395,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 30.65,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 8.37,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 7.71,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622727461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 19.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 21.43,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 5.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 8.37,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728059,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.507,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 2.58,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 8.37,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 21.43,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 5.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622728930,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622729269,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.506,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 34.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622733615,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.499,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 34.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622735449,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.495,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622736337,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.517,
+   "sz": 0.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622737963,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.55,
+   "sz": 11.74,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622737963,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.551,
+   "sz": 0.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622741751,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.604,
+   "sz": 7.73,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622746776,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.624,
+   "sz": 51.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622746776,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.624,
+   "sz": 48.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622747988,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.619,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622749699,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.615,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 34.87,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622751321,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.602,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 16.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 17.88,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622753004,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.564,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622754401,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.551,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622754401,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.551,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 18.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 1.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 16.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622756228,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.543,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759085,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 0.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 1.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 16.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 18.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622759816,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.53,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622763750,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.553,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622763750,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.553,
+   "sz": 1.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622763750,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.553,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622763750,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.553,
+   "sz": 18.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 1.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 18.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622765460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.54,
+   "sz": 16.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622769337,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.512,
+   "sz": 17.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622769337,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.512,
+   "sz": 82.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 1.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 16.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 18.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622772164,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.513,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 1.96,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 16.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 4.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 1.64,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 16.51,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 17.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 17.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622786837,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.504,
+   "sz": 7.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622795026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 10.51,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622795026,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 23.17,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.44,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.19,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.48,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.42,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.38,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.79,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.47,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.15,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.79,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.77,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622796990,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.448,
+   "sz": 20.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622802227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.478,
+   "sz": 5.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622802227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 27.55,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622802227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 187.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622802227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 79.09,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622802227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 65.45,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.479,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.48,
+   "sz": 8.03,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622803128,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.48,
+   "sz": 48.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622807802,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.434,
+   "sz": 5.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 4.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 25.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 11.2,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 1.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622808023,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.432,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622811180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.446,
+   "sz": 18.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622811180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.446,
+   "sz": 6.19,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622811180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.446,
+   "sz": 1.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622811180,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.446,
+   "sz": 40.21,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813125,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.421,
+   "sz": 40.21,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813125,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.421,
+   "sz": 6.19,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813125,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.421,
+   "sz": 18.81,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813125,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.421,
+   "sz": 1.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813125,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.421,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.25,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.11,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.21,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.59,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.53,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.36,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.76,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 21.53,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 1.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 11.18,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622813594,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.407,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 5.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 15.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622817925,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.368,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622818318,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.366,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821610,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 15.84,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821682,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 5.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821682,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 5.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821747,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 44.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821747,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821747,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 6.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622821747,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 15.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 15.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823054,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 6.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622823382,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.349,
+   "sz": 0.49,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 76.41,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 15.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622826003,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.3,
+   "sz": 5.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622827645,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.312,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622827645,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.312,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622827645,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.309,
+   "sz": 15.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622830394,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.338,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622830394,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.333,
+   "sz": 15.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831719,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.355,
+   "sz": 71.37,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831719,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.355,
+   "sz": 44.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831719,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.356,
+   "sz": 0.22,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831719,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.356,
+   "sz": 71.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831719,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.356,
+   "sz": 12.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622831920,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.354,
+   "sz": 48.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.36,
+   "sz": 32.92,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.36,
+   "sz": 38.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.36,
+   "sz": 35.75,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.36,
+   "sz": 6.82,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.361,
+   "sz": 0.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.361,
+   "sz": 12.66,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.361,
+   "sz": 11.92,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.363,
+   "sz": 0.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.363,
+   "sz": 25.33,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.363,
+   "sz": 23.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.367,
+   "sz": 6.24,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.372,
+   "sz": 0.9,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622832461,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.372,
+   "sz": 1.9,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622835296,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.375,
+   "sz": 8.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622836897,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.379,
+   "sz": 17.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622836897,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.379,
+   "sz": 39.61,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622836897,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.381,
+   "sz": 43.34,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622839309,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.374,
+   "sz": 5.68,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622841211,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.372,
+   "sz": 5.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622844545,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.378,
+   "sz": 17.05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622844802,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.366,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622847238,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.358,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 28.25,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 0.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 48.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 7.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 8.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 5.99,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622852024,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.331,
+   "sz": 1.12,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622861342,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3936,
+   "sz": 21.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622868510,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.282,
+   "sz": 48.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622868510,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.282,
+   "sz": 0.39,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622868510,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.282,
+   "sz": 6.79,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622893863,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.268,
+   "sz": 28.25,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622895839,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.241,
+   "sz": 56.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622900468,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.171,
+   "sz": 7.29,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622901559,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3837,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 0.6351,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.4,
+   "sz": 13.4923,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.4,
+   "sz": 0.1374,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.4,
+   "sz": 2.647,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.3,
+   "sz": 18.0882,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.012,
+   "sz": 109.69,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.012,
+   "sz": 29.65,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.012,
+   "sz": 13.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903213,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.011,
+   "sz": 47.66,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 3.9259,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 13.6314,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 0.6351,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 0.0062,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1908.5,
+   "sz": 16.8014,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794622903616,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67762.0,
+   "sz": 0.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622908755,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.036,
+   "sz": 0.13,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622921977,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.154,
+   "sz": 1.65,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622921977,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.156,
+   "sz": 0.43,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622921977,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.159,
+   "sz": 0.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622924791,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.173,
+   "sz": 8.59,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 6.51,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 19.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 19.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 19.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 19.16,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622934775,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.04,
+   "sz": 16.85,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622960809,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.089,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622975403,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67709.0,
+   "sz": 0.45684,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794622983460,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.24,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623028301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67758.0,
+   "sz": 0.36899,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623155973,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67815.0,
+   "sz": 0.08785,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623281740,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.73,
+   "sz": 0.46,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623281740,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.726,
+   "sz": 13.69,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623281740,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.724,
+   "sz": 66.65,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623281915,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.72,
+   "sz": 6.36,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623281915,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.718,
+   "sz": 13.47,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623281915,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.718,
+   "sz": 80.17,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.4,
+   "sz": 2.0358,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.0,
+   "sz": 9.3582,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.0,
+   "sz": 1.25,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.0,
+   "sz": 20.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.0,
+   "sz": 0.0069,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300353,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.0,
+   "sz": 2.3491,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300495,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.7,
+   "sz": 0.5257,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300495,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.7,
+   "sz": 8.8588,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300495,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.5,
+   "sz": 0.5257,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300495,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.5,
+   "sz": 0.2828,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623300495,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1890.2,
+   "sz": 24.807,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623303641,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67198.0,
+   "sz": 3.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623304283,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67205.0,
+   "sz": 1.25,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623310684,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67112.0,
+   "sz": 0.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623314700,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3645,
+   "sz": 387.4,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623317015,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3626,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623340528,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67137.0,
+   "sz": 0.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623340637,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.649,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623351599,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67159.0,
+   "sz": 0.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623352987,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.472,
+   "sz": 64.24,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623352987,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.471,
+   "sz": 35.76,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623361317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67065.0,
+   "sz": 0.23477,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623361317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67065.0,
+   "sz": 0.00581,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623361317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67065.0,
+   "sz": 0.0403,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623361317,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67065.0,
+   "sz": 0.19719,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623363302,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66984.0,
+   "sz": 0.19311,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623363302,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66984.0,
+   "sz": 0.00408,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623363365,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66984.0,
+   "sz": 0.23477,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623364378,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66933.0,
+   "sz": 0.06804,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623364983,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.01052,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623364983,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.002,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365048,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.00798,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365048,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.017,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365099,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.04029,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365099,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.00474,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365099,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.0007,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365179,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.00195,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365467,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.00417,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623365883,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66925.0,
+   "sz": 0.00194,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623367185,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66901.0,
+   "sz": 0.00417,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623367185,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66898.0,
+   "sz": 0.14348,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623367696,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.142,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623367810,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.158,
+   "sz": 66.44,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623371070,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1881.1,
+   "sz": 11.1876,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623371227,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1881.1,
+   "sz": 0.035,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623371692,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.347,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623371692,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.223,
+   "sz": 36.51,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623371692,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.222,
+   "sz": 42.37,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623371692,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.204,
+   "sz": 21.12,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623390110,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3621,
+   "sz": 141.3,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623406720,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3675,
+   "sz": 65.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623408483,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67225.0,
+   "sz": 0.14348,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623460062,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67086.0,
+   "sz": 0.49764,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623477297,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1883.6,
+   "sz": 1.9765,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623477404,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1883.6,
+   "sz": 0.8662,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623481020,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 66965.0,
+   "sz": 0.0031,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623482584,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.062,
+   "sz": 49.58,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623482584,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.062,
+   "sz": 50.42,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623486597,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ETH",
+   "px": 1881.5,
+   "sz": 1.9765,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623655341,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67252.0,
+   "sz": 0.00622,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623661531,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67259.0,
+   "sz": 7e-05,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623661531,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67259.0,
+   "sz": 0.01624,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67384.0,
+   "sz": 0.18718,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67384.0,
+   "sz": 0.125,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67384.0,
+   "sz": 0.125,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67384.0,
+   "sz": 0.0535,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67384.0,
+   "sz": 0.0031,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623713620,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67382.0,
+   "sz": 0.00622,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623715513,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.606,
+   "sz": 2.67,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623715513,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.605,
+   "sz": 52.07,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623715513,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.603,
+   "sz": 45.26,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623737388,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.5,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623737487,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.5,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794623847022,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3883,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623888273,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "BTC",
+   "px": 67380.0,
+   "sz": 0.5,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794623979929,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.3905,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624321062,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.162,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624365972,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.194,
+   "sz": 100.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624457512,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.812,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624461861,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 75.852,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624593689,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.121,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624594485,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.173,
+   "sz": 6.39,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624655349,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.044,
+   "sz": 1.1,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624668014,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4185,
+   "sz": 1000.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624696031,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ZEC",
+   "px": 936.36,
+   "sz": 10.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624708001,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624708843,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624709035,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624709838,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624709838,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624710534,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624714767,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624714767,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.17,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794624767066,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4196,
+   "sz": 74.9,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624767066,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4196,
+   "sz": 330.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624767066,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4197,
+   "sz": 41.1,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624767066,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4198,
+   "sz": 330.8,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624767066,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4198,
+   "sz": 222.4,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624990301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.347,
+   "sz": 2.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624990301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.347,
+   "sz": 50.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794624990301,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.347,
+   "sz": 47.73,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625028749,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.266,
+   "sz": 50.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625028749,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.266,
+   "sz": 2.27,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625028749,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.266,
+   "sz": 47.73,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625069577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.264,
+   "sz": 14.43,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625069577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.264,
+   "sz": 50.0,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625069577,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.264,
+   "sz": 35.57,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625071172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.234,
+   "sz": 21.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625071172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.234,
+   "sz": 28.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625071172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.234,
+   "sz": 14.43,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625071172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.234,
+   "sz": 6.59,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625071172,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.234,
+   "sz": 28.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625187789,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.191,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625187789,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.191,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625188480,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.191,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625189281,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.191,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625190098,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.191,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 22.97,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 6.01,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 28.98,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 21.02,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 6.59,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 9.6,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625241918,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "HYPE",
+   "px": 70.452,
+   "sz": 4.83,
+   "dir": "Close Short"
+  },
+  {
+   "ms": 1794625268042,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "SOL",
+   "px": 76.187,
+   "sz": 100.0,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625340867,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ZEC",
+   "px": 935.0,
+   "sz": 5.82,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625340867,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "ZEC",
+   "px": 935.0,
+   "sz": 4.18,
+   "dir": "Close Long"
+  },
+  {
+   "ms": 1794625494703,
+   "leader": "0xfc667adba8d4837586078f4fdcdc29804337ca06",
+   "coin": "NEAR",
+   "px": 3.4198,
+   "sz": 1000.0,
    "dir": "Close Short"
   }
  ]
