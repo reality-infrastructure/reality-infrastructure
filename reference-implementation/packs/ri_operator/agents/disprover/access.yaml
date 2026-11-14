@@ -1,0 +1,10 @@
+# Deny by default.  The disprover reads the event log and appends its one verdict.
+# No files, no network, no keys: it cannot open the author's working notes, so it
+# cannot agree with them by reading what the author read.
+tables:
+  read: [events]
+  write: [events]
+files:
+  read: []
+  write: []
+network: []

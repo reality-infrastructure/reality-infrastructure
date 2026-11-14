@@ -1,0 +1,27 @@
+name: disprover
+role: worker
+version: 0.1.0
+model:
+  provider: openai_compat
+  name: deepseek-flash
+  system_prompt_file: prompts/system.md
+  max_tokens: 16000
+grounding:
+  sources:
+    - { kind: event_query, ref: "event_type=ri_operator.gate_requested", limit: 20 }
+tools: [events.query, events.append]
+memory:
+  working: { max_tokens: 60000 }
+  long_term: { event_queries: [ { event_type: ri_operator.gate_verdict, limit: 10 } ], prior_outputs: 0 }
+  compaction: null
+loop:
+  max_iterations: 3
+  search_width: 1
+  stop_when: all_guardrails_pass
+safeguards:
+  output_schema: output.schema.json
+  guardrails: [schema_valid, no_invented_keys, citations_resolve, no_fabrication, bounded_size, cited_values_match]
+  verifier: null
+  confidence_field: confidence
+metrics:
+  items_evaluated_field: checks

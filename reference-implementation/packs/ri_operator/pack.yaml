@@ -1,0 +1,12 @@
+name: ri_operator
+description: "Operator commands whose outputs are ledger events: the binding constraint, the pre-commit judgment, the disconfirmation gate, and sourced evidence."
+# Real packs are never fixtures.  Only packs/_reference may set this true.
+fixture: false
+# What an operator event is about.
+entity_types: [system, decision, action, claim]
+max_specialists: 1
+tables: {}
+modules:
+  tools: []
+  guardrails: []
+  verifiers: []

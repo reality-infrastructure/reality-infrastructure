@@ -1,0 +1,112 @@
+# Every command in this pack ends in exactly one of these events.  The engine adds
+# ri_operator.verdict, ri_operator.correction, ri_operator.command_blocked,
+# ri_operator.latency_breach and compaction.summary.  A figure nobody measured is
+# written as the string UNKNOWN; it is never left out and never estimated.
+events:
+  ri_operator.constraint_named:
+    description: "/ri-bottleneck finished: the one binding constraint of a system, the measurement that named it, and the verified change in throughput."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [system, state, unit_of_flow, throughput_command, throughput_before, throughput_after, constraint, constraint_class, prediction, prediction_held, action, result, next_binding, parking_lot, unknowns]
+      properties:
+        system: { type: string, minLength: 1 }
+        state: { type: string, enum: [DARK, DEAD, GATED, STARVED, SATURATED, THRASHING, SLOW-BUT-HEALTHY, UNSCOPED] }
+        unit_of_flow: { type: string, minLength: 1 }
+        throughput_command: { type: string, minLength: 1 }
+        throughput_before: { type: string, minLength: 1 }
+        throughput_after: { type: string, minLength: 1 }
+        constraint: { type: string, minLength: 1 }
+        constraint_class: { type: string, enum: [capacity, latency, serialisation, queue, rework, starvation, cadence, policy, knowledge, gate, UNKNOWN] }
+        prediction: { type: string, minLength: 1 }
+        prediction_held: { type: string, enum: ["yes", "no", "not-tested"] }
+        action: { type: string, minLength: 1 }
+        result: { type: string, minLength: 1 }
+        next_binding: { type: string, minLength: 1 }
+        parking_lot: { type: array, items: { type: string } }
+        unknowns: { type: array, items: { type: string } }
+  ri_operator.judgment_run:
+    description: "/ri-judgment finished: the eight steps on one decision, whether the disproving fact was looked for, and the outcome."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [decision, disproving_fact, looked, independent_root, ruin_reachable, load_bearing_assumption, who_profits, probability, best_alternative, reversible_part, irreversible_part, hot, outcome]
+      properties:
+        decision: { type: string, minLength: 1 }
+        disproving_fact: { type: string, minLength: 1 }
+        looked: { type: boolean }
+        independent_root: { type: string, minLength: 1 }
+        ruin_reachable: { type: boolean }
+        load_bearing_assumption: { type: string, minLength: 1 }
+        who_profits: { type: string, minLength: 1 }
+        probability: { type: string, minLength: 1 }
+        best_alternative: { type: string, minLength: 1 }
+        reversible_part: { type: string, minLength: 1 }
+        irreversible_part: { type: string, minLength: 1 }
+        hot: { type: boolean }
+        outcome: { type: string, enum: [PROCEED, PROCEED-REVERSIBLE-PART, GATED, DEFER, STOP] }
+  ri_operator.gate_requested:
+    description: "/ri-gate opened: the author of an action states it and every assumption it rests on, before anyone tries to disprove it."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [action, author, assumptions, evidence_roots, urgency]
+      properties:
+        action: { type: string, minLength: 1 }
+        author: { type: string, minLength: 1 }
+        assumptions:
+          type: array
+          minItems: 1
+          items:
+            type: object
+            additionalProperties: false
+            required: [statement, status, evidence, load_bearing]
+            properties:
+              statement: { type: string, minLength: 1 }
+              status: { type: string, enum: [VERIFIED, BELIEF] }
+              evidence: { type: string }
+              load_bearing: { type: boolean }
+        evidence_roots: { type: array, items: { type: string } }
+        urgency: { type: string, enum: [stated, inferred, none] }
+  ri_operator.gate_verdict:
+    description: "/ri-gate closed: a disprover that did not write the action rules on it.  Any verdict is a successful run."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [request_event_id, verdict, failed_checks, top_failure_mode, reversal_trigger, de_risking_move, run_by]
+      properties:
+        request_event_id: { type: string, minLength: 1 }
+        verdict: { type: string, enum: [PROCEED, VERIFY-FIRST, RESTRUCTURE, HOLD] }
+        failed_checks: { type: array, items: { type: string, enum: [G1, G2, G3, G4, G5, G6, G7, G8] } }
+        top_failure_mode: { type: string, minLength: 1 }
+        reversal_trigger: { type: string, minLength: 1 }
+        de_risking_move: { type: string, minLength: 1 }
+        run_by: { type: string, minLength: 1 }
+  ri_operator.evidence_submitted:
+    description: "/ri-evidence: one sourced excerpt for one hypothesis of one claim.  It carries no conclusion; the engine combines evidence into a belief."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [claim_id, hypothesis, source_url, source_tier, ep_type, quote, observed_date, published_date, derived_from, source_id, note]
+      properties:
+        claim_id: { type: string, minLength: 1 }
+        hypothesis: { type: string, minLength: 1 }
+        source_url: { type: string, minLength: 1 }
+        source_tier: { type: string, enum: [PRIMARY, SECONDARY, TERTIARY] }
+        ep_type: { type: string, enum: [statutory_registry, third_party_attested, self_asserted, cryptographically_signed] }
+        quote: { type: string, minLength: 1, maxLength: 600 }
+        observed_date: { type: string, minLength: 10, maxLength: 10 }
+        published_date: { type: [string, "null"] }
+        derived_from: { type: [string, "null"] }
+        source_id: { type: string, minLength: 1 }
+        note: { type: string }
+  ri_operator.fetch_logged:
+    description: "/ri-evidence: one attempt to open a source, whatever came back.  A source that could not be read was not read."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [claim_id, url, outcome]
+      properties:
+        claim_id: { type: string, minLength: 1 }
+        url: { type: string, minLength: 1 }
+        outcome: { type: string, enum: [ok, refused, timeout, unparsed, not-found, error] }

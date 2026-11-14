@@ -163,3 +163,35 @@ ledger. Nothing in tier-one is changed.
 Ruling: the branch stays local until the acceptance checklist is answered with pasted
 proof. Push is then part of DONE, as CLAUDE.md requires. The pre-registration's order
 is already fixed by commit 85eed06.
+
+## Build report — 2026-11-14 (NOT DONE: no real run, nothing pushed)
+
+Built on this branch, engine untouched:
+
+- `packs/ri_operator/`: pack definition, six event types, the `disprover` agent
+  (deny-by-default, events only), `record.py` (append and verify).
+- `.claude/commands/`: `ri-bottleneck`, `ri-judgment`, `ri-gate`, `ri-pack`, `ri-evidence`.
+- `tests/test_ri_operator_pack.py`: 15 tests.
+- `contracts/ri_operator/PROVENANCE.md`.
+
+Acceptance, as it stands:
+
+- [x] `python -m engine.validate ri_operator` exits 0: `OK ri_operator fixture=False /
+      agent disprover (worker) golden_cases=0 holdout_cases=0 / tools: 8 guardrails: 9
+      verifiers: 0 event types: 14`.
+- [x] Full suite: `1 failed, 792 passed, 1 skipped` (twice). See PREREG A1 for one
+      unexplained one-off failure in an untouched property test.
+- [x] `git diff contract/irv-harness -- engine ri_core rights_events ../forge SPEC.md`
+      is empty.
+- [x] Banned nouns: none, substring match (`test_pack_and_commands_carry_no_banned_noun`).
+- [ ] **One real run per command on the ledger: NOT DONE.** No command has been run on
+      tier-one or anywhere else. By the contract's own rule, all five are
+      NOT DELIVERED until that run exists.
+- [ ] **A gate run by an agent that did not see the builder's session: NOT DONE.**
+
+Never exercised: the `disprover` agent has not been run against a model, so whether
+its output passes the engine's citation guardrails is unknown.
+
+Delivery status: ri-bottleneck NOT DELIVERED, ri-judgment NOT DELIVERED, ri-gate
+NOT DELIVERED, ri-pack NOT DELIVERED, ri-evidence NOT DELIVERED (each: built and
+tested, no real run).
