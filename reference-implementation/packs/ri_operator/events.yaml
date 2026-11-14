@@ -110,3 +110,89 @@ events:
         claim_id: { type: string, minLength: 1 }
         url: { type: string, minLength: 1 }
         outcome: { type: string, enum: [ok, refused, timeout, unparsed, not-found, error] }
+  ri_operator.scan_recorded:
+    description: "/ri-scan finished: exactly one binding constraint, the count behind it, the score of the previous scan, one move, and a prediction that resolves on a date."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [system, mode, output_unit, baseline, previous_scan, previous_outcome, constraint, owner, count_command, count_result, comfortable_candidate, why_not_comfortable, owner_pending, test, price, exploit, subordinate, next_constraint, prediction, prediction_resolves_on, move, stop_doing, attention, unknowns]
+      properties:
+        system: { type: string, minLength: 1 }
+        mode: { type: string, enum: [DEEP, STANDARD] }
+        output_unit: { type: string, minLength: 1 }
+        baseline: { type: string, enum: [reproduced, not-reproduced, no-baseline] }
+        previous_scan: { type: [string, "null"] }
+        previous_outcome: { type: string, enum: [held, failed, unresolved, none] }
+        constraint: { type: string, minLength: 1 }
+        owner: { type: string, enum: [SELF, DEPENDENT, STRUCTURAL] }
+        count_command: { type: string, minLength: 1 }
+        count_result: { type: string, minLength: 1 }
+        comfortable_candidate: { type: string, minLength: 1 }
+        why_not_comfortable: { type: string, minLength: 1 }
+        owner_pending: { type: string, minLength: 1 }
+        test: { type: string, minLength: 1 }
+        price: { type: string, minLength: 1 }
+        exploit: { type: string, minLength: 1 }
+        subordinate: { type: string, minLength: 1 }
+        next_constraint: { type: string, minLength: 1 }
+        prediction: { type: string, minLength: 1 }
+        prediction_resolves_on: { type: string, minLength: 10, maxLength: 10 }
+        move: { type: string, minLength: 1 }
+        stop_doing: { type: string, minLength: 1 }
+        attention: { type: string, minLength: 1 }
+        unknowns: { type: array, items: { type: string } }
+  ri_operator.move_graded:
+    description: "/ri-week: one move a scan wrote, and whether there is evidence it happened.  No evidence is N."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [scan_event_id, executed, evidence, waited_on]
+      properties:
+        scan_event_id: { type: string, minLength: 1 }
+        executed: { type: string, enum: ["Y", "N"] }
+        evidence: { type: string, minLength: 1 }
+        waited_on: { type: string, minLength: 1 }
+  ri_operator.week_reviewed:
+    description: "/ri-week finished: the week counted from the ledger, the three named things, and the one bet."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [week, scans, moves_written, moves_executed, repeater, miss, loop, prior_repeater_open, bet]
+      properties:
+        week: { type: string, minLength: 8, maxLength: 8 }
+        scans: { type: integer, minimum: 0 }
+        moves_written: { type: integer, minimum: 0 }
+        moves_executed: { type: integer, minimum: 0 }
+        repeater: { type: string, minLength: 1 }
+        miss: { type: string, minLength: 1 }
+        loop: { type: string, minLength: 1 }
+        prior_repeater_open: { type: string, enum: ["yes", "no", "no-prior-week"] }
+        bet: { type: string, minLength: 1 }
+  ri_operator.watch_set:
+    description: "/ri-week: one blind spot with a tripwire that can be observed before the damage.  At most five a week; none is carried a third week."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [week, blind_spot, found_by, tripwire, tripwire_source, mark, action, whose_hand, weeks_carried, basis]
+      properties:
+        week: { type: string, minLength: 8, maxLength: 8 }
+        blind_spot: { type: string, minLength: 1 }
+        found_by: { type: string, enum: [premortem, dependency, cascade, clock, whisper, unpriced-branch, unseen-fact] }
+        tripwire: { type: [string, "null"] }
+        tripwire_source: { type: [string, "null"] }
+        mark: { type: string, enum: [ACT, MONITOR] }
+        action: { type: string, minLength: 1 }
+        whose_hand: { type: string, minLength: 1 }
+        weeks_carried: { type: integer, minimum: 0, maximum: 2 }
+        basis: { type: string, enum: [evidence, speculation] }
+  ri_operator.clock_set:
+    description: "/ri-week: something with a date that nothing else is watching, or the closing of one."
+    payload:
+      type: object
+      additionalProperties: false
+      required: [what, due, source, status]
+      properties:
+        what: { type: string, minLength: 1 }
+        due: { type: string, minLength: 10, maxLength: 10 }
+        source: { type: string, minLength: 1 }
+        status: { type: string, enum: [open, closed] }

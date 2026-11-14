@@ -7,7 +7,7 @@ the one that was written.
 
 Nothing in `engine/` knows this pack exists.
 
-## The five commands
+## The seven commands
 
 Each lives in `.claude/commands/` at the repository root and ends by appending
 exactly one event with `record.py`.
@@ -19,6 +19,8 @@ exactly one event with `record.py`.
 | `/ri-gate` | Can someone who did not build this action kill it? | `gate_requested`, then `gate_verdict` |
 | `/ri-pack` | How is an agent fenced, run and judged? | the engine's own `verdict` |
 | `/ri-evidence` | What does the source say, in its own words? | `evidence_submitted`, `fetch_logged` |
+| `/ri-scan` | What is the one constraint today, by count, and was the last scan right? | `scan_recorded` |
+| `/ri-week` | What is nobody watching, and did the moves written last week happen? | `move_graded`, `watch_set`, `clock_set`, `week_reviewed` |
 
 ## Why each exists
 
@@ -34,6 +36,9 @@ The design follows five published interviews. One line each:
 | Progress follows whatever can be verified, and a worker that can check its own score can work in parallel. | Patel | Each event has a schema; a payload that does not fit is refused at append. |
 | Iterations teach, hours do not. Judgment is the skill that leverage multiplies. | Naval | The ledger is the count of iterations, with each one's outcome attached. |
 | Play long-term games; a reputation is built from a record. | Naval | Events are append-only. A mistake is corrected by a new event, never by an edit. |
+| A measure can look good and not be measuring the thing. | Brown | `/ri-scan` opens the records the next stage consumes and scores its own last prediction. |
+| Work runs longer than anyone has time to check; trouble shows small first; never rely on one safeguard. | Brown | `/ri-week`: the whisper, cascade and dependency passes. |
+| Review unprepared, and plot the points week over week to see whether they converge. | Musk | `/ri-week` counts the week from the ledger and grades each written move Y or N. |
 
 ## Use
 

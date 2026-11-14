@@ -54,3 +54,68 @@ existing commands except where a cross-reference is added; any file in tier-one.
 
 Same as RI-OPERATOR: an engine change needed is a STOP; a missing real run is NOT
 DELIVERED and is not replaced by a fixture.
+
+## Build and run report — 2026-11-14
+
+Built: five event types (`scan_recorded`, `move_graded`, `week_reviewed`, `watch_set`,
+`clock_set`), `record.py list`, `.claude/commands/ri-scan.md`, `.claude/commands/ri-week.md`,
+ten more tests (25 in the file).
+
+- [x] `python -m engine.validate ri_operator`: `OK`, 19 event types.
+- [x] Full suite: `1 failed, 802 passed, 1 skipped` (777 + 25; the same known failure).
+- [x] Engine diff against `contract/irv-harness`: 0 lines.
+- [x] Banned nouns: none across the pack and all seven commands.
+- [x] Known answers 1, 2 and 3 held (`test_scan_known_answer_*`).
+- [x] `/ri-scan`: one real run on tier-one, read-only. Event
+      `862cb0d5-4e78-44d9-a0b9-c5e7613cbc1b`, ledger index 10, `record verify` OK.
+- [ ] `/ri-week`: no run. It needs a prior week to grade. NOT DELIVERED.
+
+What the scan recorded: baseline reproduced against the earlier bottleneck event; output
+unit signed pilots, now 0; one constraint, owner SELF: sends by the owner's hand (15 of a
+planned 75, all on one day); the comfortable candidate (a cold market or missing tooling)
+argued against; four owner tasks with no evidence of completion in the repository; price
+UNMEASURED; prediction: on 2026-11-20 fewer than 75 rows are marked sent and signed pilots
+is 0. The next scan scores that.
+
+Disclosures:
+
+1. **The flaky test is not a one-off.** `tests/test_identity.py::TestHypothesisEquivalence::
+   test_equivalence_relation` has now failed in 2 of 6 full runs today and in none of three
+   isolated runs. It is a property test on a file neither contract touches. The failure
+   text was not captured (the rerun passed). Cause not established; it should be looked at
+   before this branch is merged anywhere.
+2. **The scan's own stop-doing line names this work.** It recorded "building or extending
+   tools for this business before the first human reply" as the thing to stop. This
+   contract is tooling. That is on the ledger as written.
+3. **The scan was written by the session that ran the earlier bottleneck run**, so its
+   agreement with that run is one witness heard twice. Its prediction is the first thing
+   that can be scored from outside.
+4. **`/ri-week` has never been run.** Its eight steps are untested against a real week.
+
+Delivery status: ri-scan DELIVERED. ri-week NOT DELIVERED.
+
+## The verdict on disprover run 9ce410fd — provided on the operator's order
+
+The operator asked for a verdict derived from the five transcripts. It is given here. It
+is **not** entered in the ledger: the engine records a verdict as a person's or as a
+judge agent's with that judge's own run, and this is neither. Storing it as a person's
+would make the record say something that is not so.
+
+**Verdict: `overridden`. Field: `checks` (G4 and G8), and with them `verdict`, which
+should read VERIFY-FIRST and not HOLD.**
+
+| Transcript | Test applied | Finding |
+|---|---|---|
+| Brown | Was the grader independent, and did it reassure? | It saw only the request event and did not reassure. That part is sound and is why the run is usable. |
+| Schulman panel | Does the judge have a habit that is not about the input? | Eight of eight checks failed. The run's instructions say a check that cannot be decided does not hold, so undecided became failed. That is the instruction's habit, not a property of the request. It is corrected in the instruction, under held-out evidence, not by editing this run. |
+| Musk | Does it survive a check against the thing itself? | One claim was checked on disk. The phrase "sent 6 of 10" appears once, in a notes table at the top of the outreach file. The store shows 6 drafts marked fit to send and 0 decisions, so nothing was sent and the note is wrong. No match for that phrase was found in the email bodies, which say nothing is sent to a customer. So its main worry is half right: a wrong sentence exists, and it was not found in what prospects receive. Only that phrase set was searched. |
+| Patel | Can the confidence it says is missing be obtained cheaply? | Yes. Its own de-risking move is a line-by-line comparison that takes minutes. G8 fails only when the needed confidence cannot be had; here it can, so G8 holds and the rule gives VERIFY-FIRST. G4 does not apply: the request compares no two numbers across populations. |
+| Naval | What is the long-run cost of the verdict as given? | The business's measured constraint is sends. A HOLD on a follow-up, where a short check would do, spends the scarcest thing for no added safety. |
+
+If the operator agrees:
+
+    python -m engine.verdicts ri_operator/disprover --run 9ce410fd-fab4-4499-8974-2c5e11665ba7 --verdict overridden --reason "checks: G4 does not apply, G8 holds because the check is cheap; verdict should be VERIFY-FIRST"
+
+What follows from it, none of it done here: the note at line 29 of the outreach file
+needs correcting by its owner; the disprover's instruction about undecided checks is the
+first candidate for a refinement; and the second paid run still waits for a real action.

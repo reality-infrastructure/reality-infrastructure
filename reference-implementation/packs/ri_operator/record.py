@@ -3,11 +3,14 @@
     python -m packs.ri_operator.record append <type> --entity-type T --entity-id ID
                                               --payload JSON|@file --source SRC [--db DSN]
     python -m packs.ri_operator.record verify <event_id> [--db DSN]
+    python -m packs.ri_operator.record list [--type T] [--entity-id ID] [--since ISO] [--limit N] [--db DSN]
 
 ``<type>`` is the event name without the pack prefix (``constraint_named``).
 ``append`` goes through engine.events.EventLog, so an undeclared type or a payload
 that fails its schema is refused before anything is written.  ``verify`` re-derives
-the ledger entry from the stored row and checks its inclusion proof.
+the ledger entry from the stored row and checks its inclusion proof.  ``list``
+prints matching events as JSON lines, newest first, then a count; a review counts
+its week from this and from nothing else.
 
 Exit codes: 0 done, 2 refused or mismatch, 1 usage or engine error.
 """
@@ -50,6 +53,13 @@ def verify(engine: Engine, event_id: str) -> dict:
     return row
 
 
+def list_events(engine: Engine, *, event_type: str | None = None, entity_id: str | None = None,
+                since: str | None = None, limit: int = 200) -> list[dict]:
+    log = EventLog(engine, load_pack(PACK))
+    return log.query(event_type=f"{PACK}.{event_type}" if event_type else None,
+                     entity_id=entity_id, since=since, limit=limit)
+
+
 def main(argv: list[str] | None = None) -> int:
     p = argparse.ArgumentParser(prog="python -m packs.ri_operator.record")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -63,6 +73,12 @@ def main(argv: list[str] | None = None) -> int:
     v = sub.add_parser("verify")
     v.add_argument("event_id")
     v.add_argument("--db")
+    ls = sub.add_parser("list")
+    ls.add_argument("--type", dest="event_type")
+    ls.add_argument("--entity-id")
+    ls.add_argument("--since")
+    ls.add_argument("--limit", type=int, default=200)
+    ls.add_argument("--db")
     args = p.parse_args(argv)
     try:
         engine = Engine.open(args.db)
@@ -77,6 +93,15 @@ def main(argv: list[str] | None = None) -> int:
             print(f"event_id={row['event_id']} type={row['event_type']} "
                   f"ledger_index={row['ledger_index']} leaf={row['leaf_hash']} "
                   f"root={engine.ledger.root()}")
+            return 0
+        if args.cmd == "list":
+            rows = [r for r in list_events(engine, event_type=args.event_type, entity_id=args.entity_id,
+                                           since=args.since, limit=args.limit)
+                    if r["event_type"].startswith(f"{PACK}.")]
+            for r in rows:
+                print(json.dumps({k: r[k] for k in ("event_id", "event_type", "entity_id", "source",
+                                                    "observed_at", "payload")}, sort_keys=True))
+            print(f"count={len(rows)}")
             return 0
         row = verify(engine, args.event_id)
         print(f"OK event={row['event_id']} type={row['event_type']} "

@@ -14,6 +14,10 @@ forbidden to carry (PREREG.md, banned nouns).
 | ri-pack | `reference-implementation/HARNESS.md` (this branch) | `9d1fe79f3f700dc62e1bd61e662e333834664669e7f90f6c681fcf1fe51b9dc2` |
 | ri-evidence | `forge/README.md` (this branch) | `9a51a644a986c645425199597687a68f6e0d86ffa2ebee34997c76fef872fc42` |
 | ri-evidence | `~/power-path/agents/PROTOCOL.md` | `4139717d76574b2b6822c73f557fce3053a0e1b7a2aac199db8293fe179ef85b` |
+| ri-scan | `~/ladder/rules/invariant-scan.md` | `c208d8b4ba5b2a48fe9d6b5d3cf2cb290d0d095b70b563589071a89e08333b46` |
+| ri-scan | `~/hyperliquid/.claude/commands/morning.md` | `c3590257f4cc6ea0b40cd0c5ad00bc43863f4fcb09746a07b1ac06819d68a9c5` |
+| ri-week | `~/hyperliquid/.claude/commands/week.md` | `5eec0aef9b7d61272eaeaea3147a865d240ca3f02ed0300b310cd259caa35911` |
+| ri-week | `~/rich/scan/prompts/disprove.md` (the tripwire test) | `fe47abf0bccad6afb336641ab2dbb9fc4ab5bb9935b50d7a06c649270cf1eb6a` |
 
 ## What changed in the copy
 
@@ -27,6 +31,16 @@ forbidden to carry (PREREG.md, banned nouns).
 - **ri-evidence:** the evidence-item fields and the "error is not empty" rule are
   kept. The domain's mass policy and claim file are not carried; the command stops
   at the evidence.
+- **ri-scan:** kept from the 626-line source: counted-never-read, scoring the previous
+  scan, the production line, the piles, the proxy and comparison passes, the
+  comfortable-candidate gate with its four uncomfortable candidates, the one-constraint
+  verdict with test, price, exploit, subordinate and next constraint. Dropped: every
+  program-specific rule, figure, file path and the amendment procedure. From the morning
+  scan: reproducing the baseline, the three questions and the single move. Seven further
+  passes of the source moved to ri-week, where the weekly source also has them.
+- **ri-week:** the eight steps are kept. The instrument that built the sheet is replaced
+  by `record.py list`; execution grades, watch rows and clocks became events. The rule
+  that nothing is carried a third week is enforced by the event schema.
 
 ## The five interviews
 
