@@ -121,3 +121,45 @@ Open to the operator before any code:
 2. Naval's dissent under R1.
 3. Which real repository the five acceptance runs are made on.
 4. Push: this branch is local only until the operator says otherwise.
+
+## Plan gate — answered 2026-11-14
+
+Answered from the five transcripts at the operator's instruction. Each is the
+operator's to overrule.
+
+### G1 — R1, R2, R3 confirmed. The Naval dissent is answered with a condition.
+
+- Naval answers his own objection: "You will need to rent your time to get started. This is only acceptable when you are learning and saving."
+- Musk: each stage's revenue pays for the next (the rocket funds the constellation).
+- Schulman panel: what a company learns from its own deployment is the thing that cannot be distilled away. A deployment is where that record is made.
+- Brown: the scaffold is not where the credit belongs, so it is not what to charge rent on.
+- Patel: iterations compound; the first deployments are the iterations.
+
+Ruling: paid deployment is the starting rung, priced as a fixed install and not by the
+hour. It is acceptable only while each deployment adds to a reusable record. The
+operator revisits R1 after the first paid deployment.
+
+### G2 — The acceptance runs are made on `C:\Users\newce\tier-one`.
+
+- Musk names customer service as the first market for agents: large, average-difficulty, no integration barrier. tier-one is that business.
+- Schulman panel: accept on the realism axis, not on a puzzle. tier-one has a pipeline, a price sheet and a store, not a fixture.
+- Brown: a grader must not share a root with what it grades. tier-one is not a source of any of the five commands; hyperliquid, rich, power-path and this repo are, and are excluded.
+- Patel: pick where a verifiable number exists. tier-one has a unit of flow (tickets) and a test suite.
+- Naval: proof of work has to be shown where a buyer would recognise it. A support team is a buyer.
+
+Disclosed limits: tier-one has no client yet, so its traffic is not live traffic; it
+has 21 uncommitted paths; and its agent was one of the examples behind the harness
+item of the original screen. The runs read tier-one and write only to this repo's
+ledger. Nothing in tier-one is changed.
+
+### G3 — Do not push now. Push when acceptance passes.
+
+- Brown: evaluate before release, and do not underestimate what was not evaluated.
+- Patel: an agent checks its score before it merges.
+- Naval: arrive with proof of work, not with a promise.
+- Musk: make the mistakes at small scale before the large one.
+- Schulman panel: a result that only looks good on the easy distribution is the one to distrust; wait for the realistic run.
+
+Ruling: the branch stays local until the acceptance checklist is answered with pasted
+proof. Push is then part of DONE, as CLAUDE.md requires. The pre-registration's order
+is already fixed by commit 85eed06.
