@@ -8319,3 +8319,44 @@ No statement, signature or ask was forwarded by the operator; none was entered; 
 **Not built, and why.** A package on a public registry (publishing is the operator's act). An MCP server (R203). Anything in Jira (no site is reachable; R206 needs none). A signing helper that touches a key (S123). A fetch of the chain by the kit (it would be a second grader). Any colour, badge, streak or notification (R204, R205). Deleting either page (R207: the operator's). A message to the builder or to the venue (R199, R208: the operator's).
 
 **Income row (R81), 2026-11-14 after A45:** 0 USD a day against 165. Nothing on the chain. A surface is not income; this one has a named first user and a date on which it is read.
+
+### A45.1 — 2026-11-14 15:5xZ (09:5x CST), flat — THE KIT, BUILT (P37 `88b54b1`): three verbs in one file run against the public endpoints from this machine; five known answers held, one was written wrong by the executor and is corrected here, one is not yet readable; a defect found in the door's `template` on Windows and not touched; nothing was published to a registry, nothing was sent to anyone
+
+**What was built (P37).** `arena-kit/arena.mjs` (sha256 `3b44763a…`), `arena-kit/arena.d.ts` (`8e3071f0…`), `arena-kit/SKILL.md` (`4533038e…`), `tests/test_agent_record_arena_kit.py` (9 gates) and `tests/arena_kit_harness.mjs` (runs the kit's command with pinned files in place of the network). The kit's functions are pure over parsed files; the network is one GET behind an injected reader, so every gate is offline.
+
+**Run against the public endpoints, 2026-11-14 15:4xZ, from this machine** (as printed):
+
+```
+$ node arena.mjs grade 0x9f976123e7c48952be487664b8130aad144b7f23
+KEEP   0.073533 USD   2026-10-26 … 2026-11-02   4 fills   proof
+DROP   0 USD          2026-11-04 … 2026-11-10   0 fills   proof
+KEEP → DROP
+as of 2026-11-13 (feed), 2026-11-14 (door)
+exit 1
+```
+
+`grade 0x4c6d…5ee9` → `KEEP   838846.44510952 USD   2026-10-26 … 2026-11-02   4566 fills   proof`, exit 0. `grade` of an address on no file → `NOT LISTED`, the one command to enter, exit 4. `board` → `no entrant is graded`, `OPEN 0 of 20: 0 outside entrants, 0 of 3 outside FULL rows over a complete window`, then the board entry's 14 rows.
+
+**The known answers of A45.**
+1. Held (the pin of 2026-11-12, and the live file).
+2. Held; the words print as `KEEP → DROP` (A45 wrote `KEEP DROP`; the arrow is the kit's, the words are the file's).
+3. Held.
+4. **Not held as written, and the error is the executor's.** A45 gave the statement's sha256 as `8c356f9a…`. That figure was read through a pipe on Windows, where Python's standard output turns each line feed into carriage return + line feed. The six lines as R192 defines them (LF) hash to `ce2b2c34ee32d8e6de7479d295e8575b2738fd1911d4a5384bf78956654b2c13`; the kit's bytes equal `arena_door.statement_text(...)` exactly and the gate holds that. A45's text is not edited; this line corrects it.
+5. Held: `NOT LISTED` exit 4; a changed settled sha in the feed, the door or the board, and an endpoint that does not answer → one line `REFUSED S122`, exit 10, no row.
+6. Held: P37 adds `arena-kit/` and two files under `tests/`; nothing under `arena/` and no existing module changed.
+7. Not readable before 2026-11-25.
+
+**A defect found, not touched.** `python -m rights_events.arena_door template` on Windows prints the six lines with CR LF when its output is piped or redirected. An entrant who signs a file made that way signs other bytes than R192's and is refused S118 by a correct check. The door's module is not changed in this pass (A45 known answer 6). The kit's `statement()` returns the LF string and the skill file says to sign that string, not a copy from a terminal. The fix to the door's own command is one line and needs its own word.
+
+**Departures from A45's text, disclosed.**
+- On `board`, an entrant's row is led by its label and a shortened address: a board of several rows cannot be read without names. R201's order follows them unchanged.
+- The board entry's rows hold no status word in their file, and twelve of them are in bps. They print as label, the file's figure with its unit, the window or the count of days, and trades; no status is invented for them.
+- The door's fourth word `TRIPS NOT COMPUTED` (A44.1), which R204 did not list, exits 2 with `UNDECIDED`.
+- `enter --signature` checks only the signature's shape (0x + 130 hex). The proof remains `arena_door enrol`.
+- The gates skip, with the reason printed, on a machine without Node. This machine has Node v20.18.0 and ran all 9.
+
+**Suite.** `pytest -q` on the rebased branch: **1360 passed, 5 failed.** None of the five reads a file P37 adds or changes: the four that were red before this pass (the board's and the feed's known-answer gates on the real pins, two pin gates of the book), and `test_the_census_of_cohort_1_and_the_board_under_r195`, red since origin's `c82d1c6` (A17.16) brought an arena file as of 2026-11-13 (`S119: … later than the door's 2026-11-12`). Not touched.
+
+**What is the operator's now.** (1) Hand `arena-kit/` to the builder and say so in words: that is a shot under R198, entered only by the operator's quoted word (S120). (2) The one-line fix to the door's `template`. (3) P38, the venue's component, on the operator's word.
+
+**Income row (R81), 2026-11-14 after A45.1:** 0 USD a day against 165. Nothing on the chain.
