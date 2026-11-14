@@ -270,3 +270,56 @@ Delivery status, by the closed vocabulary:
 - ri-pack: NOT DELIVERED (no real run of its own)
 
 Not pushed. The contract is not DONE: one command is undelivered and push is part of DONE.
+
+## Third gate — answered 2026-11-14
+
+Answered from the five transcripts at the operator's instruction.
+
+### 1. The verdict on run 9ce410fd stays the operator's. It is not entered here.
+
+- Schulman: deciding what good behaviour is, is the job that stays with people.
+- Brown: agents trained to cooperate agree with each other; an agent ruling on an agent is not a second witness.
+- Musk: do not make the system say something it does not know. A verdict typed by an agent and stored as a person's would be that.
+- Naval: accountability is taken under one's own name, and cannot be taken on someone's behalf.
+- Patel: a check counts when it can be verified; who ruled is part of what is verified.
+
+Ruling: no verdict is recorded by the agent. A recommendation is offered and is only
+that: `overridden`, field `checks`. G4 is misapplied (the request compares no two numbers
+across populations), and by the pack's own rule the load-bearing beliefs give
+VERIFY-FIRST; HOLD rests on G8 alone. The operator enters it, or a different one:
+
+    python -m engine.verdicts ri_operator/disprover --run 9ce410fd-fab4-4499-8974-2c5e11665ba7 --verdict <followed|overridden|wrong|n/a> --reason "<why>"
+
+### 2. The second paid run is authorised and waits for a real action.
+
+- Brown: models recognise a staged test ("this seems like a trap"); a staged should-pass request tests the staging.
+- Schulman panel: a judge with a tic gets exploited; a gate that fails everything is a tic, and has to be tested for.
+- Patel: the verifier is verified before it is relied on.
+- Musk: test against reality, at small scale.
+- Naval: one iteration teaches more than an argument; but proof made to order is not proof.
+
+Ruling: one further run, about a cent, on the next real action that is expensive to
+undo and whose load-bearing assumptions are all VERIFIED from sources the author does
+not share. The expected verdict (PROCEED) is written into PREREG.md as a known answer
+before the run. No such action exists today: the two on the table (the 2026-11-17
+follow-up, and pushing this branch) each rest on something unverified or unfinished, so
+neither should pass. Nothing is staged to fill the gap.
+
+### 3. /ri-pack waits for tier-one's first real batch. No substitute repository.
+
+- Schulman panel: real deployment data is the thing that cannot be bought or simulated.
+- Brown: an evaluation has to be real work; the other packs on this machine are the
+  examples this command was drawn from, so a run on them is one root heard twice.
+- Musk: work the limiting factor. The bottleneck run named it: sends. The same constraint
+  gates this command, so nothing else moves it.
+- Naval: patience with results; and do not manufacture proof of work.
+- Patel: ten real cases is a countable threshold. tier-one's own demo asks a prospect to
+  forward ten real tickets, which is exactly that threshold.
+
+Ruling: ri-pack stays NOT DELIVERED until a prospect forwards ten real tickets. Its real
+run is then `new` for that client, `check`, one `run`, the operator's `rule`, and `prove`.
+
+### State after this gate
+
+Nothing further can be built or run today without the operator's hand: a verdict (1), a
+real action that should pass (2), a prospect's tickets (3). The branch stays local.
