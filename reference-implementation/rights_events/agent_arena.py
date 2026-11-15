@@ -32,6 +32,7 @@ from pathlib import Path
 from rights_events.adapters.agent_arena import (
     FILLS_CLAIMANT, GRADER_CLAIMANT, STATUS_FULL, STATUS_NONE, STATUS_PAPER, STATUS_PARTIAL,
     STATUS_RECORD, STATUS_REFUSED, VENUE_CLAIMANT, check_frame, parse_arena_capture,
+    LISTING_CLAIMANTS, PAYLOAD_KIND_HL,
     ranking_event, settled_event, sha256_hex,
 )
 from rights_events.adapters.common import AdapterError
@@ -47,6 +48,12 @@ RECORD_SOURCE_URL = ("https://github.com/reality-infrastructure/reality-infrastr
 HL_INFO_URL = "https://api.hyperliquid.xyz/info"
 HL_EXPLORER = "https://app.hyperliquid.xyz/explorer/tx/"
 VENUE_NAME = "gdex.pro HyperLiquid PnL boards"
+# PREREG A47 (R219): a cohort listed by the exchange's own file names the exchange, never the venue.
+EXCHANGE_NAME = "HyperLiquid leaderboard, the hundred largest week profits less the addresses earlier cohorts hold"
+
+
+def listing_name(boards) -> str:
+    return EXCHANGE_NAME if boards.claim.get("payload_kind") == PAYLOAD_KIND_HL else VENUE_NAME
 VERIFY_COMMAND = ("python -m rights_events.agent_arena --verify --run "
                   "rights_events/fixtures/agent_record/<run file>")
 STATUS_TEXT = {
@@ -222,7 +229,7 @@ def _s(x) -> str:
 
 def render_arena(doc: dict, events: list[RightsEvent], run_file_name: str,
                  run_root_hex: str) -> dict:
-    boards = next(e for e in events if e.claimant == VENUE_CLAIMANT)
+    boards = next(e for e in events if e.claimant in LISTING_CLAIMANTS)
     ranking = next(e for e in events if e.claimant == GRADER_CLAIMANT)
     settled = {e.event_id: e for e in events if e.claimant == FILLS_CLAIMANT}
     shown = {a["address"].lower(): a for a in boards.claim["addresses_verbatim"]}
@@ -282,7 +289,7 @@ def render_arena(doc: dict, events: list[RightsEvent], run_file_name: str,
         "as_of": rc["as_of_date"],
         "window": dict(win),
         "statuses": dict(STATUS_TEXT),
-        "venue": {"name": VENUE_NAME, "source_url": boards.source_url,
+        "venue": {"name": listing_name(boards), "source_url": boards.source_url,
                   "payload_file": boards.claim["payload_file"],
                   "payload_sha256": boards.claim["payload_sha256"],
                   "observed_ms": boards.claim["observed_ms"],
@@ -518,7 +525,7 @@ def render_html(m: dict) -> str:
   <header style="display:grid;gap:10px">
     <div class="eyebrow">Proof of Outcome · the arena · cohort {e(m['cohort_date'])} · as of {e(m['as_of'])}</div>
     <h1>Every listed address, graded by what settled on the chain, after it was listed</h1>
-    <p class="lead">{e(m['venue']['name'])}: {m['venue']['addresses']} unique addresses across its four windows, carried verbatim from <code>{e(m['venue']['payload_file'])}</code>. Each is graded on its HyperLiquid L1 fills and funding in the window {e(w['t0_date'])} to {e(w['t1_date'])} ({w['days']} days), which opened after the observation. {e(m['settled_rule'])}. {e(m['venue']['what_is_not_done'])}</p>
+    <p class="lead">{e(m['venue']['name'])}: {m['venue']['addresses']} unique addresses{'' if m['venue']['name'] == EXCHANGE_NAME else ' across its four windows'}, carried verbatim from <code>{e(m['venue']['payload_file'])}</code>. Each is graded on its HyperLiquid L1 fills and funding in the window {e(w['t0_date'])} to {e(w['t1_date'])} ({w['days']} days), which opened after the observation. {e(m['settled_rule'])}. {e(m['venue']['what_is_not_done'])}</p>
   </header>
   <section class="legend" aria-label="What the statuses mean">
 {legend}
@@ -601,7 +608,7 @@ def main(argv: list[str] | None = None) -> int:
         print()
         print("AGENT-RECORD ARENA RUN: REFUSED")
         return 1
-    boards = next(e for e in events if e.claimant == VENUE_CLAIMANT)
+    boards = next(e for e in events if e.claimant in LISTING_CLAIMANTS)
     ranking = next(e for e in events if e.claimant == GRADER_CLAIMANT)
     settled = [e for e in events if e.claimant == FILLS_CLAIMANT]
     print(f"Subject: {boards.subject_ids[0]}")

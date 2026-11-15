@@ -1,0 +1,53 @@
+{
+  "fixture": "capture_ARENA_2026-11-15_2026-11-15.json",
+  "status": "ARENA",
+  "bytes": 30460,
+  "sha256": "cb006a6b514612fbcbca040a386b7f05ce52dd4054fcf9bcd2dcfe98f55da75e",
+  "generator": "arena/capture_arena_from_leaderboard.py",
+  "cohort_date": "2026-11-15",
+  "as_of_date": "2026-11-15",
+  "window": {
+    "t0_ms": 1794787200000,
+    "t1_ms": 1795391999999,
+    "t0_iso": "2026-11-16T00:00:00.000Z",
+    "t1_iso": "2026-11-22T23:59:59.999Z",
+    "days": 7,
+    "started": false,
+    "complete": false
+  },
+  "addresses": 69,
+  "excluded": 31,
+  "rows_with_pages": 0,
+  "rows_with_errors": 0,
+  "files": [
+    {
+      "name": "capture_ARENA_2026-11-15_2026-11-15.json",
+      "bytes": 30460,
+      "sha256": "cb006a6b514612fbcbca040a386b7f05ce52dd4054fcf9bcd2dcfe98f55da75e"
+    },
+    {
+      "name": "cohort_2026-11-15.json",
+      "bytes": 3549,
+      "sha256": "4ef629a9c22c261dcd5e1287b32c486b6e8142c1d7839df240d3c159b207b9e2"
+    },
+    {
+      "name": "hl_leaderboard_2026-11-15.json",
+      "bytes": 38796356,
+      "sha256": "3d46d4dac7fe27fc97d02da105f9c1153ae41c29128b0770fbbd1b7992f485e3"
+    }
+  ],
+  "source": {
+    "listing": {
+      "api": "GET https://stats-data.hyperliquid.xyz/Mainnet/leaderboard",
+      "payload_sha256": "3d46d4dac7fe27fc97d02da105f9c1153ae41c29128b0770fbbd1b7992f485e3"
+    },
+    "chain": {
+      "api": "https://api.hyperliquid.xyz/info",
+      "requests": [
+        "userFillsByTime",
+        "userFunding"
+      ],
+      "pages_verbatim": "one HTTP response body a line, gzip mtime 0"
+    }
+  }
+}

@@ -41,6 +41,13 @@ from rights_events.schema import EPType, EventType, RightsEvent
 SUBJECT_PREFIX = "agent:"
 CAPTURE_KIND = "agent_record_arena_capture"
 VENUE_CLAIMANT = "gdex-leaderboard"
+# PREREG A47 (R218): a second payload a cohort can be derived from, the exchange's own
+# leaderboard file. A capture without `cohort.payload_kind` is the venue's board, as before.
+EXCHANGE_CLAIMANT = "hyperliquid-leaderboard"
+LISTING_CLAIMANTS = (VENUE_CLAIMANT, EXCHANGE_CLAIMANT)
+PAYLOAD_KIND_HL = "hl_leaderboard_week_top100"
+HUNDRED = 100
+HUNDRED_WINDOW = "week"
 FILLS_CLAIMANT = "hyperliquid-l1-fills"
 GRADER_CLAIMANT = "arena-grader"
 BOARDS_OBSERVATION = "venue-boards-observation"
@@ -224,6 +231,64 @@ def cohort_from_payload(payload: bytes) -> tuple[list[dict], dict]:
     return out, rows_per_window
 
 
+def hundred_from_leaderboard(payload: bytes) -> list[dict]:
+    """R218 (PREREG A47): the exchange's leaderboard file -> its hundred largest week
+    profits, in order (week `pnl` as a Decimal descending, ties by lower-case address
+    ascending), each as a cohort entry with the file's own strings as Decimals."""
+    try:
+        board = json.loads(payload.decode("utf-8"), parse_float=Decimal)
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise AdapterError(f"payload is not valid JSON: {exc}") from exc
+    rows = board.get("leaderboardRows") if isinstance(board, dict) else None
+    if not isinstance(rows, list):
+        raise AdapterError("S128: the payload is not one object with a leaderboardRows list")
+    ranked: list[tuple[Decimal, str, dict, dict]] = []
+    seen: set[str] = set()
+    for i, r in enumerate(rows):
+        ctx = f"payload.leaderboardRows[{i}]"
+        if not isinstance(r, dict):
+            raise AdapterError(f"S128: {ctx} is not an object")
+        addr = _require_address(r.get("ethAddress"), f"{ctx}.ethAddress")
+        if addr.lower() in seen:
+            raise AdapterError(f"S128: {ctx}: {addr} is in the file twice")
+        seen.add(addr.lower())
+        perf = r.get("windowPerformances")
+        d = None
+        if isinstance(perf, list):
+            for pair in perf:
+                if isinstance(pair, list) and len(pair) == 2 and pair[0] == HUNDRED_WINDOW:
+                    d = pair[1]
+        if not isinstance(d, dict):
+            raise AdapterError(f"S128: {ctx} lacks its {HUNDRED_WINDOW} performance")
+        ranked.append((_decimal(d.get("pnl"), f"{ctx}.pnl"), addr.lower(), r, d))
+    ranked.sort(key=lambda t: (-t[0], t[1]))
+    out: list[dict] = []
+    for rank, (_pnl, _low, r, d) in enumerate(ranked[:HUNDRED], 1):
+        ctx = f"payload hundred[{rank}]"
+        shown = {"rank": rank}
+        for k in _DISPLAYED:
+            shown[k] = _decimal(d.get(k), f"{ctx}.{k}")
+        out.append({"address": r["ethAddress"], "first_window": HUNDRED_WINDOW,
+                    "first_rank": rank,
+                    "account_value": _decimal(r.get("accountValue"), f"{ctx}.accountValue"),
+                    "displayed": {HUNDRED_WINDOW: shown}})
+    return out
+
+
+def cohort_from_leaderboard(payload: bytes, excluded: list[str]) -> tuple[list[dict], dict]:
+    """R218: the hundred less the capture's `excluded`, in the hundred's order. An excluded
+    address that is not in the hundred refuses the capture whole (S128)."""
+    hundred = hundred_from_leaderboard(payload)
+    in_hundred = {e["address"].lower() for e in hundred}
+    drop = {a.lower() for a in excluded}
+    stray = sorted(drop - in_hundred)
+    if stray:
+        raise AdapterError(f"S128: excluded address {stray[0]} is not in the hundred; the "
+                           "capture is refused whole (R218)")
+    rpw = {w: (len(hundred) if w == HUNDRED_WINDOW else 0) for w in WINDOWS}
+    return [e for e in hundred if e["address"].lower() not in drop], rpw
+
+
 def check_frame(boards: RightsEvent, payload: bytes) -> None:
     """R98/R100 (PREREG A19): the payload's bytes must hash to the pin (S89) and the
     declared cohort must equal the cohort derived from those bytes in length, order and
@@ -233,7 +298,10 @@ def check_frame(boards: RightsEvent, payload: bytes) -> None:
     if actual != c["payload_sha256"]:
         raise AdapterError(f"S89: the payload's bytes hash to {actual[:16]}…, pinned "
                            f"{c['payload_sha256'][:16]}…; the capture is refused whole (R100)")
-    derived, rpw = cohort_from_payload(payload)
+    if c.get("payload_kind") == PAYLOAD_KIND_HL:
+        derived, rpw = cohort_from_leaderboard(payload, c["excluded"])
+    else:
+        derived, rpw = cohort_from_payload(payload)
     if rpw != c["rows_per_window"]:
         raise AdapterError(f"S87: rows_per_window declared {c['rows_per_window']}, derived "
                            f"{rpw} from the payload; the capture is refused whole (R98)")
@@ -274,6 +342,19 @@ def parse_arena_capture(document_text: str) -> tuple[dict, RightsEvent]:
     payload_file = _require_str(co, "payload_file", ctx)
     payload_sha = _require_sha256(co, "payload_sha256", ctx)
     source_url = _require_str(co, "source_url", ctx)
+    payload_kind = co.get("payload_kind")
+    excluded: list[str] = []
+    if payload_kind is not None:
+        if payload_kind != PAYLOAD_KIND_HL:
+            raise AdapterError(f"{ctx}.payload_kind {payload_kind!r} is not a known payload (R218)")
+        raw_excluded = co.get("excluded")
+        if not isinstance(raw_excluded, list):
+            raise AdapterError(f"{ctx}.excluded must be a list for payload_kind {payload_kind!r}")
+        for i, x in enumerate(raw_excluded):
+            ex = _require_address(x, f"{ctx}.excluded[{i}]")
+            if ex.lower() in {e.lower() for e in excluded}:
+                raise AdapterError(f"{ctx}.excluded[{i}]: {ex} listed twice")
+            excluded.append(ex)
     rpw = co.get("rows_per_window")
     if not isinstance(rpw, dict) or set(rpw) != set(WINDOWS) \
             or not all(isinstance(v, int) and not isinstance(v, bool) and v >= 0
@@ -334,28 +415,32 @@ def parse_arena_capture(document_text: str) -> tuple[dict, RightsEvent]:
                                "the capture is refused whole (R99: no window chosen after "
                                "the fact)")
 
+    claim = {
+        "mechanism": BOARDS_OBSERVATION,
+        "cohort_date": cohort_date,
+        "observed_ms": observed_ms,
+        "payload_file": payload_file,
+        "payload_sha256": payload_sha,
+        "windows": list(WINDOWS),
+        "rows_per_window": {w: rpw[w] for w in WINDOWS},
+        "addresses": len(verbatim),
+        "addresses_verbatim": verbatim,
+        "window": {k: window[k] for k in ("t0_ms", "t1_ms", "t0_date", "t1_date",
+                                           "days", "started", "complete")},
+        "as_of_date": as_of_date,
+        "what_is_not_done": ("No venue number is recomputed, re-ranked or corrected; "
+                             "each address is graded separately on the chain's fills "
+                             "in a window that opens after this observation."),
+    }
+    if payload_kind is not None:      # R218: keys added only for the second payload kind,
+        claim["payload_kind"] = payload_kind   # so every earlier capture's event is unchanged
+        claim["excluded"] = excluded
     event = RightsEvent(
         event_id=boards_event_id(observed_ms),
         event_type=EventType.CHAIN_ASSERTION,
         subject_ids=(f"{SUBJECT_PREFIX}{actor_id}",),
-        claimant=VENUE_CLAIMANT,
-        claim={
-            "mechanism": BOARDS_OBSERVATION,
-            "cohort_date": cohort_date,
-            "observed_ms": observed_ms,
-            "payload_file": payload_file,
-            "payload_sha256": payload_sha,
-            "windows": list(WINDOWS),
-            "rows_per_window": {w: rpw[w] for w in WINDOWS},
-            "addresses": len(verbatim),
-            "addresses_verbatim": verbatim,
-            "window": {k: window[k] for k in ("t0_ms", "t1_ms", "t0_date", "t1_date",
-                                               "days", "started", "complete")},
-            "as_of_date": as_of_date,
-            "what_is_not_done": ("No venue number is recomputed, re-ranked or corrected; "
-                                 "each address is graded separately on the chain's fills "
-                                 "in a window that opens after this observation."),
-        },
+        claimant=VENUE_CLAIMANT if payload_kind is None else EXCHANGE_CLAIMANT,
+        claim=claim,
         ep_type=EPType.SELF_ASSERTED,
         source_url=source_url,
         observed_date=cohort_date,
