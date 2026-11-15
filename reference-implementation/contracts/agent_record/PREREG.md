@@ -8762,3 +8762,18 @@ So three things here are not in that record, and they are this amendment's only 
 **What is the operator's now.** The tape. Until `cohort_2026-11-15.json` is on the VPS no page of this cohort is fetched, and the window opens at 2026-11-16T00:00:00Z. The command is `bash rights_events/fixtures/agent_record/ops/arena_tape_vps.sh rights_events/fixtures/agent_record/arena/2026-11-15/capture_ARENA_2026-11-15_2026-11-15.json`, run from `reference-implementation/` with the operator's key. Before it: the VPS's free disk (cohort 2's pages are 2 148 MB on the channel and unarchived; a full disk stopped the tape and the marker on 2026-11-06, A17.7). This session has not connected to the VPS.
 
 **Income row (R81), 2026-11-15 after A47.1:** 0 USD a day against 165. Nothing on the chain.
+
+
+### A47.2 — 2026-11-15 03:2xZ (21:2x CST 11-14), flat — THE TAPE HOLDS COHORT 3 (the operator, 2026-11-14: "deploy the tape"): the cohort file is on the VPS, byte-equal to the branch's, and the tape's own 03:22Z cycle read it; done with one copy, not with the install script
+
+**Read before the act (03:14Z, over the operator's key).** Root disk 52G, 39G used, 11G free (80 %); `/root/poo/arena` 2.1G; `cohorts/` held `cohort_2026-11-03.json` only; `poo-arena-tape.timer`, `poo-tape` and `poo-marker` all `active`; the VPS's `publish.sh` and `arena_fills_tape.py` hash to the branch's copies (`4b425b53…4799`, `0972da2e…b88c`), so there was nothing for the install script to change.
+
+**The act.** One `scp` of `arena/2026-11-15/cohort_2026-11-15.json` to `/root/poo/arena/cohorts/`. On the VPS it hashes to `4ef629a9c22c261dcd5e1287b32c486b6e8142c1d7839df240d3c159b207b9e2`, the committed file's sha; 70 addresses, `1794787200000` … `1795391999999`. A47.1 named `ops/arena_tape_vps.sh` as the command; it was not run: it would have rewritten two scripts and two systemd units that are already as the branch has them and started a cycle off the hour. The copy is the part of it that changes anything.
+
+**The tape's own word (its timer, not a manual start).** `2026-11-15T03:22:12Z cohort 2026-11-15: window opens at 1794787200000; nothing to fetch yet`, beside `cohort 2026-11-03: 140 pages appended; budget left 760`. After it: the three services `active`, 11G free.
+
+**Findings, not touched.** Cohort 2's window closed on 2026-11-10 and the tape still spends 140 requests an hour on it (140 empty pages appended each cycle); its file was left in place, and with it the cycle's budget for cohort 3 is 760. Cohort 2's pages are still unarchived (A27 (2)). At cohort 2's rate (2.1G in eleven days) the disk holds this window; it is read again at the window's close.
+
+**Dates.** First fetch: the cycle at 2026-11-16T00:20Z. First graded read: the routine's run of 2026-11-17. Verdicts: 2026-11-23.
+
+**Income row (R81), 2026-11-15 after A47.2:** 0 USD a day against 165. Nothing on the chain.
