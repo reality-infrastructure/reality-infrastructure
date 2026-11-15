@@ -8735,3 +8735,30 @@ So three things here are not in that record, and they are this amendment's only 
 **Not built, and why.** The whole file as a cohort (R220: the measured limit). The census over 47 487 addresses (ratified, P26 is the operator's VPS act and is not this). The bulk archive the exchange names for every fill (not opened; it needs an account that pays for transfer). Any change to A46: its universe stays cohort 2026-11-03. Any order.
 
 **Income row (R81), 2026-11-15 after A47:** 0 USD a day against 165. Nothing on the chain.
+
+
+### A47.1 — 2026-11-15 03:0xZ (21:0x CST 11-14), flat — COHORT 3 IS PINNED (P42 `c40b2fa`): the exchange's file is on the branch byte for byte, the frame derives the 69 from it and refuses a planted one, the two earlier cohorts are untouched; six known answers held, the seventh not readable before 2026-11-23; three departures from A47's text disclosed; the tape is not on the VPS and that is the operator's
+
+**What is on the branch.** `arena/2026-11-15/hl_leaderboard_2026-11-15.json` (38 796 356 bytes, sha256 `3d46d4dac7fe27fc97d02da105f9c1153ae41c29128b0770fbbd1b7992f485e3`, no carriage return in it); `capture_ARENA_2026-11-15_2026-11-15.json` (`cb006a6b514612fbcbca040a386b7f05ce52dd4054fcf9bcd2dcfe98f55da75e`): `payload_kind` `hl_leaderboard_week_top100`, 69 addresses, 31 `excluded`, the two prior payloads named with their shas, window `1794787200000` … `1795391999999`, `started` false, no rows; `cohort_2026-11-15.json` (`4ef629a9…b9e2`), 70 addresses; the manifest (`8753b175…9f8a`). Code: `adapters/agent_arena.py` (`hundred_from_leaderboard`, `cohort_from_leaderboard`, `check_frame` dispatching on `payload_kind`, the listing event under claimant `hyperliquid-leaderboard`); `agent_arena.py` (the listing event found under either claimant; `listing_name`); `arena/capture_arena_from_leaderboard.py` (files in, files out, no clock, no network). Gates: `tests/test_agent_record_arena_cohort3.py`, 13.
+
+**The known answers.**
+1. Held: the bytes, the sha, 47 487 rows.
+2. Held: the hundred's first and last as written; `excluded` 31; the cohort 69, first `0x15a4f009…dfdb` at rank 9 (`13183570.8353259992`, roi `1.0140805972`, vlm `0.0`), last `0x9dead8ff…d617` at rank 100.
+3. Held, by the gate and not by a committed file (departure 1): the unmodified command run on the capture prints `AGENT-RECORD ARENA RUN: OK`, writes an arena file of 0 graded rows that names the exchange, and its run file verifies.
+4. Held on a synthetic file of 105 rows: a planted address, a dropped one and a changed figure → S87; an `excluded` address outside the hundred, an address twice, a row without its week → S128; one digit of the payload → S89; an unknown `payload_kind` → refused.
+5. Held: `--verify --run` on `run_ARENA_2026-10-25_2026-11-03.ri` and `run_ARENA_2026-11-03_2026-11-13.ri` prints `RESULT: OK`; the frame gates of A19 pass unchanged; the earlier captures' listing events carry neither new key and keep claimant `gdex-leaderboard`; no existing fixture is modified in the commit.
+6. Held: 70 addresses, the two bounds, the payload's sha.
+7. Not readable before 2026-11-23.
+
+**Departures from A47 as written.**
+1. **No arena output is committed for the observation day.** Cohort 2 has one (`arena_2026-11-03_2026-11-03.json`); this cohort does not. With it in the tree two gates went red (`test_feed_latest_is_the_newest_dated_pin`, `test_board_latest_is_the_newest_dated_pin`): the feed and the board entry re-derive their newest pin over every cohort directory and refuse an arena file dated after their own as-of (S99, S102), and the newest pins are as of 2026-11-14. The files were removed before the commit; the gate runs the same command into a temporary directory. The first committed output is the first graded day's. Run for 2026-11-15 and 2026-11-16 with the observation's output present, both modules derive without refusal (the feed lists the cohort with 0 rows), so the routine's own steps are not what broke.
+2. **"The unmodified grader" is not exact.** The arithmetic, the coverage rule, the ranking and every check are untouched. `agent_arena.py` changed in four places: the import, the two lookups of the listing event (now either claimant), and the name printed for the listing (R219).
+3. **The tape's cohort file exists twice in principle.** `ops/arena_tape_vps.sh` builds it from the capture at install time; P42 also commits it. A gate holds the committed one to the same rule (the cohort in order, then the record's account).
+
+**Findings, not touched.** (a) A feed or a board entry as of D refuses the whole run when any cohort directory holds an output dated after D; it does not skip a cohort observed later. That is S99 and S102 working as written, and it means a cohort's observation output and the day's pins must land in the same commit. (b) R92's weekly cohort was never run after 2026-11-03. (c) The leader screen still refuses tape-sourced cohorts (S91); it will refuse this one when its window closes.
+
+**The suite.** 1 373 passed, 5 failed; the five are the ones A45.1 and A17.17 already carry (`ai_board` and `feed` known answers, the two book pin gates, the door's census gate). None reads a file P42 adds or changes.
+
+**What is the operator's now.** The tape. Until `cohort_2026-11-15.json` is on the VPS no page of this cohort is fetched, and the window opens at 2026-11-16T00:00:00Z. The command is `bash rights_events/fixtures/agent_record/ops/arena_tape_vps.sh rights_events/fixtures/agent_record/arena/2026-11-15/capture_ARENA_2026-11-15_2026-11-15.json`, run from `reference-implementation/` with the operator's key. Before it: the VPS's free disk (cohort 2's pages are 2 148 MB on the channel and unarchived; a full disk stopped the tape and the marker on 2026-11-06, A17.7). This session has not connected to the VPS.
+
+**Income row (R81), 2026-11-15 after A47.1:** 0 USD a day against 165. Nothing on the chain.
