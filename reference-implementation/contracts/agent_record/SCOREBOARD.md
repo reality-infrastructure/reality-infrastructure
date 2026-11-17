@@ -2060,3 +2060,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 25 (2026-11-15): no live leg — the standing go released by the operator's word (A42 R178); flat. |
 
 **Income row (R81), 2026-11-16 after A17.18:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.19 — Day 26 (2026-11-16): 90 episodes, −3 941.1 bps; F4:NEAR beat both controls (run 0 → 1), every other run 0; no CANDIDATE (the copy line RETIRED BY WORD, A42); cohort 2 unchanged; cohort 3 day 1 of 7 FULL 38 / NONE 31; leader screen REFUSED (S91); book run (0 replay episodes); L2 favorite unchanged at 20.05; L4M and L5M stay RETIRED, the thesis CLOSED (R190); door OPEN 0 of 20; R152 missed, 5 days late; R72 names the hand; no live leg (A42 R178)
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `4ef7eb1`; `marker.py`, `families.json` hold; `forward.py` = `b33b9282…`, not POO_DAILY's pin `6fd373b8…` (as A17.12–A17.18); 39 passed (23 + 6 + 10). |
+| Channel | `c09651b`, 605 files, 0 sha mismatches, 7 `l2/` files outside the manifest (F1); health holds (manifest 34 min old, tape and marker active, 11-16 not void by state or row); tape 15 774 rows / 24 h, no hole > 15 min, 0 null rows, longest gap 10.7 s; last row 143 s before the manifest (recorded); 1 poll failure, 0 tick errors. |
+| Reading | 90 episodes, 85 stopped, sum −3 941.1 bps (funding excluded); F4 −3 622.5 on 84; F4:NEAR +109.07 on 2, run 0 → 1, every other F4 row below zero; pass line over 14 counted days, no CANDIDATE. Marks pin `b1678aef…`. The channel's 11-15 file grew 168 → 176 after its pin (F2). |
+| Ledger / arena | ledger as of 11-16: 5 ALIVE, 1 RETIRED by rule, all RETIRED BY WORD (A42) (`2f95593e…`); cohort 2 as of 11-16 FULL 28 / PARTIAL 1 / NONE 40 / REFUSED 0, every row equal to 11-15's, `--verify` OK (root `a7d3db09…`); **cohort 3 day 1 of 7 FULL 38 / PARTIAL 0 / NONE 31 / REFUSED 0, 29 of 38 net-positive, `--verify` OK (root `1769900d…`)**; screen `SCREEN REFUSED: S91` (F4); feed adds cohort 3 OPEN 70, earlier rows unchanged; AI board 15 rows, 0 not graded, F4:NEAR +175.47 bps the one row above zero; door `OPEN 0 of 20`, 0 rows. An executor-ordering error (F3: intermediates deleted before 3f/3n) undone byte for byte before the commit. |
+| Calls / L2 / book | board 11-16: L1 0.4683 on 126 vs CB 0.4206; L2 and CM 0 resolved; 11-17 registered 288 (L2/CM 0: newest capture 11-08). Book run, `verify OK`: 0 of cohort 2's 25 KEEP addresses followed on cohort 3's pages, F6 / F7 replay 0 episodes; copier row 0 pairs ALIVE; `STARLINK: not ready (0 of 7 pairs)`. L2 favorite 20.05 USDC displayed, g 0 (date 2027-01-27 as printed); fill table skipped (no register). Maker (full day) L4M −25.172 on 157 filled, hit 0.503 vs p 0.589; L5M +7.935 on 56, hit 0.732 vs p 0.635; CMM −72.998 on 179. Shots: L4M RETIRED (kill 1, 856 shots), L5M RETIRED (kill 1, 266 shots); Thesis: CLOSED (R190). HALT: L2F, L3T, CMF 24 of 24 h (A43.1). |
+| Live leg | Day 26 (2026-11-16): no live leg — the standing go released by the operator's word (A42 R178); flat. |
+
+**Income row (R81), 2026-11-17 after A17.19:** 0 USD a day against 165. Nothing on the chain.
