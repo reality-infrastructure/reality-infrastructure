@@ -102,6 +102,10 @@ def main(argv: list[str] | None = None) -> int:
                     p.error("--run needs --verdict and --reason")
                 row, event = record_verdict(engine, pack, args.run, args.verdict, args.reason)
                 print(f"recorded {row['human_verdict']} ({row['verdict_source']}) on {row['run_id']} -> event {event['event_id']}")
+                if args.verdict in ("overridden", "wrong") and engine.config.autoloop_trigger["enabled"]:
+                    from engine.remediate import remediation_trigger      # JH-C11 wpG: act on the override while it is fresh
+                    res = remediation_trigger(engine, pack, packs_root=pack.root.parent)
+                    print(f"remediation: {res['status']}" + (f" ({res.get('agent')}, event {res['event_id']})" if res.get("event_id") else ""))
                 return 0
             if not args.pending:
                 p.error("one of --pending or --run is required")

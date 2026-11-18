@@ -19,7 +19,9 @@ from engine.eval import load_golden
 from engine.events import EventLog
 from engine.manifest import load_all_agents
 from engine.packs import load_pack
+from engine.schedule import load_schedule
 from engine.store import Engine
+from engine.triggers import load_triggers
 
 
 def validate_pack(name: str, root: Path | None = None) -> dict:
@@ -51,7 +53,8 @@ def validate_pack(name: str, root: Path | None = None) -> dict:
             "tools": pack.tools.ids(), "guardrails": pack.guardrails.ids(), "verifiers": pack.verifiers.ids(),
             "drift": pack.drift.ids() if pack.drift else [],
             "event_types": sorted(events.declared_types), "golden_cases": golden, "holdout_cases": holdout,
-            "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {}))}
+            "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {})),
+            "schedule": [j["id"] for j in load_schedule(pack)], "triggers": [t["id"] for t in load_triggers(pack)]}
 
 
 def main(argv: list[str] | None = None) -> int:

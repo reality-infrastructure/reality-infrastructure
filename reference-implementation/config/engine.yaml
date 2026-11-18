@@ -25,10 +25,42 @@ autoloop:
     min_planted: 4              #   once this many were planted ...
     max_missed: 0.25            #   ... a miss rate above this suspends the judge
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
+  budget_usd: null              # Musk: a cycle's dollar budget (the planner's batch stops starting at it); null is refused outside fixture packs
+  trigger:                      # Naval: act on a failure while it is fresh (engine/remediate.py)
+    enabled: true               #   a gated mini-cycle (crank, drift gate, refine on golden + held-out) at the end of every sweep and scheduler tick
+    min_count: 3                #   a failure cluster this large in the running week, or a human override with a reason, starts one
+    cooldown_minutes: 60        #   at most one mini-cycle per this many minutes
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
-  kill_check_every: 20          # completions between kill-rule checks
+  kill_check_every: 20          # completions between kill-rule checks (and re-hashing the agent: an adopted edit switches the version)
+  pilot:                        # the panel / Patel: a seeded sample runs first and predicts the rest
+    n: 20                       #   pilot size; a sweep of n inputs or fewer has no pilot (0 = never)
+    seed: sweep-pilot           #   logged on the <pack>.sweep_pilot event
+    refuse_if_projected_over_budget: true
+  off_peak: false               # Musk: start new work only inside the model's off-peak windows (config/prices.yaml); --off-peak
+  reload_on_adoption: true      # Patel: the remaining inputs run on the adopted version, not the superseded one
+  adaptive_workers: false       # Brown: take workers from the agent's latest engine.scale --calibrate when --workers is not given
+  min_marginal_speedup: 0.2     # Patel: calibration stops adding workers when one more buys less than this speed-up
+sizing:                         # Musk: pre-flight arithmetic before a sweep spends (engine/sizing.py)
+  margin: 0.25                  #   need = remaining x p95 cost per run (agent + judge) / pass rate x (1 + margin)
+  on_over: refuse               #   refuse | cap: when the need exceeds the budget, refuse with the arithmetic or cap the batch
+  min_gain: 0.1                 #   a doubled worker count must raise throughput at least this much, else the ramp stops (saturation)
+rollout:                        # Musk: a new version earns its volume (engine/rollout.py)
+  burn_in_runs: 20              #   fewer runs than this on a manifest_hash: one worker, at most this many inputs
+  min_pass_rate: 0.5            #   below this on the version: back to burn-in; a ramp step below it halves the workers
+  start_workers: 1              #   after burn-in the ramp starts here and doubles each step while the pass rate holds
+  step_runs: 10                 #   completions per ramp step
+  tiers: [100, 1000, 10000]     #   total runs a version may reach before it has passed the tier below
+schedule:                       # Naval: agents that work while the operator sleeps (engine/schedule.py)
+  lease_seconds: 900            #   the store lease (one process per store) lapses this long after its last renewal
+  heartbeat_seconds: 300        #   renewal (and <pack>.heartbeat) cadence while a process holds the store
+  max_catch_up: 3               #   missed ticks run at most this many per job on restart; older ones are recorded as skipped
+triggers:                       # the panel: a declared event starts the agent mapped to it (engine/triggers.py, pack triggers.yaml)
+  max_per_poll: 20
+scale:                          # Brown: the scaling ladder (engine/scale.py)
+  ladder: [1, 2, 4, 8, 16]
+  budget_usd: null              # null is refused outside fixture packs
 citations:
   # ref format: <kind>:<table_or_path>:<id>
   kinds: [event, table, file, run]

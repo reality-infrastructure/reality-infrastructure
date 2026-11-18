@@ -1,0 +1,7 @@
+# Event-triggered runs (engine/triggers.py): a feed reporting a record re-runs the allocation at that
+# capacity, linked to the event that caused it, without waiting for the planner.
+triggers:
+  - id: allocate-on-record
+    event_type: _reference.record_observed
+    agent: allocator
+    input: {capacity: payload.value}

@@ -269,13 +269,19 @@ def plan(runner: Runner, planner: str, *, week: str, report: dict, pending: list
 
 # -- act ----------------------------------------------------------------------------------
 
-def act(runner: Runner, batch: list[dict]) -> list[dict]:
+def act(runner: Runner, batch: list[dict], *, budget_usd: Decimal | None = None, spent: Decimal = Decimal(0)) -> list[dict]:
+    """Run the batch; with a budget, nothing new starts once the cycle's spend reaches it."""
     out = []
     for item in batch:
+        if budget_usd is not None and spent >= budget_usd:
+            out.append({"agent": item["agent"], "input": item["input"], "run_id": None, "status": "skipped_budget",
+                        "error": f"the cycle's budget ${budget_usd} is spent (${spent})"})
+            continue
         try:
             r = runner.run(item["agent"], item["input"])
             out.append({"agent": item["agent"], "input": item["input"], "run_id": r.run_id, "status": r.status,
                         "cost_usd": str(r.cost_usd)})
+            spent += r.cost_usd
         except EngineError as e:                       # an errored run is traced by the runner; the loop goes on
             out.append({"agent": item["agent"], "input": item["input"], "run_id": None, "status": "error", "error": str(e)})
     return out
@@ -435,6 +441,10 @@ def export_open(engine: Engine, pack, out_dir: Path, stamp: str) -> list[dict]:
 def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | None = None,
           do_plan: bool = True, do_judge: bool = True, do_refine: bool = True, do_export: bool = True,
           runner: Runner | None = None) -> dict:
+    from engine.sizing import require_budget
+    budget = engine.config.autoloop_budget_usd
+    require_budget(pack, budget, "an autoloop cycle")
+    began = engine.clock.now()
     runner = runner or Runner(engine, pack)
     agents = loop_agents(pack)
     start, end = week_bounds(week)
@@ -451,7 +461,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
         batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed)
         result["plan"] = {"run": planned, "batch": batch}
-        result["act"] = act(runner, batch)
+        result["act"] = act(runner, batch, budget_usd=budget, spent=Decimal(str(planned["cost_usd"])))
     if do_judge and "judge" in agents:
         if safety["suspended"]:
             result["judge"] = []
@@ -478,6 +488,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     if do_export:
         result["export"] = export_open(engine, pack, pack.root, week)
     result["safety"]["killed_after"] = kill_rule(engine, pack)
+    result["cycle_seconds"] = round((engine.clock.now() - began).total_seconds(), 6)
     return result
 
 
@@ -528,6 +539,8 @@ def render(result: dict) -> str:
         L += [f"- {g['agent']}: +{g['added']} cases ({', '.join(g['ids'][:5])}{'…' if g['added'] > 5 else ''})" for g in result["grow"]] or ["- nothing to add"]
     if "export" in result:
         L += ["", "## Export", ""] + [f"- {e['agent']}: {e['status']}" + (f" ({e['rows']} rows -> {e['path']})" if e["status"] == "exported" else f" ({e['why']})") for e in result["export"]]
+    if result.get("cycle_seconds") is not None:
+        L += ["", f"cycle time: {result['cycle_seconds']} s from the first gate to the last step"]
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]
     return "\n".join(L) + "\n"
 
@@ -547,10 +560,12 @@ def main(argv: list[str] | None = None) -> int:
     try:
         engine = Engine.open(args.db)
         try:
+            from engine.schedule import store_lease
             pack = load_pack(args.pack)
-            result = cycle(engine, pack, args.week, packs_root=pack.root.parent, max_runs=args.max_runs,
-                           do_plan=not args.no_plan, do_judge=not args.no_judge, do_refine=not args.no_refine,
-                           do_export=not args.no_export)
+            with store_lease(engine, "engine.autoloop", packs=[pack]):
+                result = cycle(engine, pack, args.week, packs_root=pack.root.parent, max_runs=args.max_runs,
+                               do_plan=not args.no_plan, do_judge=not args.no_judge, do_refine=not args.no_refine,
+                               do_export=not args.no_export)
             crank_dir = Path(args.out) if args.out else pack.root / "crank"
             crank_dir.mkdir(parents=True, exist_ok=True)
             (crank_dir / f"{args.week}.md").write_text(render_crank(build_report(engine, pack, args.week)), encoding="utf-8")

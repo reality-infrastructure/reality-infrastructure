@@ -108,7 +108,16 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
             "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
             "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation}
+            "failure_clusters": top_clusters, "recommendation": recommendation, **_operations(engine, pack, runs, start, end)}
+
+
+def _operations(engine: Engine, pack, runs: list[dict], start: datetime, end: datetime) -> dict:
+    """JH-C11 wpG: the spread of cost, latency and tokens per run, pass rate per version, and the schedule's week."""
+    from engine.rollout import by_version
+    from engine.schedule import week_summary
+    from engine.sizing import percentiles_by_agent
+    return {"percentiles": percentiles_by_agent(runs), "by_version": by_version(runs),
+            "schedule": week_summary(engine, pack, iso(start), iso(end))}
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -159,6 +168,20 @@ def render(report: dict) -> str:
           "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract, or "
           "engine.autoloop lets the pack's refiner propose the rung-1/2 edit and adopts it only if the "
           "golden set does not get worse."]
+    if "percentiles" in report:
+        L += ["", "## Spread per run (p50 / p95 / max)", "",
+              "| agent | cost USD | latency ms | tokens | runs/hour/worker |", "|---|---|---|---|---|"]
+        for name, q in report["percentiles"].items():
+            L.append(f"| {name} | {q['cost_usd']['p50']} / {q['cost_usd']['p95']} / {q['cost_usd']['max']} | "
+                     f"{q['latency_ms']['p50']} / {q['latency_ms']['p95']} / {q['latency_ms']['max']} | "
+                     f"{q['tokens']['p50']} / {q['tokens']['p95']} / {q['tokens']['max']} | {q['runs_per_hour_per_worker']} |")
+        L += ["", "## Pass rate per version", ""]
+        L += [f"- {a} {h[:12]}: {v['succeeded']}/{v['runs']} ({v['pass_rate']})"
+              for a, vs in sorted(report["by_version"].items()) for h, v in vs.items()] or ["- no runs"]
+        sc = report["schedule"]
+        L += ["", "## Schedule", "", f"ticks recorded {sc['ticks']}; missed {sc['missed']}; heartbeats {sc['heartbeats']}"]
+        L += [f"- {j}: ran {c['ran']}, skipped {c['skipped']}, failed {c['failed']}, missed {c['missed']}"
+              for j, c in sorted(sc["by_job"].items())]
     return "\n".join(L) + "\n"
 
 
