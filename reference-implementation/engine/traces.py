@@ -14,7 +14,7 @@ from engine.hashing import sha256_json
 from engine.runtime import iso
 from engine.store import Engine, run_ledger_entry
 
-STATUSES = ("succeeded", "failed_guardrail", "failed_verifier", "access_denied", "error")
+STATUSES = ("succeeded", "failed_guardrail", "failed_verifier", "access_denied", "error", "needs_clarification")
 
 
 @dataclass
@@ -29,8 +29,12 @@ class CandidateTrace:
     judgement: dict | None = None
     accepted: bool = False
     failure_reasons: list[str] = field(default_factory=list)
+    effects: list[dict] = field(default_factory=list)       # staged effectful calls and their fate (JH-C11 G-M9)
+    notes: list[str] = field(default_factory=list)          # working notes carried to the next iteration (G-B4)
+    origin: str | None = None                               # "stored" when a mid-run replay copied it (G-B21)
 
     def as_dict(self) -> dict:
+        extra = {k: v for k, v in (("effects", self.effects), ("notes", self.notes), ("origin", self.origin)) if v}
         return {
             "index": self.index,
             "messages": self.messages,
@@ -42,6 +46,7 @@ class CandidateTrace:
             "judgement": self.judgement,
             "accepted": self.accepted,
             "failure_reasons": self.failure_reasons,
+            **extra,
         }
 
 
@@ -76,6 +81,9 @@ class RunTrace:
         self.iterations: list[IterationTrace] = [IterationTrace(index=0, phase="context")]
         self._current: CandidateTrace | None = None
         self.cost = Decimal(0)
+        self.links: dict = {}            # store.LINK_COLUMNS values for this run (JH-C11 wpH)
+        self.context: dict | None = None  # the working context the candidates were proposed from
+        self.state: dict = {"clarifications": 0, "fanouts": 0}   # per-run counters of the JH-C11 run loop
 
     # -- recording --------------------------------------------------------------
 
@@ -147,6 +155,7 @@ class RunTrace:
             "verdict_reason": None,
             "verdict_at": None,
             "created_at": iso(self.started_at),
+            **self.links,
         }
         with self._engine.store.transaction():
             receipt = self._engine.ledger.append(run_ledger_entry(row))

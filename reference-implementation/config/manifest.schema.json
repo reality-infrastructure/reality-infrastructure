@@ -251,6 +251,20 @@
             "verifier_certified",
             "iterations_exhausted"
           ]
+        },
+        "fanout": {
+          "type": "object",
+          "additionalProperties": false,
+          "description": "JH-C11 G-D11: an orchestrator's parallel fan-out (defaults in config/engine.yaml loop.fanout)",
+          "properties": {
+            "max_children": {"type": "integer", "minimum": 1, "maximum": 256},
+            "workers": {"type": "integer", "minimum": 1, "maximum": 64},
+            "alternatives_per_part": {"type": "integer", "minimum": 1, "maximum": 8}
+          }
+        },
+        "fork_context": {
+          "type": "boolean",
+          "description": "JH-C11 G-B4: children of this orchestrator start with its working context"
         }
       }
     },

@@ -8,7 +8,7 @@ tables:
   candidates: { backend: file, ref: fixtures/candidates.jsonl, id_field: id }
   realized:   { backend: file, ref: fixtures/realized.jsonl, id_field: id }
 modules:
-  tools: [tools.arith]
+  tools: [tools.arith, tools.effects]
   guardrails: [guardrails.flags]
   verifiers: [verifiers.knapsack]
   drift: [drift]
@@ -40,3 +40,10 @@ local_models:
   refiner-pessimist:    fixtures.responders:refiner_pessimist
   curator-v1:           fixtures.responders:curator_v1
   allocator-offpeak:    fixtures.responders:allocator_v1
+  # JH-C11 wpH: the run loop's fixtures
+  checker-retry:        fixtures.responders:checker_retry
+  checker-split:        fixtures.responders:checker_split
+  checker-sharer:       fixtures.responders:checker_sharer
+  allocator-team:       fixtures.responders:allocator_team
+  briefer-fanout:       fixtures.responders:briefer_fanout
+  briefer-asks:         fixtures.responders:briefer_asks

@@ -1,7 +1,8 @@
 -- A third verdict source: `outcome`, the world's answer to a forward claim, recorded when a pack's
 -- @outcome resolver reads it after the claim's horizon (engine/outcome.py).  Precedence:
--- human > outcome > agent.  SQLite cannot widen a CHECK in place, so the table is rebuilt with
--- every column, index and trigger it had; DROP TABLE's implicit delete fires no trigger.
+-- human > outcome > agent.  SQLite cannot widen a CHECK in place, so the table is rebuilt with every
+-- column, index and trigger it has after 0004_zz_c11_wph_run_links (the run-link columns and the
+-- needs_clarification status included); DROP TABLE's implicit delete fires no trigger.
 CREATE TABLE agent_runs_v5 (
   run_id           TEXT PRIMARY KEY,
   pack             TEXT NOT NULL,
@@ -15,7 +16,7 @@ CREATE TABLE agent_runs_v5 (
   input            TEXT NOT NULL,
   iterations       TEXT NOT NULL,
   output           TEXT,
-  status           TEXT NOT NULL CHECK (status IN ('succeeded','failed_guardrail','failed_verifier','access_denied','error')),
+  status           TEXT NOT NULL CHECK (status IN ('succeeded','failed_guardrail','failed_verifier','access_denied','error','needs_clarification')),
   cost_usd         TEXT NOT NULL,
   latency_ms       INTEGER NOT NULL,
   items_evaluated  INTEGER,
@@ -31,21 +32,34 @@ CREATE TABLE agent_runs_v5 (
   verdict_at       TEXT,
   created_at       TEXT NOT NULL,
   verdict_source   TEXT CHECK (verdict_source IS NULL OR verdict_source IN ('human','agent','outcome')),
-  verdict_ref      TEXT
+  verdict_ref      TEXT,
+  session_id        TEXT,
+  supersedes_run_id TEXT,
+  replayed_from     TEXT,
+  forked_from       TEXT,
+  fanout_group      TEXT,
+  context_sha256    TEXT,
+  clarification     TEXT
 );
-INSERT INTO agent_runs_v5 (run_id, pack, agent, role, manifest_hash, agent_version, provider, model, input_hash, input,
-  iterations, output, status, cost_usd, latency_ms, items_evaluated, parent_run_id, judgement, judgement_hash,
+INSERT INTO agent_runs_v5 (run_id, pack, agent, role, manifest_hash, agent_version, provider, model, input_hash,
+  input, iterations, output, status, cost_usd, latency_ms, items_evaluated, parent_run_id, judgement, judgement_hash,
   access_denied, failure_reasons, ledger_index, leaf_hash, human_verdict, verdict_reason, verdict_at, created_at,
-  verdict_source, verdict_ref)
-SELECT run_id, pack, agent, role, manifest_hash, agent_version, provider, model, input_hash, input,
-  iterations, output, status, cost_usd, latency_ms, items_evaluated, parent_run_id, judgement, judgement_hash,
+  verdict_source, verdict_ref, session_id, supersedes_run_id, replayed_from, forked_from, fanout_group,
+  context_sha256, clarification)
+SELECT run_id, pack, agent, role, manifest_hash, agent_version, provider, model, input_hash,
+  input, iterations, output, status, cost_usd, latency_ms, items_evaluated, parent_run_id, judgement, judgement_hash,
   access_denied, failure_reasons, ledger_index, leaf_hash, human_verdict, verdict_reason, verdict_at, created_at,
-  verdict_source, verdict_ref
+  verdict_source, verdict_ref, session_id, supersedes_run_id, replayed_from, forked_from, fanout_group,
+  context_sha256, clarification
 FROM agent_runs;
 DROP TABLE agent_runs;
 ALTER TABLE agent_runs_v5 RENAME TO agent_runs;
 CREATE INDEX IF NOT EXISTS agent_runs_pack_agent ON agent_runs (pack, agent, created_at);
 CREATE INDEX IF NOT EXISTS agent_runs_parent ON agent_runs (parent_run_id);
+CREATE INDEX IF NOT EXISTS agent_runs_session ON agent_runs (session_id, created_at);
+CREATE INDEX IF NOT EXISTS agent_runs_supersedes ON agent_runs (supersedes_run_id);
+
+-- Only the verdict columns may change after insert; nothing may be deleted.
 CREATE TRIGGER IF NOT EXISTS agent_runs_frozen BEFORE UPDATE ON agent_runs
   WHEN OLD.run_id IS NOT NEW.run_id OR OLD.pack IS NOT NEW.pack OR OLD.agent IS NOT NEW.agent
     OR OLD.role IS NOT NEW.role OR OLD.manifest_hash IS NOT NEW.manifest_hash
@@ -58,6 +72,10 @@ CREATE TRIGGER IF NOT EXISTS agent_runs_frozen BEFORE UPDATE ON agent_runs
     OR OLD.access_denied IS NOT NEW.access_denied OR OLD.failure_reasons IS NOT NEW.failure_reasons
     OR OLD.ledger_index IS NOT NEW.ledger_index OR OLD.leaf_hash IS NOT NEW.leaf_hash
     OR OLD.created_at IS NOT NEW.created_at
+    OR OLD.session_id IS NOT NEW.session_id OR OLD.supersedes_run_id IS NOT NEW.supersedes_run_id
+    OR OLD.replayed_from IS NOT NEW.replayed_from OR OLD.forked_from IS NOT NEW.forked_from
+    OR OLD.fanout_group IS NOT NEW.fanout_group OR OLD.context_sha256 IS NOT NEW.context_sha256
+    OR OLD.clarification IS NOT NEW.clarification
   BEGIN SELECT RAISE(ABORT, 'agent_runs: only verdict columns may change'); END;
 CREATE TRIGGER IF NOT EXISTS agent_runs_no_delete BEFORE DELETE ON agent_runs
   BEGIN SELECT RAISE(ABORT, 'agent_runs is append-only'); END;

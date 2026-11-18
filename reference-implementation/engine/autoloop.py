@@ -126,6 +126,9 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
             iv = stats.rate(ok, len(rows), st["confidence"])
             killed[name] = (f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']} "
                             f"({st['confidence']:.0%} interval {iv['lo']}-{iv['hi']}{', gated on the upper bound' if st['gate_on_bounds'] else ''})")
+    from engine.risk import ruin_halts             # JH-C11 G-NCD5: one ruinous loss halts whatever the average
+    for name, why in ruin_halts(engine, pack).items():
+        killed[name] = why
     return killed
 
 

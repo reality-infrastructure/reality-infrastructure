@@ -80,7 +80,11 @@ class Sweep:
         self.judge_name = loop_agents(pack).get("judge") if judge else None
         if judge and self.judge_name is None:
             raise EngineError(f"pack {pack.name!r} has no judge; drop --judge or add one")
-        self.manifest_hash = self.runner.agent(agent).hash          # load once, before the threads
+        loaded = self.runner.agent(agent)              # load once, before the threads
+        self.manifest_hash = loaded.hash
+        # JH-C11 G-B4: workers of an agent that shares findings write to and read from one scratch per sweep
+        self.scratch_scope = (f"sweep:{engine.ids.new()}"
+                              if {"scratch.write", "scratch.read"} & set(loaded.tools) else None)
         if self.judge_name:
             self.runner.agent(self.judge_name)
         self.log = log or (lambda *_: None)
@@ -109,7 +113,7 @@ class Sweep:
         threading.current_thread().name = f"sweep-slot-{slot}"     # the worker slot this unit occupies, as the thread's name
         entry: dict = {"input": run_input, "slot": slot, "started_at": iso(self.engine.clock.now())}
         try:
-            r = self.runner.run(self.agent, run_input)
+            r = self.runner.run(self.agent, run_input, scratch_scope=self.scratch_scope)
             entry.update({"run_id": r.run_id, "status": r.status, "cost_usd": str(r.cost_usd),
                           "manifest_hash": r.row["manifest_hash"], "tokens": sizing.run_tokens(r.row)})
             cost = r.cost_usd

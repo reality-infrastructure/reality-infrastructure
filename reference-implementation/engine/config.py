@@ -283,6 +283,59 @@ class EngineConfig:
                            "attempts": int(curate["attempts"]), "min_fail": float(curate["min_fail"]),
                            "max_fail": float(curate["max_fail"])}}
 
+    # -- JH-C11 wpH: the run loop and tools (defaults keep older engine.yaml files loading) ----------------
+
+    @property
+    def run_loop(self) -> dict:
+        """Run-loop knobs of config/engine.yaml ``loop`` added by JH-C11 wpH, with their defaults."""
+        lp = dict(self.engine.get("loop") or {})
+        policy = str(lp.get("rejected_side_effects", "record"))
+        if policy not in ("record", "drop"):
+            raise EngineError(f"loop.rejected_side_effects must be record|drop, got {policy!r}")
+        messaging = str(lp.get("messaging", "siblings"))
+        if messaging not in ("off", "siblings"):
+            raise EngineError(f"loop.messaging must be off|siblings, got {messaging!r}")
+        return {"rejected_side_effects": policy,
+                "fanout": {"max_children": 16, "workers": 4, "alternatives_per_part": 1, **(lp.get("fanout") or {})},
+                "messaging": messaging,
+                "max_inbox_per_turn": int(lp.get("max_inbox_per_turn", 4)),
+                "max_messages_per_run": int(lp.get("max_messages_per_run", 8)),
+                "max_clarifications_per_run": int(lp.get("max_clarifications_per_run", 2)),
+                "reconcile": bool(lp.get("reconcile", True)),
+                "max_notes_chars": int(lp.get("max_notes_chars", 2000))}
+
+    @property
+    def shared_memory(self) -> dict:
+        m = dict(self.engine.get("memory") or {})
+        scratch = {"max_tokens": 4000, **(m.get("shared_scratch") or {})}
+        return {"scratch_max_tokens": int(scratch["max_tokens"]), "session_turns": int(m.get("session_turns", 10))}
+
+    @property
+    def risk(self) -> dict:
+        r = dict(self.engine.get("risk") or {})
+        return {"max_external_per_run": int(r.get("max_external_per_run", 5)),
+                "max_external_per_cycle": int(r.get("max_external_per_cycle", 50)),
+                "max_fraction_per_action": Decimal(str(r.get("max_fraction_per_action", "0.25"))),
+                "ruin_fraction": Decimal(str(r.get("ruin_fraction", "0.5")))}
+
+    @property
+    def faults(self) -> dict:
+        f = dict(self.engine.get("faults") or {})
+        kinds = tuple(f.get("kinds") or ("error", "stale", "altered"))
+        bad = sorted(set(kinds) - {"error", "stale", "altered"})
+        if bad:
+            raise EngineError(f"faults.kinds: unknown kind(s) {bad}")
+        return {"rate": float(f.get("rate", 0.25)), "kinds": kinds, "seed": str(f.get("seed", "faults"))}
+
+    @property
+    def sandbox(self) -> dict:
+        t = dict(self.engine.get("tools") or {})
+        mode = str(t.get("sandbox", "subprocess"))
+        if mode not in ("off", "subprocess"):
+            raise EngineError(f"tools.sandbox must be off|subprocess, got {mode!r}")
+        return {"mode": mode, "workspace_quota_mb": int(t.get("workspace_quota_mb", 64)),
+                "timeout_seconds": float(t.get("sandbox_timeout_seconds", 60))}
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

@@ -91,3 +91,56 @@ tables.read:
       table: { type: string }
       row_id: { type: string }
       limit: { type: integer, minimum: 1, maximum: 5000, default: 1000 }
+# JH-C11 wpH — the run loop's own tools
+engine.clarify:
+  description: >-
+    Return a question to the agent that called you instead of guessing. Use it
+    only when the input does not let you finish the work; the run ends with
+    status needs_clarification and your question goes back to the caller.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [question]
+    properties:
+      question: { type: string, minLength: 1, maxLength: 2000 }
+siblings.message:
+  description: >-
+    Send a short message to the sibling runs of your fan-out group: one part by
+    its index, or "*" for every sibling. It reaches the recipient at its next
+    turn. Messages are recorded and your budget of them is small.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [to, text]
+    properties:
+      to: { type: string, description: 'a sibling part index such as "1", or "*"' }
+      text: { type: string, minLength: 1, maxLength: 2000 }
+notes.write:
+  description: >-
+    Keep a working note (cases ruled out, partial findings). If this attempt is
+    rejected, your notes come back to you in the next iteration's feedback.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [text]
+    properties:
+      text: { type: string, minLength: 1, maxLength: 2000 }
+scratch.write:
+  description: >-
+    Share a finding with the other workers of this sweep or fan-out. It is
+    published only if your output is accepted; later workers see it in their
+    context.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [text]
+    properties:
+      text: { type: string, minLength: 1, maxLength: 4000 }
+scratch.read:
+  description: >-
+    Read the findings other workers of this sweep or fan-out have shared so
+    far, oldest first. Cite one as event:events:<event_id>.
+  input_schema:
+    type: object
+    additionalProperties: false
+    properties: {}

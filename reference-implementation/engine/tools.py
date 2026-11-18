@@ -34,6 +34,13 @@ class ToolSpec:
     fn: Callable[[dict, "ToolContext"], Any]
     targets: Callable[[dict], list[Target]]
     adapter_slot: str | None = None
+    # JH-C11 wpH.  ``staged``: a write/external call made by a candidate is held until the candidate is certified
+    # (engine/staging.py); False only for calls whose whole point is to act during the run (sibling messages,
+    # working notes).  ``prepare(args, ctx) -> dict`` validates a staged call at once and returns what the model
+    # sees instead of the result.  ``sandbox``: the body runs in a child process (engine/sandbox.py).
+    staged: bool = True
+    prepare: Callable[[dict, "ToolContext"], dict] | None = None
+    sandbox: bool = False
 
     @property
     def provider_name(self) -> str:
@@ -50,7 +57,8 @@ class ToolSpec:
 
 def tool(*, id: str, effect: str, deterministic: bool, input_schema: dict,
          description: str, targets: Callable[[dict], list[Target]] | None = None,
-         adapter_slot: str | None = None):
+         adapter_slot: str | None = None, prepare: Callable[[dict, "ToolContext"], dict] | None = None,
+         sandbox: bool = False):
     """Declare a tool.  ``fn(args: dict, ctx: ToolContext) -> JSON-able``."""
     if effect not in EFFECTS:
         raise ToolError(f"tool {id!r}: effect must be one of {sorted(EFFECTS)}")
@@ -65,6 +73,7 @@ def tool(*, id: str, effect: str, deterministic: bool, input_schema: dict,
             id=id, effect=effect, deterministic=deterministic,
             input_schema=input_schema, description=description, fn=fn,
             targets=targets or (lambda args: []), adapter_slot=adapter_slot,
+            prepare=prepare, sandbox=sandbox,
         )
         setattr(fn, TOOL_ATTR, spec)
         return fn
@@ -86,9 +95,18 @@ class ToolContext:
     parent_run_id: str | None = None
     run_agent: Callable[..., dict] | None = None   # orchestrator -> child agent
     extra: dict = field(default_factory=dict)
+    stage: Any = None               # engine.staging.EffectStage of the candidate being proposed (JH-C11 G-M9)
 
     def call(self, tool_id: str, args: dict, *, origin: str = "agent") -> Any:
         return self.registry.call(tool_id, args, self, origin=origin)
+
+
+def execute(spec: ToolSpec, args: dict, ctx: ToolContext, record: dict | None = None) -> Any:
+    """Run a tool body: in the run's sandbox when it applies (engine/sandbox.py), else in process."""
+    sandbox = ctx.extra.get("sandbox")
+    if sandbox is not None and sandbox.applies(spec, args):
+        return sandbox.call(spec, args, ctx, record)
+    return spec.fn(args, ctx)
 
 
 class ToolRegistry:
@@ -152,7 +170,14 @@ class ToolRegistry:
                 if ctx.adapters is None:
                     raise ToolError(f"tool {tool_id!r} is external but no adapter gateway is bound")
                 ctx.adapters.require_slot(spec.adapter_slot)
-            result = spec.fn(args, ctx)
+            if ctx.stage is not None and origin == "agent" and spec.effect != "read" and spec.staged:
+                result = ctx.stage.stage(spec, args, ctx, record)
+            else:
+                faults = ctx.extra.get("faults")
+                kind = faults.draw(ctx, f"tool:{tool_id}") if faults is not None and spec.effect == "read" else None
+                result = execute(spec, args, ctx, record)
+                if kind is not None:
+                    result = faults.apply(ctx, f"tool:{tool_id}", kind, result, record)
         except Exception as e:  # noqa: BLE001 - every failure is traced, then re-raised
             record["error"] = f"{type(e).__name__}: {e}"
             ctx.recorder(record)

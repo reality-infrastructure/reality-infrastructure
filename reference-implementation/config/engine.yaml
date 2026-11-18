@@ -3,6 +3,18 @@ loop:
   max_tool_calls_per_candidate: 24
   default_max_iterations: 3
   default_search_width: 1
+  # JH-C11 wpH — the run loop (contracts: the five interviews)
+  rejected_side_effects: record # Musk/Naval: effects of a rejected candidate never land; record = one <pack>.rejected_side_effect, drop = trace only
+  fanout:                       # Patel: an orchestrator fans independent parts out to children in parallel
+    max_children: 16            #   child runs one fan-out may start (parts x alternatives)
+    workers: 4                  #   children in flight at once
+    alternatives_per_part: 1    #   N tries per part, the certified one with the most accept mass kept
+  messaging: siblings           # Brown: fan-out siblings may message each other (off = the tool refuses)
+  max_inbox_per_turn: 4         #   messages delivered at one turn boundary; the excess is dropped and recorded
+  max_messages_per_run: 8       #   messages one run may send (the interruption budget)
+  max_clarifications_per_run: 2 #   children of one run that may answer needs_clarification instead of guessing
+  reconcile: true               #   passing candidates that disagree on the compare fields get one reconcile turn
+  max_notes_chars: 2000         # Brown: working notes a candidate carries into the next iteration
 export:
   min_verdicted_runs: 500
   # Whether a judge agent's verdict counts toward the gate and into the dataset
@@ -128,3 +140,20 @@ forecast:                       # Musk: dated targets with a stated probability;
   band: 0.2                     # above target+band the targets are too soft, below target-band too aggressive
   window: 20                    # resolved forecasts per maker in the hit rate
   metric_window_runs: 20        # pass_rate is measured over the agent's last N runs before the due week ends
+memory:                         # JH-C11 wpH — memory shared beyond one run
+  shared_scratch:
+    max_tokens: 4000            # Brown: findings sweep / fan-out workers share while it runs (oldest dropped first)
+  session_turns: 10             # the panel: earlier turns of the run's session carried into its context
+risk:                           # JH-C11 wpH — Naval: never risk ruin on an external effect
+  max_external_per_run: 5       #   outbound commands one run may send; the next is blocked, not queued
+  max_external_per_cycle: 50    #   outbound commands per ISO week across the pack
+  max_fraction_per_action: 0.25 #   a command's at_risk may not exceed this share of the slot's remaining capacity
+  ruin_fraction: 0.5            #   one realised loss of this share of a slot's capacity halts the agent until a human lifts it
+faults:                         # JH-C11 wpH — Brown (Antithesis): fault injection, eval/soak mode only
+  rate: 0.25                    #   share of tool reads / adapter commands that get a fault when injection is on
+  kinds: [error, stale, altered]
+  seed: faults
+tools:                          # JH-C11 wpH — Brown: the agent's own computer
+  sandbox: subprocess           #   off | subprocess: sandboxed tools run in a child process with a temp workspace
+  workspace_quota_mb: 64        #   a run's workspace may not grow past this
+  sandbox_timeout_seconds: 60

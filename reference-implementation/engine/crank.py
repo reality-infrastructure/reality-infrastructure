@@ -24,6 +24,7 @@ from engine import stats
 from engine.errors import EngineError
 from engine.manifest import load_agent
 from engine.packs import load_pack
+from engine.fanout import coordination
 from engine.runtime import iso
 from engine.store import Engine
 
@@ -57,7 +58,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     conflict: dict[str, list[Decimal]] = defaultdict(list)
     for r in runs:
         a = per_agent.setdefault(r["agent"], {"runs": 0, "succeeded": 0, "failed_guardrail": 0,
-                                               "failed_verifier": 0, "access_denied": 0, "error": 0,
+                                               "failed_verifier": 0, "access_denied": 0, "error": 0, "needs_clarification": 0,
                                                "cost": Decimal(0), "latency_ms": 0, "items": 0})
         a["runs"] += 1
         a[r["status"]] += 1
@@ -118,7 +119,8 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"],
             "outcomes": outcome.crank_section(engine, pack, iso(start), iso(end)),
             "reputation": reputation.crank_section(engine, pack), "forecasts": forecast.crank_section(engine, pack),
-            "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end)}
+            "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end),
+            "coordination": coordination(engine, pack, iso(start), iso(end))}
 
 
 def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) -> dict:
@@ -221,6 +223,11 @@ def render(report: dict) -> str:
     from engine import curate, forecast, outcome, reputation
     L += outcome.render_section(report.get("outcomes") or {}) + reputation.render_section(report.get("reputation") or {})
     L += forecast.render_section(report.get("forecasts") or {}) + curate.render_section(report.get("curator") or {})
+    co = report.get("coordination")
+    if co and co["child_runs"]:
+        L += ["", "## Coordination (fan-out children)", "",
+              f"{co['fanout_groups']} groups, {co['child_runs']} child runs, {co['messages']} messages, "
+              f"{co['messages_per_child_run']} per child run (0 = the children solved independently)"]
     rec = report["recommendation"]
     L += ["", "## Recommended change (one, lowest rung first)", "",
           f"rung: {rec['rung']}", "", rec["change"], "", f"evidence: `{rec['evidence']}`", "",
