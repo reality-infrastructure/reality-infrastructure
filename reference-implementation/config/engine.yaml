@@ -71,6 +71,20 @@ autoloop:
   trap_dir: answer_keys         # where the loop writes an answer key for one golden input, then removes it
   max_cheat_rate: 0.01          # (trap reads + honeypot misses) / planted; a rising rate above this halts refinement
   plan_max_agent_only_share: 0.5  # a planner batch may not be mostly inputs that passed on an agent verdict alone
+  constraint:                   # Musk: the one input that caps throughput, re-identified every cycle (JH-C11 wpF, G-M1)
+    window_weeks: 4             #   the trailing window the constraint is also named over
+    constraint_share: 0.5       #   once binding, at least this share of the planner's batch goes to the constraint agent
+    min_lost_runs: 3            #   ... when it is an agent's pass rate and has cost at least this many runs
+    cost_rise: 1.5              #   cost per run above this multiple of the trailing window is itself a limiter
+  min_novel_share: 0.2          # Naval: while a window repeats itself, at least this share of a batch must be unlike any golden case (G-NAB5)
+  velocity:                     # Patel: is the loop speeding up or running into harder problems (G-D1)
+    window_weeks: 8
+    min_cycles: 3               #   consecutive cycles of gain that make a trend
+    diminishing_ratio: 2.0      #   cost per point of gain rising (or falling) by this factor over them
+  speed:                        # Musk: iteration speed (G-M11)
+    target_cycle_hours: 24
+    target_time_to_fix_weeks: 2
+  directive_file: directive.md  # Patel: the operator's directive, passed verbatim to the planner and the refiner (G-D2)
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
@@ -86,6 +100,7 @@ sweep:                          # Brown: one continuous parallel grading loop; c
   broken:                       # Patel (G-D8): a broken task pauses the sweep (stop reason broken_task)
     window: 20                  #   checked once the first N completions are in
     max_cluster_share: 0.6      #   one failure cluster (or one error message) above this share of them = broken
+  measure_throughput: true      # Patel: runs/hour, provider vs engine share, worker utilisation and the binding resource (G-D3)
 sizing:                         # Musk: pre-flight arithmetic before a sweep spends (engine/sizing.py)
   margin: 0.25                  #   need = remaining x p95 cost per run (agent + judge) / pass rate x (1 + margin)
   on_over: refuse               #   refuse | cap: when the need exceeds the budget, refuse with the arithmetic or cap the batch
@@ -193,28 +208,6 @@ safeguards:                     # Brown: a safeguard is enforced on every path, 
   paths: [run, sweep, eval, autoloop]
 integrity:
   forbidden_reads: ["answer_keys/*", "agents/*/eval/*"]
-  constraint:                   # Musk: the one input that caps throughput, re-identified every cycle (JH-C11 wpF, G-M1)
-    window_weeks: 4             #   the trailing window the constraint is also named over
-    constraint_share: 0.5       #   once binding, at least this share of the planner's batch goes to the constraint agent
-    min_lost_runs: 3            #   ... when it is an agent's pass rate and has cost at least this many runs
-    cost_rise: 1.5              #   cost per run above this multiple of the trailing window is itself a limiter
-  min_novel_share: 0.2          # Naval: while a window repeats itself, at least this share of a batch must be unlike any golden case (G-NAB5)
-  velocity:                     # Patel: is the loop speeding up or running into harder problems (G-D1)
-    window_weeks: 8
-    min_cycles: 3               #   consecutive cycles of gain that make a trend
-    diminishing_ratio: 2.0      #   cost per point of gain rising (or falling) by this factor over them
-  speed:                        # Musk: iteration speed (G-M11)
-    target_cycle_hours: 24
-    target_time_to_fix_weeks: 2
-  directive_file: directive.md  # Patel: the operator's directive, passed verbatim to the planner and the refiner (G-D2)
-sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
-  workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
-  budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
-  kill_check_every: 20          # completions between kill-rule checks
-  measure_throughput: true      # Patel: runs/hour, provider vs engine share, worker utilisation and the binding resource (G-D3)
-citations:
-  # ref format: <kind>:<table_or_path>:<id>
-  kinds: [event, table, file, run]
 crank:                          # the crank's analytics (JH-C11 wpF)
   audit_sample_per_agent: 3     # Musk skip-level: raw runs per worker/specialist chosen by a seeded hash, no agent picks them (G-M10)
   yield_min_runs: 20            # panel: runs before the iteration/horizon yield recommends a loop change (G-P17)
