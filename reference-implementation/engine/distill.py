@@ -28,6 +28,7 @@ from pathlib import Path
 
 import yaml
 
+from engine import rigor
 from engine.config import load_yaml
 from engine.errors import EngineError, GateError
 from engine.eval import run_eval, write_matrix
@@ -101,6 +102,8 @@ def matrix(engine: Engine, pack, agent_name: str, student: str, date: str) -> di
     out = {"golden": run_eval(engine, pack, agent_name, models=[teacher, student], reference=teacher)}
     if (agent.dir / "eval" / "holdout.jsonl").is_file():
         out["holdout"] = run_eval(engine, pack, agent_name, models=[teacher, student], golden_file="holdout.jsonl", reference=teacher)
+    rows = {r["model"]: r for r in out["golden"]["models"]}
+    out["tier_gap"] = rigor.tier_gaps(rows[teacher], rows[student], engine.config.curriculum["max_teacher_gap"])
     md, js = write_matrix(agent.dir, out["golden"], date)
     if "holdout" in out:
         write_matrix(agent.dir, out["holdout"], f"{date}-holdout")
@@ -133,6 +136,9 @@ def main(argv: list[str] | None = None) -> int:
                         s = rows[a.student]
                         teacher = [r for r in m[name]["models"] if r["model"] != a.student][0]
                         print(f"{name}: student {s['score']} ({s['passed']}/{s['counted']}) parity={'yes' if s['parity'] else 'no'}; teacher {teacher['model']} {teacher['score']}")
+                if m["tier_gap"]:
+                    g = m["tier_gap"]
+                    print(f"teacher-student gap per tier: {g['per_tier']}" + ("; above the max gap: distil an intermediate student first" if g["suggest_intermediate"] else ""))
                 print(f"matrix: {m['written']}")
         finally:
             engine.close()

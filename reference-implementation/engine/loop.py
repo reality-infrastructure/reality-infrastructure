@@ -84,7 +84,9 @@ class Runner:
 
     def run(self, agent_name: str, run_input: dict, *, parent_run_id: str | None = None,
             depth: int = 0, model_override: tuple[str, str] | None = None,
-            enforce_economics: bool = True) -> RunResult:
+            enforce_economics: bool = True, sample: int = 0) -> RunResult:
+        """``sample`` is the draw number when an eval repeats a case: its candidates take distinct
+        indices (``sample * search_width + c``), so a provider that varies by index draws again."""
         if not isinstance(run_input, dict):
             raise EngineError("run input must be a JSON object")
         agent = self.agent(agent_name)
@@ -104,7 +106,7 @@ class Runner:
         )
         status, output, failures, access_denied = "error", None, [], False
         try:
-            output, status, failures = self._iterate(agent, ctx, trace, judgement, resolver, run_input)
+            output, status, failures = self._iterate(agent, ctx, trace, judgement, resolver, run_input, sample)
         except AccessDenied as e:
             status, access_denied, failures = "access_denied", True, [str(e)]
         except (ProviderError, ToolError, EventError, CitationError, EngineError) as e:
@@ -136,7 +138,7 @@ class Runner:
     # -- the loop ----------------------------------------------------------------------
 
     def _iterate(self, agent: Agent, ctx: ToolContext, trace: RunTrace, judgement: Judgement,
-                 resolver: CitationResolver, run_input: dict) -> tuple[Any, str, list[str]]:
+                 resolver: CitationResolver, run_input: dict, sample: int = 0) -> tuple[Any, str, list[str]]:
         context = assemble_working_context(agent, ctx, run_input)
         provider = self.providers.get(agent.model.provider)
         tool_defs = self.pack.tools.definitions(list(agent.tools)) + [self._submit_tool(agent)]
@@ -156,7 +158,7 @@ class Runner:
                 key = f"{i}:{c}"
                 try:
                     output = self._propose(agent, provider, tool_defs, context, iteration.feedback,
-                                           c, cand, ctx, trace)
+                                           sample * agent.loop["search_width"] + c, cand, ctx, trace)
                     if output is None:
                         continue
                     cand.output = output

@@ -96,7 +96,8 @@ class EngineConfig:
         judge = {"min_compared": 5, "max_disagreement": 0.25, "honeypots_per_cycle": 2, "min_planted": 4, "max_missed": 0.25,
                  **(a.get("judge") or {})}
         return {"holdout": bool(a.get("holdout", True)), "kill": kill, "judge": judge,
-                "grow_golden": bool(a.get("grow_golden", True))}
+                "grow_golden": bool(a.get("grow_golden", True)),
+                "refine_min_cluster_runs": int(a.get("refine_min_cluster_runs", 1))}
 
     @property
     def citation_kinds(self) -> frozenset[str]:
@@ -124,6 +125,39 @@ class EngineConfig:
         if row is None:
             raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
         return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
+
+    # -- JH-C11 wpA: eval rigor (every key defaulted so older engine.yaml files still load) -------------
+
+    @property
+    def stats(self) -> dict:
+        s = dict(self.engine.get("stats") or {})
+        return {"confidence": float(s.get("confidence", 0.9)), "gate_on_bounds": bool(s.get("gate_on_bounds", False))}
+
+    @property
+    def eval_rigor(self) -> dict:
+        e = dict(self.engine.get("eval") or {})
+        suspect = {"min_evals": 3, **(e.get("suspect") or {})}
+        return {"samples": int(e.get("samples", 3)), "fixture_samples": int(e.get("fixture_samples", 1)),
+                "min_case_rate": float(e.get("min_case_rate", 0.6)),
+                "strata": tuple(e.get("strata", ["area", "realism", "dimension"])),
+                "min_stratum_cases": int(e.get("min_stratum_cases", 3)),
+                "saturation_k": int(e.get("saturation_k", 3)), "max_saturated_share": float(e.get("max_saturated_share", 0.8)),
+                "hard_tier": int(e.get("hard_tier", 3)), "min_hard_share": float(e.get("min_hard_share", 0.2)),
+                "require_controls": bool(e.get("require_controls", True)),
+                "require_tool_coverage": bool(e.get("require_tool_coverage", True)),
+                "suspect": {"min_evals": int(suspect["min_evals"])}}
+
+    @property
+    def curriculum(self) -> dict:
+        c = dict(self.engine.get("curriculum") or {})
+        return {"promote_at": float(c.get("promote_at", 0.9)), "min_runs": int(c.get("min_runs", 5)),
+                "window_runs": int(c.get("window_runs", 20)), "plan_frontier_window": int(c.get("plan_frontier_window", 1)),
+                "max_teacher_gap": float(c.get("max_teacher_gap", 0.5))}
+
+    @property
+    def sweep_broken(self) -> dict:
+        b = dict((self.engine.get("sweep") or {}).get("broken") or {})
+        return {"window": int(b.get("window", 20)), "max_cluster_share": float(b.get("max_cluster_share", 0.6))}
 
 
 @lru_cache(maxsize=4)

@@ -279,6 +279,12 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
             role = load_yaml(gctx.pack.agent_dir(name) / "manifest.yaml").get("role")
             if role not in JUDGEABLE_ROLES:
                 problems.append(f"batch/{i}: {name} is a {role}; a planner schedules {'/'.join(JUDGEABLE_ROLES)} runs only")
+            band = (gctx.run_input.get("curriculum") or {}).get(name)
+            if band:
+                from engine.curriculum import band_problem
+                outside = band_problem(gctx.pack, name, item["input"], band)
+                if outside:
+                    problems.append(f"batch/{i}: {outside}")
         key = (name, json.dumps(item["input"], sort_keys=True))
         if key in seen:
             problems.append(f"batch/{i}: duplicate of an earlier item")

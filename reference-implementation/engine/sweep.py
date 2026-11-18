@@ -27,7 +27,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from decimal import Decimal
 from pathlib import Path
 
+from engine import curriculum
 from engine.autoloop import kill_rule, loop_agents
+from engine.crank import _cluster_key
 from engine.errors import EngineError
 from engine.loop import Runner
 from engine.packs import load_pack, parse_agent_ref
@@ -35,7 +37,7 @@ from engine.runtime import iso
 from engine.store import Engine
 from engine.verdicts import record_verdict
 
-STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start")
+STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start", "broken_task")
 
 
 def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, input_key: str) -> list[dict]:
@@ -55,7 +57,7 @@ def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, inp
 
 class Sweep:
     def __init__(self, engine: Engine, pack, agent: str, *, workers: int, budget_usd: Decimal | None,
-                 judge: bool, limit: int | None, kill_check_every: int, log=None) -> None:
+                 judge: bool, limit: int | None, kill_check_every: int, log=None, broken: dict | None = None) -> None:
         self.engine, self.pack, self.agent = engine, pack, agent
         self.workers, self.budget, self.limit = max(1, int(workers)), budget_usd, limit
         self.kill_check_every = max(1, int(kill_check_every))
@@ -72,6 +74,10 @@ class Sweep:
         self.completed = 0
         self.results: list[dict] = []
         self.stop_reason: str | None = None
+        self.broken = dict(broken or engine.config.sweep_broken)
+        self.broken_cluster: dict | None = None
+        self.tier_gated: list[dict] = []
+        self.promoted: dict | None = None
 
     # -- one unit of work: the run, then its verdict ------------------------------------
 
@@ -112,6 +118,7 @@ class Sweep:
         if self._halted():
             self.stop_reason = "halted_before_start"
             return self.report(inputs, remaining=len(inputs))
+        inputs, self.tier_gated = curriculum.gate_inputs(self.engine, self.pack, self.agent, inputs)
         truncated = self.limit is not None and self.limit < len(inputs)
         if truncated:
             inputs = inputs[: self.limit]
@@ -131,8 +138,12 @@ class Sweep:
                         self.stop_reason = "budget"
                     elif self.completed % self.kill_check_every == 0 and self._halted():
                         self.stop_reason = "kill"
+                    elif self.completed == self.broken["window"] and self._broken():
+                        self.stop_reason = "broken_task"
         if self.stop_reason is None:
             self.stop_reason = "limit" if truncated else "done"
+        promoted = curriculum.promote(self.engine, self.pack, self.agent)
+        self.promoted = None if promoted is None else promoted["payload"]
         return self.report(inputs, remaining=len(pending))
 
     def report(self, inputs: list[dict], *, remaining: int) -> dict:
@@ -146,7 +157,32 @@ class Sweep:
                 "budget_usd": None if self.budget is None else str(self.budget), "candidates": len(inputs),
                 "completed": self.completed, "remaining": remaining, "by_status": by_status, "verdicts": verdicts,
                 "cost_usd": str(self.cost), "stop_reason": self.stop_reason, "halted_now": self._halted(),
-                "results": self.results}
+                "results": self.results, "tier_gated": self.tier_gated, "promoted": self.promoted,
+                "broken_cluster": self.broken_cluster}
+
+    def _broken(self) -> bool:
+        """Patel's broken task: when one failure cluster (the crank's key, or one shared error message) is more
+        than ``max_cluster_share`` of the first ``window`` completions, the case or environment is the likelier
+        fault, and grading on would spend the budget measuring it.  The sweep pauses for a human to rebuild it."""
+        keys: dict[str, int] = {}
+        window = self.results[: self.broken["window"]]
+        for e in window:
+            if e.get("status") == "succeeded":
+                continue
+            if e.get("error"):
+                key = f"error: {_cluster_key(e['error'].split(': ', 1)[-1])}"
+            else:
+                row = self.engine.store.get_run(e["run_id"])
+                reasons = (row or {}).get("failure_reasons") or [""]
+                key = f"{e.get('status')}: {_cluster_key(reasons[0].split(': ', 1)[-1])}"
+            keys[key] = keys.get(key, 0) + 1
+        if not keys:
+            return False
+        top, n = max(sorted(keys.items()), key=lambda kv: kv[1])
+        if n / len(window) <= self.broken["max_cluster_share"]:
+            return False
+        self.broken_cluster = {"cluster": top, "count": n, "window": len(window)}
+        return True
 
 
 def render(rep: dict, stamp: str) -> str:
@@ -156,6 +192,13 @@ def render(rep: dict, stamp: str) -> str:
          f"stopped because: **{rep['stop_reason']}**" + ("; the agent is halted by the kill rule now" if rep["halted_now"] else ""), "",
          "| status | runs |", "|---|---|"] + [f"| {k} | {v} |" for k, v in sorted(rep["by_status"].items())]
     L += ["", "| verdict (judge) | runs |", "|---|---|"] + ([f"| {k} | {v} |" for k, v in sorted(rep["verdicts"].items())] or ["| none | 0 |"])
+    if rep.get("broken_cluster"):
+        b = rep["broken_cluster"]
+        L += ["", f"broken task: {b['count']} of the first {b['window']} completions failed as `{b['cluster']}`; rebuild the case or environment before grading on"]
+    if rep.get("tier_gated"):
+        L += ["", f"{len(rep['tier_gated'])} inputs held back above the agent's promoted tier (easy first)"]
+    if rep.get("promoted"):
+        L += ["", f"promoted from tier {rep['promoted']['from_tier']} to {rep['promoted']['to_tier']}"]
     L += ["", "Every run above is a trace in the store and every verdict a ledger-bound event; the operator's verdict on any run outranks the judge's."]
     return "\n".join(L) + "\n"
 

@@ -49,7 +49,16 @@
       "refiner_run_id": {"type": "string"},
       "why": {"type": "string"},
       "before_holdout": {"type": ["string", "null"]},
-      "after_holdout": {"type": ["string", "null"]}
+      "after_holdout": {"type": ["string", "null"]},
+      "objective_hash": {"type": "string"},
+      "samples": {"type": "integer", "minimum": 1},
+      "before_pass_at_k": {"type": "string"},
+      "after_pass_at_k": {"type": "string"},
+      "before_interval": {"type": "object"},
+      "after_interval": {"type": "object"},
+      "before_strata": {"type": "object"},
+      "after_strata": {"type": "object"},
+      "refusals": {"type": "array", "items": {"type": "string"}}
     }
   },
   "correction": {
@@ -112,6 +121,77 @@
           "properties": {"ref": {"type": "string"}, "field": {"type": "string"}}
         }
       }
+    }
+  },
+  "eval_integrity": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "golden_file", "controls_failed_as_expected", "controls_passed", "golden_cases_rejected_by_checks"],
+    "properties": {
+      "agent": {"type": "string"},
+      "golden_file": {"type": "string"},
+      "controls_failed_as_expected": {"type": "array", "items": {"type": "string"}},
+      "controls_passed": {"type": "array", "items": {"type": "string"}},
+      "golden_cases_rejected_by_checks": {"type": "array", "items": {"type": "object"}}
+    }
+  },
+  "suspect_case": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "golden_file", "case_id", "reason", "cleared"],
+    "properties": {
+      "agent": {"type": "string"},
+      "golden_file": {"type": "string"},
+      "case_id": {"type": "string"},
+      "reason": {"type": "string"},
+      "cleared": {"type": "boolean"}
+    }
+  },
+  "objective": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "old_hash", "new_hash", "why"],
+    "properties": {
+      "agent": {"type": "string"},
+      "old_hash": {"type": ["string", "null"]},
+      "new_hash": {"type": "string"},
+      "why": {"type": "string", "minLength": 1}
+    }
+  },
+  "curriculum": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "mastered_tier", "frontier_tier", "gaps", "promoted_tier"],
+    "properties": {
+      "agent": {"type": "string"},
+      "mastered_tier": {"type": ["integer", "null"]},
+      "frontier_tier": {"type": ["integer", "null"]},
+      "gaps": {"type": "array", "items": {"type": "integer"}},
+      "promoted_tier": {"type": "integer", "minimum": 1}
+    }
+  },
+  "tier_promoted": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "version", "from_tier", "to_tier", "pass_rate"],
+    "properties": {
+      "agent": {"type": "string"},
+      "version": {"type": "string"},
+      "from_tier": {"type": "integer", "minimum": 1},
+      "to_tier": {"type": "integer", "minimum": 2},
+      "pass_rate": {"type": "object"}
+    }
+  },
+  "saturation": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "saturated", "cases", "share", "hard_case_candidates"],
+    "properties": {
+      "agent": {"type": "string"},
+      "saturated": {"type": "array", "items": {"type": "string"}},
+      "cases": {"type": "integer", "minimum": 0},
+      "share": {"type": "string"},
+      "hard_case_candidates": {"type": "array", "items": {"type": "object"}}
     }
   }
 }

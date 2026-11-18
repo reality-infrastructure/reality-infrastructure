@@ -12,6 +12,7 @@ with the evidence rows.  The crank is a report, not an autopilot.
 from __future__ import annotations
 
 import argparse
+import json
 import re
 import sys
 from collections import Counter, defaultdict
@@ -19,6 +20,7 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
+from engine import stats
 from engine.errors import EngineError
 from engine.manifest import load_agent
 from engine.packs import load_pack
@@ -102,13 +104,43 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "mean_conflict_mass": None if not conflict[name] else
             str((sum(conflict[name]) / len(conflict[name])).quantize(Decimal("0.0001"))),
         })
-    top_clusters = [{"cluster": k, "count": n, "runs": sorted(set(cluster_rows[k]))[:10]}
-                    for k, n in clusters.most_common(10)]
+    rigor_view = _rigor_view(engine, pack, runs, agents_out)
+    weights = rigor_view["weights"]
+    weighted = {k: sum(weights.get(rid, 1.0) for rid in cluster_rows[k]) for k in clusters}
+    ranked = sorted(clusters.most_common(), key=lambda kn: -weighted[kn[0]])[:10]
+    top_clusters = [{"cluster": k, "count": n, "runs": sorted(set(cluster_rows[k]))[:10], "weighted": round(weighted[k], 4)}
+                    for k, n in ranked]
     recommendation = _recommend(top_clusters, verdicts, override_reasons)
     return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
             "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
             "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation}
+            "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"]}
+
+
+def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) -> dict:
+    """JH-C11 wpA on the crank: every agent's pass rate with its interval, its golden view of the week (score
+    beside the operator's baseline, the weakest stratum, the tier ladder), saturation of its golden set, and the
+    value weight of every run on a weighted case (failure clusters rank by weighted count)."""
+    from engine.eval import case_passes, load_golden
+    from engine.goldenview import golden_view, value_weights
+    from engine.rigor import input_key, saturation
+    cfg, conf = engine.config.eval_rigor, engine.config.stats["confidence"]
+    weights, sat = {}, {}
+    for a in agents_out:
+        a["pass_rate_interval"] = stats.rate(a["succeeded"], a["runs"], conf)
+        a["golden"] = golden_view(engine, pack, a["agent"], runs)
+        vw = value_weights(pack, a["agent"])
+        for r in runs:
+            if r["agent"] == a["agent"] and input_key(r["input"]) in vw:
+                weights[r["run_id"]] = vw[input_key(r["input"])]
+        path = pack.agent_dir(a["agent"]) / "eval" / "golden.jsonl"
+        if path.is_file():
+            g = load_golden(path, pack_is_fixture=pack.fixture)
+            s = saturation(engine, pack, a["agent"], g.cases, g.compare, case_passes,
+                           k=cfg["saturation_k"], max_share=cfg["max_saturated_share"])
+            if s["flagged"]:
+                sat[a["agent"]] = s
+    return {"weights": weights, "saturation": sat}
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -147,6 +179,25 @@ def render(report: dict) -> str:
                  f"{a['failed_verifier']} | {a['access_denied']} | {a['error']} | {a['pass_rate']} | "
                  f"{a['cost_usd']} | {a['mean_latency_ms']} | {a['items_evaluated']} | "
                  f"{a['scale_ratio']} | {a['mean_conflict_mass']} |")
+    L += ["", "## Golden view of the week (pass rate interval, golden score vs the operator, weakest stratum, tiers)", ""]
+    for a in report["agents"]:
+        iv, g = a.get("pass_rate_interval"), a.get("golden")
+        line = f"- {a['agent']}: pass rate {a['pass_rate']} ({iv['lo']}-{iv['hi']} at {iv['confidence']:.0%}, n={iv['n']})" if iv else f"- {a['agent']}"
+        if g:
+            line += f"; golden {g['score']} on {g['counted']} cases ({g['interval']['lo']}-{g['interval']['hi']})"
+            if g["human_baseline"]:
+                line += f"; operator baseline {g['human_baseline']['score']} (n={g['human_baseline']['n']}), delta {g['human_delta']}"
+            if g["weakest_stratum"]:
+                w = g["weakest_stratum"]
+                line += f"; weakest stratum {w['stratum']}={w['value']} at {w['score']} ({w['counted']} cases)"
+            if g["curriculum"]:
+                c = g["curriculum"]
+                line += f"; tiers mastered {c['mastered_tier']} frontier {c['frontier_tier']}" + (f" gaps {c['gaps']}" if c["gaps"] else "")
+        L.append(line)
+    for agent, s in sorted((report.get("saturation") or {}).items()):
+        L.append(f"- SATURATED {agent}: {len(s['saturated'])} of {s['cases']} golden cases passed on each of their last runs "
+                 f"({s['share']}); add harder cases. Failed inputs not yet cases: "
+                 + (", ".join(json.dumps(h["input"], sort_keys=True) for h in s["hard_case_candidates"]) or "none"))
     L += ["", "## Verdict distribution", ""]
     L += [f"- {k}: {v}" for k, v in report["verdicts"].items()] or ["- none recorded"]
     L += ["", "## Top override reasons", ""]
