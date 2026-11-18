@@ -30,7 +30,8 @@ from pathlib import Path
 from engine import curriculum
 from engine import rollout as rollout_mod
 from engine import sizing
-from engine.autoloop import kill_rule, loop_agents
+from engine import integrity
+from engine.autoloop import kill_rule, loop_agents, plant_honeypots
 from engine.crank import _cluster_key
 from engine.errors import EngineError
 from engine.events import EventLog
@@ -44,7 +45,8 @@ from engine.verdicts import record_verdict
 from engine.reputation import sweep_leverage
 
 STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start",
-                "burn_in", "tier", "sizing_cap", "target", "pilot", "window_closed", "broken_task")
+                "burn_in", "tier", "sizing_cap", "target", "pilot", "window_closed", "broken_task",
+                "review_backlog")
 
 
 def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, input_key: str) -> list[dict]:
@@ -106,6 +108,9 @@ class Sweep:
         self.ramp: rollout_mod.Ramp | None = None
         self.extra: dict = {"rollout": None, "sizing": None, "pilot": None, "projection": None,
                             "version_switches": [], "worker_changes": [], "remediation": None}
+        self.withheld: str | None = None             # why no agent verdict is recorded on this sweep (judge suspended)
+        self.guard: dict = {}
+        self.honeypots: list[dict] = []
 
     # -- one unit of work: the run, then its verdict ------------------------------------
 
@@ -117,14 +122,14 @@ class Sweep:
             entry.update({"run_id": r.run_id, "status": r.status, "cost_usd": str(r.cost_usd),
                           "manifest_hash": r.row["manifest_hash"], "tokens": sizing.run_tokens(r.row)})
             cost = r.cost_usd
-            if self.judge_name:
-                j = self.runner.run(self.judge_name, {"run_id": r.run_id})
-                cost += j.cost_usd
-                entry["judge_run_id"], entry["judge_status"] = j.run_id, j.status
-                if j.status == "succeeded":
-                    record_verdict(self.engine, self.pack, r.run_id, j.output["verdict"], j.output["reason"],
-                                   source=f"agent:{self.judge_name}", source_ref=j.run_id)
-                    entry["verdict"] = j.output["verdict"]
+            if self.judge_name and self.withheld:
+                entry["verdict_withheld"] = self.withheld
+            elif self.judge_name:
+                j = integrity.adjudicate(self.runner, self.judge_name, self.engine.store.get_run(r.run_id))
+                cost += Decimal(j["cost_usd"])
+                entry["judge_run_id"], entry["judge_status"] = j["judge_run_id"], j["status"]
+                if "verdict" in j:
+                    entry["verdict"] = j["verdict"]
         except EngineError as e:                       # an errored run is traced by the runner; the sweep goes on
             entry.update({"run_id": entry.get("run_id"), "status": "error", "error": str(e)[:300], "cost_usd": "0"})
             cost = Decimal(0)
@@ -146,6 +151,9 @@ class Sweep:
     def _open(self) -> bool:
         """Inside the off-peak window (always, without one)."""
         return not self.window or in_windows(self.window, self.engine.clock.now())
+
+    def _backlogged(self) -> bool:
+        return bool(self.judge_name) and integrity.review_gate(self.engine, self.pack, "sweep")["over"]
 
     def _check_version(self) -> None:
         """An adopted edit changed the agent's files: the remaining inputs run on the new version."""
@@ -197,6 +205,8 @@ class Sweep:
                         self.stop_reason = "kill"
                     elif self.completed == self.broken["window"] and self._broken():
                         self.stop_reason = "broken_task"
+                    elif self.completed % self.kill_check_every == 0 and self._backlogged():
+                        self.stop_reason = "review_backlog"
                     elif self.completed % self.kill_check_every == 0 and self.reload_on_adoption:
                         self._check_version()
                 if self.ramp is not None and self.stop_reason is None:
@@ -224,8 +234,14 @@ class Sweep:
 
     def run(self, inputs: list[dict]) -> dict:
         self.started_at = iso(self.engine.clock.now())
+        self.guard = integrity.safeguards(self.engine, self.pack, "sweep", self.agent)
+        if self.judge_name and self.guard["judge"]["suspended"]:
+            self.withheld = f"judge suspended by {self.guard['judge']['suspended_by']}: no agent verdict is recorded on any path"
         if self._halted():
             self.stop_reason = "halted_before_start"
+            return self.report(inputs, remaining=len(inputs))
+        if self._backlogged():
+            self.stop_reason = "review_backlog"
             return self.report(inputs, remaining=len(inputs))
         inputs, self.tier_gated = curriculum.gate_inputs(self.engine, self.pack, self.agent, inputs)
         cap_reason = None
@@ -268,6 +284,11 @@ class Sweep:
     def _finish(self, inputs: list[dict], left: list[dict], cap_reason: str | None) -> dict:
         if self.stop_reason is None:
             self.stop_reason = cap_reason or "done"
+        if self.judge_name and not self.withheld:
+            k = int(self.engine.config.autoloop["judge"]["honeypots_per_cycle"])
+            mine = [self.engine.store.get_run(e["run_id"]) for e in self.results if e.get("status") == "succeeded"]
+            self.honeypots = [h for j in integrity.panel_members(self.engine, self.pack, self.judge_name)
+                              for h in plant_honeypots(self.runner, j, mine, k)]
         promoted = curriculum.promote(self.engine, self.pack, self.agent)
         self.promoted = None if promoted is None else promoted["payload"]
         if self.remediate:
@@ -288,7 +309,8 @@ class Sweep:
                 "cost_usd": str(self.cost), "stop_reason": self.stop_reason, "halted_now": self._halted(),
                 "results": self.results, "tier_gated": self.tier_gated, "promoted": self.promoted,
                 "broken_cluster": self.broken_cluster, "reputation_tier": self.tier,
-                **self._measures()}
+                "verdicts_withheld": self.withheld, "honeypots": self.honeypots,
+                "safeguards_event": self.guard.get("event_id"), **self._measures()}
 
     def _broken(self) -> bool:
         """Patel's broken task: when one failure cluster (the crank's key, or one shared error message) is more

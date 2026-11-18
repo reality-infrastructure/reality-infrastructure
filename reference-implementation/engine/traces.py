@@ -32,6 +32,7 @@ class CandidateTrace:
     effects: list[dict] = field(default_factory=list)       # staged effectful calls and their fate (JH-C11 G-M9)
     notes: list[str] = field(default_factory=list)          # working notes carried to the next iteration (G-B4)
     origin: str | None = None                               # "stored" when a mid-run replay copied it (G-B21)
+    reasoning: list[dict] = field(default_factory=list)    # {sha256, text} per provider call; read by a monitor only
 
     def as_dict(self) -> dict:
         extra = {k: v for k, v in (("effects", self.effects), ("notes", self.notes), ("origin", self.origin)) if v}
@@ -47,6 +48,7 @@ class CandidateTrace:
             "accepted": self.accepted,
             "failure_reasons": self.failure_reasons,
             **extra,
+            **({"reasoning": self.reasoning} if self.reasoning else {}),
         }
 
 

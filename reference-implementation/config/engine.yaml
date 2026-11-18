@@ -35,7 +35,15 @@ autoloop:
     max_disagreement: 0.25      #   above this disagreement rate the judge is suspended (no agent verdicts recorded)
     honeypots_per_cycle: 2      #   succeeded runs served to the judge with one figure altered; it must say so
     min_planted: 4              #   once this many were planted ...
-    max_missed: 0.25            #   ... a miss rate above this suspends the judge
+    max_missed: 0.05            #   ... a miss rate above this suspends the judge (Brown: near zero, not a quarter)
+    require_correction: true    #   an override or 'wrong' on a succeeded run carries correction {field: value}: the critique carries the fix
+    panel_min: 2                #   a pack with this many judges judges by panel: every member reads the run
+    require_agreement: true     #   a panel records a verdict only when its members agree; otherwise the run waits for a human
+    require_distinct_model: false # true: a judge never adjudicates a run made by its own model (frontier.yaml judge_model gives it another);
+                                #   off while the operator's ruling 2026-10-17 puts every role on one model (DeepSeek for everything)
+    max_collusion_rate: 0.2     #   share of operator-rejected runs the judge had passed; above it the judge is suspended
+    min_collusion_compared: 3   #   once this many operator-rejected runs carried an agent verdict
+    learn_from_misses: true     #   operator overrides and missed honeypots become the judge's own golden cases
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
   refine_min_cluster_runs: 1    # the panel (G-P9): a refinement fires only on a failure cluster seen in at least this many runs
   plan:                         # Naval: what you work on is ranked by value, not left to taste (pack @value hooks)
@@ -57,6 +65,12 @@ autoloop:
     enabled: true               #   a gated mini-cycle (crank, drift gate, refine on golden + held-out) at the end of every sweep and scheduler tick
     min_count: 3                #   a failure cluster this large in the running week, or a human override with a reason, starts one
     cooldown_minutes: 60        #   at most one mini-cycle per this many minutes
+  grow_from_corrections: true   # runs the operator corrected (verdict --expected) become regression golden cases
+  honeypot_tiers: [single, paired, citation]   # graded honeypots: one figure, two figures moved together, a citation swapped
+  traps_per_cycle: 1            # answer-key traps planted for agents whose access reaches trap_dir
+  trap_dir: answer_keys         # where the loop writes an answer key for one golden input, then removes it
+  max_cheat_rate: 0.01          # (trap reads + honeypot misses) / planted; a rising rate above this halts refinement
+  plan_max_agent_only_share: 0.5  # a planner batch may not be mostly inputs that passed on an agent verdict alone
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
@@ -157,3 +171,25 @@ tools:                          # JH-C11 wpH — Brown: the agent's own computer
   sandbox: subprocess           #   off | subprocess: sandboxed tools run in a child process with a temp workspace
   workspace_quota_mb: 64        #   a run's workspace may not grow past this
   sandbox_timeout_seconds: 60
+verdicts:                       # Musk: a human override is specific, or it is marked unspecific and steers nothing
+  require_specific_override: true
+review:                         # the operator's queue: what to look at first, and how much autonomous work may wait on it
+  sample_every: 10              # every Nth agent verdict per agent is sampled for human review
+  max_backlog: 20               # sampled agent verdicts still without a human verdict; above this new work pauses
+  pending_order: [monitor, disagreement, conflict, age]
+  sla_hours: 72                 # a pending run older than this is a review_backlog breach
+economics:                      # Naval: the operator's time is priced; review goes to the judge where it is cheaper and trusted
+  operator_rate_usd_per_hour: 60
+  delegate_min_agreement: 0.9
+  audit_sample_rate: 0.05       # a delegated agent keeps this share of its agent verdicts under human audit
+  min_reviews: 5                # human verdicts with review_seconds before a delegation decision is made
+monitor:                        # Brown: reasoning is read by a monitor and never graded
+  on: true
+  halt_on_flag: true            # a flagged run halts its agent until a human gives that run a verdict
+  max_interventions_per_window: 2
+  window_days: 7
+  min_reasoning_coverage: 0.5
+safeguards:                     # Brown: a safeguard is enforced on every path, not only inside the loop
+  paths: [run, sweep, eval, autoloop]
+integrity:
+  forbidden_reads: ["answer_keys/*", "agents/*/eval/*"]

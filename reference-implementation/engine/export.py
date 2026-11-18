@@ -17,6 +17,7 @@ from pathlib import Path
 from typing import Iterator
 
 from engine.errors import EngineError, GateError
+from engine.integrity import correction_pairs, reasoning_guard
 from engine.loop import SUBMIT_TOOL
 from engine.manifest import load_agent
 from engine.packs import load_pack, parse_agent_ref
@@ -115,6 +116,7 @@ def preference_rows(engine: Engine, pack, agent) -> Iterator[dict]:
             yield {"run_id": row["run_id"], "prompt": prompt, "chosen": row["output"],
                    "rejected": bad["output"], "rejected_reason": [bad["verdict_reason"]],
                    "source": f"human:{bad['run_id']}"}
+    yield from correction_pairs(engine, pack, runs)       # an override's fix: (output, corrected output)
 
 
 def session_rows(engine: Engine, pack, agent) -> Iterator[dict]:
@@ -144,7 +146,7 @@ def export(engine: Engine, pack, agent_name: str, fmt: str, out: Path) -> int:
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8") as fh:
         for r in rows:
-            fh.write(json.dumps(r, sort_keys=True, default=str) + "\n")
+            fh.write(json.dumps(reasoning_guard(r, "export"), sort_keys=True, default=str) + "\n")
             n += 1
     if n == 0:
         raise GateError("export refused: gate met but no exportable rows (no followed runs)")

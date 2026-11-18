@@ -344,6 +344,8 @@ def main(argv: list[str] | None = None) -> int:
         engine = Engine.open(args.db)
         try:
             pack = load_pack(pack_name)
+            from engine.integrity import safeguards
+            safeguards(engine, pack, "eval", agent_name)
             models = [m.strip() for m in args.models.split(",")] if args.models else None
             report = run_eval(engine, pack, agent_name, models=models)
             if models:

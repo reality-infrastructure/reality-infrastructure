@@ -54,6 +54,7 @@ class EngineConfig:
     judgement_hash: str
     engine: dict
     tools: dict
+    judge_model: str | None = None      # frontier.yaml judge_model: an independent model a judge may run
 
     @property
     def max_tool_calls(self) -> int:
@@ -99,6 +100,33 @@ class EngineConfig:
         return {"holdout": bool(a.get("holdout", True)), "kill": kill, "judge": judge,
                 "grow_golden": bool(a.get("grow_golden", True)),
                 "refine_min_cluster_runs": int(a.get("refine_min_cluster_runs", 1))}
+
+    @property
+    def integrity(self) -> dict:
+        """Judge and verification integrity knobs (JH-C11 wpE) with their defaults; old configs still load."""
+        a = dict(self.engine.get("autoloop") or {})
+
+        def merged(defaults: dict, doc) -> dict:
+            doc = dict(doc or {})
+            return {k: doc.get(k, v) for k, v in defaults.items()}
+
+        return {
+            "judge": merged({"require_correction": True, "panel_min": 2, "require_agreement": True,
+                             "require_distinct_model": False, "max_collusion_rate": 0.2, "min_collusion_compared": 3,
+                             "learn_from_misses": True, "honeypots_per_cycle": 2}, a.get("judge")),
+            "loop": merged({"grow_from_corrections": True, "honeypot_tiers": ["single", "paired", "citation"],
+                            "traps_per_cycle": 1, "trap_dir": "answer_keys", "max_cheat_rate": 0.01,
+                            "plan_max_agent_only_share": 0.5}, a),
+            "verdicts": merged({"require_specific_override": True}, self.engine.get("verdicts")),
+            "review": merged({"sample_every": 10, "max_backlog": 20, "pending_order": ["monitor", "disagreement", "conflict", "age"],
+                              "sla_hours": 72}, self.engine.get("review")),
+            "economics": merged({"operator_rate_usd_per_hour": 60, "delegate_min_agreement": 0.9, "audit_sample_rate": 0.05,
+                                 "min_reviews": 5}, self.engine.get("economics")),
+            "monitor": merged({"on": True, "halt_on_flag": True, "max_interventions_per_window": 2, "window_days": 7,
+                               "min_reasoning_coverage": 0.5}, self.engine.get("monitor")),
+            "safeguards": merged({"paths": ["run", "sweep", "eval", "autoloop"]}, self.engine.get("safeguards")),
+            "forbidden_reads": list((self.engine.get("integrity") or {}).get("forbidden_reads", ["answer_keys/*", "agents/*/eval/*"])),
+        }
 
     @property
     def citation_kinds(self) -> frozenset[str]:
@@ -354,4 +382,5 @@ def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:
         judgement_hash=sha256_file(judgement_path),
         engine=engine,
         tools=tools,
+        judge_model=frontier_doc.get("judge_model") or None,
     )

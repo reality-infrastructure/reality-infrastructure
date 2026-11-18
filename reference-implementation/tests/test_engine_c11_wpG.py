@@ -282,7 +282,7 @@ def test_an_operator_override_on_the_cli_starts_the_mini_cycle_at_once(pack_copy
     assert run_main(["_reference/allocator", "--input", '{"capacity": 20}', "--db", db]) == 0
     run_id = next(w for w in capsys.readouterr().out.split() if w.count("-") == 4).split("=")[-1]
     assert verdicts_main(["_reference/allocator", "--run", run_id, "--verdict", "overridden",
-                          "--reason", "capacity misread from the record", "--db", db]) == 0
+                          "--reason", "selected: capacity misread from the record", "--db", db]) == 0
     out = capsys.readouterr().out
     assert "remediation: adopted (allocator, event" in out
     assert "(refined by the loop)" in (pack_copy / "_reference" / "agents" / "allocator" / "skills.md").read_text(encoding="utf-8")

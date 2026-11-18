@@ -117,7 +117,7 @@ def test_kill_rule_and_judge_gate_on_the_bound_when_configured(pack):
             for i in range(5):
                 r = rn.run("allocator", {"capacity": 50})
                 record_verdict(eng, pack, r.run_id, "followed", "judge says fine", source="agent:judge", source_ref="j")
-                record_verdict(eng, pack, r.run_id, "overridden" if i < 2 else "followed", "operator", source="human")
+                record_verdict(eng, pack, r.run_id, "overridden" if i < 2 else "followed", "total_value: operator disagrees", source="human")
         sp, sb = judge_safety(point, pack), judge_safety(bound, pack)
         assert sp["suspended"] is True and sb["suspended"] is False
         assert sb["rate_interval"]["k"] == 2 and sb["rate_interval"]["n"] == 5 and Decimal(sb["rate_interval"]["lo"]) < Decimal("0.25")

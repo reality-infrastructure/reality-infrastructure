@@ -7,7 +7,13 @@
       "run_id": {"type": "string"},
       "agent": {"type": "string"},
       "verdict": {"type": "string", "enum": ["followed", "overridden", "wrong", "n/a"]},
-      "reason": {"type": "string"}
+      "reason": {"type": "string"},
+      "correction": {"type": "object", "minProperties": 1},
+      "expected": {"type": "object", "minProperties": 1},
+      "unspecific": {"type": "boolean"},
+      "review_seconds": {"type": "number", "minimum": 0},
+      "panel": {"type": "array", "items": {"type": "object"}},
+      "conflict": {"type": "string"}
     }
   },
   "drift": {
@@ -30,7 +36,10 @@
       "judge_run_id": {"type": "string"},
       "path": {"type": "string"},
       "hit": {"type": "boolean"},
-      "verdict": {"type": ["string", "null"]}
+      "verdict": {"type": ["string", "null"]},
+      "tier": {"type": "string"},
+      "plant": {"type": "array", "items": {"type": "array", "minItems": 2, "maxItems": 2}},
+      "restored": {"type": "boolean"}
     }
   },
   "refinement": {
@@ -462,5 +471,18 @@
   "disagreement": {"type": "object", "additionalProperties": false, "required": ["run_id", "agent", "fields", "candidates", "reconciled"], "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "fields": {"type": "array", "items": {"type": "string"}}, "candidates": {"type": "array", "items": {"type": "object", "additionalProperties": false, "required": ["key", "values_sha256"], "properties": {"key": {"type": "string"}, "values_sha256": {"type": "string"}}}}, "reconciled": {"type": ["boolean", "null"]}}},
   "scratch": {"type": "object", "additionalProperties": false, "required": ["scope", "run_id", "agent", "text"], "properties": {"scope": {"type": "string"}, "run_id": {"type": "string"}, "agent": {"type": "string"}, "text": {"type": "string"}}},
   "fault": {"type": "object", "additionalProperties": false, "required": ["run_id", "target", "kind", "call_index", "detail"], "properties": {"run_id": {"type": "string"}, "target": {"type": "string"}, "kind": {"type": "string", "enum": ["error", "stale", "altered"]}, "call_index": {"type": "integer"}, "detail": {"type": "string"}}},
-  "fault_soak": {"type": "object", "additionalProperties": false, "required": ["agent", "runs", "faulted_runs", "failed_closed", "succeeded_faulted", "rate", "kinds", "run_ids"], "properties": {"agent": {"type": "string"}, "runs": {"type": "integer"}, "faulted_runs": {"type": "integer"}, "failed_closed": {"type": "integer"}, "succeeded_faulted": {"type": "integer"}, "rate": {"type": "number"}, "kinds": {"type": "array", "items": {"type": "string"}}, "run_ids": {"type": "array", "items": {"type": "string"}}}}
+  "fault_soak": {"type": "object", "additionalProperties": false, "required": ["agent", "runs", "faulted_runs", "failed_closed", "succeeded_faulted", "rate", "kinds", "run_ids"], "properties": {"agent": {"type": "string"}, "runs": {"type": "integer"}, "faulted_runs": {"type": "integer"}, "failed_closed": {"type": "integer"}, "succeeded_faulted": {"type": "integer"}, "rate": {"type": "number"}, "kinds": {"type": "array", "items": {"type": "string"}}, "run_ids": {"type": "array", "items": {"type": "string"}}}},
+  "judge_disagreement": {"type": "object", "additionalProperties": false, "required": ["run_id", "agent", "panel", "conflict"], "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "panel": {"type": "array", "items": {"type": "object"}}, "conflict": {"type": "string"}}},
+  "judge_case": {"type": "object", "additionalProperties": false, "required": ["judge", "case_id", "set", "kind", "run_id", "expected"], "properties": {"judge": {"type": "string"}, "case_id": {"type": "string"}, "set": {"type": "string", "enum": ["golden", "holdout"]}, "kind": {"type": "string"}, "run_id": {"type": "string"}, "expected": {"type": "object"}}},
+  "golden_grown": {"type": "object", "additionalProperties": false, "required": ["agent", "case_id", "run_id", "kind"], "properties": {"agent": {"type": "string"}, "case_id": {"type": "string"}, "run_id": {"type": "string"}, "kind": {"type": "string"}}},
+  "collusion": {"type": "object", "additionalProperties": false, "required": ["judge", "compared", "agreed", "rate", "suspended"], "properties": {"judge": {"type": "string"}, "compared": {"type": "integer", "minimum": 0}, "agreed": {"type": "integer", "minimum": 0}, "rate": {"type": "number"}, "suspended": {"type": "boolean"}}},
+  "trap": {"type": "object", "additionalProperties": false, "required": ["run_id", "agent", "path", "read", "disclosed"], "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "path": {"type": "string"}, "read": {"type": "boolean"}, "disclosed": {"type": "boolean"}}},
+  "cheat_rate": {"type": "object", "additionalProperties": false, "required": ["week", "planted", "cheats", "rate", "previous", "halt"], "properties": {"week": {"type": "string"}, "planted": {"type": "integer", "minimum": 0}, "cheats": {"type": "integer", "minimum": 0}, "trap_reads": {"type": "integer", "minimum": 0}, "concealed": {"type": "integer", "minimum": 0}, "honeypot_misses": {"type": "integer", "minimum": 0}, "rate": {"type": "number"}, "previous": {"type": ["number", "null"]}, "halt": {"type": "boolean"}}},
+  "anomaly": {"type": "object", "additionalProperties": false, "required": ["run_id", "agent", "report"], "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "report": {"type": "string"}}},
+  "review_backlog": {"type": "object", "additionalProperties": false, "required": ["reason", "backlog", "max_backlog"], "properties": {"reason": {"type": "string"}, "path": {"type": "string"}, "backlog": {"type": "integer", "minimum": 0}, "max_backlog": {"type": "integer", "minimum": 0}, "oldest_hours": {"type": ["number", "null"]}, "sla_hours": {"type": ["number", "null"]}}},
+  "delegation": {"type": "object", "additionalProperties": false, "required": ["agent", "operator_cost", "agent_cost", "agreement", "decision"], "properties": {"agent": {"type": "string"}, "operator_cost": {"type": ["string", "null"]}, "agent_cost": {"type": ["string", "null"]}, "agreement": {"type": ["number", "null"]}, "decision": {"type": "string"}, "sample_every": {"type": "integer", "minimum": 0}}},
+  "monitor": {"type": "object", "additionalProperties": false, "required": ["run_id", "agent", "flag", "why", "monitor_run_id"], "properties": {"run_id": {"type": "string"}, "agent": {"type": "string"}, "flag": {"type": "string", "enum": ["none", "scheming", "grader_gaming", "test_awareness"]}, "why": {"type": "string"}, "monitor_run_id": {"type": "string"}}},
+  "monitorability": {"type": "object", "additionalProperties": false, "required": ["week", "candidates", "with_reasoning", "coverage", "monitored", "flagged", "flag_rate", "below_min"], "properties": {"week": {"type": "string"}, "candidates": {"type": "integer", "minimum": 0}, "with_reasoning": {"type": "integer", "minimum": 0}, "coverage": {"type": "number"}, "monitored": {"type": "integer", "minimum": 0}, "flagged": {"type": "integer", "minimum": 0}, "flag_rate": {"type": "number"}, "below_min": {"type": "boolean"}}},
+  "intervention": {"type": "object", "additionalProperties": false, "required": ["agent", "runs", "refinement_event_id", "count", "cap"], "properties": {"agent": {"type": "string"}, "runs": {"type": "array", "items": {"type": "string"}}, "refinement_event_id": {"type": "string"}, "count": {"type": "integer", "minimum": 0}, "cap": {"type": "integer", "minimum": 0}}},
+  "safeguards": {"type": "object", "additionalProperties": false, "required": ["path", "killed", "judge_suspended", "review_backlog", "over_backlog"], "properties": {"path": {"type": "string"}, "agent": {"type": ["string", "null"]}, "killed": {"type": "array", "items": {"type": "string"}}, "judge_suspended": {"type": "boolean"}, "suspended_by": {"type": ["string", "null"]}, "review_backlog": {"type": "integer", "minimum": 0}, "over_backlog": {"type": "boolean"}}}
 }

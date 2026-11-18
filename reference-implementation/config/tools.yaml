@@ -144,3 +144,14 @@ scratch.read:
     type: object
     additionalProperties: false
     properties: {}
+reasoning.read:
+  description: >-
+    Read the reasoning text a model produced while making one run of this pack,
+    with the run's agent, status and output. For a monitor only: reasoning is
+    read to see what metrics miss, and is never graded.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [run_id]
+    properties:
+      run_id: { type: string }

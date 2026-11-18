@@ -14,6 +14,7 @@ import sys
 from pathlib import Path
 
 from engine.errors import EngineError
+from engine.integrity import safeguards
 from engine.loop import Runner, dump_result
 from engine.memory import compact
 from engine.packs import load_pack, parse_agent_ref
@@ -59,6 +60,9 @@ def main(argv: list[str] | None = None) -> int:
                     return 0
                 print(f"compaction.summary event {row['event_id']} (ledger {row['ledger_index']})")
                 return 0
+            guard = safeguards(engine, pack, "run", agent_name)
+            if agent_name in guard["killed"]:
+                raise EngineError(f"{agent_name} is halted: {guard['killed'][agent_name]}")
             override = parse_model_string(args.model) if args.model else None
             result = runner.run(agent_name, _read_input(args.input), parent_run_id=args.parent,
                                 model_override=override, session_id=args.session,

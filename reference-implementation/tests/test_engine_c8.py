@@ -41,7 +41,7 @@ def test_parallel_sweep_with_judge_keeps_one_consistent_ledger(pack):
         rows = eng.store.list_runs(pack="_reference", agent="allocator")
         assert len(rows) == 8 and all(r["verdict_source"] == "agent" for r in rows)
         judges = eng.store.list_runs(pack="_reference", agent="judge")
-        assert len(judges) == 8
+        assert len(judges) == 8 + len(rep["honeypots"])        # JH-C11 wpE: a judged sweep plants its honeypots too
         # the ledger holds every row and event in one consistent chain, and every run replays byte for byte
         for r in rows + judges:
             eng.ledger.verify_row(r)
@@ -50,7 +50,8 @@ def test_parallel_sweep_with_judge_keeps_one_consistent_ledger(pack):
         assert len(events) == 8 and all(e["source"] == "agent:judge" for e in events)
         for e in events:
             eng.ledger.verify_row(e)
-        assert len(eng.ledger) == 16 + 8                     # 16 run rows + 8 verdict events, no gaps
+        # 16 run rows + 8 verdict events, no gaps; JH-C11 wpE adds the sweep's safeguards event and its honeypots (a judge run + an event each)
+        assert len(eng.ledger) == 16 + 8 + 1 + 2 * len(rep["honeypots"])
         assert "stopped because: **done**" in render(rep, "t")
     finally:
         eng.close()

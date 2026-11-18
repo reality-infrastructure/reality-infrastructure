@@ -9,13 +9,18 @@
 - siblings.message                  message a sibling run of the same fan-out group (JH-C11 G-B3)
 - notes.write                    a working note carried to the next iteration (JH-C11 G-B4)
 - scratch.write / scratch.read   findings shared by the workers of one sweep or fan-out (JH-C11 G-B4)
+- reasoning.read                 a run's captured reasoning (role monitor only)
+
+Judged roles never read the grader's runs, honeypot/trap events or judge files; only a monitor reads
+reasoning and monitor events (engine.integrity).
 """
 
 from __future__ import annotations
 
 from engine.access import Target
 from engine.config import load_config
-from engine.errors import ToolError
+from engine import integrity
+from engine.errors import AccessDenied, ToolError
 from engine.tools import ToolContext, ToolRegistry, ToolSpec
 
 AGENT_TOOL_SCHEMA = {
@@ -39,9 +44,11 @@ def _cfg(tool_id: str) -> dict:
 
 def _events_query(args: dict, ctx: ToolContext):
     log = ctx.extra["events"]
+    integrity.guard_event_type(ctx, args.get("event_type"))
     rows = log.query(entity_type=args.get("entity_type"), entity_id=args.get("entity_id"),
                      event_type=args.get("event_type"), since=args.get("since"),
                      limit=int(args.get("limit", 50)))
+    rows = integrity.visible_events(ctx, rows)
     return [{k: r[k] for k in ("event_id", "entity_type", "entity_id", "event_type",
                                "payload", "source", "source_ref", "observed_at")} for r in rows]
 
@@ -121,6 +128,7 @@ def _agent_output_read(args: dict, ctx: ToolContext):
     row = ctx.engine.store.get_run(args["run_id"])
     if row is None:
         raise ToolError(f"no run {args['run_id']!r}")
+    integrity.guard_run(ctx, row)
     return {"run_id": row["run_id"], "agent": row["agent"], "status": row["status"],
             "output": row["output"], "ref": f"run:agent_runs:{row['run_id']}"}
 
@@ -144,46 +152,31 @@ def _trace_summary(iterations: list[dict]) -> list[dict]:
     return out
 
 
-def _altered(output, path: str, value):
-    """A deep copy of ``output`` with the value at dotted ``path`` replaced."""
-    import copy
-    out = copy.deepcopy(output)
-    node = out
-    parts = path.split(".")
-    for part in parts[:-1]:
-        node = node[int(part)] if isinstance(node, list) else node[part]
-    last = parts[-1]
-    if isinstance(node, list):
-        node[int(last)] = value
-    else:
-        node[last] = value
-    return out
-
-
 def _agent_run_read(args: dict, ctx: ToolContext):
     row = ctx.engine.store.get_run(args["run_id"])
     if row is None:
         raise ToolError(f"no run {args['run_id']!r}")
     if row["pack"] != ctx.pack.name:
         raise ToolError(f"run {args['run_id']!r} belongs to another pack")
+    integrity.guard_run(ctx, row)
     out = {k: (str(row[k]) if k == "cost_usd" else row[k]) for k in _RUN_FIELDS}
-    planted = (ctx.extra.get("honeypots") or {}).get(row["run_id"])
-    if planted and out["output"] is not None:                    # a planted alteration: the judge must catch it
-        out["output"] = _altered(out["output"], planted[0], planted[1])
+    if out["output"] is not None:                                # a planted alteration: the judge must catch it
+        out["output"] = integrity.served_output(row, ctx.extra.get("honeypots"))
     out["trace"] = _trace_summary(row["iterations"])
     out["ref"] = f"run:agent_runs:{row['run_id']}" if row["status"] == "succeeded" else None
-    return out
+    return integrity.reasoning_guard(out, "agent_run.read")
 
 
 def _runs_list(args: dict, ctx: ToolContext):
     rows = ctx.engine.store.list_runs(pack=ctx.pack.name, agent=args.get("agent"), status=args.get("status"),
                                       verdicted=args.get("verdicted"))
-    rows = rows[-int(args.get("limit", 50)):]
+    rows = integrity.visible_runs(ctx, rows)[-int(args.get("limit", 50)):]
     return [{k: row[k] for k in ("run_id", "agent", "role", "status", "input", "human_verdict", "verdict_source",
                                   "created_at")} for row in rows]
 
 
 def _files_read(args: dict, ctx: ToolContext):
+    integrity.guard_file(ctx, args["path"])
     path = ctx.access.check_file(args["path"], "read")
     if not path.is_file():
         raise ToolError(f"file not found: {args['path']}")
@@ -204,6 +197,16 @@ def _tables_read(args: dict, ctx: ToolContext):
     else:
         rows = ctx.pack.table_rows(name)[: int(args.get("limit", 1000))]
     return [{**r, "ref": f"table:{name}:{r[spec.id_field]}"} for r in rows]
+
+
+def _reasoning_read(args: dict, ctx: ToolContext):
+    if ctx.agent.role != "monitor":
+        raise AccessDenied("table", "agent_runs:reasoning", "read", ctx.agent.name)
+    row = ctx.engine.store.get_run(args["run_id"])
+    if row is None or row["pack"] != ctx.pack.name:
+        raise ToolError(f"no run {args['run_id']!r} in this pack")
+    return {"run_id": row["run_id"], "agent": row["agent"], "status": row["status"], "output": row["output"],
+            "texts": integrity.run_reasoning(row)}
 
 
 def register_builtin_tools(reg: ToolRegistry) -> None:
@@ -252,6 +255,10 @@ def register_builtin_tools(reg: ToolRegistry) -> None:
                  input_schema=_cfg("scratch.read")["input_schema"],
                  description=_cfg("scratch.read")["description"], fn=_scratch_read,
                  targets=lambda a: [Target("table", "events", "read")]),
+        ToolSpec(id="reasoning.read", effect="read", deterministic=True,
+                 input_schema=_cfg("reasoning.read")["input_schema"],
+                 description=_cfg("reasoning.read")["description"], fn=_reasoning_read,
+                 targets=lambda a: [Target("table", "agent_runs", "read")]),
     ]
     for s in specs:
         reg.register(s)

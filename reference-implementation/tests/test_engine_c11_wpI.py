@@ -260,14 +260,14 @@ def test_low_reputation_raises_review_rate_and_cuts_budget(runner, engine, pack)
     gctx = GuardrailContext(agent=None, output_schema={}, resolver=None, run_input={"max_runs": 20, "caps": caps}, pack=pack, max_output_bytes=65536)
     msgs = batch_resolves({"batch": [{"agent": "allocator", "input": {"capacity": c}} for c in range(1, 7)]}, gctx)
     assert msgs == ["batch: allocator has 6 items; its reputation tier allows 5 per batch"]
-    assert len(pending(engine, "_reference", "allocator")) == 7                       # restricted and standard: every run reviewed
+    assert len(pending(engine, pack, "allocator")) == 7                       # restricted and standard: every run reviewed
     for _ in range(2):
         reputation.update(engine, pack, WEEK, killed={}, judge_agent="judge", judge_suspended=False)
     assert reputation.current_tier(engine, "_reference", "allocator") == "trusted"
     for _ in range(40):
         runner.run("allocator", {"capacity": 50})
-    sampled = pending(engine, "_reference", "allocator")
-    assert 0 < len(sampled) < 15 and sampled == pending(engine, "_reference", "allocator")   # a seeded ~10 % of 47
+    sampled = pending(engine, pack, "allocator")
+    assert 0 < len(sampled) < 15 and sampled == pending(engine, pack, "allocator")   # a seeded ~10 % of 47
     s = Sweep(engine, pack, "allocator", workers=8, budget_usd=Decimal("1.00"), judge=False, limit=None, kill_check_every=20)
     assert (s.tier, s.workers, s.budget) == ("trusted", 16, Decimal("2.00000000"))
 

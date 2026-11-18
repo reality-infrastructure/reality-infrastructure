@@ -28,6 +28,8 @@ class GuardrailContext:
     pack: Any
     max_output_bytes: int
     engine: Any = None              # engine.store.Engine; the loop-role guardrails read runs through it
+    honeypots: dict | None = None   # run_id -> planted alteration(s): what a judge was actually served
+    tool_calls: list | None = None  # the candidate's tool calls, set before its guardrails run
 
 
 @dataclass(frozen=True)
@@ -249,6 +251,9 @@ def verdict_grounded(output, gctx: GuardrailContext) -> list[str]:
         keys = [k for k in row["output"] if k != "citations"]
         if not any(k in reason for k in keys):
             problems.append(f"an override on a succeeded run must name the output field it disputes (one of {keys})")
+        elif gctx.engine.config.integrity["judge"]["require_correction"]:
+            from engine.integrity import correction_problems, served_output
+            problems += correction_problems(served_output(row, gctx.honeypots), output.get("correction"), reason)
     return problems
 
 
@@ -289,7 +294,18 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
         if key in seen:
             problems.append(f"batch/{i}: duplicate of an earlier item")
         seen.add(key)
+    if gctx.engine is not None and gctx.pack is not None:
+        from engine.integrity import batch_concentration
+        problems += batch_concentration(gctx.engine, gctx.pack, output["batch"])
     return problems + _batch_long_horizon(output, gctx)
+
+
+@guardrail(id="no_forbidden_reads")
+def no_forbidden_reads(output, gctx: GuardrailContext) -> list[str]:
+    """A candidate never reads an answer key or an expected-output file (config integrity.forbidden_reads),
+    even where its access reaches one: passing by reading the answer is a cheat, not a solve."""
+    from engine.integrity import forbidden_reads
+    return forbidden_reads(gctx)
 
 
 @guardrail(id="edit_applies")
@@ -330,7 +346,8 @@ def edit_applies(output, gctx: GuardrailContext) -> list[str]:
 
 BUILTIN_IDS = ("schema_valid", "no_invented_keys", "citations_resolve",
                "no_fabrication", "bounded_size", "cited_values_match",
-               "verdict_grounded", "batch_resolves", "edit_applies", "case_certified")
+               "verdict_grounded", "batch_resolves", "edit_applies", "case_certified",
+               "no_forbidden_reads")
 
 
 def builtin_registry() -> GuardrailRegistry:

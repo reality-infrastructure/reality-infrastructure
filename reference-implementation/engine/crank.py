@@ -22,6 +22,7 @@ from pathlib import Path
 
 from engine import stats
 from engine.errors import EngineError
+from engine.integrity import integrity_report, render_integrity, unspecific_runs
 from engine.manifest import load_agent
 from engine.packs import load_pack
 from engine.fanout import coordination
@@ -56,6 +57,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     verdicts: Counter = Counter()
     override_reasons: Counter = Counter()
     conflict: dict[str, list[Decimal]] = defaultdict(list)
+    unspecific = unspecific_runs(engine, pack)              # an unspecific override steers no refinement
     for r in runs:
         a = per_agent.setdefault(r["agent"], {"runs": 0, "succeeded": 0, "failed_guardrail": 0,
                                                "failed_verifier": 0, "access_denied": 0, "error": 0, "needs_clarification": 0,
@@ -67,7 +69,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
         a["items"] += int(r["items_evaluated"] or 0)
         if r["human_verdict"]:
             verdicts[f"{r['human_verdict']} ({r.get('verdict_source') or 'human'})"] += 1
-            if r["human_verdict"] in ("overridden", "wrong") and r["verdict_reason"]:
+            if r["human_verdict"] in ("overridden", "wrong") and r["verdict_reason"] and r["run_id"] not in unspecific:
                 override_reasons[r["verdict_reason"].strip()] += 1
         for it in r["iterations"]:
             for cand in it.get("candidates", []):
@@ -113,7 +115,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
                     for k, n in ranked]
     recommendation = _recommend(top_clusters, verdicts, override_reasons)
     from engine import curate, forecast, outcome, reputation
-    return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
+    out = {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
             "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
             "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
             "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"],
@@ -121,6 +123,8 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "reputation": reputation.crank_section(engine, pack), "forecasts": forecast.crank_section(engine, pack),
             "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end),
             "coordination": coordination(engine, pack, iso(start), iso(end))}
+    out["integrity"] = integrity_report(engine, pack, runs, out)
+    return out
 
 
 def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) -> dict:
@@ -248,6 +252,8 @@ def render(report: dict) -> str:
         L += ["", "## Schedule", "", f"ticks recorded {sc['ticks']}; missed {sc['missed']}; heartbeats {sc['heartbeats']}"]
         L += [f"- {j}: ran {c['ran']}, skipped {c['skipped']}, failed {c['failed']}, missed {c['missed']}"
               for j, c in sorted(sc["by_job"].items())]
+    if "integrity" in report:
+        L += render_integrity(report["integrity"])
     return "\n".join(L) + "\n"
 
 
