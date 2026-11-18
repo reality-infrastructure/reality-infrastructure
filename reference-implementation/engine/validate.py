@@ -18,6 +18,7 @@ from engine import rigor
 from engine.errors import EngineError, EvalError
 from engine.eval import load_golden
 from engine.events import EventLog
+from engine.governance import policy_dates
 from engine.manifest import load_all_agents
 from engine.packs import load_pack
 from engine.schedule import load_schedule
@@ -85,7 +86,9 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
             "golden_rejected_by_checks": rejected, "uncovered_tools": uncovered, "strict": strict,
             "rigor_warnings": warnings, "outcome_resolvers": pack.outcomes.ids(), "value_hooks": pack.values.ids(),
             "derived_from": _lineage(pack, agents),
-            "schedule": [j["id"] for j in load_schedule(pack)], "triggers": [t["id"] for t in load_triggers(pack)]}
+            "schedule": [j["id"] for j in load_schedule(pack)], "triggers": [t["id"] for t in load_triggers(pack)],
+            "policy_review": [{"policy": p["policy"], "reviewed_at": None if p["reviewed_at"] is None else p["reviewed_at"].isoformat()}
+                              for p in policy_dates(pack, engine.config)]}
 
 
 def _lineage(pack, agents: dict) -> dict:
@@ -119,6 +122,9 @@ def main(argv: list[str] | None = None) -> int:
     print(f"  tools: {len(info['tools'])}  guardrails: {len(info['guardrails'])}  "
           f"verifiers: {len(info['verifiers'])}  event types: {len(info['event_types'])}  "
           f"adapter slots: {info['adapter_slots']}")
+    for p in info["policy_review"]:
+        if p["reviewed_at"] is None:
+            print(f"  POLICY {p['policy']} carries no reviewed_at: the loop treats it as stale (governance.policy)")
     for n, cases in info["golden_rejected_by_checks"].items():
         for c in cases:
             print(f"  REAUDIT {n} golden case {c['case_id']} is rejected by its own verifier: {'; '.join(c['violations'])}")

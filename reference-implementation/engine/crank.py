@@ -126,6 +126,8 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "coordination": coordination(engine, pack, iso(start), iso(end))}
     extend_report(engine, pack, week, runs, out)
     out["integrity"] = integrity_report(engine, pack, runs, out)
+    from engine.governance import crank_section
+    out["governance"] = crank_section(engine, pack, runs)          # JH-C11 wpD
     return out
 
 
@@ -257,6 +259,9 @@ def render(report: dict) -> str:
     if "integrity" in report:
         L += render_integrity(report["integrity"])
     L += render_sections(report)
+    from engine.governance import render_section, render_top
+    L[2:2] = render_top(report.get("governance"))                   # JH-C11 wpD: red flags head the report
+    L += render_section(report.get("governance"))
     return "\n".join(L) + "\n"
 
 

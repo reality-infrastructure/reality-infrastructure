@@ -25,6 +25,7 @@ import pytest
 import yaml
 
 from conftest import PACKS_ROOT, T0
+from engine.governance import record_review
 from engine import curate, forecast, outcome, reputation, value
 from engine.autoloop import cycle, grow_golden, judge as judge_runs, kill_rule, plan, refine, render
 from engine.config import load_config
@@ -378,6 +379,7 @@ def test_refiner_forecasts_are_scored_and_a_poorly_calibrated_refiner_is_suspend
         assert (target["metric"], target["due"], target["p"]) == ("pass_rate", "2026-W44", 0.5)
         assert forecast.role_scores(eng, pc)["refiner"]["suspended"] is False
         for _ in range(4):
+            record_review(eng, pc, "operator reviewed the adopted edits")   # JH-C11 wpD: the leash holds a 4th unreviewed adoption
             refine(eng, pc, rn, "refiner", report, packs_root=pack_copy)
         scores = forecast.role_scores(eng, pc)["refiner"]
         assert (scores["scored"], scores["brier"], scores["suspended"]) == (5, 0.9604, True)

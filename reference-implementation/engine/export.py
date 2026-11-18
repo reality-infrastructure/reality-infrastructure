@@ -60,6 +60,8 @@ def check_gate(engine: Engine, pack, agent_name: str) -> tuple[object, int]:
     agent = load_agent(pack, agent_name, config=engine.config)
     if agent.role not in ("specialist", "worker"):
         raise GateError(f"export refused: {agent.ref} has role {agent.role!r}; only workers and specialists are post-trained")
+    from engine.governance import export_hold
+    export_hold(engine, pack)                  # JH-C11 wpD: open incidents, red flags, stale policy
     n = len(counted_runs(engine, pack, agent_name))
     need = engine.config.export_min_verdicts
     if n < need:
