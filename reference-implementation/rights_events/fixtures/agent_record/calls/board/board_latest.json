@@ -1,10 +1,9 @@
 {
  "kind": "proof_of_outcome_call_board",
- "day": "2026-11-16",
- "resolution_sha256": "c1093607ba25f927da9a5321c640383102609f400e0f8187984319a51946a5cd",
+ "day": "2026-11-17",
+ "resolution_sha256": "8d092646d9e192d6f849e10e0c8100cef4c1bd3090a23609f3f10ea499d4bae8",
  "tape_pins": {
-  "tape_MIDS_2026-11-16.jsonl": "f2638ab843de35f4cd9ca46b683b0df685f2ae7269b08ff9c1c92bed6e931a7e",
-  "tape_MIDS_2026-11-17.jsonl": "1610e7ce46f5d45fa63b86c2b095e26c9a38a142de80516ec41115604124333b"
+  "tape_MIDS_2026-11-17.jsonl": "511dba4accb791c8d251d7d8655bd2f90cde382a70eb974480c02cec824f8a7f"
  },
  "settled_calls_sha256": "0581207422084ff1896a37f0ffce820f59ba29529561967704930ef43e722622",
  "rows": [
@@ -14,10 +13,10 @@
    "type": "BAR",
    "control": null,
    "RESOLVED": 126,
-   "LOSS_RATE": 0.4206,
+   "LOSS_RATE": 0.4127,
    "GAP": null,
-   "RIGHT": 73,
-   "WRONG": 53,
+   "RIGHT": 74,
+   "WRONG": 52,
    "UNRESOLVED": 0,
    "LATE": 12,
    "DUPLICATE": 0,
@@ -46,10 +45,10 @@
    "type": "BAR",
    "control": "CB_bar_coinflip",
    "RESOLVED": 126,
-   "LOSS_RATE": 0.4683,
+   "LOSS_RATE": 0.5238,
    "GAP": null,
-   "RIGHT": 67,
-   "WRONG": 59,
+   "RIGHT": 60,
+   "WRONG": 66,
    "UNRESOLVED": 0,
    "LATE": 12,
    "DUPLICATE": 0,

@@ -1,0 +1,75 @@
+{
+ "amendment": "A37, A38",
+ "as_of": "2026-11-17",
+ "inputs": {
+  "copiers.json": "21b23c56c1d67a005345000cf8a0f1503461b95d70a8a1951e6f9c3f77264d7c",
+  "families.json": "db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974",
+  "feed": {
+   "file": "feed_2026-11-17.json",
+   "sha256": "957ebd4bc5b9bb32510f3d42c3cce70bea8def4e891b94894721fe074a58998a"
+  },
+  "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b",
+  "marks_readings": {
+   "2026-11-01": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+   "2026-11-02": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+   "2026-11-03": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+   "2026-11-04": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",
+   "2026-11-05": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
+   "2026-11-06": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
+   "2026-11-07": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
+   "2026-11-08": "38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332",
+   "2026-11-09": "5223a57d50dcb9e52b450363f898202c0b4f5b22407285cfe1fe62f1320e82c4",
+   "2026-11-10": "8ee5fb4056e36b3003267da859f5c9d3d50e080c558c8fbd33430a08e4e225fc",
+   "2026-11-11": "f9b8bdf087b168df2203646b28aef8dcb270310e789310e1bb36a8d553a60c4d",
+   "2026-11-12": "4f04fd64c2b740d2a4d8ad800bd2efa0803ce3ecb6a03f488b81f493d543e841",
+   "2026-11-13": "64164fab7f9091bf44e2bd5be1a32ff42ac56ea7e12d52c2cf82ef4d0aa7a6ab",
+   "2026-11-14": "be6865aab61d9977ee3f77be8d39dfcb11194b64ce2f62211707218ae4d34ce2",
+   "2026-11-15": "09b1859c75e9a12c15ee8ebd12147d7cfade6d798702b48369338e37da8d3642",
+   "2026-11-16": "b1678aef00c9741a6eb7722238d608992d0acad9ebba53c89dacf1e0507045e0",
+   "2026-11-17": "c08f3c670f3c418127cb3e21ef4274c38e858c7ed9a3e9980bbee59098b0d08a"
+  },
+  "pages": [],
+  "record_pages": [
+   {
+    "bytes": 141,
+    "file": "pages_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.part000",
+    "sha256": "f412ef94d36957d6c0811c0d4e3c3f2baaf1138e23d06b4d940ee1b91480628d"
+   }
+  ],
+  "tape": [
+   {
+    "file": "tape_MIDS_2026-11-16.jsonl",
+    "rows": 16187,
+    "sha256": "f2638ab843de35f4cd9ca46b683b0df685f2ae7269b08ff9c1c92bed6e931a7e",
+    "unparsed_lines": 0
+   },
+   {
+    "file": "tape_MIDS_2026-11-17.jsonl",
+    "rows": 15580,
+    "sha256": "511dba4accb791c8d251d7d8655bd2f90cde382a70eb974480c02cec824f8a7f",
+    "unparsed_lines": 1
+   },
+   {
+    "file": "tape_MIDS_2026-11-18.jsonl",
+    "missing": true
+   }
+  ]
+ },
+ "kind": "agent_record_book_manifest",
+ "outputs": {
+  "book_2026-11-17.json": "1c69d124670e95a621de4a62a1d622fc0e85fa100f83d464ec5db4ff1e26cd42",
+  "book_2026-11-17.md": "d2c99e689cca3ae31b550136ca234f3295a3550084dc3d7d9dc433dd7b7a5313",
+  "book_latest.json": "1c69d124670e95a621de4a62a1d622fc0e85fa100f83d464ec5db4ff1e26cd42",
+  "copier_2026-11-17.json": "d76bd849ffe2df9c2bf6a36e598934da5009fc63d2e93b7f2d8d03bc0616481e",
+  "keep_2026-11-03.json": "cec04be28e542bd04ecde66a9b97a8adad08773479330968b8ceead8b932adc3",
+  "ledger_F6_2026-11-17.json": "1a35ab051c6b9caa1bb9d421a501b25cb58ea348b9986d87f05026543fa1a95e",
+  "ledger_F6_2026-11-17.md": "172178d4c24abe8b0111092d64e143055262ed5e8a3bed4c0566b2b6664dbe0a",
+  "ledger_F7_2026-11-17.json": "17a65b0477a2214946d41e19deacbd226cdb4e4b7d18c2aefbf2a2a5eecfb24e",
+  "ledger_F7_2026-11-17.md": "1f9565a823380e965800660c08a714437afaad2f0cf9c5f25e30a615f4d93bc3",
+  "marks_F6_2026-11-03_as_of_2026-11-17.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "marks_F7_2026-11-03_as_of_2026-11-17.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "relist_2026-11-17.json": "49813bc3a1215136a308b5bab95086f375b83aa86ce5c5622a764f1792eab4fa",
+  "signals_F6_2026-11-03_as_of_2026-11-17.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "s105": "a re-run over the same bytes writes these bytes (sums by math.fsum, exactly rounded on every interpreter); verify re-hashes every output"
+}
