@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "curator proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["agent", "cases", "why", "confidence"],
+  "properties": {
+    "agent": {"type": "string"},
+    "cases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "input", "expected", "why"],
+        "properties": {
+          "id": {"type": "string", "minLength": 1},
+          "input": {"type": "object"},
+          "expected": {"type": "object"},
+          "why": {"type": "string", "minLength": 1, "maxLength": 500}
+        }
+      }
+    },
+    "why": {"type": "string", "minLength": 1, "maxLength": 1000},
+    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+  }
+}

@@ -113,5 +113,114 @@
         }
       }
     }
+  },
+  "outcome": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["run_id", "agent", "resolver", "due_at", "resolved_at", "lag_days", "hit", "verdict", "why", "claim", "actual", "confidence", "verdict_recorded"],
+    "properties": {
+      "run_id": {"type": "string"},
+      "agent": {"type": "string"},
+      "resolver": {"type": "string"},
+      "due_at": {"type": "string"},
+      "resolved_at": {"type": "string"},
+      "lag_days": {"type": "number"},
+      "hit": {"type": "boolean"},
+      "verdict": {"type": "string", "enum": ["followed", "overridden", "wrong", "n/a"]},
+      "why": {"type": "string", "minLength": 1},
+      "claim": {},
+      "actual": {},
+      "confidence": {"type": ["number", "null"]},
+      "verdict_recorded": {"type": "boolean"}
+    }
+  },
+  "reputation": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "cycle", "score", "tier", "previous_tier", "lineage", "edits", "metrics", "why"],
+    "properties": {
+      "agent": {"type": "string"},
+      "cycle": {"type": "string"},
+      "score": {"type": ["number", "null"]},
+      "tier": {"type": "string"},
+      "previous_tier": {"type": "string"},
+      "lineage": {"type": "string"},
+      "edits": {"type": "integer", "minimum": 0},
+      "metrics": {"type": "object"},
+      "why": {"type": "string"}
+    }
+  },
+  "probation": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "runs", "passed", "lifted"],
+    "properties": {
+      "agent": {"type": "string"},
+      "runs": {"type": "array", "items": {"type": "string"}},
+      "passed": {"type": "integer", "minimum": 0},
+      "lifted": {"type": "boolean"}
+    }
+  },
+  "plan": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["planner_run_id", "basis", "ranked", "batch", "skips", "planner_suspended"],
+    "properties": {
+      "planner_run_id": {"type": ["string", "null"]},
+      "basis": {"type": "string", "enum": ["value", "none"]},
+      "ranked": {"type": "array", "items": {"type": "object"}},
+      "batch": {"type": "array", "items": {"type": "object"}},
+      "skips": {"type": "array", "items": {"type": "object"}},
+      "planner_suspended": {"type": "boolean"}
+    }
+  },
+  "forecast": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["role", "made_by", "agent", "metric", "target", "due", "p", "predicted", "ref"],
+    "properties": {
+      "role": {"type": "string"},
+      "made_by": {"type": "string"},
+      "agent": {"type": ["string", "null"]},
+      "metric": {"type": "string"},
+      "target": {"type": ["number", "null"]},
+      "due": {"type": ["string", "null"]},
+      "p": {"type": "number", "minimum": 0, "maximum": 1},
+      "predicted": {"type": "object"},
+      "ref": {"type": ["string", "null"]}
+    }
+  },
+  "forecast_resolved": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["forecast_event_id", "role", "made_by", "agent", "metric", "hit", "actual", "p", "brier", "errors"],
+    "properties": {
+      "forecast_event_id": {"type": "string"},
+      "role": {"type": "string"},
+      "made_by": {"type": "string"},
+      "agent": {"type": ["string", "null"]},
+      "metric": {"type": "string"},
+      "hit": {"type": "boolean"},
+      "actual": {"type": ["number", "null"]},
+      "p": {"type": "number", "minimum": 0, "maximum": 1},
+      "brier": {"type": "number", "minimum": 0, "maximum": 1},
+      "errors": {"type": "object"}
+    }
+  },
+  "case_proposed": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["curator_run_id", "agent", "case_id", "correct", "difficulty", "attempts", "admitted", "tier", "why"],
+    "properties": {
+      "curator_run_id": {"type": "string"},
+      "agent": {"type": "string"},
+      "case_id": {"type": "string"},
+      "correct": {"type": ["boolean", "null"]},
+      "difficulty": {"type": ["number", "null"]},
+      "attempts": {"type": "integer", "minimum": 0},
+      "admitted": {"type": "boolean"},
+      "tier": {"type": ["string", "null"]},
+      "why": {"type": "string"}
+    }
   }
 }

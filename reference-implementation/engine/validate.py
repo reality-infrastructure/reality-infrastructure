@@ -51,7 +51,23 @@ def validate_pack(name: str, root: Path | None = None) -> dict:
             "tools": pack.tools.ids(), "guardrails": pack.guardrails.ids(), "verifiers": pack.verifiers.ids(),
             "drift": pack.drift.ids() if pack.drift else [],
             "event_types": sorted(events.declared_types), "golden_cases": golden, "holdout_cases": holdout,
-            "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {}))}
+            "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {})),
+            "outcome_resolvers": pack.outcomes.ids(), "value_hooks": pack.values.ids(),
+            "derived_from": _lineage(pack, agents)}
+
+
+def _lineage(pack, agents: dict) -> dict:
+    """Each derived agent's source and recorded hash; for a source in this pack, whether it has changed since the
+    copy (the source's later refinements are not inherited: a human decides whether to carry them over)."""
+    out = {}
+    for n, a in agents.items():
+        d = a.manifest.get("derived_from")
+        if not d:
+            continue
+        src_pack, src = d["agent"].split("/", 1)
+        source = agents.get(src) if src_pack == pack.name else None
+        out[n] ={**d, "source_changed": None if source is None else source.hash != d["manifest_hash"]}
+    return out
 
 
 def main(argv: list[str] | None = None) -> int:

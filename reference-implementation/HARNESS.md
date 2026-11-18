@@ -89,3 +89,64 @@ confidently wrong more often, and the crank reports it per agent.
 
 Python 3.11+, `ri_core` (this repo), `anthropic`, `psycopg[binary]` (only for Postgres),
 `pyyaml`, `jsonschema`, `pytest`. No agent frameworks.
+
+## JH-C11 wpI — long-horizon record
+
+Tests: `tests/test_engine_c11_wpI.py`.  Config defaults are in `config/engine.yaml` and read through
+`EngineConfig.outcomes`, `.reputation`, `.forecast`, `.autoloop_long_horizon` (old configs load unchanged).
+
+- **Outcomes: lagged resolution of forward claims** (G-P14, G-D13, G-NCD10) — `engine/outcome.py`. An agent's
+  manifest declares `outcome: {resolver, after_days}`; a pack declares `@outcome(id=...)` resolvers in
+  `modules.outcome` (same registry pattern as `@drift`). A succeeded run is due `after_days` after creation or at its
+  output's `resolves_at`; `resolve_due` (run at the start of every autoloop cycle) asks the resolver, records
+  `<pack>.outcome` {run_id, due_at, resolved_at, lag_days, hit, verdict, claim, actual, confidence} and an outcome
+  verdict. **Verdict precedence: human > outcome > agent** (`engine/verdicts.py` `PRECEDENCE`): an outcome replaces a
+  judge's verdict, never a human's (the event is still recorded, `verdict_recorded: false`); a judge never replaces an
+  outcome; a human replaces either. Migration `0005_verdict_source_outcome.sql` widens `verdict_source`. Golden growth
+  and export count a declared agent's runs only once resolved (growth: resolved as a hit); the kill rule counts a run the
+  world proved wrong (`outcomes.kill_on_outcome`); the crank reports claims, resolved, backlog, outcome rate beside the
+  followed rate, Brier and binned calibration. Config `outcomes: {enabled, resolve_each_cycle, kill_on_outcome,
+  calibration_bins}`. Tests: `test_outcome_verdict_sits_between_a_human_and_a_judge`,
+  `test_forward_claim_is_resolved_after_its_horizon_and_scored`, `test_crank_shows_outcome_rate_beside_the_followed_rate`,
+  `test_kill_rule_counts_a_run_the_world_proved_wrong`, `test_unresolved_runs_do_not_grow_golden_and_resolve_when_due`.
+- **Reputation, trust tiers and leverage** (G-NAB2, G-NCD2) — `engine/reputation.py`. Score over the agent's whole
+  history, weight `0.5 ** (age / half_life_runs)`, runs on superseded manifests at `carry_on_edit ** edits`; metrics
+  (pass rate, override rate, conflict mass, cost per certified item, outcome hit rate). Each cycle one
+  `<pack>.reputation` event per agent: the tier rises one step per cycle, falls at once, drops to the bottom on a kill
+  or a judge suspension. Leverage of the tier in force: review sampling in `engine.verdicts --pending`, sweep workers
+  and budget (`Sweep`, report `reputation_tier`), per-agent batch caps (`batch_resolves`). A halted agent gets
+  `probation_runs` golden-input runs per cycle (`<pack>.probation`), so the kill rule can lift. Crank and autoloop
+  reports carry a reputation section. Config `reputation: {half_life_runs, carry_on_edit, min_runs, probation_runs,
+  start_tier, tiers}`. Tests: `test_reputation_decays_and_partly_carries_across_manifest_change`,
+  `test_leverage_rises_one_tier_on_record_and_drops_at_once_on_kill`, `test_low_reputation_raises_review_rate_and_cuts_budget`,
+  `test_halted_agent_gets_probation_runs_and_the_kill_rule_lifts`.
+- **Value-ranked planning** (G-NCD3) — `engine/value.py`. A pack declares `@value(id, agent)` hooks in `modules.value`
+  returning candidate inputs with a value; the engine drops done inputs and halted agents, ranks by value per expected
+  cost and hands `ranked` to the planner; `batch_resolves` refuses a batch that passes over a higher-ranked input without
+  a reason in `skips`; every plan is a `<pack>.plan` event (ranking, batch with ranks, skips). Config
+  `autoloop.plan: {max_ranked, max_skip_without_reason}`. Test: `test_planner_cannot_skip_higher_value_inputs_without_a_reason`.
+- **Dated forecasts and the loop roles' scored taste** (G-M3, G-D5) — `engine/forecast.py`
+  (`python -m engine.forecast add|resolve|report`). `<pack>.forecast` / `<pack>.forecast_resolved` (Brier). Operator
+  targets and every adopted refinement's target (metric, value, due week, p_hit) resolve once after the due week; the
+  hit rate per maker is flagged too soft / calibrated / too aggressive around 50 %. When `autoloop.taste.require_forecast`
+  the refiner must state `forecast: {p_adopt, golden_delta, holdout_delta, target}` (`edit_applies`) and the planner
+  `p_pass` per item (`batch_resolves`); both are scored at once. A role whose mean Brier over its last `window` exceeds
+  `max_brier` after `min_scored` is suspended: the refiner adopts nothing; the planner is replaced by the value ranking.
+  Config `forecast: {target_hit_rate, band, window, metric_window_runs}`, `autoloop.taste`. Tests:
+  `test_dated_forecasts_resolve_once_with_a_calibration_flag`, `test_forecast_cli_adds_resolves_and_reports`,
+  `test_refiner_forecasts_are_scored_and_a_poorly_calibrated_refiner_is_suspended`,
+  `test_planner_p_pass_is_scored_and_a_suspended_planner_is_replaced_by_the_value_ranking`.
+- **The curator** (G-D9) — loop role `curator` (manifest role enum, frontier-only, `LOOP_ROLE_KEYS`, `LOOP_ROLES`;
+  reference agent `agents/curator`, fixture `curator-v1`), guardrail `case_certified`, `engine/curate.py`
+  (`python -m engine.curate confirm`). Each cycle (when refining) the curator proposes cases; code admits a case only
+  when the agent's verifier certifies the expected output and its fail fraction over `attempts` runs of the agent's model
+  plus one per eval-matrix model lies in `[min_fail, max_fail]`; admitted cases go to `golden.jsonl` (never held-out)
+  with provenance, `difficulty` and `tier`; cases of an agent without a verifier wait in `eval/proposed.jsonl` for the
+  operator. `<pack>.case_proposed` events give the curator's reward history; refinement reports golden score per tier.
+  Config `autoloop.curate`. Tests: `test_curator_is_a_frontier_only_loop_role`,
+  `test_curator_cases_admitted_only_if_verified_and_discriminating`, `test_case_without_a_verifier_waits_for_the_operator`.
+- **Scaffold from a proven agent** (G-M17) — `engine/scaffold.py` `new_agent`
+  (`python -m engine.scaffold new-agent <pack>/<name> --from <pack>/<proven>`): copies onboarding, prompts, guardrails,
+  tools, access and the golden header (not the cases), records `derived_from: {agent, manifest_hash}` (manifest
+  schema), validates or rolls back; `engine.validate` reports each lineage and whether the source has changed since.
+  Test: `test_new_agent_from_a_proven_agent_carries_derived_from`.

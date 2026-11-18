@@ -45,9 +45,14 @@ def _rejected_candidates(row: dict) -> list[dict]:
 def counted_runs(engine: Engine, pack, agent_name: str, **kw) -> list[dict]:
     """Verdicted runs whose verdict counts: human always; agent when config says so."""
     rows = engine.store.list_runs(pack=pack.name, agent=agent_name, verdicted=True, **kw)
+    from engine.outcome import resolved
+    from engine.outcome import declared as outcome_declared
+    if agent_name in outcome_declared(pack):           # a forward claim counts once the world has answered it
+        answered = resolved(engine, pack)
+        rows = [r for r in rows if r["run_id"] in answered]
     if engine.config.export_accepts_agent_verdicts:
         return rows
-    return [r for r in rows if (r.get("verdict_source") or "human") == "human"]
+    return [r for r in rows if (r.get("verdict_source") or "human") in ("human", "outcome")]
 
 
 def check_gate(engine: Engine, pack, agent_name: str) -> tuple[object, int]:

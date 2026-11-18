@@ -5,7 +5,7 @@ Invariants enforced here:
 - role: orchestrator  -> model must be the frontier (config/frontier.yaml)
 - role: specialist    -> verifier required, pack problem.md required,
                          count <= pack max_specialists (override needs an ADR)
-- roles judge / planner / refiner (the closed loop, engine.autoloop) -> frontier only,
+- roles judge / planner / refiner / curator (the closed loop, engine.autoloop) -> frontier only,
                          no verifier, no agent tools, and an output schema that
                          requires the keys the loop reads (see LOOP_ROLE_KEYS)
 - fixture providers (local) only inside fixture packs
@@ -29,13 +29,14 @@ from engine.hashing import sha256_tree
 from engine.packs import Pack
 from engine.schema import load_schema, validate
 
-ROLES = ("orchestrator", "specialist", "worker", "judge", "planner", "refiner")
-FRONTIER_ROLES = ("orchestrator", "judge", "planner", "refiner")
+ROLES = ("orchestrator", "specialist", "worker", "judge", "planner", "refiner", "curator")
+FRONTIER_ROLES = ("orchestrator", "judge", "planner", "refiner", "curator")
 # What engine.autoloop reads from each loop role's certified output; the schema must require them.
 LOOP_ROLE_KEYS = {
     "judge": ("run_id", "verdict", "reason"),
     "planner": ("batch",),
     "refiner": ("agent", "rung", "file", "old", "new", "why"),
+    "curator": ("agent", "cases"),
 }
 AGENT_TOOL_PREFIX = "agent."
 
@@ -194,6 +195,9 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
         raise ManifestError(f"{manifest_path}: an orchestrator does no proprietary math and takes no verifier")
     if role in LOOP_ROLE_KEYS and verifier is not None:
         raise ManifestError(f"{manifest_path}: a {role} takes no verifier; the loop's checks are engine guardrails")
+    resolver = (manifest.get("outcome") or {}).get("resolver")
+    if resolver is not None and (pack.outcomes is None or not pack.outcomes.has(resolver)):
+        raise ManifestError(f"{manifest_path}: unknown outcome resolver {resolver!r} (declare it with @outcome in a modules.outcome module)")
 
     # agent tools: orchestrators only, one level deep
     agent_tools = [t for t in manifest["tools"] if t.startswith(AGENT_TOOL_PREFIX)]
@@ -269,6 +273,7 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
     if loop["stop_when"] == "verifier_certified" and verifier is None:
         raise ManifestError(f"{manifest_path}: stop_when verifier_certified needs a verifier")
 
+    agent_hash = sha256_tree(agent_dir, exclude_dirs=("eval", "crank"))
     return Agent(
         pack=pack, name=name, dir=agent_dir, manifest=manifest, role=role,
         version=manifest["version"], model=model,
@@ -279,7 +284,7 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
         max_output_bytes=int(manifest["safeguards"].get("max_output_bytes", 65536)),
         items_evaluated_field=(manifest.get("metrics") or {}).get("items_evaluated_field"),
         skills=skills, workflow=workflow, workflow_meta=workflow_meta, access=access,
-        hash=sha256_tree(agent_dir, exclude_dirs=("eval", "crank")),
+        hash=agent_hash,
     )
 
 

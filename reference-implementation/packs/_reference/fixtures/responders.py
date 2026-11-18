@@ -11,6 +11,7 @@ paths are proven.  None of this is agent behavior for a real domain.
 from __future__ import annotations
 
 import json
+from datetime import datetime, timedelta
 from decimal import Decimal
 
 from engine.providers import Completion, ToolUse, Usage
@@ -279,15 +280,29 @@ def judge_lenient(*, model, system, messages, tools, candidate_index) -> Complet
                               "reason": "looks fine", "confidence": 0.99})
 
 
-def planner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
-    """Schedules the sheet and the capacity the week has not seen, under the cap."""
-    ctx = _context(messages)
-    inp = ctx["input"]
+def _planner_batch(inp: dict) -> list[dict]:
     seen = {(p["agent"], json.dumps(p["input"], sort_keys=True)) for p in inp.get("pending", [])}
     wanted = [("checker", {"sheet_id": "S2"}), ("allocator", {"capacity": 20}), ("checker", {"sheet_id": "S1"})]
-    batch = [{"agent": a, "input": i} for a, i in wanted if (a, json.dumps(i, sort_keys=True)) not in seen]
-    batch = batch[: int(inp.get("max_runs", 20))]
-    return _submit(messages, {"batch": batch, "why": f"{len(batch)} inputs the week has not covered", "confidence": 0.7})
+    batch = [{"agent": a, "input": i, "p_pass": 0.9} for a, i in wanted if (a, json.dumps(i, sort_keys=True)) not in seen]
+    return batch[: int(inp.get("max_runs", 20))]
+
+
+def planner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Schedules the sheet and the capacity the week has not seen, under the cap; names a reason for every
+    higher-ranked input it passes over, and states p_pass for every item."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    batch = _planner_batch(inp)
+    chosen = {(b["agent"], json.dumps(b["input"], sort_keys=True)) for b in batch}
+    skips = [{"agent": e["agent"], "input": e["input"], "reason": "the week's uncovered inputs come first; this one waits for the next cycle"}
+             for e in (inp.get("ranked") or [])[:len(batch)] if (e["agent"], json.dumps(e["input"], sort_keys=True)) not in chosen]
+    return _submit(messages, {"batch": batch, "skips": skips, "why": f"{len(batch)} inputs the week has not covered", "confidence": 0.7})
+
+
+def planner_unreasoned(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Passes over the ranked inputs without a word; batch_resolves refuses it."""
+    ctx = _context(messages)
+    return _submit(messages, {"batch": _planner_batch(ctx["input"]), "why": "my own taste", "confidence": 0.7})
 
 
 def planner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
@@ -295,14 +310,32 @@ def planner_bad(*, model, system, messages, tools, candidate_index) -> Completio
     return _submit(messages, {"batch": [{"agent": "nobody", "input": {}}], "why": "guess", "confidence": 0.5})
 
 
-def refiner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
-    """One exact edit: the first non-empty line of skills.md gets a suffix."""
-    ctx = _context(messages)
-    inp = ctx["input"]
+def _weeks_after(week: str, n: int) -> str:
+    y, w = week.split("-W")
+    d = datetime.fromisocalendar(int(y), int(w), 1) + timedelta(weeks=n)
+    iy, iw, _ = d.isocalendar()
+    return f"{iy}-W{iw:02d}"
+
+
+def _refiner_edit(inp: dict, p_adopt: float) -> dict:
     text = inp["files"]["skills.md"]
     first = next(l for l in text.splitlines() if l.strip())
-    return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md", "old": first,
-                              "new": first + " (refined by the loop)", "why": inp["change"][:200], "confidence": 0.6})
+    out = {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md", "old": first,
+           "new": first + " (refined by the loop)", "why": inp["change"][:200], "confidence": 0.6}
+    if inp.get("week"):
+        out["forecast"] = {"p_adopt": p_adopt, "golden_delta": 0.0, "holdout_delta": 0.0,
+                           "target": {"metric": "pass_rate", "value": 0.9, "due": _weeks_after(inp["week"], 2), "p_hit": 0.5}}
+    return out
+
+
+def refiner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """One exact edit: the first non-empty line of skills.md gets a suffix; forecasts a likely adoption, no score change."""
+    return _submit(messages, _refiner_edit(_context(messages)["input"], 0.8))
+
+
+def refiner_pessimist(*, model, system, messages, tools, candidate_index) -> Completion:
+    """The same edit, forecast as almost certainly rejected: a poorly calibrated refiner."""
+    return _submit(messages, _refiner_edit(_context(messages)["input"], 0.02))
 
 
 def refiner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
@@ -346,3 +379,32 @@ def judge_careful(*, model, system, messages, tools, candidate_index) -> Complet
             return _submit(messages, {"run_id": rid, "verdict": "overridden",
                                       "reason": f"total_weight states {out.get('total_weight')} but the selected candidates weigh {weight}", "confidence": 0.9})
     return _submit(messages, {"run_id": rid, "verdict": "followed", "reason": "every figure recomputes from the table", "confidence": 0.85})
+
+
+CURATOR_CAPACITIES = ((35, 0, "ratio-greedy takes c1+c4+c5 where c2+c4 is better"),
+                      (25, 0, "a capacity no case covers yet"),
+                      (60, 1, "the largest commitment (expected value worked by hand)"))
+
+
+def curator_v1(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Proposes allocator capacities and checker sheets the golden and held-out sets lack.  For the allocator the
+    expected output is the DP optimum, except the last case, whose total_value is misstated by hand: the verifier
+    must refuse it.  For the checker it recomputes each row of every sheet not yet covered."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    known = set(inp.get("known_inputs") or [])
+    cases = []
+    if inp["agent"] == "allocator":
+        rows = _candidates(ctx)
+        for cap, slip, why in CURATOR_CAPACITIES:
+            expected = _allocation(rows, _dp_optimum(rows, cap), value_delta=slip, confidence=0.9)
+            cases.append({"id": f"cap{cap}", "input": {"capacity": cap}, "expected": expected, "why": why})
+    elif inp["agent"] == "checker":
+        sheets = sorted({r["sheet_id"] for r in _grounding(ctx, "table", "sheets")})
+        for sid in sheets:
+            rows = [r for r in _grounding(ctx, "table", "sheets") if r["sheet_id"] == sid]
+            values = {r["expression"]: str(evaluate(r["expression"])) for r in rows}
+            cases.append({"id": sid, "input": {"sheet_id": sid}, "expected": {"sheet_id": sid, "items": _checker_items(rows, values)},
+                          "why": f"sheet {sid} has no case"})
+    cases = [c for c in cases if json.dumps(c["input"], sort_keys=True) not in known][: int(inp.get("max_cases", 10))]
+    return _submit(messages, {"agent": inp["agent"], "cases": cases, "why": f"{len(cases)} inputs the sets do not cover", "confidence": 0.7})

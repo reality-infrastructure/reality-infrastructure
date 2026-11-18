@@ -57,6 +57,8 @@ class Pack:
     verifiers: VerifierRegistry
     agent_names: tuple[str, ...]
     drift: Any = None                       # engine.drift.DriftRegistry
+    outcomes: Any = None                    # engine.outcome.OutcomeRegistry
+    values: Any = None                      # engine.value.ValueRegistry
     _table_cache: dict = field(default_factory=dict, repr=False)
 
     # -- tables ----------------------------------------------------------------
@@ -208,6 +210,13 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         verifiers.register_module(import_pack_module(name, dotted, root))
     for dotted in modules.get("drift") or []:
         drifts.register_module(import_pack_module(name, dotted, root))
+    from engine.outcome import OutcomeRegistry
+    from engine.value import ValueRegistry
+    outcomes, values = OutcomeRegistry(), ValueRegistry()
+    for dotted in modules.get("outcome") or []:
+        outcomes.register_module(import_pack_module(name, dotted, root))
+    for dotted in modules.get("value") or []:
+        values.register_module(import_pack_module(name, dotted, root))
 
     agents_dir = pack_dir / "agents"
     agent_names = tuple(sorted(p.name for p in agents_dir.iterdir()
@@ -222,6 +231,7 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         tables=tables, event_types=event_types, adapters_config=adapters_config,
         problem_text=problem_text, local_models=local_models,
         tools=tools, guardrails=guardrails, verifiers=verifiers, agent_names=agent_names, drift=drifts,
+        outcomes=outcomes, values=values,
     )
 
 

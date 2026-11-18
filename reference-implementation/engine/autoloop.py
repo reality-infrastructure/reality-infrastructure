@@ -33,6 +33,14 @@ interviews the operator read as a trader:
   growth    (the panel) runs the operator marked followed become golden cases; the
             judge's own verdicts never do
 
+The long-horizon record (JH-C11 wpI): before the steps, due forward claims are resolved
+(engine.outcome) and due dated forecasts scored (engine.forecast), and a halted agent gets
+probation runs (engine.reputation); the plan is ranked by the pack's @value hooks and capped
+by each agent's reputation tier (engine.value); the planner's p_pass and the refiner's
+p_adopt, deltas and dated target are scored, and a poorly calibrated role is suspended; after
+refine the ``curator`` proposes cases code admits only when correct and discriminating
+(engine.curate); at the end every agent's reputation is recorded.
+
 The model proposes at every step; code decides at every step.  Nothing here
 places an order, holds a key or trains a model.
 """
@@ -61,8 +69,10 @@ from engine.packs import load_pack
 from engine.runtime import iso
 from engine.store import Engine
 from engine.verdicts import record_verdict
+from engine import curate as curator_step, forecast, outcome, reputation, value
+from engine.outcome import proven_wrong, resolved_hits
 
-LOOP_ROLES = ("planner", "judge", "refiner")
+LOOP_ROLES = ("planner", "judge", "refiner", "curator")
 TEXT_FILES = ("skills.md", "workflow.md")
 
 
@@ -100,6 +110,7 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
     """{agent: why} for every worker/specialist/orchestrator whose pass rate over its last
     ``window_runs`` runs is below ``min_pass_rate`` once it has ``min_runs``."""
     cfg = engine.config.autoloop["kill"]
+    outcome_kills = engine.config.outcomes["enabled"] and engine.config.outcomes["kill_on_outcome"]
     killed: dict[str, str] = {}
     for name in sorted(pack.agent_names):
         if load_yaml(pack.agent_dir(name) / "manifest.yaml").get("role") not in JUDGEABLE_ROLES:
@@ -107,7 +118,7 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
         rows = engine.store.list_runs(pack=pack.name, agent=name, limit=int(cfg["window_runs"]), newest_first=True)
         if len(rows) < int(cfg["min_runs"]):
             continue
-        ok = sum(1 for r in rows if r["status"] == "succeeded")
+        ok = sum(1 for r in rows if r["status"] == "succeeded" and not (outcome_kills and proven_wrong(r)))
         rate = ok / len(rows)
         if rate < float(cfg["min_pass_rate"]):
             killed[name] = f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']}"
@@ -225,10 +236,11 @@ def grow_golden(engine: Engine, pack, *, since: str, until: str) -> list[dict]:
         known = {json.dumps(json.loads(ln)["input"], sort_keys=True) for ln in lines[1:]}
         rows = engine.store.list_runs(pack=pack.name, agent=name, since=since, until=until, status="succeeded",
                                       verdicted=True, verdict_source="human")
+        eligible = resolved_hits(engine, pack, name)          # an agent making forward claims grows only from claims the world proved
         new = []
         for r in rows:
             key = json.dumps(r["input"], sort_keys=True)
-            if r["human_verdict"] != "followed" or key in known:
+            if r["human_verdict"] != "followed" or key in known or (eligible is not None and r["run_id"] not in eligible):
                 continue
             try:
                 expected = {f.split(".")[0]: r["output"][f.split(".")[0]] for f in header["compare"]}
@@ -259,12 +271,34 @@ def _golden_counts(pack) -> dict[str, int]:
 # -- plan ---------------------------------------------------------------------------------
 
 def plan(runner: Runner, planner: str, *, week: str, report: dict, pending: list[dict], max_runs: int,
-         killed: dict[str, str] | None = None) -> tuple[list[dict], dict]:
-    result = runner.run(planner, {"week": week, "max_runs": max_runs, "report": _slim_report(report),
-                                  "pending": pending[:50], "golden": _golden_counts(runner.pack),
-                                  "killed": dict(killed or {})})
-    batch = list(result.output["batch"])[:max_runs] if result.status == "succeeded" else []
-    return batch, result.as_dict()
+         killed: dict[str, str] | None = None, ranking: dict | None = None, suspended: str | None = None) -> tuple[list[dict], dict]:
+    """The planner's batch, under the pack's value ranking and each agent's reputation cap.  A planner suspended
+    for poor foresight (engine.forecast) is replaced by the ranking itself.  Every plan is a ``<pack>.plan`` event."""
+    engine, pack = runner.engine, runner.pack
+    ranking = ranking or {"basis": "none", "entries": []}
+    caps = reputation.agent_caps(engine, pack, max_runs)
+    lh = engine.config.autoloop_long_horizon
+    if suspended:
+        batch, counts = [], {}
+        for e in ranking["entries"]:
+            if len(batch) < max_runs and counts.get(e["agent"], 0) < caps.get(e["agent"], max_runs):
+                batch.append({"agent": e["agent"], "input": e["input"]})
+                counts[e["agent"]] = counts.get(e["agent"], 0) + 1
+        planned = {"run_id": None, "status": "suspended", "why": suspended, "forecasts": [], "skips": []}
+    else:
+        result = runner.run(planner, {"week": week, "max_runs": max_runs, "report": _slim_report(report),
+                                      "pending": pending[:50], "golden": _golden_counts(pack),
+                                      "killed": dict(killed or {}), "ranked": ranking["entries"], "caps": caps,
+                                      "max_skip_without_reason": lh["plan"]["max_skip_without_reason"],
+                                      "forecast_required": lh["taste"]["require_forecast"]})
+        raw = list(result.output["batch"])[:max_runs] if result.status == "succeeded" else []
+        batch = [{"agent": i["agent"], "input": i["input"]} for i in raw]
+        planned = {**result.as_dict(), "forecasts": raw, "skips": list(result.output.get("skips") or []) if result.status == "succeeded" else []}
+    EventLog(engine, pack).append(
+        entity_type="agent_run", entity_id=planned["run_id"] or pack.name, event_type=f"{pack.name}.plan",
+        payload=value.plan_record(planned["run_id"], ranking, batch, planned["skips"], planner_suspended=bool(suspended)),
+        source=f"agent:{planner}" if planned["run_id"] else "pipeline:autoloop", source_ref=planned["run_id"])
+    return batch, planned
 
 
 # -- act ----------------------------------------------------------------------------------
@@ -361,7 +395,8 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     files = _text_files(pack.agent_dir(agent))
     change = rec["change"] if cluster is rec.get("evidence") else f"{rec['change']} Cluster: {cluster.get('cluster')} ({cluster.get('count')}x)."
     r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
-                             "evidence": _evidence(engine, cluster), "files": files})
+                             "evidence": _evidence(engine, cluster), "files": files, "week": report["week"],
+                             "forecast_required": engine.config.autoloop_long_horizon["taste"]["require_forecast"]})
     if r.status != "succeeded":
         return {"status": "refiner_failed", "refiner_run_id": r.run_id, "agent": agent, "failure_reasons": list(r.failure_reasons)}
     out = r.output
@@ -394,12 +429,24 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
                  "before_holdout": None if before_h is None else before_h["models"][0]["score"],
                  "after_holdout": None if after_h is None else after_h["models"][0]["score"]},
         source=f"agent:{refiner}", source_ref=r.run_id)
-    return {"status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
+    scored = None
+    if isinstance(out.get("forecast"), dict):
+        scored = forecast.score_refinement(engine, pack, refiner, r.run_id, agent, out["forecast"], adopted=adopted,
+                                           golden_delta=_score_delta(before, after), holdout_delta=_score_delta(before_h, after_h))
+    return {"forecast": scored, "tiers": {"before": curator_step.tier_scores(pack, agent, before),
+                                          "after": curator_step.tier_scores(pack, agent, after)},
+            "status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
             "before": before["summary"], "after": after["summary"],
             "before_holdout": None if before_h is None else before_h["summary"],
             "after_holdout": None if after_h is None else after_h["summary"],
             "holdout": "held-out set evaluated" if use_holdout else "no eval/holdout.jsonl for this agent: adoption rests on the golden set alone",
             "refiner_run_id": r.run_id, "event_id": event["event_id"], "why": out["why"]}
+
+
+def _score_delta(before: dict | None, after: dict | None) -> float | None:
+    if before is None or after is None:
+        return None
+    return float(Decimal(after["models"][0]["score"]) - Decimal(before["models"][0]["score"]))
 
 
 def adopt_decision(before: dict, after: dict, before_holdout: dict | None, after_holdout: dict | None) -> bool:
@@ -434,24 +481,40 @@ def export_open(engine: Engine, pack, out_dir: Path, stamp: str) -> list[dict]:
 
 def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | None = None,
           do_plan: bool = True, do_judge: bool = True, do_refine: bool = True, do_export: bool = True,
-          runner: Runner | None = None) -> dict:
+          do_curate: bool | None = None, runner: Runner | None = None) -> dict:
+    """``do_curate`` defaults to ``do_refine``: both write the pack's files (an adopted edit, an admitted case)."""
     runner = runner or Runner(engine, pack)
+    do_curate = do_refine if do_curate is None else do_curate
     agents = loop_agents(pack)
     start, end = week_bounds(week)
     since, until = iso(start), iso(end)
     cap = max_runs or engine.config.autoloop_max_runs
     result: dict = {"pack": pack.name, "week": week, "loop_agents": agents}
+    if engine.config.outcomes["enabled"] and engine.config.outcomes["resolve_each_cycle"]:
+        result["outcomes"] = outcome.resolve_due(engine, pack)
+    result["forecasts"] = {"resolved": forecast.resolve_due(engine, pack)}
     killed = kill_rule(engine, pack)
+    probation = reputation.probation(runner, killed, lambda a: a in kill_rule(engine, pack)) if killed else []
+    if probation:
+        killed = kill_rule(engine, pack)
     safety = judge_safety(engine, pack)
     drift = drift_readings(engine, pack)
-    result["safety"] = {"killed": killed, "judge": safety, "drift": drift}
+    result["safety"] = {"killed": killed, "judge": safety, "drift": drift, "probation": probation}
     shifted = [d for d in drift if d["shifted"]]
+    taste = forecast.role_scores(engine, pack)
+    result["taste"] = taste
     report = build_report(engine, pack, week)
     if do_plan and "planner" in agents:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
-        batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed)
+        t = taste["planner"]
+        batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed,
+                              ranking=value.ranked(engine, pack, killed=killed),
+                              suspended=(f"planner suspended: mean Brier {t['brier']} over {t['scored']} forecasts above {t['max_brier']}; "
+                                         f"the engine planned by value") if t["suspended"] else None)
         result["plan"] = {"run": planned, "batch": batch}
         result["act"] = act(runner, batch)
+        if planned["run_id"]:
+            result["plan"]["scored"] = forecast.score_plan(engine, pack, agents["planner"], planned["run_id"], planned["forecasts"], result["act"])
     if do_judge and "judge" in agents:
         if safety["suspended"]:
             result["judge"] = []
@@ -472,12 +535,21 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
         result["drift_hold"] = why
     else:
         if do_refine and "refiner" in agents:
-            result["refine"] = refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root)
+            t = taste["refiner"]
+            result["refine"] = ({"status": "skipped", "why": f"refiner suspended: mean Brier {t['brier']} over {t['scored']} forecasts "
+                                                              f"above {t['max_brier']}; an edit needs a human until its foresight recovers"}
+                                if t["suspended"] else refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root))
+        if do_curate and "curator" in agents and engine.config.autoloop_long_horizon["curate"]["enabled"]:
+            target = curator_step.target_agent(pack, (result.get("refine") or {}).get("agent"))
+            if target is not None:
+                result["curate"] = curator_step.curate(engine, pack, runner, agents["curator"], target)
         if engine.config.autoloop["grow_golden"]:
             result["grow"] = grow_golden(engine, pack, since=since, until=until)
     if do_export:
         result["export"] = export_open(engine, pack, pack.root, week)
     result["safety"]["killed_after"] = kill_rule(engine, pack)
+    result["reputation"] = reputation.update(engine, pack, week, killed=result["safety"]["killed_after"],
+                                             judge_agent=agents.get("judge"), judge_suspended=safety["suspended"])
     return result
 
 
@@ -528,8 +600,42 @@ def render(result: dict) -> str:
         L += [f"- {g['agent']}: +{g['added']} cases ({', '.join(g['ids'][:5])}{'…' if g['added'] > 5 else ''})" for g in result["grow"]] or ["- nothing to add"]
     if "export" in result:
         L += ["", "## Export", ""] + [f"- {e['agent']}: {e['status']}" + (f" ({e['rows']} rows -> {e['path']})" if e["status"] == "exported" else f" ({e['why']})") for e in result["export"]]
+    L += _render_long_horizon(result)
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]
     return "\n".join(L) + "\n"
+
+
+def _render_long_horizon(result: dict) -> list[str]:
+    """Outcomes resolved, probation, the plan's ranking, the loop roles' scored taste, the curator, and reputation."""
+    L = ["", "## The long record", ""]
+    o = result.get("outcomes")
+    if o is not None:
+        L += [f"- outcomes: {len(o['resolved'])} resolved ({sum(r['hit'] for r in o['resolved'])} hit), "
+              f"{len(o['awaiting'])} due and awaiting the world, {o['not_due']} not yet due"]
+    f = result.get("forecasts") or {}
+    L += [f"- dated forecasts resolved this cycle: " + (", ".join(f"{r['made_by']} {r['metric']} {r['target']} by {r['due']} -> "
+                                                                   f"{r['actual']} {'HIT' if r['hit'] else 'MISS'}" for r in f.get("resolved") or []) or "none")]
+    for p in (result.get("safety") or {}).get("probation") or []:
+        L += [f"- probation: {p['agent']} ran {len(p['runs'])} golden inputs, {p['passed']} passed; " + ("halt LIFTED" if p["lifted"] else "still halted")]
+    for role, t in (result.get("taste") or {}).items():
+        L += [f"- {role} foresight: {t['scored']} scored, mean Brier {t['brier']}: " + ("SUSPENDED" if t["suspended"] else "trusted")]
+    if "plan" in result:
+        run = result["plan"]["run"]
+        L += [f"- plan: {'the engine planned by value (' + run['why'] + ')' if run['status'] == 'suspended' else 'planner run ' + str(run['run_id'])}; "
+              f"skips with reasons: {len(run.get('skips') or [])}"]
+    r = result.get("refine") or {}
+    if r.get("forecast"):
+        L += [f"- refiner forecast: Brier {r['forecast']['brier']}, golden delta error {r['forecast']['golden_delta_abs_error']}"
+              + ("; dated target recorded" if r["forecast"].get("target_event_id") else "")]
+    if r.get("tiers"):
+        L += [f"- golden score per tier: before {r['tiers']['before']} after {r['tiers']['after']}"]
+    c = result.get("curate")
+    if c:
+        L += [f"- curator ({c.get('agent')}): {c['status']}" + (f"; {len(c['cases'])} proposed, admitted {c['admitted'] or 'none'}, "
+                                                                f"awaiting the operator {c['queued'] or 'none'}" if c["status"] == "curated" else "")]
+    for rep in result.get("reputation") or []:
+        L += [f"- reputation {rep['agent']}: {rep['previous_tier']} -> {rep['tier']} (score {rep['score']}; {rep['why']})"]
+    return L
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -541,6 +647,7 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--no-judge", action="store_true")
     p.add_argument("--no-refine", action="store_true")
     p.add_argument("--no-export", action="store_true")
+    p.add_argument("--no-curate", action="store_true")
     p.add_argument("--db")
     p.add_argument("--out", help="directory (default packs/<pack>/crank)")
     args = p.parse_args(argv)
@@ -550,7 +657,7 @@ def main(argv: list[str] | None = None) -> int:
             pack = load_pack(args.pack)
             result = cycle(engine, pack, args.week, packs_root=pack.root.parent, max_runs=args.max_runs,
                            do_plan=not args.no_plan, do_judge=not args.no_judge, do_refine=not args.no_refine,
-                           do_export=not args.no_export)
+                           do_export=not args.no_export, do_curate=not (args.no_curate or args.no_refine))
             crank_dir = Path(args.out) if args.out else pack.root / "crank"
             crank_dir.mkdir(parents=True, exist_ok=True)
             (crank_dir / f"{args.week}.md").write_text(render_crank(build_report(engine, pack, args.week)), encoding="utf-8")

@@ -9,6 +9,13 @@ observation the flywheel can learn from.  ``source`` says who adjudicated:
 ``human`` (this CLI) or ``agent:<judge>`` with the judge's own run as
 ``source_ref``.  A human verdict outranks an agent's: it replaces one, and an
 agent never replaces a human's.  A judge never adjudicates its own run.
+
+A third source, ``outcome``, is the world's answer to a forward claim, recorded by
+engine.outcome when a pack's resolver reads it after the claim's horizon; its
+``source_ref`` is the ``<pack>.outcome`` event.  Precedence: human > outcome > agent.
+An outcome replaces a judge's verdict and never a human's; a judge never replaces an
+outcome; a human replaces either.  ``--pending`` lists the share of an agent's runs
+its reputation tier sends to human review (engine.reputation).
 """
 
 from __future__ import annotations
@@ -25,6 +32,7 @@ from engine.runtime import iso
 from engine.store import Engine
 
 VERDICTS = ("followed", "overridden", "wrong", "n/a")
+PRECEDENCE = {"agent": 1, "outcome": 2, "human": 3}    # a source replaces a verdict of equal or lower rank, never a higher one
 
 
 def record_verdict(engine: Engine, pack, run_id: str, verdict: str, reason: str, *,
@@ -33,9 +41,11 @@ def record_verdict(engine: Engine, pack, run_id: str, verdict: str, reason: str,
         raise EngineError(f"verdict must be one of {VERDICTS}")
     if not reason or not reason.strip():
         raise EngineError("a verdict needs a reason")
-    if source != "human" and not source.startswith("agent:"):
-        raise EngineError("verdict source must be 'human' or 'agent:<judge>'")
-    kind = "human" if source == "human" else "agent"
+    if source not in ("human", "outcome") and not source.startswith("agent:"):
+        raise EngineError("verdict source must be 'human', 'outcome' or 'agent:<judge>'")
+    kind = source if source in ("human", "outcome") else "agent"
+    if kind == "outcome" and not source_ref:
+        raise EngineError("an outcome verdict must carry its <pack>.outcome event_id as source_ref")
     if kind == "agent" and not source_ref:
         raise EngineError("an agent verdict must carry the judge's run_id as source_ref")
     if kind == "agent" and source_ref == run_id:
@@ -47,19 +57,22 @@ def record_verdict(engine: Engine, pack, run_id: str, verdict: str, reason: str,
         raise EngineError(f"run {run_id} belongs to pack {row['pack']!r}, not {pack.name!r}")
     if kind == "agent" and row.get("verdict_source") == "human":
         raise EngineError(f"run {run_id} carries a human verdict; an agent verdict does not replace it")
+    if PRECEDENCE[kind] < PRECEDENCE.get(row.get("verdict_source") or "", 0):
+        raise EngineError(f"run {run_id} carries a {row['verdict_source']} verdict; a {kind} verdict does not replace it")
     events = EventLog(engine, pack)
     at = iso(engine.clock.now())
     with engine.store.transaction():
-        engine.store.set_verdict(run_id, verdict, reason.strip(), at, kind, source_ref if kind == "agent" else None)
+        engine.store.set_verdict(run_id, verdict, reason.strip(), at, kind, source_ref if kind != "human" else None)
         event = events.append(
             entity_type="agent_run", entity_id=run_id, event_type=f"{pack.name}.verdict",
             payload={"run_id": run_id, "agent": row["agent"], "verdict": verdict, "reason": reason.strip()},
-            source=source, source_ref=source_ref or run_id)
+            source="pipeline:outcome" if kind == "outcome" else source, source_ref=source_ref or run_id)
     return engine.store.get_run(run_id), event
 
 
 def pending(engine: Engine, pack_name: str, agent_name: str) -> list[dict]:
-    return engine.store.list_runs(pack=pack_name, agent=agent_name, verdicted=False)
+    from engine.reputation import review_sample
+    return review_sample(engine, pack_name, agent_name, engine.store.list_runs(pack=pack_name, agent=agent_name, verdicted=False))
 
 
 def render(row: dict) -> str:

@@ -30,7 +30,9 @@
         "tools": {"type": "array", "items": {"type": "string"}},
         "guardrails": {"type": "array", "items": {"type": "string"}},
         "verifiers": {"type": "array", "items": {"type": "string"}},
-        "drift": {"type": "array", "items": {"type": "string"}}
+        "drift": {"type": "array", "items": {"type": "string"}},
+        "outcome": {"type": "array", "items": {"type": "string"}},
+        "value": {"type": "array", "items": {"type": "string"}}
       }
     },
     "local_models": {

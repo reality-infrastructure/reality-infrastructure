@@ -125,6 +125,55 @@ class EngineConfig:
             raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
         return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
 
+    # -- JH-C11 wpI: the long-horizon record ------------------------------------------------
+
+    @property
+    def outcomes(self) -> dict:
+        """Lagged outcome resolution (engine.outcome)."""
+        o = dict(self.engine.get("outcomes") or {})
+        return {"enabled": bool(o.get("enabled", True)), "resolve_each_cycle": bool(o.get("resolve_each_cycle", True)),
+                "kill_on_outcome": bool(o.get("kill_on_outcome", True)),
+                "calibration_bins": int(o.get("calibration_bins", 5))}
+
+    @property
+    def reputation(self) -> dict:
+        """Track record, tiers and the leverage each grants (engine.reputation).  Tiers are ordered best first."""
+        r = dict(self.engine.get("reputation") or {})
+        tiers = r.get("tiers") or [
+            {"name": "trusted", "min_score": 0.9, "review_rate": 0.1, "budget_mult": 2.0, "workers_mult": 2.0, "max_runs_share": 1.0},
+            {"name": "standard", "min_score": 0.6, "review_rate": 1.0, "budget_mult": 1.0, "workers_mult": 1.0, "max_runs_share": 1.0},
+            {"name": "restricted", "min_score": 0.0, "review_rate": 1.0, "budget_mult": 0.25, "workers_mult": 0.25, "max_runs_share": 0.25}]
+        tiers = sorted(({"name": str(t["name"]), "min_score": float(t["min_score"]), "review_rate": float(t["review_rate"]),
+                         "budget_mult": float(t["budget_mult"]), "workers_mult": float(t["workers_mult"]),
+                         "max_runs_share": float(t["max_runs_share"])} for t in tiers), key=lambda t: -t["min_score"])
+        start = str(r.get("start_tier", "standard"))
+        if start not in {t["name"] for t in tiers}:
+            raise EngineError(f"reputation.start_tier {start!r} is not a tier")
+        return {"half_life_runs": float(r.get("half_life_runs", 200)), "carry_on_edit": float(r.get("carry_on_edit", 0.5)),
+                "min_runs": int(r.get("min_runs", 5)), "probation_runs": int(r.get("probation_runs", 3)),
+                "start_tier": start, "tiers": tiers}
+
+    @property
+    def forecast(self) -> dict:
+        """Dated forecasts and their calibration target (engine.forecast)."""
+        f = dict(self.engine.get("forecast") or {})
+        return {"target_hit_rate": float(f.get("target_hit_rate", 0.5)), "band": float(f.get("band", 0.2)),
+                "window": int(f.get("window", 20)), "metric_window_runs": int(f.get("metric_window_runs", 20))}
+
+    @property
+    def autoloop_long_horizon(self) -> dict:
+        """The autoloop's value-ranked plan, scored taste of its loop roles, and curator (config autoloop.plan/taste/curate)."""
+        a = dict(self.engine.get("autoloop") or {})
+        plan = {"max_ranked": 50, "max_skip_without_reason": 0, **(a.get("plan") or {})}
+        taste = {"require_forecast": True, "min_scored": 5, "max_brier": 0.25, "window": 20, **(a.get("taste") or {})}
+        curate = {"enabled": True, "max_cases_per_cycle": 10, "attempts": 2, "min_fail": 0.1, "max_fail": 0.9, **(a.get("curate") or {})}
+        return {"plan": {"max_ranked": int(plan["max_ranked"]), "max_skip_without_reason": int(plan["max_skip_without_reason"])},
+                "taste": {"require_forecast": bool(taste["require_forecast"]), "min_scored": int(taste["min_scored"]),
+                          "max_brier": float(taste["max_brier"]), "window": int(taste["window"])},
+                "curate": {"enabled": bool(curate["enabled"]), "max_cases_per_cycle": int(curate["max_cases_per_cycle"]),
+                           "attempts": int(curate["attempts"]), "min_fail": float(curate["min_fail"]),
+                           "max_fail": float(curate["max_fail"])}}
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

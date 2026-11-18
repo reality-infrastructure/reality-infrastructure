@@ -1,16 +1,19 @@
 name: _reference
-description: "Blueprint pack on labeled fixture data: arithmetic sheet QA (worker), knapsack allocation (specialist), brief (orchestrator), and the closed loop's judge, planner and refiner."
+description: "Blueprint pack on labeled fixture data: arithmetic sheet QA (worker), knapsack allocation (specialist), brief (orchestrator), and the closed loop's judge, planner, refiner and curator."
 fixture: true
 entity_types: [sheet, record]
 max_specialists: 1
 tables:
   sheets:     { backend: file, ref: fixtures/sheets.jsonl, id_field: id }
   candidates: { backend: file, ref: fixtures/candidates.jsonl, id_field: id }
+  realized:   { backend: file, ref: fixtures/realized.jsonl, id_field: id }
 modules:
   tools: [tools.arith]
   guardrails: [guardrails.flags]
   verifiers: [verifiers.knapsack]
   drift: [drift]
+  outcome: [outcome]
+  value: [value]
 # Fixture "models": deterministic responders.  Only a fixture pack may declare these.
 local_models:
   checker-v1:           fixtures.responders:checker_v1
@@ -28,6 +31,9 @@ local_models:
   judge-careful:        fixtures.responders:judge_careful
   planner-v1:           fixtures.responders:planner_v1
   planner-bad:          fixtures.responders:planner_bad
+  planner-unreasoned:   fixtures.responders:planner_unreasoned
   refiner-v1:           fixtures.responders:refiner_v1
   refiner-bad:          fixtures.responders:refiner_bad
   refiner-declines:     fixtures.responders:refiner_declines
+  refiner-pessimist:    fixtures.responders:refiner_pessimist
+  curator-v1:           fixtures.responders:curator_v1
