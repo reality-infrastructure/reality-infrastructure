@@ -16,7 +16,13 @@
           "binding": {"type": "string"},
           "latency_sla_seconds": {"type": "number", "exclusiveMinimum": 0},
           "required_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-          "scorecard": {"type": "string"}
+          "scorecard": {"type": "string"},
+          "irreversible": {"type": "boolean"},
+          "exposure_field": {"type": "string"},
+          "max_exposure": {"type": "number", "minimum": 0},
+          "capacity": {"type": "number", "exclusiveMinimum": 0},
+          "max_fraction_per_action": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
+          "ruin_threshold": {"type": "number", "exclusiveMinimum": 0}
         }
       }
     },

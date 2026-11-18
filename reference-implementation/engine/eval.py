@@ -28,6 +28,7 @@ from engine.errors import EngineError, EvalError
 from engine.loop import Runner
 from engine.packs import load_pack, parse_agent_ref
 from engine.providers import parse_model_string
+from engine.runctx import run_session_case
 from engine.schema import get_path
 from engine.store import Engine
 
@@ -39,6 +40,7 @@ class GoldenCase:
     expected: dict
     provenance: str
     fixture: bool
+    session: tuple = ()        # JH-C11 G-P13: earlier turns of a session case, run before ``input``
 
 
 @dataclass(frozen=True)
@@ -87,7 +89,8 @@ def load_golden(path: Path, *, pack_is_fixture: bool) -> GoldenSet:
             # excluded from real-domain thresholds, but kept visible
             pass
         cases.append(GoldenCase(id=str(c["id"]), input=c["input"], expected=c["expected"],
-                                provenance=c["provenance"], fixture=is_fixture))
+                                provenance=c["provenance"], fixture=is_fixture,
+                                session=tuple(c.get("session") or ())))
     return GoldenSet(threshold=threshold, compare=tuple(header["compare"]),
                      fixture=bool(header["fixture"]), cases=tuple(cases))
 
@@ -162,8 +165,8 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
         rep = ModelReport(model=ms)
         for case in golden.cases:
             counted = pack.fixture or not case.fixture
-            result = runner.run(agent_name, case.input, model_override=(provider, name),
-                                enforce_economics=False)
+            result = run_session_case(runner, agent_name, case.session, case.input,
+                                      model_override=(provider, name), enforce_economics=False)
             ok, diffs = case_passes(result.output, case.expected, golden.compare)
             rep.runs += 1
             rep.cost += result.cost_usd

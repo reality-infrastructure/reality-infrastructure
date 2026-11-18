@@ -7,7 +7,7 @@ tables:
   sheets:     { backend: file, ref: fixtures/sheets.jsonl, id_field: id }
   candidates: { backend: file, ref: fixtures/candidates.jsonl, id_field: id }
 modules:
-  tools: [tools.arith]
+  tools: [tools.arith, tools.effects]
   guardrails: [guardrails.flags]
   verifiers: [verifiers.knapsack]
   drift: [drift]
@@ -31,3 +31,10 @@ local_models:
   refiner-v1:           fixtures.responders:refiner_v1
   refiner-bad:          fixtures.responders:refiner_bad
   refiner-declines:     fixtures.responders:refiner_declines
+  # JH-C11 wpH: the run loop's fixtures
+  checker-retry:        fixtures.responders:checker_retry
+  checker-split:        fixtures.responders:checker_split
+  checker-sharer:       fixtures.responders:checker_sharer
+  allocator-team:       fixtures.responders:allocator_team
+  briefer-fanout:       fixtures.responders:briefer_fanout
+  briefer-asks:         fixtures.responders:briefer_asks

@@ -346,3 +346,110 @@ def judge_careful(*, model, system, messages, tools, candidate_index) -> Complet
             return _submit(messages, {"run_id": rid, "verdict": "overridden",
                                       "reason": f"total_weight states {out.get('total_weight')} but the selected candidates weigh {weight}", "confidence": 0.9})
     return _submit(messages, {"run_id": rid, "verdict": "followed", "reason": "every figure recomputes from the table", "confidence": 0.85})
+
+
+# ---------------------------------------------------------------------------
+# JH-C11 wpH: the run loop's fixtures (staging, notes, disagreement, fan-out, messages, clarification, scratch)
+# ---------------------------------------------------------------------------
+
+def _feedback(messages: list[dict]) -> list:
+    return json.loads(messages[0]["content"][0]["text"])["feedback"]
+
+
+def _tool_names(tools: list[dict]) -> set[str]:
+    return {t["name"] for t in tools}
+
+
+def checker_retry(*, model, system, messages, tools, candidate_index) -> Completion:
+    """First iteration: appends its event (and, when granted, sends a command and writes a note), then submits
+    garbage; on a retry (feedback present) it behaves like checker_v1."""
+    if _feedback(messages):
+        return checker_v1(model=model, system=system, messages=messages, tools=tools, candidate_index=candidate_index)
+    ctx = _context(messages)
+    sid = ctx["input"]["sheet_id"]
+    names = _tool_names(tools)
+    calls = [("events__append", {"entity_type": "sheet", "entity_id": sid, "event_type": "_reference.sheet_checked",
+                                 "payload": {"sheet_id": sid, "flagged": 0, "row_ids": []}})]
+    if "_reference__records__notify" in names:
+        calls.append(("_reference__records__notify", {"record_id": "rec-1", "action": "notify"}))
+    if "notes__write" in names:
+        calls.append(("notes__write", {"text": f"{sid}: re-derive every row with the arithmetic tool"}))
+    return _submit(messages, {"sheet_id": sid, "items": "all fine", "confidence": 0.99}, calls)
+
+
+def checker_split(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Candidate 1 lists the items in reverse order; a reconcile turn (feedback names the disagreement) does not."""
+    ctx = _context(messages)
+    rows = _sheet_rows(ctx)
+    values = {r["expression"]: str(evaluate(r["expression"])) for r in rows}
+    items = _checker_items(rows, values)
+    reconciling = any("disagreement" in f for f in _feedback(messages))
+    if candidate_index == 1 and not reconciling:
+        items = list(reversed(items))
+    return _submit(messages, {"sheet_id": ctx["input"]["sheet_id"], "items": items, "confidence": 0.7})
+
+
+def checker_sharer(*, model, system, messages, tools, candidate_index) -> Completion:
+    """checker_v2's answer, plus one finding shared with the rest of the sweep."""
+    ctx = _context(messages)
+    rows = _sheet_rows(ctx)
+    values = {r["expression"]: str(evaluate(r["expression"])) for r in rows}
+    items = _checker_items(rows, values)
+    sid = ctx["input"]["sheet_id"]
+    flagged = ",".join(i["row_id"] for i in items if i["flag"]) or "none"
+    return _submit(messages, {"sheet_id": sid, "items": items, "confidence": 0.6},
+                   [("scratch__write", {"text": f"sheet {sid} flagged {flagged}"})])
+
+
+def allocator_team(*, model, system, messages, tools, candidate_index) -> Completion:
+    """A fan-out child: asks when there is no capacity (if it may), is infeasible on an odd capacity, and as
+    part 0 first sends ``say`` messages to part 1."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    rows = _candidates(ctx)
+    if "capacity" not in inp:
+        if "engine__clarify" in _tool_names(tools):
+            return _calls(messages, [("engine__clarify", {"question": "which capacity should the allocation use?"})])
+        return _submit(messages, _allocation(rows, [r["id"] for r in rows], confidence=0.5))
+    cap = int(inp["capacity"])
+    peers = ctx.get("peers") or {}
+    if _turn(messages) == 0 and peers.get("part") == 0 and int(inp.get("say", 0)) > 0:
+        return _calls(messages, [("siblings__message", {"to": "1", "text": f"part 0 note {k}: capacity {cap}"})
+                                 for k in range(int(inp["say"]))])
+    if cap % 2:
+        return _submit(messages, _allocation(rows, [r["id"] for r in rows], confidence=0.9))
+    return _submit(messages, _allocation(rows, _dp_optimum(rows, cap), confidence=0.9))
+
+
+def briefer_fanout(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Fans the capacities of its input out to the allocator in parallel and cites only certified parts."""
+    ctx = _context(messages)
+    if _turn(messages) == 0:
+        return _calls(messages, [("agent___reference__allocator", {"inputs": ctx["input"]["parts"]})])
+    result = _tool_results(messages)[-1]
+    if "error" in result:
+        return _submit(messages, {"headline": "fan-out refused", "figures": [], "citations": [], "confidence": 0.2})
+    figures = [{"name": f"part{p['part']}_total_value", "value": p["output"]["total_value"],
+                "citations": [{"ref": f"run:agent_runs:{p['run_id']}", "field": "total_value"}]}
+               for p in result["parts"] if p["status"] == "succeeded"]
+    headline = f"certified={len(figures)} of {len(result['parts'])} messages={result['messages']}"
+    return _submit(messages, {"headline": headline, "figures": figures, "citations": [], "confidence": 0.8})
+
+
+def briefer_asks(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Calls the allocator without a capacity; when it asks, answers with the capacity and cites the answer."""
+    ctx = _context(messages)
+    turn = _turn(messages)
+    if turn == 0:
+        return _calls(messages, [("agent___reference__allocator", {"input": {}})])
+    result = _tool_results(messages)[-1]
+    if result.get("status") == "needs_clarification":
+        return _calls(messages, [("agent___reference__allocator",
+                                  {"input": {"capacity": ctx["input"]["capacity"]}, "clarifies": result["run_id"]})])
+    if result.get("status") != "succeeded":
+        return _submit(messages, {"headline": "allocation not certified", "figures": [], "citations": [],
+                                  "confidence": 0.2})
+    out, rid = result["output"], result["run_id"]
+    return _submit(messages, {"headline": f"total_value={out['total_value']}", "confidence": 0.8, "citations": [],
+                              "figures": [{"name": "total_value", "value": out["total_value"],
+                                           "citations": [{"ref": f"run:agent_runs:{rid}", "field": "total_value"}]}]})

@@ -22,6 +22,7 @@ from pathlib import Path
 from engine.errors import EngineError
 from engine.manifest import load_agent
 from engine.packs import load_pack
+from engine.fanout import coordination
 from engine.runtime import iso
 from engine.store import Engine
 
@@ -55,7 +56,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     conflict: dict[str, list[Decimal]] = defaultdict(list)
     for r in runs:
         a = per_agent.setdefault(r["agent"], {"runs": 0, "succeeded": 0, "failed_guardrail": 0,
-                                               "failed_verifier": 0, "access_denied": 0, "error": 0,
+                                               "failed_verifier": 0, "access_denied": 0, "error": 0, "needs_clarification": 0,
                                                "cost": Decimal(0), "latency_ms": 0, "items": 0})
         a["runs"] += 1
         a[r["status"]] += 1
@@ -108,7 +109,8 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
             "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
             "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation}
+            "failure_clusters": top_clusters, "recommendation": recommendation,
+            "coordination": coordination(engine, pack, iso(start), iso(end))}
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -153,6 +155,11 @@ def render(report: dict) -> str:
     L += [f"- {r['count']}× {r['reason']}" for r in report["override_reasons"]] or ["- none"]
     L += ["", "## Guardrail / verifier failure clusters", ""]
     L += [f"- {c['count']}× `{c['cluster']}`  runs: {', '.join(c['runs'])}" for c in report["failure_clusters"]] or ["- none"]
+    co = report.get("coordination")
+    if co and co["child_runs"]:
+        L += ["", "## Coordination (fan-out children)", "",
+              f"{co['fanout_groups']} groups, {co['child_runs']} child runs, {co['messages']} messages, "
+              f"{co['messages_per_child_run']} per child run (0 = the children solved independently)"]
     rec = report["recommendation"]
     L += ["", "## Recommended change (one, lowest rung first)", "",
           f"rung: {rec['rung']}", "", rec["change"], "", f"evidence: `{rec['evidence']}`", "",

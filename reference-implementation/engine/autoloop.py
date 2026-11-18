@@ -111,6 +111,9 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
         rate = ok / len(rows)
         if rate < float(cfg["min_pass_rate"]):
             killed[name] = f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']}"
+    from engine.risk import ruin_halts             # JH-C11 G-NCD5: one ruinous loss halts whatever the average
+    for name, why in ruin_halts(engine, pack).items():
+        killed[name] = why
     return killed
 
 

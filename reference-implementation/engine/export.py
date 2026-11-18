@@ -1,6 +1,6 @@
 """Post-training export, gated.
 
-    python -m engine.export <pack>/<specialist> --format sft|preference --out FILE [--db DSN]
+    python -m engine.export <pack>/<specialist> --format sft|preference|session --out FILE [--db DSN]
 
 Refuses unless the agent is a worker or a specialist and at least ``export.min_verdicted_runs``
 (config/engine.yaml, 500) of its runs carry a verdict that counts: a human's always,
@@ -22,7 +22,7 @@ from engine.manifest import load_agent
 from engine.packs import load_pack, parse_agent_ref
 from engine.store import Engine
 
-FORMATS = ("sft", "preference")
+FORMATS = ("sft", "preference", "session")
 
 
 def _accepted_candidate(row: dict) -> dict | None:
@@ -112,11 +112,29 @@ def preference_rows(engine: Engine, pack, agent) -> Iterator[dict]:
                    "source": f"human:{bad['run_id']}"}
 
 
+def session_rows(engine: Engine, pack, agent) -> Iterator[dict]:
+    """One row per session the agent took part in (JH-C11 G-P13): every turn in order, each with its verdict and
+    both revision links, so a revision or a change of mind is trained on as one exchange."""
+    seen: set[str] = set()
+    for row in counted_runs(engine, pack, agent.name):
+        sid = row.get("session_id")
+        if sid is None or sid in seen:
+            continue
+        seen.add(sid)
+        turns = [r for r in engine.store.runs_by_link("session_id", sid) if r["pack"] == pack.name]
+        yield {"session_id": sid, "agent": agent.name, "turns": [
+            {"run_id": r["run_id"], "agent": r["agent"], "input": r["input"], "output": r["output"],
+             "status": r["status"], "verdict": r["human_verdict"], "verdict_reason": r["verdict_reason"],
+             "verdict_source": r.get("verdict_source"), "supersedes_run_id": r.get("supersedes_run_id"),
+             "superseded_by": [x["run_id"] for x in engine.store.runs_by_link("supersedes_run_id", r["run_id"])],
+             "clarification": r.get("clarification"), "created_at": r["created_at"]} for r in turns]}
+
+
 def export(engine: Engine, pack, agent_name: str, fmt: str, out: Path) -> int:
     if fmt not in FORMATS:
         raise EngineError(f"format must be one of {FORMATS}")
     agent, _ = check_gate(engine, pack, agent_name)
-    rows = sft_rows(engine, pack, agent) if fmt == "sft" else preference_rows(engine, pack, agent)
+    rows = {"sft": sft_rows, "preference": preference_rows, "session": session_rows}[fmt](engine, pack, agent)
     n = 0
     out.parent.mkdir(parents=True, exist_ok=True)
     with out.open("w", encoding="utf-8") as fh:

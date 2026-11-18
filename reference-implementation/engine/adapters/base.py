@@ -108,6 +108,9 @@ class AdapterGateway:
             self._slots[slot] = BoundSlot(slot=slot, adapter=adapter,
                                           latency_sla_seconds=float(sdoc["latency_sla_seconds"]),
                                           required_flags=tuple(sdoc.get("required_flags") or ()))
+        from engine.risk import RiskGuard
+        self.risk = RiskGuard(engine, pack, events)     # JH-C11 G-NAB4/G-NCD5: the ruin guard on every command
+        self.faults = None                              # JH-C11 G-B20: an engine.faults.FaultInjector in soak mode
 
     def slots(self) -> list[str]:
         return sorted(self._slots)
@@ -144,7 +147,10 @@ class AdapterGateway:
 
     # -- your system -> vendor --------------------------------------------------------
 
-    def command(self, slot: str, cmd: Command, *, source_ref: str | None = None) -> CommandResult:
+    def command(self, slot: str, cmd: Command, *, source_ref: str | None = None,
+                agent: str | None = None) -> CommandResult:
+        """``source_ref`` is the run sending the command and ``agent`` its agent: the ruin guard counts per run
+        and refuses a ruin-halted agent."""
         bound = self.require_slot(slot)
         source = f"adapter:{bound.adapter.id}"
 
@@ -163,7 +169,18 @@ class AdapterGateway:
         missing = [f for f in bound.required_flags if not cmd.flags.get(f)]
         if missing:
             return block(f"command lacks required flag(s): {', '.join(missing)}")
-        return bound.adapter.command(cmd)
+        refused, at_risk, approval_id = self.risk.check(slot, bound.adapter.id, cmd, run_id=source_ref, agent=agent,
+                                                        result_cls=CommandResult)
+        if refused is not None:
+            return refused
+        if self.faults is not None:
+            injected = self.faults.command_fault(self._events, self._pack.name, source_ref, slot)
+            if injected is not None:
+                return CommandResult(accepted=False, reason=injected)
+        result = bound.adapter.command(cmd)
+        self.risk.sent(slot, bound.adapter.id, cmd, result, run_id=source_ref, agent=agent, at_risk=at_risk,
+                       approval_id=approval_id)
+        return result
 
     def export_all(self, slot: str, since: str | None = None) -> list[dict]:
         if since is not None:

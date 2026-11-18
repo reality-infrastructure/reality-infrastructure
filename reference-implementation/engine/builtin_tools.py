@@ -5,7 +5,10 @@
 - agent_run.read / runs.list     a prior run in full (for a judge) / the run list (for a planner)
 - files.read                     a granted file
 - tables.read                    a pack table
-- agent.<pack>.<name>            call another agent (orchestrator only, one level deep)
+- agent.<pack>.<name>            call another agent (orchestrator only, one level deep); ``inputs`` fans out
+- siblings.message                  message a sibling run of the same fan-out group (JH-C11 G-B3)
+- notes.write                    a working note carried to the next iteration (JH-C11 G-B4)
+- scratch.write / scratch.read   findings shared by the workers of one sweep or fan-out (JH-C11 G-B4)
 """
 
 from __future__ import annotations
@@ -18,8 +21,12 @@ from engine.tools import ToolContext, ToolRegistry, ToolSpec
 AGENT_TOOL_SCHEMA = {
     "type": "object",
     "additionalProperties": False,
-    "required": ["input"],
-    "properties": {"input": {"type": "object"}},
+    "properties": {
+        "input": {"type": "object"},
+        "inputs": {"type": "array", "minItems": 1, "items": {"type": "object"},
+                   "description": "independent parts run in parallel (fan-out); give this or input"},
+        "clarifies": {"type": "string", "description": "run_id of a child that asked a question; input answers it"},
+    },
 }
 
 
@@ -47,6 +54,67 @@ def _events_append(args: dict, ctx: ToolContext):
                      observed_at=args.get("observed_at"))
     return {"event_id": row["event_id"], "ledger_index": row["ledger_index"],
             "ref": f"event:events:{row['event_id']}"}
+
+
+def _events_append_check(args: dict, ctx: ToolContext) -> dict:
+    """A staged events.append is validated at once, so the model sees a bad payload before certification."""
+    log = ctx.extra["events"]
+    log.validate(args["event_type"], args["payload"], args["entity_type"], f"agent:{ctx.agent.name}")
+    if not isinstance(args["entity_id"], str) or not args["entity_id"]:
+        raise ToolError("entity_id must be a non-empty string")
+    if args.get("observed_at") is not None:
+        from engine.runtime import parse_iso
+        try:
+            parse_iso(args["observed_at"])
+        except ValueError as e:
+            raise ToolError(f"observed_at {args['observed_at']!r} is not ISO-8601") from e
+    return {"event_type": args["event_type"], "entity_id": args["entity_id"]}
+
+
+def _agent_message(args: dict, ctx: ToolContext):
+    bus = ctx.extra.get("bus")
+    if ctx.engine.config.run_loop["messaging"] == "off":
+        raise ToolError("messaging is off (config/engine.yaml loop.messaging)")
+    if bus is None:
+        raise ToolError("this run has no siblings: it is not part of a fan-out group")
+    return bus.post(ctx, args["to"], args["text"])
+
+
+def _notes_write(args: dict, ctx: ToolContext):
+    cand = ctx.extra.get("candidate")
+    if cand is None:
+        raise ToolError("notes are written by a candidate")
+    cap = ctx.engine.config.run_loop["max_notes_chars"]
+    used = sum(len(n) for n in cand.notes)
+    if used + len(args["text"]) > cap:
+        raise ToolError(f"notes budget of {cap} characters exhausted")
+    cand.notes.append(args["text"])
+    return {"noted": len(cand.notes)}
+
+
+def _scratch_scope(ctx: ToolContext) -> str:
+    scope = ctx.extra.get("scratch_scope")
+    if scope is None:
+        raise ToolError("this run has no shared scratch: it is not part of a sweep or fan-out that shares one")
+    return scope
+
+
+def _scratch_check(args: dict, ctx: ToolContext) -> dict:
+    return {"scope": _scratch_scope(ctx)}
+
+
+def _scratch_write(args: dict, ctx: ToolContext):
+    scope = _scratch_scope(ctx)
+    row = ctx.extra["events"].append(
+        entity_type="agent_run", entity_id=scope, event_type=f"{ctx.pack.name}.scratch",
+        payload={"scope": scope, "run_id": ctx.run_id, "agent": ctx.agent.name, "text": args["text"]},
+        source=f"agent:{ctx.agent.name}", source_ref=ctx.run_id)
+    return {"event_id": row["event_id"], "ref": f"event:events:{row['event_id']}"}
+
+
+def _scratch_read(args: dict, ctx: ToolContext):
+    from engine.runctx import scratch_entries
+    return scratch_entries(ctx, _scratch_scope(ctx))
 
 
 def _agent_output_read(args: dict, ctx: ToolContext):
@@ -147,7 +215,7 @@ def register_builtin_tools(reg: ToolRegistry) -> None:
         ToolSpec(id="events.append", effect="write", deterministic=True,
                  input_schema=_cfg("events.append")["input_schema"],
                  description=_cfg("events.append")["description"], fn=_events_append,
-                 targets=lambda a: [Target("table", "events", "write")]),
+                 targets=lambda a: [Target("table", "events", "write")], prepare=_events_append_check),
         ToolSpec(id="agent_output.read", effect="read", deterministic=True,
                  input_schema=_cfg("agent_output.read")["input_schema"],
                  description=_cfg("agent_output.read")["description"], fn=_agent_output_read,
@@ -168,6 +236,22 @@ def register_builtin_tools(reg: ToolRegistry) -> None:
                  input_schema=_cfg("tables.read")["input_schema"],
                  description=_cfg("tables.read")["description"], fn=_tables_read,
                  targets=lambda a: [Target("table", a["table"], "read")]),
+        ToolSpec(id="siblings.message", effect="write", deterministic=False,
+                 input_schema=_cfg("siblings.message")["input_schema"],
+                 description=_cfg("siblings.message")["description"], fn=_agent_message, staged=False,
+                 targets=lambda a: []),
+        ToolSpec(id="notes.write", effect="write", deterministic=True,
+                 input_schema=_cfg("notes.write")["input_schema"],
+                 description=_cfg("notes.write")["description"], fn=_notes_write, staged=False,
+                 targets=lambda a: []),
+        ToolSpec(id="scratch.write", effect="write", deterministic=True,
+                 input_schema=_cfg("scratch.write")["input_schema"],
+                 description=_cfg("scratch.write")["description"], fn=_scratch_write, prepare=_scratch_check,
+                 targets=lambda a: []),
+        ToolSpec(id="scratch.read", effect="read", deterministic=True,
+                 input_schema=_cfg("scratch.read")["input_schema"],
+                 description=_cfg("scratch.read")["description"], fn=_scratch_read,
+                 targets=lambda a: [Target("table", "events", "read")]),
     ]
     for s in specs:
         reg.register(s)
@@ -182,7 +266,13 @@ def register_agent_tools(reg: ToolRegistry, pack_name: str, agent_names: tuple[s
                 raise ToolError("agent tools are only callable from inside a run")
             if ctx.depth >= 1:
                 raise ToolError("agent calls are one level deep: a child may not call another agent")
-            return ctx.run_agent(_child, args["input"])
+            if ("input" in args) == ("inputs" in args):
+                raise ToolError("give exactly one of input (one child) or inputs (a fan-out)")
+            if "inputs" in args:
+                if "clarifies" in args:
+                    raise ToolError("clarifies answers one child; it does not combine with inputs")
+                return ctx.run_agent(_child, None, inputs=args["inputs"])
+            return ctx.run_agent(_child, args["input"], clarifies=args.get("clarifies"))
 
         reg.register(ToolSpec(
             id=tool_id, effect="read", deterministic=False, input_schema=AGENT_TOOL_SCHEMA,

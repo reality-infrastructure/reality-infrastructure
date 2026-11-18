@@ -1,7 +1,7 @@
 """Single entrypoint.
 
     python -m engine.run <pack>/<agent> [--input JSON | --input @file] [--model provider/name]
-                         [--db DSN] [--parent RUN_ID] [--compact] [--json]
+                         [--db DSN] [--parent RUN_ID] [--session ID] [--supersedes RUN_ID] [--compact] [--json]
 
 Exit codes: 0 succeeded, 2 failed (guardrail/verifier/access), 1 error/usage.
 """
@@ -38,6 +38,8 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--model", help="provider/name override (model swap without editing the manifest)")
     p.add_argument("--db", help="DATABASE_URL override")
     p.add_argument("--parent", help="parent run_id")
+    p.add_argument("--session", help="session id: the run is one turn of a multi-turn session")
+    p.add_argument("--supersedes", help="run_id this run revises (inherits its session)")
     p.add_argument("--compact", action="store_true", help="run the agent's compaction policy instead")
     p.add_argument("--json", action="store_true", help="print the full result as JSON")
     args = p.parse_args(argv)
@@ -59,7 +61,8 @@ def main(argv: list[str] | None = None) -> int:
                 return 0
             override = parse_model_string(args.model) if args.model else None
             result = runner.run(agent_name, _read_input(args.input), parent_run_id=args.parent,
-                                model_override=override)
+                                model_override=override, session_id=args.session,
+                                supersedes_run_id=args.supersedes)
         finally:
             engine.close()
     except EngineError as e:

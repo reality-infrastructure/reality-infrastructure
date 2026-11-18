@@ -39,6 +39,11 @@ RUN_COLUMNS = (
     "access_denied", "failure_reasons", "ledger_index", "leaf_hash", "human_verdict",
     "verdict_reason", "verdict_at", "verdict_source", "verdict_ref", "created_at",
 )
+# JH-C11 wpH: how a run links to others (session, revision, replay, fork, fan-out), its working-context hash and
+# a child's clarification question.  Ledger-bound when set (run_ledger_entry), frozen after insert.
+LINK_COLUMNS = ("session_id", "supersedes_run_id", "replayed_from", "forked_from", "fanout_group",
+                "context_sha256", "clarification")
+RUN_COLUMNS = RUN_COLUMNS + LINK_COLUMNS
 EVENT_COLUMNS = (
     "event_id", "entity_type", "entity_id", "event_type", "payload", "source",
     "source_ref", "observed_at", "recorded_at", "ledger_index", "leaf_hash",
@@ -95,6 +100,10 @@ class Store:
 
     def set_verdict(self, run_id: str, verdict: str, reason: str, at: str,
                     source: str = "human", ref: str | None = None) -> None:
+        raise NotImplementedError
+
+    def runs_by_link(self, column: str, value: str) -> list[dict]:
+        """Runs whose link column (one of LINK_COLUMNS) equals ``value``, oldest first."""
         raise NotImplementedError
 
     # events ----------------------------------------------------------------------
@@ -249,6 +258,12 @@ class SqliteStore(Store):
         if cur.rowcount != 1:
             raise StoreError(f"no run {run_id!r}")
 
+    def runs_by_link(self, column: str, value: str) -> list[dict]:
+        if column not in LINK_COLUMNS:
+            raise StoreError(f"{column!r} is not a link column")
+        return [self._run_from_row(r) for r in self.query(
+            f"SELECT * FROM agent_runs WHERE {column} = ? ORDER BY created_at, run_id", (value,))]
+
     # events
     def insert_event(self, row: dict) -> None:
         values = [json.dumps(row[c], sort_keys=True, allow_nan=False) if c == "payload" else row.get(c)
@@ -382,7 +397,7 @@ class PostgresStore(Store):
     @staticmethod
     def _norm_run(d: dict) -> dict:
         d = dict(d)
-        for col in ("run_id", "parent_run_id", "verdict_ref"):
+        for col in ("run_id", "parent_run_id", "verdict_ref", "supersedes_run_id", "forked_from"):
             if d.get(col) is not None:
                 d[col] = str(d[col])
         for col in ("verdict_at", "created_at"):
@@ -425,6 +440,12 @@ class PostgresStore(Store):
             (verdict, reason, at, source, ref, run_id))
         if cur.rowcount != 1:
             raise StoreError(f"no run {run_id!r}")
+
+    def runs_by_link(self, column: str, value: str) -> list[dict]:
+        if column not in LINK_COLUMNS:
+            raise StoreError(f"{column!r} is not a link column")
+        return [self._norm_run(r) for r in self._exec(
+            f"SELECT * FROM agent_runs WHERE {column} = %s ORDER BY created_at, run_id", (value,)).fetchall()]
 
     def insert_event(self, row: dict) -> None:
         values = [self._Jsonb(row[c]) if c == "payload" else row.get(c) for c in EVENT_COLUMNS]
@@ -494,6 +515,10 @@ class Ledger:
     def __init__(self, store: Store) -> None:
         self._store = store
         self._log = EvidenceLog()
+        self._reload()
+
+    def reload(self) -> None:
+        """Re-derive the in-memory log from the store (after a rolled-back transaction)."""
         self._reload()
 
     def _reload(self) -> None:
@@ -581,6 +606,7 @@ def run_ledger_entry(row: dict) -> dict:
         "output_sha256": None if row.get("output") is None else sha256_json(row["output"]),
         "judgement_root": row["judgement"]["root"],
         "parent_run_id": row.get("parent_run_id"),
+        **{k: row[k] for k in LINK_COLUMNS if row.get(k) is not None},
     }
 
 

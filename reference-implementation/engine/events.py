@@ -23,7 +23,7 @@ from engine.store import Engine, event_ledger_entry
 _TYPE_RE = re.compile(r"^[a-z_][a-z0-9_]*\.[a-z][a-z0-9_]*$")
 _SOURCE_RE = re.compile(r"^(human|agent:[A-Za-z0-9_.\-/]+|adapter:[A-Za-z0-9_.\-]+|pipeline:[A-Za-z0-9_.\-]+)$")
 COMPACTION_TYPE = "compaction.summary"
-ENGINE_ENTITY_TYPES = frozenset({"agent_run", "adapter", "compaction"})
+ENGINE_ENTITY_TYPES = frozenset({"agent_run", "adapter", "compaction", "agent"})   # agent: JH-C11 ruin halts
 
 
 def _engine_event_schemas() -> dict[str, dict]:
