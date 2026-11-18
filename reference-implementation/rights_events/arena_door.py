@@ -24,7 +24,7 @@ No network, no clock, no venue figure. Usage:
     python -m rights_events.arena_door door --as-of YYYY-MM-DD
     python -m rights_events.arena_door enrol --statement FILE --signature 0x… --date YYYY-MM-DD
     python -m rights_events.arena_door withdraw --statement FILE --signature 0x… --date YYYY-MM-DD
-    python -m rights_events.arena_door template --address 0x… --model "label"
+    python -m rights_events.arena_door template --address 0x… --model "label" [--out FILE]
     python -m rights_events.arena_door ask --date YYYY-MM-DD --to "who" --channel "how" --operator-word "the quote"
     python -m rights_events.arena_door check-latest
 """
@@ -674,6 +674,7 @@ def main(argv: list[str] | None = None) -> int:
     t.add_argument("--address", required=True)
     t.add_argument("--model", required=True)
     t.add_argument("--withdrawal", action="store_true")
+    t.add_argument("--out", help="write the statement's exact bytes to this file (use on Windows: a shell redirect may re-encode them)")
     t.add_argument("--settled", default=str(SETTLED))
     k = sub.add_parser("ask")
     k.add_argument("--date", required=True)
@@ -709,7 +710,15 @@ def main(argv: list[str] | None = None) -> int:
             f = parse_statement(Path(a.statement).read_bytes())
             print(f"{word}: {f['address']} ({f['model']}, self-declared); registry {reg_path.name}")
         elif a.cmd == "template":
-            sys.stdout.write(statement_text(a.address, a.model, settled_sha(Path(a.settled)), a.withdrawal))
+            # R192's bytes are LF. Text-mode stdout on Windows turns each LF into CR LF, and the entrant
+            # would sign other bytes (S118). Write the bytes themselves; --out skips the shell entirely.
+            raw = statement_text(a.address, a.model, settled_sha(Path(a.settled)), a.withdrawal).encode("utf-8")
+            if a.out:
+                Path(a.out).write_bytes(raw)
+            else:
+                sys.stdout.flush()
+                sys.stdout.buffer.write(raw)
+                sys.stdout.buffer.flush()
         elif a.cmd == "ask":
             row = {"date": a.date, "to": a.to, "channel": a.channel, "operator_word": a.operator_word}
             check_ask(row)

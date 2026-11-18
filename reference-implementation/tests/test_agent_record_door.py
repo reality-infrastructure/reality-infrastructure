@@ -13,6 +13,8 @@ from __future__ import annotations
 import gzip
 import hashlib
 import json
+import subprocess
+import sys
 from pathlib import Path
 
 import pytest
@@ -372,7 +374,17 @@ def test_the_cli_refuses_and_writes_nothing(tmp_path, capsys):
     assert d.main(["enrol", "--statement", str(st), "--signature", SIG_ENROL_1, "--date", "2026-11-13", "--registry", str(reg)]) == 0
     assert "ALREADY ENTERED" in capsys.readouterr().out and reg.read_bytes() == before
     assert d.main(["template", "--address", A1, "--model", "gate-agent v1"]) == 0
-    assert capsys.readouterr().out.encode("utf-8").replace(b"\r\n", b"\n") == ST1
+    assert capsys.readouterr().out.encode("utf-8") == ST1
+    out = tmp_path / "statement.txt"
+    assert d.main(["template", "--address", A1, "--model", "gate-agent v1", "--out", str(out)]) == 0
+    assert out.read_bytes() == ST1
+
+
+def test_the_template_piped_on_this_platform_is_lf_byte_for_byte(tmp_path):
+    # the defect A45.1 found: on Windows a piped template printed CR LF, and its signer was refused S118
+    r =subprocess.run([sys.executable, "-m", "rights_events.arena_door", "template", "--address", A1, "--model", "gate-agent v1"],
+                       capture_output=True, cwd=str(Path(__file__).resolve().parents[1]))
+    assert r.returncode == 0 and r.stdout == ST1 and b"\r" not in r.stdout
 
 
 # --- what is shipped -----------------------------------------------------------------------------
