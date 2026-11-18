@@ -15,6 +15,9 @@ If the contract conflicts with SPEC.md: STOP and report. Research Claude revises
 - Conformance criteria: /CONFORMANCE.md
 - Milestone plan: /ROADMAP.md
 - Contribution/contract discipline: /CONTRIBUTING.md
+- Operator strategy (AI Operating System): C:\Users\newce\ai-operating-system\README.md, full text
+  in STRATEGY.md there. Cite a principle as AIOS-Dnn. It guides which work to choose and how results
+  are judged. It never overrides the contract, SPEC.md or an operator ruling; on conflict, STOP and report.
 
 ## RULES (always)
 - One contract at a time. Plan Gate before code. Fresh session per contract.
