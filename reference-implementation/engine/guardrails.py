@@ -357,7 +357,7 @@ def edit_applies(output, gctx: GuardrailContext) -> list[str]:
     if not isinstance(path, str) or path not in files:
         return problems + [f"file must be one of the files handed to the refiner {sorted(files)}, got {path!r}"]
     base = path.replace("\\", "/")
-    if not (base in EDITABLE_FILES or (base.split("/")[0] in EDITABLE_DIRS and base.endswith(".md"))):
+    if base != "manifest.yaml" and not (base in EDITABLE_FILES or (base.split("/")[0] in EDITABLE_DIRS and base.endswith(".md"))):
         problems.append(f"file {path!r} is not editable at rungs 1-2 (skills.md, workflow.md, prompts/*.md only)")
     old, new = output.get("old"), output.get("new")
     if not isinstance(old, str) or not old:
@@ -366,8 +366,9 @@ def edit_applies(output, gctx: GuardrailContext) -> list[str]:
         problems.append(f"old must occur exactly once in {path}; it occurs {files[path].count(old)} times")
     if not isinstance(new, str) or new == old:
         problems.append("new must differ from old")
+    from engine.adoption import edit_problems          # JH-C11 wpB: manifest deletion, consolidation rewrite, rule ledger
     from engine.forecast import refiner_problems
-    return problems + refiner_problems(output, gctx.run_input, bool(gctx.run_input.get("forecast_required")))
+    return problems + edit_problems(output, gctx.run_input) + refiner_problems(output, gctx.run_input, bool(gctx.run_input.get("forecast_required")))
 
 
 BUILTIN_IDS = ("schema_valid", "no_invented_keys", "citations_resolve",

@@ -754,3 +754,80 @@ def briefer_dated(*, model, system, messages, tools, candidate_index) -> Complet
     return _submit(messages, {"headline": f"records_seen={len(seen)}", "figures": [],
                               "citations": [{"ref": f"event:events:{e['event_id']}"} for e in seen], "confidence": 0.7})
 
+
+# JH-C11 wpB: an allocator steered by its own onboarding, a briefer that narrates the allocator's
+# explanation, and a refiner whose edits are scripted in its own skills.md
+# ---------------------------------------------------------------------------
+
+def _skills(ctx: dict) -> str:
+    return (ctx.get("onboarding") or {}).get("skills") or ""
+
+
+def allocator_steered(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Behaviour follows markers in its own skills.md, so an onboarding edit the loop adopts changes what it does:
+    'round total_value up' misstates total_value by one; '[needs checks]' misstates unless both '[check sums]' and
+    '[check weights]' appear; '[verbose]' spends ten times the output tokens; '[terse]' cuts the explanation to one word."""
+    ctx = _context(messages)
+    rows = _candidates(ctx)
+    cap = int(ctx["input"]["capacity"])
+    sk = _skills(ctx)
+    wrong = "round total_value up" in sk.lower() or ("[needs checks]" in sk and not ("[check sums]" in sk and "[check weights]" in sk))
+    out = _allocation(rows, _dp_optimum(rows, cap), value_delta=int(wrong), confidence=0.9)
+    if "[terse]" in sk:
+        out["explanation"] = "ok"
+    c = _submit(messages, out)
+    if "[verbose]" in sk:
+        c = dataclasses.replace(c, usage=dataclasses.replace(c.usage, output_tokens=c.usage.output_tokens * 10))
+    return c
+
+
+def briefer_explains(*, model, system, messages, tools, candidate_index) -> Completion:
+    """briefer_v1, with the allocator's explanation narrated at the end of the headline."""
+    c = briefer_v1(model=model, system=system, messages=messages, tools=tools, candidate_index=candidate_index)
+    results = _tool_results(messages)
+    if c.tool_uses and c.tool_uses[-1].name == SUBMIT and results and results[-1].get("status") == "succeeded":
+        out = dict(c.tool_uses[-1].input)
+        out["headline"] = f"{out['headline']} note={results[-1]['output']['explanation']}"
+        return _submit(messages, out)
+    return c
+
+
+def _script(ctx: dict, tag: str) -> list[dict]:
+    return [json.loads(ln[len(tag) + 1:]) for ln in _skills(ctx).splitlines() if ln.startswith(tag + " ")]
+
+
+def refiner_scripted(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Edits scripted one per line in its own skills.md: 'EDIT {"file", "old", "new"}' and, for a consolidation,
+    'REWRITE {"file", "drop"}' (the whole file without the lines containing drop).  It proposes the scripted edit,
+    skipping ideas the loop's history says were tried (candidate index i takes the i-th untried one); a deletion the
+    crank recommended is made as given; nothing left to try: it declines."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    files = inp["files"]
+    base = {"agent": inp["agent"], "rung": int(inp["rung"]), "confidence": 0.6}
+    forecast = ({"p_adopt": 0.5, "golden_delta": 0.0, "holdout_delta": 0.0,
+                 "target": {"metric": "pass_rate", "value": 0.9, "due": _weeks_after(inp["week"], 2), "p_hit": 0.5}}
+                if inp.get("week") else None)
+
+    def edit(file: str, old: str, new: str, why: str) -> Completion:
+        out = {**base, "file": file, "old": old, "new": new, "why": why}
+        if forecast:
+            out["forecast"] = forecast
+        return _submit(messages, out)
+
+    if inp.get("deletion"):
+        return edit("manifest.yaml", inp["deletion"]["line"], "", "no followed run cites this source")
+    if inp.get("mode") == "consolidate":
+        for r in _script(ctx, "REWRITE"):
+            if r["file"] in files:
+                text = files[r["file"]]
+                kept = [ln for ln in text.splitlines() if not (r.get("drop") and r["drop"] in ln)]
+                return edit(r["file"], text, "\n".join(kept) + "\n", r.get("why", "one clean text"))
+    else:
+        tried = {(h["file"], h["old"], h["new"]) for h in inp.get("history") or []}
+        ideas = [e for e in _script(ctx, "EDIT") if e["file"] in files and files[e["file"]].count(e["old"]) == 1
+                 and (e["file"], e["old"], e["new"]) not in tried]
+        if candidate_index < len(ideas):
+            e = ideas[candidate_index]
+            return edit(e["file"], e["old"], e["new"], e.get("why", "scripted edit"))
+    return _submit(messages, {**base, "file": None, "old": "", "new": "", "why": "nothing scripted is left to try"})

@@ -458,6 +458,38 @@ class EngineConfig:
                      "max_decline": float(soak.get("max_decline", 0.2)), "on_adoption": bool(soak.get("on_adoption", True))},
         }
 
+    # -- JH-C11 wpB: the adoption law and the refinement lifecycle (every key defaulted) ---------------
+
+    @property
+    def lifecycle(self) -> dict:
+        a = dict(self.engine.get("autoloop") or {})
+
+        def sub(key: str, defaults: dict) -> dict:
+            doc = dict(a.get(key) or {})
+            return {k: type(v)(doc.get(k, v)) if v is not None else doc.get(k, v) for k, v in defaults.items()}
+
+        adopt = sub("adopt", {"min_cases": 5, "small_set": "auto", "require_strict_gain_on": "none", "max_p": 0.1})
+        if adopt["small_set"] not in ("refuse", "flag", "auto"):
+            raise EngineError(f"autoloop.adopt.small_set must be refuse|flag|auto, got {adopt['small_set']!r}")
+        if adopt["require_strict_gain_on"] not in ("golden", "holdout", "both", "none"):
+            raise EngineError(f"autoloop.adopt.require_strict_gain_on must be golden|holdout|both|none, got {adopt['require_strict_gain_on']!r}")
+        return {
+            "adopt": adopt,
+            "cost": sub("cost", {"max_cost_rise": 0.10, "prefer_cheaper_on_tie": True, "tie_band": 0.05,
+                                 "min_efficiency_gain": 0.1, "min_latency_gain_ms": 100, "deletion_min_followed": 5}),
+            "anchor": bool(a.get("anchor", True)), "anchor_tolerance": float(a.get("anchor_tolerance", 0.05)),
+            "probation": sub("probation", {"runs": 20, "max_pass_drop": 0.1, "max_override_rise": 0.1, "min_verdicts": 3}),
+            "consolidate": sub("consolidate", {"after_edits": 5, "max_onboarding_tokens": 4000}),
+            "plateau": sub("plateau", {"cycles": 4, "min_gain": 0.01}),
+            "stall": sub("stall", {"window_cycles": 4, "min_slope": 0.0, "target_pass_rate": 0.9, "chronic_cycles": 3,
+                                   "explore_tolerance": 0.05}),
+            "revalidate_on_drift": bool(a.get("revalidate_on_drift", True)),
+            "revalidate_max_per_cycle": int(a.get("revalidate_max_per_cycle", 2)),
+            "system_adoption": bool(a.get("system_adoption", True)),
+            "refine": sub("refine", {"candidates": 3, "combo_queue": 10, "max_combo": 5}),
+            "rules": sub("rules", {"require_pins": True}),
+        }
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

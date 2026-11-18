@@ -33,7 +33,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from engine import experiment as xp
-from engine import rigor
+from engine import adoption, rigor
 from engine.errors import EngineError, EvalError
 from engine.loop import Runner
 from engine.packs import load_pack, parse_agent_ref
@@ -262,7 +262,8 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
                 rep.runs += 1
                 rep.cost += result.cost_usd
                 rep.latency_ms += int(result.row["latency_ms"])
-                draws.append({"run_id": result.run_id, "status": result.status, "passed": ok, "diffs": diffs})
+                draws.append({"run_id": result.run_id, "status": result.status, "passed": ok, "diffs": diffs,
+                              **adoption.draw_economics(result)})        # JH-C11 wpB: cost, tokens, attempts per draw
                 tools |= rigor.tools_called(result.row)
             passes = sum(1 for d in draws if d["passed"])
             failing = next((d for d in draws if not d["passed"]), None)
@@ -305,7 +306,8 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
                      **rigor.model_metrics(rep.cases, samples=k, confidence=confidence, strata_keys=cfg["strata"],
                                            promote_at=engine.config.curriculum["promote_at"]),
                      "human_delta": rigor.human_delta(rep.score, golden.human_baseline),
-                     "backtest": xp.backtest_summary(rep.cases, confidence, exp.unfiltered_tables)})
+                     "backtest": xp.backtest_summary(rep.cases, confidence, exp.unfiltered_tables),
+                     **adoption.economics(rep.cases)})                    # JH-C11 wpB: cost per case / per pass
     primary = reports[model_strings[0]]
     return {"agent": agent.ref, "manifest_hash": agent.hash, "threshold": str(golden.threshold),
             "compare": list(golden.compare), "frontier": frontier, "frontier_score":
@@ -368,6 +370,7 @@ def main(argv: list[str] | None = None) -> int:
             safeguards(engine, pack, "eval", agent_name)
             models = [m.strip() for m in args.models.split(",")] if args.models else None
             report = run_eval(engine, pack, agent_name, models=models)
+            adoption.record_rampup(engine, pack, agent_name, report)     # JH-C11 G-D7: the first PASS ends the ramp-up
             if models:
                 date = args.date or engine.clock.now().date().isoformat()
                 md, js = write_matrix(pack.agent_dir(agent_name), report, date)

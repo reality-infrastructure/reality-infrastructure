@@ -125,6 +125,8 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end),
             "coordination": coordination(engine, pack, iso(start), iso(end))}
     extend_report(engine, pack, week, runs, out)
+    from engine.adoption import extend_report as adoption_report
+    adoption_report(engine, pack, week, runs, out)       # JH-C11 wpB: cost per useful output, deletion, plateau / stall escalation
     out["integrity"] = integrity_report(engine, pack, runs, out)
     from engine.governance import crank_section
     out["governance"] = crank_section(engine, pack, runs)          # JH-C11 wpD
@@ -262,6 +264,8 @@ def render(report: dict) -> str:
     from engine.governance import render_section, render_top
     L[2:2] = render_top(report.get("governance"))                   # JH-C11 wpD: red flags head the report
     L += render_section(report.get("governance"))
+    from engine.adoption import render_section as adoption_section
+    L += adoption_section(report)
     return "\n".join(L) + "\n"
 
 

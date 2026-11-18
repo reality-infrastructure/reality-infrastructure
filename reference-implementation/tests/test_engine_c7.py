@@ -187,9 +187,10 @@ def test_autoloop_cycle_plans_judges_cranks_refines_and_reports(pack_copy, tmp_p
         assert all(a["status"] == "succeeded" for a in result["act"])
         # judge: every judgeable run of the week now carries an agent verdict
         assert len(result["judge"]) == 3 and {j["verdict"] for j in result["judge"]} == {"followed", "wrong"}
-        # the only runs left without a verdict are the refine step's own evaluations: golden (2) and held-out (2), before and after
+        # the only runs left without a verdict are the refine step's own evaluations: golden (2) and held-out (2), before and after,
+        # and (JH-C11 G-M15) the golden case of the briefer that calls the allocator, before and after (with its allocator call)
         left = unjudged(eng, pack, since="2026-10-12T00:00:00+00:00", until="2026-10-19T00:00:00+00:00")
-        assert len(left) == 8 and all(r["agent"] == "allocator" for r in left)
+        assert len(left) == 12 and sum(r["agent"] == "allocator" for r in left) == 10 and sum(r["agent"] == "briefer" for r in left) == 2
         assert all(r["verdict_source"] == "agent" for r in eng.store.list_runs(pack="_reference", agent="checker"))
         # crank: verdicts are attributed, the misstated run drives the recommendation
         assert "wrong (agent)" in result["crank"]["verdicts"] and result["crank"]["recommendation"]["rung"] == 2

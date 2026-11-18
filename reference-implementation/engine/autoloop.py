@@ -41,6 +41,12 @@ p_adopt, deltas and dated target are scored, and a poorly calibrated role is sus
 refine the ``curator`` proposes cases code admits only when correct and discriminating
 (engine.curate); at the end every agent's reputation is recorded.
 
+The adoption law and the refinement lifecycle (JH-C11 wpB): refine takes several candidate edits and adopts
+the best one ``engine.adoption.decide`` accepts (evidence, cost, the generation-0 anchor, the callers' golden
+sets, pinned rules); at the start of a cycle adopted edits and model swaps on probation are kept or reverted
+and edits from another regime re-validated; after refine, queued edits are tried together and a file with
+many edits is consolidated (engine.lifecycle); a plateau or stall escalates the rung (engine.escalation).
+
 The model proposes at every step; code decides at every step.  Nothing here
 places an order, holds a key or trains a model.
 """
@@ -50,13 +56,11 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
-import shutil
 import sys
-import tempfile
 from decimal import Decimal
 from pathlib import Path
 
-from engine import curriculum, rigor, stats
+from engine import adoption, curriculum, escalation, lifecycle, rigor, stats
 from engine.analytics import novelty_for_planner, record_cycle
 from engine.attribution import inherited_blame
 from engine.blame import blame_week
@@ -65,7 +69,7 @@ from engine.constraint import planner_input
 from engine.crank import build_report, render as render_crank, week_bounds
 from engine.drift import DriftContext
 from engine.errors import EngineError, GateError
-from engine.eval import load_golden, run_eval
+from engine.eval import load_golden
 from engine.events import EventLog
 from engine.export import export
 from engine.guardrails import JUDGEABLE_ROLES
@@ -384,6 +388,9 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
            directive: str | None = None) -> dict:
     rec = report.get("recommendation") or {}
     rungs = engine.config.autoloop_refine_rungs
+    explore = escalation.exploration(engine, pack, rec)               # JH-C11 G-M4: one exploratory edit per stall
+    if explore:
+        rec = explore["recommendation"]
     if rec.get("rung") not in rungs:
         return {"status": "skipped", "why": f"recommendation rung {rec.get('rung')!r} is not in {list(rungs)}"}
     target = _target_cluster(engine, pack, report)
@@ -406,70 +413,83 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
         return {"status": "monitor_cap", "agent": agent, "why": f"the evidence cites monitor-flagged runs {gate['runs']}; "
                 f"{gate['count']} reasoning-motivated interventions this window, the cap is {gate['cap']}"}
     files = _text_files(pack.agent_dir(agent))
+    if rec.get("deletion"):                                           # JH-C11 G-M2: the recommended deletion edits the manifest
+        files["manifest.yaml"] = (pack.agent_dir(agent) / "manifest.yaml").read_text(encoding="utf-8")
     change = rec["change"] if cluster is rec.get("evidence") else f"{rec['change']} Cluster: {cluster.get('cluster')} ({cluster.get('count')}x)."
     steer = {"constraint": rec["constraint"]} if rec.get("constraint") else {}
     if directive:
         steer["directive"] = directive
-    r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
-                             "evidence": integrity.reasoning_guard(_evidence(engine, cluster), "refiner evidence"), "files": files, "week": report["week"], **steer,
-                             "forecast_required": engine.config.autoloop_long_horizon["taste"]["require_forecast"]})
-    if r.status != "succeeded":
-        return {"status": "refiner_failed", "refiner_run_id": r.run_id, "agent": agent, "failure_reasons": list(r.failure_reasons)}
-    out = r.output
-    if out.get("file") is None:                                    # the refiner declined: no edit warranted
-        return {"status": "declined", "agent": agent, "rung": out.get("rung"), "refiner_run_id": r.run_id, "why": out["why"]}
-    use_holdout = engine.config.autoloop["holdout"] and _holdout_path(pack, agent) is not None
-    before = run_eval(engine, pack, agent)
-    before_h = run_eval(engine, pack, agent, golden_file="holdout.jsonl") if use_holdout else None
-    new_text = files[out["file"]].replace(out["old"], out["new"], 1)
-    tmp = Path(tempfile.mkdtemp(prefix="autoloop-"))
-    try:
-        copy_root = tmp / "packs"
-        shutil.copytree(packs_root / pack.name, copy_root / pack.name,
-                        ignore=shutil.ignore_patterns("__pycache__", ".harness", "crank", "export"))
-        (copy_root / pack.name / "agents" / agent / out["file"]).write_text(new_text, encoding="utf-8", newline="\n")
-        pack_copy = load_pack(pack.name, copy_root)
-        after = run_eval(engine, pack_copy, agent)
-        after_h = run_eval(engine, pack_copy, agent, golden_file="holdout.jsonl") if use_holdout else None
-        xp_refusals = xp.adoption_gate(engine, pack_copy, agent) if adopt_decision(before, after, before_h, after_h) else []   # JH-C11 wpC
-    finally:
-        shutil.rmtree(tmp, ignore_errors=True)
-    adopted = adopt_decision(before, after, before_h, after_h)
-    refusals = rigor.adoption_refusals(before, after, before_h, after_h)
-    refusals += governance.adoption_refusals(engine, pack, agent, before, after)   # JH-C11 G-M14: sim-to-real gap
-    refusals += xp_refusals                                                         # JH-C11 wpC: probes and soak horizon
-    adopted = adopted and not refusals
-    if adopted:
-        (pack.agent_dir(agent) / out["file"]).write_text(new_text, encoding="utf-8", newline="\n")
-    event = EventLog(engine, pack).append(
-        entity_type="agent_run", entity_id=r.run_id, event_type=f"{pack.name}.refinement",
-        payload={"agent": agent, "rung": int(out["rung"]), "file": out["file"], "old_sha256": _sha(files[out["file"]]),
-                 "new_sha256": _sha(new_text), "before_score": before["models"][0]["score"],
-                 "after_score": after["models"][0]["score"], "adopted": adopted,
-                 "refiner_run_id": r.run_id, "why": str(out["why"])[:1000],
-                 "before_holdout": None if before_h is None else before_h["models"][0]["score"],
-                 "after_holdout": None if after_h is None else after_h["models"][0]["score"],
-                 "objective_hash": before["objective_hash"], "samples": before["samples"],
-                 "before_pass_at_k": before["models"][0]["pass_at_k"], "after_pass_at_k": after["models"][0]["pass_at_k"],
-                 "before_interval": before["models"][0]["interval"], "after_interval": after["models"][0]["interval"],
-                 "before_strata": before["models"][0]["strata"], "after_strata": after["models"][0]["strata"],
-                 "refusals": refusals, "directive_sha256": _sha(directive) if directive else None,
-                 "addresses_directive": out.get("addresses_directive") if directive else None},
-        source=f"agent:{refiner}", source_ref=r.run_id)
-    if gate["motivated"]:
-        integrity.record_intervention(engine, pack, gate, agent, event["event_id"])
-    scored = None
-    if isinstance(out.get("forecast"), dict):
-        scored = forecast.score_refinement(engine, pack, refiner, r.run_id, agent, out["forecast"], adopted=adopted,
-                                           golden_delta=_score_delta(before, after), holdout_delta=_score_delta(before_h, after_h))
-    return {"forecast": scored, "tiers": {"before": curator_step.tier_scores(pack, agent, before),
-                                          "after": curator_step.tier_scores(pack, agent, after)},
-            "status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
-            "before": before["summary"], "after": after["summary"],
-            "before_holdout": None if before_h is None else before_h["summary"],
-            "after_holdout": None if after_h is None else after_h["summary"],
-            "holdout": "held-out set evaluated" if use_holdout else "no eval/holdout.jsonl for this agent: adoption rests on the golden set alone",
-            "refiner_run_id": r.run_id, "event_id": event["event_id"], "why": out["why"], "refusals": refusals}
+    if rec.get("deletion"):
+        steer["deletion"] = rec["deletion"]
+    if explore:
+        steer["explore"] = True
+    inp = {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
+           "evidence": integrity.reasoning_guard(_evidence(engine, cluster), "refiner evidence"), "files": files, "week": report["week"], **steer,
+           "history": escalation.history(engine, pack, agent),       # JH-C11 G-M4: ideas already tried are not proposed again
+           "forecast_required": engine.config.autoloop_long_horizon["taste"]["require_forecast"]}
+    proposals, failed, declined, seen = [], None, None, set()
+    for s in range(max(1, int(engine.config.lifecycle["refine"]["candidates"]))):   # JH-C11 G-D14: several candidates, the best adopted
+        r = runner.run(refiner, inp, sample=s)
+        if r.status != "succeeded":
+            failed = failed or r
+        elif r.output.get("file") is None:                            # the refiner declined: no edit warranted
+            declined = declined or r
+        elif (r.output["file"], r.output["old"], r.output["new"]) not in seen:
+            seen.add((r.output["file"], r.output["old"], r.output["new"]))
+            proposals.append(r)
+    if not proposals:
+        if declined is not None:
+            return {"status": "declined", "agent": agent, "rung": declined.output.get("rung"), "refiner_run_id": declined.run_id,
+                    "why": declined.output["why"]}
+        return {"status": "refiner_failed", "refiner_run_id": failed.run_id, "agent": agent, "failure_reasons": list(failed.failure_reasons)}
+    use_holdout = lifecycle.holdout_used(engine, pack, agent)
+    before, before_h = lifecycle.evaluate(engine, pack, agent, use_holdout)
+    adoption.record_rampup(engine, pack, agent, before)
+    base = lifecycle.baseline(engine, pack, agent, before, before_h, packs_root=packs_root)
+    trials = []
+    for i, r in enumerate(proposals):
+        out = r.output
+        new_text = files[out["file"]].replace(out["old"], out["new"], 1)
+        trials.append(dict(lifecycle.trial(engine, pack, agent, {out["file"]: new_text}, base, packs_root=packs_root,
+                                           explore=bool(explore), index=i), run=r, new_text=new_text))
+    win = adoption.best(trials)                                       # the adoption law (engine/adoption.py) decides
+    results = []
+    for t in trials:
+        r, out = t["run"], t["run"].output
+        adopted = t is win
+        if adopted:
+            lifecycle.adopt_write(engine, pack, agent, out["file"], files[out["file"]], t["new_text"])
+            adoption.record_rampup(engine, pack, agent, t["after"])
+        elif t["law"]["adopted"]:
+            t["law"]["refusals"].append("another candidate scored higher this cycle")
+        law = lifecycle.law_block(engine, pack, agent, t, mode="edit", candidates=len(trials),
+                                  edits=[{"file": out["file"], "old": out["old"], "new": out["new"]}],
+                                  explore_of=explore["stall_event_id"] if explore else None)
+        event = EventLog(engine, pack).append(
+            entity_type="agent_run", entity_id=r.run_id, event_type=f"{pack.name}.refinement",
+            payload=lifecycle.refinement_payload(agent, out["rung"], out["file"], files[out["file"]], t["new_text"], base, t,
+                                                 adopted=adopted, refiner_run_id=r.run_id, why=out["why"], law=law,
+                                                 directive_sha256=_sha(directive) if directive else None,
+                                                 addresses_directive=out.get("addresses_directive") if directive else None),
+            source=f"agent:{refiner}", source_ref=r.run_id)
+        if gate["motivated"] and (adopted or (win is None and t is trials[0])):
+            integrity.record_intervention(engine, pack, gate, agent, event["event_id"])
+        scored = None
+        if isinstance(out.get("forecast"), dict):
+            scored = forecast.score_refinement(engine, pack, refiner, r.run_id, agent, out["forecast"], adopted=adopted,
+                                               golden_delta=_score_delta(before, t["after"]), holdout_delta=_score_delta(before_h, t["after_h"]))
+        results.append({"forecast": scored, "tiers": {"before": curator_step.tier_scores(pack, agent, before),
+                                                      "after": curator_step.tier_scores(pack, agent, t["after"])},
+                        "status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
+                        "before": before["summary"], "after": t["after"]["summary"],
+                        "before_holdout": None if before_h is None else before_h["summary"],
+                        "after_holdout": None if t["after_h"] is None else t["after_h"]["summary"],
+                        "holdout": "held-out set evaluated" if use_holdout else "no eval/holdout.jsonl for this agent: adoption rests on the golden set alone",
+                        "refiner_run_id": r.run_id, "event_id": event["event_id"], "why": out["why"], "refusals": list(t["law"]["refusals"]),
+                        "law": {k: law[k] for k in ("efficiency_gain", "exploratory", "evidence", "cost", "anchor", "downstream")}})
+    chosen = next((x for x in results if x["status"] == "adopted"), results[0])
+    return {**chosen, "candidates": [{"event_id": x["event_id"], "status": x["status"], "after": x["after"], "refusals": x["refusals"]}
+                                     for x in results]}
 
 
 def _score_delta(before: dict | None, after: dict | None) -> float | None:
@@ -542,6 +562,8 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
         killed = kill_rule(engine, pack)
     safety = judge_safety(engine, pack)
     drift = drift_readings(engine, pack)
+    if do_refine:                                         # JH-C11 wpB: swaps noticed, probations closed, edits re-validated
+        result["lifecycle"] = lifecycle.cycle_start(engine, pack, drift, packs_root=packs_root)
     result["safety"] = {"killed": killed, "judge": safety, "drift": drift, "probation": probation}
     shifted = [d for d in drift if d["shifted"]]
     judgeable = [n for n in sorted(pack.agent_names) if load_yaml(pack.agent_dir(n) / "manifest.yaml").get("role") in JUDGEABLE_ROLES]
@@ -557,6 +579,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     gov = governance.before_plan(engine, pack)                           # JH-C11 wpD: the leash and stale policy hold the plan
     result["governance"] = {"plan": {k: gov[k] for k in ("hold", "status")}, "leash": gov["leash"], "policy": gov["policy"]["policies"]}
     report = build_report(engine, pack, week)
+    result["escalations"] = escalation.record(engine, pack, report)     # JH-C11 G-P20 / G-M4: plateau and stall on the record
     if do_plan and "planner" in agents and not guard["review"]["over"] and not gov["hold"]:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
         t = taste["planner"]
@@ -618,6 +641,9 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
                                                               f"above {t['max_brier']}; an edit needs a human until its foresight recovers"}
                                 if t["suspended"] else refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root,
                                                 directive=directive))
+            if not t["suspended"]:                       # JH-C11 G-D14 / G-P4: queued edits tried together; a file rebuilt
+                result["combine"] = lifecycle.combine(engine, pack, result["refine"].get("agent"), packs_root=packs_root)
+                result["consolidate"] = lifecycle.consolidate(engine, pack, runner, agents["refiner"], week=week, packs_root=packs_root)
         if do_curate and "curator" in agents and engine.config.autoloop_long_horizon["curate"]["enabled"]:
             target = curator_step.target_agent(pack, (result.get("refine") or {}).get("agent"))
             if target is not None:
@@ -636,6 +662,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     result["integrity"] = {"collusion": integrity.record_collusion(engine, pack), "delegation": integrity.record_delegations(engine, pack),
                            "monitorability": integrity.monitorability(engine, pack, week, since=since, until=until),
                            "review_sla": integrity.review_sla(engine, pack)}
+    result["progress"] = [e["payload"] for e in escalation.record_progress(engine, pack, report)]   # JH-C11 G-M4: one point per cycle
     spent = engine.store.list_runs(pack=pack.name, since=iso(began))
     result["directive_sha256"] = _sha(directive) if directive else None
     result["analytics_events"] = record_cycle(engine, pack, week, report, started=began, cycle_runs=len(spent),
@@ -721,6 +748,7 @@ def render(result: dict) -> str:
               + (f"; edit {j['refine']['status']}" if j.get("refine") else "") for j in result.get("judge_learning") or []]
         L += [f"- delegation {d['agent']}: {d['decision']} (operator ${d['operator_cost']}/review, agent ${d['agent_cost']}/item, "
               f"agreement {d['agreement']})" for d in result["integrity"]["delegation"]]
+    L += lifecycle.render_section(result)
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]
     return "\n".join(L) + "\n"
 

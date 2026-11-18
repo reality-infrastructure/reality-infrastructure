@@ -105,6 +105,8 @@ def matrix(engine: Engine, pack, agent_name: str, student: str, date: str) -> di
         out["holdout"] = run_eval(engine, pack, agent_name, models=[teacher, student], golden_file="holdout.jsonl", reference=teacher)
     rows = {r["model"]: r for r in out["golden"]["models"]}
     out["tier_gap"] = rigor.tier_gaps(rows[teacher], rows[student], engine.config.curriculum["max_teacher_gap"])
+    from engine.lifecycle import anchor_gate_matrix
+    anchor_gate_matrix(engine, pack, agent_name, out, student)   # JH-C11 G-B16: a student below generation 0 loses parity
     md, js = write_matrix(agent.dir, out["golden"], date)
     if "holdout" in out:
         write_matrix(agent.dir, out["holdout"], f"{date}-holdout")
@@ -140,6 +142,9 @@ def main(argv: list[str] | None = None) -> int:
                 if m["tier_gap"]:
                     g = m["tier_gap"]
                     print(f"teacher-student gap per tier: {g['per_tier']}" + ("; above the max gap: distil an intermediate student first" if g["suggest_intermediate"] else ""))
+                if m.get("anchor") and not m["anchor"]["holds"]:
+                    print(f"below the generation-0 anchor (golden {m['anchor']['golden_score']}, held-out {m['anchor']['holdout_score']}): "
+                          f"the student's parity is withdrawn")
                 print(f"matrix: {m['written']}")
         finally:
             engine.close()

@@ -76,6 +76,8 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
                     if shared:
                         raise EvalError(f"{hpath}: {len(shared)} held-out inputs also appear in golden.jsonl; a held-out set is never tuned on")
                 holdout[a.name] = len(hs.cases)
+        from engine.adoption import validation
+        adoption_checks = validation(engine, pack, agents)      # JH-C11 wpB: small-evidence warnings, the instruction ledger
     finally:
         engine.close()
     return {"pack": pack.name, "fixture": pack.fixture, "agents": {n: a.role for n, a in agents.items()},
@@ -85,7 +87,7 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
             "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {})),
             "golden_rejected_by_checks": rejected, "uncovered_tools": uncovered, "strict": strict,
             "rigor_warnings": warnings, "outcome_resolvers": pack.outcomes.ids(), "value_hooks": pack.values.ids(),
-            "derived_from": _lineage(pack, agents),
+            "derived_from": _lineage(pack, agents), **adoption_checks,
             "schedule": [j["id"] for j in load_schedule(pack)], "triggers": [t["id"] for t in load_triggers(pack)],
             "policy_review": [{"policy": p["policy"], "reviewed_at": None if p["reviewed_at"] is None else p["reviewed_at"].isoformat()}
                               for p in policy_dates(pack, engine.config)]}

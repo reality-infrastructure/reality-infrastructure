@@ -86,6 +86,47 @@ autoloop:
     target_time_to_fix_weeks: 2
   directive_file: directive.md  # Patel: the operator's directive, passed verbatim to the planner and the refiner (G-D2)
   reviewed_at: "2026-11-17"     # JH-C11 wpD (Brown, G-B13): the date these thresholds were last reviewed; stale after governance.policy.max_age_days
+  # JH-C11 wpB: the adoption law and the refinement lifecycle (engine/adoption.py, lifecycle.py, escalation.py, rules.py)
+  adopt:                        # Naval (G-NCD9): minimum evidence and a noise bound
+    min_cases: 5                #   a golden or held-out set smaller than this is small evidence
+    small_set: auto             #   refuse | flag | auto (auto: refuse on a real pack, flag on a fixture pack)
+    require_strict_gain_on: none  # golden | holdout | both | none: there, paired per-case wins must beat the noise bound (ties keep the incumbent)
+    max_p: 0.1                  #   one-sided sign-test p of the paired wins over losses must be at most this
+  cost:                         # Musk / Patel (G-M2, G-D7): cost per useful output decides as well as score
+    max_cost_rise: 0.10         #   scores held or rose but cost per golden case rose more than this: rejected
+    prefer_cheaper_on_tie: true #   equal scores: the cheaper side wins (a dearer edit beyond tie_band is rejected)
+    tie_band: 0.05              #   relative cost differences within this are a tie
+    min_efficiency_gain: 0.1    #   equal scores and cost or latency down at least this much: adopted as an efficiency gain
+    min_latency_gain_ms: 100    #   ... a latency gain also needs this many milliseconds per case (less is timing noise)
+    deletion_min_followed: 5    #   followed runs before a grounding source none of them cites is recommended for deletion
+  anchor: true                  # Brown (G-B16): every adoption and every distilled student also holds against generation 0
+  anchor_tolerance: 0.05        #   how far below the anchor's golden / held-out score (and above its live override rate) is allowed
+  probation:                    # the panel (G-P3): an adopted edit or model swap is watched on live runs and reverted if they worsen
+    runs: 20                    #   live runs after adoption compared with as many before it
+    max_pass_drop: 0.1
+    max_override_rise: 0.1
+    min_verdicts: 3             #   human verdicts in the window before the override rate is compared
+  consolidate:                  # the panel (G-P4): rebuild an onboarding file from scratch, keeping every adopted rule
+    after_edits: 5              #   adopted edits on one file since its last consolidation
+    max_onboarding_tokens: 4000 #   or the file grows past this (chars / 4)
+  plateau:                      # the panel (G-P20): a rung that stopped paying escalates to the next
+    cycles: 4                   #   the last N refinements of an agent ...
+    min_gain: 0.01              #   ... none adopted, or none moved golden / held-out by this much
+  stall:                        # Musk (G-M4): one point per cycle; a flat curve or a chronic cluster escalates
+    window_cycles: 4
+    min_slope: 0.0              #   live pass rate slope per cycle at or below this, while below target ...
+    target_pass_rate: 0.9
+    chronic_cycles: 3           #   ... or the same top failure cluster this many cycles running
+    explore_tolerance: 0.05     #   one exploratory edit per stall: golden may fall this much if held-out does not
+  revalidate_on_drift: true     # Naval (G-NCD4): edits adopted under another regime or golden set are re-scored with and without
+  revalidate_max_per_cycle: 2
+  system_adoption: true         # Musk (G-M15): an edit also holds on the golden / held-out sets of every orchestrator that calls the agent
+  refine:                       # Patel (G-D14): several candidates per cycle; edits that fail alone are retried together
+    candidates: 3               #   refiner runs per cycle (distinct samples); the best edit the law adopts wins
+    combo_queue: 10             #   rejected edits kept per agent and file
+    max_combo: 5                #   combinations of 2-3 queued edits tried per cycle
+  rules:                        # Musk (G-M13): the instruction ledger
+    require_pins: true          #   every [Rn] rule in skills.md / workflow.md is pinned by a golden case (pins) or named in problem.md
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
