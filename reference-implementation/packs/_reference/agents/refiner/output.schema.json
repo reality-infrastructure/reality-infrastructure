@@ -44,6 +44,27 @@
       "type": "number",
       "minimum": 0,
       "maximum": 1
+    },
+    "forecast": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["p_adopt", "golden_delta", "holdout_delta", "target"],
+      "properties": {
+        "p_adopt": {"type": "number", "minimum": 0, "maximum": 1},
+        "golden_delta": {"type": "number"},
+        "holdout_delta": {"type": ["number", "null"]},
+        "target": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["metric", "value", "due", "p_hit"],
+          "properties": {
+            "metric": {"type": "string"},
+            "value": {"type": "number"},
+            "due": {"type": "string"},
+            "p_hit": {"type": "number", "minimum": 0, "maximum": 1}
+          }
+        }
+      }
     }
   }
 }

@@ -27,7 +27,8 @@
         "worker",
         "judge",
         "planner",
-        "refiner"
+        "refiner",
+        "curator"
       ]
     },
     "version": {
@@ -296,6 +297,26 @@
         "items_evaluated_field": {
           "type": "string"
         }
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resolver", "after_days"],
+      "description": "The agent's output is a forward claim: after `after_days` (or the output's own `resolves_at`) the pack's @outcome resolver reads what happened and the engine records an outcome verdict (engine/outcome.py).",
+      "properties": {
+        "resolver": {"type": "string", "minLength": 1},
+        "after_days": {"type": "number", "minimum": 0}
+      }
+    },
+    "derived_from": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["agent", "manifest_hash"],
+      "description": "Scaffolded from a proven agent (engine.scaffold new-agent --from): its <pack>/<agent> and manifest hash at the copy.",
+      "properties": {
+        "agent": {"type": "string", "pattern": "^_?[a-z][a-z0-9_]*/[a-z][a-z0-9_]*$"},
+        "manifest_hash": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
       }
     }
   }

@@ -289,7 +289,7 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
         if key in seen:
             problems.append(f"batch/{i}: duplicate of an earlier item")
         seen.add(key)
-    return problems
+    return problems + _batch_long_horizon(output, gctx)
 
 
 @guardrail(id="edit_applies")
@@ -324,12 +324,13 @@ def edit_applies(output, gctx: GuardrailContext) -> list[str]:
         problems.append(f"old must occur exactly once in {path}; it occurs {files[path].count(old)} times")
     if not isinstance(new, str) or new == old:
         problems.append("new must differ from old")
-    return problems
+    from engine.forecast import refiner_problems
+    return problems + refiner_problems(output, gctx.run_input, bool(gctx.run_input.get("forecast_required")))
 
 
 BUILTIN_IDS = ("schema_valid", "no_invented_keys", "citations_resolve",
                "no_fabrication", "bounded_size", "cited_values_match",
-               "verdict_grounded", "batch_resolves", "edit_applies")
+               "verdict_grounded", "batch_resolves", "edit_applies", "case_certified")
 
 
 def builtin_registry() -> GuardrailRegistry:
@@ -337,3 +338,52 @@ def builtin_registry() -> GuardrailRegistry:
     reg = GuardrailRegistry()
     reg.register_module(me)
     return reg
+
+
+# -- JH-C11 wpI: the long-horizon record ---------------------------------------------------------
+
+def _batch_long_horizon(output: dict, gctx: GuardrailContext) -> list[str]:
+    """What the loop told the planner it must respect: the value ranking (engine.value), each agent's
+    reputation cap (engine.reputation) and, when required, a p_pass per item (engine.forecast)."""
+    from engine.forecast import planner_problems
+    from engine.reputation import cap_problems
+    from engine.value import skip_problems
+    ri = gctx.run_input
+    return (skip_problems(output, ri, int(ri.get("max_skip_without_reason") or 0)) + cap_problems(output, ri)
+            + planner_problems(output, bool(ri.get("forecast_required"))))
+
+
+@guardrail(id="case_certified")
+def case_certified(output, gctx: GuardrailContext) -> list[str]:
+    """A curator's proposal: at most ``max_cases`` cases for the agent the loop named, each with an id, an
+    object input no golden or held-out case already has, an expected output carrying every compared field,
+    and a reason.  Whether each expected output is correct and the case discriminating is certified by code
+    afterwards, case by case (engine.curate)."""
+    if not isinstance(output, dict) or not isinstance(output.get("cases"), list):
+        return ["cases must be a list"]
+    ri = gctx.run_input
+    problems = []
+    if output.get("agent") != ri.get("agent"):
+        problems.append(f"agent: proposal names {output.get('agent')!r}, the loop asked for {ri.get('agent')!r}")
+    cap = ri.get("max_cases")
+    if isinstance(cap, int) and len(output["cases"]) > cap:
+        problems.append(f"{len(output['cases'])} cases proposed; the cap is {cap}")
+    known = set(ri.get("known_inputs") or [])
+    roots = sorted({str(f).split(".")[0] for f in ri.get("compare") or []})
+    ids, inputs = set(), set()
+    for i, c in enumerate(output["cases"]):
+        if not isinstance(c, dict) or not isinstance(c.get("id"), str) or not c["id"] or not isinstance(c.get("input"), dict) \
+                or not isinstance(c.get("expected"), dict) or not isinstance(c.get("why"), str) or not c["why"].strip():
+            problems.append(f"cases/{i}: must be {{id, input: object, expected: object, why}}")
+            continue
+        missing = [r for r in roots if r not in c["expected"]]
+        if missing:
+            problems.append(f"cases/{i}: expected lacks compared fields {missing}")
+        key = json.dumps(c["input"], sort_keys=True)
+        if key in known:
+            problems.append(f"cases/{i}: input {key} is already a golden or held-out case")
+        if key in inputs or c["id"] in ids:
+            problems.append(f"cases/{i}: duplicate of an earlier case")
+        inputs.add(key)
+        ids.add(c["id"])
+    return problems

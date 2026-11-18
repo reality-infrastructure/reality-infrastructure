@@ -179,9 +179,9 @@ def test_autoloop_cycle_plans_judges_cranks_refines_and_reports(pack_copy, tmp_p
         rn.run("checker", {"sheet_id": "S1"})
         failed = rn.run("allocator", {"capacity": 20}, model_override=("local", "allocator-misstated"))
         assert failed.status == "failed_verifier"
-        assert loop_agents(pack) == {"judge": "judge", "planner": "planner", "refiner": "refiner"}
+        assert loop_agents(pack) == {"judge": "judge", "planner": "planner", "refiner": "refiner", "curator": "curator"}
         skills_before = (pack.agent_dir("allocator") / "skills.md").read_text(encoding="utf-8")
-        result = cycle(eng, pack, WEEK, packs_root=pack_copy, max_runs=2, runner=rn)
+        result = cycle(eng, pack, WEEK, packs_root=pack_copy, max_runs=2, runner=rn, do_curate=False)   # curation: tests/test_engine_c11_wpI.py
         # plan + act: the planner skipped the two inputs already pending and ran the one the week lacked
         assert result["plan"]["batch"] == [{"agent": "checker", "input": {"sheet_id": "S2"}}]
         assert all(a["status"] == "succeeded" for a in result["act"])

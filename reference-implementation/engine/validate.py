@@ -24,11 +24,12 @@ from engine.store import Engine
 
 
 def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = None) -> dict:
-    """``strict`` (default: the pack is real, not fixture) applies the eval-rigor gates to every golden set:
-    negative controls declared, every allowed tool and child agent exercised by a case, enough hard-tier cases."""
+    """``strict`` applies the eval-rigor gates to every golden set: negative controls declared, every allowed tool
+    and child agent exercised by a case, enough hard-tier cases.  Default: a real pack is strict once config
+    ``eval.strict_validate`` is on; until then the same problems are reported as ``rigor_warnings`` so packs that
+    predate the gates keep validating while their golden sets are brought up to them."""
     pack = load_pack(name, root)
     engine = Engine.open("sqlite://:memory:")
-    strict = (not pack.fixture) if strict is None else strict
     try:
         agents = load_all_agents(pack, config=engine.config)
         events = EventLog(engine, pack)
@@ -37,6 +38,8 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
             AdapterGateway(engine, pack, events)
         golden, holdout, rejected, uncovered = {}, {}, {}, {}
         cfg = engine.config.eval_rigor
+        strict = (not pack.fixture and cfg["strict_validate"]) if strict is None else strict
+        warnings: dict[str, list[str]] = {}
         for a in agents.values():
             path = a.dir / "eval" / "golden.jsonl"
             if path.is_file():
@@ -48,7 +51,7 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
                 missing = rigor.declared_uncovered(a.tools, gs)
                 if missing:
                     uncovered[a.name] = missing
-                if strict and gs.cases:                    # an empty set is a period not yet recorded
+                if gs.cases and (strict or not pack.fixture):   # an empty set is a period not yet recorded
                     problems = []
                     if cfg["require_controls"] and not gs.controls:
                         problems.append("the header declares no negative controls (wrong outputs the comparison must fail)")
@@ -57,8 +60,10 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
                     hard = rigor.hard_tier_problem(gs, cfg["hard_tier"], cfg["min_hard_share"])
                     if hard:
                         problems.append(hard)
-                    if problems:
+                    if problems and strict:
                         raise EvalError(f"{path}: " + "; ".join(problems))
+                    if problems:
+                        warnings[a.name] = problems
             hpath = a.dir / "eval" / "holdout.jsonl"
             if hpath.is_file():
                 hs = load_golden(hpath, pack_is_fixture=pack.fixture)
@@ -75,7 +80,23 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
             "drift": pack.drift.ids() if pack.drift else [],
             "event_types": sorted(events.declared_types), "golden_cases": golden, "holdout_cases": holdout,
             "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {})),
-            "golden_rejected_by_checks": rejected, "uncovered_tools": uncovered, "strict": strict}
+            "golden_rejected_by_checks": rejected, "uncovered_tools": uncovered, "strict": strict,
+            "rigor_warnings": warnings, "outcome_resolvers": pack.outcomes.ids(), "value_hooks": pack.values.ids(),
+            "derived_from": _lineage(pack, agents)}
+
+
+def _lineage(pack, agents: dict) -> dict:
+    """Each derived agent's source and recorded hash; for a source in this pack, whether it has changed since the
+    copy (the source's later refinements are not inherited: a human decides whether to carry them over)."""
+    out = {}
+    for n, a in agents.items():
+        d = a.manifest.get("derived_from")
+        if not d:
+            continue
+        src_pack, src = d["agent"].split("/", 1)
+        source = agents.get(src) if src_pack == pack.name else None
+        out[n] ={**d, "source_changed": None if source is None else source.hash != d["manifest_hash"]}
+    return out
 
 
 def main(argv: list[str] | None = None) -> int:

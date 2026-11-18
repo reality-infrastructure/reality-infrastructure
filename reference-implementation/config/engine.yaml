@@ -26,6 +26,20 @@ autoloop:
     max_missed: 0.25            #   ... a miss rate above this suspends the judge
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
   refine_min_cluster_runs: 1    # the panel (G-P9): a refinement fires only on a failure cluster seen in at least this many runs
+  plan:                         # Naval: what you work on is ranked by value, not left to taste (pack @value hooks)
+    max_ranked: 50              #   ranked inputs handed to the planner
+    max_skip_without_reason: 0  #   higher-ranked inputs a batch may pass over without naming a reason
+  taste:                        # Patel/Musk: the loop roles' foresight is a scored, dated prediction
+    require_forecast: true      #   a refiner states p_adopt, golden/held-out deltas and a dated target; a planner p_pass per item
+    min_scored: 5               #   once a role has this many resolved forecasts ...
+    max_brier: 0.25             #   ... a mean Brier above this suspends it (refiner: no edit; planner: the engine plans by value)
+    window: 20                  #   over its last N resolved forecasts
+  curate:                       # Patel: a curator synthesises cases; code admits only correct, discriminating ones
+    enabled: true
+    max_cases_per_cycle: 10
+    attempts: 2                 #   runs of the agent's own model per case, plus one per model in its latest eval matrix
+    min_fail: 0.1               #   a case every attempt passes teaches nothing ...
+    max_fail: 0.9               #   ... and one every attempt fails is not yet reachable
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
@@ -53,6 +67,7 @@ eval:
   min_hard_share: 0.2           # ... at least this share of them
   require_controls: true        # a real pack's golden header must declare negative controls
   require_tool_coverage: true   # a real pack's golden cases must exercise every tool and child agent the manifest allows
+  strict_validate: false        # true: a real pack failing the three gates above fails validate; false: rigor_warnings (packs predating JH-C11)
   suspect:
     min_evals: 3                # a case failed identically this many times by two or more models is suspect
 curriculum:                     # Musk (G-M16) / the panel (G-P10): easy first, climb on evidence
@@ -61,3 +76,23 @@ curriculum:                     # Musk (G-M16) / the panel (G-P10): easy first, 
   window_runs: 20               #   the latest runs at the tier that count
   plan_frontier_window: 1       #   the planner's batch stays within frontier tier - this
   max_teacher_gap: 0.5          #   distill: a per-tier teacher-student gap above this suggests an intermediate student
+outcomes:                       # the panel/Patel/Naval: a forward claim is scored again when the world answers (pack @outcome)
+  enabled: true
+  resolve_each_cycle: true      # the autoloop resolves every due claim at the start of a cycle
+  kill_on_outcome: true         # a run the world proved wrong counts as a failure in the kill rule's window
+  calibration_bins: 5           # stated confidence vs realised hit rate, per agent
+reputation:                     # Naval: a long track record that compounds, resets in part on an edit, and buys leverage
+  half_life_runs: 200           # a run's weight halves every N newer runs
+  carry_on_edit: 0.5            # runs on a superseded manifest count at this fraction per edit since
+  min_runs: 5                   # below this many runs the tier holds
+  probation_runs: 3             # golden-input runs a halted agent gets each cycle, so recovery has a path
+  start_tier: standard
+  tiers:                        # best first; a tier rises one step per cycle, falls at once (and to the bottom on a kill or suspension)
+    - {name: trusted,    min_score: 0.9, review_rate: 0.1, budget_mult: 2.0,  workers_mult: 2.0,  max_runs_share: 1.0}
+    - {name: standard,   min_score: 0.6, review_rate: 1.0, budget_mult: 1.0,  workers_mult: 1.0,  max_runs_share: 1.0}
+    - {name: restricted, min_score: 0.0, review_rate: 1.0, budget_mult: 0.25, workers_mult: 0.25, max_runs_share: 0.25}
+forecast:                       # Musk: dated targets with a stated probability; about half should be met
+  target_hit_rate: 0.5
+  band: 0.2                     # above target+band the targets are too soft, below target-band too aggressive
+  window: 20                    # resolved forecasts per maker in the hit rate
+  metric_window_runs: 20        # pass_rate is measured over the agent's last N runs before the due week ends

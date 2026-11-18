@@ -111,10 +111,14 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     top_clusters = [{"cluster": k, "count": n, "runs": sorted(set(cluster_rows[k]))[:10], "weighted": round(weighted[k], 4)}
                     for k, n in ranked]
     recommendation = _recommend(top_clusters, verdicts, override_reasons)
+    from engine import curate, forecast, outcome, reputation
     return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
             "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
             "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"]}
+            "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"],
+            "outcomes": outcome.crank_section(engine, pack, iso(start), iso(end)),
+            "reputation": reputation.crank_section(engine, pack), "forecasts": forecast.crank_section(engine, pack),
+            "curator": curate.record(engine, pack)}
 
 
 def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) -> dict:
@@ -204,6 +208,9 @@ def render(report: dict) -> str:
     L += [f"- {r['count']}× {r['reason']}" for r in report["override_reasons"]] or ["- none"]
     L += ["", "## Guardrail / verifier failure clusters", ""]
     L += [f"- {c['count']}× `{c['cluster']}`  runs: {', '.join(c['runs'])}" for c in report["failure_clusters"]] or ["- none"]
+    from engine import curate, forecast, outcome, reputation
+    L += outcome.render_section(report.get("outcomes") or {}) + reputation.render_section(report.get("reputation") or {})
+    L += forecast.render_section(report.get("forecasts") or {}) + curate.render_section(report.get("curator") or {})
     rec = report["recommendation"]
     L += ["", "## Recommended change (one, lowest rung first)", "",
           f"rung: {rec['rung']}", "", rec["change"], "", f"evidence: `{rec['evidence']}`", "",

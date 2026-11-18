@@ -36,6 +36,7 @@ from engine.packs import load_pack, parse_agent_ref
 from engine.runtime import iso
 from engine.store import Engine
 from engine.verdicts import record_verdict
+from engine.reputation import sweep_leverage
 
 STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start", "broken_task")
 
@@ -61,6 +62,7 @@ class Sweep:
         self.engine, self.pack, self.agent = engine, pack, agent
         self.workers, self.budget, self.limit = max(1, int(workers)), budget_usd, limit
         self.kill_check_every = max(1, int(kill_check_every))
+        self.tier, self.workers, self.budget = sweep_leverage(engine, pack.name, agent, self.workers, self.budget)   # leverage bought by the record
         self.runner = Runner(engine, pack)
         self.judge_name = loop_agents(pack).get("judge") if judge else None
         if judge and self.judge_name is None:
@@ -158,7 +160,7 @@ class Sweep:
                 "completed": self.completed, "remaining": remaining, "by_status": by_status, "verdicts": verdicts,
                 "cost_usd": str(self.cost), "stop_reason": self.stop_reason, "halted_now": self._halted(),
                 "results": self.results, "tier_gated": self.tier_gated, "promoted": self.promoted,
-                "broken_cluster": self.broken_cluster}
+                "broken_cluster": self.broken_cluster, "reputation_tier": self.tier}
 
     def _broken(self) -> bool:
         """Patel's broken task: when one failure cluster (the crank's key, or one shared error message) is more
