@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 from dataclasses import dataclass
+from datetime import datetime
 from decimal import Decimal
 from functools import lru_cache
 from pathlib import Path
@@ -103,28 +104,102 @@ class EngineConfig:
     def citation_kinds(self) -> frozenset[str]:
         return frozenset(self.engine["citations"]["kinds"])
 
-    def price_per_token(self, provider: str, model: str) -> tuple[Decimal, Decimal]:
-        """(input, output) USD per token.  Unknown model -> EngineError."""
-        table = self.prices.get(provider)
-        if table is None:
-            raise EngineError(f"no price table for provider {provider!r}")
-        row = table.get(model) or table.get("default")
-        if row is None:
-            raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
+    def price_per_token(self, provider: str, model: str, at: datetime | None = None) -> tuple[Decimal, Decimal]:
+        """(input, output) USD per token, at the off-peak rate when ``at`` falls in one of the model's
+        off-peak windows.  Unknown model -> EngineError."""
+        row = self._tariff(provider, model, at)
         per_million = Decimal(1_000_000)
         return (Decimal(str(row["input"])) / per_million,
                 Decimal(str(row["output"])) / per_million)
 
-    def cache_read_price_per_token(self, provider: str, model: str) -> Decimal:
+    def cache_read_price_per_token(self, provider: str, model: str, at: datetime | None = None) -> Decimal:
         """USD per prompt token the provider served from its cache (`cache_read` in prices.yaml).
         A model without the figure is billed at its input rate: never cheaper than published."""
+        row = self._tariff(provider, model, at)
+        return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
+
+
+    # -- JH-C11 wpG: sweep & scheduling ------------------------------------------------------
+
+    def _price_row(self, provider: str, model: str) -> dict:
         table = self.prices.get(provider)
         if table is None:
             raise EngineError(f"no price table for provider {provider!r}")
         row = table.get(model) or table.get("default")
         if row is None:
             raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
-        return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
+        return row
+
+    def off_peak_windows(self, provider: str, model: str):
+        """The model's off-peak windows (engine.offpeak.Window tuple), or () when it has no off-peak tariff."""
+        from engine.offpeak import parse_windows
+        off = self._price_row(provider, model).get("off_peak")
+        return parse_windows(off.get("windows_utc")) if off else ()
+
+    def _tariff(self, provider: str, model: str, at: datetime | None) -> dict:
+        """The price row in force at ``at``: the off-peak figures over the peak ones inside a window."""
+        row = self._price_row(provider, model)
+        off = row.get("off_peak")
+        if at is None or not off:
+            return row
+        from engine.offpeak import in_windows, parse_windows
+        if not in_windows(parse_windows(off.get("windows_utc")), at):
+            return row
+        rates = {k: off[k] for k in ("input", "output", "cache_read") if k in off}
+        if "input" not in rates or "output" not in rates:
+            raise EngineError(f"{provider}/{model}: off_peak needs input and output rates")
+        return rates
+
+    @property
+    def sweep_options(self) -> dict:
+        """The sweep's knobs beyond workers/budget/kill (config/engine.yaml sweep)."""
+        s = dict(self.engine.get("sweep") or {})
+        pilot = {"n": 20, "seed": "sweep-pilot", "refuse_if_projected_over_budget": True, **(s.get("pilot") or {})}
+        return {"pilot": pilot, "off_peak": bool(s.get("off_peak", False)),
+                "reload_on_adoption": bool(s.get("reload_on_adoption", True)),
+                "adaptive_workers": bool(s.get("adaptive_workers", False)),
+                "min_marginal_speedup": float(s.get("min_marginal_speedup", 0.2))}
+
+    @property
+    def sizing(self) -> dict:
+        s = {"margin": 0.25, "on_over": "refuse", "min_gain": 0.1, **(self.engine.get("sizing") or {})}
+        if s["on_over"] not in ("refuse", "cap"):
+            raise EngineError("sizing.on_over must be refuse or cap")
+        return {"margin": float(s["margin"]), "on_over": s["on_over"],
+                "min_gain": None if s["min_gain"] is None else float(s["min_gain"])}
+
+    @property
+    def rollout(self) -> dict:
+        r = {"burn_in_runs": 20, "min_pass_rate": 0.5, "start_workers": 1, "step_runs": 10,
+             "tiers": [100, 1000, 10000], **(self.engine.get("rollout") or {})}
+        return {"burn_in_runs": int(r["burn_in_runs"]), "min_pass_rate": float(r["min_pass_rate"]),
+                "start_workers": max(1, int(r["start_workers"])), "step_runs": max(1, int(r["step_runs"])),
+                "tiers": sorted(int(t) for t in r["tiers"])}
+
+    @property
+    def schedule(self) -> dict:
+        s = {"lease_seconds": 900, "heartbeat_seconds": 300, "max_catch_up": 3, **(self.engine.get("schedule") or {})}
+        return {k: int(v) for k, v in s.items()}
+
+    @property
+    def triggers(self) -> dict:
+        t = {"max_per_poll": 20, **(self.engine.get("triggers") or {})}
+        return {"max_per_poll": int(t["max_per_poll"])}
+
+    @property
+    def scale(self) -> dict:
+        s = {"ladder": [1, 2, 4, 8, 16], "budget_usd": None, **(self.engine.get("scale") or {})}
+        return {"ladder": [int(n) for n in s["ladder"]], "budget_usd": s["budget_usd"]}
+
+    @property
+    def autoloop_budget_usd(self) -> Decimal | None:
+        b = (self.engine.get("autoloop") or {}).get("budget_usd")
+        return None if b is None else Decimal(str(b))
+
+    @property
+    def autoloop_trigger(self) -> dict:
+        t = {"enabled": True, "min_count": 3, "cooldown_minutes": 60, **((self.engine.get("autoloop") or {}).get("trigger") or {})}
+        return {"enabled": bool(t["enabled"]), "min_count": int(t["min_count"]), "cooldown_minutes": int(t["cooldown_minutes"])}
 
     # -- JH-C11 wpA: eval rigor (every key defaulted so older engine.yaml files still load) -------------
 

@@ -302,5 +302,153 @@
       "tier": {"type": ["integer", "null"], "minimum": 1},
       "why": {"type": "string"}
     }
+  },
+  "schedule": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["job", "kind", "tick", "started_at", "finished_at", "status", "missed", "skipped_reason", "skipped_ticks", "result", "error"],
+    "properties": {
+      "job": {"type": "string"},
+      "kind": {"type": "string", "enum": ["autoloop", "sweep", "triggers", "remediate"]},
+      "tick": {"type": "string"},
+      "started_at": {"type": "string"},
+      "finished_at": {"type": "string"},
+      "status": {"type": "string", "enum": ["ran", "skipped", "failed"]},
+      "missed": {"type": "boolean"},
+      "skipped_reason": {"type": ["string", "null"], "enum": [null, "halted", "window_closed", "beyond_max_catch_up"]},
+      "skipped_ticks": {"type": "integer", "minimum": 0},
+      "result": {"type": ["object", "null"]},
+      "error": {"type": ["string", "null"]}
+    }
+  },
+  "heartbeat": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["holder", "expires_at", "reason"],
+    "properties": {
+      "holder": {"type": "string"},
+      "expires_at": {"type": "string"},
+      "reason": {"type": "string", "enum": ["acquired", "heartbeat"]}
+    }
+  },
+  "trigger_dispatch": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["trigger", "trigger_event_id", "trigger_ledger_index", "agent", "input", "status", "run_id", "why"],
+    "properties": {
+      "trigger": {"type": "string"},
+      "trigger_event_id": {"type": "string"},
+      "trigger_ledger_index": {"type": "integer", "minimum": 0},
+      "agent": {"type": "string"},
+      "input": {"type": ["object", "null"]},
+      "status": {"type": "string"},
+      "run_id": {"type": ["string", "null"]},
+      "why": {"type": ["string", "null"]}
+    }
+  },
+  "trigger": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["cause", "cluster", "count", "verdict_event_id", "agent", "status", "refinement_event_id", "adopted", "why", "killed", "judge_suspended"],
+    "properties": {
+      "cause": {"type": "string", "enum": ["failure_cluster", "operator_override"]},
+      "cluster": {"type": "string"},
+      "count": {"type": "integer", "minimum": 1},
+      "verdict_event_id": {"type": ["string", "null"]},
+      "agent": {"type": ["string", "null"]},
+      "status": {"type": "string"},
+      "refinement_event_id": {"type": ["string", "null"]},
+      "adopted": {"type": "boolean"},
+      "why": {"type": ["string", "null"]},
+      "killed": {"type": "array", "items": {"type": "string"}},
+      "judge_suspended": {"type": "boolean"}
+    }
+  },
+  "sizing": {
+    "type": "object",
+    "required": ["agent", "remaining", "workers", "margin", "budget_usd", "decision", "limit", "arithmetic"],
+    "properties": {
+      "agent": {"type": "string"},
+      "remaining": {"type": "integer", "minimum": 0},
+      "workers": {"type": "integer", "minimum": 1},
+      "decision": {"type": "string", "enum": ["run", "cap", "refuse", "no_history"]},
+      "limit": {"type": ["integer", "null"]},
+      "arithmetic": {"type": "string"}
+    }
+  },
+  "sweep_pilot": {
+    "type": "object",
+    "required": ["agent", "n", "seed", "mean_cost", "remaining", "projected_cost", "pass_rate", "wilson", "projected_wall_s", "decision", "why"],
+    "properties": {
+      "agent": {"type": "string"},
+      "n": {"type": "integer", "minimum": 1},
+      "seed": {"type": "string"},
+      "projected_cost": {"type": "string"},
+      "pass_rate": {"type": "number"},
+      "wilson": {"type": "array", "items": {"type": "number"}, "minItems": 2, "maxItems": 2},
+      "decision": {"type": "string", "enum": ["proceed", "stop"]}
+    }
+  },
+  "projection": {
+    "type": "object",
+    "required": ["agent", "pilot_event_id", "projected_cost", "actual_cost", "cost_error", "projected_pass_rate", "actual_pass_rate", "pass_rate_error", "refinement_event_id", "refinement"],
+    "properties": {
+      "agent": {"type": "string"},
+      "pilot_event_id": {"type": "string"},
+      "refinement_event_id": {"type": ["string", "null"]},
+      "refinement": {"type": ["object", "null"]}
+    }
+  },
+  "rollout": {
+    "type": "object",
+    "required": ["agent", "manifest_hash", "tier", "workers", "pass_rate", "mode", "why", "at_completion"],
+    "properties": {
+      "agent": {"type": "string"},
+      "manifest_hash": {"type": "string"},
+      "tier": {"type": "integer", "minimum": 0},
+      "workers": {"type": "integer", "minimum": 1},
+      "pass_rate": {"type": ["number", "null"]},
+      "mode": {"type": "string", "enum": ["burn_in", "ramp"]},
+      "why": {"type": "string"},
+      "at_completion": {"type": "integer", "minimum": 0}
+    }
+  },
+  "version_switch": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["agent", "old_hash", "new_hash", "at_completion"],
+    "properties": {
+      "agent": {"type": "string"},
+      "old_hash": {"type": "string"},
+      "new_hash": {"type": "string"},
+      "at_completion": {"type": "integer", "minimum": 0}
+    }
+  },
+  "scaling": {
+    "type": "object",
+    "required": ["agent", "workers", "width", "iterations", "pass_rate", "wall_s", "tokens", "cost_usd", "speedup", "efficiency"],
+    "properties": {
+      "agent": {"type": "string"},
+      "workers": {"type": "integer", "minimum": 1},
+      "width": {"type": "integer", "minimum": 1},
+      "iterations": {"type": "integer", "minimum": 1},
+      "pass_rate": {"type": "number"},
+      "wall_s": {"type": "number"},
+      "tokens": {"type": "integer", "minimum": 0},
+      "cost_usd": {"type": "string"},
+      "speedup": {"type": ["number", "null"]},
+      "efficiency": {"type": ["number", "null"]}
+    }
+  },
+  "worker_calibration": {
+    "type": "object",
+    "required": ["agent", "ladder", "min_marginal_speedup", "recommended_workers", "saturated_at", "spend_spare_on"],
+    "properties": {
+      "agent": {"type": "string"},
+      "ladder": {"type": "array"},
+      "recommended_workers": {"type": "integer", "minimum": 1},
+      "saturated_at": {"type": ["integer", "null"]},
+      "spend_spare_on": {"type": "string"}
+    }
   }
 }

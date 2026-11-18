@@ -1,0 +1,26 @@
+# Jobs engine.schedule runs for this pack while nobody is watching (see engine/schedule.py).
+# Ticks fall on anchor + k * every, in UTC.  2026-10-12 is a Monday: the loop runs weekly at Mon 04:00.
+jobs:
+  - id: weekly-loop
+    kind: autoloop
+    every: 7d
+    anchor: "2026-10-12T04:00:00+00:00"
+    max_runs: 20
+  - id: nightly-checker
+    kind: sweep
+    every: 1d
+    anchor: "2026-10-12T22:00:00+00:00"
+    agent: checker
+    table: sheets
+    column: sheet_id
+    judge: true
+    workers: 2
+    budget_usd: "1.00"
+  - id: triggers
+    kind: triggers
+    every: 5m
+    anchor: "2026-10-12T00:00:00+00:00"
+  - id: remediate
+    kind: remediate
+    every: 15m
+    anchor: "2026-10-12T00:00:00+00:00"

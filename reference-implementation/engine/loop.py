@@ -216,7 +216,7 @@ class Runner:
                 tools=tool_defs, max_tokens=agent.model.max_tokens, candidate_index=candidate_index,
                 **({"request": agent.model.request} if agent.model.request else {}))
             cost = provider.price(agent.model.name, completion.usage.input_tokens, completion.usage.output_tokens,
-                                  completion.usage.cache_read_tokens)
+                                  completion.usage.cache_read_tokens, clock=self.engine.clock)
             trace.record_provider_call(cand, model=completion.model, input_tokens=completion.usage.input_tokens,
                                        output_tokens=completion.usage.output_tokens,
                                        cache_read_tokens=completion.usage.cache_read_tokens,

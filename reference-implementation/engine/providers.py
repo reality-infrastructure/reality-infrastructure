@@ -85,7 +85,7 @@ class Provider(Protocol):
                  tools: list[dict], max_tokens: int, candidate_index: int = 0,
                  request: dict | None = None) -> Completion: ...
 
-    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0) -> Decimal: ...
+    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0, clock=None) -> Decimal: ...
 
 
 class _Priced:
@@ -94,14 +94,17 @@ class _Priced:
     def __init__(self, config: EngineConfig) -> None:
         self._config = config
 
-    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0) -> Decimal:
-        """USD for one call at the peak cache-miss tariff, with the tokens the provider reports as
+    def price(self, model: str, in_tokens: int, out_tokens: int, cache_read_tokens: int = 0, clock=None) -> Decimal:
+        """USD for one call at the cache-miss tariff in force, with the tokens the provider reports as
         served from its prompt cache billed at the cache-read rate (config/prices.yaml `cache_read`;
         absent, the input rate).  Found 2026-10-17: a 35k-token grounding read on every call made the
         engine bill DeepSeek $1.47 for runs its balance charged $0.04; the sweep's budget stop fired
-        thirty times too early.  Off-peak windows are not modelled: the figure stays an upper bound."""
-        pin, pout = self._config.price_per_token(self.id, model)
-        pcache = self._config.cache_read_price_per_token(self.id, model)
+        thirty times too early.  With ``clock``, a model with an ``off_peak`` tariff is billed at the
+        off-peak rate when the call falls inside one of its windows (the clock is read only for such
+        a model); without it, the peak rate: an upper bound."""
+        at = clock.now() if clock is not None and self._config.off_peak_windows(self.id, model) else None
+        pin, pout = self._config.price_per_token(self.id, model, at)
+        pcache = self._config.cache_read_price_per_token(self.id, model, at)
         cached = max(0, min(int(cache_read_tokens), int(in_tokens)))
         return (Decimal(in_tokens - cached) * pin + Decimal(cached) * pcache
                 + Decimal(out_tokens) * pout).quantize(COST_PLACES)

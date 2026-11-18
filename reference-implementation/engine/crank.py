@@ -118,7 +118,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "failure_clusters": top_clusters, "recommendation": recommendation, "saturation": rigor_view["saturation"],
             "outcomes": outcome.crank_section(engine, pack, iso(start), iso(end)),
             "reputation": reputation.crank_section(engine, pack), "forecasts": forecast.crank_section(engine, pack),
-            "curator": curate.record(engine, pack)}
+            "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end)}
 
 
 def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) -> dict:
@@ -145,6 +145,16 @@ def _rigor_view(engine: Engine, pack, runs: list[dict], agents_out: list[dict]) 
             if s["flagged"]:
                 sat[a["agent"]] = s
     return {"weights": weights, "saturation": sat}
+
+
+
+def _operations(engine: Engine, pack, runs: list[dict], start: datetime, end: datetime) -> dict:
+    """JH-C11 wpG: the spread of cost, latency and tokens per run, pass rate per version, and the schedule's week."""
+    from engine.rollout import by_version
+    from engine.schedule import week_summary
+    from engine.sizing import percentiles_by_agent
+    return {"percentiles": percentiles_by_agent(runs), "by_version": by_version(runs),
+            "schedule": week_summary(engine, pack, iso(start), iso(end))}
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -217,6 +227,20 @@ def render(report: dict) -> str:
           "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract, or "
           "engine.autoloop lets the pack's refiner propose the rung-1/2 edit and adopts it only if the "
           "golden set does not get worse."]
+    if "percentiles" in report:
+        L += ["", "## Spread per run (p50 / p95 / max)", "",
+              "| agent | cost USD | latency ms | tokens | runs/hour/worker |", "|---|---|---|---|---|"]
+        for name, q in report["percentiles"].items():
+            L.append(f"| {name} | {q['cost_usd']['p50']} / {q['cost_usd']['p95']} / {q['cost_usd']['max']} | "
+                     f"{q['latency_ms']['p50']} / {q['latency_ms']['p95']} / {q['latency_ms']['max']} | "
+                     f"{q['tokens']['p50']} / {q['tokens']['p95']} / {q['tokens']['max']} | {q['runs_per_hour_per_worker']} |")
+        L += ["", "## Pass rate per version", ""]
+        L += [f"- {a} {h[:12]}: {v['succeeded']}/{v['runs']} ({v['pass_rate']})"
+              for a, vs in sorted(report["by_version"].items()) for h, v in vs.items()] or ["- no runs"]
+        sc = report["schedule"]
+        L += ["", "## Schedule", "", f"ticks recorded {sc['ticks']}; missed {sc['missed']}; heartbeats {sc['heartbeats']}"]
+        L += [f"- {j}: ran {c['ran']}, skipped {c['skipped']}, failed {c['failed']}, missed {c['missed']}"
+              for j, c in sorted(sc["by_job"].items())]
     return "\n".join(L) + "\n"
 
 

@@ -28,17 +28,23 @@ from decimal import Decimal
 from pathlib import Path
 
 from engine import curriculum
+from engine import rollout as rollout_mod
+from engine import sizing
 from engine.autoloop import kill_rule, loop_agents
 from engine.crank import _cluster_key
 from engine.errors import EngineError
+from engine.events import EventLog
 from engine.loop import Runner
+from engine.manifest import load_agent
+from engine.offpeak import in_windows, next_open
 from engine.packs import load_pack, parse_agent_ref
 from engine.runtime import iso
 from engine.store import Engine
 from engine.verdicts import record_verdict
 from engine.reputation import sweep_leverage
 
-STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start", "broken_task")
+STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start",
+                "burn_in", "tier", "sizing_cap", "target", "pilot", "window_closed", "broken_task")
 
 
 def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, input_key: str) -> list[dict]:
@@ -57,17 +63,24 @@ def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, inp
 
 
 class Sweep:
+    """``rollout``, ``pilot``, ``preflight`` and ``window`` are off unless given; ``build_sweep`` gives them from
+    config/engine.yaml, and the CLI and the scheduler always build through it."""
+
     def __init__(self, engine: Engine, pack, agent: str, *, workers: int, budget_usd: Decimal | None,
-                 judge: bool, limit: int | None, kill_check_every: int, log=None, broken: dict | None = None) -> None:
+                 judge: bool, limit: int | None, kill_check_every: int, log=None, runner: Runner | None = None,
+                 rollout: dict | None = None, pilot: dict | None = None, preflight: bool = False,
+                 target_followed: int | None = None, window: tuple = (), reload_on_adoption: bool = True,
+                 remediate: bool = False, broken: dict | None = None) -> None:
+        sizing.require_budget(pack, budget_usd, "a sweep")
         self.engine, self.pack, self.agent = engine, pack, agent
         self.workers, self.budget, self.limit = max(1, int(workers)), budget_usd, limit
         self.kill_check_every = max(1, int(kill_check_every))
         self.tier, self.workers, self.budget = sweep_leverage(engine, pack.name, agent, self.workers, self.budget)   # leverage bought by the record
-        self.runner = Runner(engine, pack)
+        self.runner = runner or Runner(engine, pack)
         self.judge_name = loop_agents(pack).get("judge") if judge else None
         if judge and self.judge_name is None:
             raise EngineError(f"pack {pack.name!r} has no judge; drop --judge or add one")
-        self.runner.agent(agent)                       # load once, before the threads
+        self.manifest_hash = self.runner.agent(agent).hash          # load once, before the threads
         if self.judge_name:
             self.runner.agent(self.judge_name)
         self.log = log or (lambda *_: None)
@@ -80,14 +93,25 @@ class Sweep:
         self.broken_cluster: dict | None = None
         self.tier_gated: list[dict] = []
         self.promoted: dict | None = None
+        self.rollout_cfg, self.pilot_cfg, self.preflight = rollout, pilot, preflight
+        self.target_followed, self.window = target_followed, tuple(window)
+        self.reload_on_adoption, self.remediate = reload_on_adoption, remediate
+        self.active_workers = self.workers
+        self.peak_in_flight = 0
+        self.started_at: str | None = None
+        self.ramp: rollout_mod.Ramp | None = None
+        self.extra: dict = {"rollout": None, "sizing": None, "pilot": None, "projection": None,
+                            "version_switches": [], "worker_changes": [], "remediation": None}
 
     # -- one unit of work: the run, then its verdict ------------------------------------
 
-    def _one(self, run_input: dict) -> dict:
-        entry: dict = {"input": run_input}
+    def _one(self, run_input: dict, slot: int) -> dict:
+        threading.current_thread().name = f"sweep-slot-{slot}"     # the worker slot this unit occupies, as the thread's name
+        entry: dict = {"input": run_input, "slot": slot, "started_at": iso(self.engine.clock.now())}
         try:
             r = self.runner.run(self.agent, run_input)
-            entry.update({"run_id": r.run_id, "status": r.status, "cost_usd": str(r.cost_usd)})
+            entry.update({"run_id": r.run_id, "status": r.status, "cost_usd": str(r.cost_usd),
+                          "manifest_hash": r.row["manifest_hash"], "tokens": sizing.run_tokens(r.row)})
             cost = r.cost_usd
             if self.judge_name:
                 j = self.runner.run(self.judge_name, {"run_id": r.run_id})
@@ -100,6 +124,7 @@ class Sweep:
         except EngineError as e:                       # an errored run is traced by the runner; the sweep goes on
             entry.update({"run_id": entry.get("run_id"), "status": "error", "error": str(e)[:300], "cost_usd": "0"})
             cost = Decimal(0)
+        entry["finished_at"] = iso(self.engine.clock.now())
         with self._lock:
             self.cost += cost
             self.completed += 1
@@ -114,27 +139,53 @@ class Sweep:
     def _halted(self) -> bool:
         return self.agent in kill_rule(self.engine, self.pack)
 
-    # -- the loop ---------------------------------------------------------------------------
+    def _open(self) -> bool:
+        """Inside the off-peak window (always, without one)."""
+        return not self.window or in_windows(self.window, self.engine.clock.now())
 
-    def run(self, inputs: list[dict]) -> dict:
-        if self._halted():
-            self.stop_reason = "halted_before_start"
-            return self.report(inputs, remaining=len(inputs))
-        inputs, self.tier_gated = curriculum.gate_inputs(self.engine, self.pack, self.agent, inputs)
-        truncated = self.limit is not None and self.limit < len(inputs)
-        if truncated:
-            inputs = inputs[: self.limit]
+    def _check_version(self) -> None:
+        """An adopted edit changed the agent's files: the remaining inputs run on the new version."""
+        fresh = load_agent(self.pack, self.agent, config=self.engine.config)
+        if fresh.hash == self.manifest_hash:
+            return
+        payload = {"agent": self.agent, "old_hash": self.manifest_hash, "new_hash": fresh.hash, "at_completion": self.completed}
+        EventLog(self.engine, self.pack).append(entity_type="agent_run", entity_id=self.agent,
+                                                event_type=f"{self.pack.name}.version_switch", payload=payload, source="pipeline:sweep")
+        self.runner._agents[self.agent] = fresh
+        self.manifest_hash = fresh.hash
+        self.extra["version_switches"].append(payload)
+
+    def _ramp_step(self, entry: dict) -> None:
+        change = self.ramp.on_completion(entry.get("status") == "succeeded", self.engine.clock.now())
+        if change is None:
+            return
+        self.active_workers = change["workers"]
+        payload = {"agent": self.agent, "manifest_hash": self.manifest_hash, "tier": self.extra["rollout"]["tier"],
+                   "mode": "ramp", "workers": change["workers"], "pass_rate": change["pass_rate"],
+                   "at_completion": self.completed, "why": change["why"]}
+        rollout_mod.record(self.engine, self.pack, self.agent, payload)
+        self.extra["worker_changes"].append(payload)
+
+    def _drive(self, inputs: list[dict]) -> list[dict]:
+        """Run ``inputs`` with up to ``active_workers`` in flight; returns those never started.  Each unit takes the
+        lowest free worker slot (0..workers-1), so per-slot occupancy is a property of the sweep, not of the OS."""
         pending = list(inputs)
-        in_flight = set()
+        in_flight: dict = {}
         with ThreadPoolExecutor(max_workers=self.workers) as pool:
             while pending or in_flight:
-                while pending and len(in_flight) < self.workers and not self._over_budget() and self.stop_reason is None:
-                    in_flight.add(pool.submit(self._one, pending.pop(0)))
+                while (pending and len(in_flight) < self.active_workers and not self._over_budget()
+                       and self.stop_reason is None):
+                    if not self._open():
+                        self.stop_reason = "window_closed"
+                        break
+                    slot = min(set(range(self.workers)) - set(in_flight.values()))
+                    in_flight[pool.submit(self._one, pending.pop(0), slot)] = slot
+                self.peak_in_flight = max(self.peak_in_flight, len(in_flight))
                 if not in_flight:
                     break
                 done = next(as_completed(in_flight))
-                in_flight.discard(done)
-                done.result()
+                del in_flight[done]
+                entry = done.result()
                 if self.stop_reason is None:
                     if self._over_budget():
                         self.stop_reason = "budget"
@@ -142,11 +193,83 @@ class Sweep:
                         self.stop_reason = "kill"
                     elif self.completed == self.broken["window"] and self._broken():
                         self.stop_reason = "broken_task"
+                    elif self.completed % self.kill_check_every == 0 and self.reload_on_adoption:
+                        self._check_version()
+                if self.ramp is not None and self.stop_reason is None:
+                    self._ramp_step(entry)
+        return pending
+
+    # -- the loop ---------------------------------------------------------------------------
+
+    def _apply_rollout(self, inputs: list[dict], cap_reason: str | None) -> tuple[list[dict], str | None]:
+        plan = rollout_mod.plan(self.engine, self.pack, self.agent, self.manifest_hash,
+                                requested_workers=self.workers, cfg=self.rollout_cfg)
+        self.extra["rollout"] = plan
+        rollout_mod.record(self.engine, self.pack, self.agent,
+                           {"agent": self.agent, "at_completion": 0,
+                            **{k: plan[k] for k in ("manifest_hash", "tier", "workers", "pass_rate", "mode", "why")}})
+        self.workers, self.active_workers = plan["workers"], plan["start_workers"]
+        if plan["limit"] is not None and plan["limit"] < len(inputs):
+            inputs, cap_reason = inputs[: plan["limit"]], "burn_in" if plan["mode"] == "burn_in" else "tier"
+        if plan["mode"] == "ramp" and plan["start_workers"] < self.workers:
+            self.ramp = rollout_mod.Ramp(start=plan["start_workers"], ceiling=self.workers,
+                                         step_runs=self.rollout_cfg["step_runs"], min_pass_rate=self.rollout_cfg["min_pass_rate"],
+                                         min_gain=self.rollout_cfg.get("min_gain", self.engine.config.sizing["min_gain"]),
+                                         now=self.engine.clock.now())
+        return inputs, cap_reason
+
+    def run(self, inputs: list[dict]) -> dict:
+        self.started_at = iso(self.engine.clock.now())
+        if self._halted():
+            self.stop_reason = "halted_before_start"
+            return self.report(inputs, remaining=len(inputs))
+        inputs, self.tier_gated = curriculum.gate_inputs(self.engine, self.pack, self.agent, inputs)
+        cap_reason = None
+        if self.limit is not None and self.limit < len(inputs):
+            inputs, cap_reason = inputs[: self.limit], "limit"
+        if self.rollout_cfg is not None:
+            inputs, cap_reason = self._apply_rollout(inputs, cap_reason)
+        if self.preflight:
+            sz = sizing.preflight(self.engine, self.pack, self.agent, remaining=len(inputs), workers=self.workers,
+                                  budget=self.budget, judge=self.judge_name, target_followed=self.target_followed)
+            self.extra["sizing"] = sz
+            if sz.get("limit") is not None and sz["limit"] < len(inputs):
+                inputs, cap_reason = inputs[: sz["limit"]], "sizing_cap" if sz["decision"] == "cap" else "target"
+        main, pilot = list(inputs), None
+        n = int((self.pilot_cfg or {}).get("n") or 0)
+        if n and len(inputs) > n:
+            seed = str(self.pilot_cfg["seed"])
+            idx = set(sizing.pilot_indices(len(inputs), n, seed))
+            main = [x for i, x in enumerate(inputs) if i not in idx]
+            left = self._drive([x for i, x in enumerate(inputs) if i in idx])
+            if self.stop_reason is not None:
+                return self._finish(inputs, left + main, cap_reason)
+            pilot = sizing.project_pilot(self.engine, self.pack, self.agent, list(self.results), remaining=len(main),
+                                         budget=self.budget, spent=self.cost, seed=seed,
+                                         refuse_over_budget=bool(self.pilot_cfg.get("refuse_if_projected_over_budget", True)),
+                                         workers=self.active_workers, width=self.runner.agent(self.agent).loop["search_width"],
+                                         iterations=self.runner.agent(self.agent).loop["max_iterations"])
+            self.extra["pilot"] = pilot
+            if pilot["decision"] == "stop":
+                self.stop_reason = "pilot"
+                return self._finish(inputs, main, cap_reason)
+        pilot_done = len(self.results)
+        left = self._drive(main)
+        if pilot is not None:
+            self.extra["projection"] = sizing.final_projection(self.engine, self.pack, self.agent, pilot,
+                                                               self.results[pilot_done:], self.results,
+                                                               sweep_started=self.started_at)
+        return self._finish(inputs, left, cap_reason)
+
+    def _finish(self, inputs: list[dict], left: list[dict], cap_reason: str | None) -> dict:
         if self.stop_reason is None:
-            self.stop_reason = "limit" if truncated else "done"
+            self.stop_reason = cap_reason or "done"
         promoted = curriculum.promote(self.engine, self.pack, self.agent)
         self.promoted = None if promoted is None else promoted["payload"]
-        return self.report(inputs, remaining=len(pending))
+        if self.remediate:
+            from engine.remediate import remediation_trigger
+            self.extra["remediation"] = remediation_trigger(self.engine, self.pack, packs_root=self.pack.root.parent)
+        return self.report(inputs, remaining=len(left))
 
     def report(self, inputs: list[dict], *, remaining: int) -> dict:
         by_status: dict[str, int] = {}
@@ -160,7 +283,8 @@ class Sweep:
                 "completed": self.completed, "remaining": remaining, "by_status": by_status, "verdicts": verdicts,
                 "cost_usd": str(self.cost), "stop_reason": self.stop_reason, "halted_now": self._halted(),
                 "results": self.results, "tier_gated": self.tier_gated, "promoted": self.promoted,
-                "broken_cluster": self.broken_cluster, "reputation_tier": self.tier}
+                "broken_cluster": self.broken_cluster, "reputation_tier": self.tier,
+                **self._measures()}
 
     def _broken(self) -> bool:
         """Patel's broken task: when one failure cluster (the crank's key, or one shared error message) is more
@@ -186,6 +310,18 @@ class Sweep:
         self.broken_cluster = {"cluster": top, "count": n, "window": len(window)}
         return True
 
+    def _measures(self) -> dict:
+        """When it ran, how long, on how many tokens, how wide; and what rollout, sizing and the pilot decided."""
+        tokens = {"input": 0, "output": 0, "reasoning": 0}
+        for e in self.results:
+            for k in tokens:
+                tokens[k] += (e.get("tokens") or {}).get(k, 0)
+        finished = [e["finished_at"] for e in self.results if e.get("finished_at")]
+        return {"started_at": self.started_at, "finished_at": max(finished) if finished else self.started_at,
+                "wall_s": sizing.wall_seconds(self.results), "tokens": tokens, "peak_in_flight": self.peak_in_flight,
+                "window_opens_at": (iso(next_open(self.window, self.engine.clock.now()))
+                                    if self.stop_reason == "window_closed" else None), **self.extra}
+
 
 def render(rep: dict, stamp: str) -> str:
     L = [f"# Sweep — {rep['pack']}/{rep['agent']} — {stamp}", "",
@@ -201,8 +337,54 @@ def render(rep: dict, stamp: str) -> str:
         L += ["", f"{len(rep['tier_gated'])} inputs held back above the agent's promoted tier (easy first)"]
     if rep.get("promoted"):
         L += ["", f"promoted from tier {rep['promoted']['from_tier']} to {rep['promoted']['to_tier']}"]
+    L += ["", f"wall {rep.get('wall_s')} s from {rep.get('started_at')} to {rep.get('finished_at')}; tokens {rep.get('tokens')}; "
+              f"peak in flight {rep.get('peak_in_flight')}"]
+    if rep.get("rollout"):
+        r = rep["rollout"]
+        L += [f"rollout: {r['mode']} on version {r['manifest_hash'][:12]} ({r['runs']} runs, pass rate {r['pass_rate']}): {r['why']}"]
+        L += [f"- workers -> {c['workers']} at completion {c['at_completion']}: {c['why']}" for c in rep.get("worker_changes") or []]
+    if rep.get("sizing"):
+        L += [f"pre-flight ({rep['sizing']['decision']}): {rep['sizing']['arithmetic']}"]
+    if rep.get("pilot"):
+        pl = rep["pilot"]
+        L += [f"pilot of {pl['n']} (seed {pl['seed']}): pass rate {pl['pass_rate']} {pl['wilson']}, projected ${pl['projected_cost']} "
+              f"for {pl['remaining']} more, {pl['decision']}: {pl['why']}"]
+    if rep.get("projection"):
+        pr = rep["projection"]
+        L += [f"projection vs actual: cost ${pr['projected_cost']} -> ${pr['actual_cost']} (error {pr['cost_error']}); pass rate "
+              f"{pr['projected_pass_rate']} -> {pr['actual_pass_rate']} (error {pr['pass_rate_error']})"
+              + (f"; refinement {pr['refinement_event_id']} {'survived' if pr['refinement']['survived'] else 'DID NOT survive'} at scale"
+                 if pr.get("refinement") else "")]
+    L += [f"version switch at completion {v['at_completion']}: {v['old_hash'][:12]} -> {v['new_hash'][:12]}" for v in rep.get("version_switches") or []]
+    if rep.get("window_opens_at"):
+        L += [f"outside the off-peak window: the next one opens at {rep['window_opens_at']}"]
     L += ["", "Every run above is a trace in the store and every verdict a ledger-bound event; the operator's verdict on any run outranks the judge's."]
     return "\n".join(L) + "\n"
+
+
+def build_sweep(engine: Engine, pack, agent: str, *, workers: int | None = None, budget_usd: Decimal | None = None,
+                judge: bool = False, limit: int | None = None, off_peak: bool | None = None, pilot_n: int | None = None,
+                target_followed: int | None = None, log=None, runner: Runner | None = None) -> Sweep:
+    """A sweep with the engine's law on it (config/engine.yaml): rollout, pre-flight sizing, the pilot, the
+    off-peak window, reload on adoption, remediation at the end, and the mandatory budget outside fixtures."""
+    cfg, opts = engine.config.sweep, engine.config.sweep_options
+    if workers is None and opts["adaptive_workers"]:
+        from engine.scale import recommended_workers
+        workers = recommended_workers(engine, pack, agent)
+    budget = budget_usd if budget_usd is not None else (None if cfg["budget_usd"] is None else Decimal(str(cfg["budget_usd"])))
+    window = ()
+    if off_peak if off_peak is not None else opts["off_peak"]:
+        a = (runner or Runner(engine, pack)).agent(agent)
+        window = engine.config.off_peak_windows(a.model.provider, a.model.name)
+        if not window:
+            raise EngineError(f"--off-peak: {a.model.model_string} has no off_peak tariff in config/prices.yaml")
+    pilot = dict(opts["pilot"])
+    if pilot_n is not None:
+        pilot["n"] = pilot_n
+    return Sweep(engine, pack, agent, workers=workers or cfg["workers"], budget_usd=budget, judge=judge, limit=limit,
+                 kill_check_every=cfg["kill_check_every"], log=log, runner=runner, rollout=engine.config.rollout,
+                 pilot=pilot, preflight=True, target_followed=target_followed, window=window,
+                 reload_on_adoption=opts["reload_on_adoption"], remediate=engine.config.autoloop_trigger["enabled"])
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -217,23 +399,27 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--limit", type=int)
     p.add_argument("--db")
     p.add_argument("--out", help="directory (default packs/<pack>/crank)")
+    p.add_argument("--off-peak", action="store_true", default=None,
+                   help="start new work only inside the agent model's off-peak windows (config/prices.yaml)")
+    p.add_argument("--pilot", type=int, help="pilot size (0: no pilot; default config sweep.pilot.n)")
+    p.add_argument("--target-followed", type=int, help="work backward from this many followed runs to the runs needed")
     args = p.parse_args(argv)
     try:
         pack_name, agent = parse_agent_ref(args.agent_ref)
         engine = Engine.open(args.db)
         try:
+            from engine.schedule import store_lease
             pack = load_pack(pack_name)
             if args.table not in pack.tables:
                 raise EngineError(f"no table {args.table!r} in pack {pack_name!r}")
             column = args.column or pack.tables[args.table].id_field
-            cfg = engine.config.sweep
-            inputs = candidates(engine, pack, agent, table=args.table, column=column, input_key=args.input_key or column)
-            sweep = Sweep(engine, pack, agent, workers=args.workers or cfg["workers"],
-                          budget_usd=args.budget_usd if args.budget_usd is not None else (None if cfg["budget_usd"] is None else Decimal(str(cfg["budget_usd"]))),
-                          judge=args.judge, limit=args.limit, kill_check_every=cfg["kill_check_every"],
-                          log=lambda m: print(m, flush=True))
-            stamp = iso(engine.clock.now())[:19].replace(":", "")
-            rep = sweep.run(inputs)
+            with store_lease(engine, "engine.sweep"):
+                inputs = candidates(engine, pack, agent, table=args.table, column=column, input_key=args.input_key or column)
+                sweep = build_sweep(engine, pack, agent, workers=args.workers, budget_usd=args.budget_usd, judge=args.judge,
+                                    limit=args.limit, off_peak=args.off_peak, pilot_n=args.pilot,
+                                    target_followed=args.target_followed, log=lambda m: print(m, flush=True))
+                stamp = iso(engine.clock.now())[:19].replace(":", "")
+                rep = sweep.run(inputs)
         finally:
             engine.close()
         out_dir = Path(args.out) if args.out else pack.root / "crank"

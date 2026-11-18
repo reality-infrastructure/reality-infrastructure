@@ -45,6 +45,17 @@ EVENT_COLUMNS = (
 )
 
 
+# Take a free or expired lease, or renew one's own; a live lease held by another holder is left alone
+# (the WHERE on the conflict branch fails and no row changes).  ISO-8601 UTC strings of one format
+# compare in time order, so the SQLite text columns and the Postgres timestamptz columns agree.
+_LEASE_UPSERT = (
+    "INSERT INTO engine_leases (name, holder, acquired_at, expires_at, heartbeat_at) VALUES (%s, %s, %s, %s, %s) "
+    "ON CONFLICT (name) DO UPDATE SET "
+    "acquired_at = CASE WHEN engine_leases.holder = excluded.holder THEN engine_leases.acquired_at ELSE excluded.acquired_at END, "
+    "holder = excluded.holder, expires_at = excluded.expires_at, heartbeat_at = excluded.heartbeat_at "
+    "WHERE engine_leases.holder = excluded.holder OR engine_leases.expires_at <= excluded.heartbeat_at")
+
+
 def _migration_files(dialect: str) -> list[Path]:
     return sorted((MIGRATIONS_DIR / dialect).glob("*.sql"))
 
@@ -108,6 +119,18 @@ class Store:
                      event_type: str | None = None, source: str | None = None,
                      since: str | None = None, until: str | None = None,
                      limit: int = 50, ascending: bool = False) -> list[dict]:
+        raise NotImplementedError
+
+    # leases (one process per store, engine.schedule) -------------------------------
+    def lease_acquire(self, name: str, holder: str, now: str, expires_at: str) -> bool:
+        """Take or renew lease ``name`` for ``holder`` until ``expires_at``.  True when the holder has it:
+        the row was free, already the holder's, or expired at ``now``.  One atomic upsert."""
+        raise NotImplementedError
+
+    def lease_release(self, name: str, holder: str) -> None:
+        raise NotImplementedError
+
+    def lease_get(self, name: str) -> dict | None:
         raise NotImplementedError
 
     def close(self) -> None:
@@ -285,6 +308,17 @@ class SqliteStore(Store):
                f"ORDER BY observed_at {order}, ledger_index {order} LIMIT {int(limit)}")
         return [self._event_from_row(r) for r in self.query(sql, tuple(params))]
 
+    def lease_acquire(self, name: str, holder: str, now: str, expires_at: str) -> bool:
+        cur = self.execute(_LEASE_UPSERT.replace("%s", "?"), (name, holder, now, expires_at, now))
+        return cur.rowcount == 1
+
+    def lease_release(self, name: str, holder: str) -> None:
+        self.execute("DELETE FROM engine_leases WHERE name = ? AND holder = ?", (name, holder))
+
+    def lease_get(self, name: str) -> dict | None:
+        rows = self.query("SELECT * FROM engine_leases WHERE name = ?", (name,))
+        return {k: rows[0][k] for k in rows[0].keys()} if rows else None
+
     def close(self) -> None:
         self._conn.close()
 
@@ -459,6 +493,18 @@ class PostgresStore(Store):
         sql = (f"SELECT * FROM events WHERE {' AND '.join(where)} "
                f"ORDER BY observed_at {order}, ledger_index {order} LIMIT {int(limit)}")
         return [self._norm_event(r) for r in self._exec(sql, tuple(params)).fetchall()]
+
+    def lease_acquire(self, name: str, holder: str, now: str, expires_at: str) -> bool:
+        return self._exec(_LEASE_UPSERT, (name, holder, now, expires_at, now)).rowcount == 1
+
+    def lease_release(self, name: str, holder: str) -> None:
+        self._exec("DELETE FROM engine_leases WHERE name = %s AND holder = %s", (name, holder))
+
+    def lease_get(self, name: str) -> dict | None:
+        r = self._exec("SELECT * FROM engine_leases WHERE name = %s", (name,)).fetchone()
+        if r is None:
+            return None
+        return {k: (v.isoformat(timespec="microseconds") if hasattr(v, "isoformat") else v) for k, v in r.items()}
 
     def close(self) -> None:
         self._conn.close()

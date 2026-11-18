@@ -3,8 +3,10 @@
 # Unknown models are a ProviderError, never a silent zero.
 # `cache_read`: the rate for prompt tokens the provider reports as served from its cache
 # (Anthropic cache_read_input_tokens = 0.1x input; DeepSeek prompt_cache_hit_tokens).  A model
-# without it is billed at its input rate.  Off-peak windows are not modelled: cost_usd is an
-# upper bound on the bill, never an estimate below it.
+# without it is billed at its input rate.  `off_peak: {windows_utc: [...], input, output, cache_read}`:
+# the rate in force inside those UTC windows (engine/offpeak.py syntax: "Mon-Fri 10:00-24:00");
+# a call is billed at the rate in force on the engine clock when it is made, and
+# `engine.sweep --off-peak` starts new work only inside a window.
 anthropic:
   claude-fable-5-1:  { input: "10.00", output: "50.00", cache_read: "1.00" }
   claude-fable-5:    { input: "10.00", output: "50.00", cache_read: "1.00" }
@@ -19,11 +21,19 @@ openai_compat:
   # Per deployment.  DeepSeek: api-docs.deepseek.com/quick_start/pricing, re-read 2026-10-17:
   # PEAK rates (peak = 01:00-04:00 and 06:00-10:00 UTC Mon-Fri; every other hour is half).
   # cache_read = the cache-HIT input rate; the API reports hits as prompt_cache_hit_tokens.
-  deepseek-flash:    { input: "0.30",  output: "1.20", cache_read: "0.006" }   # DeepSeek-V4.1-Flash-1017
-  deepseek-v4-pro:   { input: "1.32",  output: "3.96", cache_read: "0.044" }   # DeepSeek-V4-Pro-0813
+  # Off-peak = every hour outside the peak windows, at half the peak rate.
+  deepseek-flash:    { input: "0.30",  output: "1.20", cache_read: "0.006",    # DeepSeek-V4.1-Flash-1017
+                       off_peak: { windows_utc: ["Mon-Fri 00:00-01:00", "Mon-Fri 04:00-06:00", "Mon-Fri 10:00-24:00", "Sat-Sun 00:00-24:00"],
+                                   input: "0.15", output: "0.60", cache_read: "0.003" } }
+  deepseek-v4-pro:   { input: "1.32",  output: "3.96", cache_read: "0.044",    # DeepSeek-V4-Pro-0813
+                       off_peak: { windows_utc: ["Mon-Fri 00:00-01:00", "Mon-Fri 04:00-06:00", "Mon-Fri 10:00-24:00", "Sat-Sun 00:00-24:00"],
+                                   input: "0.66", output: "1.98", cache_read: "0.022" } }
   # A model missing here falls back to default = 0.00: cost_usd would be meaningless.
   default:           { input: "0.00",  output: "0.00" }
 local:
   # Fixture responders: a nominal FIXTURE price so cost accounting is exercised
   # end to end (traces, eval matrix, crank).  Not a real tariff.
   default:           { input: "1.00",  output: "5.00" }
+  # The fixture of an off-peak tariff (engine.sweep --off-peak, JH-C11 wpG): half price at weekends.
+  allocator-offpeak: { input: "1.00",  output: "5.00",
+                       off_peak: { windows_utc: ["Sat-Sun 00:00-24:00"], input: "0.50", output: "2.50" } }

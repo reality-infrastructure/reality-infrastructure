@@ -20,7 +20,9 @@ from engine.eval import load_golden
 from engine.events import EventLog
 from engine.manifest import load_all_agents
 from engine.packs import load_pack
+from engine.schedule import load_schedule
 from engine.store import Engine
+from engine.triggers import load_triggers
 
 
 def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = None) -> dict:
@@ -82,7 +84,8 @@ def validate_pack(name: str, root: Path | None = None, *, strict: bool | None = 
             "adapter_slots": sorted((pack.adapters_config or {}).get("slots", {})),
             "golden_rejected_by_checks": rejected, "uncovered_tools": uncovered, "strict": strict,
             "rigor_warnings": warnings, "outcome_resolvers": pack.outcomes.ids(), "value_hooks": pack.values.ids(),
-            "derived_from": _lineage(pack, agents)}
+            "derived_from": _lineage(pack, agents),
+            "schedule": [j["id"] for j in load_schedule(pack)], "triggers": [t["id"] for t in load_triggers(pack)]}
 
 
 def _lineage(pack, agents: dict) -> dict:
