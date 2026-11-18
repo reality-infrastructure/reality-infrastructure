@@ -297,7 +297,7 @@ def batch_resolves(output, gctx: GuardrailContext) -> list[str]:
     if gctx.engine is not None and gctx.pack is not None:
         from engine.integrity import batch_concentration
         problems += batch_concentration(gctx.engine, gctx.pack, output["batch"])
-    return problems + _batch_long_horizon(output, gctx)
+    return problems + _batch_long_horizon(output, gctx) + _batch_steering(output["batch"], gctx.run_input)
 
 
 @guardrail(id="no_forbidden_reads")
@@ -306,6 +306,32 @@ def no_forbidden_reads(output, gctx: GuardrailContext) -> list[str]:
     even where its access reaches one: passing by reading the answer is a cheat, not a solve."""
     from engine.integrity import forbidden_reads
     return forbidden_reads(gctx)
+
+
+def _batch_steering(batch: list, run_input: dict) -> list[str]:
+    """The crank's steering (engine.constraint, engine.analytics): while the binding constraint is an agent's
+    lost runs, ``constraint_share`` of the batch goes to that agent; while the window repeats itself, at least
+    ``min_novel_share`` of the batch is unlike any golden case of its agent."""
+    items = [b for b in batch if isinstance(b, dict) and isinstance(b.get("input"), dict)]
+    if not items:
+        return []
+    problems = []
+    share = run_input.get("constraint_share")
+    agent = (run_input.get("constraint") or {}).get("agent")
+    if isinstance(share, (int, float)) and agent:
+        got = sum(1 for b in items if b.get("agent") == agent) / len(items)
+        if got < share:
+            problems.append(f"batch: {got:.0%} of items go to {agent}, the binding constraint "
+                            f"({run_input['constraint'].get('top')}); at least {share:.0%} must")
+    novelty = run_input.get("novelty") or {}
+    floor = novelty.get("min_novel_share")
+    if isinstance(floor, (int, float)):
+        known = {a: {json.dumps(i, sort_keys=True) for i in ins} for a, ins in (novelty.get("golden_inputs") or {}).items()}
+        novel = sum(1 for b in items if json.dumps(b["input"], sort_keys=True) not in known.get(b.get("agent"), set()))
+        if novel / len(items) < floor:
+            problems.append(f"batch: {novel} of {len(items)} items are unlike any golden case while the window repeats "
+                            f"itself ({', '.join(novelty.get('repeating') or [])}); at least {floor:.0%} must be novel")
+    return problems
 
 
 @guardrail(id="edit_applies")

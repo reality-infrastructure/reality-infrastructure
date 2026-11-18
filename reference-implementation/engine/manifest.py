@@ -221,6 +221,8 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
             raise ManifestError(f"{manifest_path}: grounding agent_output {src['ref']!r} is not a pack agent")
         if src["kind"] == "file" and not (agent_dir / src["ref"]).is_file() and not (pack.root / src["ref"]).is_file():
             raise ManifestError(f"{manifest_path}: grounding file {src['ref']!r} not found")
+        if src.get("max_age_days") and src["kind"] != "event_query" and not src.get("observed_field"):
+            raise ManifestError(f"{manifest_path}: grounding {src['kind']}:{src['ref']} declares max_age_days without observed_field")
 
     compaction = manifest["memory"]["compaction"]
     if compaction is not None and compaction["summary_agent"] not in pack.agent_names:

@@ -22,7 +22,8 @@
           "max_exposure": {"type": "number", "minimum": 0},
           "capacity": {"type": "number", "exclusiveMinimum": 0},
           "max_fraction_per_action": {"type": "number", "exclusiveMinimum": 0, "maximum": 1},
-          "ruin_threshold": {"type": "number", "exclusiveMinimum": 0}
+          "ruin_threshold": {"type": "number", "exclusiveMinimum": 0},
+          "trial": {"type": "string"}
         }
       }
     },

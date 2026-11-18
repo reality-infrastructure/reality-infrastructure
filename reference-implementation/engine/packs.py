@@ -60,6 +60,7 @@ class Pack:
     tiers: Any = None                       # engine.curriculum.TierRegistry
     outcomes: Any = None                    # engine.outcome.OutcomeRegistry
     values: Any = None                      # engine.value.ValueRegistry
+    featurize: Any = None                   # engine.coverage.FeaturizeRegistry
     _table_cache: dict = field(default_factory=dict, repr=False)
 
     # -- tables ----------------------------------------------------------------
@@ -222,6 +223,10 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         outcomes.register_module(import_pack_module(name, dotted, root))
     for dotted in modules.get("value") or []:
         values.register_module(import_pack_module(name, dotted, root))
+    from engine.coverage import FeaturizeRegistry
+    featurizers = FeaturizeRegistry()
+    for dotted in modules.get("featurize") or []:
+        featurizers.register_module(import_pack_module(name, dotted, root))
 
     agents_dir = pack_dir / "agents"
     agent_names = tuple(sorted(p.name for p in agents_dir.iterdir()
@@ -238,6 +243,7 @@ def load_pack(name: str, root: Path | None = None) -> Pack:
         tools=tools, guardrails=guardrails, verifiers=verifiers, agent_names=agent_names, drift=drifts,
         tiers=tiers,
         outcomes=outcomes, values=values,
+        featurize=featurizers,
     )
 
 

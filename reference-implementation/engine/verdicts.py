@@ -73,6 +73,8 @@ def record_verdict(engine: Engine, pack, run_id: str, verdict: str, reason: str,
             entity_type="agent_run", entity_id=run_id, event_type=f"{pack.name}.verdict",
             payload={"run_id": run_id, "agent": row["agent"], "verdict": verdict, "reason": reason.strip(), **extras},
             source="pipeline:outcome" if kind == "outcome" else source, source_ref=source_ref or run_id)
+    from engine.attribution import attribute
+    attribute(engine, pack, row, verdict, reason.strip(), event, source=source)
     return engine.store.get_run(run_id), event
 
 

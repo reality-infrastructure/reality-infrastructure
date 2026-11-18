@@ -33,6 +33,7 @@ from engine import sizing
 from engine import integrity
 from engine.autoloop import kill_rule, loop_agents, plant_honeypots
 from engine.crank import _cluster_key
+from engine.constraint import sweep_throughput
 from engine.errors import EngineError
 from engine.events import EventLog
 from engine.loop import Runner
@@ -294,7 +295,21 @@ class Sweep:
         if self.remediate:
             from engine.remediate import remediation_trigger
             self.extra["remediation"] = remediation_trigger(self.engine, self.pack, packs_root=self.pack.root.parent)
-        return self.report(inputs, remaining=len(left))
+        rep = self.report(inputs, remaining=len(left))
+        if self.engine.config.analytics["measure_throughput"] and self.results:
+            rep["throughput"] = sweep_throughput(self.engine, self.pack, self.agent, self.results, workers=self.workers, budget_usd=self.budget)
+        return rep
+
+    def record_throughput(self, rep: dict) -> dict | None:
+        """The finished sweep's ``<pack>.throughput`` event (the CLI records it beside its report files)."""
+        t = rep.get("throughput")
+        if not t:
+            return None
+        return self.runner.events.append(entity_type="agent_run", entity_id=self.agent, event_type=f"{self.pack.name}.throughput",
+                                         payload={k: t[k] for k in ("agent", "workers", "runs_per_hour", "items_per_hour",
+                                                                    "manual_baseline_items", "lock_wait_share",
+                                                                    "provider_share", "utilisation", "binding")},
+                                         source="pipeline:sweep")
 
     def report(self, inputs: list[dict], *, remaining: int) -> dict:
         by_status: dict[str, int] = {}
@@ -384,6 +399,11 @@ def render(rep: dict, stamp: str) -> str:
     L += [f"version switch at completion {v['at_completion']}: {v['old_hash'][:12]} -> {v['new_hash'][:12]}" for v in rep.get("version_switches") or []]
     if rep.get("window_opens_at"):
         L += [f"outside the off-peak window: the next one opens at {rep['window_opens_at']}"]
+    t = rep.get("throughput")
+    if t:
+        L += ["", f"Throughput: {t['runs_per_hour']} runs/hour, {t['items_per_hour']} items/hour (manual baseline {t['manual_baseline_items']}); "
+                  f"provider share {t['provider_share']:.0%}, engine share {t['lock_wait_share']:.0%}, worker utilisation {t['utilisation']:.0%}; "
+                  f"binding resource: **{t['binding']}**"]
     L += ["", "Every run above is a trace in the store and every verdict a ledger-bound event; the operator's verdict on any run outranks the judge's."]
     return "\n".join(L) + "\n"
 
@@ -446,6 +466,7 @@ def main(argv: list[str] | None = None) -> int:
                                     target_followed=args.target_followed, log=lambda m: print(m, flush=True))
                 stamp = iso(engine.clock.now())[:19].replace(":", "")
                 rep = sweep.run(inputs)
+                sweep.record_throughput(rep)
         finally:
             engine.close()
         out_dir = Path(args.out) if args.out else pack.root / "crank"

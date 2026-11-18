@@ -126,6 +126,14 @@
                 "type": "integer",
                 "minimum": 1,
                 "maximum": 5000
+              },
+              "max_age_days": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "observed_field": {
+                "type": "string",
+                "minLength": 1
               }
             }
           }

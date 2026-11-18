@@ -33,7 +33,8 @@
         "drift": {"type": "array", "items": {"type": "string"}},
         "tiers": {"type": "array", "items": {"type": "string"}},
         "outcome": {"type": "array", "items": {"type": "string"}},
-        "value": {"type": "array", "items": {"type": "string"}}
+        "value": {"type": "array", "items": {"type": "string"}},
+        "featurize": {"type": "array", "items": {"type": "string"}}
       }
     },
     "local_models": {

@@ -17,6 +17,7 @@ from typing import Any, Callable
 
 from engine.errors import EngineError, ManifestError
 from engine.events import COMPACTION_TYPE, EventLog
+from engine.freshness import mark_stale
 from engine.hashing import canonical_json
 from engine.runtime import iso, parse_iso
 from engine.store import Engine
@@ -72,6 +73,7 @@ def assemble_working_context(agent, ctx: ToolContext, run_input: dict) -> dict:
         else:  # unreachable: manifest schema bounds kind
             raise ManifestError(f"unknown grounding kind {kind!r}")
         grounding.append({"kind": kind, "ref": ref, "data": data})
+    stale_notes = mark_stale(agent, ctx, grounding)
 
     memory: dict[str, Any] = {"events": [], "prior_outputs": [], "compaction": []}
     long_term = agent.memory.get("long_term")
@@ -104,6 +106,8 @@ def assemble_working_context(agent, ctx: ToolContext, run_input: dict) -> dict:
         "memory": memory,
         "truncation": [],
     }
+    if stale_notes:
+        context["stale_grounding"] = stale_notes
     _fit_budget(context, int(agent.memory["working"]["max_tokens"]))
     return context
 

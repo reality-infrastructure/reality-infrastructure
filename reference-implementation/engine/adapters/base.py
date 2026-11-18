@@ -19,6 +19,7 @@ from dataclasses import dataclass, field
 from datetime import datetime
 from typing import Any, Iterator
 
+from engine import vendors
 from engine.errors import EngineError, EventError
 from engine.events import EventLog
 from engine.packs import Pack, import_pack_module
@@ -95,22 +96,78 @@ class AdapterGateway:
         self._pack = pack
         self._events = events
         self._slots: dict[str, BoundSlot] = {}
+        self._bindings: dict[str, str] = {}                  # slot -> binding name serving it
+        self._trials: dict[str, tuple[str, Adapter]] = {}     # slot -> (trial binding, adapter) while a trial runs
+        self._seq: dict[str, int] = {}
         cfg = pack.adapters_config or {"slots": {}, "bindings": {}}
         for slot, sdoc in sorted(cfg["slots"].items()):
-            binding = cfg["bindings"][sdoc["binding"]]
-            mod = import_pack_module(pack.name, binding["module"], pack.root.parent)
-            cls = getattr(mod, binding["class"], None)
-            if cls is None or not (isinstance(cls, type) and issubclass(cls, Adapter)):
-                raise EngineError(f"adapter binding {sdoc['binding']!r}: {binding['class']!r} is not an Adapter")
-            adapter = cls(binding.get("config") or {})
-            if not adapter.id:
-                raise EngineError(f"adapter {binding['class']!r} must set a non-empty id")
+            adapter = self._build(cfg, sdoc["binding"])
+            self._bindings[slot] = sdoc["binding"]
             self._slots[slot] = BoundSlot(slot=slot, adapter=adapter,
                                           latency_sla_seconds=float(sdoc["latency_sla_seconds"]),
                                           required_flags=tuple(sdoc.get("required_flags") or ()))
+            if sdoc.get("trial"):
+                self._open_trial(cfg, slot, sdoc["trial"])
         from engine.risk import RiskGuard
         self.risk = RiskGuard(engine, pack, events)     # JH-C11 G-NAB4/G-NCD5: the ruin guard on every command
         self.faults = None                              # JH-C11 G-B20: an engine.faults.FaultInjector in soak mode
+
+    def _build(self, cfg: dict, name: str) -> Adapter:
+        binding = cfg["bindings"][name]
+        mod = import_pack_module(self._pack.name, binding["module"], self._pack.root.parent)
+        cls = getattr(mod, binding["class"], None)
+        if cls is None or not (isinstance(cls, type) and issubclass(cls, Adapter)):
+            raise EngineError(f"adapter binding {name!r}: {binding['class']!r} is not an Adapter")
+        adapter = cls(binding.get("config") or {})
+        if not adapter.id:
+            raise EngineError(f"adapter {binding['class']!r} must set a non-empty id")
+        return adapter
+
+    # -- vendor record and staged trials (engine.vendors) ----------------------------------
+
+    def _open_trial(self, cfg: dict, slot: str, name: str) -> None:
+        if name not in cfg["bindings"]:
+            raise EngineError(f"slot {slot!r} trials unknown adapter binding {name!r}")
+        done = vendors.decision(self._engine, self._pack, slot, name)
+        if done == "promoted":
+            self._slots[slot].adapter = self._build(cfg, name)
+            self._bindings[slot] = name
+        elif done is None:
+            self._trials[slot] = (name, self._build(cfg, name))
+            self._seq[slot] = sum(1 for e in self._engine.store.query_events(
+                event_type=f"{self._pack.name}.vendor_record", limit=1000000)
+                if e["payload"]["slot"] == slot and e["payload"]["kind"] in ("command_ok", "command_error"))
+
+    def trial(self, slot: str) -> str | None:
+        """The binding on trial for a slot, while its trial runs."""
+        return self._trials[slot][0] if slot in self._trials else None
+
+    def _route(self, slot: str) -> tuple[Adapter, str, bool]:
+        seq = self._seq.get(slot, 0)
+        self._seq[slot] = seq + 1
+        share = float(self._engine.config.analytics["adapters"]["trial_share"])
+        if slot in self._trials and vendors.routes_to_trial(slot, seq, share):
+            name, adapter = self._trials[slot]
+            return adapter, name, True
+        return self._slots[slot].adapter, self._bindings[slot], False
+
+    def _decide_trial(self, slot: str) -> None:
+        name, adapter = self._trials[slot]
+        trial = vendors.record_of(self._engine, self._pack, adapter.id, slot=slot, trial=True)
+        if trial["commands"] < int(self._engine.config.analytics["adapters"]["trial_min_events"]):
+            return
+        incumbent = vendors.record_of(self._engine, self._pack, self._slots[slot].adapter.id, slot=slot, trial=False)
+        promoted = vendors.no_worse(trial, incumbent)
+        self._events.append(
+            entity_type="adapter", entity_id=adapter.id,
+            event_type=f"{self._pack.name}.binding_{'promoted' if promoted else 'refused'}",
+            payload={"slot": slot, "binding": name, "incumbent": self._bindings[slot], "trial_record": trial,
+                     "incumbent_record": incumbent},
+            source="pipeline:gateway")
+        del self._trials[slot]
+        if promoted:
+            self._slots[slot].adapter = adapter
+            self._bindings[slot] = name
 
     def slots(self) -> list[str]:
         return sorted(self._slots)
@@ -129,7 +186,13 @@ class AdapterGateway:
         bound = self.require_slot(slot)
         source = f"adapter:{bound.adapter.id}"
         rows = []
-        for draft in bound.adapter.ingest(vendor_payload):
+        try:
+            drafts = bound.adapter.ingest(vendor_payload)
+        except Exception as e:  # noqa: BLE001 - an ingest gap goes on the vendor's record, then re-raised
+            vendors.note(self._events, self._pack, slot=slot, adapter_id=bound.adapter.id, binding=self._bindings[slot],
+                         kind="ingest_error", detail=f"{type(e).__name__}: {e}")
+            raise
+        for draft in drafts:
             row = self._events.append(
                 entity_type=draft.entity_type, entity_id=draft.entity_id,
                 event_type=draft.event_type, payload=draft.payload, source=source,
@@ -143,6 +206,8 @@ class AdapterGateway:
                     payload={"slot": slot, "adapter": bound.adapter.id, "event_id": row["event_id"],
                              "latency_seconds": latency, "sla_seconds": bound.latency_sla_seconds},
                     source=source, source_ref=draft.vendor_record_id)
+        vendors.note(self._events, self._pack, slot=slot, adapter_id=bound.adapter.id, binding=self._bindings[slot],
+                     kind="ingest_ok", detail=str(len(rows)))
         return rows
 
     # -- your system -> vendor --------------------------------------------------------
@@ -177,9 +242,20 @@ class AdapterGateway:
             injected = self.faults.command_fault(self._events, self._pack.name, source_ref, slot)
             if injected is not None:
                 return CommandResult(accepted=False, reason=injected)
-        result = bound.adapter.command(cmd)
-        self.risk.sent(slot, bound.adapter.id, cmd, result, run_id=source_ref, agent=agent, at_risk=at_risk,
+        adapter, name, on_trial = self._route(slot)
+        try:
+            result = adapter.command(cmd)
+        except Exception as e:  # noqa: BLE001 - a vendor failure goes on its record, then re-raised
+            vendors.note(self._events, self._pack, slot=slot, adapter_id=adapter.id, binding=name, kind="command_error",
+                         detail=f"{type(e).__name__}: {e}", trial=on_trial)
+            raise
+        vendors.note(self._events, self._pack, slot=slot, adapter_id=adapter.id, binding=name,
+                     kind="command_ok" if result.accepted else "command_error",
+                     detail=None if result.accepted else result.reason, trial=on_trial)
+        self.risk.sent(slot, adapter.id, cmd, result, run_id=source_ref, agent=agent, at_risk=at_risk,
                        approval_id=approval_id)
+        if on_trial:
+            self._decide_trial(slot)
         return result
 
     def export_all(self, slot: str, since: str | None = None) -> list[dict]:

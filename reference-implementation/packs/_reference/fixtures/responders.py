@@ -131,6 +131,14 @@ def checker_malformed(*, model, system, messages, tools, candidate_index) -> Com
                               "bogus": True, "confidence": 0.99})
 
 
+def checker_looping(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Never submits: re-evaluates the first expression on every turn until the tool budget runs out."""
+    ctx = _context(messages)
+    rows = _sheet_rows(ctx)
+    expr = rows[0]["expression"] if rows else "1+1"
+    return _calls(messages, [("_reference__arith__eval", {"expression": expr})])
+
+
 def checker_snoop(*, model, system, messages, tools, candidate_index) -> Completion:
     """Reads a table the checker is not granted (fails closed with access_denied)."""
     if _turn(messages) == 0:
@@ -306,21 +314,56 @@ def _planner_batch(inp: dict) -> list[dict]:
 
 
 def planner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
-    """Schedules the sheet and the capacity the week has not seen, under the cap; names a reason for every
-    higher-ranked input it passes over, and states p_pass for every item."""
+    """Schedules the sheet and the capacity the week has not seen, under the cap, stating p_pass for every item.
+    When the loop says a constraint binds, the constraint agent's items come first and the batch is trimmed to give
+    it its share; when the window repeats, capacities unlike any golden case are added until the novelty floor is
+    met.  Every higher-ranked input it passes over gets a reason."""
     ctx = _context(messages)
     inp = ctx["input"]
-    batch = _planner_batch(inp)
+    cap = int(inp.get("max_runs", 20))
+    batch = _planner_batch({**inp, "max_runs": len(inp.get("pending", [])) + 3})
+    novelty = inp.get("novelty") or {}
+    if "min_novel_share" in novelty:
+        known = {(a, json.dumps(i, sort_keys=True)) for a, ins in novelty["golden_inputs"].items() for i in ins}
+        batch = [b for b in batch if (b["agent"], json.dumps(b["input"], sort_keys=True)) not in known] +                 [b for b in batch if (b["agent"], json.dumps(b["input"], sort_keys=True)) in known]
+        for a, i in NOVEL_INPUTS:
+            novel = sum(1 for b in batch[:cap] if (b["agent"], json.dumps(b["input"], sort_keys=True)) not in known)
+            if novel / max(1, len(batch[:cap])) >= novelty["min_novel_share"]:
+                break
+            batch.insert(0, {"agent": a, "input": i, "p_pass": 0.9})
+    share, agent = inp.get("constraint_share"), (inp.get("constraint") or {}).get("agent")
+    if share and agent:
+        mine = [b for b in batch if b["agent"] == agent][:cap] or             [{"agent": agent, "input": i, "p_pass": 0.9} for i in novelty.get("golden_inputs", {}).get(agent, [])][:cap]
+        others = [b for b in batch if b["agent"] != agent]
+        room = int(len(mine) * (1 - share) / share) if mine else 0
+        batch = mine + others[: min(room, cap - len(mine))]
+    batch = batch[:cap]
     chosen = {(b["agent"], json.dumps(b["input"], sort_keys=True)) for b in batch}
     skips = [{"agent": e["agent"], "input": e["input"], "reason": "the week's uncovered inputs come first; this one waits for the next cycle"}
              for e in (inp.get("ranked") or [])[:len(batch)] if (e["agent"], json.dumps(e["input"], sort_keys=True)) not in chosen]
     return _submit(messages, {"batch": batch, "skips": skips, "why": f"{len(batch)} inputs the week has not covered", "confidence": 0.7})
 
-
 def planner_unreasoned(*, model, system, messages, tools, candidate_index) -> Completion:
     """Passes over the ranked inputs without a word; batch_resolves refuses it."""
     ctx = _context(messages)
     return _submit(messages, {"batch": _planner_batch(ctx["input"]), "why": "my own taste", "confidence": 0.7})
+
+
+NOVEL_INPUTS = (("allocator", {"capacity": 35}), ("allocator", {"capacity": 45}), ("allocator", {"capacity": 12}))
+
+
+def planner_synthetic(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Seeds synthetic allocator inputs from the covered golden capacities (each plus five), marked synthetic."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    golden = (inp.get("novelty") or {}).get("golden_inputs", {}).get("allocator", [])
+    batch = [{"agent": "allocator", "input": {"capacity": g["capacity"] + 5}, "synthetic": True, "p_pass": 0.8}
+             for g in golden]
+    batch = batch[: int(inp.get("max_runs", 20))]
+    chosen = {(b["agent"], json.dumps(b["input"], sort_keys=True)) for b in batch}
+    skips = [{"agent": e["agent"], "input": e["input"], "reason": "this cycle seeds synthetic inputs; the ranked one waits for the next"}
+             for e in (inp.get("ranked") or [])[:len(batch)] if (e["agent"], json.dumps(e["input"], sort_keys=True)) not in chosen]
+    return _submit(messages, {"batch": batch, "skips": skips, "why": "synthetic capacities seeded from the golden set", "confidence": 0.6})
 
 
 def planner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
@@ -343,6 +386,9 @@ def _refiner_edit(inp: dict, p_adopt: float) -> dict:
     if inp.get("week"):
         out["forecast"] = {"p_adopt": p_adopt, "golden_delta": 0.0, "holdout_delta": 0.0,
                            "target": {"metric": "pass_rate", "value": 0.9, "due": _weeks_after(inp["week"], 2), "p_hit": 0.5}}
+    if inp.get("directive"):
+        out["new"] = first + " (refined by the loop; directive: " + inp["directive"].strip().splitlines()[0][:80] + ")"
+        out["addresses_directive"] = True
     return out
 
 

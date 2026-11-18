@@ -12,7 +12,8 @@
         "additionalProperties": false,
         "required": ["agent", "input"],
         "properties": {"agent": {"type": "string"}, "input": {"type": "object"},
-                       "p_pass": {"type": "number", "minimum": 0, "maximum": 1}}
+                       "p_pass": {"type": "number", "minimum": 0, "maximum": 1},
+                       "synthetic": {"type": "boolean"}}
       }
     },
     "skips": {

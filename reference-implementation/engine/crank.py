@@ -21,6 +21,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from engine import stats
+from engine.analytics import extend_report, render_sections
 from engine.errors import EngineError
 from engine.integrity import integrity_report, render_integrity, unspecific_runs
 from engine.manifest import load_agent
@@ -123,6 +124,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
             "reputation": reputation.crank_section(engine, pack), "forecasts": forecast.crank_section(engine, pack),
             "curator": curate.record(engine, pack), **_operations(engine, pack, runs, start, end),
             "coordination": coordination(engine, pack, iso(start), iso(end))}
+    extend_report(engine, pack, week, runs, out)
     out["integrity"] = integrity_report(engine, pack, runs, out)
     return out
 
@@ -254,6 +256,7 @@ def render(report: dict) -> str:
               for j, c in sorted(sc["by_job"].items())]
     if "integrity" in report:
         L += render_integrity(report["integrity"])
+    L += render_sections(report)
     return "\n".join(L) + "\n"
 
 
