@@ -209,6 +209,23 @@ def allocator_misstated(*, model, system, messages, tools, candidate_index) -> C
     return _submit(messages, _allocation(rows, _dp_optimum(rows, cap), value_delta=1, confidence=0.95))
 
 
+def allocator_flaky(*, model, system, messages, tools, candidate_index) -> Completion:
+    """A stochastic 'model' standing in for sampling: right on two draws in three (candidate index mod 3 != 2),
+    misstated on the third.  Repeated-sample evaluation sees pass@1 2/3 and pass@3 1."""
+    ctx = _context(messages)
+    rows = _candidates(ctx)
+    cap = int(ctx["input"]["capacity"])
+    return _submit(messages, _allocation(rows, _dp_optimum(rows, cap), value_delta=int(candidate_index % 3 == 2), confidence=0.9))
+
+
+def allocator_lucky(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Right only on the first draw in three: one sample makes it look perfect, three show the luck."""
+    ctx = _context(messages)
+    rows = _candidates(ctx)
+    cap = int(ctx["input"]["capacity"])
+    return _submit(messages, _allocation(rows, _dp_optimum(rows, cap), value_delta=int(candidate_index % 3 != 0), confidence=0.9))
+
+
 # ---------------------------------------------------------------------------
 # briefer (orchestrator): calls the specialist, cites its figures, never computes
 # ---------------------------------------------------------------------------

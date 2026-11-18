@@ -89,3 +89,56 @@ confidently wrong more often, and the crank reports it per agent.
 
 Python 3.11+, `ri_core` (this repo), `anthropic`, `psycopg[binary]` (only for Postgres),
 `pyyaml`, `jsonschema`, `pytest`. No agent frameworks.
+
+## JH-C11 wpA — eval rigor
+
+A score is evidence only with its n, its spread, its strata, an objective that has not silently moved, and an
+eval that is itself checked. New modules: `engine/stats.py` (Wilson, pass@k, bound gates), `engine/rigor.py`
+(per-model metrics, objective, controls, re-audit, suspects, coverage, adoption refusals, saturation; operator CLI
+`python -m engine.rigor objective|clear-suspect`), `engine/curriculum.py` (`@tier`, promotion, gating, per-cycle
+audit), `engine/goldenview.py` (the same metrics over runs already recorded). Tests: `tests/test_engine_c11_wpA.py`.
+
+Golden file additions (all optional): header `controls: [{id, case, output}]`, `human_baseline: {score, source, n}`,
+`samples`; case `tags: {area, realism, dimension, value_weight, ...}`, `tier` (int >= 1), `exercises: [tool ids]`.
+
+| Mechanism | Gap ids | Code | Config | Event | Test |
+|---|---|---|---|---|---|
+| Wilson interval and n on every rate (eval score, draw rate, strata, crank pass rate, kill rule, judge disagreement and honeypot miss rate); kill rule / judge suspension decide on the bound when `gate_on_bounds` | G-B14 | `stats.rate/decide`; `autoloop.kill_rule`, `autoloop.judge_safety`, `crank._rigor_view` | `stats.confidence: 0.9`, `stats.gate_on_bounds: false` | intervals on `<pack>.refinement` (`before_interval`, `after_interval`) | `test_wilson_intervals_same_point_different_evidence_and_gate`, `test_kill_rule_and_judge_gate_on_the_bound_when_configured` |
+| Repeated samples per case (distinct candidate indices via `Runner.run(sample=)`), pass@1, unbiased pass@k, robust case pass, zero-signal cases; adoption refuses a pass@k fall | G-P9, G-NAB7 | `eval.run_eval`, `rigor.model_metrics`, `rigor.adoption_refusals`, `loop.Runner.run` | `eval.samples: 3`, `eval.fixture_samples: 1`, `eval.min_case_rate: 0.6` | `samples`, `before/after_pass_at_k`, `refusals` on `<pack>.refinement` | `test_repeated_samples_report_pass_at_1_and_pass_at_k`, `test_flaky_case_fails_the_robust_eval_and_adopt_refuses_luck`, `test_adopt_refuses_a_pass_at_k_fall_and_a_stratum_fall` |
+| A refinement needs a failure cluster seen in enough runs | G-P9 | `autoloop.refine` | `autoloop.refine_min_cluster_runs: 1` | none (refine `skipped`) | `test_small_cluster_does_not_trigger_refine` |
+| Case tags and per-stratum scores; adoption refuses an edit that lowers any stratum with enough cases even when the total rises; crank names the weakest stratum and ranks failure clusters by `value_weight` | G-P1 | `rigor.model_metrics/weakest_stratum/adoption_refusals`, `goldenview.golden_view/value_weights`, `crank._rigor_view` | `eval.strata`, `eval.min_stratum_cases: 3` | `before_strata`/`after_strata` on `<pack>.refinement` | `test_strata_tiers_and_weakest_stratum_from_eval_and_crank`, `test_adopt_refuses_a_pass_at_k_fall_and_a_stratum_fall` |
+| Tiers (difficulty / rungs): per-tier score, mastered tier, frontier tier, rung gaps; teacher-student gap per tier in distill | G-P10, G-B5, G-M16 | `rigor.tier_ladder`, `rigor.tier_gaps`, `distill.matrix` | `curriculum.promote_at: 0.9`, `curriculum.max_teacher_gap: 0.5` | `<pack>.curriculum` | `test_tier_ladder_frontier_and_rung_gap`, `test_teacher_student_gap_per_tier` |
+| Easy-first promotion: a version starts at tier 1 and climbs when its latest runs at its tier pass; the sweep never hands an input above the promoted tier; the planner's batch must stay in the band (frontier - window .. promoted tier), refused by `batch_resolves`; pack `@tier(agent=)` tiers non-golden inputs (`modules.tiers`) | G-M16, G-P10 | `curriculum.promote/gate_inputs/band/band_problem/audit`, `sweep.Sweep.run`, `guardrails.batch_resolves`, `autoloop.plan/cycle` | `curriculum.min_runs: 5`, `window_runs: 20`, `plan_frontier_window: 1` | `<pack>.tier_promoted`, `<pack>.curriculum` | `test_tier_promotion_gates_the_sweep_and_the_planner` |
+| Saturation: cases passed on each of their last K runs; above the share the crank and the cycle say harder cases are wanted and list failed non-golden inputs as candidates (operator-followed runs then grow golden) | G-B5 | `rigor.saturation`, `curriculum.audit`, `crank._rigor_view` | `eval.saturation_k: 3`, `eval.max_saturated_share: 0.8` | `<pack>.saturation` | `test_saturation_flags_a_set_the_agent_always_passes` |
+| Real-pack golden gates in validate (strict = not fixture; empty sets exempt): negative controls declared, every allowed tool and child agent declared exercised, a hard-tier share | G-B5, G-P16, G-B11 | `validate.validate_pack(strict=)`, `rigor.declared_uncovered/hard_tier_problem` | `eval.require_controls`, `eval.require_tool_coverage`, `eval.hard_tier: 3`, `eval.min_hard_share: 0.2` | none (validation error) | `test_validate_refuses_real_pack_without_hard_tier_controls_or_coverage` |
+| Coverage measured from traces: which allowed tools / child agents the model called on each case (`origin: agent`), uncovered, declared-but-unexercised | G-B11 | `rigor.tools_called/coverage` | — | — | `test_eval_reports_tool_coverage` |
+| Negative controls: a control the comparison lets pass refuses the eval | G-P16 | `rigor.check_controls`, `eval.run_eval` | — | `<pack>.eval_integrity` | `test_negative_control_that_passes_refuses_the_eval` |
+| Verifier re-audit of every golden expected value (validate reports, eval flags suspect) | G-P16, G-D8 | `rigor.expected_rejections`, `validate.validate_pack`, `eval.run_eval` | — | `<pack>.eval_integrity`, `<pack>.suspect_case` | `test_validate_reaudits_golden_expected_with_the_verifier` |
+| Suspect cases: failed with one identical signature by 2+ models over `min_evals` runs (since the last clearance) or rejected by the verifier; excluded from every score until a human clears it (`clear_suspect`, source human) | G-D8 | `rigor.history_suspects/suspect_state/flag_suspect/clear_suspect` | `eval.suspect.min_evals: 3` | `<pack>.suspect_case` | `test_case_failed_by_all_models_is_quarantined` |
+| Sweep `broken_task`: one failure cluster (or one error message) above the share of the first `window` completions pauses the sweep | G-D8 | `sweep.Sweep._broken` | `sweep.broken.window: 20`, `sweep.broken.max_cluster_share: 0.6` | sweep stop reason `broken_task` | `test_sweep_pauses_on_a_dominant_failure_cluster` |
+| Human quality baseline on the golden set: score minus baseline on every eval row and on the crank's golden view | G-P24 | `rigor.human_delta`, `eval.run_eval`, `goldenview.golden_view`, `crank.render` | — | — | `test_human_baseline_delta_on_eval_and_crank` |
+| Objective hash (problem.md, output schema, eval compare + threshold, verifier id) on every eval and refinement; refine refuses on a mismatch with the record until the operator records `<pack>.objective` (human only); adoption refuses across hashes | G-P19 | `rigor.objective_hash/objective_on_record/objective_mismatch/record_objective`, `autoloop.refine` | — | `<pack>.objective` | `test_objective_change_without_operator_event_refuses_refinement` |
+
+### `run_eval` result shape
+
+Top level: `agent`, `manifest_hash`, `objective_hash`, `golden_file`, `threshold`, `compare`, `samples` (draws per
+case), `min_case_rate`, `confidence`, `min_stratum_cases`, `controls` `{declared, failed_as_expected, passed}`,
+`rejected_by_checks` `[{case_id, violations}]`, `suspect` `{case_id: reason}`, `coverage` `{tools: {tool: [case
+ids]}, uncovered, declared_unexercised}` (primary model), `human_baseline` (`{score, source, n, delta}` or null),
+`frontier`, `frontier_score`, `models`, `primary`, `pass`, `summary`.
+
+Each `models[]` row: `model`, `score` (robust case pass rate over counted cases, string to 4 places), `passed`,
+`counted`, `excluded` (fixture-excluded and suspect cases), `parity`, `mean_cost_usd`, `mean_latency_ms`, `samples`,
+`interval` (`{k, n, rate, lo, hi, confidence}` on the robust score), `pass_at_1`, `pass_at_k` (k = samples),
+`sample_interval` (over all draws), `strata` (`{key: {value: {passed, counted, score, interval}}}` for each
+configured tag key present plus `tier`), `curriculum` (`{mastered_tier, frontier_tier, gaps}` or null), `zero_signal`
+(case ids with no passing draw), `human_delta`, `cases`.
+
+Each `cases[]` entry: `id`, `run_id` and `status` (first draw), `passed` (robust: passes / samples >=
+min_case_rate), `passes`, `samples`, `pass_rate`, `diffs` (of the first failing draw), `counted`, `suspect`, `tags`,
+`tier`, `exercises`, `tools` (called by the model across draws), `draws` (`[{run_id, status, passed, diffs}]`).
+
+Not built: the golden expected value is re-audited by the agent's verifier only; guardrails need a schema-complete
+output and are not re-run over expected values. `stats.gate_on_bounds` ships off so the C7 law (kill rule and judge
+suspension on the point rate) holds unchanged; adoption keeps the point rule (score does not fall) and adds the
+refusals above, because a lower-bound adoption gate on golden sets of a few cases would refuse every edit.

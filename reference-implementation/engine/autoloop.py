@@ -48,6 +48,7 @@ import tempfile
 from decimal import Decimal
 from pathlib import Path
 
+from engine import curriculum, rigor, stats
 from engine.config import load_yaml
 from engine.crank import build_report, render as render_crank, week_bounds
 from engine.drift import DriftContext
@@ -109,8 +110,11 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
             continue
         ok = sum(1 for r in rows if r["status"] == "succeeded")
         rate = ok / len(rows)
-        if rate < float(cfg["min_pass_rate"]):
-            killed[name] = f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']}"
+        st = engine.config.stats
+        if stats.decide(ok, len(rows), float(cfg["min_pass_rate"]), side="below", confidence=st["confidence"], on_bounds=st["gate_on_bounds"]):
+            iv = stats.rate(ok, len(rows), st["confidence"])
+            killed[name] = (f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']} "
+                            f"({st['confidence']:.0%} interval {iv['lo']}-{iv['hi']}{', gated on the upper bound' if st['gate_on_bounds'] else ''})")
     return killed
 
 
@@ -140,13 +144,18 @@ def judge_safety(engine: Engine, pack) -> dict:
                 disagreements += int(e["payload"]["verdict"] != agent_v)
                 agent_v = None
     rate = (disagreements / compared) if compared else 0.0
-    by_operator = compared >= int(cfg["min_compared"]) and rate > float(cfg["max_disagreement"])
-    by_honeypots = planted >= int(cfg["min_planted"]) and miss_rate > float(cfg["max_missed"])
+    st = engine.config.stats
+    by_operator = compared >= int(cfg["min_compared"]) and stats.decide(
+        disagreements, compared, float(cfg["max_disagreement"]), side="above", confidence=st["confidence"], on_bounds=st["gate_on_bounds"])
+    by_honeypots = planted >= int(cfg["min_planted"]) and stats.decide(
+        missed, planted, float(cfg["max_missed"]), side="above", confidence=st["confidence"], on_bounds=st["gate_on_bounds"])
     return {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4),
             "planted": planted, "missed": missed, "miss_rate": round(miss_rate, 4),
             "suspended": by_operator or by_honeypots, "suspended_by": "operator" if by_operator else "honeypots" if by_honeypots else None,
             "max_disagreement": float(cfg["max_disagreement"]), "min_compared": int(cfg["min_compared"]),
-            "max_missed": float(cfg["max_missed"]), "min_planted": int(cfg["min_planted"])}
+            "max_missed": float(cfg["max_missed"]), "min_planted": int(cfg["min_planted"]),
+            "rate_interval": stats.rate(disagreements, compared, st["confidence"]),
+            "miss_rate_interval": stats.rate(missed, planted, st["confidence"]), "gate_on_bounds": st["gate_on_bounds"]}
 
 
 def _numeric_leaf(output, path: tuple = ()) -> tuple[str, object] | None:
@@ -259,10 +268,12 @@ def _golden_counts(pack) -> dict[str, int]:
 # -- plan ---------------------------------------------------------------------------------
 
 def plan(runner: Runner, planner: str, *, week: str, report: dict, pending: list[dict], max_runs: int,
-         killed: dict[str, str] | None = None) -> tuple[list[dict], dict]:
+         killed: dict[str, str] | None = None, bands: dict[str, dict] | None = None) -> tuple[list[dict], dict]:
+    """``bands`` ({agent: curriculum band}) reach the planner as ``curriculum``; ``batch_resolves`` refuses
+    an item outside its agent's band."""
     result = runner.run(planner, {"week": week, "max_runs": max_runs, "report": _slim_report(report),
                                   "pending": pending[:50], "golden": _golden_counts(runner.pack),
-                                  "killed": dict(killed or {})})
+                                  "killed": dict(killed or {}), "curriculum": dict(bands or {})})
     batch = list(result.output["batch"])[:max_runs] if result.status == "succeeded" else []
     return batch, result.as_dict()
 
@@ -358,6 +369,14 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     if target is None:
         return {"status": "skipped", "why": "no failure cluster names a worker, specialist or orchestrator run to refine"}
     agent, cluster = target
+    min_runs = engine.config.autoloop["refine_min_cluster_runs"]
+    if len(set(cluster.get("runs") or [])) < min_runs:
+        return {"status": "skipped", "agent": agent, "why": f"the target cluster was seen in {len(set(cluster.get('runs') or []))} runs; "
+                                                           f"a refinement needs at least {min_runs} (small noisy evidence does not drive an edit)"}
+    objective = rigor.objective_hash(pack, runner.agent(agent))
+    mismatch = rigor.objective_mismatch(engine, pack, agent, objective)
+    if mismatch:
+        return {"status": "skipped", "agent": agent, "why": mismatch}
     files = _text_files(pack.agent_dir(agent))
     change = rec["change"] if cluster is rec.get("evidence") else f"{rec['change']} Cluster: {cluster.get('cluster')} ({cluster.get('count')}x)."
     r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
@@ -383,6 +402,7 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     adopted = adopt_decision(before, after, before_h, after_h)
+    refusals = rigor.adoption_refusals(before, after, before_h, after_h)
     if adopted:
         (pack.agent_dir(agent) / out["file"]).write_text(new_text, encoding="utf-8", newline="\n")
     event = EventLog(engine, pack).append(
@@ -392,14 +412,19 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
                  "after_score": after["models"][0]["score"], "adopted": adopted,
                  "refiner_run_id": r.run_id, "why": str(out["why"])[:1000],
                  "before_holdout": None if before_h is None else before_h["models"][0]["score"],
-                 "after_holdout": None if after_h is None else after_h["models"][0]["score"]},
+                 "after_holdout": None if after_h is None else after_h["models"][0]["score"],
+                 "objective_hash": before["objective_hash"], "samples": before["samples"],
+                 "before_pass_at_k": before["models"][0]["pass_at_k"], "after_pass_at_k": after["models"][0]["pass_at_k"],
+                 "before_interval": before["models"][0]["interval"], "after_interval": after["models"][0]["interval"],
+                 "before_strata": before["models"][0]["strata"], "after_strata": after["models"][0]["strata"],
+                 "refusals": refusals},
         source=f"agent:{refiner}", source_ref=r.run_id)
     return {"status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
             "before": before["summary"], "after": after["summary"],
             "before_holdout": None if before_h is None else before_h["summary"],
             "after_holdout": None if after_h is None else after_h["summary"],
             "holdout": "held-out set evaluated" if use_holdout else "no eval/holdout.jsonl for this agent: adoption rests on the golden set alone",
-            "refiner_run_id": r.run_id, "event_id": event["event_id"], "why": out["why"]}
+            "refiner_run_id": r.run_id, "event_id": event["event_id"], "why": out["why"], "refusals": refusals}
 
 
 def adopt_decision(before: dict, after: dict, before_holdout: dict | None, after_holdout: dict | None) -> bool:
@@ -410,7 +435,7 @@ def adopt_decision(before: dict, after: dict, before_holdout: dict | None, after
     if before_holdout is not None and after_holdout is not None:
         bh, ah = Decimal(before_holdout["models"][0]["score"]), Decimal(after_holdout["models"][0]["score"])
         ok = ok and bool(after_holdout["pass"] and ah >= bh)
-    return ok
+    return ok and not rigor.adoption_refusals(before, after, before_holdout, after_holdout)
 
 
 # -- export -------------------------------------------------------------------------------
@@ -446,10 +471,13 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     drift = drift_readings(engine, pack)
     result["safety"] = {"killed": killed, "judge": safety, "drift": drift}
     shifted = [d for d in drift if d["shifted"]]
+    judgeable = [n for n in sorted(pack.agent_names) if load_yaml(pack.agent_dir(n) / "manifest.yaml").get("role") in JUDGEABLE_ROLES]
+    result["curriculum"] = curriculum.audit(engine, pack, judgeable)
     report = build_report(engine, pack, week)
     if do_plan and "planner" in agents:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
-        batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed)
+        batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed,
+                              bands={a: v["band"] for a, v in result["curriculum"].items()})
         result["plan"] = {"run": planned, "batch": batch}
         result["act"] = act(runner, batch)
     if do_judge and "judge" in agents:
@@ -502,6 +530,11 @@ def render(result: dict) -> str:
             L += [f"- drift {d['id']}: {'SHIFTED' if d['shifted'] else 'steady'}: {d['why']}"]
         if result.get("drift_hold"):
             L += [f"  no edit adopted and no golden case grown while the distribution has moved: {result['drift_hold']}"]
+        for a, c in sorted((result.get("curriculum") or {}).items()):
+            b, sat = c["band"], c["saturation"]
+            L += [f"- curriculum {a}: promoted tier {b['promoted_tier']}" + (f" (promoted to {c['promoted']} this cycle)" if c["promoted"] else "")
+                  + f", frontier {b['frontier_tier']}, mastered {b['mastered_tier']}" + (f", rung gaps {b['gaps']}" if b["gaps"] else "")
+                  + f"; golden saturated {sat['share']}" + (" -- SATURATED: harder cases wanted" if sat["flagged"] else "")]
         L += [""]
     if "plan" in result:
         p = result["plan"]["run"]
@@ -521,6 +554,7 @@ def render(result: dict) -> str:
         L += ["", "## Refine", "", f"{r['status']}" + (f": {r['agent']} {r['file']} rung {r['rung']}; golden before {r['before']} after {r['after']}; held-out before {r.get('before_holdout')} after {r.get('after_holdout')} ({r.get('holdout')}); event {r['event_id']}" if r["status"] in ("adopted", "rejected") else f": {r.get('why') or r.get('failure_reasons')}")]
         if r.get("why") and r["status"] in ("adopted", "rejected"):
             L += ["", f"> {r['why']}"]
+        L += [f"- refused: {why}" for why in r.get("refusals") or []]
         if r["status"] == "declined":
             L += ["", f"The refiner (run {r['refiner_run_id']}) found no edit the evidence warrants; nothing changed and no golden evaluation was spent."]
     if "grow" in result:

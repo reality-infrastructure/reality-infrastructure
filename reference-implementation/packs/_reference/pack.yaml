@@ -21,6 +21,8 @@ local_models:
   allocator-greedy:     fixtures.responders:allocator_greedy
   allocator-infeasible: fixtures.responders:allocator_infeasible
   allocator-misstated:  fixtures.responders:allocator_misstated
+  allocator-flaky:      fixtures.responders:allocator_flaky
+  allocator-lucky:      fixtures.responders:allocator_lucky
   briefer-v1:           fixtures.responders:briefer_v1
   compactor-v1:         fixtures.responders:compactor_v1
   judge-v1:             fixtures.responders:judge_v1

@@ -25,10 +25,39 @@ autoloop:
     min_planted: 4              #   once this many were planted ...
     max_missed: 0.25            #   ... a miss rate above this suspends the judge
   grow_golden: true             # the panel: runs the operator marked followed become golden cases (never the judge's own)
+  refine_min_cluster_runs: 1    # the panel (G-P9): a refinement fires only on a failure cluster seen in at least this many runs
 sweep:                          # Brown: one continuous parallel grading loop; cost is the only reason to stop
   workers: 8                    # provider calls in flight at once; the store and the ledger stay serialized
   budget_usd: null              # null = no budget: the sweep runs until every row is graded or the kill rule halts the agent
   kill_check_every: 20          # completions between kill-rule checks
+  broken:                       # Patel (G-D8): a broken task pauses the sweep (stop reason broken_task)
+    window: 20                  #   checked once the first N completions are in
+    max_cluster_share: 0.6      #   one failure cluster (or one error message) above this share of them = broken
 citations:
   # ref format: <kind>:<table_or_path>:<id>
   kinds: [event, table, file, run]
+# JH-C11 wpA — eval rigor (HARNESS.md "JH-C11 wpA").  Brown, the panel, Musk, Patel, Naval: a score is evidence only
+# with its n, its spread, its strata and an eval that is itself checked.
+stats:
+  confidence: 0.9               # Wilson intervals on every reported rate (eval, crank, kill rule, judge safety)
+  gate_on_bounds: false         # true: the kill rule halts on the upper bound and the judge is suspended on the lower bound
+eval:
+  samples: 3                    # draws per golden/held-out case for a real pack (pass@1, pass@k, robust case pass)
+  fixture_samples: 1            # draws per case for a fixture pack (deterministic responders)
+  min_case_rate: 0.6            # a case passes only if it passes in at least this share of its draws
+  strata: [area, realism, dimension]   # case tags scored separately (the case `tier` is always a stratum)
+  min_stratum_cases: 3          # adoption refuses an edit that lowers any stratum with at least this many cases
+  saturation_k: 3               # a case passed on each of its last K runs is saturated
+  max_saturated_share: 0.8      # above this saturated share the golden set no longer challenges the agent
+  hard_tier: 3                  # a real pack's golden set needs cases at this tier or above ...
+  min_hard_share: 0.2           # ... at least this share of them
+  require_controls: true        # a real pack's golden header must declare negative controls
+  require_tool_coverage: true   # a real pack's golden cases must exercise every tool and child agent the manifest allows
+  suspect:
+    min_evals: 3                # a case failed identically this many times by two or more models is suspect
+curriculum:                     # Musk (G-M16) / the panel (G-P10): easy first, climb on evidence
+  promote_at: 0.9               #   pass rate at the current tier that promotes an agent version to the next
+  min_runs: 5                   #   runs at the tier before a promotion is considered
+  window_runs: 20               #   the latest runs at the tier that count
+  plan_frontier_window: 1       #   the planner's batch stays within frontier tier - this
+  max_teacher_gap: 0.5          #   distill: a per-tier teacher-student gap above this suggests an intermediate student
