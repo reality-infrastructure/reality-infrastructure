@@ -75,6 +75,7 @@ from engine.packs import load_pack
 from engine.runtime import iso
 from engine.store import Engine
 from engine import curate as curator_step, forecast, outcome, reputation, value
+from engine import governance, incidents
 from engine.outcome import proven_wrong, resolved_hits
 
 LOOP_ROLES = ("planner", "judge", "refiner", "curator")
@@ -138,6 +139,9 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
         killed[name] = why
     for name, why in integrity.monitor_halts(engine, pack).items():
         killed.setdefault(name, why)
+    for name, why in governance.integrity_halts(engine, pack).items():   # JH-C11 G-NAB9: integrity halts at once
+        killed.setdefault(name, why)
+    incidents.record_halts(engine, pack, killed)                         # JH-C11 G-B15: every halt is an incident
     return killed
 
 
@@ -173,7 +177,8 @@ def judge_safety(engine: Engine, pack) -> dict:
     by_honeypots = planted >= int(cfg["min_planted"]) and stats.decide(
         missed, planted, float(cfg["max_missed"]), side="above", confidence=st["confidence"], on_bounds=st["gate_on_bounds"])
     col = integrity.collusion(engine, pack)
-    return {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4),
+    gi = governance.judge_integrity(engine, pack)                       # JH-C11 G-NAB9: a missed honeypot is an integrity breach
+    out = {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4),
             "planted": planted, "missed": missed, "miss_rate": round(miss_rate, 4), "collusion": col,
             "suspended": by_operator or by_honeypots or col["suspended"],
             "suspended_by": "operator" if by_operator else "honeypots" if by_honeypots else "collusion" if col["suspended"] else None,
@@ -181,6 +186,10 @@ def judge_safety(engine: Engine, pack) -> dict:
             "max_missed": float(cfg["max_missed"]), "min_planted": int(cfg["min_planted"]),
             "rate_interval": stats.rate(disagreements, compared, st["confidence"]),
             "miss_rate_interval": stats.rate(missed, planted, st["confidence"]), "gate_on_bounds": st["gate_on_bounds"]}
+    if gi["halted"]:
+        out.update(suspended=True, suspended_by=out["suspended_by"] or "integrity", integrity=gi["why"])
+    incidents.record_judge(engine, pack, out)                            # JH-C11 G-B15
+    return out
 
 
 def plant_honeypots(runner: Runner, judge_name: str, rows: list[dict], k: int) -> list[dict]:
@@ -384,6 +393,9 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     if len(set(cluster.get("runs") or [])) < min_runs:
         return {"status": "skipped", "agent": agent, "why": f"the target cluster was seen in {len(set(cluster.get('runs') or []))} runs; "
                                                            f"a refinement needs at least {min_runs} (small noisy evidence does not drive an edit)"}
+    held = governance.refine_hold(engine, pack, agent)                  # JH-C11 wpD: leash, policy, red flags, eval-live, proxy
+    if held:
+        return {"status": held["status"], "agent": agent, "why": held["why"]}
     objective = rigor.objective_hash(pack, runner.agent(agent))
     mismatch = rigor.objective_mismatch(engine, pack, agent, objective)
     if mismatch:
@@ -422,6 +434,8 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
         shutil.rmtree(tmp, ignore_errors=True)
     adopted = adopt_decision(before, after, before_h, after_h)
     refusals = rigor.adoption_refusals(before, after, before_h, after_h)
+    refusals += governance.adoption_refusals(engine, pack, agent, before, after)   # JH-C11 G-M14: sim-to-real gap
+    adopted = adopted and not refusals
     if adopted:
         (pack.agent_dir(agent) / out["file"]).write_text(new_text, encoding="utf-8", newline="\n")
     event = EventLog(engine, pack).append(
@@ -537,8 +551,10 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
         integrity.review_gate(engine, pack, "autoloop")
         result["plan_paused"] = (f"{guard['review']['backlog']} sampled agent verdicts wait for a human (cap "
                                  f"{guard['review']['max_backlog']}): no new work is planned until the operator reviews them")
+    gov = governance.before_plan(engine, pack)                           # JH-C11 wpD: the leash and stale policy hold the plan
+    result["governance"] = {"plan": {k: gov[k] for k in ("hold", "status")}, "leash": gov["leash"], "policy": gov["policy"]["policies"]}
     report = build_report(engine, pack, week)
-    if do_plan and "planner" in agents and not guard["review"]["over"]:
+    if do_plan and "planner" in agents and not guard["review"]["over"] and not gov["hold"]:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
         t = taste["planner"]
         batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed,
@@ -573,11 +589,16 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     report = build_report(engine, pack, week)
     result["crank"] = _slim_report(report)
     result["constraint"] = {k: report["constraint"][k] for k in ("top", "next", "window_top", "previous_top", "moved", "binding_agent")}
+    change = governance.before_change(engine, pack)                      # JH-C11 wpD: leash, stale policy, red flags
+    result["governance"].update(change={k: change[k] for k in ("hold", "status")}, red_flags=change["red_flags"]["flags"])
     if shifted:
         why = "; ".join(f"{d['id']}: {d['why']}" for d in shifted)
         result["refine"] = {"status": "skipped", "why": f"drift: {why}; golden and held-out sets must be re-counted against the new record before any edit is adopted"}
         result["grow"] = []
         result["drift_hold"] = why
+    elif change["hold"]:
+        result["refine"] = {"status": change["status"], "why": change["hold"]}
+        result["grow"] = []
     else:
         if do_refine:                                    # the judge's learning is its refinement: --no-refine skips both
             result["judge_learning"] = integrity.judge_learning(engine, pack, runner, agents, packs_root=packs_root,
@@ -603,6 +624,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     if do_export:
         result["export"] = export_open(engine, pack, pack.root, week)
     result["safety"]["killed_after"] = kill_rule(engine, pack)
+    result["governance"]["after"] = governance.after_cycle(engine, pack, week, result)
     result["reputation"] = reputation.update(engine, pack, week, killed=result["safety"]["killed_after"],
                                              judge_agent=agents.get("judge"), judge_suspended=safety["suspended"])
     result["cycle_seconds"] = round((engine.clock.now() - began).total_seconds(), 6)
@@ -619,6 +641,7 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
 def render(result: dict) -> str:
     L = [f"# Autoloop — {result['pack']} — {result['week']}", "",
          f"loop agents: {result['loop_agents']}", ""]
+    L += _render_governance(result.get("governance"))
     if "safety" in result:
         s = result["safety"]
         L += ["## The loop's law", ""]
@@ -695,6 +718,16 @@ def render(result: dict) -> str:
               f"agreement {d['agreement']})" for d in result["integrity"]["delegation"]]
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]
     return "\n".join(L) + "\n"
+
+
+def _render_governance(gov: dict | None) -> list[str]:
+    """JH-C11 wpD at the head of the report: red flags, the leash, stale policies, holds, open incidents."""
+    if not gov:
+        return []
+    L = governance.render_top({"red_flags": gov.get("red_flags") or [], "leash": gov.get("leash"), "policies": gov.get("policy") or [],
+                               "open_incidents": (gov.get("after") or {}).get("open_incidents") or []})
+    return L + [f"- {step} HELD ({gov[step]['status']}): {gov[step]['hold']}" for step in ("plan", "change")
+                if (gov.get(step) or {}).get("hold")] + [""]
 
 
 def _render_long_horizon(result: dict) -> list[str]:

@@ -131,7 +131,7 @@ def _latest_matrix(agent_dir: Path) -> dict | None:
 
 
 def _check_model_economics(agent_dir: Path, agent_name: str, role: str, model: ModelSpec,
-                           pack: Pack, config: EngineConfig) -> None:
+                           pack: Pack, config: EngineConfig, now=None) -> None:
     frontier = config.frontier
     is_frontier = (model.provider, model.name) == (frontier.provider, frontier.name) or \
         (role == "judge" and config.judge_model == model.model_string)      # an independent grader model
@@ -158,11 +158,16 @@ def _check_model_economics(agent_dir: Path, agent_name: str, role: str, model: M
         raise ManifestError(
             f"{agent_name}: latest eval matrix does not show {model.model_string} "
             f"at parity with the frontier; downgrade refused")
+    from engine.governance import latest_matrix, matrix_problem     # JH-C11 G-B13: parity evidence expires
+    stale = matrix_problem(latest_matrix(agent_dir)[0], matrix, config, now)
+    if stale:
+        raise ManifestError(f"{agent_name}: {model.model_string} admitted by a stale matrix; downgrade refused: {stale}")
 
 
 def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
                model_override: tuple[str, str] | None = None,
-               enforce_economics: bool = True) -> Agent:
+               enforce_economics: bool = True, now=None) -> Agent:
+    """``now`` (the engine clock) lets a parity matrix expire by age (JH-C11 G-B13); without it only a frontier change does."""
     config = config or load_config()
     agent_dir = pack.agent_dir(name)
     manifest_path = agent_dir / "manifest.yaml"
@@ -269,7 +274,7 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
     provider, model_name = model_override or (manifest["model"]["provider"], manifest["model"]["name"])
     model = _resolve_model(manifest, agent_dir, provider, model_name)
     if enforce_economics:
-        _check_model_economics(agent_dir, name, role, model, pack, config)
+        _check_model_economics(agent_dir, name, role, model, pack, config, now)
 
     loop = {
         "max_iterations": int(manifest["loop"].get("max_iterations", config.default_max_iterations)),

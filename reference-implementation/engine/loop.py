@@ -94,7 +94,7 @@ class Runner:
 
     def agent(self, name: str) -> Agent:
         if name not in self._agents:
-            self._agents[name] = load_agent(self.pack, name, config=self.config)
+            self._agents[name] = load_agent(self.pack, name, config=self.config, now=self.engine.clock.now())
         return self._agents[name]
 
     @property
@@ -125,7 +125,7 @@ class Runner:
         agent = self.agent(agent_name)
         if model_override is not None:
             agent = load_agent(self.pack, agent_name, config=self.config, model_override=model_override,
-                               enforce_economics=enforce_economics)
+                               enforce_economics=enforce_economics, now=self.engine.clock.now())
         links = resolve_links(self.engine, self.pack, agent_name, opts)
         opts.session_id = links["session_id"]
         trace = RunTrace(self.engine, agent, run_input, parent_run_id=parent_run_id)

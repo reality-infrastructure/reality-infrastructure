@@ -6,6 +6,7 @@
 # cover the choice of numbers.  Change them only with a dated note here and a
 # version bump, because every trace records the hash of this file.
 version: 1
+reviewed_at: "2026-11-17"   # JH-C11 wpD (Brown, G-B13): masses last reviewed (no change to them); stale after governance.policy.max_age_days
 frame: [accept, reject]
 # A deterministic check puts `weight` on its verdict and the rest on ignorance.
 # Both must be < 1 so every observation stays non-dogmatic (m(Omega) > 0).
