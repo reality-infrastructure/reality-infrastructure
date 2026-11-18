@@ -9734,3 +9734,34 @@ cohort 2026-11-15: pages not on the branch (0 of 70 fills files); the census and
 **Not built, and why.** Every block of a day (measured: about 360 GB and 2.5 days per day on the public node). Every wallet of the universe graded (R225: the budget; R227 computes the next B). Any leaderboard, the venue's included (the operator's word; and the venue's is three months stale). A paid RPC or Solscan's API (needs a key and the operator's word, R227). Grouping wallets (SETTLED_SOLANA.md 6e). Any order.
 
 **Income row (R81), 2026-11-18 after A48:** 0 USD a day against 165. Nothing on the chain.
+
+### A48.1 — 2026-11-18 03:xxZ (21:xx CST 11-17), flat — P43 `0adfd2f` BUILT, AND RUN LIVE ONCE ON A FINISHED DAY (the operator: "Go with this", then "can you try the daily reader on a few wallets", "can you run arena on them or no?", "ok give it now as we built exactly"): the sampler, the universe, the draw and the Solana grader are on the branch with 12 gates; the capture ran on 2026-11-17's blocks from this machine and verified offline; the reader and the grader ran on four wallets for 2026-11-17. Two known answers were written wrong and are corrected here; four departures are disclosed. Nothing is committed from either run; no cohort S1 exists yet
+
+**What P43 is.** `rights_events/adapters/sol_arena.py` (pure: residue, sample, payers of a block, universe, draw, one wallet's round trips, the status word); `rights_events/sol_arena.py` (pure over pinned files: `verify`, `grade`; refuses S131/S132); `fixtures/agent_record/arena_sol/` (`rpc.py` the paced public node and the only network module, `capture_sol_universe.py`, `read_sol_day.py`, `vps_daily.sh`, a `.gitignore` for the blocks); `tests/test_agent_record_sol_arena.py`, 12 gates (the sample, the universe's four exclusions and two refusals, the draw and a planted address, a round trip netted with fees and wSOL while a tx signed by another, a failed tx and a tx after t1 are ignored, carried-in / received-without-a-swap / held, a two-mint route, the status words, a cohort end to end from pinned files to KEEP 1 DROP 1 UNDECIDED 1, a changed byte / a planted address / another rule refused, blocks absent said and a half set refused, the ratified sha, no ranked list named in the code (S133)).
+
+**The capture, live, on 2026-11-17 (written to the session's scratch directory, not committed).** First slot 470 324 708, last 470 726 484: **401 777 slots, 4.65 a second**; residue 65 from blockhash `G4sHbpmiz5Wsyqq5CWw6VviotdTnLVCzwk3pRzEXb21R`; **465 sampled, 465 pinned**, 225 MB gzip; **universe 14 053**; the draw of 100 made; 563 calls, 1 146 269 882 bytes, about 16 min, 57 answered HTTP 429 and retried (all while the reader ran beside it). `python -m rights_events.sol_arena verify` on it: `VERIFIED SMOKE: 465 blocks, universe 14053 re-derived from the blocks, draw 100 re-derived`.
+
+**The reader and the grader, live, on four wallets for 2026-11-17 (scratch, not committed; R230's word OPEN, a one-day preview, not a verdict).** The four are test addresses taken from the venue's board read for A48's measurement, not cohort S1 and not drawn by R225; S133 governs the code that makes S1 and that code names no ranked list.
+
+| wallet | calls | signatures in the day | fetched / signed by the wallet | round trips | net SOL | win rate | listed, not netted | coverage |
+|---|---:|---:|---:|---:|---:|---|---|---|
+| `CyaE1VxvBrahnPWkqm5VsdCvyS2QmNht2UFrKJHga54o` | 31 | start not reached in 30 pages | 0 / 0 | 0 | — | — | — | PARTIAL (R227: 30 pages) |
+| `99i9uVA7Q56bY22ajKKUfTZTgTeP5yCtVGsrG9J4pDYQ` | 594 | 519 (10 failed, dropped) | 504 / 362 | 52 | −14.177329141 | 7/52 | carried 6, received 3, multi-mint 8; held 2 | PARTIAL (5 fetches refused) |
+| `VVV4C8wbLVU5Yw2JmdF7SPmoG2ubmJmmcjzHAJcdHgH` | 49 | 47 (6 failed) | 40 / 25 | 4 | −0.013466527 | 3/4 | received 2, carried 2 | PARTIAL (1 fetch refused) |
+| `BCnqsPEtA1TkgednYEebRpkmwFRJDCjMQcKZMMtEdArc` | 189 | 179 (1 failed) | 178 / 120 | 29 | −4.872180470 | 7/29 | multi-mint 1; held 1 | FULL |
+
+863 calls; 179 answered 429 or retried. The six refused fetches came while the capture shared this machine's address with the reader; under R227 they make their wallets PARTIAL and nothing is filled from elsewhere. `vps_daily.sh` runs the reader alone.
+
+**Known answers.** 1. **Written wrong:** "about 250 sampled slots" assumed 2.5 slots a second; measured 4.65, so about 465 a day (A48's text not edited; this line corrects it; R223's modulus unchanged). 2. Held: a block fetched twice was byte-identical (measured before P43 on one slot). 3. Held at its edge: 14 053 inside "more than 3 000 and fewer than 15 000" (for 2026-11-17; S1's day is 2026-11-19). 4. Held by the gates. 5. Held: the suite's HyperLiquid gates unchanged (below). 6, 7: not readable before 2026-11-27; on the preview the calls per wallet-day were 31, 49, 189, 594, so 7's upper bound of 200 is already exceeded once.
+
+**Departures from A48's text, disclosed.**
+- **The blocks are not on the branch.** About 220 MB a day; their gzip and raw sha256 sit in the capture's `sampled`; the manifest lists the capture, its header and its call log. Where the blocks are absent, `verify`/`grade --without-blocks` check everything else and print `universe_rederived: false`; a half set is refused (S131). A re-fetch serves identical bytes (known answer 2), so anyone can rebuild them from the public node.
+- **R230 is not built in P43:** the feed, the kit and the door do not yet read Solana rows. The grader writes `arena_sol_<cohort>_<as_of>.json/.md` in the face's columns; joining them to the feed and the kit is the next pass, due before the verdicts (2026-11-27).
+- The capture first held every parsed block in memory and died at block 376 (MemoryError); each block is now reduced to its payers and dropped. Found by the live run, fixed before this commit.
+- A swap that moves two or more non-SOL mints taints the runs it touches (listed "multi-mint swap", never netted): SETTLED_SOLANA.md values in SOL and does not say how to split one SOL leg across two tokens; the simplest rule is not to.
+
+**What is the operator's.** (1) The capture of S1 from 2026-11-19's blocks on 2026-11-20 after 00:00Z, best run on the VPS so the blocks stay there (`python capture_sol_universe.py --cohort S1 --day 2026-11-19`); this session can run it from this machine instead and copy the blocks, on the operator's word. (2) The reader on the VPS before 2026-11-21T00:30Z: copy `arena_sol/` with the capture, cron `35 0 * * * .../arena_sol/vps_daily.sh S1`.
+
+**Suite.** `pytest -q`: 1 386 passed, 5 failed, the five carried since A47.1; none reads a file P43 adds.
+
+**Income row (R81), 2026-11-18 after A48.1:** 0 USD a day against 165. Nothing on the chain.
