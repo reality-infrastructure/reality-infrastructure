@@ -124,11 +124,11 @@ def test_compaction_writes_cited_summary_and_keeps_raw_events(runner, engine, pa
 
 def test_verdict_recorded_on_run_and_as_event(runner, engine, pack):
     r = runner.run("checker", {"sheet_id": "S1"})
-    row, event = record_verdict(engine, pack, r.run_id, "overridden", "S1-3 also looked off")
+    row, event = record_verdict(engine, pack, r.run_id, "overridden", "items: S1-3 also looked off")
     assert row["human_verdict"] == "overridden" and row["verdict_at"]
     assert event["event_type"] == "_reference.verdict" and event["source"] == "human"
     assert event["payload"] == {"run_id": r.run_id, "agent": "checker", "verdict": "overridden",
-                                "reason": "S1-3 also looked off"}
+                                "reason": "items: S1-3 also looked off"}
     engine.ledger.verify_row(event)
 
 

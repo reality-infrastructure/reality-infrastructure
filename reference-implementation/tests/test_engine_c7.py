@@ -84,7 +84,7 @@ def test_agent_verdict_has_a_source_and_a_human_outranks_it(runner, engine, pack
     proof = verify_run(engine, entries[0]["judge_run_id"])
     assert proof["byte_identical"]
     # the human overrides the agent
-    record_verdict(engine, pack, r.run_id, "overridden", "S1-3 also looked off")
+    record_verdict(engine, pack, r.run_id, "overridden", "items: S1-3 also looked off")
     row = engine.store.get_run(r.run_id)
     assert row["human_verdict"] == "overridden" and row["verdict_source"] == "human" and row["verdict_ref"] is None
     # and an agent never replaces the human
@@ -316,7 +316,7 @@ def test_judge_is_suspended_when_the_operator_keeps_overriding_it(runner, engine
     s0 = judge_safety(engine, pack)
     assert (s0["compared"], s0["disagreements"], s0["rate"], s0["suspended"], s0["planted"]) == (0, 0, 0.0, False, 0)
     for i, row in enumerate(rows):
-        record_verdict(engine, pack, row["run_id"], "overridden" if i < 2 else "followed", "operator looked")
+        record_verdict(engine, pack, row["run_id"], "overridden" if i < 2 else "followed", "operator looked at items")
     s = judge_safety(engine, pack)
     assert s["compared"] == 5 and s["disagreements"] == 2 and s["rate"] == 0.4 and s["suspended"] is True
     fresh = runner.run("checker", {"sheet_id": "S2"})

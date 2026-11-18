@@ -25,7 +25,7 @@ def test_crank_report_sections_and_recommendation(runner, engine, pack):
     runner.run("allocator", {"capacity": 20}, model_override=("local", "allocator-greedy"))
     bad = runner.run("allocator", {"capacity": 20}, model_override=("local", "allocator-misstated"))
     good = runner.run("allocator", {"capacity": 50})
-    record_verdict(engine, pack, good.run_id, "overridden", "capacity was really 45")
+    record_verdict(engine, pack, good.run_id, "overridden", "total_value: capacity was really 45")
     report = build_report(engine, pack, "2026-W42")
     text = render(report)
     for s in SECTIONS:
@@ -35,7 +35,7 @@ def test_crank_report_sections_and_recommendation(runner, engine, pack):
     assert agents["checker"]["scale_ratio"] == "1.00"           # 3 items / baseline 3
     assert float(agents["allocator"]["mean_conflict_mass"]) > 0  # confidently wrong proposals
     assert report["verdicts"] == {"overridden (human)": 1}      # attributed since C7: who adjudicated
-    assert report["override_reasons"][0]["reason"] == "capacity was really 45"
+    assert report["override_reasons"][0]["reason"] == "total_value: capacity was really 45"
     assert report["recommendation"]["rung"] == 2
     assert bad.run_id in {r for c in report["failure_clusters"] for r in c["runs"]}
 

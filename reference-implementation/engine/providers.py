@@ -55,6 +55,7 @@ class Completion:
     model: str
     latency_ms: int = 0
     raw: dict | None = None
+    reasoning: str = ""         # the model's reasoning text (thinking blocks / reasoning_content), kept apart from the answer
 
 
 def text_message(role: str, text: str) -> dict:
@@ -191,10 +192,12 @@ class AnthropicProvider(_Priced):
         except (anthropic.AnthropicError, TypeError, ValueError) as e:
             raise ProviderError(f"anthropic request failed: {e}") from e
         latency = int((time.perf_counter() - t0) * 1000)
-        text_parts, tool_uses = [], []
+        text_parts, tool_uses, thinking = [], [], []
         for block in resp.content:
             if block.type == "text":
                 text_parts.append(block.text)
+            elif block.type == "thinking":
+                thinking.append(str(getattr(block, "thinking", "") or ""))
             elif block.type == "tool_use":
                 tool_uses.append(ToolUse(id=block.id, name=block.name, input=dict(block.input)))
         return Completion(
@@ -203,7 +206,7 @@ class AnthropicProvider(_Priced):
             usage=Usage(resp.usage.input_tokens, resp.usage.output_tokens,
                         int(getattr(resp.usage, "cache_read_input_tokens", 0) or 0)),
             model=resp.model, latency_ms=latency,
-            raw=resp.model_dump(mode="json"),
+            raw=resp.model_dump(mode="json"), reasoning="".join(thinking),
         )
 
 
@@ -299,6 +302,7 @@ class OpenAICompatProvider(_Priced):
             usage=Usage(int(usage.get("prompt_tokens", 0)), int(usage.get("completion_tokens", 0)),
                         _cached_prompt_tokens(usage), int((usage.get("completion_tokens_details") or {}).get("reasoning_tokens") or 0)),
             model=data.get("model", model), latency_ms=latency, raw=data,
+            reasoning=str(msg.get("reasoning_content") or ""),
         )
 
 
@@ -333,7 +337,7 @@ class LocalProvider(_Priced):
         latency = int((time.perf_counter() - t0) * 1000)
         return Completion(text=completion.text, tool_uses=completion.tool_uses,
                           stop_reason=completion.stop_reason, usage=completion.usage,
-                          model=model, latency_ms=latency, raw=completion.raw)
+                          model=model, latency_ms=latency, raw=completion.raw, reasoning=completion.reasoning)
 
 
 @dataclass

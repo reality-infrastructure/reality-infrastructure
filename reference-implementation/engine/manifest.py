@@ -29,13 +29,14 @@ from engine.hashing import sha256_tree
 from engine.packs import Pack
 from engine.schema import load_schema, validate
 
-ROLES = ("orchestrator", "specialist", "worker", "judge", "planner", "refiner")
-FRONTIER_ROLES = ("orchestrator", "judge", "planner", "refiner")
+ROLES = ("orchestrator", "specialist", "worker", "judge", "planner", "refiner", "monitor")
+FRONTIER_ROLES = ("orchestrator", "judge", "planner", "refiner", "monitor")
 # What engine.autoloop reads from each loop role's certified output; the schema must require them.
 LOOP_ROLE_KEYS = {
     "judge": ("run_id", "verdict", "reason"),
     "planner": ("batch",),
     "refiner": ("agent", "rung", "file", "old", "new", "why"),
+    "monitor": ("run_id", "flag", "why"),
 }
 AGENT_TOOL_PREFIX = "agent."
 
@@ -131,7 +132,8 @@ def _latest_matrix(agent_dir: Path) -> dict | None:
 def _check_model_economics(agent_dir: Path, agent_name: str, role: str, model: ModelSpec,
                            pack: Pack, config: EngineConfig) -> None:
     frontier = config.frontier
-    is_frontier = (model.provider, model.name) == (frontier.provider, frontier.name)
+    is_frontier = (model.provider, model.name) == (frontier.provider, frontier.name) or \
+        (role == "judge" and config.judge_model == model.model_string)      # an independent grader model
     is_fixture_model = model.provider in config.fixture_providers
     if is_fixture_model and not pack.fixture:
         raise ManifestError(
@@ -253,6 +255,9 @@ def load_agent(pack: Pack, name: str, *, config: EngineConfig | None = None,
             enum = ((output_schema.get("properties") or {}).get("verdict") or {}).get("enum")
             if sorted(enum or []) != sorted(("followed", "overridden", "wrong", "n/a")):
                 raise ManifestError(f"{schema_path}: a judge's verdict must be an enum of followed|overridden|wrong|n/a")
+            if config.integrity["judge"]["require_correction"] and "correction" not in (output_schema.get("properties") or {}):
+                raise ManifestError(f"{schema_path}: a judge's override carries its fix; declare a 'correction' object property "
+                                    f"(autoloop.judge.require_correction)")
 
     # model
     provider, model_name = model_override or (manifest["model"]["provider"], manifest["model"]["name"])

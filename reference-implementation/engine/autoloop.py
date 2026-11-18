@@ -56,11 +56,11 @@ from engine.eval import load_golden, run_eval
 from engine.events import EventLog
 from engine.export import export
 from engine.guardrails import JUDGEABLE_ROLES
+from engine import integrity
 from engine.loop import Runner
 from engine.packs import load_pack
 from engine.runtime import iso
 from engine.store import Engine
-from engine.verdicts import record_verdict
 
 LOOP_ROLES = ("planner", "judge", "refiner")
 TEXT_FILES = ("skills.md", "workflow.md")
@@ -111,6 +111,8 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
         rate = ok / len(rows)
         if rate < float(cfg["min_pass_rate"]):
             killed[name] = f"pass rate {rate:.2f} over the last {len(rows)} runs, below {cfg['min_pass_rate']}"
+    for name, why in integrity.monitor_halts(engine, pack).items():
+        killed.setdefault(name, why)
     return killed
 
 
@@ -142,62 +144,19 @@ def judge_safety(engine: Engine, pack) -> dict:
     rate = (disagreements / compared) if compared else 0.0
     by_operator = compared >= int(cfg["min_compared"]) and rate > float(cfg["max_disagreement"])
     by_honeypots = planted >= int(cfg["min_planted"]) and miss_rate > float(cfg["max_missed"])
+    col = integrity.collusion(engine, pack)
     return {"compared": compared, "disagreements": disagreements, "rate": round(rate, 4),
-            "planted": planted, "missed": missed, "miss_rate": round(miss_rate, 4),
-            "suspended": by_operator or by_honeypots, "suspended_by": "operator" if by_operator else "honeypots" if by_honeypots else None,
+            "planted": planted, "missed": missed, "miss_rate": round(miss_rate, 4), "collusion": col,
+            "suspended": by_operator or by_honeypots or col["suspended"],
+            "suspended_by": "operator" if by_operator else "honeypots" if by_honeypots else "collusion" if col["suspended"] else None,
             "max_disagreement": float(cfg["max_disagreement"]), "min_compared": int(cfg["min_compared"]),
             "max_missed": float(cfg["max_missed"]), "min_planted": int(cfg["min_planted"])}
 
 
-def _numeric_leaf(output, path: tuple = ()) -> tuple[str, object] | None:
-    """The first numeric leaf of an output, depth first, skipping citations and confidence: what a honeypot alters."""
-    if isinstance(output, bool):
-        return None
-    if isinstance(output, (int, float)):
-        return ".".join(path), output
-    if isinstance(output, dict):
-        for k, v in output.items():
-            if k in ("citations", "confidence"):
-                continue
-            found = _numeric_leaf(v, path + (k,))
-            if found:
-                return found
-    if isinstance(output, list):
-        for i, v in enumerate(output):
-            found = _numeric_leaf(v, path + (str(i),))
-            if found:
-                return found
-    return None
-
-
 def plant_honeypots(runner: Runner, judge_name: str, rows: list[dict], k: int) -> list[dict]:
-    """Serve the judge k succeeded runs with one figure altered and record whether it noticed.  A hit is a verdict
-    of overridden or wrong whose reason names the altered field; the verdict is never recorded on the real run."""
-    out = []
-    for row in [r for r in rows if r["status"] == "succeeded" and r["role"] in JUDGEABLE_ROLES][-k:]:
-        leaf = _numeric_leaf(row["output"])
-        if leaf is None:
-            continue
-        path, value = leaf
-        altered = value + 1 if isinstance(value, int) else round(value * 1.07 + 0.01, 6)
-        runner.honeypots[row["run_id"]] = (path, altered)
-        try:
-            j = runner.run(judge_name, {"run_id": row["run_id"]})
-        except EngineError as e:
-            runner.honeypots.pop(row["run_id"], None)
-            out.append({"target_run_id": row["run_id"], "judge_run_id": None, "path": path, "hit": False, "verdict": None, "error": str(e)[:200]})
-            continue
-        finally:
-            runner.honeypots.pop(row["run_id"], None)
-        verdict = j.output["verdict"] if j.status == "succeeded" else None
-        field = path.split(".")[-1]
-        hit = bool(verdict in ("overridden", "wrong") and j.status == "succeeded" and field in (j.output.get("reason") or ""))
-        ev = EventLog(runner.engine, runner.pack).append(
-            entity_type="agent_run", entity_id=j.run_id, event_type=f"{runner.pack.name}.honeypot",
-            payload={"target_run_id": row["run_id"], "judge_run_id": j.run_id, "path": path, "hit": hit, "verdict": verdict},
-            source=f"agent:{judge_name}", source_ref=j.run_id)
-        out.append({"target_run_id": row["run_id"], "judge_run_id": j.run_id, "path": path, "hit": hit, "verdict": verdict, "event_id": ev["event_id"]})
-    return out
+    """Serve the judge k succeeded runs with figures altered, in graded tiers, and record whether it noticed
+    (engine.integrity.plant_honeypots).  The verdict is never recorded on the real run."""
+    return integrity.plant_honeypots(runner, judge_name, rows, k)
 
 
 def drift_readings(engine: Engine, pack) -> list[dict]:
@@ -237,6 +196,7 @@ def grow_golden(engine: Engine, pack, *, since: str, until: str) -> list[dict]:
             case = {"id": f"run-{r['run_id']}", "provenance": f"grown by the loop: run {r['run_id']} ({name}) marked followed by the "
                                                              f"operator at {r['verdict_at']}: {r['verdict_reason']}",
                     "input": r["input"], "expected": expected}
+            integrity.reasoning_guard(case, "golden growth")
             new.append(case)
             known.add(key)
         if new:
@@ -289,20 +249,8 @@ def unjudged(engine: Engine, pack, *, since: str, until: str) -> list[dict]:
 
 
 def judge(runner: Runner, judge_name: str, rows: list[dict]) -> list[dict]:
-    out = []
-    for row in rows:
-        try:
-            r = runner.run(judge_name, {"run_id": row["run_id"]})
-        except EngineError as e:
-            out.append({"run_id": row["run_id"], "agent": row["agent"], "judge_run_id": None, "status": "error", "error": str(e)})
-            continue
-        entry = {"run_id": row["run_id"], "agent": row["agent"], "judge_run_id": r.run_id, "status": r.status}
-        if r.status == "succeeded":
-            record_verdict(runner.engine, runner.pack, row["run_id"], r.output["verdict"], r.output["reason"],
-                           source=f"agent:{judge_name}", source_ref=r.run_id)
-            entry["verdict"] = r.output["verdict"]
-        out.append(entry)
-    return out
+    """Each run adjudicated by the judge, or by the panel when the pack has one (engine.integrity.adjudicate)."""
+    return [integrity.adjudicate(runner, judge_name, row) for row in rows]
 
 
 # -- refine -------------------------------------------------------------------------------
@@ -358,10 +306,14 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
     if target is None:
         return {"status": "skipped", "why": "no failure cluster names a worker, specialist or orchestrator run to refine"}
     agent, cluster = target
+    gate = integrity.intervention_gate(engine, pack, cluster)
+    if gate["refused"]:
+        return {"status": "monitor_cap", "agent": agent, "why": f"the evidence cites monitor-flagged runs {gate['runs']}; "
+                f"{gate['count']} reasoning-motivated interventions this window, the cap is {gate['cap']}"}
     files = _text_files(pack.agent_dir(agent))
     change = rec["change"] if cluster is rec.get("evidence") else f"{rec['change']} Cluster: {cluster.get('cluster')} ({cluster.get('count')}x)."
     r = runner.run(refiner, {"agent": agent, "rung": rec["rung"], "rungs": list(rungs), "change": change,
-                             "evidence": _evidence(engine, cluster), "files": files})
+                             "evidence": integrity.reasoning_guard(_evidence(engine, cluster), "refiner evidence"), "files": files})
     if r.status != "succeeded":
         return {"status": "refiner_failed", "refiner_run_id": r.run_id, "agent": agent, "failure_reasons": list(r.failure_reasons)}
     out = r.output
@@ -394,6 +346,8 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
                  "before_holdout": None if before_h is None else before_h["models"][0]["score"],
                  "after_holdout": None if after_h is None else after_h["models"][0]["score"]},
         source=f"agent:{refiner}", source_ref=r.run_id)
+    if gate["motivated"]:
+        integrity.record_intervention(engine, pack, gate, agent, event["event_id"])
     return {"status": "adopted" if adopted else "rejected", "agent": agent, "file": out["file"], "rung": out["rung"],
             "before": before["summary"], "after": after["summary"],
             "before_holdout": None if before_h is None else before_h["summary"],
@@ -446,12 +400,19 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
     drift = drift_readings(engine, pack)
     result["safety"] = {"killed": killed, "judge": safety, "drift": drift}
     shifted = [d for d in drift if d["shifted"]]
+    guard = integrity.safeguards(engine, pack, "autoloop")
+    result["safety"]["review"] = guard["review"]
+    if guard["review"]["over"]:
+        integrity.review_gate(engine, pack, "autoloop")
+        result["plan_paused"] = (f"{guard['review']['backlog']} sampled agent verdicts wait for a human (cap "
+                                 f"{guard['review']['max_backlog']}): no new work is planned until the operator reviews them")
     report = build_report(engine, pack, week)
-    if do_plan and "planner" in agents:
+    if do_plan and "planner" in agents and not guard["review"]["over"]:
         pending = [_run_summary(r) for r in unjudged(engine, pack, since=since, until=until)]
         batch, planned = plan(runner, agents["planner"], week=week, report=report, pending=pending, max_runs=cap, killed=killed)
         result["plan"] = {"run": planned, "batch": batch}
         result["act"] = act(runner, batch)
+        result["traps"] = integrity.plant_traps(runner, week, killed)
     if do_judge and "judge" in agents:
         if safety["suspended"]:
             result["judge"] = []
@@ -462,7 +423,11 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
             result["judge"] = judge(runner, agents["judge"], unjudged(engine, pack, since=since, until=until))
             k = int(engine.config.autoloop["judge"]["honeypots_per_cycle"])
             if k > 0:
-                result["honeypots"] = plant_honeypots(runner, agents["judge"], engine.store.list_runs(pack=pack.name, since=since, until=until, status="succeeded"), k)
+                rows = engine.store.list_runs(pack=pack.name, since=since, until=until, status="succeeded")
+                result["honeypots"] = [h for j in integrity.panel_members(engine, pack, agents["judge"])
+                                       for h in plant_honeypots(runner, j, rows, k)]
+    result["monitor"] = integrity.monitor_step(runner, since=since, until=until)
+    result["cheat_rate"] = integrity.cheat_rate(engine, pack, week, result.get("honeypots") or [], result.get("traps") or [])
     report = build_report(engine, pack, week)
     result["crank"] = _slim_report(report)
     if shifted:
@@ -471,13 +436,25 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
         result["grow"] = []
         result["drift_hold"] = why
     else:
-        if do_refine and "refiner" in agents:
+        if do_refine:                                    # the judge's learning is its refinement: --no-refine skips both
+            result["judge_learning"] = integrity.judge_learning(engine, pack, runner, agents, packs_root=packs_root,
+                                                                refine=not (result["cheat_rate"] or {}).get("halt"))
+        if do_refine and "refiner" in agents and (result["cheat_rate"] or {}).get("halt"):
+            c = result["cheat_rate"]
+            result["refine"] = {"status": "skipped", "why": f"cheat rate rose from {c['previous']} to {c['rate']} (above "
+                                f"{c['max_cheat_rate']}): no edit is adopted while the class of cheat is not going down"}
+        elif do_refine and "refiner" in agents:
             result["refine"] = refine(engine, pack, runner, agents["refiner"], report, packs_root=packs_root)
         if engine.config.autoloop["grow_golden"]:
             result["grow"] = grow_golden(engine, pack, since=since, until=until)
+        if engine.config.integrity["loop"]["grow_from_corrections"]:
+            result["regressions"] = integrity.grow_regressions(engine, pack, since=since, until=until)
     if do_export:
         result["export"] = export_open(engine, pack, pack.root, week)
     result["safety"]["killed_after"] = kill_rule(engine, pack)
+    result["integrity"] = {"collusion": integrity.record_collusion(engine, pack), "delegation": integrity.record_delegations(engine, pack),
+                           "monitorability": integrity.monitorability(engine, pack, week, since=since, until=until),
+                           "review_sla": integrity.review_sla(engine, pack)}
     return result
 
 
@@ -528,6 +505,21 @@ def render(result: dict) -> str:
         L += [f"- {g['agent']}: +{g['added']} cases ({', '.join(g['ids'][:5])}{'…' if g['added'] > 5 else ''})" for g in result["grow"]] or ["- nothing to add"]
     if "export" in result:
         L += ["", "## Export", ""] + [f"- {e['agent']}: {e['status']}" + (f" ({e['rows']} rows -> {e['path']})" if e["status"] == "exported" else f" ({e['why']})") for e in result["export"]]
+    if "integrity" in result:
+        L += ["", "## Integrity", ""]
+        if result.get("plan_paused"):
+            L += [f"- review backlog: {result['plan_paused']}"]
+        L += ["- traps: " + (", ".join(f"{t['agent']} " + (("READ (disclosed)" if t["disclosed"] else "READ (concealed)") if t.get("read") else "not read")
+                                       for t in result.get("traps") or []) or "none planted")]
+        c = result.get("cheat_rate")
+        L += ["- cheat rate: " + (f"{c['rate']} (previous {c['previous']})" + ("; refinement halted" if c["halt"] else "") if c else "nothing planted")]
+        L += [f"- monitor: {len(result.get('monitor') or [])} runs read, "
+              f"{sum(1 for m in result.get('monitor') or [] if m.get('flag') not in (None, 'none'))} flagged"]
+        L += ["- regression cases grown: " + (", ".join(f"{g['agent']} +{g['added']}" for g in result.get("regressions") or []) or "none")]
+        L += [f"- judge {j['judge']}: score on its own misses {j['score']} over {j['cases']} cases"
+              + (f"; edit {j['refine']['status']}" if j.get("refine") else "") for j in result.get("judge_learning") or []]
+        L += [f"- delegation {d['agent']}: {d['decision']} (operator ${d['operator_cost']}/review, agent ${d['agent_cost']}/item, "
+              f"agreement {d['agreement']})" for d in result["integrity"]["delegation"]]
     L += ["", "Every step above is a traced run or a ledger-bound event; a human verdict recorded later outranks any agent verdict here."]
     return "\n".join(L) + "\n"
 

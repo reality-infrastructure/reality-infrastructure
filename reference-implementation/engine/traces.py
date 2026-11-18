@@ -29,6 +29,7 @@ class CandidateTrace:
     judgement: dict | None = None
     accepted: bool = False
     failure_reasons: list[str] = field(default_factory=list)
+    reasoning: list[dict] = field(default_factory=list)    # {sha256, text} per provider call; read by a monitor only
 
     def as_dict(self) -> dict:
         return {
@@ -42,6 +43,7 @@ class CandidateTrace:
             "judgement": self.judgement,
             "accepted": self.accepted,
             "failure_reasons": self.failure_reasons,
+            **({"reasoning": self.reasoning} if self.reasoning else {}),
         }
 
 

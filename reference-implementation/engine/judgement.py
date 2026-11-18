@@ -157,6 +157,18 @@ class Judgement:
             mass = {"accept": m, self._omega: Decimal(1) - m} if m > 0 else {self._omega: Decimal(1)}
         self._observe(candidate_key, f"model:{model_string}", mass, list(src["uncertainty_type"]))
 
+    def observe_verdict(self, candidate_key: str, source_id: str, accept: bool | None, confidence) -> None:
+        """One panel judge's verdict on a run: ``accept`` True (followed), False (overridden/wrong) or
+        None (n/a), its stated confidence discounted like any interested-party assertion.  Judges that
+        disagree leave conflict mass m(empty) on the panel's proposition."""
+        src = self._cfg["sources"]["model_confidence"]
+        c = Decimal(str(confidence)) if isinstance(confidence, (int, float, Decimal)) and not isinstance(confidence, bool) else None
+        m = Decimal(0) if c is None or accept is None or not (Decimal(0) <= c <= Decimal(1)) else \
+            min((c * Decimal(str(src["discount"]))).quantize(_Q4, rounding=ROUND_HALF_EVEN), Decimal(1) - _Q4)
+        target = "accept" if accept else "reject"
+        mass = {target: m, self._omega: Decimal(1) - m} if m > 0 else {self._omega: Decimal(1)}
+        self._observe(candidate_key, source_id, mass, list(src["uncertainty_type"]))
+
     # -- projection + export -------------------------------------------------------
 
     def project(self) -> dict:

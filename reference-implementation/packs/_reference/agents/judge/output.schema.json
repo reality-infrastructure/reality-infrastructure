@@ -3,11 +3,39 @@
   "title": "judge verdict",
   "type": "object",
   "additionalProperties": false,
-  "required": ["run_id", "verdict", "reason", "confidence"],
+  "required": [
+    "run_id",
+    "verdict",
+    "reason",
+    "confidence"
+  ],
   "properties": {
-    "run_id": {"type": "string"},
-    "verdict": {"type": "string", "enum": ["followed", "overridden", "wrong", "n/a"]},
-    "reason": {"type": "string", "minLength": 1, "maxLength": 1000},
-    "confidence": {"type": "number", "minimum": 0, "maximum": 1}
+    "run_id": {
+      "type": "string"
+    },
+    "verdict": {
+      "type": "string",
+      "enum": [
+        "followed",
+        "overridden",
+        "wrong",
+        "n/a"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "confidence": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "correction": {
+      "type": "object",
+      "minProperties": 1,
+      "description": "dotted output path -> the value it should hold; required on an override or 'wrong' of a succeeded run"
+    }
   }
 }

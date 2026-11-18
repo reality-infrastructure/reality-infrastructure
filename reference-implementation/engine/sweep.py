@@ -27,15 +27,15 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from decimal import Decimal
 from pathlib import Path
 
-from engine.autoloop import kill_rule, loop_agents
+from engine import integrity
+from engine.autoloop import kill_rule, loop_agents, plant_honeypots
 from engine.errors import EngineError
 from engine.loop import Runner
 from engine.packs import load_pack, parse_agent_ref
 from engine.runtime import iso
 from engine.store import Engine
-from engine.verdicts import record_verdict
 
-STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start")
+STOP_REASONS = ("done", "budget", "kill", "limit", "halted_before_start", "review_backlog")
 
 
 def candidates(engine: Engine, pack, agent: str, *, table: str, column: str, input_key: str) -> list[dict]:
@@ -72,6 +72,9 @@ class Sweep:
         self.completed = 0
         self.results: list[dict] = []
         self.stop_reason: str | None = None
+        self.withheld: str | None = None             # why no agent verdict is recorded on this sweep (judge suspended)
+        self.guard: dict = {}
+        self.honeypots: list[dict] = []
 
     # -- one unit of work: the run, then its verdict ------------------------------------
 
@@ -81,14 +84,14 @@ class Sweep:
             r = self.runner.run(self.agent, run_input)
             entry.update({"run_id": r.run_id, "status": r.status, "cost_usd": str(r.cost_usd)})
             cost = r.cost_usd
-            if self.judge_name:
-                j = self.runner.run(self.judge_name, {"run_id": r.run_id})
-                cost += j.cost_usd
-                entry["judge_run_id"], entry["judge_status"] = j.run_id, j.status
-                if j.status == "succeeded":
-                    record_verdict(self.engine, self.pack, r.run_id, j.output["verdict"], j.output["reason"],
-                                   source=f"agent:{self.judge_name}", source_ref=j.run_id)
-                    entry["verdict"] = j.output["verdict"]
+            if self.judge_name and self.withheld:
+                entry["verdict_withheld"] = self.withheld
+            elif self.judge_name:
+                j = integrity.adjudicate(self.runner, self.judge_name, self.engine.store.get_run(r.run_id))
+                cost += Decimal(j["cost_usd"])
+                entry["judge_run_id"], entry["judge_status"] = j["judge_run_id"], j["status"]
+                if "verdict" in j:
+                    entry["verdict"] = j["verdict"]
         except EngineError as e:                       # an errored run is traced by the runner; the sweep goes on
             entry.update({"run_id": entry.get("run_id"), "status": "error", "error": str(e)[:300], "cost_usd": "0"})
             cost = Decimal(0)
@@ -108,9 +111,18 @@ class Sweep:
 
     # -- the loop ---------------------------------------------------------------------------
 
+    def _backlogged(self) -> bool:
+        return bool(self.judge_name) and integrity.review_gate(self.engine, self.pack, "sweep")["over"]
+
     def run(self, inputs: list[dict]) -> dict:
+        self.guard = integrity.safeguards(self.engine, self.pack, "sweep", self.agent)
+        if self.judge_name and self.guard["judge"]["suspended"]:
+            self.withheld = f"judge suspended by {self.guard['judge']['suspended_by']}: no agent verdict is recorded on any path"
         if self._halted():
             self.stop_reason = "halted_before_start"
+            return self.report(inputs, remaining=len(inputs))
+        if self._backlogged():
+            self.stop_reason = "review_backlog"
             return self.report(inputs, remaining=len(inputs))
         truncated = self.limit is not None and self.limit < len(inputs)
         if truncated:
@@ -131,8 +143,15 @@ class Sweep:
                         self.stop_reason = "budget"
                     elif self.completed % self.kill_check_every == 0 and self._halted():
                         self.stop_reason = "kill"
+                    elif self.completed % self.kill_check_every == 0 and self._backlogged():
+                        self.stop_reason = "review_backlog"
         if self.stop_reason is None:
             self.stop_reason = "limit" if truncated else "done"
+        if self.judge_name and not self.withheld:
+            k = int(self.engine.config.autoloop["judge"]["honeypots_per_cycle"])
+            mine = [self.engine.store.get_run(e["run_id"]) for e in self.results if e.get("status") == "succeeded"]
+            self.honeypots = [h for j in integrity.panel_members(self.engine, self.pack, self.judge_name)
+                              for h in plant_honeypots(self.runner, j, mine, k)]
         return self.report(inputs, remaining=len(pending))
 
     def report(self, inputs: list[dict], *, remaining: int) -> dict:
@@ -146,7 +165,8 @@ class Sweep:
                 "budget_usd": None if self.budget is None else str(self.budget), "candidates": len(inputs),
                 "completed": self.completed, "remaining": remaining, "by_status": by_status, "verdicts": verdicts,
                 "cost_usd": str(self.cost), "stop_reason": self.stop_reason, "halted_now": self._halted(),
-                "results": self.results}
+                "verdicts_withheld": self.withheld, "honeypots": self.honeypots,
+                "safeguards_event": self.guard.get("event_id"), "results": self.results}
 
 
 def render(rep: dict, stamp: str) -> str:

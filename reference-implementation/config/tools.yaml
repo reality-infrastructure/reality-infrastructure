@@ -91,3 +91,14 @@ tables.read:
       table: { type: string }
       row_id: { type: string }
       limit: { type: integer, minimum: 1, maximum: 5000, default: 1000 }
+reasoning.read:
+  description: >-
+    Read the reasoning text a model produced while making one run of this pack,
+    with the run's agent, status and output. For a monitor only: reasoning is
+    read to see what metrics miss, and is never graded.
+  input_schema:
+    type: object
+    additionalProperties: false
+    required: [run_id]
+    properties:
+      run_id: { type: string }

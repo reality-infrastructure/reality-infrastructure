@@ -23,6 +23,7 @@ from engine.config import load_config
 from engine.errors import AccessDenied, CitationError, EngineError, EventError, ProviderError, ToolError
 from engine.events import EventLog
 from engine.guardrails import GuardrailContext
+from engine.integrity import reasoning_record, record_anomalies
 from engine.hashing import canonical_json
 from engine.judgement import Judgement
 from engine.manifest import Agent, load_agent
@@ -112,6 +113,7 @@ class Runner:
             row = self._finish(trace, judgement, agent, status, None, failures, False)
             raise EngineError(f"run {trace.run_id} errored: {e}") from e
         row = self._finish(trace, judgement, agent, status, output, failures, access_denied)
+        record_anomalies(self.engine, self.pack, row)
         return RunResult(run_id=trace.run_id, status=status, output=row["output"],
                          failure_reasons=tuple(failures), cost_usd=row["cost_usd"], row=row)
 
@@ -142,7 +144,7 @@ class Runner:
         tool_defs = self.pack.tools.definitions(list(agent.tools)) + [self._submit_tool(agent)]
         gctx = GuardrailContext(agent=agent, output_schema=agent.output_schema, resolver=resolver,
                                 run_input=run_input, pack=self.pack, max_output_bytes=agent.max_output_bytes,
-                                engine=self.engine)
+                                engine=self.engine, honeypots=self.honeypots)
         vctx = VerifyContext(pack=self.pack, agent=agent, run_input=run_input, resolver=resolver,
                              read_table=self.pack.table_rows)
         feedback: list[dict] = []
@@ -220,6 +222,8 @@ class Runner:
                                        cache_read_tokens=completion.usage.cache_read_tokens,
                                        reasoning_tokens=completion.usage.reasoning_tokens, cost=cost,
                                        latency_ms=completion.latency_ms, stop_reason=completion.stop_reason)
+            if completion.reasoning:
+                cand.reasoning.append(reasoning_record(completion.reasoning))
             messages.append(assistant_message(completion))
             if completion.stop_reason == "refusal":
                 cand.failure_reasons.append("model refused the request")
@@ -257,6 +261,7 @@ class Runner:
 
     def _check(self, agent: Agent, key: str, output: Any, cand: CandidateTrace, judgement: Judgement,
                gctx: GuardrailContext, vctx: VerifyContext) -> bool:
+        gctx.tool_calls = cand.tool_calls
         results = self.pack.guardrails.run(list(agent.guardrails), output, gctx)
         cand.guardrails = [r.as_dict() for r in results]
         for r in results:

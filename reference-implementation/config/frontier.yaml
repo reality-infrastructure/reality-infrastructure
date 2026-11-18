@@ -7,3 +7,6 @@ frontier:
   name: deepseek-flash   # DeepSeek V4.1 Flash (operator ruling 2026-10-17: DeepSeek for everything)
 # Providers whose models are fixtures, permitted only in packs with fixture: true.
 fixture_providers: [local]
+# Brown: the grader runs an independent model.  When set (provider/name), a role: judge agent may run it
+# instead of the frontier; with autoloop.judge.require_distinct_model a judge never grades its own model's run.
+judge_model: null

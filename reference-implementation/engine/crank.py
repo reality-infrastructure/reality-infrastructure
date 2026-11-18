@@ -20,6 +20,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from engine.errors import EngineError
+from engine.integrity import integrity_report, render_integrity, unspecific_runs
 from engine.manifest import load_agent
 from engine.packs import load_pack
 from engine.runtime import iso
@@ -53,6 +54,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     verdicts: Counter = Counter()
     override_reasons: Counter = Counter()
     conflict: dict[str, list[Decimal]] = defaultdict(list)
+    unspecific = unspecific_runs(engine, pack)              # an unspecific override steers no refinement
     for r in runs:
         a = per_agent.setdefault(r["agent"], {"runs": 0, "succeeded": 0, "failed_guardrail": 0,
                                                "failed_verifier": 0, "access_denied": 0, "error": 0,
@@ -64,7 +66,7 @@ def build_report(engine: Engine, pack, week: str) -> dict:
         a["items"] += int(r["items_evaluated"] or 0)
         if r["human_verdict"]:
             verdicts[f"{r['human_verdict']} ({r.get('verdict_source') or 'human'})"] += 1
-            if r["human_verdict"] in ("overridden", "wrong") and r["verdict_reason"]:
+            if r["human_verdict"] in ("overridden", "wrong") and r["verdict_reason"] and r["run_id"] not in unspecific:
                 override_reasons[r["verdict_reason"].strip()] += 1
         for it in r["iterations"]:
             for cand in it.get("candidates", []):
@@ -105,10 +107,12 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     top_clusters = [{"cluster": k, "count": n, "runs": sorted(set(cluster_rows[k]))[:10]}
                     for k, n in clusters.most_common(10)]
     recommendation = _recommend(top_clusters, verdicts, override_reasons)
-    return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
-            "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
-            "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation}
+    out = {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
+           "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
+           "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
+           "failure_clusters": top_clusters, "recommendation": recommendation}
+    out["integrity"] = integrity_report(engine, pack, runs, out)
+    return out
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -159,6 +163,8 @@ def render(report: dict) -> str:
           "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract, or "
           "engine.autoloop lets the pack's refiner propose the rung-1/2 edit and adopts it only if the "
           "golden set does not get worse."]
+    if "integrity" in report:
+        L += render_integrity(report["integrity"])
     return "\n".join(L) + "\n"
 
 

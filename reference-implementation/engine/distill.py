@@ -32,6 +32,7 @@ from engine.config import load_yaml
 from engine.errors import EngineError, GateError
 from engine.eval import run_eval, write_matrix
 from engine.export import check_gate, counted_runs
+from engine.integrity import reasoning_guard
 from engine.manifest import load_agent
 from engine.packs import load_pack, parse_agent_ref
 from engine.providers import parse_model_string
@@ -53,8 +54,8 @@ def exemplars(engine: Engine, pack, agent_name: str, k: int) -> list[dict]:
         if len(text) > MAX_EXEMPLAR_BYTES:
             continue
         seen.add(key)
-        out.append({"run_id": r["run_id"], "verdict_source": r.get("verdict_source") or "human", "verdict_reason": r["verdict_reason"],
-                    "input": r["input"], "output": r["output"]})
+        out.append(reasoning_guard({"run_id": r["run_id"], "verdict_source": r.get("verdict_source") or "human",
+                                    "verdict_reason": r["verdict_reason"], "input": r["input"], "output": r["output"]}, "distill"))
         if len(out) >= k:
             break
     return out
