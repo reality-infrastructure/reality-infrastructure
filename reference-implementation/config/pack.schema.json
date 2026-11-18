@@ -19,7 +19,8 @@
         "properties": {
           "backend": {"type": "string", "enum": ["file"]},
           "ref": {"type": "string", "minLength": 1},
-          "id_field": {"type": "string", "default": "id"}
+          "id_field": {"type": "string", "default": "id"},
+          "as_of_field": {"type": "string", "minLength": 1, "description": "JH-C11 G-D10: the row's observed date; a backtest case reads only rows at or before its as_of"}
         }
       }
     },

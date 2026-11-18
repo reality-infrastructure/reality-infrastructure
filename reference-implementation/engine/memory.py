@@ -15,6 +15,7 @@ from __future__ import annotations
 from datetime import timedelta
 from typing import Any, Callable
 
+from engine import experiment
 from engine.errors import EngineError, ManifestError
 from engine.events import COMPACTION_TYPE, EventLog
 from engine.freshness import mark_stale
@@ -67,7 +68,7 @@ def assemble_working_context(agent, ctx: ToolContext, run_input: dict) -> dict:
             data = ctx.call("events.query", q, origin="grounding")
         elif kind == "agent_output":
             runs = ctx.engine.store.list_runs(pack=agent.pack.name, agent=ref, status="succeeded")
-            runs = runs[-int(src.get("limit", 5)):]
+            runs = experiment.visible_runs(ctx, runs)[-int(src.get("limit", 5)):]     # JH-C11 wpC: as_of, isolation
             data = [ctx.call("agent_output.read", {"run_id": r["run_id"]}, origin="grounding")
                     for r in runs]
         else:  # unreachable: manifest schema bounds kind
@@ -88,7 +89,8 @@ def assemble_working_context(agent, ctx: ToolContext, run_input: dict) -> dict:
             # the latest n only: loading every succeeded run of a long-lived agent (traces included)
             # exhausted memory on hood's second live cycle, 2026-10-17
             runs = ctx.engine.store.list_runs(pack=agent.pack.name, agent=agent.name, status="succeeded",
-                                              limit=n, newest_first=True)
+                                              limit=n, newest_first=True, until=experiment.run_until(agent))
+            runs = experiment.visible_runs(ctx, runs)
             for r in runs:
                 out = ctx.call("agent_output.read", {"run_id": r["run_id"]}, origin="memory")
                 out["human_verdict"] = r["human_verdict"]
