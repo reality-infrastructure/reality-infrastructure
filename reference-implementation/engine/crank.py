@@ -19,6 +19,7 @@ from datetime import datetime, timedelta, timezone
 from decimal import Decimal
 from pathlib import Path
 
+from engine.analytics import extend_report, render_sections
 from engine.errors import EngineError
 from engine.manifest import load_agent
 from engine.packs import load_pack
@@ -105,10 +106,12 @@ def build_report(engine: Engine, pack, week: str) -> dict:
     top_clusters = [{"cluster": k, "count": n, "runs": sorted(set(cluster_rows[k]))[:10]}
                     for k, n in clusters.most_common(10)]
     recommendation = _recommend(top_clusters, verdicts, override_reasons)
-    return {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
-            "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
-            "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
-            "failure_clusters": top_clusters, "recommendation": recommendation}
+    report = {"pack": pack.name, "week": week, "from": iso(start), "to": iso(end), "run_count": len(runs),
+              "agents": agents_out, "verdicts": dict(sorted(verdicts.items())),
+              "override_reasons": [{"reason": k, "count": n} for k, n in override_reasons.most_common(10)],
+              "failure_clusters": top_clusters, "recommendation": recommendation}
+    extend_report(engine, pack, week, runs, report)
+    return report
 
 
 def _recommend(clusters: list[dict], verdicts: Counter, overrides: Counter) -> dict:
@@ -159,6 +162,7 @@ def render(report: dict) -> str:
           "See IMPROVEMENT-ORDER.md.  A human turns this into the next refinement contract, or "
           "engine.autoloop lets the pack's refiner propose the rung-1/2 edit and adopts it only if the "
           "golden set does not get worse."]
+    L += render_sections(report)
     return "\n".join(L) + "\n"
 
 

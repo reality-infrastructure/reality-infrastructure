@@ -28,6 +28,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from engine.autoloop import kill_rule, loop_agents
+from engine.constraint import sweep_throughput
 from engine.errors import EngineError
 from engine.loop import Runner
 from engine.packs import load_pack, parse_agent_ref
@@ -133,7 +134,21 @@ class Sweep:
                         self.stop_reason = "kill"
         if self.stop_reason is None:
             self.stop_reason = "limit" if truncated else "done"
-        return self.report(inputs, remaining=len(pending))
+        rep = self.report(inputs, remaining=len(pending))
+        if self.engine.config.analytics["measure_throughput"] and self.results:
+            rep["throughput"] = sweep_throughput(self.engine, self.pack, self.agent, self.results, workers=self.workers, budget_usd=self.budget)
+        return rep
+
+    def record_throughput(self, rep: dict) -> dict | None:
+        """The finished sweep's ``<pack>.throughput`` event (the CLI records it beside its report files)."""
+        t = rep.get("throughput")
+        if not t:
+            return None
+        return self.runner.events.append(entity_type="agent_run", entity_id=self.agent, event_type=f"{self.pack.name}.throughput",
+                                         payload={k: t[k] for k in ("agent", "workers", "runs_per_hour", "items_per_hour",
+                                                                    "manual_baseline_items", "lock_wait_share",
+                                                                    "provider_share", "utilisation", "binding")},
+                                         source="pipeline:sweep")
 
     def report(self, inputs: list[dict], *, remaining: int) -> dict:
         by_status: dict[str, int] = {}
@@ -156,6 +171,11 @@ def render(rep: dict, stamp: str) -> str:
          f"stopped because: **{rep['stop_reason']}**" + ("; the agent is halted by the kill rule now" if rep["halted_now"] else ""), "",
          "| status | runs |", "|---|---|"] + [f"| {k} | {v} |" for k, v in sorted(rep["by_status"].items())]
     L += ["", "| verdict (judge) | runs |", "|---|---|"] + ([f"| {k} | {v} |" for k, v in sorted(rep["verdicts"].items())] or ["| none | 0 |"])
+    t = rep.get("throughput")
+    if t:
+        L += ["", f"Throughput: {t['runs_per_hour']} runs/hour, {t['items_per_hour']} items/hour (manual baseline {t['manual_baseline_items']}); "
+                  f"provider share {t['provider_share']:.0%}, engine share {t['lock_wait_share']:.0%}, worker utilisation {t['utilisation']:.0%}; "
+                  f"binding resource: **{t['binding']}**"]
     L += ["", "Every run above is a trace in the store and every verdict a ledger-bound event; the operator's verdict on any run outranks the judge's."]
     return "\n".join(L) + "\n"
 
@@ -189,6 +209,7 @@ def main(argv: list[str] | None = None) -> int:
                           log=lambda m: print(m, flush=True))
             stamp = iso(engine.clock.now())[:19].replace(":", "")
             rep = sweep.run(inputs)
+            sweep.record_throughput(rep)
         finally:
             engine.close()
         out_dir = Path(args.out) if args.out else pack.root / "crank"

@@ -11,7 +11,7 @@
         "type": "object",
         "additionalProperties": false,
         "required": ["agent", "input"],
-        "properties": {"agent": {"type": "string"}, "input": {"type": "object"}}
+        "properties": {"agent": {"type": "string"}, "input": {"type": "object"}, "synthetic": {"type": "boolean"}}
       }
     },
     "why": {"type": "string", "minLength": 1, "maxLength": 1000},

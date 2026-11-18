@@ -29,6 +29,7 @@ from pathlib import Path
 import yaml
 
 from engine.config import load_yaml
+from engine.coverage import stratify
 from engine.errors import EngineError, GateError
 from engine.eval import run_eval, write_matrix
 from engine.export import check_gate, counted_runs
@@ -42,7 +43,8 @@ MAX_EXEMPLAR_BYTES = 6000
 
 
 def exemplars(engine: Engine, pack, agent_name: str, k: int) -> list[dict]:
-    """The k most recent followed runs on distinct inputs, each small enough to show whole."""
+    """k followed runs on distinct inputs, each small enough to show whole: most recent first, spread
+    round-robin across the pack's input buckets when it declares featurizers (engine.coverage)."""
     rows = counted_runs(engine, pack, agent_name, status="succeeded")
     out, seen = [], set()
     for r in reversed(rows):
@@ -55,9 +57,7 @@ def exemplars(engine: Engine, pack, agent_name: str, k: int) -> list[dict]:
         seen.add(key)
         out.append({"run_id": r["run_id"], "verdict_source": r.get("verdict_source") or "human", "verdict_reason": r["verdict_reason"],
                     "input": r["input"], "output": r["output"]})
-        if len(out) >= k:
-            break
-    return out
+    return stratify(pack, agent_name, out, k)
 
 
 def student_prompt(system_prompt: str, rows: list[dict]) -> str:

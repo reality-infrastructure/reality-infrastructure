@@ -125,6 +125,29 @@ class EngineConfig:
             raise EngineError(f"no price for {provider}/{model} in config/prices.yaml")
         return Decimal(str(row.get("cache_read", row["input"]))) / Decimal(1_000_000)
 
+    @property
+    def analytics(self) -> dict:
+        """The crank-analytics knobs (JH-C11 wpF) with their defaults, so a config without them still loads."""
+        e = self.engine
+        a = dict(e.get("autoloop") or {})
+        c = dict(e.get("crank") or {})
+        return {
+            "constraint": {"window_weeks": 4, "constraint_share": 0.5, "min_lost_runs": 3, "cost_rise": 1.5, **(a.get("constraint") or {})},
+            "min_novel_share": float(a.get("min_novel_share", 0.2)),
+            "velocity": {"window_weeks": 8, "min_cycles": 3, "diminishing_ratio": 2.0, **(a.get("velocity") or {})},
+            "speed": {"target_cycle_hours": 24, "target_time_to_fix_weeks": 2, **(a.get("speed") or {})},
+            "directive_file": str(a.get("directive_file", "directive.md")),
+            "measure_throughput": bool((e.get("sweep") or {}).get("measure_throughput", True)),
+            "audit_sample_per_agent": int(c.get("audit_sample_per_agent", 3)),
+            "yield_min_runs": int(c.get("yield_min_runs", 20)),
+            "repetition_floor": float(c.get("repetition_floor", 0.5)),
+            "repetition_min_runs": int(c.get("repetition_min_runs", 5)),
+            "diversity": {"min_distinct_ratio": 0.3, "max_judge_followed_share": 0.97, "min_runs": 5, **(c.get("diversity") or {})},
+            "attribution": {"enabled": True, "inherited_weight": 0.5, **(e.get("attribution") or {})},
+            "adapters": {"trial_share": 0.1, "trial_min_events": 20, **(e.get("adapters") or {})},
+            "coverage": {"min_bucket_share": 0.05, **(e.get("coverage") or {})},
+        }
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

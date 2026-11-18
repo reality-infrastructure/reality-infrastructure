@@ -11,12 +11,14 @@ modules:
   guardrails: [guardrails.flags]
   verifiers: [verifiers.knapsack]
   drift: [drift]
+  featurize: [featurize]
 # Fixture "models": deterministic responders.  Only a fixture pack may declare these.
 local_models:
   checker-v1:           fixtures.responders:checker_v1
   checker-v2:           fixtures.responders:checker_v2
   checker-malformed:    fixtures.responders:checker_malformed
   checker-snoop:        fixtures.responders:checker_snoop
+  checker-looping:      fixtures.responders:checker_looping
   allocator-v1:         fixtures.responders:allocator_v1
   allocator-greedy:     fixtures.responders:allocator_greedy
   allocator-infeasible: fixtures.responders:allocator_infeasible
@@ -28,6 +30,7 @@ local_models:
   judge-careful:        fixtures.responders:judge_careful
   planner-v1:           fixtures.responders:planner_v1
   planner-bad:          fixtures.responders:planner_bad
+  planner-synthetic:    fixtures.responders:planner_synthetic
   refiner-v1:           fixtures.responders:refiner_v1
   refiner-bad:          fixtures.responders:refiner_bad
   refiner-declines:     fixtures.responders:refiner_declines

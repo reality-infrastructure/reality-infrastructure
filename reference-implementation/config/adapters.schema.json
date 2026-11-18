@@ -16,7 +16,8 @@
           "binding": {"type": "string"},
           "latency_sla_seconds": {"type": "number", "exclusiveMinimum": 0},
           "required_flags": {"type": "array", "items": {"type": "string"}, "uniqueItems": true},
-          "scorecard": {"type": "string"}
+          "scorecard": {"type": "string"},
+          "trial": {"type": "string"}
         }
       }
     },

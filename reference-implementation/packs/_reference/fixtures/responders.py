@@ -129,6 +129,14 @@ def checker_malformed(*, model, system, messages, tools, candidate_index) -> Com
                               "bogus": True, "confidence": 0.99})
 
 
+def checker_looping(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Never submits: re-evaluates the first expression on every turn until the tool budget runs out."""
+    ctx = _context(messages)
+    rows = _sheet_rows(ctx)
+    expr = rows[0]["expression"] if rows else "1+1"
+    return _calls(messages, [("_reference__arith__eval", {"expression": expr})])
+
+
 def checker_snoop(*, model, system, messages, tools, candidate_index) -> Completion:
     """Reads a table the checker is not granted (fails closed with access_denied)."""
     if _turn(messages) == 0:
@@ -279,15 +287,48 @@ def judge_lenient(*, model, system, messages, tools, candidate_index) -> Complet
                               "reason": "looks fine", "confidence": 0.99})
 
 
+NOVEL_INPUTS = (("allocator", {"capacity": 35}), ("allocator", {"capacity": 45}), ("allocator", {"capacity": 12}))
+
+
 def planner_v1(*, model, system, messages, tools, candidate_index) -> Completion:
-    """Schedules the sheet and the capacity the week has not seen, under the cap."""
+    """Schedules the sheet and the capacity the week has not seen, under the cap.  When the loop says a
+    constraint binds, the constraint agent's items come first and the batch is trimmed to give it its share;
+    when the window repeats, capacities unlike any golden case are added until the novelty floor is met."""
     ctx = _context(messages)
     inp = ctx["input"]
+    cap = int(inp.get("max_runs", 20))
     seen = {(p["agent"], json.dumps(p["input"], sort_keys=True)) for p in inp.get("pending", [])}
     wanted = [("checker", {"sheet_id": "S2"}), ("allocator", {"capacity": 20}), ("checker", {"sheet_id": "S1"})]
     batch = [{"agent": a, "input": i} for a, i in wanted if (a, json.dumps(i, sort_keys=True)) not in seen]
-    batch = batch[: int(inp.get("max_runs", 20))]
+    novelty = inp.get("novelty") or {}
+    if "min_novel_share" in novelty:
+        known = {(a, json.dumps(i, sort_keys=True)) for a, ins in novelty["golden_inputs"].items() for i in ins}
+        batch = [b for b in batch if (b["agent"], json.dumps(b["input"], sort_keys=True)) not in known] + \
+                [b for b in batch if (b["agent"], json.dumps(b["input"], sort_keys=True)) in known]
+        for a, i in NOVEL_INPUTS:
+            novel = sum(1 for b in batch[:cap] if (b["agent"], json.dumps(b["input"], sort_keys=True)) not in known)
+            if novel / max(1, len(batch[:cap])) >= novelty["min_novel_share"]:
+                break
+            batch.insert(0, {"agent": a, "input": i})
+    share, agent = inp.get("constraint_share"), (inp.get("constraint") or {}).get("agent")
+    if share and agent:
+        mine = [b for b in batch if b["agent"] == agent][:cap] or \
+            [{"agent": agent, "input": i} for i in novelty.get("golden_inputs", {}).get(agent, [])][:cap]
+        others = [b for b in batch if b["agent"] != agent]
+        room = int(len(mine) * (1 - share) / share) if mine else 0
+        batch = mine + others[: min(room, cap - len(mine))]
+    batch = batch[:cap]
     return _submit(messages, {"batch": batch, "why": f"{len(batch)} inputs the week has not covered", "confidence": 0.7})
+
+
+def planner_synthetic(*, model, system, messages, tools, candidate_index) -> Completion:
+    """Seeds synthetic allocator inputs from the covered golden capacities (each plus five), marked synthetic."""
+    ctx = _context(messages)
+    inp = ctx["input"]
+    golden = (inp.get("novelty") or {}).get("golden_inputs", {}).get("allocator", [])
+    batch = [{"agent": "allocator", "input": {"capacity": g["capacity"] + 5}, "synthetic": True} for g in golden]
+    batch = batch[: int(inp.get("max_runs", 20))]
+    return _submit(messages, {"batch": batch, "why": "synthetic capacities seeded from the golden set", "confidence": 0.6})
 
 
 def planner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
@@ -301,8 +342,12 @@ def refiner_v1(*, model, system, messages, tools, candidate_index) -> Completion
     inp = ctx["input"]
     text = inp["files"]["skills.md"]
     first = next(l for l in text.splitlines() if l.strip())
-    return _submit(messages, {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md", "old": first,
-                              "new": first + " (refined by the loop)", "why": inp["change"][:200], "confidence": 0.6})
+    out = {"agent": inp["agent"], "rung": int(inp["rung"]), "file": "skills.md", "old": first,
+           "new": first + " (refined by the loop)", "why": inp["change"][:200], "confidence": 0.6}
+    if inp.get("directive"):
+        out["new"] = first + " (refined by the loop; directive: " + inp["directive"].strip().splitlines()[0][:80] + ")"
+        out["addresses_directive"] = True
+    return _submit(messages, out)
 
 
 def refiner_bad(*, model, system, messages, tools, candidate_index) -> Completion:
