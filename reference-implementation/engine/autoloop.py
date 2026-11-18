@@ -76,6 +76,7 @@ from engine.runtime import iso
 from engine.store import Engine
 from engine import curate as curator_step, forecast, outcome, reputation, value
 from engine.outcome import proven_wrong, resolved_hits
+from engine import experiment as xp
 
 LOOP_ROLES = ("planner", "judge", "refiner", "curator")
 TEXT_FILES = ("skills.md", "workflow.md")
@@ -120,7 +121,7 @@ def kill_rule(engine: Engine, pack) -> dict[str, str]:
     for name in sorted(pack.agent_names):
         if load_yaml(pack.agent_dir(name) / "manifest.yaml").get("role") not in JUDGEABLE_ROLES:
             continue
-        rows = engine.store.list_runs(pack=pack.name, agent=name, limit=int(cfg["window_runs"]), newest_first=True)
+        rows = xp.latest_runs(engine, pack, name, int(cfg["window_runs"]))     # experiment runs (JH-C11 wpC) do not count
         if len(rows) < int(cfg["min_runs"]):
             continue
         ok = sum(1 for r in rows if r["status"] == "succeeded" and not (outcome_kills and proven_wrong(r)))
@@ -318,7 +319,7 @@ def act(runner: Runner, batch: list[dict], *, budget_usd: Decimal | None = None,
 
 def unjudged(engine: Engine, pack, *, since: str, until: str) -> list[dict]:
     rows = engine.store.list_runs(pack=pack.name, since=since, until=until, verdicted=False)
-    return [r for r in rows if r["role"] in JUDGEABLE_ROLES]
+    return [r for r in rows if r["role"] in JUDGEABLE_ROLES and not xp.is_experiment_run(r)]   # a variant's run is not work to grade
 
 
 def judge(runner: Runner, judge_name: str, rows: list[dict]) -> list[dict]:
@@ -418,10 +419,13 @@ def refine(engine: Engine, pack, runner: Runner, refiner: str, report: dict, *, 
         pack_copy = load_pack(pack.name, copy_root)
         after = run_eval(engine, pack_copy, agent)
         after_h = run_eval(engine, pack_copy, agent, golden_file="holdout.jsonl") if use_holdout else None
+        xp_refusals = xp.adoption_gate(engine, pack_copy, agent) if adopt_decision(before, after, before_h, after_h) else []   # JH-C11 wpC
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     adopted = adopt_decision(before, after, before_h, after_h)
     refusals = rigor.adoption_refusals(before, after, before_h, after_h)
+    if xp_refusals:
+        adopted, refusals = False, refusals + xp_refusals
     if adopted:
         (pack.agent_dir(agent) / out["file"]).write_text(new_text, encoding="utf-8", newline="\n")
     event = EventLog(engine, pack).append(
@@ -553,7 +557,8 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
                              planner_run_id=planned["run_id"])   # a suspended planner spent nothing
         if planned["run_id"]:
             result["plan"]["scored"] = forecast.score_plan(engine, pack, agents["planner"], planned["run_id"], planned["forecasts"], result["act"])
-        result["traps"] = integrity.plant_traps(runner, week, killed)
+        with xp.isolated_batch(runner, "trap"):
+            result["traps"] = integrity.plant_traps(runner, week, killed)
     if do_judge and "judge" in agents:
         if safety["suspended"]:
             result["judge"] = []
@@ -565,8 +570,9 @@ def cycle(engine: Engine, pack, week: str, *, packs_root: Path, max_runs: int | 
             k = int(engine.config.autoloop["judge"]["honeypots_per_cycle"])
             if k > 0:
                 rows = engine.store.list_runs(pack=pack.name, since=since, until=until, status="succeeded")
-                result["honeypots"] = [h for j in integrity.panel_members(engine, pack, agents["judge"])
-                                       for h in plant_honeypots(runner, j, rows, k)]
+                with xp.isolated_batch(runner, "honeypot"):
+                    result["honeypots"] = [h for j in integrity.panel_members(engine, pack, agents["judge"])
+                                           for h in plant_honeypots(runner, j, rows, k)]
     result["monitor"] = integrity.monitor_step(runner, since=since, until=until)
     result["cheat_rate"] = integrity.cheat_rate(engine, pack, week, result.get("honeypots") or [], result.get("traps") or [])
     result["blame"] = blame_week(engine, pack, week)

@@ -19,7 +19,7 @@ from __future__ import annotations
 
 from engine.access import Target
 from engine.config import load_config
-from engine import integrity
+from engine import experiment, integrity
 from engine.errors import AccessDenied, ToolError
 from engine.tools import ToolContext, ToolRegistry, ToolSpec
 
@@ -45,9 +45,9 @@ def _cfg(tool_id: str) -> dict:
 def _events_query(args: dict, ctx: ToolContext):
     log = ctx.extra["events"]
     integrity.guard_event_type(ctx, args.get("event_type"))
-    rows = log.query(entity_type=args.get("entity_type"), entity_id=args.get("entity_id"),
-                     event_type=args.get("event_type"), since=args.get("since"),
-                     limit=int(args.get("limit", 50)))
+    rows = experiment.query_events(ctx, log, {"entity_type": args.get("entity_type"), "entity_id": args.get("entity_id"),
+                                              "event_type": args.get("event_type"), "since": args.get("since")},
+                                   int(args.get("limit", 50)))      # JH-C11 wpC: as_of cutoff, isolated batches
     rows = integrity.visible_events(ctx, rows)
     return [{k: r[k] for k in ("event_id", "entity_type", "entity_id", "event_type",
                                "payload", "source", "source_ref", "observed_at")} for r in rows]
@@ -129,6 +129,7 @@ def _agent_output_read(args: dict, ctx: ToolContext):
     if row is None:
         raise ToolError(f"no run {args['run_id']!r}")
     integrity.guard_run(ctx, row)
+    experiment.check_run(ctx, row)
     return {"run_id": row["run_id"], "agent": row["agent"], "status": row["status"],
             "output": row["output"], "ref": f"run:agent_runs:{row['run_id']}"}
 
@@ -159,6 +160,7 @@ def _agent_run_read(args: dict, ctx: ToolContext):
     if row["pack"] != ctx.pack.name:
         raise ToolError(f"run {args['run_id']!r} belongs to another pack")
     integrity.guard_run(ctx, row)
+    experiment.check_run(ctx, row)
     out = {k: (str(row[k]) if k == "cost_usd" else row[k]) for k in _RUN_FIELDS}
     if out["output"] is not None:                                # a planted alteration: the judge must catch it
         out["output"] = integrity.served_output(row, ctx.extra.get("honeypots"))
@@ -170,7 +172,7 @@ def _agent_run_read(args: dict, ctx: ToolContext):
 def _runs_list(args: dict, ctx: ToolContext):
     rows = ctx.engine.store.list_runs(pack=ctx.pack.name, agent=args.get("agent"), status=args.get("status"),
                                       verdicted=args.get("verdicted"))
-    rows = integrity.visible_runs(ctx, rows)[-int(args.get("limit", 50)):]
+    rows = experiment.visible_runs(ctx, integrity.visible_runs(ctx, rows))[-int(args.get("limit", 50)):]
     return [{k: row[k] for k in ("run_id", "agent", "role", "status", "input", "human_verdict", "verdict_source",
                                   "created_at")} for row in rows]
 
@@ -195,7 +197,8 @@ def _tables_read(args: dict, ctx: ToolContext):
         row = ctx.pack.table_row(name, args["row_id"])
         rows = [] if row is None else [row]
     else:
-        rows = ctx.pack.table_rows(name)[: int(args.get("limit", 1000))]
+        rows = ctx.pack.table_rows(name)
+    rows = experiment.visible_table_rows(ctx, name, rows)[: int(args.get("limit", 1000))]
     return [{**r, "ref": f"table:{name}:{r[spec.id_field]}"} for r in rows]
 
 

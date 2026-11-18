@@ -57,3 +57,10 @@ local_models:
   checker-scheming:     fixtures.responders:checker_scheming
   checker-thinking:     fixtures.responders:checker_thinking
   monitor-v1:           fixtures.responders:monitor_v1
+  # JH-C11 wpC: experiments
+  checker-testaware:    fixtures.responders:checker_testaware
+  checker-colluder:     fixtures.responders:checker_colluder
+  checker-saturating:   fixtures.responders:checker_saturating
+  briefer-sycophant:    fixtures.responders:briefer_sycophant
+  allocator-coached:    fixtures.responders:allocator_coached
+  briefer-dated:        fixtures.responders:briefer_dated

@@ -430,3 +430,13 @@ def case_certified(output, gctx: GuardrailContext) -> list[str]:
         inputs.add(key)
         ids.add(c["id"])
     return problems
+
+
+# -- JH-C11 wpC: point-in-time backtests ----------------------------------------------------------------
+
+@guardrail(id="no_future_citation")
+def no_future_citation(output, gctx: GuardrailContext) -> list[str]:
+    """A run held to a case's ``as_of`` (engine.experiment) may not cite a record observed after it.  The
+    engine adds this guardrail to every run of a backtest case; outside one it passes."""
+    from engine.experiment import future_citations
+    return future_citations(output, gctx)

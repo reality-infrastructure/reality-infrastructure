@@ -89,6 +89,7 @@ class Runner:
         self._agents: dict[str, Agent] = {}
         self._gateway = None
         self.faults = None          # engine.faults.FaultInjector: set only for eval/soak runs (JH-C11 G-B20)
+        self.experiment = None      # engine.experiment.Experiment: variant, framing, as_of, isolation (JH-C11 wpC)
 
     # -- loading ------------------------------------------------------------------
 
@@ -126,10 +127,14 @@ class Runner:
         if model_override is not None:
             agent = load_agent(self.pack, agent_name, config=self.config, model_override=model_override,
                                enforce_economics=enforce_economics)
+        if self.experiment is not None:
+            agent = self.experiment.apply(agent, depth)
         links = resolve_links(self.engine, self.pack, agent_name, opts)
         opts.session_id = links["session_id"]
         trace = RunTrace(self.engine, agent, run_input, parent_run_id=parent_run_id)
         trace.links.update(links)
+        if self.experiment is not None:
+            self.experiment.started(trace.run_id, parent_run_id)
         judgement = Judgement(self.config, self.pack.name, trace.run_id)
         resolver = CitationResolver(engine=self.engine, pack=self.pack, access=agent.access,
                                     kinds=self.config.citation_kinds)
@@ -142,7 +147,8 @@ class Runner:
             adapters=self.gateway, depth=depth, parent_run_id=parent_run_id,
             run_agent=lambda child, inp, **kw: self._child(child, inp, trace, depth + 1, agent, **kw),
             extra={"events": self.events, "honeypots": self.honeypots, "faults": self.faults, "sandbox": sandbox,
-                   "bus": opts.bus, "part": opts.part, "scratch_scope": opts.scratch_scope},
+                   "bus": opts.bus, "part": opts.part, "scratch_scope": opts.scratch_scope,
+                   "experiment": self.experiment},
         )
         status, output, failures, access_denied = "error", None, [], False
         try:
@@ -211,6 +217,8 @@ class Runner:
         else:
             context = assemble_working_context(agent, ctx, run_input)
             extend_context(self.engine, agent, ctx, context, opts)
+            if self.experiment is not None:
+                self.experiment.frame(context, ctx.depth)
         trace.context = context
         trace.links["context_sha256"] = sha256_json(context)
         provider = self.providers.get(agent.model.provider)

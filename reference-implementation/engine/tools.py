@@ -153,6 +153,9 @@ class ToolRegistry:
         """Validate, access-check, execute, record.  Every outcome is traced."""
         spec = self.get(tool_id)
         record: dict = {"tool": tool_id, "origin": origin, "args": args}
+        from engine.experiment import tool_record_cutoff
+        if (cut := tool_record_cutoff(ctx)) is not None:       # JH-C11 wpC G-D10: the cutoff the read was held to
+            record["as_of"] = cut
         errs = validation_errors(spec.input_schema, args)
         if errs:
             record["error"] = "invalid_args: " + "; ".join(errs)

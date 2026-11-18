@@ -23,6 +23,7 @@ from engine.config import load_yaml
 from engine.errors import ToolError
 from engine.eval import case_passes, load_golden
 from engine.events import EventLog
+from engine.experiment import is_experiment_run
 from engine.rigor import EVAL_FILES, input_key, record_saturation, saturation
 
 TIER_ATTR = "__harness_tier__"
@@ -155,7 +156,8 @@ def promote(engine, pack, agent: str) -> dict | None:
     current = promoted_tier(engine, pack, agent)
     known = case_tiers(pack, agent)
     rows = [r for r in engine.store.list_runs(pack=pack.name, agent=agent)
-            if r["parent_run_id"] is None and input_tier(pack, agent, r["input"], known) == current][-cfg["window_runs"]:]
+            if r["parent_run_id"] is None and not is_experiment_run(r)
+            and input_tier(pack, agent, r["input"], known) == current][-cfg["window_runs"]:]
     if len(rows) < cfg["min_runs"]:
         return None
     ok = sum(1 for r in rows if r["status"] == "succeeded")

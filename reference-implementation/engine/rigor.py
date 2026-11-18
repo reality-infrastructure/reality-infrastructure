@@ -242,8 +242,10 @@ def history_suspects(engine, pack, agent_name: str, cases, compare, passes_fn, c
     """A case failed with one identical signature by two or more models over at least ``min_evals`` runs
     (since its last clearance) is suspect: when every model fails it the same way, the case is the likelier fault."""
     by_input: dict[str, list[dict]] = {}
+    from engine.experiment import is_experiment_run
     for r in engine.store.list_runs(pack=pack.name, agent=agent_name):
-        by_input.setdefault(input_key(r["input"]), []).append(r)
+        if not is_experiment_run(r):                 # a variant's or a probe's failure says nothing about the case (wpC)
+            by_input.setdefault(input_key(r["input"]), []).append(r)
     out = {}
     for case in cases:
         rows = [r for r in by_input.get(input_key(case.input), []) if r["ledger_index"] > cleared.get(case.id, -1)]

@@ -32,6 +32,7 @@ from dataclasses import dataclass, field
 from decimal import Decimal
 from pathlib import Path
 
+from engine import experiment as xp
 from engine import rigor
 from engine.errors import EngineError, EvalError
 from engine.loop import Runner
@@ -53,6 +54,7 @@ class GoldenCase:
     tier: int | None = None
     exercises: tuple[str, ...] = ()
     session: tuple = ()        # JH-C11 G-P13: earlier turns of a session case, run before ``input``
+    as_of: str | None = None   # JH-C11 G-D10: a backtest case sees only what was observed at or before this
 
 
 @dataclass(frozen=True)
@@ -150,10 +152,17 @@ def load_golden(path: Path, *, pack_is_fixture: bool) -> GoldenSet:
             pass
         cases.append(GoldenCase(id=str(c["id"]), input=c["input"], expected=c["expected"],
                                 provenance=c["provenance"], fixture=is_fixture, **_rigor_case_fields(c, f"{path}:{n}"),
-                                session=tuple(c.get("session") or ())))
+                                session=tuple(c.get("session") or ()), as_of=_case_as_of(c, f"{path}:{n}")))
     return GoldenSet(threshold=threshold, compare=tuple(header["compare"]),
                      fixture=bool(header["fixture"]), cases=tuple(cases),
                      **_rigor_header_fields(header, {c.id for c in cases}, path))
+
+
+def _case_as_of(c: dict, where: str) -> str | None:
+    try:
+        return xp.normalize_as_of(c.get("as_of"))
+    except ValueError as e:
+        raise EvalError(f"{where}: {e}") from e
 
 
 def _normalize(v):
@@ -213,12 +222,16 @@ class ModelReport:
 
 
 def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None = None,
-             golden_file: str = "golden.jsonl", reference: str | None = None, samples: int | None = None) -> dict:
+             golden_file: str = "golden.jsonl", reference: str | None = None, samples: int | None = None,
+             experiment: "xp.Experiment | None" = None) -> dict:
     """``golden_file`` may name ``holdout.jsonl``: the held-out set the loop never tunes on.  ``reference`` is the
     model parity is measured against (default: the configured frontier; a distillation names its teacher).
     ``samples`` overrides the draws per case (default: the header's ``samples``, else config ``eval.samples``,
-    ``eval.fixture_samples`` for a fixture pack).  The result's shape is documented in HARNESS.md (JH-C11 wpA)."""
+    ``eval.fixture_samples`` for a fixture pack).  The result's shape is documented in HARNESS.md (JH-C11 wpA).
+    ``experiment`` runs every case under an engine.experiment.Experiment (a variant, a framing; JH-C11 wpC); every
+    eval is one batch on an isolated event channel (``eval.isolate_events``) and holds a case to its ``as_of``."""
     runner = Runner(engine, pack)
+    runner.experiment = exp = xp.for_eval(engine, experiment)
     agent = runner.agent(agent_name)
     golden = load_golden(agent.dir / "eval" / golden_file, pack_is_fixture=pack.fixture)
     cfg, confidence = engine.config.eval_rigor, engine.config.stats["confidence"]
@@ -239,9 +252,13 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
         for case in golden.cases:
             draws, tools = [], set()
             for s in range(k):
+                exp.begin_case(case.id, as_of=case.as_of)
                 result = run_session_case(runner, agent_name, case.session, case.input, model_override=(provider, name),
                                           enforce_economics=False, sample=s)
                 ok, diffs = case_passes(result.output, case.expected, golden.compare)
+                side = exp.end_case()
+                if side:                                       # JH-C11 G-B23: it reached for another case's events
+                    ok, diffs = False, diffs + [f"side channel: read {s_['channel']} of runs {s_['authors']}" for s_ in side]
                 rep.runs += 1
                 rep.cost += result.cost_usd
                 rep.latency_ms += int(result.row["latency_ms"])
@@ -254,7 +271,8 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
                               "pass_rate": str((Decimal(passes) / k).quantize(rigor.Q4)),
                               "diffs": [] if failing is None else failing["diffs"],
                               "counted": pack.fixture or not case.fixture, "tags": dict(case.tags), "tier": case.tier,
-                              "exercises": list(case.exercises), "tools": sorted(tools), "draws": draws})
+                              "exercises": list(case.exercises), "tools": sorted(tools), "draws": draws,
+                              "as_of": case.as_of})
         reports[ms] = rep
     new_suspects = {r["case_id"]: "expected value rejected by the agent's verifier: " + "; ".join(r["violations"])
                     for r in rejected if r["case_id"] not in cleared}      # a human who cleared it overrules the check
@@ -286,7 +304,8 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
                      "mean_latency_ms": rep.mean_latency_ms, "parity": parity, "cases": rep.cases,
                      **rigor.model_metrics(rep.cases, samples=k, confidence=confidence, strata_keys=cfg["strata"],
                                            promote_at=engine.config.curriculum["promote_at"]),
-                     "human_delta": rigor.human_delta(rep.score, golden.human_baseline)})
+                     "human_delta": rigor.human_delta(rep.score, golden.human_baseline),
+                     "backtest": xp.backtest_summary(rep.cases, confidence, exp.unfiltered_tables)})
     primary = reports[model_strings[0]]
     return {"agent": agent.ref, "manifest_hash": agent.hash, "threshold": str(golden.threshold),
             "compare": list(golden.compare), "frontier": frontier, "frontier_score":
@@ -299,6 +318,7 @@ def run_eval(engine: Engine, pack, agent_name: str, *, models: list[str] | None 
             {**golden.human_baseline, "delta": rigor.human_delta(primary.score, golden.human_baseline)},
             "models": rows, "primary": primary.model,
             "pass": primary.score >= golden.threshold,
+            "side_channels": list(exp.side_channels), "experiment": exp.label,
             "summary": _summary_line(primary, golden.threshold)}
 
 

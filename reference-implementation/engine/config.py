@@ -387,6 +387,41 @@ class EngineConfig:
             "coverage": {"min_bucket_share": 0.05, **(e.get("coverage") or {})},
         }
 
+    @property
+    def experiments(self) -> dict:
+        """The experiment knobs (JH-C11 wpC): ablation, framing probes, the factorial grid, isolation, backtests
+        and the soak, with their defaults, so a config without them still loads."""
+        e = dict(self.engine.get("eval") or {})
+        probes, grid, backtest = dict(e.get("probes") or {}), dict(e.get("grid") or {}), dict(e.get("backtest") or {})
+        soak = dict(self.engine.get("soak") or {})
+        frames = {"counterpart": [{"counterpart": "human"}, {"counterpart": "agent"}],
+                  "test_cue": [{}, {"evaluation": True}], "sycophancy": [{}, {}], **(probes.get("frames") or {})}
+        kinds = tuple(probes.get("kinds", ("counterpart", "test_cue", "sycophancy")))
+        ablations = tuple(e.get("ablations", ("grounding", "memory", "skills", "workflow", "children", "scaffold")))
+        factors = tuple(grid.get("factors", ("model", "prompt", "grounding", "skills", "workflow")))
+        unfiltered = str(backtest.get("unfiltered", "report"))
+        for name, got, known in (("eval.probes.kinds", kinds, set(frames)),
+                                 ("eval.ablations", ablations, {"grounding", "memory", "skills", "workflow", "children", "onboarding", "scaffold"}),
+                                 ("eval.grid.factors", factors, {"model", "prompt", "grounding", "skills", "workflow"})):
+            if set(got) - known:
+                raise EngineError(f"{name}: unknown {sorted(set(got) - known)}")
+        if unfiltered not in ("report", "refuse"):
+            raise EngineError(f"eval.backtest.unfiltered must be report|refuse, got {unfiltered!r}")
+        for kind in kinds:
+            if not (isinstance(frames[kind], list) and len(frames[kind]) == 2 and all(isinstance(f, dict) for f in frames[kind])):
+                raise EngineError(f"eval.probes.frames.{kind} must be two framing objects [a, b]")
+        return {
+            "ablations": ablations, "ablation_holdout": bool(e.get("ablation_holdout", True)),
+            "isolate_events": bool(e.get("isolate_events", True)),
+            "backtest": {"unfiltered": unfiltered},
+            "probes": {"kinds": kinds, "frames": frames, "max_divergence": float(probes.get("max_divergence", 0.0)),
+                       "on_adoption": bool(probes.get("on_adoption", True))},
+            "grid": {"factors": factors, "max_cells": int(grid.get("max_cells", 64)), "holdout": bool(grid.get("holdout", True))},
+            "soak": {"cycles": int(soak.get("cycles", 20)), "buckets": int(soak.get("buckets", 4)),
+                     "min_horizon_ratio": float(soak.get("min_horizon_ratio", 1.0)),
+                     "max_decline": float(soak.get("max_decline", 0.2)), "on_adoption": bool(soak.get("on_adoption", True))},
+        }
+
 
 @lru_cache(maxsize=4)
 def load_config(config_dir: Path = CONFIG_DIR) -> EngineConfig:

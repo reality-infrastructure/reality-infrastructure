@@ -24,6 +24,7 @@ from decimal import Decimal
 
 from engine.errors import EngineError
 from engine.events import EventLog
+from engine.experiment import is_experiment_run
 from engine.hashing import sha256_tree
 
 
@@ -44,6 +45,7 @@ def record(engine, pack, agent: str) -> dict:
     cfg = engine.config.reputation
     current = sha256_tree(pack.agent_dir(agent), exclude_dirs=("eval", "crank"))
     rows = engine.store.list_runs(pack=pack.name, agent=agent)
+    rows = [r for r in rows if not is_experiment_run(r)]          # JH-C11 wpC: a variant's runs are not the record
     num = den = 0.0
     edits, newer = 0, current
     for age, row in enumerate(reversed(rows)):
