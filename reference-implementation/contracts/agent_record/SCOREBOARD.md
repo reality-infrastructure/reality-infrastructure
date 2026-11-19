@@ -2086,3 +2086,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 27 (2026-11-17): no live leg — the standing go released by the operator's word (A42 R178); flat. |
 
 **Income row (R81), 2026-11-18 after A17.20:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.21 — POO SENSOR — Day 28 (2026-11-18): the channel stopped publishing at 08:12Z on 11-18 (manifest 16 h 34 min old at the read), health fails, the reading of 11-18 is VOID; on the 08:07Z of tape there: 11 episodes, −328.9 bps; F4:ETH and F4:SOL above both controls (runs 0 → 1); no CANDIDATE (the copy line RETIRED BY WORD, A42); arena VOID (S85); screen not run; book run (0 replay episodes); L1 registered 0 for 11-19; L2 favorite unchanged at 20.05; maker legs 15 of 24 h without a capture; L4M and L5M stay RETIRED, the thesis CLOSED (R190); door OPEN 0 of 20; R152 missed, 7 days late; R72 names the sensor; no live leg (A42 R178)
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `df3fd06`; `marker.py`, `families.json` hold; `forward.py` = `b33b9282…`, not POO_DAILY's pin `6fd373b8…` (as A17.12–A17.20); 39 passed (23 + 6 + 10). |
+| Channel | `b5e9273` (08:12:31Z on 11-18), 611 files, 0 sha mismatches, 8 `l2/` files outside the manifest (F1; the 11-17 `l2tape` grew after its pin); **health FAILS: `generated_at` 2026-11-18T08:10:29Z, 16 h 33 min before the read (test: 2 h)**; tape and marker `active` as of 08:10Z; 11-18 not void by state or row; **no publish after 08:12Z (F8): last tape row 08:07:00Z, a 16 h 37 min hole**; tape 4 973 rows / 24 h, 1 null row, longest gap between rows 10.2 s; 1 poll failure, 1 tick error. |
+| Reading (VOID by health) | 11 episodes, 8 stopped, sum −328.9 bps (funding excluded); F4 −228.2 on 9; F4:ETH +15.96 on 1, F4:SOL +15.24 on 2 (runs 0 → 1); the reader counts 16 pass-line days incl. 11-18 (the marker did not void it), no CANDIDATE. Marks pin `9ed88a1b…` (17 rows, to ~08:07Z). The channel's 11-17 file grew 116 → 129 after its pin (F2). |
+| Ledger / arena | ledger as of 11-18: 5 ALIVE, 1 RETIRED by rule, all RETIRED BY WORD (A42) (`9255a089…`); **arena VOID (S85): newest pages 07:22Z / 07:24Z, 17 h old; nothing graded, cohort 3 stays at day 1 of 7**; screen not run; feed unchanged (KEEP 25 / DROP 44 / UNDECIDED 1; cohort 3 OPEN 70); AI board 13 rows, 2 record rows not graded, no bps row above zero; door `OPEN 0 of 20`, 0 rows. |
+| Calls / L2 / book | board 11-18: CB 0.4722 on 36 (90 unresolved, tape ends 08:07Z); L1, L2, CM 0 resolved; 11-19 registered 144: CB 132, **L1 0 (no 11-19 00:00Z tape row)**, L2/CM 0. Book `verify OK`: F6 / F7 replay 0 episodes; copier row 0 pairs ALIVE; `STARLINK: not ready (0 of 7 pairs)`. L2 favorite 20.05 USDC, g 0 (date 2027-02-18 as printed); fill table skipped (no register). Maker (to 08:06Z) L4M −30.607 on 73 filled, hit 0.356 vs p 0.612; L5M −10.410 on 25, hit 0.400 vs p 0.673; CMM −19.453 on 73. Shots: L4M RETIRED (kill 1, 1115), L5M RETIRED (kill 1, 341); Thesis: CLOSED (R190). **HALT: L4M, CMM, L5M 15 of 24 h from 08:06Z**; L2F, L3T, CMF 24 of 24 h (A43.1). |
+| Live leg | Day 28 (2026-11-18): no live leg — the standing go released by the operator's word (A42 R178); flat. |
+
+**Income row (R81), 2026-11-19 after A17.21:** 0 USD a day against 165. Nothing on the chain.

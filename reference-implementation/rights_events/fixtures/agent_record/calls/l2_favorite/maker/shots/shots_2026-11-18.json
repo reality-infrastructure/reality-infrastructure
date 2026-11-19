@@ -1,0 +1,205 @@
+{
+ "first_day": "2026-11-12",
+ "kind": "l2_shots_read",
+ "leg_of_record": "L5M_pulled_bid",
+ "legs": {
+  "CMM_coinflip_bid": {
+   "n": 1201,
+   "sum": -494.592759
+  },
+  "L4M_resting_bid": {
+   "mean": -0.332217,
+   "n": 1115,
+   "read_day": "2026-11-12",
+   "sd": 0.8314,
+   "se": 0.024898,
+   "status": "RETIRED",
+   "sum": -370.4221,
+   "why": "kill 1: the payoff sum -57.149 is at or below -10.000"
+  },
+  "L5M_pulled_bid": {
+   "mean": -0.075846,
+   "n": 341,
+   "read_day": "2026-11-14",
+   "sd": 0.786981,
+   "se": 0.042617,
+   "status": "RETIRED",
+   "sum": -25.863477,
+   "why": "kill 1: the payoff sum -13.912 is at or below -10.000"
+  }
+ },
+ "missing_tables": [],
+ "not_claimed": "Paper. L5M's cancel is assumed to take 5 000 ms and that is counted against the leg; only a live order measures it. Not modelled: the bid's own effect on the book, partial fills, the maker's fee. No return is promised; nothing here sends an order.",
+ "partial_days_not_counted": [],
+ "pins": {
+  "maker_2026-11-12.json": "df63ac0f0b6e8eee790f10f802d0de870aefbab018adfecfce8314f204c71741",
+  "maker_2026-11-13.json": "5b04a4e18fb5248403d4bd3c1e90f65eb82adb2386fa046e3684de9a1cff7818",
+  "maker_2026-11-14.json": "4c1025891354bc9da245e4df5ed1f10046a75feec86b1d19be23e9d9252f1d0a",
+  "maker_2026-11-15.json": "269937fa24ae4235ab686fc7e9d00fb19b56fe52ebf197ef6e5022f2b9ff40db",
+  "maker_2026-11-16.json": "78e262dd82092666faa3f575b717174cc2c29fdf73459239ec1d15ecf45c8aad",
+  "maker_2026-11-17.json": "f904c20bfc119ecf6d2e11f36bdd310021feb56cd677e2bd62e7ffc9b3047fd4",
+  "maker_2026-11-18.json": "2c73d1d4d19ad9bd98c90edbdb47f05bff71ec537656f61017c968e1509d6e24",
+  "pulled_2026-11-12.json": "a5a554c5b8b92ec2fdad352b7323175ba7b457bd7ecabfa68e3ea2836c6ba8ed",
+  "pulled_2026-11-13.json": "8c522c59f25632be376a8b78a735cfe5c0689d195a25bcf144f8363c48f95557",
+  "pulled_2026-11-14.json": "fc9d55db80fe19825529d138a3b8228b090a3225ebfd20c73e8fc22575ab4fad",
+  "pulled_2026-11-15.json": "c160bdd27b936afce2ed0bea1e55d7e35402ad8691b66383fed70648cda068ec",
+  "pulled_2026-11-16.json": "4be940cbd63b8440c21476d1a5d699a8ba88408ac53614fbdb8a02d94b3f7d75",
+  "pulled_2026-11-17.json": "0f0945ad9266ab8555f7e9cfeaef2fa5d882ed0c14e07d4791eea184c7a2c449",
+  "pulled_2026-11-18.json": "adbb489cf170761c3c5b75867156525c2dbe078f74110b565138ae7c4e08bf3d"
+ },
+ "prereg": "A43 R185, R189, R190",
+ "read_on": "2026-11-19",
+ "reads": [
+  {
+   "CMM_coinflip_bid": {
+    "n": 200,
+    "sum": -74.10488
+   },
+   "L4M_resting_bid": {
+    "n": 205,
+    "status": "RETIRED",
+    "sum": -57.149189
+   },
+   "L5M_pulled_bid": {
+    "n": 64,
+    "status": "CONTINUES",
+    "sum": 3.626352
+   },
+   "day": "2026-11-12"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 413,
+    "sum": -182.0494
+   },
+   "L4M_resting_bid": {
+    "n": 388,
+    "status": "RETIRED",
+    "sum": -112.684645
+   },
+   "L5M_pulled_bid": {
+    "n": 130,
+    "status": "CONTINUES",
+    "sum": -8.759104
+   },
+   "day": "2026-11-13"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 607,
+    "sum": -272.511293
+   },
+   "L4M_resting_bid": {
+    "n": 564,
+    "status": "RETIRED",
+    "sum": -196.442191
+   },
+   "L5M_pulled_bid": {
+    "n": 169,
+    "status": "RETIRED",
+    "sum": -13.91153
+   },
+   "day": "2026-11-14"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 749,
+    "sum": -317.66927
+   },
+   "L4M_resting_bid": {
+    "n": 699,
+    "status": "RETIRED",
+    "sum": -229.95376
+   },
+   "L5M_pulled_bid": {
+    "n": 210,
+    "status": "RETIRED",
+    "sum": -12.310215
+   },
+   "day": "2026-11-15"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 928,
+    "sum": -390.667557
+   },
+   "L4M_resting_bid": {
+    "n": 856,
+    "status": "RETIRED",
+    "sum": -255.125447
+   },
+   "L5M_pulled_bid": {
+    "n": 266,
+    "status": "RETIRED",
+    "sum": -4.375605
+   },
+   "day": "2026-11-16"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 1128,
+    "sum": -475.139872
+   },
+   "L4M_resting_bid": {
+    "n": 1042,
+    "status": "RETIRED",
+    "sum": -339.814984
+   },
+   "L5M_pulled_bid": {
+    "n": 316,
+    "status": "RETIRED",
+    "sum": -15.453551
+   },
+   "day": "2026-11-17"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 1201,
+    "sum": -494.592759
+   },
+   "L4M_resting_bid": {
+    "n": 1115,
+    "status": "RETIRED",
+    "sum": -370.4221
+   },
+   "L5M_pulled_bid": {
+    "n": 341,
+    "status": "RETIRED",
+    "sum": -25.863477
+   },
+   "day": "2026-11-18"
+  }
+ ],
+ "rule": {
+  "kill_sum": -10.0,
+  "last_day_l4m": "2026-11-16",
+  "n_bench": 150,
+  "n_budget": 600,
+  "se_mult": 2.0
+ },
+ "thesis": {
+  "selection": {
+   "L4M_resting_bid": {
+    "adverse": true,
+    "filled": 1115,
+    "hit_rate_filled": 0.39820627802690584,
+    "hit_rate_unfilled": 0.79296875,
+    "mean_p_filled": 0.5896968609865471,
+    "mean_p_unfilled": 0.6277298480902778,
+    "unfilled": 2304
+   },
+   "L5M_pulled_bid": {
+    "adverse": true,
+    "filled": 341,
+    "hit_rate_filled": 0.5894428152492669,
+    "hit_rate_unfilled": 0.6763285024154589,
+    "mean_p_filled": 0.6378412903225806,
+    "mean_p_unfilled": 0.618258547273982,
+    "unfilled": 2898
+   }
+  },
+  "status": "CLOSED",
+  "why": "R190: on at least 150 shots of each variant the filled calls hit below their mean p and the unfilled above theirs"
+ },
+ "through_day": "2026-11-18"
+}

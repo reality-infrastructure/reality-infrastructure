@@ -1,0 +1,82 @@
+{
+ "amendment": "A37, A38",
+ "as_of": "2026-11-18",
+ "inputs": {
+  "copiers.json": "21b23c56c1d67a005345000cf8a0f1503461b95d70a8a1951e6f9c3f77264d7c",
+  "families.json": "db01aa33c2c00e15e1369d2677c49bd51433ed62122db5a4c80a20ffb0902974",
+  "feed": {
+   "file": "feed_2026-11-18.json",
+   "sha256": "844000f36aa888f4190fe17b9f56f92e78421a696241c912040c4e07dd33b1a6"
+  },
+  "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b",
+  "marks_readings": {
+   "2026-11-01": "ed0698e5c5adb5f75954909e1ca9662d9cc6ec9229a017abc92e8d800f5de79b",
+   "2026-11-02": "67a8732dafcb55313dcce6f3eb484fd26e594d5e168a0885352e96384ca31d9f",
+   "2026-11-03": "2136d7c0dec218f1c0c8871bcfa4a2c922a133a7a303c896a2505bdb91f4c18f",
+   "2026-11-04": "e973d78492fc2f0f9facf606eef7a32ae3aa3d655a23175ab6cef70ee3fcc5d2",
+   "2026-11-05": "603bb6e01094f76011adc702fbd0db435af025e973de30a21e92b24e401ec126",
+   "2026-11-06": "f321c94edac37472d4cb1d5101866368a13c46b1b6d5b5d441a5283d38c4cfb4",
+   "2026-11-07": "6e4a56d64e190b2166a97a060ded890899cb66e661f3e8236892be0dbb251ef0",
+   "2026-11-08": "38b24bb0fafd5420679b6d7ca647fa020118405703ac029434c93fe952eb8332",
+   "2026-11-09": "5223a57d50dcb9e52b450363f898202c0b4f5b22407285cfe1fe62f1320e82c4",
+   "2026-11-10": "8ee5fb4056e36b3003267da859f5c9d3d50e080c558c8fbd33430a08e4e225fc",
+   "2026-11-11": "f9b8bdf087b168df2203646b28aef8dcb270310e789310e1bb36a8d553a60c4d",
+   "2026-11-12": "4f04fd64c2b740d2a4d8ad800bd2efa0803ce3ecb6a03f488b81f493d543e841",
+   "2026-11-13": "64164fab7f9091bf44e2bd5be1a32ff42ac56ea7e12d52c2cf82ef4d0aa7a6ab",
+   "2026-11-14": "be6865aab61d9977ee3f77be8d39dfcb11194b64ce2f62211707218ae4d34ce2",
+   "2026-11-15": "09b1859c75e9a12c15ee8ebd12147d7cfade6d798702b48369338e37da8d3642",
+   "2026-11-16": "b1678aef00c9741a6eb7722238d608992d0acad9ebba53c89dacf1e0507045e0",
+   "2026-11-17": "c08f3c670f3c418127cb3e21ef4274c38e858c7ed9a3e9980bbee59098b0d08a",
+   "2026-11-18": "9ed88a1b1047c3f3b6b76b63659858ea6db198839c20f0746c704cd5738abdf7"
+  },
+  "pages": [],
+  "record_pages": [
+   {
+    "bytes": 168,
+    "file": "pages_fills_0x9f976123e7c48952be487664b8130aad144b7f23.jsonl.part000",
+    "sha256": "7d9c94c0a70654cd5140ecefe1b437bb058d95dadaca8b99ed815746daf924df"
+   }
+  ],
+  "tape": [
+   {
+    "file": "tape_MIDS_2026-11-16.jsonl",
+    "rows": 16187,
+    "sha256": "f2638ab843de35f4cd9ca46b683b0df685f2ae7269b08ff9c1c92bed6e931a7e",
+    "unparsed_lines": 0
+   },
+   {
+    "file": "tape_MIDS_2026-11-17.jsonl",
+    "rows": 16176,
+    "sha256": "d39f3bbeb37f37458e1d1701525cd8ac8e2758d99a1022b4df79c0e816a5add5",
+    "unparsed_lines": 1
+   },
+   {
+    "file": "tape_MIDS_2026-11-18.jsonl",
+    "rows": 5470,
+    "sha256": "ed8bcb77b9b82f305821d2478fbbfd0e950243fc4933c465d839402fd441c3f1",
+    "unparsed_lines": 1
+   },
+   {
+    "file": "tape_MIDS_2026-11-19.jsonl",
+    "missing": true
+   }
+  ]
+ },
+ "kind": "agent_record_book_manifest",
+ "outputs": {
+  "book_2026-11-18.json": "cee44c5776aaa648bc2d1f3cba59d53c5900157bb39e31b7dc39b3935753b62a",
+  "book_2026-11-18.md": "5f931e7d80b5b2b96f9cff036d45751aecbe15e44e7199edd1f998f663795caa",
+  "book_latest.json": "cee44c5776aaa648bc2d1f3cba59d53c5900157bb39e31b7dc39b3935753b62a",
+  "copier_2026-11-18.json": "6cf3e4e511850ad8e47cab6704505633ebf14ef15adcb78d1ae3b5cfaab241ab",
+  "keep_2026-11-03.json": "c058b89ed759b34e184863360f9b02ea8e9769c9b10d0fd2652b116c650acad3",
+  "ledger_F6_2026-11-18.json": "8c5117a4d6f01a7696e330cf68b40b048e178c03a8ff405a2040a187ceac7cfc",
+  "ledger_F6_2026-11-18.md": "f91b2b852a6c142c35d48c315ebb4fdb034a515c10c322e90a26584df16ba5e6",
+  "ledger_F7_2026-11-18.json": "81e0ae9d8df9f133eae576caeddbead804955c1aa171930b0ec33f6c59f95986",
+  "ledger_F7_2026-11-18.md": "52d5af82b47eb4067722ba35deadd2bbcb1451f29b0d932953d1813c7f827af1",
+  "marks_F6_2026-11-03_as_of_2026-11-18.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "marks_F7_2026-11-03_as_of_2026-11-18.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "relist_2026-11-18.json": "50d5887f5a92d41f179466b6f538cb72ee8dad51b3abb8dba971847f300f3d49",
+  "signals_F6_2026-11-03_as_of_2026-11-18.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+ },
+ "s105": "a re-run over the same bytes writes these bytes (sums by math.fsum, exactly rounded on every interpreter); verify re-hashes every output"
+}

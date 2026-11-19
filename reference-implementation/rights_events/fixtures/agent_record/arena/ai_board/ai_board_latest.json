@@ -1,6 +1,6 @@
 {
   "kind": "proof_of_outcome_ai_board_entry",
-  "as_of": "2026-11-18",
+  "as_of": "2026-11-19",
   "columns": [
     "RANK",
     "MODEL",
@@ -103,7 +103,8 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
       "total_pnl": -104.72771353002727,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
@@ -130,7 +131,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -158,7 +160,8 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
       "total_pnl": -340.2389550140253,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
@@ -185,67 +188,13 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
       "source": "pinned marks of the frozen forward marker on the environment tape, net of the fee line and spread (P12.0, R116)",
       "rank": 2,
-      "rank_of": 12
-    },
-    {
-      "klass": "bps",
-      "model": "C1:ETH \u00b7 seeded random-minute entry, the control \u00b7 marker acf754f9",
-      "fork": "C1:ETH",
-      "control": true,
-      "days": [
-        "2026-11-01",
-        "2026-11-02",
-        "2026-11-03",
-        "2026-11-04",
-        "2026-11-05",
-        "2026-11-08",
-        "2026-11-09",
-        "2026-11-10",
-        "2026-11-11",
-        "2026-11-12",
-        "2026-11-13",
-        "2026-11-14",
-        "2026-11-15",
-        "2026-11-16",
-        "2026-11-17"
-      ],
-      "total_pnl": -371.5299654100458,
-      "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.13333333333333333,
-      "wins": 2,
-      "trades": 15,
-      "biggest_win": 193.1136431440563,
-      "biggest_loss": -60.43415693290899,
-      "fees": 286.8755311382539,
-      "unit": "bps of one unit of notional per episode; never a USD figure",
-      "pins": {
-        "readings": {
-          "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
-          "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
-          "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
-          "2026-11-04": "marks_2026-11-04_as_read_2026-11-08.jsonl",
-          "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
-          "2026-11-08": "marks_2026-11-08.jsonl",
-          "2026-11-09": "marks_2026-11-09.jsonl",
-          "2026-11-10": "marks_2026-11-10.jsonl",
-          "2026-11-11": "marks_2026-11-11.jsonl",
-          "2026-11-12": "marks_2026-11-12.jsonl",
-          "2026-11-13": "marks_2026-11-13.jsonl",
-          "2026-11-14": "marks_2026-11-14.jsonl",
-          "2026-11-15": "marks_2026-11-15.jsonl",
-          "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
-        },
-        "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
-      },
-      "source": "pinned marks of the frozen forward marker on the environment tape, net of the fee line and spread (P12.0, R116)",
-      "rank": 3,
       "rank_of": 12
     },
     {
@@ -268,7 +217,8 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
       "total_pnl": -381.00745691099996,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
@@ -295,7 +245,65 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
+        },
+        "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
+      },
+      "source": "pinned marks of the frozen forward marker on the environment tape, net of the fee line and spread (P12.0, R116)",
+      "rank": 3,
+      "rank_of": 12
+    },
+    {
+      "klass": "bps",
+      "model": "C1:ETH \u00b7 seeded random-minute entry, the control \u00b7 marker acf754f9",
+      "fork": "C1:ETH",
+      "control": true,
+      "days": [
+        "2026-11-01",
+        "2026-11-02",
+        "2026-11-03",
+        "2026-11-04",
+        "2026-11-05",
+        "2026-11-08",
+        "2026-11-09",
+        "2026-11-10",
+        "2026-11-11",
+        "2026-11-12",
+        "2026-11-13",
+        "2026-11-14",
+        "2026-11-15",
+        "2026-11-16",
+        "2026-11-17",
+        "2026-11-18"
+      ],
+      "total_pnl": -422.8517301680935,
+      "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
+      "win_rate": 0.125,
+      "wins": 2,
+      "trades": 16,
+      "biggest_win": 193.1136431440563,
+      "biggest_loss": -60.43415693290899,
+      "fees": 306.068781840077,
+      "unit": "bps of one unit of notional per episode; never a USD figure",
+      "pins": {
+        "readings": {
+          "2026-11-01": "marks_2026-11-01_as_read_2026-11-03.jsonl",
+          "2026-11-02": "marks_2026-11-02_as_read_2026-11-04.jsonl",
+          "2026-11-03": "marks_2026-11-03_as_read_2026-11-05.jsonl",
+          "2026-11-04": "marks_2026-11-04_as_read_2026-11-08.jsonl",
+          "2026-11-05": "marks_2026-11-05_as_read_2026-11-08.jsonl",
+          "2026-11-08": "marks_2026-11-08.jsonl",
+          "2026-11-09": "marks_2026-11-09.jsonl",
+          "2026-11-10": "marks_2026-11-10.jsonl",
+          "2026-11-11": "marks_2026-11-11.jsonl",
+          "2026-11-12": "marks_2026-11-12.jsonl",
+          "2026-11-13": "marks_2026-11-13.jsonl",
+          "2026-11-14": "marks_2026-11-14.jsonl",
+          "2026-11-15": "marks_2026-11-15.jsonl",
+          "2026-11-16": "marks_2026-11-16.jsonl",
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -323,7 +331,8 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
       "total_pnl": -502.5266463026473,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
@@ -350,7 +359,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -378,7 +388,8 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
       "total_pnl": -557.1771511223741,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
@@ -405,7 +416,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -433,16 +445,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -751.455248310104,
+      "total_pnl": -800.8778778569376,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.06666666666666667,
+      "win_rate": 0.0625,
       "wins": 1,
-      "trades": 15,
+      "trades": 16,
       "biggest_win": 69.09276796122661,
       "biggest_loss": -100.16131682857352,
-      "fees": 289.3711213898088,
+      "fees": 308.5378407555813,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -460,7 +473,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -488,16 +502,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -4359.994688636696,
+      "total_pnl": -4329.510282748189,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.14285714285714285,
-      "wins": 29,
-      "trades": 203,
+      "win_rate": 0.14634146341463414,
+      "wins": 30,
+      "trades": 205,
       "biggest_win": 553.5528912458576,
       "biggest_loss": -81.71451700299035,
-      "fees": 3832.494803097778,
+      "fees": 3870.042357467756,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -515,7 +530,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -543,16 +559,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -4947.806409883186,
+      "total_pnl": -4931.849825261531,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.16580310880829016,
-      "wins": 32,
-      "trades": 193,
+      "win_rate": 0.17010309278350516,
+      "wins": 33,
+      "trades": 194,
       "biggest_win": 549.6576623914974,
       "biggest_loss": -101.57766783487195,
-      "fees": 3699.4311495824595,
+      "fees": 3718.6210544305877,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -570,7 +587,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -598,16 +616,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -6475.897649476312,
+      "total_pnl": -6545.4760985253315,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.13989637305699482,
+      "win_rate": 0.13846153846153847,
       "wins": 27,
-      "trades": 193,
+      "trades": 195,
       "biggest_win": 230.34753419102285,
       "biggest_loss": -77.94753303176923,
-      "fees": 3643.540532930039,
+      "fees": 3681.1295268832896,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -625,7 +644,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -653,16 +673,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -6660.782398970375,
+      "total_pnl": -6816.149840725132,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.09737827715355805,
+      "win_rate": 0.0962962962962963,
       "wins": 26,
-      "trades": 267,
+      "trades": 270,
       "biggest_win": 1124.5049622286228,
       "biggest_loss": -125.63128758519849,
-      "fees": 5218.622211291192,
+      "fees": 5275.746082203991,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -680,7 +701,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -708,16 +730,17 @@
         "2026-11-14",
         "2026-11-15",
         "2026-11-16",
-        "2026-11-17"
+        "2026-11-17",
+        "2026-11-18"
       ],
-      "total_pnl": -7772.99977038274,
+      "total_pnl": -7822.722547500584,
       "roi": "not computed (SETTLED.md 4: a return is not an outcome)",
-      "win_rate": 0.10112359550561797,
+      "win_rate": 0.10074626865671642,
       "wins": 27,
-      "trades": 267,
+      "trades": 268,
       "biggest_win": 438.6585984853223,
       "biggest_loss": -90.93758062855316,
-      "fees": 5075.243484991051,
+      "fees": 5094.322971895048,
       "unit": "bps of one unit of notional per episode; never a USD figure",
       "pins": {
         "readings": {
@@ -735,7 +758,8 @@
           "2026-11-14": "marks_2026-11-14.jsonl",
           "2026-11-15": "marks_2026-11-15.jsonl",
           "2026-11-16": "marks_2026-11-16.jsonl",
-          "2026-11-17": "marks_2026-11-17.jsonl"
+          "2026-11-17": "marks_2026-11-17.jsonl",
+          "2026-11-18": "marks_2026-11-18.jsonl"
         },
         "marker.py": "acf754f973729eb937ed113eba383970d404ca00d59e3cca378c4f310b1d5f0b"
       },
@@ -814,7 +838,8 @@
       "2026-11-14",
       "2026-11-15",
       "2026-11-16",
-      "2026-11-17"
+      "2026-11-17",
+      "2026-11-18"
     ],
     "void_days_excluded": {
       "2026-11-06": {
@@ -843,7 +868,8 @@
       "2026-11-14": "marks_2026-11-14.jsonl",
       "2026-11-15": "marks_2026-11-15.jsonl",
       "2026-11-16": "marks_2026-11-16.jsonl",
-      "2026-11-17": "marks_2026-11-17.jsonl"
+      "2026-11-17": "marks_2026-11-17.jsonl",
+      "2026-11-18": "marks_2026-11-18.jsonl"
     }
   },
   "rules": {
