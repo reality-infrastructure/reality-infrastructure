@@ -1,7 +1,7 @@
 {
  "accounts": {
   "CM control": {
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-22",
    "balance": 13.45641633511386,
    "bets_placeable_live": 0,
    "bets_staked": 82,
@@ -106,16 +106,23 @@
      "equity": 13.45641633511386,
      "g": 0.0,
      "open_stakes": 0.0
+    },
+    {
+     "balance": 13.45641633511386,
+     "day": "2026-11-22",
+     "equity": 13.45641633511386,
+     "g": 0.0,
+     "open_stakes": 0.0
     }
    ],
-   "mean_daily_log_growth": 0.014397197888192001,
+   "mean_daily_log_growth": 0.013437384695645867,
    "open_stakes_usdc": 0.0,
    "resolved": 183,
    "right": 96,
    "start_usdc": 11.0
   },
   "L2 favorite": {
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-22",
    "balance": 20.046760156968404,
    "bets_placeable_live": 0,
    "bets_staked": 141,
@@ -220,16 +227,23 @@
      "equity": 20.046760156968404,
      "g": 0.0,
      "open_stakes": 0.0
+    },
+    {
+     "balance": 20.046760156968404,
+     "day": "2026-11-22",
+     "equity": 20.046760156968404,
+     "g": 0.0,
+     "open_stakes": 0.0
     }
    ],
-   "mean_daily_log_growth": 0.04286944855116457,
+   "mean_daily_log_growth": 0.04001148531442026,
    "open_stakes_usdc": 0.0,
    "resolved": 183,
    "right": 121,
    "start_usdc": 11.0
   },
   "L3 tape side": {
-   "as_of": "2026-11-21",
+   "as_of": "2026-11-22",
    "balance": 60.121194840088755,
    "bets_placeable_live": 1,
    "bets_staked": 105,
@@ -334,16 +348,23 @@
      "equity": 60.121194840088755,
      "g": 0.0,
      "open_stakes": 0.0
+    },
+    {
+     "balance": 60.121194840088755,
+     "day": "2026-11-22",
+     "equity": 60.121194840088755,
+     "g": 0.0,
+     "open_stakes": 0.0
     }
    ],
-   "mean_daily_log_growth": 0.12131908329584902,
+   "mean_daily_log_growth": 0.11323114440945908,
    "open_stakes_usdc": 0.0,
    "resolved": 140,
    "right": 107,
    "start_usdc": 11.0
   }
  },
- "as_of": "2026-11-21",
+ "as_of": "2026-11-22",
  "bets": {
   "CM control": [
    {
@@ -7944,19 +7965,19 @@
  },
  "c0_cash": 11.0,
  "date_for_165": {
-  "date": "2027-03-24",
-  "days": 122.13738833617013,
-  "mean_daily_log_growth": 0.04286944855116457,
-  "stake_that_pays_165_a_day": 3766.9842926737265,
+  "date": "2027-04-04",
+  "days": 132.62177512745436,
+  "mean_daily_log_growth": 0.04001148531442026,
+  "stake_that_pays_165_a_day": 4041.866060183901,
   "status": "computed",
-  "words": "mean daily log growth +0.0429; the stake that pays 165 USD a day is 3,766.98 USDC; from 20.05 that is 122 days: 2027-03-24"
+  "words": "mean daily log growth +0.0400; the stake that pays 165 USD a day is 4,041.87 USDC; from 20.05 that is 133 days: 2027-04-04"
  },
  "first_call_day": "2026-11-08",
  "kelly_fraction": 0.25,
  "kill": {
   "due": true,
   "killed": false,
-  "words": "alive: equity 20.05 above C0's 11.00 after 14 marked days"
+  "words": "alive: equity 20.05 above C0's 11.00 after 15 marked days"
  },
  "kind": "l2_favorite_account",
  "l2f_l3t_agreement": {
@@ -8148,6 +8169,11 @@
    "dir": "ledger",
    "file": "resolved_2026-11-21.json",
    "sha256": "c85483269576cd346d0b9bf402b707940397a9430e6ac35496a9122e2c0b2337"
+  },
+  {
+   "dir": "ledger",
+   "file": "resolved_2026-11-22.json",
+   "sha256": "2a3d4a84e51e71496383c6ddea64573d3ea60040ea6d2f153353a0f30231233f"
   },
   {
    "dir": "ledger",
