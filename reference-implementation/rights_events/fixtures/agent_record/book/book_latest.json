@@ -1,5 +1,5 @@
 {
- "as_of": "2026-11-22",
+ "as_of": "2026-11-23",
  "copier": {
   "address": "0x9f976123e7c48952be487664b8130aad144b7f23",
   "c1_daily_net_bps": {},
@@ -216,6 +216,28 @@
    "F7_beats_both_controls": false,
    "admitted": false,
    "day": "2026-11-22"
+  },
+  {
+   "C1": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F4": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F6_beats_both_controls": false,
+   "F7": {
+    "episodes": 0,
+    "sum_net_bps": 0.0
+   },
+   "F7_beats_both_controls": false,
+   "admitted": false,
+   "day": "2026-11-23"
   }
  ],
  "endpoint": "https://raw.githubusercontent.com/reality-infrastructure/reality-infrastructure/contract/agent-record/reference-implementation/rights_events/fixtures/agent_record/book/book_latest.json",
@@ -249,9 +271,9 @@
   ],
   "cohort_date": "2026-11-03",
   "excluded_record": [],
-  "feed_as_of": "2026-11-22",
-  "feed_file": "feed_2026-11-22.json",
-  "feed_sha256": "c1917fdea3423cd0dfeda604b2964f0b00b5676f4a8509d8b9b9c53fbe40e694",
+  "feed_as_of": "2026-11-23",
+  "feed_file": "feed_2026-11-23.json",
+  "feed_sha256": "9e88903d6b03472419e9b6303a856420f936cbe63cbcb39d66321e6068179023",
   "n_keep_rows": 25,
   "what": "R146: the leader list of F6 = the arena's KEEP set of the newest completed cohort, the RECORD row excluded (the record does not follow itself), sorted; refreshed once per completed cohort",
   "window": {
@@ -266,7 +288,7 @@
  },
  "kind": "agent_record_book",
  "ledger": {
-  "as_of": "2026-11-22",
+  "as_of": "2026-11-23",
   "counts": {
    "ALIVE": 4,
    "CANDIDATE": 0,
@@ -296,7 +318,7 @@
   "note": "forward rows read from the pinned marks"
  },
  "ledger_f7": {
-  "as_of": "2026-11-22",
+  "as_of": "2026-11-23",
   "counts": {
    "ALIVE": 6,
    "CANDIDATE": 0,
@@ -488,8 +510,8 @@
  },
  "relist": {
   "cohort": "2026-11-03",
-  "feed_file": "feed_2026-11-22.json",
-  "feed_sha256": "c1917fdea3423cd0dfeda604b2964f0b00b5676f4a8509d8b9b9c53fbe40e694",
+  "feed_file": "feed_2026-11-23.json",
+  "feed_sha256": "9e88903d6b03472419e9b6303a856420f936cbe63cbcb39d66321e6068179023",
   "n_rows": {
    "cohort": 70,
    "next_cohort": 70
@@ -749,8 +771,8 @@
    ],
    "cohort_date": "2026-11-03",
    "excluded_record": [],
-   "feed_file": "feed_2026-11-22.json",
-   "feed_sha256": "c1917fdea3423cd0dfeda604b2964f0b00b5676f4a8509d8b9b9c53fbe40e694"
+   "feed_file": "feed_2026-11-23.json",
+   "feed_sha256": "9e88903d6b03472419e9b6303a856420f936cbe63cbcb39d66321e6068179023"
   },
   "one_variable": "the list (R145): F6 = F4 with the KEEP set as its leaders; nothing else differs",
   "parameters": {
@@ -815,14 +837,18 @@
     {
      "file": "tape_MIDS_2026-11-23.jsonl",
      "missing": true
+    },
+    {
+     "file": "tape_MIDS_2026-11-24.jsonl",
+     "missing": true
     }
    ]
   },
   "window": {
    "t0_day": "2026-11-16",
    "t0_ms": 1794787200000,
-   "t1_day": "2026-11-22",
-   "t1_ms": 1795391999999,
+   "t1_day": "2026-11-23",
+   "t1_ms": 1795478399999,
    "tape_days": [
     "2026-11-16",
     "2026-11-17",
@@ -831,14 +857,15 @@
     "2026-11-20",
     "2026-11-21",
     "2026-11-22",
-    "2026-11-23"
+    "2026-11-23",
+    "2026-11-24"
    ]
   }
  },
  "replay_files": {
-  "marks": "marks_F6_2026-11-03_as_of_2026-11-22.jsonl",
-  "marks_f7": "marks_F7_2026-11-03_as_of_2026-11-22.jsonl",
-  "signals": "signals_F6_2026-11-03_as_of_2026-11-22.jsonl"
+  "marks": "marks_F6_2026-11-03_as_of_2026-11-23.jsonl",
+  "marks_f7": "marks_F7_2026-11-03_as_of_2026-11-23.jsonl",
+  "signals": "signals_F6_2026-11-03_as_of_2026-11-23.jsonl"
  },
  "replay_totals": {
   "C1_episodes": 14,
