@@ -1,0 +1,46 @@
+{
+ "cohort": "2026-11-03",
+ "feed_file": "feed_2026-11-24.json",
+ "feed_sha256": "716e8b310f845b22c6ef7b4ecfaf3701c14e4f34f36536515ed2055195550445",
+ "kind": "agent_record_book_relist",
+ "n_rows": {
+  "cohort": 70,
+  "next_cohort": 70
+ },
+ "new_in_next_cohort": 69,
+ "next_cohort": "2026-11-15",
+ "next_cohort_arena_as_of": "2026-11-16",
+ "next_window": {
+  "complete": false,
+  "days": 7,
+  "started": true,
+  "t0_date": "2026-11-16",
+  "t0_ms": 1794787200000,
+  "t1_date": "2026-11-22",
+  "t1_ms": 1795391999999
+ },
+ "table": [
+  {
+   "full_so_far": 0,
+   "n": 25,
+   "net_positive": 0,
+   "relisted": 0,
+   "verdict": "KEEP"
+  },
+  {
+   "full_so_far": 0,
+   "n": 44,
+   "net_positive": 0,
+   "relisted": 1,
+   "verdict": "DROP"
+  },
+  {
+   "full_so_far": 0,
+   "n": 1,
+   "net_positive": 0,
+   "relisted": 0,
+   "verdict": "UNDECIDED"
+  }
+ ],
+ "what": "R149: each verdict of the completed cohort counted as relisted / FULL / net > 0 in the next cohort's arena as of the feed's day; a statement about the verdict's forward value, not about any address"
+}
