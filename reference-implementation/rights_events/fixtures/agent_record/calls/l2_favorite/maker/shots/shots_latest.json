@@ -40,7 +40,9 @@
   "maker_2026-11-23.json",
   "pulled_2026-11-23.json",
   "maker_2026-11-24.json",
-  "pulled_2026-11-24.json"
+  "pulled_2026-11-24.json",
+  "maker_2026-11-25.json",
+  "pulled_2026-11-25.json"
  ],
  "not_claimed": "Paper. L5M's cancel is assumed to take 5 000 ms and that is counted against the leg; only a live order measures it. Not modelled: the bid's own effect on the book, partial fills, the maker's fee. No return is promised; nothing here sends an order.",
  "partial_days_not_counted": [],
@@ -61,7 +63,7 @@
   "pulled_2026-11-18.json": "adbb489cf170761c3c5b75867156525c2dbe078f74110b565138ae7c4e08bf3d"
  },
  "prereg": "A43 R185, R189, R190",
- "read_on": "2026-11-25",
+ "read_on": "2026-11-26",
  "reads": [
   {
    "CMM_coinflip_bid": {
@@ -283,6 +285,23 @@
     "sum": -25.863477
    },
    "day": "2026-11-24"
+  },
+  {
+   "CMM_coinflip_bid": {
+    "n": 1201,
+    "sum": -494.592759
+   },
+   "L4M_resting_bid": {
+    "n": 1115,
+    "status": "RETIRED",
+    "sum": -370.4221
+   },
+   "L5M_pulled_bid": {
+    "n": 341,
+    "status": "RETIRED",
+    "sum": -25.863477
+   },
+   "day": "2026-11-25"
   }
  ],
  "rule": {
@@ -316,5 +335,5 @@
   "status": "CLOSED",
   "why": "R190: on at least 150 shots of each variant the filled calls hit below their mean p and the unfilled above theirs"
  },
- "through_day": "2026-11-24"
+ "through_day": "2026-11-25"
 }
