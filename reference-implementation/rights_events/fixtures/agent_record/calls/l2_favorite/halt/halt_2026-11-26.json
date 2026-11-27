@@ -1,0 +1,76 @@
+{
+ "day": "2026-11-26",
+ "halted": [
+  "CMF_coinflip",
+  "CMM_coinflip_bid",
+  "L2F_favorite",
+  "L3T_tape_side",
+  "L4M_resting_bid",
+  "L5M_pulled_bid"
+ ],
+ "kind": "l2_halt_line",
+ "legs": {
+  "CMF_coinflip": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT CMF_coinflip (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "CMM_coinflip_bid": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT CMM_coinflip_bid (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the book tape",
+   "to": "24:00"
+  },
+  "L2F_favorite": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L2F_favorite (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "L3T_tape_side": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L3T_tape_side (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the hourly capture",
+   "to": "24:00"
+  },
+  "L4M_resting_bid": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L4M_resting_bid (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the book tape",
+   "to": "24:00"
+  },
+  "L5M_pulled_bid": {
+   "captures": 0,
+   "from": "00:00",
+   "hours_without": 24,
+   "line": "HALT L5M_pulled_bid (2026-11-26): 24 of 24 hours without a capture; longest 24 h 0 min from 00:00Z to 24:00Z; resolved calls —.",
+   "longest_ms": 86400000,
+   "resolved": null,
+   "source": "the book tape",
+   "to": "24:00"
+  }
+ },
+ "pins": {},
+ "prereg": "A43 R187"
+}
