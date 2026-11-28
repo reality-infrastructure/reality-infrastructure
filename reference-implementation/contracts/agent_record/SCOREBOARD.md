@@ -2203,3 +2203,16 @@ the go (a hand-off), then search (P12).
 | Live leg | Day 36 (2026-11-26): no live leg — the standing go released by the operator's word (A42 R178); flat. |
 
 **Income row (R81), 2026-11-27 after A17.29:** 0 USD a day against 165. Nothing on the chain.
+
+### A17.30 — POO SENSOR — Day 37 (2026-11-27): the channel still silent since 08:12Z on 11-18 (manifest 232 h 34 min old at the read, tenth run in a row), health fails, and no file of 11-19 … 11-27 exists on the channel; the reading of 11-27 is VOID and empty (0 episodes); the reader counts it as a pass-line day, every run 0 (F9); no CANDIDATE (the copy line RETIRED BY WORD, A42); arena VOID (S85); screen not run; book run (0 replay episodes); the copier row ALIVE on 0 pairs past its kill date (F10); call board 0 resolved; L1 registered 0 for 11-28; L2 favorite unchanged at 20.05; fill and maker skipped; all six HALT legs 24 of 24 h; L4M and L5M stay RETIRED, the thesis CLOSED (R190); door OPEN 0 of 20; R152 missed, 16 days late; R72 names the sensor; no live leg (A42 R178)
+
+| gate | evidence |
+|---|---|
+| Preflight | Python 3.11.18; HEAD `5ab0f8c`; `marker.py`, `families.json` hold; `forward.py` = `b33b9282…`, not POO_DAILY's pin `6fd373b8…` (as A17.12–A17.29); 39 passed (23 + 6 + 10). |
+| Channel | `b5e9273` (08:12:31Z on 11-18), unchanged since A17.21; 611 files, 0 sha mismatches; **health FAILS: `generated_at` 2026-11-18T08:10:29Z, 232 h 34 min before the read (test: 2 h)**; **0 tape rows in the last 24 h, last row 08:07:00Z on 11-18 (232 h 37 min); no tape, marks, signals, `l2tape` or arena page dated 11-19 … 11-27 (F8)**. |
+| Reading (VOID by health) | 0 episodes, 0 signals; nothing to pin but the manifest and marker state (byte-equal to 11-26's); the reader counts 25 pass-line days incl. 11-19 … 11-27 with 0 rows, every run 0 (**F9**); the ledger counts 16 (to 11-18), F4:SOL run 1; no CANDIDATE. |
+| Ledger / arena | ledger as of 11-27 = 11-18's rows: 5 ALIVE, 1 RETIRED by rule, all RETIRED BY WORD (A42) (`743df318…`); **arena VOID (S85): pages 233 h old**; screen not run (no pinned arena for 11-27); feed unchanged (KEEP 25 / DROP 44 / UNDECIDED 1; cohort 3 OPEN 70); AI board 13 rows unchanged, 2 record rows not graded; door `OPEN 0 of 20`, 0 rows. |
+| Calls / L2 / book | board 11-27: 0 resolved on every leg (CB 126 unresolved, no tape); 11-28 registered 144: CB 132, **L1 0 (eleventh day)**, L2/CM 0. Book `verify OK`: F6 / F7 replay 0 episodes; **copier row: kill test due since 2026-11-25, 0 pairs, status printed ALIVE (F10, the operator's)**; `STARLINK: not ready (0 of 7 pairs)`. L2 favorite 20.05 USDC, g 0 (date 2027-06-02 as printed); fill, maker and pulled skipped (no register, no `l2tape`). Shots unchanged: L4M RETIRED (kill 1, 1115), L5M RETIRED (kill 1, 341); Thesis: CLOSED (R190). **HALT: all six legs 24 of 24 h.** |
+| Live leg | Day 37 (2026-11-27): no live leg — the standing go released by the operator's word (A42 R178); flat. |
+
+**Income row (R81), 2026-11-28 after A17.30:** 0 USD a day against 165. Nothing on the chain.
